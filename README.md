@@ -45,7 +45,7 @@ Type `ddev launch` to open the Intranet installation in your browser.
 
 #### To install Intranet via the command line:
 
-Type `ddev drush site-install intranet` to install the Intranet profile.
+Type `ddev drush site-install d_intranet` to install the Intranet profile.
 
 ## Customization
 
@@ -53,6 +53,6 @@ Intranet comes with a starter theme located in `web/themes/custom/`. You can cus
 
 ## Issues
 
-If you encounter any issues, please [create an issue in the Intranet project](http://drupal.org/project/[project_name]).
+If you encounter any issues, please [create an issue in the Intranet project](https://www.drupal.org/sandbox/grzegorzbartman/3513334).
 
 
