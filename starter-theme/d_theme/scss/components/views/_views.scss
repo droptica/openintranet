@@ -1,0 +1,22 @@
+@import "../../mixins/text";
+
+.form-control, .form-select {
+  background-color: $white;
+  border-radius: 4px;
+  padding: 12px 8px;
+  border: 1px solid $blue-100;
+}
+
+.form-select {
+  max-width: 300px;
+  width: 100%;
+}
+
+.view-content.row .views-row:last-child {
+  border-bottom: none;
+}
+
+.view-footer {
+  border-radius: $border-radius;
+  margin-top: 1rem;
+}

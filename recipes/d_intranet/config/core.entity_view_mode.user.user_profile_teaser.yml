@@ -1,0 +1,11 @@
+uuid: c1b587aa-c1eb-4ed8-84d6-a0a1b6662933
+langcode: en
+status: true
+dependencies:
+  module:
+    - user
+id: user.user_profile_teaser
+label: 'User Profile Teaser'
+description: ''
+targetEntityType: user
+cache: true

@@ -1,0 +1,10 @@
+_core:
+  default_config_hash: 0bH7DQmxEhBEEh_Dutc7X92yWruM_iYBmy-0igQ5jbg
+scheme_allow_list:
+  - http
+  - https
+  - files
+  - internal
+protocol_style: proto-rel
+local_paths: ''
+keep_language_prefix: true

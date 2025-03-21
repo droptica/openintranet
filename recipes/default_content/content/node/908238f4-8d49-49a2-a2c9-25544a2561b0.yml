@@ -1,0 +1,76 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 908238f4-8d49-49a2-a2c9-25544a2561b0
+  bundle: event
+  default_langcode: en
+  depends:
+    5acebfac-594c-4914-b763-359e5d9464ea: media
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'ISO27001 Audit'
+  created:
+    -
+      value: 1739958208
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /event/iso27001-audit
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: '<p>ISO27001 Audit</p>'
+      format: full_html
+      summary: ''
+  field_background_image:
+    -
+      entity: 5acebfac-594c-4914-b763-359e5d9464ea
+  field_event_date:
+    -
+      value: '2025-05-08T10:00:00'
+      end_value: '2025-05-10T12:00:00'
+  field_event_location:
+    -
+      langcode: en
+      country_code: PL
+      administrative_area: ''
+      locality: Wroclaw
+      postal_code: 56-613
+      address_line1: 'Stacyjna 1'
+  field_event_online:
+    -
+      value: false
+  field_hide_location:
+    -
+      value: false
+  field_map_location:
+    -
+      value: 'POINT (17.03196 51.173924)'
+      geo_type: Point
+      lat: 51.173924
+      lon: 17.03196
+      left: 17.03196
+      top: 51.173924
+      right: 17.03196
+      bottom: 51.173924
+      geohash: u3h55efm9qvg
+      latlon: '51.173924,17.03196'

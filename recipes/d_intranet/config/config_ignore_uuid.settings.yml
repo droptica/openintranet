@@ -1,0 +1,4 @@
+_core:
+  default_config_hash: Y7dUSWGhqx04Jt3ZZgJwY3Z9fhvCeLpg62rXkpfxPSk
+configs_to_ignore_uuid_change:
+  - 'block.block.d_theme*'

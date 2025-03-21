@@ -1,0 +1,47 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: e805a0f0-00b1-4125-adfb-826ac58529ac
+  bundle: knowledge_base_page
+  default_langcode: en
+  depends:
+    de75379c-8663-4418-8508-c852aca235da: user
+    14e25f4f-02df-457e-b32a-148315035cc6: taxonomy_term
+default:
+  revision_uid:
+    -
+      entity: de75379c-8663-4418-8508-c852aca235da
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: Company
+  created:
+    -
+      value: 1741774043
+  promote:
+    -
+      value: true
+  sticky:
+    -
+      value: false
+  path:
+    -
+      alias: /knowledge/company
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: '<h2>About Our Company</h2><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec felis non justo facilisis luctus at vel lorem. Integer fringilla, metus id fermentum dapibus, felis ex elementum arcu, nec dictum ligula nulla a urna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec felis non justo facilisis luctus at vel lorem. Integer fringilla, metus id fermentum dapibus, felis ex elementum arcu, nec dictum ligula nulla a urna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec felis non justo facilisis luctus at vel lorem. Integer fringilla, metus id fermentum dapibus, felis ex elementum arcu, nec dictum ligula nulla a urna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec felis non justo facilisis luctus at vel lorem. Integer fringilla, metus id fermentum dapibus, felis ex elementum arcu, nec dictum ligula nulla a urna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec felis non justo facilisis luctus at vel lorem. Integer fringilla, metus id fermentum dapibus, felis ex elementum arcu, nec dictum ligula nulla a urna.</p><h3>Our Mission</h3><p>Nullam ac libero bibendum, tincidunt velit eget, convallis orci. In hac habitasse platea dictumst. Etiam faucibus velit ut urna feugiat, ac pharetra purus euismod. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec felis non justo facilisis luctus at vel lorem. Integer fringilla, metus id fermentum dapibus, felis ex elementum arcu, nec dictum ligula nulla a urna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec felis non justo facilisis luctus at vel lorem. Integer fringilla, metus id fermentum dapibus, felis ex elementum arcu, nec dictum ligula nulla a urna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec felis non justo facilisis luctus at vel lorem. Integer fringilla, metus id fermentum dapibus, felis ex elementum arcu, nec dictum ligula nulla a urna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec felis non justo facilisis luctus at vel lorem. Integer fringilla, metus id fermentum dapibus, felis ex elementum arcu, nec dictum ligula nulla a urna.</p><h3>Our Vision</h3><p>Duis non elit ac nulla suscipit eleifend. Integer lobortis sem eget orci auctor tincidunt. Sed non purus at justo vehicula tincidunt eget et orci. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec felis non justo facilisis luctus at vel lorem. Integer fringilla, metus id fermentum dapibus, felis ex elementum arcu, nec dictum ligula nulla a urna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec felis non justo facilisis luctus at vel lorem. Integer fringilla, metus id fermentum dapibus, felis ex elementum arcu, nec dictum ligula nulla a urna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec felis non justo facilisis luctus at vel lorem. Integer fringilla, metus id fermentum dapibus, felis ex elementum arcu, nec dictum ligula nulla a urna.</p><h2>Our Core Values</h2><h3>Integrity</h3><p>Curabitur tincidunt purus in lacus tristique, a sagittis odio tincidunt. Donec tincidunt, augue ut vehicula efficitur, dolor erat ullamcorper justo, at varius augue ligula eu sapien. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec felis non justo facilisis luctus at vel lorem. Integer fringilla, metus id fermentum dapibus, felis ex elementum arcu, nec dictum ligula nulla a urna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec felis non justo facilisis luctus at vel lorem. Integer fringilla, metus id fermentum dapibus, felis ex elementum arcu, nec dictum ligula nulla a urna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec felis non justo facilisis luctus at vel lorem. Integer fringilla, metus id fermentum dapibus, felis ex elementum arcu, nec dictum ligula nulla a urna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec felis non justo facilisis luctus at vel lorem. Integer fringilla, metus id fermentum dapibus, felis ex elementum arcu, nec dictum ligula nulla a urna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec felis non justo facilisis luctus at vel lorem. Integer fringilla, metus id fermentum dapibus, felis ex elementum arcu, nec dictum ligula nulla a urna.</p><h3>Innovation</h3><p>Proin suscipit purus at lorem tempus, ut imperdiet tortor faucibus. Cras ac nunc vel risus suscipit scelerisque. Maecenas euismod tellus sed velit pharetra, at fermentum est fermentum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec felis non justo facilisis luctus at vel lorem. Integer fringilla, metus id fermentum dapibus, felis ex elementum arcu, nec dictum ligula nulla a urna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec felis non justo facilisis luctus at vel lorem. Integer fringilla, metus id fermentum dapibus, felis ex elementum arcu, nec dictum ligula nulla a urna.</p><h3>Customer Focus</h3><p>Vestibulum vitae ligula a justo posuere fermentum a in ligula. Pellentesque eget nisi ut lacus vulputate tristique non vel purus. In vitae nunc nec nulla fringilla laoreet.</p><h3>Sustainability</h3><p>Fusce dapibus arcu sit amet odio fermentum, eu maximus felis fermentum. Ut sit amet justo quis felis sodales vestibulum. Aenean auctor lacinia enim, nec tincidunt velit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec felis non justo facilisis luctus at vel lorem. Integer fringilla, metus id fermentum dapibus, felis ex elementum arcu, nec dictum ligula nulla a urna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec felis non justo facilisis luctus at vel lorem. Integer fringilla, metus id fermentum dapibus, felis ex elementum arcu, nec dictum ligula nulla a urna.</p><h3>Collaboration</h3><p>Aliquam erat volutpat. Suspendisse potenti. Nam venenatis, erat non auctor laoreet, mauris lacus ultrices mi, vel vehicula felis elit a ligula. Duis bibendum tristique sapien vel convallis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec felis non justo facilisis luctus at vel lorem. Integer fringilla, metus id fermentum dapibus, felis ex elementum arcu, nec dictum ligula nulla a urna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec felis non justo facilisis luctus at vel lorem. Integer fringilla, metus id fermentum dapibus, felis ex elementum arcu, nec dictum ligula nulla a urna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec felis non justo facilisis luctus at vel lorem. Integer fringilla, metus id fermentum dapibus, felis ex elementum arcu, nec dictum ligula nulla a urna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec felis non justo facilisis luctus at vel lorem. Integer fringilla, metus id fermentum dapibus, felis ex elementum arcu, nec dictum ligula nulla a urna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec felis non justo facilisis luctus at vel lorem. Integer fringilla, metus id fermentum dapibus, felis ex elementum arcu, nec dictum ligula nulla a urna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec felis non justo facilisis luctus at vel lorem. Integer fringilla, metus id fermentum dapibus, felis ex elementum arcu, nec dictum ligula nulla a urna.</p>'
+      format: full_html
+      summary: ''
+  field_data_classification:
+    -
+      value: public
+  field_tags:
+    -
+      entity: 14e25f4f-02df-457e-b32a-148315035cc6

@@ -1,0 +1,21 @@
+uuid: e882b19b-40cf-43ea-acd8-bf847ad70750
+langcode: en
+status: true
+dependencies:
+  module:
+    - dropdown_language
+  theme:
+    - d_theme
+id: d_theme_dropdownlanguage_2
+theme: d_theme
+region: primary_menu
+weight: 0
+provider: null
+plugin: 'dropdown_language:language_interface'
+settings:
+  id: 'dropdown_language:language_interface'
+  label: 'Dropdown Language'
+  label_display: '0'
+  provider: dropdown_language
+  labels: null
+visibility: {  }

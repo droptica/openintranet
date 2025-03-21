@@ -1,0 +1,27 @@
+_meta:
+  version: '1.0'
+  entity_type: file
+  uuid: 1a4918a6-84e0-404d-90f8-32511c69fae4
+  default_langcode: en
+default:
+  uid:
+    -
+      target_id: 1
+  filename:
+    -
+      value: _MG_5521.JPG
+  uri:
+    -
+      value: 'public://2025-03/_MG_5521.JPG'
+  filemime:
+    -
+      value: image/jpeg
+  filesize:
+    -
+      value: 9989804
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1742196493

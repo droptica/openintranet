@@ -1,0 +1,102 @@
+uuid: baa40c48-aa1c-4044-8922-49129294e3de
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_display.comment.comment_node_article.default
+    - core.entity_view_mode.node.full
+    - field.field.node.article.body
+    - field.field.node.article.comment_node_article
+    - field.field.node.article.field_access
+    - field.field.node.article.field_background_image
+    - field.field.node.article.field_document_ref
+    - field.field.node.article.field_intro
+    - field.field.node.article.field_news_article_reaction
+    - field.field.node.article.field_tags
+    - node.type.article
+  module:
+    - comment
+    - layout_builder
+    - media
+    - text
+    - user
+    - votingapi_reaction
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+_core:
+  default_config_hash: br6izr-iGEu--JvNbCJNtOBpRnxpFLXfoV5y61U9Nqc
+id: node.article.full
+targetEntityType: node
+bundle: article
+mode: full
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  comment_node_article:
+    type: comment_default
+    label: above
+    settings:
+      view_mode: default
+      pager_id: 0
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_background_image:
+    type: media_thumbnail
+    label: hidden
+    settings:
+      image_link: ''
+      image_style: ''
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_document_ref:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      link: false
+      view_mode: teaser
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_intro:
+    type: basic_string
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_news_article_reaction:
+    type: votingapi_reaction_default
+    label: hidden
+    settings:
+      show_summary: false
+      show_icon: true
+      show_label: true
+      show_count: true
+      sort_reactions: none
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_tags:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 3
+    region: content
+hidden:
+  field_access: true
+  langcode: true
+  links: true
+  search_api_excerpt: true

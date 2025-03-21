@@ -1,0 +1,39 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: d3907d15-f236-4853-9f7c-75da1a8aee97
+  bundle: menu_link_content
+  default_langcode: en
+default:
+  enabled:
+    -
+      value: true
+  title:
+    -
+      value: Media
+  menu_name:
+    -
+      value: content
+  link:
+    -
+      uri: 'internal:/media/add'
+      title: ''
+      options: {  }
+  external:
+    -
+      value: false
+  rediscover:
+    -
+      value: true
+  weight:
+    -
+      value: -44
+  expanded:
+    -
+      value: false
+  parent:
+    -
+      value: navigation.create
+  revision_translation_affected:
+    -
+      value: true

@@ -1,0 +1,81 @@
+_meta:
+  version: '1.0'
+  entity_type: user
+  uuid: b0eaf4cb-9d88-453b-9bce-f4ca8d737c46
+  default_langcode: en
+  depends:
+    96ba59d8-a4fb-4bed-adb6-b01518abd664: taxonomy_term
+    141357a5-746d-46b3-8932-464aa53f31b1: user
+    6cb6eb4e-1f6f-4585-990f-c2173179370c: taxonomy_term
+    fb544ba7-60bc-479b-a358-5ecafb0e0ca0: file
+default:
+  preferred_langcode:
+    -
+      value: en
+  name:
+    -
+      value: michael.garcia
+  pass:
+    -
+      value: $2y$10$3rOZKWLQRUzBIILzyWd1Ge5VntZng1VBmgelpUvdcGJ8V4UuPWANe
+      existing: ''
+      pre_hashed: false
+  mail:
+    -
+      value: michael.garcia@example.com
+  timezone:
+    -
+      value: Europe/Amsterdam
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1738843814
+  access:
+    -
+      value: 0
+  login:
+    -
+      value: 0
+  path:
+    -
+      alias: /users/michaelgarcia
+      langcode: en
+      pathauto: 1
+  field_about:
+    -
+      value: 'Hi! I’m Michael, a Junior Customer Support Agent working remotely. I assist customers via live chat, email, and phone, addressing their concerns with patience and care. Though I’m new to the industry, I’m eager to learn and grow in my role. When I’m not assisting customers, I enjoy gaming and learning about new software. 🎮'
+  field_department:
+    -
+      entity: 96ba59d8-a4fb-4bed-adb6-b01518abd664
+  field_first_name:
+    -
+      value: Michael
+  field_last_name:
+    -
+      value: Garcia
+  field_manager:
+    -
+      entity: 141357a5-746d-46b3-8932-464aa53f31b1
+  field_name:
+    -
+      value: 'Junior Customer Support Agent'
+  field_office:
+    -
+      entity: 6cb6eb4e-1f6f-4585-990f-c2173179370c
+  field_phone:
+    -
+      value: '+34987654321'
+  field_social_links:
+    -
+      uri: 'https://linkedin.com'
+      title: Linkedin
+      options: {  }
+  user_picture:
+    -
+      entity: 3c3f6268-91a2-480b-8a15-06ab87164172
+      alt: ''
+      title: ''
+      width: 1024
+      height: 1024

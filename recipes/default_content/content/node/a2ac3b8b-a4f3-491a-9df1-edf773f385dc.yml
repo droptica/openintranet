@@ -1,0 +1,64 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: a2ac3b8b-a4f3-491a-9df1-edf773f385dc
+  bundle: article
+  default_langcode: en
+  depends:
+    7bacf1a5-aaf3-4caa-b5d1-b59b900e1809: media
+    554837f2-01d8-4976-9807-a1dffd1e8b28: taxonomy_term
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'NextCorp Expands Remote Work Options – More Flexibility for Our Team!'
+  created:
+    -
+      value: 1738915472
+  promote:
+    -
+      value: true
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /news/nextcorp-expands-remote-work-options-more-flexibility-our-team
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: '<h2>&nbsp;</h2><p>&nbsp;</p><p><em>Over the past year, we’ve seen how remote work has positively impacted both employee satisfaction and performance. Many of you shared that working from home allows for better focus, improved work-life balance, and reduced commuting stress. At the same time, we understand the importance of in-person interactions for team bonding and collaboration. Our new hybrid approach aims to bring the best of both worlds.</em></p><p><em>Starting next month, employees will have more flexibility in choosing their remote work days. Teams will coordinate schedules to ensure availability during key meetings and collaboration sessions while giving individuals the freedom to work where they feel most productive. We are also providing additional resources to support a seamless remote work experience, including upgraded VPN access, enhanced IT support, and best practices for virtual communication.</em></p><p><em>To make sure this transition is smooth for everyone, managers will be working closely with their teams to set expectations and find the right balance. Whether you prefer working from home more often or enjoy the structure of the office, our goal is to create an environment that supports both personal well-being and business success</em></p><p><em>One of the biggest takeaways from our recent employee survey was the desire for more autonomy in managing work schedules. We hear you, and this is our way of ensuring that NextCorp continues to be a workplace that values trust, results, and employee well-being. By offering more remote work flexibility, we’re creating an environment where you can perform at your best while maintaining a healthy work-life balance.</em></p><p><br><em>We know that communication is key in a flexible work model, so we’ll be hosting a live Q&amp;A session next week to address any questions or concerns. Keep an eye on your inbox for an invite and details on how to join. In the meantime, if you have feedback or suggestions, feel free to share them in the #remote-work channel!</em></p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>'
+      format: full_html
+      summary: ''
+  comment_node_article:
+    -
+      status: 2
+      cid: 0
+      last_comment_timestamp: 1738915625
+      last_comment_name: ''
+      last_comment_uid: 1
+      comment_count: 0
+  field_background_image:
+    -
+      entity: 7bacf1a5-aaf3-4caa-b5d1-b59b900e1809
+  field_intro:
+    -
+      value: 'Big news for our team! NextCorp is expanding remote work options to provide even greater flexibility. After listening to employee feedback and reviewing productivity data, we’re rolling out new remote work policies that will allow for more work-from-home opportunities while ensuring we maintain strong collaboration and efficiency. Here’s what’s changing and what it means for you.'
+  field_news_article_reaction:
+    -
+      status: 2
+  field_tags:
+    -
+      entity: 554837f2-01d8-4976-9807-a1dffd1e8b28

@@ -1,0 +1,27 @@
+_meta:
+  version: '1.0'
+  entity_type: file
+  uuid: fb544ba7-60bc-479b-a358-5ecafb0e0ca0
+  default_langcode: en
+default:
+  uid:
+    -
+      target_id: 1
+  filename:
+    -
+      value: person_17.jpg
+  uri:
+    -
+      value: 'public://pictures/person_17.jpg'
+  filemime:
+    -
+      value: image/jpeg
+  filesize:
+    -
+      value: 547469
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1738844398

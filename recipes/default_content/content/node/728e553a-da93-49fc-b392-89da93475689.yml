@@ -1,0 +1,66 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 728e553a-da93-49fc-b392-89da93475689
+  bundle: page
+  default_langcode: en
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: Trainings
+  created:
+    -
+      value: 1738918535
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /pages/trainings
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: |
+        <h2>Introduction</h2>
+        <p><p>At NextCorp, we recognize that continuous learning and development are vital for both personal and professional growth. Our Training programs are designed to provide employees with the skills, knowledge, and tools they need to excel in their current roles and prepare for future opportunities. We offer a variety of training formats, from in-person sessions to online courses, covering technical skills, soft skills, leadership development, compliance, and more.</p><p>This page provides an overview of the available training programs, how to access them, and resources to support your learning journey at NextCorp.</p></p>
+        <h2>Training Programs Overview</h2>
+        <p><p>NextCorp offers a wide range of training programs designed to meet the diverse needs of our employees. Our training initiatives are categorized into several key areas:</p><ul><li><strong>Onboarding and Orientation Training</strong><br>All new hires undergo an onboarding training session that introduces them to NextCorp’s culture, values, and policies. This is supplemented by role-specific training to help employees quickly adapt to their job functions.</li><li><strong>Technical Skills Training</strong><br>For employees working in technical or specialized roles, we offer training in areas such as software development, data analysis, systems administration, and more. These courses ensure that our team stays up-to-date with the latest tools, technologies, and best practices.</li><li><strong>Compliance Training</strong><br>As part of our commitment to legal and regulatory compliance, NextCorp provides regular training sessions on key compliance topics, including data protection, anti-bribery laws, workplace safety, and diversity and inclusion. These sessions are mandatory for all employees to ensure we maintain a compliant work environment.</li><li><strong>Leadership and Management Training</strong><br>We believe in developing strong leaders from within the organization. Our leadership training programs focus on management skills, strategic thinking, effective communication, conflict resolution, and team building. These programs are available to current and aspiring managers.</li><li><strong>Soft Skills Development</strong><br>In addition to technical skills, we offer training in soft skills such as communication, problem-solving, time management, and emotional intelligence. These skills are essential for building effective relationships and enhancing workplace productivity.</li><li><strong>Job-Specific Training</strong><br>Tailored training sessions are available for employees based on their specific roles and responsibilities. This could include training on customer service best practices, marketing strategies, financial modeling, legal procedures, etc.</li><li><strong>Personal Development Programs</strong><br>We also provide programs aimed at personal development, including courses on work-life balance, stress management, public speaking, and career development. These programs help employees achieve a well-rounded professional life.</li></ul></p>
+        <h2>How to Access Training</h2>
+        <p><p>To ensure that all employees have the opportunity to participate in training programs, we have streamlined the process for accessing and enrolling in training sessions:</p><ul><li><strong>Online Learning Portal</strong><br>NextCorp offers an online portal where employees can browse and register for available training programs. The portal features detailed descriptions of each program, session dates, and instructions on how to enroll. Employees can access the portal via the intranet or through their personal employee profiles.</li><li><strong>In-Person Training Sessions</strong><br>For certain programs, in-person training sessions are available. Employees can register for these sessions through the training portal. Information about the location, schedule, and availability of in-person sessions will be provided on the portal.</li><li><strong>Mandatory Training</strong><br>Certain training programs, such as compliance training, are mandatory for all employees. These programs will be assigned automatically through the training portal, and employees will be notified of upcoming sessions.</li><li><strong>Learning Tracks</strong><br>Employees can follow a structured learning track based on their role, department, or career development goals. These learning tracks provide a guided path through a series of related training programs.</li><li><strong>On-the-Job Training and Mentorship</strong><br>In addition to formal training sessions, we encourage on-the-job training and mentorship as valuable learning experiences. Employees can connect with more experienced colleagues or managers for mentorship and informal skill development.</li></ul></p>
+        <h2>Training Calendar and Schedule</h2>
+        <p><p>To keep employees informed about upcoming training opportunities, we maintain a training calendar on the portal. This calendar includes all scheduled in-person and virtual sessions, along with registration deadlines and any relevant details. Employees can check the calendar regularly to plan their training and development activities.</p></p>
+        <h2>Evaluating Training Effectiveness</h2>
+        <p><p>We are committed to continuously improving our training programs to ensure they meet the needs of employees and the organization. After each training session, employees are encouraged to complete a feedback survey. This helps us assess the effectiveness of the training, identify areas for improvement, and make necessary adjustments.</p><p>We also track key metrics such as employee engagement, skill development, and performance outcomes to evaluate the impact of our training programs.</p></p>
+        <h2>Employee Support and Resources</h2>
+        <p><p>In addition to formal training, we provide various resources to support employees in their learning journey:</p><ul><li><strong>Training Materials and Resources</strong><br>All training materials, including slides, handouts, and recordings of sessions, are made available through the training portal. Employees can refer to these materials at any time for further learning.</li><li><strong>Mentorship Programs</strong><br>Employees can participate in mentorship programs where they can seek guidance and support from senior colleagues. Mentors help mentees navigate their career development and provide advice on how to improve skills and achieve goals.</li><li><strong>Knowledge Sharing Sessions</strong><br>We regularly hold knowledge-sharing sessions where employees from different departments can share insights and expertise. These sessions foster collaboration and encourage cross-functional learning.</li><li><strong>Certifications and Continuing Education</strong><br>For employees interested in pursuing formal certifications or further education, NextCorp offers financial assistance and support for continuing education programs. This includes tuition reimbursement for eligible courses and certification programs.</li></ul><h3>&nbsp;</h3></p>
+        <h2>Training Policies and Guidelines</h2>
+        <p><p>To ensure consistency and fairness in our training programs, NextCorp has established the following guidelines:</p><ul><li><strong>Eligibility</strong>: All employees are eligible for training, with specific programs tailored to different job levels and departments.</li><li><strong>Scheduling</strong>: Employees are encouraged to schedule training during off-peak times to minimize disruption to their regular duties.</li><li><strong>Cost and Reimbursement</strong>: NextCorp covers the cost of approved training programs. Employees may need to submit receipts and documentation for reimbursement.</li></ul></p>
+      format: full_html
+      summary: ''
+  comment_node_page:
+    -
+      status: 0
+      cid: 0
+      last_comment_timestamp: 1738918535
+      last_comment_name: ''
+      last_comment_uid: 1
+      comment_count: 0
+  field_basic_page_reaction:
+    -
+      status: 0

@@ -1,0 +1,49 @@
+uuid: e143ec66-7548-4eb1-abcb-66b1ce67d58c
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.user.search_result
+    - field.field.user.user.field_about
+    - field.field.user.user.field_department
+    - field.field.user.user.field_first_name
+    - field.field.user.user.field_last_name
+    - field.field.user.user.field_manager
+    - field.field.user.user.field_name
+    - field.field.user.user.field_office
+    - field.field.user.user.field_phone
+    - field.field.user.user.field_social_links
+    - field.field.user.user.user_picture
+  module:
+    - user
+id: user.user.search_result
+targetEntityType: user
+bundle: user
+mode: search_result
+content:
+  field_name:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  member_for:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  field_about: true
+  field_department: true
+  field_first_name: true
+  field_last_name: true
+  field_manager: true
+  field_office: true
+  field_phone: true
+  field_social_links: true
+  langcode: true
+  masquerade: true
+  search_api_excerpt: true
+  user_picture: true

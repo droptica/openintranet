@@ -1,0 +1,27 @@
+_meta:
+  version: '1.0'
+  entity_type: file
+  uuid: 7f7d59a4-5517-4651-8a1b-356702d58f5e
+  default_langcode: en
+default:
+  uid:
+    -
+      target_id: 1
+  filename:
+    -
+      value: 'DALL·E 2025-03-17 09.17.30 - A highly realistic LinkedIn profile picture of a 40-year-old man wearing a well-fitted business suit. He has a confident yet approachable expression, .webp'
+  uri:
+    -
+      value: 'public://pictures/DALL·E 2025-03-17 09.17.30 - A highly realistic LinkedIn profile picture of a 40-year-old man wearing a well-fitted business suit. He has a confident yet approachable expression, .webp'
+  filemime:
+    -
+      value: image/webp
+  filesize:
+    -
+      value: 351094
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1742199468

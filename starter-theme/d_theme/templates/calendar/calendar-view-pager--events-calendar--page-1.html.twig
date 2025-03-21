@@ -1,0 +1,36 @@
+{#
+/**
+ * The template to display the Calendar Pager plugin.
+ *
+ * Important: `js-pager__items` class is required for Ajax.
+ *
+ * @see template_preprocess_calendar_view_pager()
+ */
+#}
+{%
+  set classes = [
+    'pager__items',
+    'js-pager__items',
+    'calendar-view-pager',
+  ]
+%}
+
+{% if items|length %}
+  <div {{ attributes.addClass(classes) }}>
+    {% for key,item in items|without('reset') %}
+      <span class="pager__item {{ 'pager__' ~ key|clean_class }}">
+        {%- if key == 'current' -%}
+          {{ item['#attributes']['aria-label'].getArguments()['@date'] }}
+        {%- else -%}
+          {{- item -}}
+        {%- endif -%}
+      </span>
+    {% endfor %}
+  </div>
+
+  {% if items.reset %}
+    <div class="calendar-view-pager__reset">
+      {{- items.reset -}}
+    </div>
+  {% endif %}
+{% endif %}

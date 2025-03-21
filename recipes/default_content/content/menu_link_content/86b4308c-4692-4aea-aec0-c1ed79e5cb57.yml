@@ -1,0 +1,42 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: 86b4308c-4692-4aea-aec0-c1ed79e5cb57
+  bundle: menu_link_content
+  default_langcode: en
+  depends:
+    99d7c19a-2c96-49d9-be2b-166324063f4f: menu_link_content
+    9e308a91-87e4-4d83-91a5-e2b920e492cc: node
+default:
+  enabled:
+    -
+      value: true
+  title:
+    -
+      value: Finance
+  menu_name:
+    -
+      value: main
+  link:
+    -
+      target_uuid: 9e308a91-87e4-4d83-91a5-e2b920e492cc
+      title: ''
+      options: {  }
+  external:
+    -
+      value: false
+  rediscover:
+    -
+      value: false
+  weight:
+    -
+      value: -46
+  expanded:
+    -
+      value: false
+  parent:
+    -
+      value: 'menu_link_content:99d7c19a-2c96-49d9-be2b-166324063f4f'
+  revision_translation_affected:
+    -
+      value: true

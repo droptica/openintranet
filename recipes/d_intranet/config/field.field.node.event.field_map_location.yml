@@ -1,0 +1,21 @@
+uuid: 30218519-be65-4df1-91fe-eb20d3d1d702
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_map_location
+    - node.type.event
+  module:
+    - geofield
+id: node.event.field_map_location
+field_name: field_map_location
+entity_type: node
+bundle: event
+label: 'Location Map'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: geofield

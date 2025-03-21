@@ -1,0 +1,64 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 1fac85ce-488a-4560-b392-8f6ea186785a
+  bundle: page
+  default_langcode: en
+  depends:
+    68fd85ee-2fa6-426a-9347-ce7e49d96f6d: taxonomy_term
+    151f200e-7d17-4966-9a18-934858395ddc: taxonomy_term
+    6046e0f4-766a-40b9-9791-7587157b7a92: node
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'HR - Human Resources'
+  created:
+    -
+      value: 1738916907
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /pages/hr-human-resources
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: "<h2>Introduction</h2>\r\n<p><p>The HR department at NextCorp is responsible for managing the most important resource of any organization – its people. As a team, we focus on supporting the organizational culture, promoting employee well-being, and providing the necessary support for career development, recruitment, and human resources management. Our mission is to create an inspiring and supportive work environment where every employee has the opportunity to grow and achieve professional success. We strive to make our company a place where people want to work, develop, and pursue their passions.</p></p>\r\n<h2>Department Responsibilities</h2>\r\n<p><p>The HR department plays a crucial role in the organization, managing many areas of personnel management. The key responsibilities of the department include:</p><ul><li><strong>Recruitment and Selection</strong> – responsible for attracting the best talent to the organization. We conduct recruitment processes that ensure candidates meet the requirements and align with the organizational culture of NextCorp.</li><li><strong>Onboarding</strong> – the process of introducing new employees to the company, ensuring they have all the necessary tools and support.</li><li><strong>Compensation and Benefits Management</strong> – administration of the salary system, oversight of benefits policies such as health insurance, retirement programs, and other perks.</li><li><strong>Training and Development</strong> – organizing professional development programs and training to help employees expand their skills and competencies.</li><li><strong>Employee Relations</strong> – supporting communication between employees and management, handling issues related to conflict resolution, performance reviews, and promotions.</li></ul></p>\r\n<h2>Team</h2>\r\n<p><p>The HR team consists of experienced professionals who manage all aspects of personnel management. Each of us brings unique knowledge and experience to support the growth of our organization.</p><ul><li><strong>Anna Kowalska - HR Department Manager</strong><br>With over 10 years of experience in HR, Anna leads the HR team at NextCorp. She specializes in recruitment and employee development, aiming to create sustainable career development programs for every employee.</li><li><strong>Jan Nowak - Recruitment Specialist</strong><br>Jan manages the recruitment process and attracting the best candidates to our company. His passion is getting to know people and matching them to the right positions within the organization.</li><li><strong>Ewa Wiśniewska - Training and Development Specialist</strong><br>Ewa coordinates professional development programs and training for employees. She always focuses on tailoring programs to the individual needs and career goals of employees.</li></ul></p>\r\n<h2>Processes and Procedures</h2>\r\n<p><p>The HR department implements various procedures designed to streamline processes and ensure fairness and transparency in all employee-related activities.</p><ul><li><strong>Recruitment</strong><br>The recruitment process at NextCorp starts with clearly defining the job requirements and preparing the job posting. We then conduct interviews, competency tests, and make hiring decisions.<ul><li><strong>Recruitment Forms</strong>: <a href=\"#\">Download Form</a></li></ul></li><li><strong>Onboarding</strong><br>New employees go through a detailed onboarding process, which includes an introduction to company policies, internal procedures, and initial training sessions.<ul><li><strong>Onboarding Procedure</strong>: <a href=\"#\">View Details</a></li></ul></li><li><strong>Leave and Time Off Management</strong><br>The HR team manages all aspects of employee leave, including vacation, sick leave, and other time-off requests.<ul><li><strong>Leave Request Form</strong>: <a href=\"#\">Download Form</a></li></ul></li></ul></p>\r\n<h2> Employee Resources</h2>\r\n<p><p>The HR department provides various resources to employees to ensure they have everything they need to perform their roles effectively and to support their professional growth.</p><ul><li><strong>Knowledge Base</strong>: A comprehensive database of articles, policies, and guides for employees to access information on various HR topics.</li><li><strong>Forms and Documents</strong>: Access to important HR-related forms, such as leave requests, benefits enrollment, and more.</li><li><strong>Employee Assistance Program</strong>: A confidential service providing support for personal and professional challenges.</li><li><strong>Training Programs</strong>: Information on available development programs and courses that employees can participate in.</li></ul></p>\r\n<h2>Contact</h2>\r\n<p><p>If you have any questions or need assistance, don’t hesitate to contact the HR department.</p><ul><li><strong>Email</strong>: <a>hr@droptica.com</a></li><li><strong>Phone</strong>: +123 456 7890</li><li><strong>Internal Communication Tools</strong>: Slack, Teams</li></ul></p>\r\n<h2>Summary</h2>\r\n<p><p>The HR department at NextCorp is dedicated to fostering a supportive and transparent work environment. Whether you are looking for career growth, assistance with HR policies, or just need guidance on company procedures, we are here to help. Please reach out to us for any inquiries or support you may need.</p></p>\r\n"
+      format: full_html
+      summary: ''
+  comment_node_page:
+    -
+      status: 0
+      cid: 0
+      last_comment_timestamp: 1738917341
+      last_comment_name: ''
+      last_comment_uid: 1
+      comment_count: 0
+  field_access:
+    -
+      entity: 68fd85ee-2fa6-426a-9347-ce7e49d96f6d
+    -
+      entity: 151f200e-7d17-4966-9a18-934858395ddc
+  field_basic_page_reaction:
+    -
+      status: 0
+  field_document_ref:
+    -
+      entity: 6046e0f4-766a-40b9-9791-7587157b7a92

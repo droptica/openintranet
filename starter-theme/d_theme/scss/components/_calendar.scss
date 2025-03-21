@@ -1,0 +1,157 @@
+@import "../mixins/text";
+
+.page-view-events-calendar {
+  .container {
+    @include media-breakpoint-down(lg) {
+      max-width: 100%;
+    }
+  }
+}
+.view-calendar {
+   .events-thead {
+     font-family: $font-family-sans-serif;
+     background: $body-secondary-color;
+
+     tr {
+       th {
+         color: $white;
+         background: $body-secondary-color;
+         font-size: 16px;
+         line-height: 20px;
+         font-weight: 600;
+         text-transform: capitalize;
+       }
+     }
+   }
+
+   .calendar-view-table {
+     border-collapse: separate;
+     border-spacing: 0;
+     border: none;
+
+     tr {
+       &.odd {
+         td {
+           border-top: 1px solid $blue-100;
+           border-left: 1px solid $blue-100;
+
+           &:last-child {
+             border-right: 1px solid $blue-100;
+           }
+         }
+
+         &:last-child td {
+           border-bottom: 1px solid $blue-100;
+         }
+       }
+
+       &.even {
+         td {
+           border-top: 1px solid $blue-100;
+           border-left: 1px solid $blue-100;
+
+           &:last-child {
+             border-right: 1px solid $blue-100;
+           }
+         }
+       }
+     }
+
+     td {
+       border: none;
+       position: relative;
+
+       &.next-month,
+       &.previous-month {
+         background-color: $gray-25;
+         .calendar-view-day {
+           background: $gray-25;
+         }
+       }
+
+       &.current-month {
+         background-color: $white;
+         .calendar-view-day {
+           background: $white;
+         }
+       }
+
+       &.is-today {
+         .calendar-view-day__number {
+           background-color: $body-secondary-color;
+           color: $blue-50;
+         }
+       }
+     }
+
+     .calendar-view-day {
+       &__number {
+         font-size: 14px;
+         border-radius: 2px;
+         color: $body-secondary-color;
+         background-color: $blue-50;
+         padding: 8px;
+         width: 32px;
+         height: 32px;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         margin: 8px;
+       }
+
+       &__rows {
+         list-style: none;
+         position: relative;
+       }
+
+       &__row {
+         border: none;
+         background-color: $navy-gray-25;
+         border-radius: 2px;
+         position: relative;
+
+         .views-field-title {
+           a {
+             color: $body-color;
+             text-decoration: none;
+             display: block;
+             padding: 0;
+
+             @include body-300-bold;
+
+             &:hover {
+               text-decoration: underline;
+             }
+           }
+         }
+
+         .views-field-nothing {
+           @include body-300;
+         }
+       }
+     }
+   }
+ }
+
+// Calendar pager styles
+.calendar-view-pager {
+  &.pager__items {
+    padding: 12px;
+
+    .pager__item {
+      a {
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 18px;
+        padding: 4px 2px;
+        text-transform: capitalize;
+      }
+
+      &.pager__current {
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 24px;
+      }
+    }
+  }
+}

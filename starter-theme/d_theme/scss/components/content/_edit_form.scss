@@ -1,0 +1,122 @@
+@import "../../mixins/text";
+
+form {
+  padding: 0 !important;
+  background: none !important;
+  border: none !important;
+
+  * {
+    border-color: $blue-100  !important;;
+  }
+
+  .field-group-tabs-wrapper {
+    .horizontal-tabs {
+      border-radius: .5 * $border-radius;
+
+      .horizontal-tabs-panes {
+        border-bottom: 1px solid;
+      }
+
+      .horizontal-tabs-list {
+        background: none;
+
+        .horizontal-tab-button {
+          background: none;
+          color: $body-color;
+          border-right: 0;
+          text-align: center;
+          @include body-500;
+
+          border: none;
+          padding: 8px 20px 16px 20px;
+
+          *, strong {
+            font-weight: 400;
+          }
+
+          a {
+            background: none;
+            padding: 0;
+          }
+
+          &.selected, &:hover {
+            color: $body-secondary-color;
+            background: $dark-navy-50;
+
+            *, strong {
+              font-weight: 700;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  button {
+    border: none;
+    background-color: $blue-50;
+    background-image: none;
+    color: $body-secondary-color;
+    cursor: pointer;
+    text-align: center;
+    overflow: hidden;
+    padding: .55rem .5rem;
+    border-radius: $border-radius;
+  }
+
+  details {
+    border-radius: .5 * $border-radius;
+  }
+
+  .js-form-wrapper {
+    .description, .text-muted, .password-strength__title, .password-confirm-message, small {
+      color: $body-tertiary-color;
+
+      @include body-300;
+    }
+
+    label, legend {
+      color: $body-tertiary-color;
+
+      @include body-400-bold;
+    }
+
+    .image-widget {
+      display: flex;
+      align-items: flex-end;
+      flex-direction: row;
+
+      .image-preview {
+        padding: 0;
+
+        img {
+          border-radius: 8px;
+          margin: 0;
+        }
+      }
+    }
+  }
+
+  .table-responsive {
+    button {
+      margin-bottom: .5rem;
+    }
+
+    .draggable a.tabledrag-handle {
+      padding: 0;
+    }
+
+    table tbody tr td:has(.btn) {
+      display: flex;
+      justify-content: flex-end;
+      flex-direction: row;
+      border-bottom: none;
+    }
+  }
+}
+
+#block-d-theme-content {
+  .content:has(>form) {
+    margin-top: 0;
+  }
+}

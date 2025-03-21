@@ -1,0 +1,27 @@
+_meta:
+  version: '1.0'
+  entity_type: file
+  uuid: 549a81cb-4bb4-413b-b662-52604f1f6855
+  default_langcode: en
+default:
+  uid:
+    -
+      target_id: 1
+  filename:
+    -
+      value: Torun__064.jpg
+  uri:
+    -
+      value: 'public://intro-images/Torun__064.jpg'
+  filemime:
+    -
+      value: image/jpeg
+  filesize:
+    -
+      value: 3127103
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1739949449

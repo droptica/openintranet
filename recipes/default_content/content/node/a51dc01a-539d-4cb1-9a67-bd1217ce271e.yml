@@ -1,0 +1,54 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: a51dc01a-539d-4cb1-9a67-bd1217ce271e
+  bundle: page
+  default_langcode: en
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'Operations & Delivery'
+  created:
+    -
+      value: 1739950327
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /pages/operations-delivery
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: |
+        <h2></h2>
+        <p></p>
+      format: full_html
+      summary: ''
+  comment_node_page:
+    -
+      status: 0
+      cid: 0
+      last_comment_timestamp: 1739950353
+      last_comment_name: ''
+      last_comment_uid: 1
+      comment_count: 0
+  field_basic_page_reaction:
+    -
+      status: 2

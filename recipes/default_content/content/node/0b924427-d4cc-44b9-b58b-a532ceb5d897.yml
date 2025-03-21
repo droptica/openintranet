@@ -1,0 +1,54 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 0b924427-d4cc-44b9-b58b-a532ceb5d897
+  bundle: page
+  default_langcode: en
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'Recruitment SOP'
+  created:
+    -
+      value: 1739950013
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /pages/recruitment-sop
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: |
+        <h2></h2>
+        <p></p>
+      format: full_html
+      summary: ''
+  comment_node_page:
+    -
+      status: 0
+      cid: 0
+      last_comment_timestamp: 1739950049
+      last_comment_name: ''
+      last_comment_uid: 1
+      comment_count: 0
+  field_basic_page_reaction:
+    -
+      status: 2

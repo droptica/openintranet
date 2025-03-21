@@ -1,0 +1,8 @@
+uuid: dd78f479-48de-47e8-9c4f-6d3ca729a42c
+langcode: en
+status: true
+dependencies: {  }
+id: comment_node_page
+label: 'Basic page comment'
+target_entity_type_id: node
+description: 'Allows to comment on Basic page'

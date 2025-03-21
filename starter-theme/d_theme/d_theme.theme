@@ -1,0 +1,172 @@
+<?php
+
+/**
+ * @file
+ * Functions to support theming in the SASS Starterkit subtheme.
+ */
+
+use Drupal\Core\Block\BlockPluginInterface;
+use Drupal\Core\Cache\Cache;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\file\Entity\File;
+use Drupal\image\Entity\ImageStyle;
+use Drupal\media\Entity\Media;
+use Drupal\node\NodeInterface;
+use Drupal\views\ViewExecutable;
+
+/**
+ * Implements hook_form_system_theme_settings_alter().
+ */
+function d_theme_form_system_theme_settings_alter(array &$form) {
+  $options = [
+    'bg-primary' => t('Primary'),
+    'bg-secondary' => t('Secondary'),
+    'bg-light' => t('Light'),
+    'bg-dark' => t('Dark'),
+    'bg-white' => t('White'),
+    'bg-transparent' => t('Transparent'),
+  ];
+  $form['components']['navbar']['bootstrap_barrio_navbar_top_background']['#options'] = $options;
+  $form['components']['navbar']['bootstrap_barrio_navbar_background']['#options'] = $options;
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function d_theme_form_alter(array &$form) {
+  if (isset($form['search_api_fulltext'])) {
+    $form['search_api_fulltext']['#attributes']['placeholder'] = t('Search');
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function d_theme_theme_suggestions_views_view_alter(array &$suggestions, array $variables) {
+  if (!empty($variables['view']->current_display)) {
+    $view_name = $variables['view']->storage->id();
+    $display_id = $variables['view']->current_display;
+    $suggestions[] = 'views_view__' . $view_name . '__' . $display_id;
+    $suggestions[] = 'views_view__' . $view_name;
+  }
+}
+
+/**
+ * Implements hook_views_pre_render().
+ */
+function d_theme_views_pre_render(ViewExecutable $view) {
+  if ($view->id() === 'search_content') {
+    $view->setTitle($view->getTitle() . ' (' . $view->total_rows . ')');
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function d_theme_preprocess_block(array &$variables) {
+  $entity_type_manager = \Drupal::service('entity_type.manager');
+  $renderer = \Drupal::service('renderer');
+
+  $variables['current_user'] = $entity_type_manager->getStorage('user')
+    ->load(\Drupal::currentUser()->id());
+
+  if (!empty($variables['elements']['#id']) && $variables['elements']['#id'] === 'd_theme_knowledge_base_book') {
+    $variables['#attached']['library'][] = 'd_theme/search-book';
+  }
+
+  if (!empty($variables['content']['field_background_media'])) {
+    if ($variables['base_plugin_id'] === 'block_content') {
+      $renderer->addCacheableDependency($variables, $variables['content']['#block_content']);
+    }
+
+    $media_id = $variables["content"]["#block_content"]->get('field_background_media')->target_id ?? null;
+    if (!empty($media_id)) {
+      $media = Media::load($media_id);
+      $file_id = $media->get('field_media_image')->target_id ?? null;
+      if (!empty($file_id)) {
+        $file = File::load($file_id);
+
+        if ($file) {
+          $image_style = ImageStyle::load('node_background');
+          $variables['background_image'] = $image_style ? $image_style->buildUrl($file->getFileUri()) : $file->createFileUrl();
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_block_view_alter().
+ */
+function d_theme_block_view_alter(array &$build, BlockPluginInterface $block) {
+  if ($block->getPluginId() === 'system_menu_block:account') {
+    $build['#cache']['contexts'] = Cache::mergeContexts($build['#cache']['contexts'] ?? [], ['user', 'user.roles']);
+    $current_user = \Drupal::currentUser();
+    if ($current_user->isAuthenticated()) {
+      $build['#cache']['tags'] = Cache::mergeTags($build['#cache']['tags'] ?? [], ['user:' . $current_user->id()]);
+    }
+    $build['#cache']['max-age'] = 0;
+  }
+}
+
+/**
+ * Implements template_preprocess_views_view().
+ */
+function d_theme_preprocess_views_view(array &$vars) {
+  $vars['more']['#options']['attributes']['class'] = ['btn', 'btn-primary', 'w-100'];
+}
+
+/**
+ * Implements hook_preprocess_node().
+ */
+function d_theme_preprocess_node(array &$variables) {
+  $entity_type_manager = \Drupal::service('entity_type.manager');
+  $renderer = \Drupal::service('renderer');
+  $database = \Drupal::service('database');
+
+  if (($node = $variables['node']) instanceof NodeInterface && $node->hasField('field_background_image')) {
+    $media_id = $node->get('field_background_image')->target_id ?? NULL;
+    if (!empty($media_id)) {
+      $media = Media::load($media_id);
+      $file_id = $media->get('field_media_image')->target_id ?? null;
+      if (!empty($file_id)) {
+        $file = File::load($file_id);
+
+        if ($file) {
+          $image_style = ImageStyle::load('node_background');
+          $variables['background_image'] = $image_style ? $image_style->buildUrl($file->getFileUri()) : $file->createFileUrl();
+        }
+      }
+    }
+  }
+
+  if ($node instanceof NodeInterface) {
+    $uids = $database->select('node_revision', 'nr')
+      ->fields('nr', ['revision_uid'])
+      ->condition('nr.nid', $node->id())
+      ->distinct()
+      ->execute()
+      ->fetchCol();
+
+    $variables['revision_authors'] = [];
+    if (!empty($uids)) {
+      $users = $entity_type_manager->getStorage('user')->loadMultiple($uids);
+      $view_builder = $entity_type_manager->getViewBuilder('user');
+      foreach ($users as $user) {
+        $view = $view_builder->view($user, 'compact');
+        $variables['revision_authors'][] = $renderer->render($view);
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_page_title().
+ */
+function d_theme_preprocess_page_title(array &$variables) {
+  if (\Drupal::routeMatch()->getRouteName() === 'entity.taxonomy_term.canonical') {
+    if ($term = \Drupal::routeMatch()->getParameter('taxonomy_term')) {
+      $variables['title']['#markup'] = $term->getName();
+    }
+  }
+}

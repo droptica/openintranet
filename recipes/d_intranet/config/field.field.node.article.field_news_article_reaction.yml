@@ -1,0 +1,44 @@
+uuid: 960020d3-ec62-4aa1-b81e-9642245a560c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_news_article_reaction
+    - node.type.article
+  module:
+    - votingapi_reaction
+id: node.article.field_news_article_reaction
+field_name: field_news_article_reaction
+entity_type: node
+bundle: article
+label: Reaction
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  anonymous_detection:
+    2: '2'
+    1: '0'
+  anonymous_rollover: '-1'
+  reactions:
+    reaction_angry:
+      show: 0
+      weight: 0
+    reaction_laughing:
+      show: 0
+      weight: 0
+    reaction_like:
+      show: 1
+      weight: 0
+    reaction_love:
+      show: 0
+      weight: 0
+    reaction_sad:
+      show: 0
+      weight: 0
+    reaction_surprised:
+      show: 0
+      weight: 0
+field_type: votingapi_reaction

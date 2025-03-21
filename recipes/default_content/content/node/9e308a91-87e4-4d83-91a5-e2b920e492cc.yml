@@ -1,0 +1,66 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 9e308a91-87e4-4d83-91a5-e2b920e492cc
+  bundle: page
+  default_langcode: en
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: Finance
+  created:
+    -
+      value: 1738917802
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /pages/finance
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: |
+        <h2>Introduction</h2>
+        <p><p>The Finance department at NextCorp plays a critical role in managing the financial health of the company, ensuring that we meet our financial goals while adhering to regulatory standards. We are responsible for planning, organizing, controlling, and monitoring financial resources, ensuring that NextCorp remains profitable, efficient, and financially secure. Our mission is to provide accurate financial data and analysis to support business decisions, maintain the company’s liquidity, and optimize the use of resources to achieve strategic goals.</p><p>The Finance team is dedicated to maintaining the financial integrity of NextCorp and ensuring that we meet both our short-term and long-term financial objectives. By leveraging accurate reporting, forecasting, and budgeting practices, we help guide the company toward financial stability and growth.</p></p>
+        <h2>Department Responsibilities</h2>
+        <p><p>The Finance department is responsible for a wide range of tasks that ensure the company's financial processes run smoothly. Our key responsibilities include:</p><ul><li><strong>Financial Planning and Analysis</strong> – creating detailed financial forecasts, budgets, and reports to support strategic decision-making. We analyze financial data to predict future trends and provide insights into the company’s financial performance.</li><li><strong>Accounting and Bookkeeping</strong> – managing the company’s day-to-day financial transactions, ensuring that all expenses, revenues, and other financial data are accurately recorded in compliance with accounting standards.</li><li><strong>Cash Flow Management</strong> – ensuring that the company has enough cash on hand to meet its financial obligations. This includes monitoring cash flows, preparing cash flow forecasts, and managing accounts payable and receivable.</li><li><strong>Tax Compliance and Reporting</strong> – ensuring that the company complies with all tax laws and regulations by preparing accurate tax filings, making timely payments, and maintaining appropriate records for audits.</li><li><strong>Financial Reporting</strong> – providing financial statements, balance sheets, and income statements to give an overview of the company’s financial position. This also involves preparing reports for stakeholders and ensuring transparency in financial performance.</li><li><strong>Risk Management</strong> – identifying potential financial risks and developing strategies to mitigate them. This includes managing insurance policies, investments, and any liabilities that could impact the company’s financial stability.</li></ul></p>
+        <h2>Team</h2>
+        <p><p>The Finance department is made up of experienced professionals who work together to ensure the financial health of NextCorp. Our team combines expertise in accounting, financial analysis, and risk management to ensure we make sound financial decisions.</p><ul><li><strong>Daniel Miller - Chief Financial Officer (CFO)</strong><br>Daniel has over 15 years of experience in corporate finance and leads the finance team at NextCorp. As the CFO, he is responsible for overseeing all financial operations, ensuring compliance with regulations, and driving the company’s financial strategy to support its growth.</li><li><strong>Olivia White - Senior Financial Analyst</strong><br>Olivia provides in-depth financial analysis and forecasting to help guide decision-making. She is responsible for preparing financial reports, analyzing trends, and assisting in the preparation of budgets and forecasts.</li><li><strong>James Black - Accountant</strong><br>James manages the company’s financial records, ensuring all transactions are accurately recorded and compliant with accounting standards. He is also responsible for preparing financial statements and tax filings.</li><li><strong>Sophia Brown - Accounts Payable Specialist</strong><br>Sophia manages the company’s payments to vendors, ensuring invoices are processed on time and in compliance with company policies. She works closely with other departments to ensure that payments are made accurately and efficiently.</li><li><strong>Michael Green - Tax Compliance Specialist</strong><br>Michael ensures that NextCorp complies with all applicable tax regulations, preparing tax returns, and providing advice on tax-related matters. He helps minimize tax liabilities while maintaining full regulatory compliance.</li></ul></p>
+        <h2>Processes and Procedures</h2>
+        <p><p>The Finance department operates under clearly defined processes to ensure accuracy, transparency, and efficiency in all financial activities.</p><ul><li><strong>Budgeting and Forecasting</strong><br>The budgeting process involves collaboration between departments to ensure that financial resources are allocated effectively. Each department submits their budget requests, which are then reviewed and consolidated by the Finance team to create a comprehensive financial plan for the company.<ul><li><strong>Budget Template</strong>: <a href="#">Download Template</a></li></ul></li><li><strong>Financial Reporting</strong><br>Financial reports are prepared monthly, quarterly, and annually to track the company’s performance and ensure that we meet our financial goals. These reports are shared with stakeholders to ensure transparency and facilitate informed decision-making.<ul><li><strong>Financial Reporting Template</strong>: <a href="#">Download Template</a></li></ul></li><li><strong>Expense Approval Process</strong><br>All company expenses must go through an approval process to ensure that spending is aligned with budgetary constraints. Employees must submit requests for large expenditures or unplanned costs for review by department heads and the Finance team.<ul><li><strong>Expense Report Form</strong>: <a href="#">Download Form</a></li></ul></li><li><strong>Tax Filing and Compliance</strong><br>The Finance team ensures that NextCorp files its taxes on time, paying the necessary amounts while adhering to applicable tax laws. We maintain records for audits and regularly review tax regulations to optimize our tax strategy.<ul><li><strong>Tax Filing Guidelines</strong>: <a href="#">View Guidelines</a></li></ul></li></ul></p>
+        <h2> Employee Resources</h2>
+        <p><p>The Finance department provides various resources to assist employees with financial matters and to ensure smooth processes within the company.</p><ul><li><strong>Expense Reimbursement Portal</strong>: A portal for employees to submit business-related expenses for reimbursement. Employees can upload receipts, track approvals, and manage their reimbursements.</li><li><strong>Financial Policies</strong>: Access to company-wide financial policies, including guidelines for budgeting, expense approvals, and spending limits.</li><li><strong>Financial Literacy Resources</strong>: A collection of materials designed to increase employees’ understanding of financial topics, including basic accounting, tax regulations, and budgeting.</li></ul></p>
+        <h2>Contact</h2>
+        <p><p>If you have any questions about the company’s finances, need assistance with financial processes, or have inquiries related to your own reimbursement or expenses, please contact the Finance team.</p><ul><li><strong>Email</strong>: <a>finance@droptica.com</a></li><li><strong>Phone</strong>: +123 456 7890</li><li><strong>Internal Communication Tools</strong>: Slack, Teams</li></ul></p>
+        <h2>Summary</h2>
+        <p><p>The Finance department at NextCorp is responsible for managing and safeguarding the company’s financial resources, ensuring compliance with regulations, and providing critical financial insights for decision-making. We work closely with all departments to support the company’s growth, ensuring financial stability, and optimizing resources. If you have any questions or need assistance, our team is always ready to help.</p></p>
+      format: full_html
+      summary: ''
+  comment_node_page:
+    -
+      status: 0
+      cid: 0
+      last_comment_timestamp: 1738917802
+      last_comment_name: ''
+      last_comment_uid: 1
+      comment_count: 0
+  field_basic_page_reaction:
+    -
+      status: 0

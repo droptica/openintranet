@@ -1,0 +1,28 @@
+@import "../mixins/text";
+
+.btn-primary {
+  --bs-btn-color: #{$btn-color};
+}
+
+.btn {
+  @include body-400;
+}
+
+.btn-secondary {
+  --bs-btn-bg: #{$white};
+  --bs-btn-border-color: #{$blue-100};
+  --bs-btn-color: #{$body-secondary-color};
+  --bs-btn-hover-bg: #{$blue-100};
+  --bs-btn-hover-border-color: #{$blue-100};
+  --bs-btn-active-bg: #{$blue-100};
+  --bs-btn-active-border-color: #{$blue-100};
+
+  &.btn:has(a) {
+    --bs-btn-padding-x: 0;
+    --bs-btn-padding-y: 0;
+
+    a {
+      padding: $btn-padding-y $btn-padding-x;
+    }
+  }
+}

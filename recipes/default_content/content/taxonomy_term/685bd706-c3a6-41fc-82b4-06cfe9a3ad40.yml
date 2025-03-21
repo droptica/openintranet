@@ -1,0 +1,27 @@
+_meta:
+  version: '1.0'
+  entity_type: taxonomy_term
+  uuid: 685bd706-c3a6-41fc-82b4-06cfe9a3ad40
+  bundle: area
+  default_langcode: en
+default:
+  status:
+    -
+      value: true
+  name:
+    -
+      value: Subcontractors
+  weight:
+    -
+      value: 0
+  parent:
+    -
+      target_id: 0
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /area/subcontractors
+      langcode: en
+      pathauto: 1

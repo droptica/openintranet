@@ -1,0 +1,44 @@
+{#
+/**
+ * @file
+ * Custom template for event date field.
+ */
+#}
+{%
+  set classes = [
+    'field',
+    'field--name-' ~ field_name|clean_class,
+    'field--type-' ~ field_type|clean_class,
+    'field--label-' ~ label_display,
+  ]
+%}
+{%
+  set title_classes = [
+    'field__label',
+    label_display == 'visually_hidden' ? 'visually-hidden',
+  ]
+%}
+
+<div{{ attributes.addClass(classes) }}>
+  {% if not label_hidden %}
+    <div{{ title_attributes.addClass(title_classes) }}>{{ label }}</div>
+  {% endif %}
+  <div{{ content_attributes.addClass('field__items') }}>
+    {% for item in items %}
+      {% set start_date = item.content.start_date['#attributes'].datetime|date('U') %}
+      {% set end_date = item.content.end_date['#attributes'].datetime|date('U') %}
+      {% set start_day = item.content.start_date['#attributes'].datetime|date('Y-m-d') %}
+      {% set end_day = item.content.end_date['#attributes'].datetime|date('Y-m-d') %}
+      
+      <div{{ item.attributes.addClass('field__item') }}>
+        {% if start_day == end_day %}
+          {# Single day event #}
+          {{ start_date|date('d F Y') }}: {{ start_date|date('Hi')|slice(0, 2) }}.{{ start_date|date('Hi')|slice(2, 2) }} – {{ end_date|date('Hi')|slice(0, 2) }}.{{ end_date|date('Hi')|slice(2, 2) }}
+        {% else %}
+          {# Multi-day event #}
+          {{ item.content }}
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</div>

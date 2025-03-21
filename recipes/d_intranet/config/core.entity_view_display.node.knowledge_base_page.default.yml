@@ -1,0 +1,62 @@
+uuid: dd3b0e82-71ef-4875-ac3e-c5a282a3e8ea
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.knowledge_base_page.body
+    - field.field.node.knowledge_base_page.field_access
+    - field.field.node.knowledge_base_page.field_data_classification
+    - field.field.node.knowledge_base_page.field_document_ref
+    - field.field.node.knowledge_base_page.field_related_content
+    - field.field.node.knowledge_base_page.field_tags
+    - node.type.knowledge_base_page
+  module:
+    - options
+    - text
+    - user
+id: node.knowledge_base_page.default
+targetEntityType: node
+bundle: knowledge_base_page
+mode: default
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_data_classification:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_related_content:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_tags:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  book_navigation: true
+  field_access: true
+  field_document_ref: true
+  langcode: true
+  search_api_excerpt: true

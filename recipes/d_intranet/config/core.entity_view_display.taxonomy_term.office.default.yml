@@ -1,0 +1,32 @@
+uuid: f8a3d59f-819f-4646-85b0-440891fde58a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.office.field_address
+    - taxonomy.vocabulary.office
+  module:
+    - address
+    - text
+id: taxonomy_term.office.default
+targetEntityType: taxonomy_term
+bundle: office
+mode: default
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_address:
+    type: address_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  langcode: true
+  search_api_excerpt: true

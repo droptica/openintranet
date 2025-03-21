@@ -1,0 +1,36 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: 18ded5f1-54d9-40a1-af85-aab4ec1a2acd
+  bundle: menu_link_content
+  default_langcode: en
+default:
+  enabled:
+    -
+      value: true
+  title:
+    -
+      value: 'Documents'
+  menu_name:
+    -
+      value: main
+  link:
+    -
+      uri: 'internal:/documents'
+      title: ''
+      options: {  }
+  external:
+    -
+      value: false
+  rediscover:
+    -
+      value: true
+  weight:
+    -
+      value: -45
+  expanded:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true

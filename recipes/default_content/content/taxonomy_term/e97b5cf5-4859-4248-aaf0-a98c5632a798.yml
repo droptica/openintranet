@@ -1,0 +1,29 @@
+_meta:
+  version: '1.0'
+  entity_type: taxonomy_term
+  uuid: e97b5cf5-4859-4248-aaf0-a98c5632a798
+  bundle: access
+  default_langcode: en
+  depends:
+    0e06185b-38d5-4861-af71-9d7fa215dd99: taxonomy_term
+default:
+  status:
+    -
+      value: true
+  name:
+    -
+      value: Sales
+  weight:
+    -
+      value: 3
+  parent:
+    -
+      entity: 0e06185b-38d5-4861-af71-9d7fa215dd99
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /access/sales
+      langcode: en
+      pathauto: 1

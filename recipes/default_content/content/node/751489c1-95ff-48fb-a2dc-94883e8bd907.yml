@@ -1,0 +1,54 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 751489c1-95ff-48fb-a2dc-94883e8bd907
+  bundle: page
+  default_langcode: en
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'Intranet - demo call with potential client'
+  created:
+    -
+      value: 1739949615
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /pages/intranet-demo-call-potential-client
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: |
+        <h2></h2>
+        <p><ol><li>Step 1</li><li>Step 2</li></ol></p>
+      format: full_html
+      summary: ''
+  comment_node_page:
+    -
+      status: 0
+      cid: 0
+      last_comment_timestamp: 1739949651
+      last_comment_name: ''
+      last_comment_uid: 1
+      comment_count: 0
+  field_basic_page_reaction:
+    -
+      status: 2

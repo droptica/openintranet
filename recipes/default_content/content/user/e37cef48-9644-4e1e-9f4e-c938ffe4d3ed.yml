@@ -1,0 +1,81 @@
+_meta:
+  version: '1.0'
+  entity_type: user
+  uuid: e37cef48-9644-4e1e-9f4e-c938ffe4d3ed
+  default_langcode: en
+  depends:
+    96ba59d8-a4fb-4bed-adb6-b01518abd664: taxonomy_term
+    399cdf23-ccc5-47c1-958a-baf4872634ca: user
+    6cb6eb4e-1f6f-4585-990f-c2173179370c: taxonomy_term
+    2576f80f-dd82-4580-a8f1-8c2d49d4b5cf: file
+default:
+  preferred_langcode:
+    -
+      value: en
+  name:
+    -
+      value: mark.kowalski
+  pass:
+    -
+      value: $2y$10$XYrrIGLGYlStbRri4wv/c.D1gxcvdCWilx6tSk7Xdd30X/DaamdKW
+      existing: ''
+      pre_hashed: false
+  mail:
+    -
+      value: mark.kowalski@example.com
+  timezone:
+    -
+      value: Europe/Amsterdam
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1738843814
+  access:
+    -
+      value: 0
+  login:
+    -
+      value: 0
+  path:
+    -
+      alias: /users/markkowalski
+      langcode: en
+      pathauto: 1
+  field_about:
+    -
+      value: 'Hello! I’m Mark, a Customer Support Agent working remotely. I handle customer complaints, provide solutions to technical issues, and ensure that each client receives top-notch service. My job requires patience, empathy, and a keen attention to detail, as I work to resolve issues in the most efficient way possible. 🌟 Outside of work, I’m an avid traveler, always seeking new destinations to explore!'
+  field_department:
+    -
+      entity: 96ba59d8-a4fb-4bed-adb6-b01518abd664
+  field_first_name:
+    -
+      value: Mark
+  field_last_name:
+    -
+      value: Kowalski
+  field_manager:
+    -
+      entity: 399cdf23-ccc5-47c1-958a-baf4872634ca
+  field_name:
+    -
+      value: 'Customer Support Agent'
+  field_office:
+    -
+      entity: 6cb6eb4e-1f6f-4585-990f-c2173179370c
+  field_phone:
+    -
+      value: '+48123456780'
+  field_social_links:
+    -
+      uri: 'https://linkedin.com'
+      title: Linkedin
+      options: {  }
+  user_picture:
+    -
+      entity: 6cc7ba0a-b965-4715-a16b-e2356003ddc8
+      alt: ''
+      title: ''
+      width: 1024
+      height: 1024

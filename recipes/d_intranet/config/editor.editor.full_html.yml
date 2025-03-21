@@ -1,0 +1,131 @@
+uuid: e138e888-a3cb-487b-9d94-6215c255ac62
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.full_html
+  module:
+    - ckeditor5
+format: full_html
+editor: ckeditor5
+settings:
+  toolbar:
+    items:
+      - aickeditor
+      - bold
+      - italic
+      - strikethrough
+      - subscript
+      - removeFormat
+      - alignment
+      - '|'
+      - link
+      - '|'
+      - bulletedList
+      - numberedList
+      - '|'
+      - blockQuote
+      - style
+      - imce_image
+      - drupalInsertImage
+      - drupalMedia
+      - insertTable
+      - horizontalLine
+      - '|'
+      - heading
+      - code
+      - sourceEditing
+      - iframeEmbed
+  plugins:
+    ai_ckeditor_ai:
+      dialog:
+        autoresize: 'min-width: 600px'
+        height: '750'
+        width: '900'
+        dialog_class: ai-ckeditor-modal
+      plugins:
+        ai_ckeditor_completion:
+          provider: openai__gpt-4o
+          enabled: true
+        ai_ckeditor_help:
+          enabled: false
+        ai_ckeditor_reformat_html:
+          provider: openai__gpt-4o
+          enabled: false
+        ai_ckeditor_spellfix:
+          provider: openai__gpt-4o
+          enabled: true
+        ai_ckeditor_summarize:
+          provider: openai__gpt-4o
+          enabled: false
+        ai_ckeditor_tone:
+          autocreate: false
+          provider: openai__gpt-4o
+          tone_vocabulary: access
+          use_description: 0
+          enabled: true
+        ai_ckeditor_translate:
+          autocreate: false
+          provider: openai__gpt-4o
+          translate_vocabulary: access
+          use_description: false
+          enabled: false
+    ckeditor5_alignment:
+      enabled_alignments:
+        - center
+        - justify
+        - left
+        - right
+    ckeditor5_heading:
+      enabled_headings:
+        - heading2
+        - heading3
+        - heading4
+        - heading5
+        - heading6
+    ckeditor5_imageResize:
+      allow_resize: true
+    ckeditor5_list:
+      properties:
+        reversed: false
+        startIndex: true
+      multiBlock: true
+    ckeditor5_sourceEditing:
+      allowed_tags:
+        - '<cite>'
+        - '<dl>'
+        - '<dt>'
+        - '<dd>'
+        - '<a hreflang>'
+        - '<blockquote cite>'
+        - '<ul type>'
+        - '<ol type="1 A I">'
+        - '<h2 id="jump-*">'
+        - '<h3 id>'
+        - '<h4 id>'
+        - '<h5 id>'
+        - '<h6 id>'
+    ckeditor5_style:
+      styles:
+        -
+          label: 'Decorated table'
+          element: '<table class="decorated-table">'
+    ckeditor_iframe_embed_iframeembed:
+      enabled_optional_attributes:
+        - height
+        - width
+        - name
+        - tabindex
+        - title
+        - allowfullscreen
+    ckeditor_media_resize_mediaResize:
+      apply_image_styles: true
+      image_styles:
+        - cke_media_resize_small
+        - cke_media_resize_medium
+        - cke_media_resize_large
+        - cke_media_resize_xl
+    media_media:
+      allow_view_mode_override: false
+image_upload:
+  status: false

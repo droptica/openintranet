@@ -1,0 +1,87 @@
+_meta:
+  version: '1.0'
+  entity_type: user
+  uuid: 85dca620-6114-419a-b236-927981c4fd95
+  default_langcode: en
+  depends:
+    65000083-7db1-4549-abe2-9ac73b9d7cdf: taxonomy_term
+    28a8ae65-341b-420f-a598-e451607b8c6a: user
+    6cb6eb4e-1f6f-4585-990f-c2173179370c: taxonomy_term
+    f78c63bb-f955-4eb1-bc39-5d5c89387384: file
+default:
+  preferred_langcode:
+    -
+      value: en
+  preferred_admin_langcode:
+    -
+      value: en
+  name:
+    -
+      value: tomas.novak
+  pass:
+    -
+      value: $2y$10$TlxCAeZkYIf0AxnkXmN4t.aWzaMYYkG9YtUqfB8UB2mck4AL7CZ9e
+      existing: ''
+      pre_hashed: false
+  mail:
+    -
+      value: tomas.novak@example.com
+  timezone:
+    -
+      value: Europe/Amsterdam
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1738760848
+  access:
+    -
+      value: 0
+  login:
+    -
+      value: 0
+  init:
+    -
+      value: tomas.novak@example.com
+  path:
+    -
+      alias: /users/tomasnovak
+      langcode: en
+      pathauto: 1
+  field_about:
+    -
+      value: "Hey there! I’m Tomáš, an IT Systems Administrator working from our Prague office. 🖥️ My job is to ensure that all technical systems run smoothly, securely, and efficiently so that everyone in our company can work without any IT hiccups.\r\nI have been in the IT field for over ten years, and I’ve seen technology evolve rapidly. My expertise lies in managing network infrastructure, troubleshooting system errors, and ensuring cybersecurity best practices. 🔒 I am particularly passionate about cloud computing and automation, always looking for ways to optimize our internal processes.\r\n\r\nIf you ever run into tech issues—whether it’s software updates, VPN access, or security concerns—don’t hesitate to reach out! I believe that IT support should be approachable and responsive. My goal is to make sure that technology empowers us rather than slows us down. 🚀\r\n\r\nOutside of work, I am a big fan of sci-fi books 📚, hiking in the Czech countryside 🌲, and experimenting with smart home setups. If you ever want to chat about tech trends or need advice on setting up your work-from-home station, I’m always happy to help!\r\n\r\nYou can contact me via email, Teams, or even drop by my desk if you’re in the Prague office. Let’s keep everything running smoothly together!"
+  field_department:
+    -
+      entity: 65000083-7db1-4549-abe2-9ac73b9d7cdf
+  field_first_name:
+    -
+      value: Tomáš
+  field_last_name:
+    -
+      value: Novák
+  field_manager:
+    -
+      entity: 28a8ae65-341b-420f-a598-e451607b8c6a
+  field_name:
+    -
+      value: 'IT Systems Administrator'
+  field_office:
+    -
+      entity: 6cb6eb4e-1f6f-4585-990f-c2173179370c
+  field_phone:
+    -
+      value: '722 654 321'
+  field_social_links:
+    -
+      uri: 'https://linkedin.com'
+      title: Linkedin
+      options: {  }
+  user_picture:
+    -
+      entity: f78c63bb-f955-4eb1-bc39-5d5c89387384
+      alt: ''
+      title: ''
+      width: 1024
+      height: 1024

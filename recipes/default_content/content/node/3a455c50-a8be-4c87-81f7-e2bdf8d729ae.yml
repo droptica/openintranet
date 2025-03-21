@@ -1,0 +1,62 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 3a455c50-a8be-4c87-81f7-e2bdf8d729ae
+  bundle: article
+  default_langcode: en
+  depends:
+    00342b9f-449d-47b9-b5e9-47af6d8598d7: taxonomy_term
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'NextCorp at [2023] Call & Contact Centre Expo – Insights, Innovation, and Networking'
+  created:
+    -
+      value: 1738915802
+  promote:
+    -
+      value: true
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /news/nextcorp-2023-call-contact-centre-expo-insights-innovation-and-networking
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: |
+        <h2></h2>
+        <p><p>Attending the [2023] Call &amp; Contact Centre Expo was an incredible experience for the NextCorp delegation. As one of the leading industry events in Europe, the expo provided a deep dive into the latest trends, technologies, and strategies that are transforming the customer support landscape. With a packed agenda of expert-led sessions, interactive exhibits, and networking opportunities, our team came away with valuable insights and inspiration for the future of our contact center operations.</p><p>One of the standout themes of this year’s expo was the rise of AI-driven customer interactions. From chatbots to sentiment analysis tools, artificial intelligence is becoming an integral part of modern customer service. Our team explored innovative AI-powered solutions designed to streamline workflows, enhance agent efficiency, and deliver more personalized customer experiences. We attended keynote sessions where industry leaders shared success stories of AI implementation, emphasizing the importance of balancing automation with human interaction to create meaningful customer connections.</p><p>Another key takeaway from the event was the growing importance of omnichannel support. Customers expect seamless service across multiple communication channels, from phone and email to live chat, social media, and messaging apps. Companies that integrate these touchpoints effectively are seeing higher customer satisfaction and loyalty. At the expo, we had the chance to engage with vendors offering cutting-edge omnichannel platforms, and we’re excited to explore how these solutions could enhance our own support strategy.</p><p>The event also shed light on the role of employee experience in delivering outstanding customer service. Happy, engaged employees make a significant impact on customer interactions, and many sessions focused on strategies to improve agent well-being, reduce burnout, and boost productivity. From gamification techniques to smarter workforce management tools, we discovered new approaches that could make a real difference in our daily operations.</p><p>Beyond the sessions and exhibits, the expo provided a fantastic opportunity for networking. Our team connected with industry peers, shared experiences, and discussed challenges and solutions with professionals facing similar issues. We also had insightful conversations with technology providers, gaining a deeper understanding of the tools and services that could help NextCorp continue to innovate in the customer service space.</p><p>As we return from the event, we’re eager to bring these insights back to our teams. Over the next few weeks, we’ll be sharing key takeaways through internal workshops and discussions, ensuring that everyone at NextCorp benefits from the knowledge gained. Whether it’s optimizing our customer support processes, integrating new technologies, or enhancing our employee experience, the learnings from the [2023] Call &amp; Contact Centre Expo will help us shape the future of our customer service operations.</p><p>For those interested in diving deeper into specific topics covered at the expo, we’ll be compiling a full report with highlights from key sessions, emerging trends, and potential initiatives for NextCorp. Stay tuned for more updates, and let’s continue to push the boundaries of customer service excellence together!</p></p>
+      format: full_html
+      summary: ''
+  comment_node_article:
+    -
+      status: 2
+      cid: 0
+      last_comment_timestamp: 1738916534
+      last_comment_name: ''
+      last_comment_uid: 1
+      comment_count: 0
+  field_intro:
+    -
+      value: 'The [2023] Call & Contact Centre Expo in London was a game-changer for NextCorp! Our team had the opportunity to explore cutting-edge technologies, attend insightful talks, and connect with industry leaders. From AI-driven customer support innovations to the future of omnichannel communication, we’re bringing back fresh ideas that will shape the way we work.'
+  field_news_article_reaction:
+    -
+      status: 2
+  field_tags:
+    -
+      entity: 00342b9f-449d-47b9-b5e9-47af6d8598d7

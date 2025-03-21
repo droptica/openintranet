@@ -1,0 +1,15 @@
+diff --git a/core/modules/views/src/Plugin/views/field/FieldPluginBase.php b/core/modules/views/src/Plugin/views/field/FieldPluginBase.php
+index 09ee61b..f945ade 100644
+--- a/core/modules/views/src/Plugin/views/field/FieldPluginBase.php
++++ b/core/modules/views/src/Plugin/views/field/FieldPluginBase.php
+@@ -1679,7 +1679,9 @@ abstract class FieldPluginBase extends HandlerBase implements FieldHandlerInterf
+     }
+
+     // Store the tokens for the row so we can reference them later if necessary.
+-    $this->view->style_plugin->render_tokens[$this->view->row_index] = $tokens;
++    if (isset($this->view->row_index)) {
++      $this->view->style_plugin->render_tokens[$this->view->row_index] = $tokens;
++    }
+     $this->last_tokens = $tokens;
+     if (!empty($item)) {
+       $this->addSelfTokens($tokens, $item);

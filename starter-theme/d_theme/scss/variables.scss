@@ -1,0 +1,98 @@
+/* VARIABLES */
+
+// colors
+$red: #dc3545;
+$orange: #ed7b22;
+$orange-50: #F8EFE5;
+$orange-500: #ED8924;
+$orange-100: #F8EFE5;
+$yellow: #ffc107;
+$yellow-500: #EAB522;
+$green: #28a745;
+$cyan: #17a2b8;
+$white: #fff;
+
+$red-50: #FAE1E1;
+$red-500: #C20003;
+
+$green-50: #DDF1DF;
+$green-500: #007F0D;
+
+$gray-25: #F5F7FA;
+$gray-100: #f8f9fa;
+$gray-800: #343a40;
+$gray-alternate: #222222;
+
+$navy-gray-25: #F0F1F5;
+$navy-gray-40: #E6E9F0;
+$navy-gray-50: #E4E7ED;
+$navy-gray-100: #CACFDB;
+$navy-gray-300: #9AA2B2;
+
+$dark-navy-50: $navy-gray-50;
+$dark-navy-100: $navy-gray-100;
+$dark-navy-300: $navy-gray-300;
+$dark-navy-600: #4B5466;
+$dark-navy-900: #0E1930;
+
+$blue-50: #EFF1FC;
+$blue-100: #DEE1FC;
+$blue-400: #949FFC;
+$blue-500: #3D50FD;
+$blue-600: #313EB8;
+
+$gray-300: #E4E7ED;
+
+$primary-shade: $blue-600;
+$primary-light: tint-color($primary-shade, 37%);
+$primary-dark: shade-color($primary-shade, 12%);
+$accent-shade: $blue-50;
+$accent-light: tint-color($accent-shade, 37%);
+$accent-dark: shade-color($accent-shade, 12%);
+
+$primary:       $accent-shade;
+$secondary:     $primary-shade;
+$success:       $green;
+$info:          $cyan;
+$warning:       $yellow;
+$danger:        $red;
+$brand-primary: $accent-shade;
+$light:         $gray-100;
+$dark:          $gray-800;
+
+$brand-inverse: $primary-shade;
+
+$body-bg: #F0F3FA;
+$body-color: $dark-navy-900;
+$body-secondary-color: $blue-600;
+$body-tertiary-color: $dark-navy-600;
+$inverse-bg: $primary-shade;
+$inverse-color: $white;
+
+$radius-sm: .125rem;
+$border-radius: .5rem;
+
+//$link-color: $accent-shade;
+$link-decoration: none;
+//$link-hover-color: $accent-dark;
+$link-hover-decoration: underline;
+// Comments
+$comment-spacer-x: 1.25em;
+$comment-spacer-y: 1.25em;
+// Responsive font sizes
+$enable-responsive-font-sizes: true;
+$enable-shadows: false;
+$enable-gradients: false;
+$enable-caret: true;
+
+$footer_bg: $blue-500;
+$footer_color: $navy-gray-25;
+
+$banner_img_bg: rgba(0, 0, 0, 0.8);
+
+$btn-padding-y: .75rem;
+$btn-padding-x: .75rem;
+$btn-color: $blue-600;
+
+$table-cell-padding-y: 16px;
+$table-cell-padding-x: 24px;

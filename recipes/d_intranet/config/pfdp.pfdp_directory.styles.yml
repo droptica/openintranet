@@ -1,0 +1,16 @@
+uuid: 9a9d8cf7-60b5-4c87-baf2-127ec7ac314e
+langcode: en
+status: true
+dependencies: {  }
+id: styles
+path: /styles
+bypass: false
+grant_file_owners: false
+users:
+  1: '0'
+  4170: '0'
+roles:
+  authenticated: authenticated
+  content_editor: content_editor
+  administrator: administrator
+  anonymous: '0'

@@ -1,0 +1,81 @@
+_meta:
+  version: '1.0'
+  entity_type: user
+  uuid: 9657e92e-bb0e-4a6e-b72e-333b702b46e1
+  default_langcode: en
+  depends:
+    96ba59d8-a4fb-4bed-adb6-b01518abd664: taxonomy_term
+    9cb46a24-f2d9-47c6-bc4e-464498043086: user
+    2e44e6f6-b4c3-4614-874f-d2fbc5eeff5e: taxonomy_term
+    a735e76b-0858-4c35-81b2-916eea4be124: file
+default:
+  preferred_langcode:
+    -
+      value: en
+  name:
+    -
+      value: olivia.bakker
+  pass:
+    -
+      value: $2y$10$fvN3uYHjBfqrAmTgl9zvT.ecgG3dOUT7uU9mKrjdn4y0PhHP2Hq6i
+      existing: ''
+      pre_hashed: false
+  mail:
+    -
+      value: olivia.bakker@example.com
+  timezone:
+    -
+      value: Europe/Amsterdam
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1738843814
+  access:
+    -
+      value: 0
+  login:
+    -
+      value: 0
+  path:
+    -
+      alias: /users/oliviabakker
+      langcode: en
+      pathauto: 1
+  field_about:
+    -
+      value: 'I’m Olivia, a Customer Support Specialist working in the Amsterdam Office. My role is to ensure our clients get quick, efficient solutions to their queries. I’m passionate about customer service and enjoy troubleshooting issues to provide the best experience possible. When I’m not working, I like to practice yoga and meditate.'
+  field_department:
+    -
+      entity: 96ba59d8-a4fb-4bed-adb6-b01518abd664
+  field_first_name:
+    -
+      value: Olivia
+  field_last_name:
+    -
+      value: Bakker
+  field_manager:
+    -
+      entity: 9cb46a24-f2d9-47c6-bc4e-464498043086
+  field_name:
+    -
+      value: 'Customer Support Specialist'
+  field_office:
+    -
+      entity: 2e44e6f6-b4c3-4614-874f-d2fbc5eeff5e
+  field_phone:
+    -
+      value: '+31201234567'
+  field_social_links:
+    -
+      uri: 'https://linkedin.com'
+      title: Linkedin
+      options: {  }
+  user_picture:
+    -
+      entity: fc5045ba-f94b-438e-8960-109146dcd74f
+      alt: ''
+      title: ''
+      width: 1024
+      height: 1024

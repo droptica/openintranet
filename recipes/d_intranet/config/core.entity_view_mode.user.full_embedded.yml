@@ -1,0 +1,11 @@
+uuid: b4bb85eb-e9fd-469a-973e-1799b442b135
+langcode: en
+status: true
+dependencies:
+  module:
+    - user
+id: user.full_embedded
+label: full_embedded
+description: ''
+targetEntityType: user
+cache: true

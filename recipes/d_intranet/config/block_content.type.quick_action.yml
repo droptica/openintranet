@@ -1,0 +1,8 @@
+uuid: ea0c123e-d73c-4393-bcc6-015cbccf4904
+langcode: en
+status: true
+dependencies: {  }
+id: quick_action
+label: 'Quick Action'
+revision: false
+description: 'A block button with custom action link, text and icon'

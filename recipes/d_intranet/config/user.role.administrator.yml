@@ -1,0 +1,86 @@
+uuid: 1edca944-1736-4eaa-a73f-e313f8e511d6
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.full_html
+    - node.type.article
+    - node.type.page
+  module:
+    - backup_migrate
+    - block
+    - comment
+    - contextual
+    - filter
+    - image
+    - node
+    - path
+    - pathauto
+    - shortcut
+    - system
+    - taxonomy
+    - toolbar
+    - views_ui
+_core:
+  default_config_hash: OeKGIkmZA_c-t6QLH81WNQx8gDCc1MRmxaTuQgxBByU
+id: administrator
+label: Administrator
+weight: 3
+is_admin: true
+permissions:
+  - 'access administration pages'
+  - 'access backup files'
+  - 'access comments'
+  - 'access content'
+  - 'access content overview'
+  - 'access contextual links'
+  - 'access site in maintenance mode'
+  - 'access site reports'
+  - 'access toolbar'
+  - 'access user profiles'
+  - 'administer actions'
+  - 'administer backup and migrate'
+  - 'administer blocks'
+  - 'administer comments'
+  - 'administer content types'
+  - 'administer filters'
+  - 'administer image styles'
+  - 'administer menu'
+  - 'administer modules'
+  - 'administer nodes'
+  - 'administer pathauto'
+  - 'administer permissions'
+  - 'administer shortcuts'
+  - 'administer site configuration'
+  - 'administer software updates'
+  - 'administer taxonomy'
+  - 'administer themes'
+  - 'administer url aliases'
+  - 'administer users'
+  - 'administer views'
+  - 'bypass node access'
+  - 'cancel account'
+  - 'change own username'
+  - 'create article content'
+  - 'create page content'
+  - 'create url aliases'
+  - 'customize shortcut links'
+  - 'delete any article content'
+  - 'delete any page content'
+  - 'delete own article content'
+  - 'delete own page content'
+  - 'edit any article content'
+  - 'edit any page content'
+  - 'edit own article content'
+  - 'edit own comments'
+  - 'edit own page content'
+  - 'notify of path changes'
+  - 'perform backup'
+  - 'post comments'
+  - 'restore from backup'
+  - 'select account cancellation method'
+  - 'skip comment approval'
+  - 'switch shortcut sets'
+  - 'use text format full_html'
+  - 'view own unpublished content'
+  - 'view the administration theme'

@@ -1,0 +1,46 @@
+.thumbs-up {
+  background-image: url('../images/icons/thumbs-up.svg');
+  background-repeat: no-repeat;
+}
+.search-icon {
+  background-image: url('../images/icons/search.svg');
+  background-repeat: no-repeat;
+}
+.notification-icon {
+  background-image: url('../images/icons/notification.svg');
+  background-repeat: no-repeat;
+}
+
+.icon {
+  display: inline-block;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+
+  &--ship {
+    width: 41px;
+    height: 41px;
+    background-image: url('../images/icons/ship.svg');
+  }
+
+  &--check-mark {
+    width: 32px;
+    height: 32px;
+    background-image: url('../images/icons/check_mark.svg');
+  }
+
+  &--notification {
+    width: 24px;
+    height: 24px;
+    background-image: url('../images/icons/notification.svg');
+    background-repeat: no-repeat;
+  }
+
+  &--help {
+    width: 24px;
+    height: 24px;
+    background-image: url('../images/icons/help.svg');
+    background-repeat: no-repeat;
+    display: block;
+  }
+}

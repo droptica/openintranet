@@ -1,0 +1,44 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 5a38ccd5-fd1a-4030-b4d4-109b9d0afdc0
+  bundle: knowledge_base_page
+  default_langcode: en
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'Mission & Vision'
+  created:
+    -
+      value: 1741774940
+  promote:
+    -
+      value: true
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /knowledge/mission-vision
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: '<h2>Our Mission: Driving Excellence and Innovation</h2><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi. Sed posuere, libero vel facilisis vulputate, quam elit lacinia erat, eget hendrerit lectus arcu id nunc. Integer elementum risus non magna volutpat, a egestas lacus volutpat. Aenean tristique, justo id consequat elementum, nisl eros accumsan erat, sed eleifend justo odio ut urna. Curabitur sed nibh eget nulla pellentesque viverra a ut ligula.</p><h2>Our Vision: Shaping the Future</h2><p>Vestibulum malesuada dolor et ultricies ullamcorper. Fusce tincidunt nunc a magna tempor, id tincidunt ligula hendrerit. Nam ut felis eu lacus pharetra consectetur. Duis fermentum sem in felis dignissim, vel varius nisi molestie. Mauris tristique dapibus nunc, ut vehicula risus malesuada id. Quisque vel risus libero.</p><h3>Commitment to Innovation</h3><p>Praesent fermentum, odio vel ultrices volutpat, nisl nulla accumsan risus, sed tristique odio elit sit amet elit. Nullam euismod justo ut nulla tincidunt, id tincidunt magna faucibus. Cras dictum arcu vel ex pharetra, et ultrices metus tincidunt. Curabitur eget magna ac velit varius gravida.</p><h3>Putting People First</h3><p>Integer feugiat lacus non sapien interdum, ut tincidunt urna tempor. Nulla facilisi. Etiam in facilisis urna. Duis id nisi ut arcu suscipit convallis. Proin non purus nec libero volutpat condimentum. Vestibulum eu ipsum vel felis rhoncus cursus et id risus.</p><h2>Looking Ahead</h2><p>Duis fermentum, sapien eget vulputate aliquet, lectus metus dapibus purus, vel tincidunt nisl orci eget arcu. Pellentesque id justo ut mi lacinia sollicitudin. Aenean ut felis erat. Curabitur tristique felis sed metus tincidunt, ac tincidunt purus dictum.</p>'
+      format: full_html
+      summary: ''
+  field_data_classification:
+    -
+      value: public

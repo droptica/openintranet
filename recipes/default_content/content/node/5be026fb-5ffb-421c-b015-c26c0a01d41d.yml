@@ -1,0 +1,66 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 5be026fb-5ffb-421c-b015-c26c0a01d41d
+  bundle: page
+  default_langcode: en
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'IT - Information Technology'
+  created:
+    -
+      value: 1738917554
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /pages/it-information-technology
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: |
+        <h2>Introduction</h2>
+        <p><p>The IT department at NextCorp is responsible for managing and maintaining the technological infrastructure that powers the company's daily operations. We ensure that all IT systems, software, and hardware are operating efficiently and securely, supporting both remote and on-site employees. Our mission is to provide reliable, innovative, and scalable technology solutions that help NextCorp grow and succeed in a rapidly changing digital world. We believe in fostering a collaborative environment where technology enhances productivity and drives business outcomes.</p><h3>&nbsp;</h3></p>
+        <h2>Department Responsibilities</h2>
+        <p><p>The IT department has a broad range of responsibilities that keep the technological backbone of the organization running smoothly. Our key responsibilities include:</p><ul><li><strong>Network and Infrastructure Management</strong> – maintaining and improving the company's internal networks, servers, and cloud infrastructure to ensure smooth, uninterrupted service.</li><li><strong>Cybersecurity</strong> – protecting the company’s data, systems, and networks from cyber threats. We implement security protocols, monitor for vulnerabilities, and educate employees on best security practices.</li><li><strong>Software Development and Integration</strong> – developing custom software solutions and integrating third-party systems that improve business processes and increase efficiency.</li><li><strong>Hardware Management</strong> – ensuring that all physical devices, such as computers, printers, and mobile devices, are up to date, functioning properly, and configured to meet employees' needs.</li><li><strong>Help Desk and Support</strong> – providing technical support to employees, troubleshooting issues, and resolving IT-related problems quickly to minimize downtime.</li><li><strong>Cloud and Data Management</strong> – managing the company’s data storage, backup solutions, and cloud-based systems, ensuring that all data is secure and easily accessible.</li></ul></p>
+        <h2>Team</h2>
+        <p><p>The IT department consists of skilled professionals who work collaboratively to ensure that NextCorp's technology infrastructure supports the company’s operations efficiently. Our team brings expertise in various areas of IT and is dedicated to maintaining and improving the technological capabilities of the organization.</p><ul><li><strong>John Carter - IT Manager</strong><br>John has over 12 years of experience in IT management and leads the IT team at NextCorp. He specializes in infrastructure management, cybersecurity, and strategic IT planning. His goal is to ensure that NextCorp’s IT systems are secure, scalable, and aligned with the company's goals.</li><li><strong>Sarah Lee - Network Administrator</strong><br>Sarah is responsible for maintaining and optimizing NextCorp’s network infrastructure. She ensures the network is secure, efficient, and supports the communication needs of remote and on-site employees.</li><li><strong>David Thompson - Software Engineer</strong><br>David develops custom software solutions to improve internal processes and integrates third-party tools into the company’s tech stack. His expertise includes coding, problem-solving, and developing scalable applications.</li><li><strong>Sophia Turner - IT Support Specialist</strong><br>Sophia provides technical support to employees, resolving hardware and software issues. She is the first point of contact for troubleshooting IT-related problems and ensures that employees have the tools they need to work efficiently.</li><li><strong>Michael Harris - Cloud Solutions Architect</strong><br>Michael manages NextCorp’s cloud infrastructure, ensuring data security, storage, and efficient data retrieval. He also designs and implements cloud-based solutions to improve collaboration and productivity across the organization.</li></ul><h3>&nbsp;</h3></p>
+        <h2>Processes and Procedures</h2>
+        <p><p>The IT department operates with well-defined processes to ensure that technology-related tasks are handled efficiently and securely.</p><ul><li><strong>Incident Reporting and Support</strong><br>Employees can report IT issues through our internal ticketing system, which helps us prioritize and manage technical issues effectively. We aim to resolve all tickets promptly to minimize disruptions.<ul><li><strong>Support Ticket System</strong>: <a href="#">Submit a Ticket</a></li></ul></li><li><strong>Software and Hardware Requests</strong><br>Employees can submit requests for new software, hardware upgrades, or replacements through the internal IT request form. This ensures we maintain up-to-date equipment and software tools for all employees.<ul><li><strong>Hardware Request Form</strong>: <a href="#">Download Form</a></li><li><strong>Software Request Form</strong>: <a href="#">Download Form</a></li></ul></li><li><strong>Security Protocols and Updates</strong><br>Our cybersecurity team continuously monitors and updates security systems to protect against threats. Employees are required to follow security protocols, including password management and software updates, to maintain a secure environment.<ul><li><strong>Security Guidelines</strong>: <a href="#">View Guidelines</a></li></ul></li><li><strong>System Maintenance and Upgrades</strong><br>Regular system maintenance is performed to ensure software and hardware are updated and optimized. Employees will be notified of scheduled maintenance to avoid disruptions.<ul><li><strong>Maintenance Schedule</strong>: <a href="#">View Schedule</a></li></ul></li></ul></p>
+        <h2> Employee Resources</h2>
+        <p><p>The IT department provides several resources to support employees in using technology effectively and securely.</p><ul><li><strong>Knowledge Base</strong>: A collection of articles, guides, and troubleshooting tips that help employees solve common technical problems and use the company’s software and hardware more effectively.</li><li><strong>Training and Tutorials</strong>: Access to training materials and tutorials that help employees familiarize themselves with new systems and tools introduced by the IT department.</li><li><strong>Software Licenses and Tools</strong>: Employees can access a list of approved software tools and request licenses for software necessary to perform their job functions.<ul><li><strong>Software Library</strong>: <a href="#">Access Tools</a></li></ul></li></ul></p>
+        <h2>Contact</h2>
+        <p><p>For IT-related inquiries or support, employees can reach out to the IT team through the following channels:</p><ul><li><strong>Email</strong>: <a>it@droptica.com</a></li><li><strong>Phone</strong>: +123 456 7890</li><li><strong>Internal Communication Tools</strong>: Slack, Teams</li></ul><h3>&nbsp;</h3></p>
+        <h2>Summary</h2>
+        <p><p>The IT department at NextCorp plays a critical role in ensuring the company’s technological systems operate smoothly and securely. We are committed to providing the necessary support and resources to help employees use technology efficiently, enabling them to focus on their work without technical disruptions. If you need assistance or have any questions related to IT, don’t hesitate to contact us.</p><h3>&nbsp;</h3></p>
+      format: full_html
+      summary: ''
+  comment_node_page:
+    -
+      status: 0
+      cid: 0
+      last_comment_timestamp: 1738917554
+      last_comment_name: ''
+      last_comment_uid: 1
+      comment_count: 0
+  field_basic_page_reaction:
+    -
+      status: 0

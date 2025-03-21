@@ -1,0 +1,8 @@
+uuid: 22e91d41-de64-4a5b-9f0a-a19a76decb89
+langcode: en
+status: true
+dependencies: {  }
+id: footer---legal-compliance
+label: 'Footer - Legal & Compliance'
+description: "The Footer shows Legal & Compliance links\t"
+locked: false

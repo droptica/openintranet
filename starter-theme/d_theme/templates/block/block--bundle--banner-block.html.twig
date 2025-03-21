@@ -1,0 +1,28 @@
+{%
+  set classes = [
+  'block',
+  'block-' ~ configuration.provider|clean_class,
+  'block-' ~ plugin_id|clean_class,
+]
+%}
+{% set ctaText = content.field_banner_cta.0['#title']|default("See more") %}
+
+<div{{ attributes.addClass(classes) }}>
+  {% block content %}
+    <div{{ content_attributes.addClass('content p-3 py-4 p-md-4 p-lg-5') }}
+      style="background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url({{ background_image }})"
+    >
+      <h2>
+        {{ content.field_banner_title }}
+      </h2>
+      {% if content.body %}
+        <p>
+          {{ content.body }}
+        </p>
+      {% endif %}
+      {% if content.field_banner_cta is not null and content.field_banner_cta is not empty %}
+        <a class="btn btn-primary mt-4" href="{{ content.field_banner_cta.0['#url'] }}" target="_blank">{{ ctaText }}</a>
+      {% endif %}
+    </div>
+  {% endblock %}
+</div>

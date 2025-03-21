@@ -1,0 +1,74 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 171970b7-67a8-4a5d-bd38-e2de16443fe1
+  bundle: event
+  default_langcode: en
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: ' Grand Opening: New Office in London'
+  created:
+    -
+      value: 1738584933
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /event/grand-opening-new-office-london
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: '<p>Join us for the grand opening of our new office! Explore the new space, meet colleagues, and enjoy refreshments. The event will include a welcome speech from leadership and a guided office tour.</p>'
+      format: full_html
+      summary: ''
+  field_background_image:
+    -
+      entity: 19b9cd9a-2063-463f-9089-46d867503e51
+  field_event_date:
+    -
+      value: '2025-02-12T09:10:00'
+      end_value: '2025-02-12T10:15:00'
+  field_event_location:
+    -
+      langcode: en
+      country_code: GB
+      administrative_area: ''
+      locality: London
+      postal_code: ''
+      address_line1: '15 King Street'
+  field_event_online:
+    -
+      value: false
+  field_hide_location:
+    -
+      value: false
+  field_map_location:
+    -
+      value: 'POINT (-0.127239 51.531218)'
+      geo_type: Point
+      lat: 51.531218
+      lon: -0.127239
+      left: -0.127239
+      top: 51.531218
+      right: -0.127239
+      bottom: 51.531218
+      geohash: gcpvjhgr5578
+      latlon: '51.531218,-0.127239'

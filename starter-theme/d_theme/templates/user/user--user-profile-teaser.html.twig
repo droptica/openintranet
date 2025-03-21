@@ -1,0 +1,58 @@
+{#
+/**
+ * @file
+ * Theme override to present all user data.
+ *
+ * This template is used when viewing a registered user's page,
+ * e.g., example.com/user/123. 123 being the user's ID.
+ *
+ * Available variables:
+ * - content: A list of content items. Use 'content' to print all content, or
+ *   print a subset such as 'content.field_example'. Fields attached to a user
+ *   such as 'user_picture' are available as 'content.user_picture'.
+ * - attributes: HTML attributes for the container element.
+ * - user: A Drupal User entity.
+ *
+ * @see template_preprocess_user()
+ */
+#}
+{%
+  set classes = [
+  'profile',
+  'user--profile',
+  'block',
+  'block-primary',
+]
+%}
+{% set user = content.field_first_name["#object"] %}
+<div{{ attributes.addClass(classes) }}>
+  <div class="user--profile__profile-image">
+    {% if content.user_picture["#title"] %}
+      {{- content.user_picture -}}
+    {% else %}
+      <div class="field field--name-user-picture field--type-image field--label-hidden field__item">
+        {#        TODO: change to local placeholder#}
+        <img loading="lazy" src="https://cdn.vectorstock.com/i/500p/08/19/gray-photo-placeholder-icon-design-ui-vector-35850819.jpg" width="150" height="150" alt="Profile picture for user marek.nowak" class="image-style-user-profile">
+      </div>
+    {% endif %}
+  </div>
+  <a href="{{ path('entity.user.canonical', {'user': user.uid.value}) }}" class="user--profile__full-name">
+    {% if content.field_first_name %}
+      {{- content.field_first_name.0["#context"].value -}}
+    {% endif %}
+    {% if content.field_last_name %}
+      {{- content.field_last_name.0["#context"].value -}}
+    {% endif %}
+  </a>
+  <div class="user--profile__name">
+    {% if content.field_name %}
+      {{- content.field_name.0["#context"].value -}}
+    {% endif %}
+  </div>
+  <hr>
+  <div class="user--profile__data">
+    {% if content %}
+      {{- content|without('user_picture', 'field_first_name', 'field_last_name', 'field_name') -}}
+    {% endif %}
+  </div>
+</div>

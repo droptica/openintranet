@@ -1,0 +1,58 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 95867f8b-d6b3-4ddc-9323-36470bf088ef
+  bundle: document
+  default_langcode: en
+  depends:
+    3de39b38-ba04-4d76-99ae-16e4fb7ca3c1: taxonomy_term
+    91e8e258-36f3-4283-9bbc-938ad793cf14: file
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'Expense Reimbursement Procedure'
+  created:
+    -
+      value: 1740652323
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /document/expense-reimbursement-procedure
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: 'Instructions for submitting business-related expenses and required documentation.'
+      format: full_html
+      summary: 'Instructions for submitting business-related expenses and required documentation.'
+  field_area:
+    -
+      entity: 3de39b38-ba04-4d76-99ae-16e4fb7ca3c1
+  field_file:
+    -
+      entity: 91e8e258-36f3-4283-9bbc-938ad793cf14
+      display: true
+      description: ''
+  field_related_documents:
+    -
+      target_id: 0
+  field_version:
+    -
+      value: '1.5'

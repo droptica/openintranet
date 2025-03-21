@@ -1,0 +1,55 @@
+{#
+/**
+ * @file
+ * Theme override for mobile account menu block.
+ */
+#}
+{% set classes = [
+  'block',
+  'block-menu',
+  'navigation',
+  'mt-auto',
+  'mt-lg-3',
+  'menu--' ~ derivative_plugin_id|clean_class,
+] %}
+{% set heading_id = attributes.id ~ '-menu'|clean_id %}
+
+{% if logged_in %}
+  <nav role="navigation" aria-labelledby="{{ heading_id }}"{{ attributes.addClass(classes)|without('role', 'aria-labelledby') }}>
+    {# Label. If not displayed, we still provide it for screen readers. #}
+    {% if not configuration.label_display %}
+      {% set title_attributes = title_attributes.addClass('visually-hidden') %}
+    {% endif %}
+    {{ title_prefix }}
+    <h2{{ title_attributes.setAttribute('id', heading_id) }}>{{ configuration.label }}</h2>
+    {{ title_suffix }}
+
+    {# Menu. #}
+    {% block content %}
+      <div class="mobile-account-menu">
+        <a href="/user" class="user-profile-link">
+          <div class="user-avatar rounded-circle">
+            {{ drupal_field('user_picture', 'user', user.account.id, {
+              type: 'image',
+              settings: {
+                image_style: 'thumbnail'
+              },
+              label: 'hidden'
+            }) }}
+          </div>
+          <span class="user-name">
+            {% set current_user = drupal_entity('user', user.account.id, 'default') %}
+            {{ current_user['#user'].field_full_name.value ?: user.displayName }}
+          </span>
+        </a>
+        <a href="/user/logout" class="logout-link">Log out</a>
+      </div>
+    {% endblock %}
+  </nav>
+{% else %}
+  <nav role="navigation" aria-labelledby="{{ heading_id }}"{{ attributes.addClass(classes)|without('role', 'aria-labelledby') }}>
+    {% block content_anonymous %}
+      {{ content }}
+    {% endblock %}
+  </nav>
+{% endif %}

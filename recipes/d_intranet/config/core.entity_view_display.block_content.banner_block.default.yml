@@ -1,0 +1,71 @@
+uuid: dcf99674-bdc3-4e82-8720-6b78136c2361
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.banner_block
+    - field.field.block_content.banner_block.body
+    - field.field.block_content.banner_block.field_background_media
+    - field.field.block_content.banner_block.field_banner_cta
+    - field.field.block_content.banner_block.field_banner_title
+  module:
+    - link
+    - smart_trim
+id: block_content.banner_block.default
+targetEntityType: block_content
+bundle: banner_block
+mode: default
+content:
+  body:
+    type: smart_trim
+    label: hidden
+    settings:
+      trim_length: 600
+      trim_type: chars
+      trim_suffix: ''
+      wrap_output: false
+      wrap_class: trimmed
+      more:
+        display_link: false
+        target_blank: false
+        link_trim_only: false
+        class: more-link
+        text: More
+        aria_label: 'Read more about [node:title]'
+      summary_handler: full
+      trim_options: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_background_media:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: cke_media_resize_xl
+      link: false
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_banner_cta:
+    type: link_separate
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_banner_title:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 3
+    region: content
+hidden:
+  langcode: true
+  search_api_excerpt: true

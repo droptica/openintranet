@@ -1,0 +1,90 @@
+_meta:
+  version: '1.0'
+  entity_type: user
+  uuid: 399cdf23-ccc5-47c1-958a-baf4872634ca
+  default_langcode: en
+  depends:
+    96ba59d8-a4fb-4bed-adb6-b01518abd664: taxonomy_term
+    832b1a7e-145a-4d26-8459-e94e40354987: user
+    6cb6eb4e-1f6f-4585-990f-c2173179370c: taxonomy_term
+    5560a17f-38e3-4051-b1a3-6207e3bdcd5a: file
+default:
+  preferred_langcode:
+    -
+      value: en
+  preferred_admin_langcode:
+    -
+      value: en
+  name:
+    -
+      value: emma.johansson
+  pass:
+    -
+      value: $2y$10$Y2VXeHI9Yxw7Zce8Ed6CE.NozWR3.SWCjGRpuGaVjKIsCqwdYjPJ2
+      existing: ''
+      pre_hashed: false
+  mail:
+    -
+      value: emma.johansson@example.com
+  timezone:
+    -
+      value: Europe/Amsterdam
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1738761033
+  access:
+    -
+      value: 1741949637
+  login:
+    -
+      value: 1741949637
+  init:
+    -
+      value: emma.johansson@example.com
+  roles:
+    -
+      target_id: content_editor
+  path:
+    -
+      alias: /users/emmajohansson
+      langcode: en
+      pathauto: 1
+  field_about:
+    -
+      value: "Hej! 😊 I’m Emma, the Customer Support Lead based in Stockholm. My main focus is ensuring that our customers receive outstanding service and have the best possible experience with our company. Whether it's troubleshooting an issue, providing product guidance, or just being a friendly voice on the other end of the line, I’m here to help!\r\nI’ve been working in customer service for over seven years, and I truly enjoy solving problems and making people's lives easier. 💡 I believe that excellent customer support is not just about fixing issues—it’s about creating a seamless and enjoyable experience for every user.\r\n\r\nIn my role, I also train and mentor our support team, ensuring that everyone is equipped with the knowledge and skills to assist our customers effectively. I work closely with other departments to provide feedback that helps improve our products and services. 💬\r\n\r\nOutside of work, I love going on long hikes in the Swedish countryside 🌲, reading crime novels 📖, and experimenting with new baking recipes. 🍪\r\n\r\nIf you ever need assistance or have suggestions for improving our customer experience, feel free to reach out. Your feedback helps us grow!\r\n\r\n"
+  field_department:
+    -
+      entity: 96ba59d8-a4fb-4bed-adb6-b01518abd664
+  field_first_name:
+    -
+      value: Emma
+  field_last_name:
+    -
+      value: Johansson
+  field_manager:
+    -
+      entity: 832b1a7e-145a-4d26-8459-e94e40354987
+  field_name:
+    -
+      value: 'Customer Support Lead'
+  field_office:
+    -
+      entity: 6cb6eb4e-1f6f-4585-990f-c2173179370c
+  field_phone:
+    -
+      value: '70 987 6543'
+  field_social_links:
+    -
+      uri: 'https://linkedin.com'
+      title: Linkedin
+      options: {  }
+  user_picture:
+    -
+      entity: 5560a17f-38e3-4051-b1a3-6207e3bdcd5a
+      alt: ''
+      title: ''
+      width: 1024
+      height: 1024

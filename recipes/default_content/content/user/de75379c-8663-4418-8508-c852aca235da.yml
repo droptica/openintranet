@@ -1,0 +1,81 @@
+_meta:
+  version: '1.0'
+  entity_type: user
+  uuid: de75379c-8663-4418-8508-c852aca235da
+  default_langcode: en
+  depends:
+    96ba59d8-a4fb-4bed-adb6-b01518abd664: taxonomy_term
+    141357a5-746d-46b3-8932-464aa53f31b1: user
+    062ceb63-8c8f-4a96-b4eb-428963345d26: taxonomy_term
+    e0875db9-b7a3-40f6-a12a-7c8cf3393080: file
+default:
+  preferred_langcode:
+    -
+      value: en
+  name:
+    -
+      value: julia.martinez
+  pass:
+    -
+      value: $2y$10$0rKI8ghvp4S4WWH04EfvfOSWA/i/0V3exRQtv2.KjI6RVD.nHZDqi
+      existing: ''
+      pre_hashed: false
+  mail:
+    -
+      value: julia.martinez@example.com
+  timezone:
+    -
+      value: Europe/Amsterdam
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1738843814
+  access:
+    -
+      value: 0
+  login:
+    -
+      value: 0
+  path:
+    -
+      alias: /users/juliamartinez
+      langcode: en
+      pathauto: 1
+  field_about:
+    -
+      value: 'Hi! I’m Julia, a Customer Support Manager based in the Madrid Office. I manage a team of agents and ensure that we meet our service goals. I’m deeply passionate about improving customer experience and ensuring that our support services exceed expectations. I’ve been with the company for over three years and love coaching my team to success.'
+  field_department:
+    -
+      entity: 96ba59d8-a4fb-4bed-adb6-b01518abd664
+  field_first_name:
+    -
+      value: Julia
+  field_last_name:
+    -
+      value: Martinez
+  field_manager:
+    -
+      entity: 141357a5-746d-46b3-8932-464aa53f31b1
+  field_name:
+    -
+      value: 'Customer Support Manager'
+  field_office:
+    -
+      entity: 062ceb63-8c8f-4a96-b4eb-428963345d26
+  field_phone:
+    -
+      value: '+34912345678'
+  field_social_links:
+    -
+      uri: 'https://linkedin.com'
+      title: Linkedin
+      options: {  }
+  user_picture:
+    -
+      entity: 306684b9-4b9b-41f1-8035-0156439c4d31
+      alt: ''
+      title: ''
+      width: 1024
+      height: 1024

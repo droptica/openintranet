@@ -1,0 +1,58 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: d05d5986-9844-47f0-8029-61b79cfe57ae
+  bundle: document
+  default_langcode: en
+  depends:
+    72f005d6-5013-4ef0-9347-fd44f8171f0d: taxonomy_term
+    91e8e258-36f3-4283-9bbc-938ad793cf14: file
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'IT Security Guidelines'
+  created:
+    -
+      value: 1740652506
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /document/it-security-guidelines
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: 'Best practices for password management, email security, and safe browsing at work.'
+      format: full_html
+      summary: 'Best practices for password management, email security, and safe browsing at work.'
+  field_area:
+    -
+      entity: 72f005d6-5013-4ef0-9347-fd44f8171f0d
+  field_file:
+    -
+      entity: 91e8e258-36f3-4283-9bbc-938ad793cf14
+      display: true
+      description: ''
+  field_related_documents:
+    -
+      target_id: 0
+  field_version:
+    -
+      value: '2.1'

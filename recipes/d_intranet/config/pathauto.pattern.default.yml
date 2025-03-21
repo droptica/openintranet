@@ -1,0 +1,23 @@
+uuid: 1502cbfc-b0fe-455a-8be7-fcc15278c772
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: default
+label: Default
+type: 'canonical_entities:node'
+pattern: '[node:title]'
+selection_criteria:
+  3b371a42-a621-4c58-ac62-b42d229de636:
+    id: 'entity_bundle:node'
+    negate: false
+    uuid: 3b371a42-a621-4c58-ac62-b42d229de636
+    context_mapping:
+      node: node
+    bundles:
+      about: about
+      landingpage: landingpage
+selection_logic: and
+weight: -10
+relationships: {  }

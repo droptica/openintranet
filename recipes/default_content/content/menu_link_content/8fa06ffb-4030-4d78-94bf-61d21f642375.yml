@@ -1,0 +1,42 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: 8fa06ffb-4030-4d78-94bf-61d21f642375
+  bundle: menu_link_content
+  default_langcode: en
+  depends:
+    823e08b7-cd9c-4860-aec2-a718a62b70df: menu_link_content
+    f441e46b-5041-4be8-a1b4-a7a4d83fc9f4: node
+default:
+  enabled:
+    -
+      value: true
+  title:
+    -
+      value: Operations/Delivery
+  menu_name:
+    -
+      value: main
+  link:
+    -
+      target_uuid: f441e46b-5041-4be8-a1b4-a7a4d83fc9f4
+      title: ''
+      options: {  }
+  external:
+    -
+      value: false
+  rediscover:
+    -
+      value: false
+  weight:
+    -
+      value: 0
+  expanded:
+    -
+      value: false
+  parent:
+    -
+      value: 'menu_link_content:823e08b7-cd9c-4860-aec2-a718a62b70df'
+  revision_translation_affected:
+    -
+      value: true

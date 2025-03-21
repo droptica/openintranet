@@ -1,0 +1,29 @@
+_meta:
+  version: '1.0'
+  entity_type: taxonomy_term
+  uuid: d7561755-81c6-47e2-b391-18832721851b
+  bundle: access
+  default_langcode: en
+  depends:
+    2d0187b0-1375-47ab-b86a-f482eaeaa425: taxonomy_term
+default:
+  status:
+    -
+      value: true
+  name:
+    -
+      value: Berlin
+  weight:
+    -
+      value: 7
+  parent:
+    -
+      entity: 2d0187b0-1375-47ab-b86a-f482eaeaa425
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /access/berlin
+      langcode: en
+      pathauto: 1

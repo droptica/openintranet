@@ -1,0 +1,8 @@
+uuid: cabd49e4-106e-4ca2-95fe-ae17ab3e97ce
+langcode: en
+status: true
+dependencies: {  }
+id: comment_node_article
+label: 'News article comment'
+target_entity_type_id: node
+description: 'Allows to comment on News article'

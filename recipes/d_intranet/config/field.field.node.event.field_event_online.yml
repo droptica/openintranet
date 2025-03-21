@@ -1,0 +1,23 @@
+uuid: b7aab480-5e44-4cd0-bb74-939b0ad9d267
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_event_online
+    - node.type.event
+id: node.event.field_event_online
+field_name: field_event_online
+entity_type: node
+bundle: event
+label: 'Event online'
+description: 'Select if event is online.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Is Online'
+  off_label: Offline
+field_type: boolean

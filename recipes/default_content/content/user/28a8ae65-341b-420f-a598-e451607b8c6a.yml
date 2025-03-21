@@ -1,0 +1,84 @@
+_meta:
+  version: '1.0'
+  entity_type: user
+  uuid: 28a8ae65-341b-420f-a598-e451607b8c6a
+  default_langcode: en
+  depends:
+    65000083-7db1-4549-abe2-9ac73b9d7cdf: taxonomy_term
+    c0af832d-005f-40df-bc8d-170f506b48dc: taxonomy_term
+    a307feb6-263d-4532-b62a-1b8e96d0e7b6: file
+default:
+  preferred_langcode:
+    -
+      value: en
+  name:
+    -
+      value: david.schmidt
+  pass:
+    -
+      value: $2y$10$q7wvNckYuBcxMl8B59a8XOs8v65z8ncpYv/G0xqMOR6Hj4RUDMucu
+      existing: ''
+      pre_hashed: false
+  mail:
+    -
+      value: david.schmidt@example.com
+  timezone:
+    -
+      value: Europe/Amsterdam
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1738843814
+  access:
+    -
+      value: 0
+  login:
+    -
+      value: 0
+  path:
+    -
+      alias: /users/davidschmidt
+      langcode: en
+      pathauto: 1
+  field_about:
+    -
+      value: 'Hey there! I’m David, a Technical Support Specialist working in the Berlin Office. I specialize in troubleshooting software-related issues and assisting customers with installation and configuration. I pride myself on being a clear communicator and ensuring customers feel confident in using our products. In my free time, I enjoy coding and learning about new tech innovations. 💻'
+  field_department:
+    -
+      entity: 65000083-7db1-4549-abe2-9ac73b9d7cdf
+  field_first_name:
+    -
+      value: David
+  field_last_name:
+    -
+      value: Schmidt
+  field_manager:
+    -
+      target_id: 1
+  field_name:
+    -
+      value: 'Technical Support Specialist'
+  field_office:
+    -
+      entity: c0af832d-005f-40df-bc8d-170f506b48dc
+  field_phone:
+    -
+      value: '+49301234567'
+  field_social_links:
+    -
+      uri: 'https://linkedin.com'
+      title: Linkedin
+      options: {  }
+    -
+      uri: 'https://github.com'
+      title: Github
+      options: {  }
+  user_picture:
+    -
+      entity: f78c63bb-f955-4eb1-bc39-5d5c89387384
+      alt: ''
+      title: ''
+      width: 1024
+      height: 1024

@@ -1,0 +1,41 @@
+@import "../../mixins/text";
+
+.node--type-document {
+  .node__meta {
+    a {
+      @include link-no-hover;
+    }
+  }
+
+  .node__content {
+    .field {
+      &__label {
+        color: $body-secondary-color;
+      }
+
+      &__item {
+        padding: 0;
+        border-radius: unset;
+        background: white;
+        min-width: unset;
+        margin: .25rem 0;
+      }
+    }
+  }
+}
+
+.views-field-field-file, .field--name-field-file {
+  .file {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 0;
+
+    &:before {
+      content: url('../images/icons/file-blue-small.svg');
+      margin-right: .5rem;
+      position: relative;
+      top: 3px;
+    }
+  }
+}

@@ -1,0 +1,54 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 22ebf451-024f-49c4-940b-657fe26ac4e0
+  bundle: page
+  default_langcode: en
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: FAQ
+  created:
+    -
+      value: 1739951319
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /pages/faq
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: |
+        <h2></h2>
+        <p><h2>How to abc?</h2><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eu ex eget quam sollicitudin ullamcorper nec quis turpis. Duis sit amet accumsan ipsum. Nulla ut posuere justo. Sed consequat rhoncus suscipit. Maecenas et ipsum orci. Donec at tempus nulla. Aliquam pellentesque placerat laoreet. Praesent congue imperdiet risus, non porta nisi iaculis non. Nam eu egestas arcu, sed ultrices ipsum. Aliquam ut elementum nibh. Curabitur posuere semper tellus. Mauris ac tempor eros.</p><p>&nbsp;</p><h2>How to abc?</h2><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eu ex eget quam sollicitudin ullamcorper nec quis turpis. Duis sit amet accumsan ipsum. Nulla ut posuere justo. Sed consequat rhoncus suscipit. Maecenas et ipsum orci. Donec at tempus nulla. Aliquam pellentesque placerat laoreet. Praesent congue imperdiet risus, non porta nisi iaculis non. Nam eu egestas arcu, sed ultrices ipsum. Aliquam ut elementum nibh. Curabitur posuere semper tellus. Mauris ac tempor eros.</p><p>&nbsp;</p><h2>How to abc?</h2><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eu ex eget quam sollicitudin ullamcorper nec quis turpis. Duis sit amet accumsan ipsum. Nulla ut posuere justo. Sed consequat rhoncus suscipit. Maecenas et ipsum orci. Donec at tempus nulla. Aliquam pellentesque placerat laoreet. Praesent congue imperdiet risus, non porta nisi iaculis non. Nam eu egestas arcu, sed ultrices ipsum. Aliquam ut elementum nibh. Curabitur posuere semper tellus. Mauris ac tempor eros.</p><h2>How to abc?</h2><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eu ex eget quam sollicitudin ullamcorper nec quis turpis. Duis sit amet accumsan ipsum. Nulla ut posuere justo. Sed consequat rhoncus suscipit. Maecenas et ipsum orci. Donec at tempus nulla. Aliquam pellentesque placerat laoreet. Praesent congue imperdiet risus, non porta nisi iaculis non. Nam eu egestas arcu, sed ultrices ipsum. Aliquam ut elementum nibh. Curabitur posuere semper tellus. Mauris ac tempor eros.</p><p>&nbsp;</p></p>
+      format: full_html
+      summary: ''
+  comment_node_page:
+    -
+      status: 0
+      cid: 0
+      last_comment_timestamp: 1739951403
+      last_comment_name: ''
+      last_comment_uid: 1
+      comment_count: 0
+  field_basic_page_reaction:
+    -
+      status: 2

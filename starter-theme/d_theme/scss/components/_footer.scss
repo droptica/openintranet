@@ -1,0 +1,33 @@
+@import "../mixins/text";
+
+.site-footer {
+  background-color: $footer_bg;
+  color: $footer_color;
+  font-size: .875rem;
+  margin-top: 56px;
+
+  @include body-500;
+
+  .nav-link, .navbar-nav .nav-item > .nav-link {
+    color: $footer_color;
+    margin-left: 0;
+    padding-left: 0;
+
+    &:hover {
+      border-bottom-color: $footer_color;
+    }
+  }
+
+  h2 {
+    @include heading-5;
+  }
+
+  a {
+    color: $footer_color;
+    @include body-500;
+  }
+
+  &__bottom {
+    background: $blue-600;
+  }
+}

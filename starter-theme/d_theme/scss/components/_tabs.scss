@@ -1,0 +1,37 @@
+@import "../mixins/text";
+
+nav.tabs[role="navigation"] {
+  margin-bottom: 0 !important;
+  margin-top: 0;
+  padding-left: 10px;
+  padding-right: 10px;
+  overflow-x: auto;
+  display: flex;
+  justify-content: center;
+
+  @include media-breakpoint-down(md) {
+    justify-content: start;
+  }
+
+  --bs-nav-tabs-border-width: 0;
+
+  .nav-tabs {
+    background: none;
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+
+    .nav-item .nav-link {
+      @include body-500;
+
+      background: none;
+      border: none;
+      padding: 8px 20px 16px 20px;
+
+      &.active {
+        background: none;
+        border-bottom: 2px solid $blue-500;
+      }
+    }
+  }
+}

@@ -1,0 +1,60 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 81b4df2b-2328-4c21-a0d7-b8b07402d39d
+  bundle: article
+  default_langcode: en
+  depends:
+    1d29500e-ed82-43d8-98f6-f0732e00878a: media
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'Exciting Updates: NextCorp Introduces AI-Powered Support Tool!'
+  created:
+    -
+      value: 1738914683
+  promote:
+    -
+      value: true
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /news/exciting-updates-nextcorp-introduces-ai-powered-support-tool
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: '<blockquote><p>At first, I wasn’t sure about AI in customer service, but after using it, I can confidently say it’s a game-changer. It makes finding the right information so much faster!</p></blockquote><h2>&nbsp;</h2><p>&nbsp;</p><p>Our AI-powered tool will work alongside you, providing real-time suggestions based on customer queries. Whether you’re handling live chats, emails, or phone calls, this smart assistant will streamline your workflow and help you provide even better service. In early testing, we saw a 40% improvement in response speed and a 25% increase in issue resolution efficiency. This means happier customers and a more manageable workload for you!<br><br>The AI assistant is designed to learn from past interactions, making it smarter over time. It will suggest responses, detect customer sentiment, and flag complex issues that may require a human touch. While AI won’t replace our amazing team, it will act as a powerful tool to enhance your efficiency and ensure our customers receive the best possible support.<br><br>To ensure everyone is comfortable using the new tool, we’ll be hosting interactive training sessions next week. These will include live demos, Q&amp;A opportunities, and best practices for maximizing the AI’s capabilities. More details will be shared in the coming days, so stay tuned!<br><br>Change can sometimes feel overwhelming, but this AI tool is here to support you—not replace you. It’s an assistant, not a decision-maker, and your expertise remains the most valuable part of our customer service experience. We encourage you to test it out, provide feedback, and help shape how we use this technology at NextCorp.<br><br>Have questions or feedback about the new AI-powered assistant? Join the discussion in the #support-innovation channel or reach out to your team lead. Let’s embrace this change and continue making NextCorp’s customer service the best in the industry!</p><p>&nbsp;</p>'
+      format: full_html
+      summary: ''
+  comment_node_article:
+    -
+      status: 2
+      cid: 0
+      last_comment_timestamp: 1738914798
+      last_comment_name: ''
+      last_comment_uid: 1
+      comment_count: 0
+  field_background_image:
+    -
+      entity: 1d29500e-ed82-43d8-98f6-f0732e00878a
+  field_intro:
+    -
+      value: 'We’re taking customer support to the next level! NextCorp is rolling out a new AI-powered assistance tool designed to make your job easier and improve customer interactions. This cutting-edge technology will help reduce response times, suggest smart replies, and provide instant access to relevant knowledge base articles. Get ready for a smoother, faster, and smarter way to assist our customers!'
+  field_news_article_reaction:
+    -
+      status: 2

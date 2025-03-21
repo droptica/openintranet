@@ -1,0 +1,11 @@
+uuid: 46bab108-13f3-4e57-a265-23d3d25e1a7f
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.block_teaser
+label: 'Block teaser'
+description: ''
+targetEntityType: node
+cache: true

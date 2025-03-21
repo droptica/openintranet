@@ -1,0 +1,27 @@
+.breadcrumb {
+  margin-top: .5rem;
+  margin-bottom: .5rem;
+
+  @include media-breakpoint-up(lg) {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  &-item {
+    a {
+      color: $body-tertiary-color;
+    }
+
+    & + &::before {
+      content: url('../images/icons/arrow-right.svg');
+      margin: 0 .5rem;
+      position: relative;
+      top: 2px;
+    }
+
+    &.active {
+      color: $blue-500;
+      font-weight: $font-weight-semibold;
+    }
+  }
+}

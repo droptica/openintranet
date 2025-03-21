@@ -1,0 +1,255 @@
+uuid: 4df62235-f196-44f6-8118-8cc14146ebdd
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.banner_block
+    - block_content.type.basic
+    - block_content.type.links_block
+    - block_content.type.quick_action
+    - filter.format.basic_html
+    - filter.format.full_html
+    - filter.format.restricted_html
+    - media.type.audio
+    - media.type.document
+    - media.type.image
+    - media.type.remote_video
+    - media.type.video
+    - node.type.article
+    - node.type.document
+    - node.type.event
+    - node.type.knowledge_base_page
+    - node.type.page
+    - node.type.webform
+    - taxonomy.vocabulary.access
+    - taxonomy.vocabulary.area
+    - taxonomy.vocabulary.department
+    - taxonomy.vocabulary.office
+    - taxonomy.vocabulary.tags
+  module:
+    - block_content
+    - comment
+    - content_translation
+    - contextual
+    - entity_clone
+    - entity_clone_extras
+    - file
+    - filter
+    - frontend_editing
+    - media
+    - navigation
+    - node
+    - path
+    - statistics
+    - system
+    - taxonomy
+    - toolbar
+_core:
+  default_config_hash: e_wG1u7SrGaJbY2-Szgbgl-c8T3kdirU3uTNq2c_QJQ
+id: content_editor
+label: 'Content editor'
+weight: 2
+is_admin: false
+permissions:
+  - 'access administration pages'
+  - 'access comments'
+  - 'access content'
+  - 'access content overview'
+  - 'access contextual links'
+  - 'access files overview'
+  - 'access frontend editing'
+  - 'access media overview'
+  - 'access navigation'
+  - 'access taxonomy overview'
+  - 'access toolbar'
+  - 'administer media'
+  - 'administer taxonomy'
+  - 'administer url aliases'
+  - 'clone article node entities'
+  - 'clone audio media entities'
+  - 'clone block entity'
+  - 'clone block_content entity'
+  - 'clone block_content_type entity'
+  - 'clone document media entities'
+  - 'clone document node entities'
+  - 'clone event node entities'
+  - 'clone file entity'
+  - 'clone image media entities'
+  - 'clone knowledge_base_page node entities'
+  - 'clone media entity'
+  - 'clone node entity'
+  - 'clone page node entities'
+  - 'clone remote_video media entities'
+  - 'clone video media entities'
+  - 'clone webform node entities'
+  - 'create article content'
+  - 'create audio media'
+  - 'create banner_block block content'
+  - 'create basic block content'
+  - 'create content translations'
+  - 'create document content'
+  - 'create document media'
+  - 'create event content'
+  - 'create image media'
+  - 'create knowledge_base_page content'
+  - 'create links_block block content'
+  - 'create media'
+  - 'create page content'
+  - 'create quick_action block content'
+  - 'create remote_video media'
+  - 'create terms in access'
+  - 'create terms in area'
+  - 'create terms in department'
+  - 'create terms in office'
+  - 'create terms in tags'
+  - 'create url aliases'
+  - 'create video media'
+  - 'create webform content'
+  - 'delete all taxonomy revisions'
+  - 'delete any article content'
+  - 'delete any audio media'
+  - 'delete any audio media revisions'
+  - 'delete any banner_block block content'
+  - 'delete any banner_block block content revisions'
+  - 'delete any basic block content'
+  - 'delete any basic block content revisions'
+  - 'delete any document content'
+  - 'delete any document media'
+  - 'delete any document media revisions'
+  - 'delete any event content'
+  - 'delete any image media'
+  - 'delete any image media revisions'
+  - 'delete any knowledge_base_page content'
+  - 'delete any links_block block content'
+  - 'delete any links_block block content revisions'
+  - 'delete any media'
+  - 'delete any page content'
+  - 'delete any quick_action block content'
+  - 'delete any quick_action block content revisions'
+  - 'delete any remote_video media'
+  - 'delete any remote_video media revisions'
+  - 'delete any video media'
+  - 'delete any video media revisions'
+  - 'delete any webform content'
+  - 'delete article revisions'
+  - 'delete content translations'
+  - 'delete document revisions'
+  - 'delete event revisions'
+  - 'delete knowledge_base_page revisions'
+  - 'delete media'
+  - 'delete own article content'
+  - 'delete own audio media'
+  - 'delete own document content'
+  - 'delete own document media'
+  - 'delete own event content'
+  - 'delete own files'
+  - 'delete own image media'
+  - 'delete own knowledge_base_page content'
+  - 'delete own page content'
+  - 'delete own remote_video media'
+  - 'delete own video media'
+  - 'delete own webform content'
+  - 'delete page revisions'
+  - 'delete term revisions in access'
+  - 'delete term revisions in area'
+  - 'delete term revisions in department'
+  - 'delete term revisions in office'
+  - 'delete term revisions in tags'
+  - 'delete terms in access'
+  - 'delete terms in area'
+  - 'delete terms in department'
+  - 'delete terms in office'
+  - 'delete terms in tags'
+  - 'delete webform revisions'
+  - 'edit any article content'
+  - 'edit any audio media'
+  - 'edit any banner_block block content'
+  - 'edit any basic block content'
+  - 'edit any document content'
+  - 'edit any document media'
+  - 'edit any event content'
+  - 'edit any image media'
+  - 'edit any knowledge_base_page content'
+  - 'edit any links_block block content'
+  - 'edit any page content'
+  - 'edit any quick_action block content'
+  - 'edit any remote_video media'
+  - 'edit any video media'
+  - 'edit any webform content'
+  - 'edit own article content'
+  - 'edit own audio media'
+  - 'edit own comments'
+  - 'edit own document content'
+  - 'edit own document media'
+  - 'edit own event content'
+  - 'edit own image media'
+  - 'edit own knowledge_base_page content'
+  - 'edit own page content'
+  - 'edit own remote_video media'
+  - 'edit own video media'
+  - 'edit own webform content'
+  - 'edit terms in access'
+  - 'edit terms in area'
+  - 'edit terms in department'
+  - 'edit terms in office'
+  - 'edit terms in tags'
+  - 'post comments'
+  - 'revert all revisions'
+  - 'revert all taxonomy revisions'
+  - 'revert any audio media revisions'
+  - 'revert any banner_block block content revisions'
+  - 'revert any basic block content revisions'
+  - 'revert any document media revisions'
+  - 'revert any image media revisions'
+  - 'revert any links_block block content revisions'
+  - 'revert any quick_action block content revisions'
+  - 'revert any remote_video media revisions'
+  - 'revert any video media revisions'
+  - 'revert article revisions'
+  - 'revert document revisions'
+  - 'revert event revisions'
+  - 'revert knowledge_base_page revisions'
+  - 'revert page revisions'
+  - 'revert term revisions in access'
+  - 'revert term revisions in area'
+  - 'revert term revisions in department'
+  - 'revert term revisions in office'
+  - 'revert term revisions in tags'
+  - 'revert webform revisions'
+  - 'translate any entity'
+  - 'translate editable entities'
+  - 'update any media'
+  - 'update content translations'
+  - 'update media'
+  - 'use text format basic_html'
+  - 'use text format full_html'
+  - 'use text format restricted_html'
+  - 'view all media revisions'
+  - 'view all revisions'
+  - 'view all taxonomy revisions'
+  - 'view any audio media revisions'
+  - 'view any banner_block block content history'
+  - 'view any basic block content history'
+  - 'view any document media revisions'
+  - 'view any image media revisions'
+  - 'view any links_block block content history'
+  - 'view any quick_action block content history'
+  - 'view any remote_video media revisions'
+  - 'view any video media revisions'
+  - 'view article revisions'
+  - 'view document revisions'
+  - 'view event revisions'
+  - 'view knowledge_base_page revisions'
+  - 'view media'
+  - 'view own unpublished content'
+  - 'view own unpublished media'
+  - 'view page revisions'
+  - 'view post access counter'
+  - 'view term revisions in access'
+  - 'view term revisions in area'
+  - 'view term revisions in department'
+  - 'view term revisions in office'
+  - 'view term revisions in tags'
+  - 'view the administration theme'
+  - 'view vocabulary labels'
+  - 'view webform revisions'

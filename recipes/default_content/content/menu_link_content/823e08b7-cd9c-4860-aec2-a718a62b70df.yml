@@ -1,0 +1,38 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: 823e08b7-cd9c-4860-aec2-a718a62b70df
+  bundle: menu_link_content
+  default_langcode: en
+  depends:
+    465c9607-4698-4776-a3e6-c352bce92b69: node
+default:
+  enabled:
+    -
+      value: true
+  title:
+    -
+      value: 'Knowledge Base'
+  menu_name:
+    -
+      value: main
+  link:
+    -
+      target_uuid: 465c9607-4698-4776-a3e6-c352bce92b69
+      title: ''
+      options: {  }
+  external:
+    -
+      value: false
+  rediscover:
+    -
+      value: false
+  weight:
+    -
+      value: -46
+  expanded:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true

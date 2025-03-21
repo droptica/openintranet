@@ -1,0 +1,21 @@
+uuid: d30ca763-7a40-4370-a931-2ad4010bab69
+langcode: en
+status: true
+dependencies: {  }
+name: news_teaser
+label: 'News teaser (680x350)'
+effects:
+  87756523-f701-463a-8b3b-d43394d15d29:
+    uuid: 87756523-f701-463a-8b3b-d43394d15d29
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 680
+      height: 350
+      anchor: center-center
+  3c3ac7fa-4511-4e25-b4d8-128c10521d06:
+    uuid: 3c3ac7fa-4511-4e25-b4d8-128c10521d06
+    id: image_convert
+    weight: 2
+    data:
+      extension: webp

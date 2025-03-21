@@ -1,0 +1,80 @@
+_meta:
+  version: '1.0'
+  entity_type: user
+  uuid: 832b1a7e-145a-4d26-8459-e94e40354987
+  default_langcode: en
+  depends:
+    11e1fa02-7a08-4b64-8319-4bf3d38886fc: taxonomy_term
+    062ceb63-8c8f-4a96-b4eb-428963345d26: taxonomy_term
+    6cc7ba0a-b965-4715-a16b-e2356003ddc8: file
+default:
+  preferred_langcode:
+    -
+      value: en
+  preferred_admin_langcode:
+    -
+      value: en
+  name:
+    -
+      value: luca.romano
+  pass:
+    -
+      value: $2y$10$ZkH9n423Z/8VXsNs5iRzguQ.sv96JduaprabwVN7EIyfN0fwBKuai
+      existing: ''
+      pre_hashed: false
+  mail:
+    -
+      value: luca.romano@example.com
+  timezone:
+    -
+      value: Europe/Amsterdam
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1738760984
+  access:
+    -
+      value: 0
+  login:
+    -
+      value: 0
+  init:
+    -
+      value: luca.romano@example.com
+  path:
+    -
+      alias: /users/lucaromano
+      langcode: en
+      pathauto: 1
+  field_about:
+    -
+      value: "Ciao! 👋 I’m Luca, a Senior Sales Executive based in our Milan office. My job is all about building strong client relationships, identifying business opportunities, and driving revenue growth. Whether it’s negotiating deals, understanding customer needs, or developing sales strategies, I’m passionate about connecting people with the right solutions.\r\nWith over a decade of experience in sales, I have learned that success is not just about selling—it’s about listening. I take the time to understand what our clients truly need and then find the best way to help them achieve their goals. 🏆 My expertise includes B2B sales, contract negotiation, and business development. I thrive in fast-paced environments and love the challenge of meeting and exceeding targets.\r\n\r\nSales is also about relationships, and I pride myself on building long-term partnerships rather than just closing one-time deals. I believe that trust and transparency are the foundations of good business. 🤝 I work closely with different departments to ensure that our customers receive the best possible service.\r\n\r\nWhen I’m not in the office, you’ll probably find me enjoying a great plate of pasta 🍝, watching football ⚽, or exploring new wine regions in Italy. I’m always up for a conversation about business trends, market dynamics, or even just a good espresso.\r\n\r\nIf you’re interested in expanding your business with us, let’s talk! I’d love to explore new opportunities together."
+  field_department:
+    -
+      entity: 11e1fa02-7a08-4b64-8319-4bf3d38886fc
+  field_first_name:
+    -
+      value: Luca
+  field_last_name:
+    -
+      value: Romano
+  field_name:
+    -
+      value: 'Senior Sales Executive'
+  field_office:
+    -
+      entity: 062ceb63-8c8f-4a96-b4eb-428963345d26
+  field_social_links:
+    -
+      uri: 'https://linkedin.com'
+      title: Linkedin
+      options: {  }
+  user_picture:
+    -
+      entity: 6cc7ba0a-b965-4715-a16b-e2356003ddc8
+      alt: ''
+      title: ''
+      width: 1024
+      height: 1024

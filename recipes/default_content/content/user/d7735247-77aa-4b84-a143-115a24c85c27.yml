@@ -1,0 +1,89 @@
+_meta:
+  version: '1.0'
+  entity_type: user
+  uuid: d7735247-77aa-4b84-a143-115a24c85c27
+  default_langcode: en
+  depends:
+    586de4ef-fff8-47bf-8cb7-eb5c3e8baa07: taxonomy_term
+    f9a5f836-dc83-441e-862f-0b099e4217f4: taxonomy_term
+    306684b9-4b9b-41f1-8035-0156439c4d31: file
+default:
+  preferred_langcode:
+    -
+      value: en
+  preferred_admin_langcode:
+    -
+      value: en
+  name:
+    -
+      value: anna.kowalska
+  pass:
+    -
+      value: $2y$10$a9HmP6LzO1lZOHlmFJCIbumIix.29tnzYl3bVz0Bi.49fZX9ePgpq
+      existing: ''
+      pre_hashed: false
+  mail:
+    -
+      value: anna.kowalska@example.com
+  timezone:
+    -
+      value: Europe/Amsterdam
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1738760739
+  access:
+    -
+      value: 1741172841
+  login:
+    -
+      value: 1741172841
+  init:
+    -
+      value: anna.kowalska@example.com
+  roles:
+    -
+      target_id: content_editor
+  path:
+    -
+      alias: /users/annakowalska
+      langcode: en
+      pathauto: 1
+  field_about:
+    -
+      value: "Hi, I’m Anna, a Senior HR Specialist based in our Warsaw office! 😊 My main focus is making sure that our employees feel supported, valued, and engaged in their work. Whether it’s recruitment, onboarding, or professional development, I am here to help everyone thrive in our company.\r\nMy journey in HR started over eight years ago, and I’ve had the opportunity to work with incredible professionals from different backgrounds. 🌍 I strongly believe that a company’s success starts with its people, which is why I dedicate my time to finding the best talents and helping them grow within our organization. One of my favorite parts of the job is organizing training sessions and team-building events that bring people closer together.\r\n\r\nBesides recruitment, I also handle employee relations, ensuring that everyone has a safe and positive work environment. I always keep an open-door policy, so if you ever need advice on career progression, benefits, or workplace concerns, feel free to reach out. 💬\r\n\r\nWhen I’m not working, I love exploring new coffee spots around Warsaw ☕, practicing yoga 🧘‍♀️, and traveling to different European cities. I believe that experiencing different cultures helps me become a better HR professional, as it broadens my understanding of diverse workplace expectations.\r\n\r\nIf you have any questions regarding HR policies, employee benefits, or career development opportunities, don’t hesitate to contact me via email or Teams! Let’s make this company the best place to work together! 🚀"
+  field_department:
+    -
+      entity: 586de4ef-fff8-47bf-8cb7-eb5c3e8baa07
+  field_first_name:
+    -
+      value: Anna
+  field_last_name:
+    -
+      value: Kowalska
+  field_manager:
+    -
+      target_id: 1
+  field_name:
+    -
+      value: 'Senior HR Specialist'
+  field_office:
+    -
+      entity: f9a5f836-dc83-441e-862f-0b099e4217f4
+  field_phone:
+    -
+      value: '+48 511 123 456'
+  field_social_links:
+    -
+      uri: 'https://linkedin.com'
+      title: Linkedin
+      options: {  }
+  user_picture:
+    -
+      entity: 306684b9-4b9b-41f1-8035-0156439c4d31
+      alt: ''
+      title: ''
+      width: 1024
+      height: 1024

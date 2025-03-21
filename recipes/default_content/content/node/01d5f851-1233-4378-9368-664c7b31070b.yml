@@ -1,0 +1,62 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 01d5f851-1233-4378-9368-664c7b31070b
+  bundle: document
+  default_langcode: en
+  depends:
+    8fe49a52-bb6f-4f92-835d-d1a1ebc9cd33: taxonomy_term
+    91e8e258-36f3-4283-9bbc-938ad793cf14: file
+    c1237257-60b9-4013-97ac-a1fa285f163d: node
+    6046e0f4-766a-40b9-9791-7587157b7a92: node
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'Annual Leave Policy'
+  created:
+    -
+      value: 1740652323
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /document/annual-leave-policy
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: 'Details on how to request vacation days, carry-over rules, and holiday schedules.'
+      format: full_html
+      summary: 'Details on how to request vacation days, carry-over rules, and holiday schedules.'
+  field_area:
+    -
+      entity: 8fe49a52-bb6f-4f92-835d-d1a1ebc9cd33
+  field_file:
+    -
+      entity: 91e8e258-36f3-4283-9bbc-938ad793cf14
+      display: true
+      description: ''
+  field_related_documents:
+    -
+      entity: c1237257-60b9-4013-97ac-a1fa285f163d
+    -
+      entity: 6046e0f4-766a-40b9-9791-7587157b7a92
+  field_version:
+    -
+      value: '3.0'

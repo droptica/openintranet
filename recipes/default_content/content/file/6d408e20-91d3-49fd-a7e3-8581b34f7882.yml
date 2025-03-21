@@ -1,0 +1,27 @@
+_meta:
+  version: '1.0'
+  entity_type: file
+  uuid: 6d408e20-91d3-49fd-a7e3-8581b34f7882
+  default_langcode: en
+default:
+  uid:
+    -
+      target_id: 1
+  filename:
+    -
+      value: _MG_5523.JPG
+  uri:
+    -
+      value: 'public://_MG_5523.JPG'
+  filemime:
+    -
+      value: image/jpeg
+  filesize:
+    -
+      value: 10366748
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1739957476

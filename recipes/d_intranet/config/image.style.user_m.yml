@@ -1,0 +1,29 @@
+uuid: 8e969278-f4ca-4017-91b1-e8f5f8c2a6e6
+langcode: en
+status: true
+dependencies: {  }
+name: user_m
+label: user_m
+effects:
+  4d1de3cc-1d9c-4211-b2f9-48da257f58d5:
+    uuid: 4d1de3cc-1d9c-4211-b2f9-48da257f58d5
+    id: image_scale
+    weight: 0
+    data:
+      width: 34
+      height: 34
+      upscale: true
+  4270aaa2-8724-4876-95e9-10354e62c8eb:
+    uuid: 4270aaa2-8724-4876-95e9-10354e62c8eb
+    id: image_crop
+    weight: 1
+    data:
+      width: 34
+      height: 34
+      anchor: center-center
+  802b61ce-4596-4f28-b770-52f2e7c74b42:
+    uuid: 802b61ce-4596-4f28-b770-52f2e7c74b42
+    id: image_convert
+    weight: 3
+    data:
+      extension: webp

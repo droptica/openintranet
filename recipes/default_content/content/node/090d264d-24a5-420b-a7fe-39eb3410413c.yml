@@ -1,0 +1,49 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 090d264d-24a5-420b-a7fe-39eb3410413c
+  bundle: knowledge_base_page
+  default_langcode: en
+  depends:
+    14e25f4f-02df-457e-b32a-148315035cc6: taxonomy_term
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: History
+  created:
+    -
+      value: 1741774842
+  promote:
+    -
+      value: true
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /knowledge/history
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: '<h2>The Beginnings of Our Journey</h2><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi. Proin auctor, elit at sollicitudin facilisis, enim tortor ultrices libero, id tincidunt nulla eros non felis. Donec dignissim eros et ipsum viverra, sed tempor elit dapibus. Pellentesque sit amet malesuada nunc. Duis interdum, sem nec tempus fermentum, sapien felis consequat nunc, sed dictum justo nisi a nunc. Curabitur tristique turpis at ex egestas, vel pharetra turpis venenatis.</p><h2>Milestones and Growth</h2><p>Integer ut erat eget justo viverra dapibus ac eget erat. Aliquam erat volutpat. Vestibulum varius, erat a sagittis fringilla, enim sapien pharetra justo, ut condimentum arcu lacus ut orci. Nam eget dui a felis fringilla malesuada at non justo. Nam scelerisque turpis vel ex tempus fermentum. Ut in lorem purus. Vivamus a odio in purus sollicitudin molestie.</p><h3>Expanding Our Reach</h3><p>Praesent tristique quam nec est tincidunt, et accumsan nisl interdum. Phasellus bibendum sapien ut magna fermentum, vel vehicula libero interdum. Duis dapibus, lorem et vestibulum cursus, libero quam varius libero, sed aliquet est neque eget lectus. Suspendisse tincidunt justo a augue convallis, ut cursus tortor suscipit. Aenean elementum ex eu massa dapibus, at fermentum magna pharetra.</p><h2>Looking Towards the Future</h2><p>Donec vestibulum orci nec orci dapibus, sit amet venenatis nunc auctor. Vestibulum dapibus ante eget dui convallis, eget feugiat lacus sagittis. Cras aliquam ligula vel libero vestibulum, in luctus eros hendrerit. In ac felis vel turpis lobortis dictum. Nunc at lorem a magna fermentum bibendum ac sed nulla. Duis id sapien ut arcu interdum imperdiet ac ac nisi.</p>'
+      format: full_html
+      summary: ''
+  field_data_classification:
+    -
+      value: public
+  field_tags:
+    -
+      entity: 14e25f4f-02df-457e-b32a-148315035cc6

@@ -1,0 +1,27 @@
+_meta:
+  version: '1.0'
+  entity_type: file
+  uuid: 03abaaf7-9984-45bc-a869-0cea55eb49cf
+  default_langcode: en
+default:
+  uid:
+    -
+      target_id: 1
+  filename:
+    -
+      value: person_14.jpg
+  uri:
+    -
+      value: 'public://pictures/person_14.jpg'
+  filemime:
+    -
+      value: image/jpeg
+  filesize:
+    -
+      value: 565295
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1738844380

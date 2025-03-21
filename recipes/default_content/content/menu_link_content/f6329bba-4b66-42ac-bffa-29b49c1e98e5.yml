@@ -1,0 +1,42 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: f6329bba-4b66-42ac-bffa-29b49c1e98e5
+  bundle: menu_link_content
+  default_langcode: en
+  depends:
+    7df2c289-b957-4c7e-8281-57ec7cc78d38: menu_link_content
+    7cb6539d-6636-428e-a7a7-c755d54b9f37: node
+default:
+  enabled:
+    -
+      value: true
+  title:
+    -
+      value: 'Policies & Regulations'
+  menu_name:
+    -
+      value: main
+  link:
+    -
+      target_uuid: 7cb6539d-6636-428e-a7a7-c755d54b9f37
+      title: ''
+      options: {  }
+  external:
+    -
+      value: false
+  rediscover:
+    -
+      value: false
+  weight:
+    -
+      value: -48
+  expanded:
+    -
+      value: false
+  parent:
+    -
+      value: 'menu_link_content:7df2c289-b957-4c7e-8281-57ec7cc78d38'
+  revision_translation_affected:
+    -
+      value: true

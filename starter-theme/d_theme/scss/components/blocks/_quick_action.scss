@@ -1,0 +1,9 @@
+@import "../../mixins/text";
+
+.block-content-quick_action {
+  @include body-400;
+
+  a {
+    padding: .5rem .75rem;
+  }
+}

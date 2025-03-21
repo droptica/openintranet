@@ -1,0 +1,103 @@
+uuid: 91b8a72c-77a8-4346-b209-bae372ffc6c4
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.user.user_profile_teaser
+    - field.field.user.user.field_about
+    - field.field.user.user.field_department
+    - field.field.user.user.field_first_name
+    - field.field.user.user.field_last_name
+    - field.field.user.user.field_manager
+    - field.field.user.user.field_name
+    - field.field.user.user.field_office
+    - field.field.user.user.field_phone
+    - field.field.user.user.field_social_links
+    - field.field.user.user.user_picture
+    - image.style.user_profile
+  module:
+    - image
+    - layout_builder
+    - user
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+_core:
+  default_config_hash: mZLyuWM9CQx2ZJVqFGSbzgFnHzudVbHBYmdU256A5Wk
+id: user.user.user_profile_teaser
+targetEntityType: user
+bundle: user
+mode: user_profile_teaser
+content:
+  field_department:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_first_name:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_last_name:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_manager:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_name:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_office:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  masquerade:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 50
+    region: content
+  user_picture:
+    type: image
+    label: hidden
+    settings:
+      image_link: content
+      image_style: user_profile
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  field_about: true
+  field_phone: true
+  field_social_links: true
+  langcode: true
+  member_for: true
+  search_api_excerpt: true

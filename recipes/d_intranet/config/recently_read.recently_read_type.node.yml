@@ -1,0 +1,11 @@
+uuid: 3d63ddce-e2b2-4550-be05-144ccec97810
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: X7dTtheNb5i1PzKLJdDfcO6WwmD-SOFIZdc8cvnsPe0
+id: node
+label: Content
+types:
+  - article
+  - page

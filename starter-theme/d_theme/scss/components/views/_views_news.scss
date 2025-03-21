@@ -1,0 +1,53 @@
+@import "../../mixins/text";
+
+.view-id-news {
+  .views-view-responsive-grid {
+    --views-responsive-grid--layout-gap: 1rem !important;
+  }
+
+  &.view-display-id-block_1 {
+    .views-view-responsive-grid__item {
+      &-inner {
+        border-radius: $border-radius;
+        padding: 1rem 1rem 1.5rem;
+      }
+    }
+  }
+
+  .views-view-responsive-grid__item {
+    &-inner {
+      height: 100%;
+      background-color: $white;
+    }
+  }
+
+  &.view-display-id-page_1 {
+    .node--view-mode-teaser {
+      border-bottom: 1px solid $dark-navy-100;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      padding-bottom: 2rem;
+    }
+  }
+
+  .view-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid $dark-navy-100;
+    margin-bottom: 1rem;
+
+    h3 {
+      @include heading-5;
+
+      margin-bottom: 0;
+      color: $body-secondary-color;
+    }
+
+    .views-display-link {
+      @include body-400;
+
+      color: $body-tertiary-color;
+    }
+  }
+}

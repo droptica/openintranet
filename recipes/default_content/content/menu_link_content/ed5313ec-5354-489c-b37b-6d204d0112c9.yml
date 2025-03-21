@@ -1,0 +1,42 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: ed5313ec-5354-489c-b37b-6d204d0112c9
+  bundle: menu_link_content
+  default_langcode: en
+  depends:
+    823e08b7-cd9c-4860-aec2-a718a62b70df: menu_link_content
+    e805a0f0-00b1-4125-adfb-826ac58529ac: node
+default:
+  enabled:
+    -
+      value: true
+  title:
+    -
+      value: Company
+  menu_name:
+    -
+      value: main
+  link:
+    -
+      target_uuid: e805a0f0-00b1-4125-adfb-826ac58529ac
+      title: ''
+      options: {  }
+  external:
+    -
+      value: false
+  rediscover:
+    -
+      value: false
+  weight:
+    -
+      value: 0
+  expanded:
+    -
+      value: false
+  parent:
+    -
+      value: 'menu_link_content:823e08b7-cd9c-4860-aec2-a718a62b70df'
+  revision_translation_affected:
+    -
+      value: true

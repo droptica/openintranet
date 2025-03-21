@@ -1,0 +1,49 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: c6c6abcf-40f2-4f27-8028-f026cc561e87
+  bundle: page
+  default_langcode: und
+  depends:
+    399cdf23-ccc5-47c1-958a-baf4872634ca: user
+default:
+  revision_uid:
+    -
+      entity: 399cdf23-ccc5-47c1-958a-baf4872634ca
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 0
+  title:
+    -
+      value: Home
+  created:
+    -
+      value: 1517324370
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /
+      langcode: und
+      pathauto: 1
+  comment_node_page:
+    -
+      status: 0
+      cid: 0
+      last_comment_timestamp: 1517324370
+      last_comment_name: ''
+      last_comment_uid: 0
+      comment_count: 0
+  field_basic_page_reaction:
+    -
+      status: 0

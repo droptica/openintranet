@@ -1,0 +1,80 @@
+_meta:
+  version: '1.0'
+  entity_type: user
+  uuid: f2bd98bd-ae46-4026-a242-5d3476d6ddf4
+  default_langcode: en
+  depends:
+    65000083-7db1-4549-abe2-9ac73b9d7cdf: taxonomy_term
+    6cb6eb4e-1f6f-4585-990f-c2173179370c: taxonomy_term
+    67653102-ad19-4fbd-a4ed-f37c390a367a: file
+default:
+  preferred_langcode:
+    -
+      value: en
+  name:
+    -
+      value: sophia.brown
+  pass:
+    -
+      value: $2y$10$R4z95twzxFdLv2reoSWNx.LHjSm8HRagmljQ5X9I2ng77uZd31lXm
+      existing: ''
+      pre_hashed: false
+  mail:
+    -
+      value: sophia.brown@example.com
+  timezone:
+    -
+      value: Europe/Amsterdam
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1738843814
+  access:
+    -
+      value: 0
+  login:
+    -
+      value: 0
+  path:
+    -
+      alias: /users/sophiabrown
+      langcode: en
+      pathauto: 1
+  field_about:
+    -
+      value: 'Hello! I’m Sophia, a Junior IT Support Agent working remotely. I help clients with troubleshooting their software and provide technical support. I’m always learning new things in the tech world and enjoy solving problems. Outside of work, I enjoy coding and tech podcasts.'
+  field_department:
+    -
+      entity: 65000083-7db1-4549-abe2-9ac73b9d7cdf
+  field_first_name:
+    -
+      value: Sophia
+  field_last_name:
+    -
+      value: Brown
+  field_manager:
+    -
+      target_id: 1
+  field_name:
+    -
+      value: 'Junior IT Support Agent'
+  field_office:
+    -
+      entity: 6cb6eb4e-1f6f-4585-990f-c2173179370c
+  field_phone:
+    -
+      value: '+44123456789'
+  field_social_links:
+    -
+      uri: 'https://linkedin.com'
+      title: Linkedin
+      options: {  }
+  user_picture:
+    -
+      entity: 306684b9-4b9b-41f1-8035-0156439c4d31
+      alt: ''
+      title: ''
+      width: 1024
+      height: 1024

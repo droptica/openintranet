@@ -1,0 +1,19 @@
+uuid: fb198dbe-16cf-4fd9-8df2-6f0aa25d2ea8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_event_online_text
+    - node.type.event
+id: node.event.field_event_online_text
+field_name: field_event_online_text
+entity_type: node
+bundle: event
+label: 'Event Online Text'
+description: 'This text will be presented as location of event.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

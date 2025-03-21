@@ -1,0 +1,11 @@
+uuid: fd0ad928-c529-4532-a33a-2f4a8b3d7a3e
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.grid_layout
+label: 'Grid layout'
+description: ''
+targetEntityType: node
+cache: true

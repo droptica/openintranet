@@ -1,0 +1,235 @@
+uuid: b8c9bc12-ffd4-4a26-9dac-c5fbbc4017dd
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.search_result
+    - field.storage.node.field_access
+    - field.storage.node.field_background_image
+    - field.storage.node.field_intro
+    - field.storage.node.field_tags
+    - field.storage.user.field_name
+    - search_api.server.db_server
+  module:
+    - node
+    - user
+id: db_index_content
+name: 'DB Index Content'
+description: ''
+read_only: false
+field_settings:
+  aggregated_field:
+    label: 'Aggregated field'
+    property_path: aggregated_field
+    type: text
+    configuration:
+      type: concat
+      separator: |+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      fields:
+        - 'entity:node/body'
+        - 'entity:node/field_intro'
+        - 'entity:node/field_paragraphs'
+        - 'entity:node/title'
+        - 'entity:node/uid'
+  created:
+    label: 'Authored on'
+    datasource_id: 'entity:node'
+    property_path: created
+    type: date
+    dependencies:
+      module:
+        - node
+  custom_value:
+    label: 'Custom value'
+    property_path: custom_value
+    type: string
+    configuration:
+      value: '[node:created:html_year]'
+  entity_type:
+    label: 'Entity type'
+    property_path: search_api_entity_type
+    type: string
+  field_access:
+    label: Access
+    datasource_id: 'entity:node'
+    property_path: field_access
+    type: integer
+    dependencies:
+      config:
+        - field.storage.node.field_access
+  field_background_image:
+    label: 'Background image'
+    datasource_id: 'entity:node'
+    property_path: field_background_image
+    type: integer
+    dependencies:
+      config:
+        - field.storage.node.field_background_image
+  field_intro:
+    label: Intro
+    datasource_id: 'entity:node'
+    property_path: field_intro
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_intro
+  field_name:
+    label: 'Authored by » User » Name'
+    datasource_id: 'entity:node'
+    property_path: 'uid:entity:field_name'
+    type: string
+    dependencies:
+      config:
+        - field.storage.user.field_name
+      module:
+        - node
+        - user
+  field_tags:
+    label: Tags
+    datasource_id: 'entity:node'
+    property_path: field_tags
+    type: integer
+    dependencies:
+      config:
+        - field.storage.node.field_tags
+  node_grants:
+    label: 'Node access information'
+    property_path: search_api_node_grants
+    type: string
+    indexed_locked: true
+    type_locked: true
+    hidden: true
+  rendered_item:
+    label: 'Rendered HTML output'
+    property_path: rendered_item
+    type: text
+    configuration:
+      roles:
+        - anonymous
+      view_mode:
+        'entity:node':
+          article: search_result
+          page: search_result
+  status:
+    label: Boolean
+    datasource_id: 'entity:node'
+    property_path: status
+    type: boolean
+    indexed_locked: true
+    type_locked: true
+    dependencies:
+      module:
+        - node
+  title:
+    label: Title
+    datasource_id: 'entity:node'
+    property_path: title
+    type: string
+    dependencies:
+      module:
+        - node
+  type:
+    label: 'Content type'
+    datasource_id: 'entity:node'
+    property_path: type
+    type: string
+    dependencies:
+      module:
+        - node
+  uid:
+    label: 'Authored by'
+    datasource_id: 'entity:node'
+    property_path: uid
+    type: integer
+    indexed_locked: true
+    type_locked: true
+    dependencies:
+      module:
+        - node
+datasource_settings:
+  'entity:node':
+    bundles:
+      default: false
+      selected:
+        - article
+        - document
+        - page
+    languages:
+      default: true
+      selected: {  }
+processor_settings:
+  add_url: {  }
+  aggregated_field: {  }
+  content_access:
+    weights:
+      preprocess_query: -30
+  custom_value: {  }
+  entity_type: {  }
+  highlight:
+    weights:
+      postprocess_query: 0
+    prefix: '<strong>'
+    suffix: '</strong>'
+    excerpt: true
+    excerpt_always: false
+    excerpt_length: 256
+    exclude_fields:
+      - aggregated_field
+      - rendered_item
+    highlight: always
+    highlight_partial: true
+  ignorecase:
+    weights:
+      preprocess_index: -20
+      preprocess_query: -20
+    all_fields: false
+    fields:
+      - aggregated_field
+      - custom_value
+      - field_intro
+      - field_name
+      - rendered_item
+      - title
+      - type
+  language_with_fallback: {  }
+  rendered_item: {  }
+tracker_settings:
+  default:
+    indexing_order: fifo
+options:
+  cron_limit: 50
+  delete_on_fail: true
+  index_directly: true
+  track_changes_in_references: true
+server: db_server

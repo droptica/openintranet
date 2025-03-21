@@ -1,0 +1,31 @@
+_meta:
+  version: '1.0'
+  entity_type: taxonomy_term
+  uuid: 586de4ef-fff8-47bf-8cb7-eb5c3e8baa07
+  bundle: department
+  default_langcode: en
+default:
+  status:
+    -
+      value: true
+  name:
+    -
+      value: 'Human Resources (HR)'
+  description:
+    -
+      value: '<p>Managing recruitment, employee relations, benefits, and fostering a diverse and inclusive workplace.</p>'
+      format: full_html
+  weight:
+    -
+      value: 0
+  parent:
+    -
+      target_id: 0
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /department/human-resources-hr
+      langcode: en
+      pathauto: 1

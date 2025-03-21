@@ -1,0 +1,42 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: 4244db4c-f16e-4ff8-a284-0a99f14a4d52
+  bundle: menu_link_content
+  default_langcode: en
+  depends:
+    99d7c19a-2c96-49d9-be2b-166324063f4f: menu_link_content
+    7a8efb4c-90fd-4fdb-b2ad-1eb1df9b0013: node
+default:
+  enabled:
+    -
+      value: true
+  title:
+    -
+      value: Marketing
+  menu_name:
+    -
+      value: main
+  link:
+    -
+      target_uuid: 7a8efb4c-90fd-4fdb-b2ad-1eb1df9b0013
+      title: ''
+      options: {  }
+  external:
+    -
+      value: false
+  rediscover:
+    -
+      value: false
+  weight:
+    -
+      value: -47
+  expanded:
+    -
+      value: false
+  parent:
+    -
+      value: 'menu_link_content:99d7c19a-2c96-49d9-be2b-166324063f4f'
+  revision_translation_affected:
+    -
+      value: true

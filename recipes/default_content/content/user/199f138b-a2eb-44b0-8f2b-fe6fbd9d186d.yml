@@ -1,0 +1,81 @@
+_meta:
+  version: '1.0'
+  entity_type: user
+  uuid: 199f138b-a2eb-44b0-8f2b-fe6fbd9d186d
+  default_langcode: en
+  depends:
+    96ba59d8-a4fb-4bed-adb6-b01518abd664: taxonomy_term
+    9cb46a24-f2d9-47c6-bc4e-464498043086: user
+    f9a5f836-dc83-441e-862f-0b099e4217f4: taxonomy_term
+    8a0a5cf7-37f7-4d9d-86f0-67b65f160468: file
+default:
+  preferred_langcode:
+    -
+      value: en
+  name:
+    -
+      value: liam.wojcik
+  pass:
+    -
+      value: $2y$10$qzOQ/NkHdQ5GS936FBojpeVE4aJsx7B/P5LP0nwHgTYRg1hyxpKkK
+      existing: ''
+      pre_hashed: false
+  mail:
+    -
+      value: liam.wojcik@example.com
+  timezone:
+    -
+      value: Europe/Amsterdam
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1738843814
+  access:
+    -
+      value: 0
+  login:
+    -
+      value: 0
+  path:
+    -
+      alias: /users/liamwojcik
+      langcode: en
+      pathauto: 1
+  field_about:
+    -
+      value: 'Hi! I’m Liam, a Customer Support Manager in the Warsaw Office. I oversee the customer support team and ensure smooth operations. I’m deeply focused on efficiency and satisfaction, always looking for ways to optimize processes. Outside of work, I enjoy cycling and photography.'
+  field_department:
+    -
+      entity: 96ba59d8-a4fb-4bed-adb6-b01518abd664
+  field_first_name:
+    -
+      value: Liam
+  field_last_name:
+    -
+      value: Wójcik
+  field_manager:
+    -
+      entity: 9cb46a24-f2d9-47c6-bc4e-464498043086
+  field_name:
+    -
+      value: 'Customer Support Manager'
+  field_office:
+    -
+      entity: f9a5f836-dc83-441e-862f-0b099e4217f4
+  field_phone:
+    -
+      value: '+48223456789'
+  field_social_links:
+    -
+      uri: 'https://linkedin.com'
+      title: Linkedin
+      options: {  }
+  user_picture:
+    -
+      entity: f78c63bb-f955-4eb1-bc39-5d5c89387384
+      alt: ''
+      title: ''
+      width: 1024
+      height: 1024

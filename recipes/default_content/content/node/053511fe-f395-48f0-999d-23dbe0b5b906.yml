@@ -1,0 +1,64 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 053511fe-f395-48f0-999d-23dbe0b5b906
+  bundle: article
+  default_langcode: en
+  depends:
+    f290300a-4e4d-4d23-9dc3-aaee59b315f1: media
+    554837f2-01d8-4976-9807-a1dffd1e8b28: taxonomy_term
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: ' NextCorp Enhances Employee Well-Being with New Wellness Program'
+  created:
+    -
+      value: 1738916118
+  promote:
+    -
+      value: true
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /news/nextcorp-enhances-employee-well-being-new-wellness-program
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: '<h2>&nbsp;</h2><p>&nbsp;</p><p>Employee well-being is a priority at NextCorp, and we’re excited to introduce a program dedicated to helping you maintain a balanced and healthy lifestyle. With the demands of work and daily responsibilities, it’s easy to overlook self-care, but small steps toward wellness can have a big impact. This program is designed to encourage healthier habits, reduce stress, and create a positive work environment that supports both personal and professional growth.</p><p>One of the biggest components of the Wellness Program is access to fitness resources. Employees can now take advantage of discounted gym memberships, virtual workout classes, and wellness workshops focused on improving mobility, posture, and overall health. Whether you prefer yoga, strength training, or simply getting outside for a walk, there’s something for everyone. To kick things off, we’ll be launching a step challenge next month with exciting prizes for those who stay active.</p><p>Mental well-being is just as important as physical health, and we want to ensure that employees have access to support whenever they need it. Our updated Employee Assistance Program (EAP) offers confidential counseling, stress management resources, and mindfulness sessions to help you navigate personal and professional challenges. We’re also introducing guided meditation breaks in the office and virtual mindfulness sessions for remote employees, helping everyone find moments of calm throughout the workday.</p><p>Work-life balance plays a crucial role in overall well-being, and NextCorp is committed to fostering an environment where employees feel supported both in and outside of work. To help with this, we’re introducing more flexible work options, including designated wellness hours for short breaks, mental recharge days, and additional support for those managing busy schedules. Healthy employees are happier employees, and we want to ensure that everyone has the opportunity to rest, recharge, and perform at their best.</p><p>Nutrition is another key focus of the program. Office cafeterias will now offer healthier meal options, and we’ll be sharing weekly nutrition tips to help employees make informed choices about their diet. Remote employees can access our online wellness hub, where they’ll find healthy recipes, meal planning guides, and expert advice on maintaining balanced nutrition while working from home.</p><p>This is just the beginning of our journey toward a healthier workplace. The Wellness Program will continue to evolve based on employee feedback, and we encourage everyone to share their thoughts on what wellness initiatives they’d like to see next. Stay tuned for upcoming events, challenges, and workshops that will help make well-being a natural part of your daily routine.</p><p>To learn more or to sign up for the first round of wellness activities, visit the Wellness Program page on the intranet. Let’s work together to build a healthier, happier NextCorp.</p><p>&nbsp;</p>'
+      format: full_html
+      summary: ''
+  comment_node_article:
+    -
+      status: 2
+      cid: 0
+      last_comment_timestamp: 1738916195
+      last_comment_name: ''
+      last_comment_uid: 1
+      comment_count: 0
+  field_background_image:
+    -
+      entity: f290300a-4e4d-4d23-9dc3-aaee59b315f1
+  field_intro:
+    -
+      value: 'NextCorp is taking employee well-being to the next level with a new company-wide Wellness Program. Designed to support physical, mental, and emotional health, this initiative offers employees access to fitness resources, mental health support, stress management tools, and wellness challenges. A healthy team is a productive team, and we’re committed to making sure everyone has the resources they need to feel their best.'
+  field_news_article_reaction:
+    -
+      status: 2
+  field_tags:
+    -
+      entity: 554837f2-01d8-4976-9807-a1dffd1e8b28

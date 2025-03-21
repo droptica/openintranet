@@ -1,0 +1,8 @@
+uuid: ad3aa50e-c9c1-4fc9-ae9f-bf30066caa65
+langcode: en
+status: true
+dependencies: {  }
+id: banner_block
+label: 'Banner block'
+revision: false
+description: 'A block banner with background, description, title and optional cta'

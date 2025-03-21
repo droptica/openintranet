@@ -1,0 +1,86 @@
+_meta:
+  version: '1.0'
+  entity_type: user
+  uuid: d1ee5deb-b648-47e2-aff2-3471c3d959f7
+  default_langcode: en
+  depends:
+    fc5045ba-f94b-438e-8960-109146dcd74f: taxonomy_term
+    606a5646-8762-486e-a9fa-228bd7610f3b: taxonomy_term
+    81018531-1f49-4a97-ab4e-ac9203756e15: file
+default:
+  preferred_langcode:
+    -
+      value: en
+  preferred_admin_langcode:
+    -
+      value: en
+  name:
+    -
+      value: sophie.dupont
+  pass:
+    -
+      value: $2y$10$SxCGmTO6qeLnfo3JcEGo8OFZq8lsinJcm/hacT0.K1Je6GUx3heji
+      existing: ''
+      pre_hashed: false
+  mail:
+    -
+      value: sophie.dupont@example.com
+  timezone:
+    -
+      value: Europe/Amsterdam
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1738760926
+  access:
+    -
+      value: 0
+  login:
+    -
+      value: 0
+  init:
+    -
+      value: sophie.dupont@example.com
+  path:
+    -
+      alias: /users/sophiedupont
+      langcode: en
+      pathauto: 1
+  field_about:
+    -
+      value: "Bonjour! 👋 I’m Sophie, the Digital Marketing Manager based in our Paris office. My role revolves around developing creative marketing strategies, managing online campaigns, and ensuring our brand reaches the right audience. Whether it's social media, SEO, or content marketing, I’m always looking for innovative ways to enhance our company’s digital presence.\r\nWith over eight years of experience in marketing, I have developed a strong passion for storytelling and audience engagement. 📢 I specialize in data-driven marketing strategies, meaning I use analytics to refine our approach and create high-performing campaigns. From launching email marketing sequences to optimizing our website’s visibility, my job is to make sure our message is seen and heard by the right people.\r\n\r\nOne of the most exciting aspects of my work is collaborating with different teams to align our brand message. I believe that marketing is not just about selling a product or service—it’s about creating an emotional connection with the audience. ❤️ I love brainstorming new content ideas, working on brand positioning, and ensuring that our company stands out in a crowded marketplace.\r\n\r\nOutside of work, I enjoy discovering new cafés in Paris ☕, attending art exhibitions 🎨, and traveling to different European cities to gain inspiration from different cultures. ✈️ I’m also a big fan of photography, which helps me bring a creative eye to marketing campaigns.\r\n\r\nIf you have any ideas for marketing collaborations or need assistance with branding, don’t hesitate to reach out! Let’s create something amazing together. 🚀"
+  field_department:
+    -
+      entity: fc5045ba-f94b-438e-8960-109146dcd74f
+  field_first_name:
+    -
+      value: ' Sophie'
+  field_last_name:
+    -
+      value: Dupont
+  field_manager:
+    -
+      target_id: 1
+  field_name:
+    -
+      value: 'Digital Marketing Manager'
+  field_office:
+    -
+      entity: 606a5646-8762-486e-a9fa-228bd7610f3b
+  field_phone:
+    -
+      value: ' 6 78 12 34 56'
+  field_social_links:
+    -
+      uri: 'https://linkedin.com'
+      title: Linkedin
+      options: {  }
+  user_picture:
+    -
+      entity: 81018531-1f49-4a97-ab4e-ac9203756e15
+      alt: ''
+      title: ''
+      width: 1024
+      height: 1024

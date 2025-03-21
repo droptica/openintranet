@@ -1,0 +1,31 @@
+_meta:
+  version: '1.0'
+  entity_type: taxonomy_term
+  uuid: 719241f9-0ff6-496c-b12e-c6ea1d5e24c5
+  bundle: department
+  default_langcode: en
+default:
+  status:
+    -
+      value: true
+  name:
+    -
+      value: 'Quality Assurance (QA)'
+  description:
+    -
+      value: '<p>Monitoring and evaluating call quality, ensuring compliance, and improving performance standards.</p>'
+      format: full_html
+  weight:
+    -
+      value: 0
+  parent:
+    -
+      target_id: 0
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /department/quality-assurance-qa
+      langcode: en
+      pathauto: 1

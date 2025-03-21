@@ -1,0 +1,15 @@
+uuid: c0b96f46-75b9-47b8-b443-77b08a5acb57
+langcode: en
+status: true
+dependencies: {  }
+name: node_background
+label: 'Node background'
+effects:
+  3f7030ba-a833-4198-a54b-fd06eba462e1:
+    uuid: 3f7030ba-a833-4198-a54b-fd06eba462e1
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 1416
+      height: 500
+      anchor: center-center

@@ -1,0 +1,19 @@
+uuid: 247c20e0-3065-478b-80a9-7e16dd7e5f74
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - votingapi_reaction
+id: node.field_news_article_reaction
+field_name: field_news_article_reaction
+entity_type: node
+type: votingapi_reaction
+settings: {  }
+module: votingapi_reaction
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

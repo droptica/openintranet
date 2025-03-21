@@ -1,0 +1,121 @@
+@import "../../../mixins/text";
+
+.news-teaser, .node--view-mode-block-teaser {
+  color: $body-color;
+  background-color: $white;
+  border-radius: $border-radius;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  &.node--sticky {
+    padding: 0;
+    background-color: $white;
+    border: none;
+
+    &::before {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 40px;
+      height: 56px;
+      background-image: url('../images/icons/pinned.svg');
+      z-index: 100;
+    }
+  }
+
+  h2.node__title, h2.node__title a {
+    padding: 0;
+  }
+
+  .field--name {
+    &-field-background-image {
+      display: block;
+      margin-bottom: 1rem !important;
+      padding: 0;
+
+      img {
+        border-radius: 4px;
+        max-width: 100%;
+        height: auto;
+      }
+    }
+
+    &-field-intro {
+      color: $body-tertiary-color;
+
+      @include body-400;
+    }
+
+    &-created-at {
+      color: $body-secondary-color;
+
+      @include body-400;
+    }
+
+    &-title {
+      margin-top: 1rem;
+
+      @include heading-4;
+    }
+
+    &-field-news-article-reaction {
+      .votingapi-reaction-radios {
+        margin-bottom: 0 !important;
+
+        .form-switch {
+          padding-left: 0;
+
+          .votingapi-reaction-item-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            input[type="radio"]:checked+label, .votingapi-reaction-item {
+              background-color: transparent;
+              border: none;
+              padding: 0;
+              margin-bottom: 0;
+            }
+
+            .votingapi-reaction-count {
+              @include subtitle-300;
+
+              font-weight: 600;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .news-teaser-links {
+    gap: 24px;
+
+    .news-teaser-comments {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &:before {
+        content: '';
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        background-image: url('../images/icons/message-circle.svg');
+        margin-right: .5rem;
+        top: -2px;
+        position: relative;
+      }
+
+      span {
+        @include subtitle-300;
+
+        font-weight: 600;
+      }
+    }
+  }
+}

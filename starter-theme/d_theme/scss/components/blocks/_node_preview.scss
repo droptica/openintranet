@@ -1,0 +1,30 @@
+.node-preview-container {
+  background: white;
+
+  & > form {
+    display: flex;
+    align-items: end;
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+    gap: 16px;
+    padding: .5rem 1rem;
+
+    & > .js-form-item {
+      margin: 0 !important;
+    }
+
+    .node-preview-backlink {
+      border: none;
+      background-color: $blue-50;
+      background-image: none;
+      color: $body-secondary-color;
+      cursor: pointer;
+      overflow: hidden;
+      padding: 0.7rem 0.5rem;
+      border-radius: $border-radius;
+      margin: unset;
+      text-shadow: none;
+      text-align: center;
+    }
+  }
+}

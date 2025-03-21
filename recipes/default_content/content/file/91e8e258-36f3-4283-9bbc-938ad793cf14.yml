@@ -1,0 +1,27 @@
+_meta:
+  version: '1.0'
+  entity_type: file
+  uuid: 91e8e258-36f3-4283-9bbc-938ad793cf14
+  default_langcode: en
+default:
+  uid:
+    -
+      target_id: 1
+  filename:
+    -
+      value: demo.pdf
+  uri:
+    -
+      value: 'public://demo.pdf'
+  filemime:
+    -
+      value: application/pdf
+  filesize:
+    -
+      value: 13264
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1740653106

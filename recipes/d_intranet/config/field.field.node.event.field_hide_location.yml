@@ -1,0 +1,21 @@
+uuid: ba116f5f-442e-4612-ac2c-d724716bb396
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_hide_location
+    - node.type.event
+id: node.event.field_hide_location
+field_name: field_hide_location
+entity_type: node
+bundle: event
+label: 'Hide location'
+description: '(leave unchecked for online events)'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: Hide
+  off_label: Show
+field_type: boolean

@@ -1,0 +1,41 @@
+_meta:
+  version: '1.0'
+  entity_type: taxonomy_term
+  uuid: 606a5646-8762-486e-a9fa-228bd7610f3b
+  bundle: office
+  default_langcode: en
+default:
+  status:
+    -
+      value: true
+  name:
+    -
+      value: 'Paris Office'
+  description:
+    -
+      value: '<p>French-speaking customer service and sales support.</p>'
+      format: full_html
+  weight:
+    -
+      value: 0
+  parent:
+    -
+      target_id: 0
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /office/paris-office
+      langcode: en
+      pathauto: 1
+  field_address:
+    -
+      langcode: en
+      country_code: FR
+      administrative_area: ''
+      locality: Paris
+      dependent_locality: ''
+      postal_code: '75004'
+      sorting_code: ''
+      address_line1: '15 Rue de Rivoli'

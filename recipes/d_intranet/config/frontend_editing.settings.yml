@@ -1,0 +1,44 @@
+_core:
+  default_config_hash: 7809ZT5UwXGkBJAcdbqsfvpgn59aj6JZDy-ZoqCpDQs
+entity_types:
+  comment:
+    - comment
+    - comment_node_article
+    - comment_node_page
+  node:
+    - article
+    - document
+    - event
+    - knowledge_base_page
+    - page
+    - webform
+  media:
+    - audio
+    - document
+    - image
+    - remote_video
+    - video
+  taxonomy_term:
+    - access
+    - area
+    - department
+    - office
+    - tags
+  user:
+    - user
+sidebar_width: 30
+full_width: 70
+ajax_content_update: true
+hover_highlight: true
+exclude_fields: {  }
+automatic_preview: false
+primary_color: '#a9a9a9'
+ui_toggle: true
+ui_toggle_settings:
+  offset_top: ''
+  offset_bottom: '50'
+  offset_left: ''
+  offset_right: '50'
+duplicate_action_links:
+  height: 300
+action_links_in_viewport: _none

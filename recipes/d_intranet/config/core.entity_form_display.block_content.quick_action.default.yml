@@ -1,0 +1,48 @@
+uuid: 5b1af886-bea8-42e7-9958-12fc76e87f27
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.quick_action
+    - field.field.block_content.quick_action.field_quick_action
+    - field.field.block_content.quick_action.field_quick_action_icon
+  module:
+    - iconify_field
+    - link
+id: block_content.quick_action.default
+targetEntityType: block_content
+bundle: quick_action
+mode: default
+content:
+  field_quick_action:
+    type: link_default
+    weight: 26
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+  field_quick_action_icon:
+    type: iconify_field_icon_picker
+    weight: 27
+    region: content
+    settings:
+      default_collection: null
+      collections: {  }
+    third_party_settings: {  }
+  info:
+    type: string_textfield
+    weight: -5
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+hidden: {  }

@@ -1,0 +1,9 @@
+uuid: 332bbac3-f7e3-4970-8c8f-d7ed7fbb8c97
+langcode: en
+status: true
+dependencies: {  }
+name: Office
+vid: office
+description: 'Use Office taxonomy to assign user to location.'
+weight: 0
+new_revision: false

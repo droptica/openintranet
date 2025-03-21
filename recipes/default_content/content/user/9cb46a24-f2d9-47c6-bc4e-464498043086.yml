@@ -1,0 +1,77 @@
+_meta:
+  version: '1.0'
+  entity_type: user
+  uuid: 9cb46a24-f2d9-47c6-bc4e-464498043086
+  default_langcode: en
+  depends:
+    96ba59d8-a4fb-4bed-adb6-b01518abd664: taxonomy_term
+    606a5646-8762-486e-a9fa-228bd7610f3b: taxonomy_term
+    4f47133d-2e96-429b-be28-36bbdbe3a9dd: file
+default:
+  preferred_langcode:
+    -
+      value: en
+  name:
+    -
+      value: isabelle.lemoine
+  pass:
+    -
+      value: $2y$10$mDWDBmAdevarBx/k4BvT/.6Y4gwBKgqnjcCW49yiHHEKKJl37Z5Ua
+      existing: ''
+      pre_hashed: false
+  mail:
+    -
+      value: isabelle.lemoine@example.com
+  timezone:
+    -
+      value: Europe/Amsterdam
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1738843814
+  access:
+    -
+      value: 0
+  login:
+    -
+      value: 0
+  path:
+    -
+      alias: /users/isabellelemoine
+      langcode: en
+      pathauto: 1
+  field_about:
+    -
+      value: 'Bonjour! I’m Isabelle, a Senior Customer Support Agent in our Paris Office. My focus is on managing escalated cases, providing training to new agents, and improving our customer service processes. With over five years of experience, I’ve honed my communication skills and problem-solving abilities to ensure customer satisfaction is always prioritized. I love mentoring others and helping my team grow.'
+  field_department:
+    -
+      entity: 96ba59d8-a4fb-4bed-adb6-b01518abd664
+  field_first_name:
+    -
+      value: Isabelle
+  field_last_name:
+    -
+      value: Lemoine
+  field_name:
+    -
+      value: 'Senior Customer Support Agent'
+  field_office:
+    -
+      entity: 606a5646-8762-486e-a9fa-228bd7610f3b
+  field_phone:
+    -
+      value: '+33123456789'
+  field_social_links:
+    -
+      uri: 'https://linkedin.com'
+      title: Linkedin
+      options: {  }
+  user_picture:
+    -
+      entity: fc5045ba-f94b-438e-8960-109146dcd74f
+      alt: ''
+      title: ''
+      width: 1024
+      height: 1024

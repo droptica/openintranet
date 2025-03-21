@@ -1,0 +1,25 @@
+uuid: 0b9f1d8e-5535-4a97-a166-ef03aff85f7f
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.footer---legal-compliance
+  module:
+    - system
+  theme:
+    - d_theme
+id: d_theme_footerlegalcompliance
+theme: d_theme
+region: footer_third
+weight: -13
+provider: null
+plugin: 'system_menu_block:footer---legal-compliance'
+settings:
+  id: 'system_menu_block:footer---legal-compliance'
+  label: 'Legal & Compliance'
+  label_display: visible
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility: {  }

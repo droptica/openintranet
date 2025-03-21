@@ -1,0 +1,8 @@
+uuid: ef20ea3c-87f5-40ee-a6fb-6b978b302bd0
+langcode: en
+status: true
+dependencies: {  }
+id: footer---quick-links
+label: 'Footer - Quick Links'
+description: "The Footer shows Quick Links links\t"
+locked: false

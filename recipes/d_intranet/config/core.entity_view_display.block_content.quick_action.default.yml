@@ -1,0 +1,38 @@
+uuid: 65823f74-1b57-4790-9a30-015c3f4d5fea
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.quick_action
+    - field.field.block_content.quick_action.field_quick_action
+    - field.field.block_content.quick_action.field_quick_action_icon
+  module:
+    - iconify_field
+    - link
+id: block_content.quick_action.default
+targetEntityType: block_content
+bundle: quick_action
+mode: default
+content:
+  field_quick_action:
+    type: link_separate
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_quick_action_icon:
+    type: iconify_field_icon_formatter
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  langcode: true
+  search_api_excerpt: true

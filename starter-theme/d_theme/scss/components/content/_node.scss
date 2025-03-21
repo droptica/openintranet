@@ -1,0 +1,355 @@
+@import "../../mixins/text";
+
+.path-node {
+  article.node--view-mode-full {
+    background-color: $white;
+    border: none;
+    border-radius: $border-radius;
+    padding: 1.5rem;
+
+    header {
+      &[data-has-background] {
+        margin: -1.5rem;
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+        min-height: 500px;
+
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+
+        color: $white;
+
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
+        justify-content: flex-end;
+        gap: .5rem;
+
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+
+        h1 {
+          margin-top: 0;
+        }
+
+        .node__meta {
+          em {
+            color: $white;
+          }
+        }
+      }
+
+      .node {
+        &__meta {
+          display: flex;
+          align-items: center;
+          flex-wrap: wrap;
+          gap: 18px;
+
+          &__authors {
+            display: flex;
+            flex-direction: row;
+
+            .field--name-user-picture {
+              margin: 0;
+              padding: 0;
+
+              img {
+                border: 1px solid $body-secondary-color;
+                border-radius: 50%;
+                width: 26px;
+                height: auto;
+              }
+            }
+
+            & > article:not(:first-child) {
+              margin-left: -8px;
+            }
+          }
+
+          * {
+            margin-top: 0;
+            margin-bottom: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+          }
+
+          em {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            color: $dark-navy-300;
+            font-style: normal;
+
+            @include body-500;
+
+            .profile {
+              padding: 0;
+            }
+          }
+
+          .field--name-field-classification, .field--name-field-access, .field--name-field-data-classification {
+            &, * a {
+              background: $blue-500;
+              color: $white;
+              padding: 2px 6px;
+              border-radius: .5 * $border-radius;
+
+              @include body-300;
+            }
+
+            &--public {
+              &, * a {
+                background: $green-500;
+              }
+            }
+
+            &--internal {
+              &, * a {
+                background: $yellow-500;
+              }
+            }
+
+            &--confidential {
+              &, * a {
+                background: $orange-500;
+              }
+            }
+
+            &--restricted {
+              &, * a {
+                background: $red-500;
+              }
+            }
+          }
+        }
+
+        &__title {
+          margin-bottom: 1.5rem;
+          margin-top: .5rem;
+
+          .field--name-title {
+            @include heading-2;
+          }
+        }
+      }
+    }
+
+    .node__content {
+      gap: 1rem;
+      display: flex;
+      flex-direction: column;
+
+      .field {
+        .field__label {
+          @include heading-6;
+
+          padding-bottom: 12px;
+          text-transform: uppercase;
+        }
+
+        &--type {
+          &-geofield {
+            .leaflet-container {
+              border-radius: .5 * $border-radius;
+            }
+
+            .leaflet-control-zoom a {
+              padding: 0;
+            }
+          }
+
+          &-entity-reference {
+            .field__items {
+              display: flex;
+              flex-direction: column;
+              gap: 10px;
+
+              .field__item {
+                border: none;
+                padding: 0;
+
+                a {
+                  color: $body-tertiary-color;
+                  padding: 0;
+
+                  @include body-500;
+
+                  &:hover {
+                    color: $body-secondary-color;
+                  }
+                }
+              }
+            }
+
+            &--taxonomy-term {
+              .field__items {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 8px;
+
+                li, .field__item {
+                  padding: 0;
+
+                  a {
+                    background: $blue-100;
+                    color: $blue-500;
+                    padding: 4px 12px;
+                    border-radius: .5 * $border-radius;
+
+                    @include body-400;
+                  }
+                }
+              }
+            }
+
+            &--media {
+              .field__items {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: unset;
+                gap: unset;
+
+                img {
+                  border-radius: .5 * $border-radius;
+                }
+              }
+            }
+          }
+        }
+
+        &--name {
+          &-field-document-ref {
+            .accordion {
+              --bs-accordion-color: #{$dark-navy-900};
+              --bs-accordion-bg: #{$white};
+              --bs-accordion-active-color: #{$white};
+              --bs-accordion-active-bg: #{$blue-600};
+              --bs-accordion-border-width: 0;
+              --bs-accordion-btn-padding-x: 2.5rem;
+              --bs-accordion-btn-padding-y: 1rem;
+              --bs-accordion-btn-color: #{$white};
+              --bs-accordion-btn-bg: #{$blue-600};
+              --bs-accordion-body-padding-x: 0;
+              --bs-accordion-body-padding-y: 0;
+
+              .accordion-header .accordion-button {
+                @include heading-4;
+
+                &::after {
+                  filter: invert(1);
+                }
+              }
+
+              .accordion-body {
+                .field__item {
+                  border-bottom: 1px solid $dark-navy-100;
+
+                  .documents-item {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: .5rem 1rem;
+
+                    @include body-500;
+
+                    font-weight: 600;
+
+                    .documents-item__file {
+                      display: flex;
+                      align-items: center;
+
+                      .documents-item__download {
+                        display: inline-flex;
+                        align-items: center;
+
+                        img {
+                          width: 24px;
+                          height: 24px;
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .inline__links {
+    margin-top: 2rem;
+
+    .book-add-child, .book-add-sibling, .book-printer {
+      a {
+        color: $blue-500;
+
+        &:hover {
+          color: $body-color;
+          text-decoration: none;
+        }
+      }
+
+      a {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+
+        &::before {
+          content: "";
+          display: inline-block;
+          width: 20px;
+          height: 20px;
+          background-color: currentColor;
+          mask-image: url('../images/icons/notification.svg');
+          mask-size: contain;
+          mask-repeat: no-repeat;
+          mask-position: center;
+        }
+      }
+    }
+
+    .book-add-child {
+      a::before {
+        mask-image: url('../images/icons/combine.svg');
+      }
+    }
+
+    .book-add-sibling {
+      a::before {
+        mask-image: url('../images/icons/copy.svg');
+      }
+    }
+
+    .book-printer {
+      a::before {
+        mask-image: url('../images/icons/printer.svg');
+      }
+    }
+  }
+}
+
+#main > div:not(:has(.sidebar)) {
+  article.node--view-mode-full {
+    .node__content {
+      padding: 1rem 1rem;
+
+      @include media-breakpoint-up(lg) {
+        padding: 1rem 7.5rem 3.5rem;
+      }
+    }
+
+    header:not([data-has-background]) {
+      padding: 1rem 1rem 0;
+
+      @include media-breakpoint-up(lg) {
+        padding: 0 7.5rem;
+      }
+    }
+  }
+}

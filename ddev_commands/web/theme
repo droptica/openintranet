@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+THEME_DIR="/var/www/html/web/themes/custom/d_theme"
+
+# Install d_theme npm packages.
+cd  ${THEME_DIR}
+npm install
+
+# Check if user wants instant-update.
+if [ "$1" == "compile" ]; then
+  echo "Compiling styles, minified version."
+  gulp
+fi

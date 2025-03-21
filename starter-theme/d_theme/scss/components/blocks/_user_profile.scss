@@ -1,0 +1,190 @@
+@import "../../mixins/text";
+
+body.path-user .user--profile {
+  &__profile-image {
+    img {
+      border: 2px solid $blue-500;
+    }
+  }
+}
+
+body.page-view-employee-directory-view {
+  .user--profile {
+    border: 1px solid $blue-100;
+  }
+
+  .views-row {
+    padding: 0.5rem;
+  }
+
+  .row {
+    --bs-gutter-x: 1rem;
+    --bs-gutter-y: 1rem;
+  }
+
+  #block-user-profile-block  {
+    padding: 0;
+  }
+}
+
+body.path-user {
+  .sidebar_first {
+    padding-right: 0;
+  }
+
+  .main-content {
+    padding-left: 0;
+  }
+}
+
+body.path-user .user--profile, body.page-view-employee-directory-view .user--profile {
+  height: 100%;
+
+  &__profile-image {
+    display: flex;
+    justify-content: center;
+
+    img {
+      border-radius: 50%;
+      border: 2px solid transparent;
+    }
+  }
+
+  &__full-name {
+    display: flex;
+    justify-content: center;
+    color: $body-color;
+
+    @include heading-4;
+  }
+
+  &__name {
+    display: flex;
+    justify-content: center;
+    color: $gray-500;
+
+    @include subtitle-300;
+  }
+
+  &__phone, &__email {
+    padding: .3rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    word-wrap: break-word;
+  }
+
+  hr {
+    margin: 1rem 0;
+    color: $navy-gray-100;
+  }
+
+  &__data {
+    .field {
+      &__label {
+        color: $body-secondary-color;
+      }
+
+      &__item {
+        padding: 0;
+        border-radius: unset;
+        background: white;
+        min-width: unset;
+        margin: .25rem 0;
+      }
+    }
+  }
+
+  .field--name-field-social-links {
+    a {
+      @include link-hover;
+    }
+  }
+
+  .field:not(.field--name-field-social-links) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+  }
+
+  .field__label {
+    color: $body-color;
+
+    @include body-500;
+  }
+
+  .field__item, .field__item > * {
+    color: $body-tertiary-color;
+
+    @include body-500;
+
+    a {
+      @include body-500;
+    }
+  }
+
+  &__phone, &__email, .field--name-field-department, .field--name-field-office, .field--name-field-manager {
+    display: flex;
+    justify-content: flex-start;
+    gap: 0;
+
+    .field__label {
+      width: 40%;
+    }
+
+    .field__item, .field__item > * {
+      width: 60%;
+
+      a {
+        width: 100%;
+        padding-left: 0;
+        padding-right: 0;
+
+        @include link-no-hover;
+        @include body-500;
+      }
+    }
+
+    & > a {
+      width: 50%;
+      padding-left: 0;
+      padding-right: 0;
+
+      @include link-no-hover;
+      @include body-500;
+    }
+  }
+}
+
+.block-views-blockuser-profile-block-about-me, .block-views-blocklatest-user-comments-block-1 {
+  color: $body-tertiary-color;
+  @include media-breakpoint-up(lg) {
+    padding-left: 0;
+  }
+
+  @include body-500;
+
+  h2 {
+    @include heading-4;
+  }
+
+  .view-id-user_profile, .view-id-latest_user_comments {
+    padding: 0;
+  }
+}
+
+#block-user-profile-block {
+  .view-user-profile {
+    @include media-breakpoint-up(lg) {
+      border-right: 1px solid $dark-navy-100;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+}
+
+.comment__content:after, .comment__content:before {
+  display: none;
+}

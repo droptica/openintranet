@@ -1,0 +1,41 @@
+_meta:
+  version: '1.0'
+  entity_type: taxonomy_term
+  uuid: c0af832d-005f-40df-bc8d-170f506b48dc
+  bundle: office
+  default_langcode: en
+default:
+  status:
+    -
+      value: true
+  name:
+    -
+      value: 'Berlin Office'
+  description:
+    -
+      value: '<p>Our headquarters, located in the heart of Berlin, handling European operations and executive management.</p>'
+      format: full_html
+  weight:
+    -
+      value: 0
+  parent:
+    -
+      target_id: 0
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /office/berlin-office
+      langcode: en
+      pathauto: 1
+  field_address:
+    -
+      langcode: en
+      country_code: DE
+      administrative_area: ''
+      locality: Berlin
+      dependent_locality: ''
+      postal_code: '10785'
+      sorting_code: ''
+      address_line1: 'Potsdamer Platz 10'

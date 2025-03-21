@@ -1,0 +1,22 @@
+diff --git a/permissions_by_term.module b/permissions_by_term.module
+index a95248d..5cc9ab6 100644
+--- a/permissions_by_term.module
++++ b/permissions_by_term.module
+@@ -253,7 +253,7 @@ function permissions_by_term_form_user_form_alter(&$form, FormStateInterface $fo
+       '#title' => \Drupal::translation()->translate('Permissions'),
+       '#description' => \Drupal::translation()->translate('Extend content access by giving access to the related taxonomy terms.'),
+       '#open' => TRUE,
+-      '#weight' => -10,
++      '#weight' => 99,
+     ];
+ 
+     /** @var \Drupal\Core\Entity\EntityForm $profileForm */
+@@ -270,7 +270,7 @@ function permissions_by_term_form_user_form_alter(&$form, FormStateInterface $fo
+       '#type' => 'details',
+       '#title' => \Drupal::translation()->translate('Vocabularies'),
+       '#open' => TRUE,
+-      '#weight' => -10,
++      '#weight' => 99,
+       '#tree' => TRUE,
+     ];
+ 

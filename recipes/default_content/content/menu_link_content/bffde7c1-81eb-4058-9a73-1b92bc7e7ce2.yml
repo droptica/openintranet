@@ -1,0 +1,42 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: bffde7c1-81eb-4058-9a73-1b92bc7e7ce2
+  bundle: menu_link_content
+  default_langcode: en
+  depends:
+    99d7c19a-2c96-49d9-be2b-166324063f4f: menu_link_content
+    4f8dd094-34f6-480d-bdda-97b5f3a82f36: node
+default:
+  enabled:
+    -
+      value: true
+  title:
+    -
+      value: 'Customer support'
+  menu_name:
+    -
+      value: main
+  link:
+    -
+      target_uuid: 4f8dd094-34f6-480d-bdda-97b5f3a82f36
+      title: ''
+      options: {  }
+  external:
+    -
+      value: false
+  rediscover:
+    -
+      value: false
+  weight:
+    -
+      value: -47
+  expanded:
+    -
+      value: false
+  parent:
+    -
+      value: 'menu_link_content:99d7c19a-2c96-49d9-be2b-166324063f4f'
+  revision_translation_affected:
+    -
+      value: true

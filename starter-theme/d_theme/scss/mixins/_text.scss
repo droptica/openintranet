@@ -1,0 +1,200 @@
+@mixin heading-sm {
+  font-family: $font-family-sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+}
+
+@mixin heading-1 {
+  font-family: $font-family-sans-serif;
+  font-size: $h1-font-size;
+  line-height: 64px;
+  font-weight: 600;
+}
+
+@mixin heading-2 {
+  font-family: $font-family-sans-serif;
+  font-size: $h2-font-size;
+  line-height: 48px;
+  font-weight: 600;
+}
+
+@mixin heading-3 {
+  font-family: $font-family-sans-serif;
+  font-size: $h3-font-size;
+  line-height: 40px;
+  font-weight: 700;
+}
+
+@mixin heading-4 {
+  font-family: $font-family-sans-serif;
+  font-size: $h4-font-size;
+  line-height: 32px;
+  font-weight: 700;
+}
+
+@mixin heading-5 {
+  font-family: $font-family-sans-serif;
+  font-size: $h5-font-size;
+  line-height: 24px;
+  font-weight: 700;
+}
+
+@mixin heading-6 {
+  font-family: $font-family-sans-serif;
+  font-size: $h6-font-size;
+  line-height: 20px;
+  font-weight: 700;
+}
+
+@mixin subtitle-600 {
+  font-family: $font-family-sans-serif;
+  font-size: 40px;
+  font-weight: 400;
+  line-height: 48px;
+}
+
+@mixin subtitle-500 {
+  font-family: $font-family-sans-serif;
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 38px;
+}
+
+@mixin subtitle-400 {
+  font-family: $font-family-sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+@mixin subtitle-300 {
+  font-family: $font-family-sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16px;
+}
+
+@mixin body-700 {
+  font-family: $font-family-sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 22px;
+}
+
+@mixin body-700-bold {
+  font-family: $font-family-sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 22px;
+}
+
+@mixin body-500 {
+  font-family: $font-family-sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+@mixin body-500-bold {
+  font-family: $font-family-sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+}
+
+@mixin body-400 {
+  font-family: $font-family-sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+}
+
+@mixin body-400-bold {
+  font-family: $font-family-sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 18px;
+}
+
+@mixin body-300 {
+  font-family: $font-family-sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+}
+
+@mixin body-300-bold {
+  font-family: $font-family-sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 18px;
+}
+
+@mixin body-italic {
+  font-style: italic;
+}
+
+@mixin link-base {
+  color: $body-color;
+  font-size: $link-font-size;
+  line-height: 1.55 * $link-font-size;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-decoration: none;
+  position: relative;
+  transition: background-color 0.2s ease;
+  word-wrap: break-word;
+}
+
+@mixin link-hover {
+  display: block;
+  padding-left: 8px;
+  padding-right: 8px;
+
+  @include link-base;
+
+  &:hover {
+    text-decoration: none;
+    background-color: $navy-gray-25;
+    color: $blue-500;
+    border-radius: 8px;
+    font-weight: 500;
+  }
+}
+
+@mixin link-no-hover {
+  display: block;
+  padding-left: 0;
+  padding-right: 0;
+
+  @include link-base;
+
+  color: $body-secondary-color;
+
+  &:hover {
+    text-decoration: none;
+    color: $body-color;
+    background-color: unset;
+  }
+}
+
+h1 {
+  @include heading-2;
+}
+
+h2 {
+  @include heading-4;
+}
+
+h3 {
+  @include heading-5;
+}
+
+h4 {
+  @include heading-6;
+}
+
+h5 {
+  @include body-700;
+}

@@ -1,0 +1,38 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: 6be2e688-df27-4727-832b-0d7efe5714e5
+  bundle: menu_link_content
+  default_langcode: en
+  depends:
+    3774fc33-b4b2-4b89-83b2-016312e7cf87: node
+default:
+  enabled:
+    -
+      value: false
+  title:
+    -
+      value: Documents
+  menu_name:
+    -
+      value: main
+  link:
+    -
+      target_uuid: 3774fc33-b4b2-4b89-83b2-016312e7cf87
+      title: ''
+      options: {  }
+  external:
+    -
+      value: false
+  rediscover:
+    -
+      value: false
+  weight:
+    -
+      value: -43
+  expanded:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true

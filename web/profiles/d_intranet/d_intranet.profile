@@ -1,0 +1,436 @@
+<?php
+
+/**
+ * @file
+ * Intranet install tasks.
+ */
+
+declare(strict_types=1);
+
+use Drupal\Core\Recipe\Recipe;
+use Drupal\Core\Recipe\RecipeRunner;
+use Drupal\user\Entity\User;
+use Drupal\d_intranet\Form\RecipesForm;
+use Drupal\Core\Form\FormStateInterface;
+use Symfony\Component\Process\Process;
+use Symfony\Component\Yaml\Yaml;
+
+/**
+ * Implements hook_install_tasks().
+ */
+function d_intranet_install_tasks(&$install_state): array {
+  // Check for demo content parameter from drush.
+  if (!empty($install_state['forms']['install_configure_form']['enable_demo_content'])) {
+    if (!isset($install_state['parameters'])) {
+      $install_state['parameters'] = [];
+    }
+    $install_state['parameters']['recipes'] = ['default_content'];
+  }
+
+  // Force content recipe to run if selected.
+  $has_content = !empty($install_state['parameters']['recipes']) &&
+    in_array('default_content', $install_state['parameters']['recipes']);
+
+  $tasks = [
+    'd_intranet_apply_core_recipe' => [
+      'display_name' => t('Install Intranet'),
+      'type' => 'batch',
+      'run' => INSTALL_TASK_RUN_IF_NOT_COMPLETED,
+      'function' => 'd_intranet_apply_core_recipe',
+    ],
+  ];
+
+  // Only show recipes form if demo content not enabled via drush.
+  if (empty($install_state['forms']['install_configure_form']['enable_demo_content'])) {
+    $tasks['d_intranet_choose_recipes'] = [
+      'display_name' => t('Choose content'),
+      'type' => 'form',
+      'run' => INSTALL_TASK_RUN_IF_NOT_COMPLETED,
+      // @phpstan-ignore-next-line
+      'function' => RecipesForm::class,
+    ];
+  }
+
+  // Add content recipe task if selected.
+  if ($has_content) {
+    $tasks['d_intranet_apply_content_recipe'] = [
+      'display_name' => t('Install demo content'),
+      'type' => 'batch',
+      'run' => INSTALL_TASK_RUN_IF_NOT_COMPLETED,
+      'function' => 'd_intranet_apply_content_recipe',
+    ];
+  }
+
+  $tasks['d_intranet_install_finished'] = [
+    'display_name' => t('Finishing up'),
+    'type' => 'batch',
+    'function' => 'd_intranet_install_finished',
+  ];
+
+  return $tasks;
+}
+
+/**
+ * Implements hook_install_tasks_alter().
+ */
+function d_intranet_install_tasks_alter(array &$tasks, array $install_state): void {
+  // Insert our tasks after the configure form.
+  $configure_form_position = array_search('install_configure_form', array_keys($tasks), TRUE);
+  if ($configure_form_position !== FALSE) {
+    $tasks_before = array_slice($tasks, 0, $configure_form_position + 1, TRUE);
+    $tasks_after = array_slice($tasks, $configure_form_position + 1, NULL, TRUE);
+
+    // Get our tasks.
+    $our_tasks = d_intranet_install_tasks($install_state);
+
+    $tasks = $tasks_before + $our_tasks + $tasks_after;
+  }
+
+  // Set the language code to English.
+  $GLOBALS['install_state']['parameters'] += ['langcode' => 'en'];
+  $tasks['install_select_language']['run'] = INSTALL_TASK_SKIP;
+}
+
+/**
+ * Wrapper for recipe operations that handles non-critical errors.
+ */
+function d_intranet_recipe_operation(array $operation, array &$context): void {
+  try {
+    [$class, $method] = $operation[0];
+    $args = $operation[1];
+    $class::$method(...$args);
+  }
+  catch (\Exception $e) {
+    error_log($e->getMessage());
+  }
+}
+
+/**
+ * Applies the core Intranet recipe.
+ */
+function d_intranet_apply_core_recipe(array &$install_state): array {
+  $recipe_dir = DRUPAL_ROOT . '/../recipes/d_intranet';
+  if (!is_dir($recipe_dir)) {
+    error_log("Intranet recipe directory not found at: $recipe_dir");
+    return [];
+  }
+
+  try {
+    $recipe = Recipe::createFromDirectory($recipe_dir);
+    $recipe_operations = RecipeRunner::toBatchOperations($recipe);
+
+    // Wrap each operation with our error handler.
+    $operations = [];
+    foreach ($recipe_operations as $operation) {
+      $operations[] = [
+        'd_intranet_recipe_operation',
+        [$operation],
+      ];
+    }
+
+    $operations[] = ['d_intranet_download_webform_libraries', []];
+
+    return [
+      'operations' => $operations,
+      'title' => t('Installing Intranet'),
+      'progress_message' => t('Installing Intranet... @current out of @total steps.'),
+      'finished' => 'd_intranet_recipe_finished',
+    ];
+  }
+  catch (\Exception $e) {
+    error_log("Error applying Intranet recipe: " . $e->getMessage());
+    return [];
+  }
+}
+
+/**
+ * Applies the content recipe if selected.
+ */
+function d_intranet_apply_content_recipe(array &$install_state): array {
+  // Check if recipe is selected either via drush or form.
+  if (empty($install_state['parameters']['recipes']) &&
+    empty($install_state['forms']['install_configure_form']['enable_demo_content'])) {
+    return [];
+  }
+
+  $recipe_dir = DRUPAL_ROOT . '/../recipes/default_content';
+  if (!is_dir($recipe_dir)) {
+    return [];
+  }
+
+  try {
+    $recipe = Recipe::createFromDirectory($recipe_dir);
+    $operations = RecipeRunner::toBatchOperations($recipe);
+
+    $operations[] = ['d_intranet_import_book_structure', []];
+    $operations[] = ['d_intranet_index_content', []];
+    $operations[] = ['d_intranet_index_site_map', []];
+
+    // Return batch array.
+    return [
+      'operations' => $operations,
+      'title' => t('Installing demo content'),
+      'init_message' => t('Starting demo content installation...'),
+      'progress_message' => t('Installing demo content... @current out of @total steps.'),
+      'error_message' => t('An error occurred. The installation will continue.'),
+      'finished' => 'd_intranet_content_recipe_finished',
+    ];
+  }
+  catch (\Exception $e) {
+    error_log($e->getMessage());
+    return [];
+  }
+}
+
+/**
+ * Finished callback for content recipe.
+ */
+function d_intranet_content_recipe_finished($success, $results, $operations) {
+  if ($success) {
+    try {
+      // Clear all caches to ensure content is visible.
+      drupal_flush_all_caches();
+
+      // Update entity type definitions.
+      $entityTypeManager = \Drupal::entityTypeManager();
+      $entityTypeManager->clearCachedDefinitions();
+
+      // Update entity schema if needed.
+      $entityUpdateManager = \Drupal::entityDefinitionUpdateManager();
+      $pendingUpdates = $entityUpdateManager->getChangeList();
+      if (!empty($pendingUpdates)) {
+        foreach ($entityUpdateManager->getChangeSummary() as $entity_type_id => $changes) {
+          foreach ($changes as $change) {
+            error_log("Applying entity schema update for $entity_type_id: $change");
+          }
+        }
+        $entityUpdateManager->getChangeList();
+      }
+    }
+    catch (\Exception $e) {
+      error_log("Non-critical error during content recipe cleanup: " . $e->getMessage());
+    }
+  }
+  else {
+    error_log("Content recipe application failed");
+    if (!empty($results['errors'])) {
+      foreach ($results['errors'] as $error) {
+        error_log($error);
+      }
+    }
+  }
+}
+
+/**
+ * Batch operation finished callback.
+ */
+function d_intranet_recipe_finished($success, $results, $operations) {
+  if ($success) {
+    error_log("Recipe applied successfully");
+  }
+  else {
+    error_log("Recipe application failed");
+    if (!empty($results['errors'])) {
+      foreach ($results['errors'] as $error) {
+        error_log($error);
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for install_configure_form.
+ */
+function d_intranet_form_install_configure_form_alter(&$form, FormStateInterface $form_state): void {
+  // Hide the update notification setting (we enable update module later).
+  $form['update_notifications']['#access'] = FALSE;
+}
+
+/**
+ * Finish callback for the installer.
+ */
+function d_intranet_install_finished(&$install_state) {
+  \Drupal::messenger()->deleteAll();
+
+  try {
+    // Switch to d_intranet.
+    \Drupal::service('theme_installer')->install(['d_theme']);
+    \Drupal::service('theme_installer')->install(['claro']);
+    \Drupal::configFactory()
+      ->getEditable('system.theme')
+      ->set('default', 'd_theme')
+      ->set('admin', 'claro')
+      ->save();
+  }
+  catch (\Exception $e) {
+    error_log($e->getMessage());
+  }
+
+  // Load user 1 and log them in.
+  $user = User::load(1);
+  if ($user) {
+    user_login_finalize($user);
+  }
+}
+
+/**
+ * Custom submit handler to update the site email.
+ */
+function d_intranet_update_site_mail(array &$form, FormStateInterface $form_state): void {
+  \Drupal::configFactory()
+    ->getEditable('system.site')
+    ->set('mail', $form_state->getValue(['admin_account', 'account', 'mail']))
+    ->save();
+}
+
+/**
+ * Submit handler to store form values.
+ */
+function d_intranet_install_configure_form_submit(array &$form, FormStateInterface $form_state): void {
+  global $install_state;
+
+  // Store the values in install_state for later use.
+  $install_state['forms']['install_configure_form'] = [
+    'account' => [
+      'name' => $form_state->getValue(['admin_account', 'account', 'name']),
+      'mail' => $form_state->getValue(['admin_account', 'account', 'mail']),
+      'pass' => $form_state->getValue(['admin_account', 'account', 'pass']),
+    ],
+  ];
+}
+
+/**
+ * Indexes the content after recipe application.
+ */
+function d_intranet_index_content($context): void {
+  try {
+    // Execute drush sapi-i command.
+    $process = new Process(['drush', 'sapi-i', '--yes']);
+    $process->setWorkingDirectory(DRUPAL_ROOT);
+    $process->run();
+
+    if (!$process->isSuccessful()) {
+      throw new \Exception($process->getErrorOutput());
+    }
+
+    $context['message'] = t('Content indexed successfully');
+  }
+  catch (\Exception $e) {
+    \Drupal::messenger()->addError(t('Error indexing content: @error', ['@error' => $e->getMessage()]));
+  }
+}
+
+/**
+ * Indexes the site map after recipe application.
+ */
+function d_intranet_index_site_map($context): void {
+  try {
+    // Execute drush ssg command.
+    $process = new Process(['drush', 'ssg', '--yes']);
+    $process->setWorkingDirectory(DRUPAL_ROOT);
+    $process->run();
+
+    if (!$process->isSuccessful()) {
+      throw new \Exception($process->getErrorOutput());
+    }
+
+    $context['message'] = t('Sitemap indexed successfully');
+  }
+  catch (\Exception $e) {
+    \Drupal::messenger()->addError(t('Error indexing sitemap: @error', ['@error' => $e->getMessage()]));
+  }
+}
+
+/**
+ * Webform libraries download recipe application.
+ */
+function d_intranet_download_webform_libraries($context): void {
+  try {
+    // Execute drush webform:libraries:download command.
+    $process = new Process(['drush', 'webform:libraries:download', '--yes']);
+    $process->setWorkingDirectory(DRUPAL_ROOT);
+    $process->run();
+
+    if (!$process->isSuccessful()) {
+      throw new \Exception($process->getErrorOutput());
+    }
+
+    $context['message'] = t('Webform libraries downloaded successfully');
+  }
+  catch (\Exception $e) {
+    \Drupal::messenger()->addError(t('Error downloading libraries: @error', ['@error' => $e->getMessage()]));
+  }
+}
+
+/**
+ * Batch operation to import book structure after content import.
+ *
+ * @param array $context
+ *   Batch context.
+ */
+function d_intranet_import_book_structure(array &$context): void {
+  $book_structure_file = DRUPAL_ROOT . '/../recipes/default_content/book/book.structure.yml';
+
+  if (!file_exists($book_structure_file)) {
+    $context['message'] = t('Book structure file not found. Skipping book structure import.');
+    return;
+  }
+
+  try {
+    $book_structure = Yaml::parse(file_get_contents($book_structure_file));
+
+    /** @var \Drupal\book\BookManagerInterface $book_manager */
+    $book_manager = \Drupal::service('book.manager');
+    /** @var \Drupal\Core\Entity\EntityRepositoryInterface $entity_repository */
+    $entity_repository = \Drupal::service('entity.repository');
+    /** @var \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager */
+
+    $uuid_map = [];
+
+    foreach ($book_structure as $link) {
+      $converted_link = [];
+
+      foreach ($link as $key => $uuid) {
+        if ($uuid === null) {
+          $converted_link[$key] = 0;
+          continue;
+        }
+
+        if (!in_array($key, ['nid', 'bid', 'pid']) || empty($uuid)) {
+          $converted_link[$key] = $uuid;
+          continue;
+        }
+
+        if (!isset($uuid_map[$uuid])) {
+          $node = $entity_repository->loadEntityByUuid('node', $uuid);
+          if ($node) {
+            $uuid_map[$uuid] = $node->id();
+          } else {
+            $uuid_map[$uuid] = 0;
+          }
+        }
+
+        $converted_link[$key] = $uuid_map[$uuid];
+      }
+
+      $defaults = [
+        'has_children' => 0,
+        'weight' => 0,
+        'depth' => 1,
+      ];
+
+      foreach ($defaults as $key => $default_value) {
+        if (!isset($converted_link[$key])) {
+          $converted_link[$key] = $default_value;
+        }
+      }
+
+      $book_manager->saveBookLink($converted_link, TRUE);
+    }
+
+    $context['message'] = t('Book structure imported successfully.');
+  }
+  catch (\Exception $e) {
+    error_log($e->getMessage());
+  }
+}

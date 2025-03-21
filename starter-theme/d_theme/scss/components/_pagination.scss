@@ -1,0 +1,46 @@
+@import "../mixins/text";
+
+.pagination {
+  --bs-pagination-color: $body-tertiary-color;
+  --bs-pagination-bg: $white;
+  --bs-pagination-border-width: 0;
+  --bs-pagination-border-color: none;
+  --bs-pagination-hover-color: $blue-500;
+  --bs-pagination-hover-bg: $blue;
+  --bs-pagination-hover-border-color: none;
+  --bs-pagination-focus-color: $blue-500;
+  --bs-pagination-focus-bg: $blue;
+  --bs-pagination-focus-box-shadow: none;
+  --bs-pagination-active-color: $blue-500;
+  --bs-pagination-active-bg: $blue-50;
+  --bs-pagination-active-border-color: none;
+
+  background-color: $white;
+  padding: 1rem 0;
+  justify-content: center;
+  border-radius: $border-radius;
+  margin-bottom: 0;
+
+  .page-item {
+    height: 34px;
+    min-width: 34px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &.active {
+      .page-link {
+        color: $blue-500;
+        background: $blue-100;
+        aspect-ratio: 1 / 1;
+      }
+    }
+
+    .page-link {
+      border-radius: 100%;
+
+      @include body-400-bold;
+    }
+  }
+}

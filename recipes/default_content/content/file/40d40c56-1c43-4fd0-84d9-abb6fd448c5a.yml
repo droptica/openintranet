@@ -1,0 +1,27 @@
+_meta:
+  version: '1.0'
+  entity_type: file
+  uuid: 40d40c56-1c43-4fd0-84d9-abb6fd448c5a
+  default_langcode: en
+default:
+  uid:
+    -
+      target_id: 1
+  filename:
+    -
+      value: 'pobrane (1).jpeg'
+  uri:
+    -
+      value: 'public://pictures/pobrane (1).jpeg'
+  filemime:
+    -
+      value: image/jpeg
+  filesize:
+    -
+      value: 566432
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1738842323

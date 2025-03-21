@@ -1,0 +1,41 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: c64b6c31-65bd-461f-975e-a6c23a2321aa
+  bundle: knowledge_base_page
+  default_langcode: en
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: Strategy
+  created:
+    -
+      value: 1741774906
+  promote:
+    -
+      value: true
+  sticky:
+    -
+      value: false
+  path:
+    -
+      alias: /knowledge/strategy
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: '<h2>Our Strategic Vision</h2><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nec libero vitae nulla malesuada scelerisque. Aenean id enim ac eros venenatis accumsan non sed dolor. Integer consectetur, eros non ultrices fermentum, ligula odio suscipit ex, eu tincidunt nulla sapien sed eros. Phasellus ut turpis at justo convallis consequat et ut lacus.</p><h2>Key Pillars of Our Strategy</h2><h3>Innovation and Technology</h3><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur dictum lorem vel tincidunt scelerisque. Integer et lacus id augue venenatis elementum sed ac lorem. Nullam euismod fermentum dolor a eleifend. Aenean tincidunt lacus sed justo vulputate, sed tempus urna aliquet.</p><h3>Customer-Centric Approach</h3><p>Suspendisse in nunc non mi suscipit vulputate. Nulla facilisi. Ut venenatis euismod nisi, at tempor enim tincidunt non. Proin a magna vel eros interdum suscipit. Curabitur euismod, nisi eget sollicitudin suscipit, ligula lectus tempor metus, eget malesuada ligula nunc at velit.</p><h3>Sustainable Growth</h3><p>Vivamus sagittis augue sed lectus hendrerit, non scelerisque ligula vestibulum. Fusce a metus eget lectus viverra consequat. Integer at convallis velit. Mauris fermentum, augue nec tristique vehicula, nisl augue pharetra orci, vel venenatis sapien felis at lacus.</p><h2>Achieving Long-Term Success</h2><p>Nunc scelerisque nunc vel libero tincidunt tincidunt. Pellentesque tristique, turpis ac suscipit tincidunt, dolor urna porttitor felis, in vestibulum eros ex a velit. Fusce feugiat risus ut orci tristique, ut tincidunt odio fermentum. Morbi sodales ipsum vel libero vulputate, ut fermentum massa dapibus.</p>'
+      format: full_html
+      summary: ''
+  field_data_classification:
+    -
+      value: public

@@ -1,0 +1,41 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 0221e7bc-f60b-4c48-9d95-d90a0d56e30a
+  bundle: knowledge_base_page
+  default_langcode: en
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: Finance
+  created:
+    -
+      value: 1741775363
+  promote:
+    -
+      value: true
+  sticky:
+    -
+      value: false
+  path:
+    -
+      alias: /knowledge/finance
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: '<h4>Financial Overview: Managing Growth</h4><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus nec interdum libero, at euismod libero. Quisque convallis, nulla et maximus gravida, tortor sapien porttitor nulla, sit amet consequat lorem ligula vel mi. Mauris luctus felis at lectus scelerisque, et auctor risus eleifend.</p><h4>Financial Planning and Budgeting</h4><p>Sed vitae quam ut lorem lobortis dapibus. In ac turpis non tortor pellentesque accumsan. Etiam luctus dui nec magna venenatis, nec tincidunt sem fermentum. Morbi suscipit erat sed elit iaculis tincidunt. Fusce ut magna fringilla, aliquam lectus vel, sodales eros.</p><h3>Managing Cash Flow and Investment</h3><p>Nunc sit amet lectus nec dui cursus iaculis sit amet nec neque. Nam venenatis urna at ante dictum, at venenatis neque vulputate. Phasellus malesuada, augue sed iaculis tincidunt, elit dolor fermentum ligula, sit amet dictum justo lorem eget metus. Curabitur gravida urna at leo varius, et laoreet purus luctus.</p><h4>Our Approach to Financial Risk</h4><p>Fusce sed lectus et sem venenatis fermentum. Nunc vestibulum sollicitudin libero, a tincidunt enim maximus nec. Proin at convallis nisi. Nulla facilisi. Cras et eros venenatis, ultricies lectus ac, luctus sapien.</p>'
+      format: full_html
+      summary: ''
+  field_data_classification:
+    -
+      value: public

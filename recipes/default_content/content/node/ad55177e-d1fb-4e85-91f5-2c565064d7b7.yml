@@ -1,0 +1,64 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: ad55177e-d1fb-4e85-91f5-2c565064d7b7
+  bundle: article
+  default_langcode: en
+  depends:
+    97cace76-5a58-4c2d-bc00-91b4bf33d83b: media
+    630ade6c-e56f-4c64-9327-97f588c81536: taxonomy_term
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'NextCorp Introduces New Learning & Development Hub for Employee Growth'
+  created:
+    -
+      value: 1738916247
+  promote:
+    -
+      value: true
+  sticky:
+    -
+      value: true
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /news/nextcorp-introduces-new-learning-development-hub-employee-growth
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: '<p>Investing in learning and development isn’t just beneficial for individual employees—it strengthens our entire organization. As industries evolve and new technologies emerge, staying ahead means constantly improving our skills. With the new Learning &amp; Development Hub, NextCorp employees will have access to an extensive library of courses, workshops, and mentorship opportunities designed to support career progression at every level.</p><p>The hub will feature on-demand training sessions covering a wide range of topics, from technical skills and software proficiency to leadership development and customer service excellence. Employees can explore self-paced courses, participate in instructor-led sessions, or engage in interactive learning experiences tailored to their career goals. Additionally, we’ll be offering role-specific training pathways to help employees gain the expertise needed to advance within their teams.</p><p>For those looking to earn professional certifications, NextCorp will now sponsor select certification programs that align with key business areas. Whether it’s project management, language skills, or advanced IT training, employees will have the opportunity to upskill with financial support from the company. Our goal is to empower our workforce with knowledge and tools that drive both individual and organizational success.</p><p>A major highlight of the Learning &amp; Development Hub is the introduction of personalized learning plans. Employees can create a tailored development roadmap based on their strengths, career aspirations, and feedback from managers. With the ability to track progress and set milestones, employees will have a clear path for growth while receiving guidance and support along the way.</p><p>Beyond formal training, knowledge-sharing is a key aspect of professional development. That’s why we’re launching peer-to-peer learning sessions and an internal expert network where employees can connect with colleagues who have specialized knowledge in different areas. Learning from each other helps us grow collectively, and this initiative will foster a culture of collaboration and continuous improvement.</p><p>The hub will also feature career coaching opportunities, where employees can book one-on-one sessions with experienced mentors or career advisors. Whether you need guidance on your next career move, advice on skill-building, or help navigating new challenges, our coaches are here to support your journey.</p><p>To celebrate the launch of the Learning &amp; Development Hub, we’ll be hosting a virtual career growth week filled with guest speakers, skill-building workshops, and networking sessions. This is a great chance to explore new learning opportunities and connect with colleagues who share your professional interests.</p><p>The Learning &amp; Development Hub is now live on the intranet, so take some time to explore the resources available and start planning your next career milestone. Whether you’re looking to sharpen your skills, explore new opportunities, or take your career to the next level, this is your opportunity to invest in your future with NextCorp.</p><p>&nbsp;</p>'
+      format: full_html
+      summary: ''
+  comment_node_article:
+    -
+      status: 2
+      cid: 2022
+      last_comment_timestamp: 1741946709
+      last_comment_name: ''
+      last_comment_uid: 4170
+      comment_count: 4
+  field_background_image:
+    -
+      entity: 97cace76-5a58-4c2d-bc00-91b4bf33d83b
+  field_intro:
+    -
+      value: 'At NextCorp, we believe that continuous learning is the key to professional success. That’s why we’re launching the Learning & Development Hub, a central platform where employees can access training programs, career development resources, and skill-building opportunities. Whether you’re looking to expand your expertise, earn new certifications, or develop leadership skills, this hub will provide everything you need to grow.'
+  field_news_article_reaction:
+    -
+      status: 2
+  field_tags:
+    -
+      entity: 630ade6c-e56f-4c64-9327-97f588c81536

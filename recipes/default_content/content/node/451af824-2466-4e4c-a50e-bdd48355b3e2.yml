@@ -1,0 +1,41 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 451af824-2466-4e4c-a50e-bdd48355b3e2
+  bundle: knowledge_base_page
+  default_langcode: en
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'HR & Recruitment'
+  created:
+    -
+      value: 1741775330
+  promote:
+    -
+      value: true
+  sticky:
+    -
+      value: false
+  path:
+    -
+      alias: /knowledge/hr-recruitment
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: '<h4>Our Approach to HR &amp; Recruitment</h4><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec convallis erat magna, at varius urna vulputate eu. Phasellus sed sapien euismod, iaculis purus sit amet, varius libero. Nam ut metus id libero efficitur lobortis. Integer volutpat leo id libero malesuada, at rutrum dui tincidunt.</p><h4>Attracting Top Talent</h4><p>Quisque consectetur, eros sit amet feugiat auctor, nisi libero tristique felis, ac laoreet orci leo et turpis. Etiam at elit eu mi volutpat volutpat sit amet et lorem. Morbi non vestibulum purus. Suspendisse vulputate tortor nec nunc iaculis, ut faucibus elit faucibus. Aliquam erat volutpat.</p><h3>Employee Development: Empowering Our Team</h3><p>Pellentesque non sem at risus dapibus malesuada. Cras eget dui ac leo vehicula varius non eu turpis. Integer iaculis, magna at pretium feugiat, felis odio tempus enim, sed gravida magna ipsum non nisi. Mauris mollis ac libero a cursus. Nunc vulputate metus et ante hendrerit.</p><h4>Our Commitment to Diversity and Inclusion</h4><p>Donec vitae convallis lectus. Nam sit amet vehicula nunc. Proin a risus non risus convallis cursus. Integer volutpat urna et turpis sollicitudin convallis. Cras vitae lectus a neque tempus volutpat.</p>'
+      format: full_html
+      summary: ''
+  field_data_classification:
+    -
+      value: restricted

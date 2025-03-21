@@ -1,0 +1,52 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a block.
+ *
+ * Available variables:
+ * - plugin_id: The ID of the block implementation.
+ * - label: The configured label of the block if visible.
+ * - configuration: A list of the block's configuration values.
+ *   - label: The configured label for the block.
+ *   - label_display: The display settings for the label.
+ *   - provider: The module or other provider that provided this block plugin.
+ *   - Block plugin specific settings will also be stored here.
+ * - content: The content of this block.
+ * - attributes: array of HTML attributes populated by modules, intended to
+ *   be added to the main container tag of this template.
+ *   - id: A valid HTML ID and guaranteed unique.
+ * - title_attributes: Same as attributes, except applied to the main title
+ *   tag that appears in the template.
+ * - content_attributes: Same as attributes, except applied to the main content
+ *   tag that appears in the template.
+ * - title_prefix: Additional output populated by modules, intended to be
+ *   displayed in front of the main title tag that appears in the template.
+ * - title_suffix: Additional output populated by modules, intended to be
+ *   displayed after the main title tag that appears in the template.
+ *
+ * @see template_preprocess_block()
+ *
+ * @ingroup themeable
+ */
+#}
+{%
+  set classes = [
+  'block',
+  'd-lg-flex',
+  'd-none',
+  'block-' ~ configuration.provider|clean_class,
+  'block-' ~ plugin_id|clean_class,
+]
+%}
+{% set ctaText = content.field_quick_action.0['#title']|default("See more") %}
+
+<div{{ attributes.addClass(classes) }}>
+  {% if content.field_quick_action is not null and content.field_quick_action is not empty %}
+    <a class="btn btn-primary me-2 d-flex align-items-center gap-2" href="{{ content.field_quick_action.0['#url'] }}">
+      {% if content.field_quick_action_icon %}
+          {{ content.field_quick_action_icon }}
+      {% endif %}
+      {{ ctaText }}
+    </a>
+  {% endif %}
+</div>

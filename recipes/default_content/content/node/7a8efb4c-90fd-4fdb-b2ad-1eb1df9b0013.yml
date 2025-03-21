@@ -1,0 +1,66 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 7a8efb4c-90fd-4fdb-b2ad-1eb1df9b0013
+  bundle: page
+  default_langcode: en
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: Marketing
+  created:
+    -
+      value: 1738917453
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /pages/marketing
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: |
+        <h2>Introduction</h2>
+        <p><p>The Marketing department at NextCorp is responsible for promoting the company's brand, products, and services to both current and potential customers. We aim to build a strong market presence and engage with our target audience through innovative strategies and creative campaigns. Our mission is to increase brand awareness, generate leads, and foster long-term customer relationships that support the growth and success of NextCorp. We believe in the power of effective communication and data-driven strategies to drive results and build a strong brand.</p><h3>&nbsp;</h3></p>
+        <h2>Department Responsibilities</h2>
+        <p><p>The Marketing department is responsible for a wide range of activities aimed at driving the growth of the company. Our main responsibilities include:</p><ul><li><strong>Brand Management</strong> – shaping and maintaining a strong, consistent brand identity across all channels and platforms. We ensure that NextCorp's values, vision, and message are clearly communicated to our audience.</li><li><strong>Market Research</strong> – gathering and analyzing data to understand market trends, customer preferences, and competitors. This helps us refine our strategies and develop relevant marketing campaigns.</li><li><strong>Advertising and Promotions</strong> – planning and executing advertising campaigns through digital, print, and broadcast media to reach the target audience. We also focus on seasonal promotions and special events.</li><li><strong>Content Marketing</strong> – creating and distributing valuable content to engage customers. This includes blog posts, articles, videos, case studies, and other forms of content that drive traffic and generate leads.</li><li><strong>Social Media Management</strong> – managing NextCorp's presence on social media platforms to connect with our audience, share valuable content, and promote brand awareness.</li><li><strong>Public Relations</strong> – working to build and maintain a positive public image for NextCorp through press releases, media interactions, and events.</li></ul></p>
+        <h2>Team</h2>
+        <p><p>The Marketing department is made up of a diverse team of professionals who bring a variety of skills and expertise to the table. Together, we work to craft impactful marketing strategies that help NextCorp grow.</p><ul><li><strong>Sophia Smith - Marketing Manager</strong><br>With over 8 years of experience in the marketing industry, Sophia leads the marketing team at NextCorp. She is passionate about creating innovative campaigns that connect with customers and drive business results. Her expertise lies in digital marketing, brand strategy, and campaign management.</li><li><strong>Michael Brown - Digital Marketing Specialist</strong><br>Michael focuses on online marketing efforts, including SEO, PPC, and social media strategies. He is always exploring new ways to leverage digital tools to enhance brand visibility and customer engagement.</li><li><strong>Emily Green - Content Marketing Specialist</strong><br>Emily is responsible for creating content that educates and engages customers. From blog posts to eBooks and case studies, she creates valuable resources to build customer relationships and drive lead generation.</li><li><strong>James Wilson - Social Media Manager</strong><br>James manages NextCorp’s presence on social media platforms. He designs and implements strategies to build a strong social media presence, creating content and engaging with the community.</li></ul></p>
+        <h2>Processes and Procedures</h2>
+        <p><p>The Marketing department operates through well-defined processes to ensure efficiency and the successful execution of campaigns.</p><ul><li><strong>Campaign Planning</strong><br>Each marketing campaign begins with defining goals, identifying the target audience, and choosing the appropriate channels. Our team works closely together to develop creative concepts, set budgets, and create a timeline for execution.<ul><li><strong>Campaign Brief Template</strong>: <a href="#">Download Template</a></li></ul></li><li><strong>Content Creation and Approval</strong><br>Content creation is a collaborative process between our team members. We follow a clear approval process to ensure content aligns with our marketing goals and brand guidelines.<ul><li><strong>Content Approval Process</strong>: <a href="#">View Details</a></li></ul></li><li><strong>Performance Tracking and Analytics</strong><br>We closely monitor the performance of all marketing campaigns through analytics tools to ensure they are meeting the set objectives. Key performance indicators (KPIs) are reviewed regularly to assess the effectiveness of each campaign.<ul><li><strong>Marketing Report Template</strong>: <a href="#">Download Template</a></li></ul></li></ul></p>
+        <h2> Employee Resources</h2>
+        <p><p>The Marketing department provides various resources to help employees stay informed about the latest campaigns, tools, and marketing strategies.</p><ul><li><strong>Marketing Knowledge Base</strong>: A comprehensive library of guides, articles, and case studies to help employees understand our marketing strategies and best practices.</li><li><strong>Templates and Guidelines</strong>: Access to branding guidelines, content templates, and marketing assets that employees can use for company communications.</li><li><strong>Marketing Analytics Tools</strong>: Access to tools like Google Analytics, HubSpot, and social media management platforms that help track and optimize marketing efforts.</li></ul></p>
+        <h2>Contact</h2>
+        <p><p>For inquiries related to marketing campaigns, events, or any other marketing activities, feel free to reach out to our team.</p><ul><li><strong>Email</strong>: <a>marketing@droptica.com</a></li><li><strong>Phone</strong>: +123 456 7890</li><li><strong>Internal Communication Tools</strong>: Slack, Teams</li></ul></p>
+        <h2>Summary</h2>
+        <p><p>The Marketing department is dedicated to building a strong brand presence for NextCorp and connecting with our audience through creative and data-driven campaigns. Whether you're looking for insights into market trends, planning a new campaign, or seeking content creation assistance, we’re here to help. Please don't hesitate to contact us for any marketing-related needs.</p></p>
+      format: full_html
+      summary: ''
+  comment_node_page:
+    -
+      status: 0
+      cid: 0
+      last_comment_timestamp: 1738917453
+      last_comment_name: ''
+      last_comment_uid: 1
+      comment_count: 0
+  field_basic_page_reaction:
+    -
+      status: 0

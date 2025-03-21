@@ -1,0 +1,81 @@
+_meta:
+  version: '1.0'
+  entity_type: user
+  uuid: 84962f26-761a-4495-8925-115cdc058670
+  default_langcode: en
+  depends:
+    96ba59d8-a4fb-4bed-adb6-b01518abd664: taxonomy_term
+    9cb46a24-f2d9-47c6-bc4e-464498043086: user
+    c0af832d-005f-40df-bc8d-170f506b48dc: taxonomy_term
+    0605c92b-6f10-48f2-9d41-c8d9747db423: file
+default:
+  preferred_langcode:
+    -
+      value: en
+  name:
+    -
+      value: john.mueller
+  pass:
+    -
+      value: $2y$10$3sCZe6z.n12cN7Se6AgKauEyg57ltx/BfxMTowgGGLLgdJ6Iz70C.
+      existing: ''
+      pre_hashed: false
+  mail:
+    -
+      value: john.mueller@example.com
+  timezone:
+    -
+      value: Europe/Amsterdam
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1738843814
+  access:
+    -
+      value: 0
+  login:
+    -
+      value: 0
+  path:
+    -
+      alias: /users/johnmueller
+      langcode: en
+      pathauto: 1
+  field_about:
+    -
+      value: 'Hi, I’m John, a Customer Support Specialist based in the Berlin Office. I assist customers with inquiries about our products, helping them navigate our systems and solve problems. I’ve always been a problem solver and find great satisfaction in helping customers feel heard and valued. Outside of work, I enjoy playing chess and photography. 🧩'
+  field_department:
+    -
+      entity: 96ba59d8-a4fb-4bed-adb6-b01518abd664
+  field_first_name:
+    -
+      value: John
+  field_last_name:
+    -
+      value: Müller
+  field_manager:
+    -
+      entity: 9cb46a24-f2d9-47c6-bc4e-464498043086
+  field_name:
+    -
+      value: 'Customer Support Specialist'
+  field_office:
+    -
+      entity: c0af832d-005f-40df-bc8d-170f506b48dc
+  field_phone:
+    -
+      value: '+49301234567'
+  field_social_links:
+    -
+      uri: 'https://linkedin.com'
+      title: Linkedin
+      options: {  }
+  user_picture:
+    -
+      entity: 3c3f6268-91a2-480b-8a15-06ab87164172
+      alt: ''
+      title: ''
+      width: 1024
+      height: 1024

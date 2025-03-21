@@ -1,0 +1,27 @@
+_meta:
+  version: '1.0'
+  entity_type: file
+  uuid: a735e76b-0858-4c35-81b2-916eea4be124
+  default_langcode: en
+default:
+  uid:
+    -
+      target_id: 1
+  filename:
+    -
+      value: person_8.jpg
+  uri:
+    -
+      value: 'public://pictures/person_8.jpg'
+  filemime:
+    -
+      value: image/jpeg
+  filesize:
+    -
+      value: 574190
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1738844291

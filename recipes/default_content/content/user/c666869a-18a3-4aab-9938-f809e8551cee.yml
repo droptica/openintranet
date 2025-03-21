@@ -1,0 +1,81 @@
+_meta:
+  version: '1.0'
+  entity_type: user
+  uuid: c666869a-18a3-4aab-9938-f809e8551cee
+  default_langcode: en
+  depends:
+    a97a82e9-4141-4943-9d21-fd08217afa89: taxonomy_term
+    9cb46a24-f2d9-47c6-bc4e-464498043086: user
+    6cb6eb4e-1f6f-4585-990f-c2173179370c: taxonomy_term
+    c2d6f29f-67a3-44e2-974c-af5ccab441a4: file
+default:
+  preferred_langcode:
+    -
+      value: en
+  name:
+    -
+      value: claire.taylor
+  pass:
+    -
+      value: $2y$10$81bDVsD8pGefvvLkc9R8qeXT.pdg0MeirVACyCbXzoaMFVQU3UQdW
+      existing: ''
+      pre_hashed: false
+  mail:
+    -
+      value: claire.taylor@example.com
+  timezone:
+    -
+      value: Europe/Amsterdam
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1738843814
+  access:
+    -
+      value: 0
+  login:
+    -
+      value: 0
+  path:
+    -
+      alias: /users/clairetaylor
+      langcode: en
+      pathauto: 1
+  field_about:
+    -
+      value: 'Hey! I’m Claire, a Customer Support Specialist working remotely. My role involves answering customer questions about our services, handling complaints, and providing solutions quickly. I’m passionate about creating a positive experience for every customer I interact with. I love reading and have a huge collection of mystery novels 📚.'
+  field_department:
+    -
+      entity: a97a82e9-4141-4943-9d21-fd08217afa89
+  field_first_name:
+    -
+      value: Claire
+  field_last_name:
+    -
+      value: Taylor
+  field_manager:
+    -
+      entity: 9cb46a24-f2d9-47c6-bc4e-464498043086
+  field_name:
+    -
+      value: 'Customer Support Specialist'
+  field_office:
+    -
+      entity: 6cb6eb4e-1f6f-4585-990f-c2173179370c
+  field_phone:
+    -
+      value: '+44123456789'
+  field_social_links:
+    -
+      uri: 'https://linkedin.com'
+      title: Linkedin
+      options: {  }
+  user_picture:
+    -
+      entity: fc5045ba-f94b-438e-8960-109146dcd74f
+      alt: ''
+      title: ''
+      width: 1024
+      height: 1024

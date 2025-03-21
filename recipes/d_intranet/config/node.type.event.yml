@@ -1,0 +1,18 @@
+uuid: 8cc87d75-fe6a-447d-85aa-16551c469410
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main
+    parent: 'main:'
+name: Event
+type: event
+description: "Use for creating and managing events with details like date, time, and location.\r\n\r\n\r\n"
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: false

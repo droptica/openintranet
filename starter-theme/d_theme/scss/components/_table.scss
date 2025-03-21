@@ -1,0 +1,78 @@
+@import "../mixins/text";
+
+.decorated-table, table {
+  table-layout: auto;
+  --bs-table-color: white;
+
+  p {
+    margin-bottom: 0;
+  }
+
+  thead {
+    tr {
+      background-color: $body-secondary-color;
+      border-bottom: 1px solid $body-tertiary-color;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+
+      th {
+        --bs-table-bg: $body-secondary-color;
+        --bs-table-color: $white;
+        padding: 24px 16px;
+        width: 1%;
+        color: $white !important;
+
+        @include body-500-bold;
+
+        a {
+          color: $white;
+
+          @include body-500-bold;
+
+          &:hover {
+            color: $blue-100;
+          }
+        }
+
+        &:first-child {
+          border-top-left-radius: 8px;
+        }
+
+        &:last-child {
+          border-top-right-radius: 8px;
+        }
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      border-bottom: 1px solid $dark-navy-50;
+
+      td {
+        color: $body-color;
+        padding: 16px;
+
+        @include body-400;
+
+        --bs-table-striped-bg: white;
+        --bs-table-bg: white;
+
+        a {
+          @include link-no-hover;
+        }
+
+        .file, a {
+          padding: 0;
+        }
+      }
+    }
+  }
+}
+
+table.calendar-view-table {
+  td {
+    padding: inherit;
+  }
+}
+

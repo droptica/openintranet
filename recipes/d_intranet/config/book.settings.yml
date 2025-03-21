@@ -1,0 +1,6 @@
+_core:
+  default_config_hash: jmBcLtS4JshpXXtB9fsiBehhukIaDTQjvozHpbvVyPo
+allowed_types:
+  - knowledge_base_page
+child_type: knowledge_base_page
+book_sort: weight

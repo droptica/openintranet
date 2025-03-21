@@ -1,0 +1,17 @@
+uuid: ded05c0c-17b4-49b2-ae82-f5fa87bcf3f4
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+id: page_title
+label: 'Page Title'
+logic: and
+conditions:
+  fba83fe9-7480-46df-b2dc-be7571a775fb:
+    id: request_path
+    negate: true
+    uuid: fba83fe9-7480-46df-b2dc-be7571a775fb
+    context_mapping: {  }
+    pages: "<front>\r\n/knowledge/*\r\n/content/*\r\n/node/*\r\n/users/*\r\n/user/*/edit\r\n/user/login"
+allow_other_conditions: false

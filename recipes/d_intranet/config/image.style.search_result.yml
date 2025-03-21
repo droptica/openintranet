@@ -1,0 +1,15 @@
+uuid: 297f5c8e-beb2-4c30-9ba9-5d3ed5b54aa4
+langcode: en
+status: true
+dependencies: {  }
+name: search_result
+label: 'Search result (324x182)'
+effects:
+  234ed32a-5879-4a87-af18-32a0db4105e6:
+    uuid: 234ed32a-5879-4a87-af18-32a0db4105e6
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 324
+      height: 182
+      anchor: center-center

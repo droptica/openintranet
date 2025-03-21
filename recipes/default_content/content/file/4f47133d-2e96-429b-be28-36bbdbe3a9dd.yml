@@ -1,0 +1,27 @@
+_meta:
+  version: '1.0'
+  entity_type: file
+  uuid: 4f47133d-2e96-429b-be28-36bbdbe3a9dd
+  default_langcode: en
+default:
+  uid:
+    -
+      target_id: 1
+  filename:
+    -
+      value: person_3.jpg
+  uri:
+    -
+      value: 'public://pictures/person_3.jpg'
+  filemime:
+    -
+      value: image/jpeg
+  filesize:
+    -
+      value: 607597
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1738844134

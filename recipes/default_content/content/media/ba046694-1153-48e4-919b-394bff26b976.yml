@@ -1,0 +1,36 @@
+_meta:
+  version: '1.0'
+  entity_type: media
+  uuid: ba046694-1153-48e4-919b-394bff26b976
+  bundle: image
+  default_langcode: en
+  depends:
+    d291e4f1-18df-443a-9304-b16744499d4b: file
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  name:
+    -
+      value: Gdansk_25.11.2021_14.jpg
+  created:
+    -
+      value: 1742196322
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: ''
+      langcode: en
+      pathauto: 0
+  field_media_image:
+    -
+      entity: d291e4f1-18df-443a-9304-b16744499d4b
+      alt: Droptica
+      title: ''
+      width: 6048
+      height: 4024

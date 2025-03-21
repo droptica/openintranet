@@ -1,0 +1,27 @@
+_meta:
+  version: '1.0'
+  entity_type: file
+  uuid: 29c5c0ad-d6c5-4e96-a476-e0b321d1536e
+  default_langcode: en
+default:
+  uid:
+    -
+      target_id: 1
+  filename:
+    -
+      value: avatar_0.png
+  uri:
+    -
+      value: 'public://default_images/avatar_0.png'
+  filemime:
+    -
+      value: image/jpeg
+  filesize:
+    -
+      value: 12060
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1742196732

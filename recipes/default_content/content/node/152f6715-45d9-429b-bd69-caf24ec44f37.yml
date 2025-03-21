@@ -1,0 +1,60 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 152f6715-45d9-429b-bd69-caf24ec44f37
+  bundle: article
+  default_langcode: en
+  depends:
+    96392467-f863-4586-8c57-a17064cc1eec: media
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'NextCorp Launches Employee Recognition Program – Celebrate Your Colleagues!'
+  created:
+    -
+      value: 1738915695
+  promote:
+    -
+      value: true
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /news/nextcorp-launches-employee-recognition-program-celebrate-your-colleagues
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: '<h2>&nbsp;</h2><p>&nbsp;</p><p><em>Recognition is more than just saying ‘thank you’—it’s about building a culture where hard work and dedication are acknowledged and valued. Our new program allows employees to nominate peers for their contributions, whether it’s excellent customer service, innovative problem-solving, or simply being a great team player. Every month, we’ll spotlight selected employees in our intranet and reward them with special perks!</em></p><p><em>How does it work? It’s simple! Just head over to the ‘Recognitions’ section in our intranet, submit a short message about why your colleague deserves a shout-out, and we’ll take care of the rest. You can recognize anyone across teams, departments, or offices—because great work happens everywhere!</em></p><p><em>Each month, the most inspiring recognitions will be featured in our newsletter, and winners will receive special perks such as gift cards, an extra day off, or a lunch voucher. It’s a small way to say a big ‘thank you’ for the dedication and effort our team puts in every day.</em></p><p><em>We believe that appreciation should be part of our daily culture. Small gestures of recognition can have a big impact, boosting morale, strengthening team connections, and making NextCorp an even better place to work. So, take a moment to recognize someone today—it only takes a minute, but it makes a world of difference!</em></p><p><em>Got someone in mind already? Head over to the ‘Recognitions’ page now and send a shout-out! Let’s spread positivity and celebrate the amazing people who make NextCorp thrive.</em></p><p>&nbsp;</p>'
+      format: full_html
+      summary: ''
+  comment_node_article:
+    -
+      status: 2
+      cid: 0
+      last_comment_timestamp: 1738915770
+      last_comment_name: ''
+      last_comment_uid: 1
+      comment_count: 0
+  field_background_image:
+    -
+      entity: 96392467-f863-4586-8c57-a17064cc1eec
+  field_intro:
+    -
+      value: 'At NextCorp, we know that our greatest strength is our people. Every day, our teams go above and beyond to support customers and each other. That’s why we’re excited to introduce our new Employee Recognition Program—designed to celebrate outstanding contributions, big and small. Whether it’s a colleague who always steps up, a mentor who offers great guidance, or a teammate who brightens your day, now you have an easy way to show appreciation!'
+  field_news_article_reaction:
+    -
+      status: 2

@@ -1,0 +1,36 @@
+_meta:
+  version: '1.0'
+  entity_type: media
+  uuid: f2984ee5-a096-42bc-8522-ed10d4897b7d
+  bundle: image
+  default_langcode: en
+  depends:
+    7ffb88ac-1d2a-41fb-a16e-5e56096283a7: file
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  name:
+    -
+      value: _MG_5614.JPG
+  created:
+    -
+      value: 1742196791
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: ''
+      langcode: en
+      pathauto: 0
+  field_media_image:
+    -
+      entity: 7ffb88ac-1d2a-41fb-a16e-5e56096283a7
+      alt: 'Droptica Office'
+      title: ''
+      width: 6365
+      height: 4243

@@ -1,0 +1,11 @@
+uuid: 114a7627-9ddc-499c-b06c-4611cab788a5
+langcode: en
+status: true
+dependencies:
+  module:
+    - user
+id: user.search_result
+label: 'Search result'
+description: ''
+targetEntityType: user
+cache: true

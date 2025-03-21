@@ -1,0 +1,42 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: a9b1ffc6-a247-41a2-85f9-d061415cb363
+  bundle: menu_link_content
+  default_langcode: en
+  depends:
+    7df2c289-b957-4c7e-8281-57ec7cc78d38: menu_link_content
+    21bdf2a0-5f16-48dc-ae97-774657a3b956: node
+default:
+  enabled:
+    -
+      value: true
+  title:
+    -
+      value: Contracts
+  menu_name:
+    -
+      value: main
+  link:
+    -
+      target_uuid: 21bdf2a0-5f16-48dc-ae97-774657a3b956
+      title: ''
+      options: {  }
+  external:
+    -
+      value: false
+  rediscover:
+    -
+      value: false
+  weight:
+    -
+      value: -49
+  expanded:
+    -
+      value: false
+  parent:
+    -
+      value: 'menu_link_content:7df2c289-b957-4c7e-8281-57ec7cc78d38'
+  revision_translation_affected:
+    -
+      value: true

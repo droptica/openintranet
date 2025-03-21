@@ -1,0 +1,60 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 2107128c-dead-46cb-bfdb-f7d5f3070996
+  bundle: article
+  default_langcode: en
+  depends:
+    97cace76-5a58-4c2d-bc00-91b4bf33d83b: media
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: ' Grand Opening of Our New London Office!'
+  created:
+    -
+      value: 1738586383
+  promote:
+    -
+      value: true
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /news/grand-opening-our-new-london-office
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: '<p>We are excited to share that Droptica has opened a new office in London. This expansion marks an important milestone in our company''s growth and strengthens our commitment to providing exceptional services to our clients in the UK and beyond.</p><h3>Office Location</h3><p>The new office is strategically located in the heart of London, giving us access to a vibrant business community and allowing us to engage more effectively with local clients and partners.</p><h3>Benefits of the New Office</h3><ul><li><strong>Closer Collaboration:</strong> Enhances collaboration with our UK clients and partners, enabling us to better meet their needs.</li><li><strong>Local Presence:</strong> Establishes a strong local presence, facilitating better networking and business development.</li><li><strong>Convenient Access:</strong> Provides easy access for both employees and clients, with excellent transport links.</li></ul><h3>Contact Information</h3><p>For any inquiries related to our London office, please feel free to reach out:</p><dl><dt><p>Address:</p></dt><dd><p>123 London Street, London, UK</p></dd><dt><p>Phone:</p></dt><dd><p>+44 20 1234 5678</p></dd><dt><p>Email:</p></dt><dd><p><a href="mailto:contact@droptica.com">contact@droptica.com</a></p></dd></dl><h3>Join Us in Celebrating</h3><p>Stay tuned for information about our upcoming office launch event. We look forward to celebrating this exciting development with our team and partners.</p><hr><p>Thank you for your continued support and enthusiasm as we expand our presence and capabilities.</p>'
+      format: full_html
+      summary: ''
+  comment_node_article:
+    -
+      status: 2
+      cid: 2018
+      last_comment_timestamp: 1738670704
+      last_comment_name: ''
+      last_comment_uid: 1
+      comment_count: 3
+  field_background_image:
+    -
+      entity: 97cace76-5a58-4c2d-bc00-91b4bf33d83b
+  field_intro:
+    -
+      value: "We are excited to share that Droptica has opened a new office in London. This expansion marks an important milestone in our company's growth and strengthens our commitment to providing exceptional services to our clients in the UK and beyond."
+  field_news_article_reaction:
+    -
+      status: 2

@@ -1,0 +1,84 @@
+_meta:
+  version: '1.0'
+  entity_type: user
+  uuid: 11585eb0-5b69-4d8a-8411-0391c687e26e
+  default_langcode: en
+  depends:
+    65000083-7db1-4549-abe2-9ac73b9d7cdf: taxonomy_term
+    062ceb63-8c8f-4a96-b4eb-428963345d26: taxonomy_term
+    75507c31-b3b0-458c-95f8-5e97fc402f40: file
+default:
+  preferred_langcode:
+    -
+      value: en
+  name:
+    -
+      value: kevin.lopez
+  pass:
+    -
+      value: $2y$10$MxFAGHrn8bWKC8IauXLCLuYwokLcmQ8kGMoa/ukU75r4GXcsMQhZm
+      existing: ''
+      pre_hashed: false
+  mail:
+    -
+      value: kevin.lopez@example.com
+  timezone:
+    -
+      value: Europe/Amsterdam
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1738843814
+  access:
+    -
+      value: 0
+  login:
+    -
+      value: 0
+  path:
+    -
+      alias: /users/kevinlopez
+      langcode: en
+      pathauto: 1
+  field_about:
+    -
+      value: 'Hello! I’m Kevin, an IT Support Agent working from the Madrid Office. I assist customers with technical difficulties and ensure their systems are up and running. I love tackling new tech challenges and improving my problem-solving skills. My downtime is spent playing video games and building my own computers. 💻🎮'
+  field_department:
+    -
+      entity: 65000083-7db1-4549-abe2-9ac73b9d7cdf
+  field_first_name:
+    -
+      value: Kevin
+  field_last_name:
+    -
+      value: Lopez
+  field_manager:
+    -
+      target_id: 1
+  field_name:
+    -
+      value: 'IT Support Agent'
+  field_office:
+    -
+      entity: 062ceb63-8c8f-4a96-b4eb-428963345d26
+  field_phone:
+    -
+      value: '+34987654322'
+  field_social_links:
+    -
+      uri: 'https://linkedin.com'
+      title: Linkedin
+      options: {  }
+    -
+      uri: 'https://github.com'
+      title: Github
+      options: {  }
+  user_picture:
+    -
+      entity: 3c3f6268-91a2-480b-8a15-06ab87164172
+      alt: ''
+      title: ''
+      width: 1024
+      height: 1024

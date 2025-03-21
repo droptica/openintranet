@@ -1,0 +1,41 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: fdf20089-db55-42ad-a5ae-486ca2dd84bb
+  bundle: knowledge_base_page
+  default_langcode: en
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: Other
+  created:
+    -
+      value: 1741775410
+  promote:
+    -
+      value: true
+  sticky:
+    -
+      value: false
+  path:
+    -
+      alias: /knowledge/other
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: '<h4>Additional Resources and Information</h4><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi convallis tincidunt justo, a efficitur lorem tempor vel. Integer placerat nisi eu orci convallis, ac accumsan sapien aliquet. Phasellus aliquet augue et felis condimentum euismod. Nam tempor felis et urna vulputate volutpat.</p><h4>Expanding Our Reach</h4><p>Aenean sollicitudin eros at nisl auctor, non facilisis ante convallis. Donec ut leo neque. Integer sollicitudin, dui ut tempor eleifend, ligula enim porttitor arcu, ut dapibus nulla enim a orci. Donec ut felis sit amet ipsum efficitur dignissim eget sit amet nisi.</p><h3>Continuous Development</h3><p>Pellentesque euismod orci nec dui ullamcorper, non placerat enim lobortis. Mauris eget ligula vitae lorem scelerisque aliquam. Cras facilisis, felis sit amet pellentesque euismod, ipsum elit luctus velit, et sodales ipsum tortor in lectus. Nulla ac orci orci.</p><h4>Collaboration Across Teams</h4><p>In consectetur lorem sit amet lacus egestas, id volutpat felis iaculis. Suspendisse ut augue mollis, fringilla lectus vel, efficitur urna. Ut laoreet nec purus vitae tempor. Etiam gravida risus nec nisl pellentesque, at feugiat ipsum feugiat.</p>'
+      format: full_html
+      summary: ''
+  field_data_classification:
+    -
+      value: public

@@ -1,0 +1,19 @@
+{% extends "@bootstrap_barrio/block/block--system-menu-block.html.twig" %}
+{#
+/**
+ * @file
+ * Barrio's theme implementation for a menu block.
+ *
+ * @ingroup themeable
+ */
+#}
+{% set show_anchor = "show-" ~ attributes.id|clean_id %}
+{% set hide_anchor = "hide-" ~ attributes.id|clean_id %}
+{% block content %}
+  <div{{ content_attributes.addClass('content mt-2') }}>
+    {# When rendering a menu without label, render a menu toggle. #}
+    <div class="menu-toggle-target menu-toggle-target-show" id="{{ show_anchor }}"></div>
+    <div class="menu-toggle-target" id="{{ hide_anchor }}"></div>
+    {{ content }}
+  </div>
+{% endblock %}

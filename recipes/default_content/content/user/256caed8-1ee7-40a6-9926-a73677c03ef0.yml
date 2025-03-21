@@ -1,0 +1,86 @@
+_meta:
+  version: '1.0'
+  entity_type: user
+  uuid: 256caed8-1ee7-40a6-9926-a73677c03ef0
+  default_langcode: en
+  depends:
+    719241f9-0ff6-496c-b12e-c6ea1d5e24c5: taxonomy_term
+    c0af832d-005f-40df-bc8d-170f506b48dc: taxonomy_term
+    40d40c56-1c43-4fd0-84d9-abb6fd448c5a: file
+default:
+  preferred_langcode:
+    -
+      value: en
+  preferred_admin_langcode:
+    -
+      value: en
+  name:
+    -
+      value: oliver.muller
+  pass:
+    -
+      value: $2y$10$EnH0BO6q0mUUl0syac7pNO.O9K4Va3QUhoxaKNSFNWlWP8sVk7UvG
+      existing: ''
+      pre_hashed: false
+  mail:
+    -
+      value: oliver.muller@example.com
+  timezone:
+    -
+      value: Europe/Amsterdam
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1738761146
+  access:
+    -
+      value: 0
+  login:
+    -
+      value: 0
+  init:
+    -
+      value: oliver.muller@example.com
+  path:
+    -
+      alias: /users/olivermuller
+      langcode: en
+      pathauto: 1
+  field_about:
+    -
+      value: "Hallo! 🚀 I’m Oliver, an R&D Engineer based in Berlin. My passion lies in developing new technologies, designing innovative solutions, and pushing the boundaries of what’s possible.\r\nWith a background in engineering and a strong technical mindset, I work on designing and testing new products that align with our company’s vision. Whether it’s prototyping, improving existing designs, or exploring emerging tech trends, I thrive on creative problem-solving. 🔬\r\n\r\nI enjoy collaborating with different teams to bring ideas to life, ensuring that our products remain competitive and future-proof. I’m particularly interested in sustainability and how we can integrate greener solutions into our projects. 🌱\r\n\r\nOutside of work, I love experimenting with DIY tech projects, going for long bike rides 🚴‍♂️, and exploring new scientific discoveries. If you’re as passionate about innovation as I am, let’s connect!"
+  field_department:
+    -
+      entity: 719241f9-0ff6-496c-b12e-c6ea1d5e24c5
+  field_first_name:
+    -
+      value: Oliver
+  field_last_name:
+    -
+      value: Müller
+  field_manager:
+    -
+      target_id: 1
+  field_name:
+    -
+      value: 'Research & Development'
+  field_office:
+    -
+      entity: c0af832d-005f-40df-bc8d-170f506b48dc
+  field_phone:
+    -
+      value: '+48 511 123 456'
+  field_social_links:
+    -
+      uri: 'https://linkedin.com'
+      title: Linkedin
+      options: {  }
+  user_picture:
+    -
+      entity: f78c63bb-f955-4eb1-bc39-5d5c89387384
+      alt: ''
+      title: ''
+      width: 1024
+      height: 1024

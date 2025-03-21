@@ -1,0 +1,58 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: e879d16c-04d9-45f2-997e-8bca4c00f67e
+  bundle: document
+  default_langcode: en
+  depends:
+    685bd706-c3a6-41fc-82b4-06cfe9a3ad40: taxonomy_term
+    91e8e258-36f3-4283-9bbc-938ad793cf14: file
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'Workplace Harassment Policy'
+  created:
+    -
+      value: 1740652506
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /document/workplace-harassment-policy
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: 'How to identify, report, and prevent workplace harassment.'
+      format: full_html
+      summary: 'How to identify, report, and prevent workplace harassment.'
+  field_area:
+    -
+      entity: 685bd706-c3a6-41fc-82b4-06cfe9a3ad40
+  field_file:
+    -
+      entity: 91e8e258-36f3-4283-9bbc-938ad793cf14
+      display: true
+      description: ''
+  field_related_documents:
+    -
+      target_id: 0
+  field_version:
+    -
+      value: '2.0'

@@ -1,0 +1,27 @@
+_meta:
+  version: '1.0'
+  entity_type: file
+  uuid: 67653102-ad19-4fbd-a4ed-f37c390a367a
+  default_langcode: en
+default:
+  uid:
+    -
+      target_id: 1
+  filename:
+    -
+      value: person_20.jpg
+  uri:
+    -
+      value: 'public://pictures/person_20.jpg'
+  filemime:
+    -
+      value: image/jpeg
+  filesize:
+    -
+      value: 564473
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1738844456

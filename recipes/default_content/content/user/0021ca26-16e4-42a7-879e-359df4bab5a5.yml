@@ -1,0 +1,83 @@
+_meta:
+  version: '1.0'
+  entity_type: user
+  uuid: 0021ca26-16e4-42a7-879e-359df4bab5a5
+  default_langcode: en
+  depends:
+    dcb6aaf2-e15a-4103-8bb3-c9cab38cb47d: taxonomy_term
+    062ceb63-8c8f-4a96-b4eb-428963345d26: taxonomy_term
+    3c3f6268-91a2-480b-8a15-06ab87164172: file
+default:
+  preferred_langcode:
+    -
+      value: en
+  preferred_admin_langcode:
+    -
+      value: en
+  name:
+    -
+      value: miguel.sanchez
+  pass:
+    -
+      value: $2y$10$GHvfwJvmmTqKBfEM5FaN6Oqg52.jwJFU48fD4trWaVdjfl0dTXS8a
+      existing: ''
+      pre_hashed: false
+  mail:
+    -
+      value: miguel.sanchez@example.com
+  timezone:
+    -
+      value: Europe/Amsterdam
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1738761091
+  access:
+    -
+      value: 0
+  login:
+    -
+      value: 0
+  init:
+    -
+      value: miguel.sanchez@example.com
+  path:
+    -
+      alias: /users/miguelsanchez
+      langcode: en
+      pathauto: 1
+  field_about:
+    -
+      value: "Hola! 👋 I’m Miguel, a Financial Analyst working from our Barcelona office. Numbers, data, and financial planning are my world! 💰 My job revolves around analyzing financial performance, preparing reports, and helping the company make strategic decisions.\r\nI have a strong background in economics and financial management, with more than eight years of experience in corporate finance. I specialize in budgeting, forecasting, and financial risk assessment. 📊 My goal is to provide accurate and meaningful insights that drive business growth.\r\n\r\nI believe that finance is more than just numbers—it's about understanding the bigger picture and making informed decisions that shape the future of the company. That’s why I love collaborating with different teams to ensure that we maintain financial health while supporting innovation and expansion.\r\n\r\nWhen I’m not working, you’ll find me at the beach 🏖️, cycling through Barcelona 🚴‍♂️, or enjoying a good paella with friends. I’m also passionate about investing and enjoy discussing market trends.\r\n\r\nIf you need insights into budgeting, forecasting, or financial planning, I’m happy to assist! Let’s make smart financial decisions together.\r\n\r\n"
+  field_department:
+    -
+      entity: dcb6aaf2-e15a-4103-8bb3-c9cab38cb47d
+  field_first_name:
+    -
+      value: Miguel
+  field_last_name:
+    -
+      value: Sánchez
+  field_name:
+    -
+      value: 'Financial Analyst'
+  field_office:
+    -
+      entity: 062ceb63-8c8f-4a96-b4eb-428963345d26
+  field_phone:
+    -
+      value: '+43 324 433 55'
+  field_social_links:
+    -
+      uri: 'https://linkedin.com'
+      title: Linkedin
+      options: {  }
+  user_picture:
+    -
+      entity: 3c3f6268-91a2-480b-8a15-06ab87164172
+      alt: ''
+      title: ''
+      width: 1024
+      height: 1024

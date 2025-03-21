@@ -1,0 +1,27 @@
+_meta:
+  version: '1.0'
+  entity_type: file
+  uuid: 7ffb88ac-1d2a-41fb-a16e-5e56096283a7
+  default_langcode: en
+default:
+  uid:
+    -
+      target_id: 1
+  filename:
+    -
+      value: _MG_5614.JPG
+  uri:
+    -
+      value: 'public://2025-03/_MG_5614.JPG'
+  filemime:
+    -
+      value: image/jpeg
+  filesize:
+    -
+      value: 10954431
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1742196791

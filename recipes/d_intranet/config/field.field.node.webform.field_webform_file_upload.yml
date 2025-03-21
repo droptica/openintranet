@@ -1,0 +1,27 @@
+uuid: 6d7078d3-cf1f-497d-8f7a-5f2f87974935
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_webform_file_upload
+    - node.type.webform
+  module:
+    - file
+id: node.webform.field_webform_file_upload
+field_name: field_webform_file_upload
+entity_type: node
+bundle: webform
+label: 'Webform file upload'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:file'
+  handler_settings: {  }
+  file_directory: '[date:custom:Y]-[date:custom:m]'
+  file_extensions: xlsx
+  max_filesize: ''
+  description_field: false
+field_type: file

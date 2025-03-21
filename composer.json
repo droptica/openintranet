@@ -1,0 +1,165 @@
+{
+    "name": "droptica/d_intranet",
+    "version": "1.0.x-dev",
+    "description": "Intranet - is a Drupal-based website builder that helps you create beautiful, fast, and easy-to-manage intranet",
+    "type": "drupal-profile",
+    "license": "GPL-2.0-or-later",
+    "homepage": "https://www.intranet.new",
+    "support": {
+        "docs": "https://www.drupal.org/docs/user_guide/en/index.html",
+        "chat": "https://www.drupal.org/node/314178"
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://packages.drupal.org/8"
+        }
+    ],
+    "require": {
+        "composer/installers": "^2.0",
+        "cweagans/composer-patches": "^1.7",
+        "drupal/address": "^2.0",
+        "drupal/ai": "^1.0",
+        "drupal/ai_agents": "^1.0",
+        "drupal/ai_provider_openai": "^1.0",
+        "drupal/autologout": "^2.0",
+        "drupal/autosave_form": "^1.10",
+        "drupal/backup_migrate": "^5.0",
+        "drupal/better_exposed_filters": "^7.0",
+        "drupal/block_visibility_groups": "^2.0",
+        "drupal/book": "^2.0",
+        "drupal/bootstrap_sass": "^5.0",
+        "drupal/calendar_view": "^2.1",
+        "drupal/ckeditor_iframe": "^3.0@beta",
+        "drupal/ckeditor_media_resize": "^1.0",
+        "drupal/coffee": "^2.0",
+        "drupal/config_ignore_uuid": "^1.2",
+        "drupal/core-composer-scaffold": "^10.3",
+        "drupal/core-project-message": "^10.3",
+        "drupal/core-recommended": "^10.3",
+        "drupal/cshs": "^4.0",
+        "drupal/ctools": "^4.1",
+        "drupal/custom_book_block": "^2.0",
+        "drupal/datetimehideseconds": "^1.5",
+        "drupal/default_content": "^2.0@alpha",
+        "drupal/dropdown_language": "^4.0",
+        "drupal/easy_breadcrumb": "^2.0",
+        "drupal/entity": "^1.5",
+        "drupal/entity_clone": "^2.1@beta",
+        "drupal/field_group": "^3.6",
+        "drupal/focal_point": "^2.1",
+        "drupal/frontend_editing": "^1.8",
+        "drupal/flexible_permissions": "^2.0",
+        "drupal/gtm": "^1.9",
+        "drupal/iconify_field": "^1.1",
+        "drupal/imagemagick": "^4.0",
+        "drupal/imce": "^3.1",
+        "drupal/inline_entity_form": "^3.0@RC",
+        "drupal/leaflet": "^10.2",
+        "drupal/libraries": "^4.0",
+        "drupal/masquerade": "^2.0",
+        "drupal/noreqnewpass": "^1.4",
+        "drupal/pathauto": "^1.13",
+        "drupal/pathologic": "^2.0@alpha",
+        "drupal/permissions_by_term": "^3.1",
+        "drupal/private_files_download_permission": "^3.1",
+        "drupal/readonly_field_widget": "^1.6",
+        "drupal/recently_read": "^1.3",
+        "drupal/require_login": "^3.0",
+        "drupal/search_api": "^1.35",
+        "drupal/search_api_solr": "^4.3",
+        "drupal/simple_sitemap": "^4.2",
+        "drupal/smart_trim": "^2.2",
+        "drupal/statistics": "^1.0",
+        "drupal/theme_switcher": "^2.1",
+        "drupal/token": "^1.15",
+        "drupal/twig_tweak": "^3.4",
+        "drupal/twigsuggest": "^2.0@RC",
+        "drupal/views_conditional": "^1.10",
+        "drupal/views_organization_chart": "^1.0",
+        "drupal/votingapi_reaction": "^1.11",
+        "drupal/webform": "^6.2",
+        "drush/drush": "^13",
+        "oomphinc/composer-installers-extender": "^2.0",
+        "wikimedia/composer-merge-plugin": "^2.1",
+        "zaporylie/composer-drupal-optimizations": "^1.2"
+    },
+    "conflict": {
+        "drupal/drupal": "*"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "allow-plugins": {
+            "composer/installers": true,
+            "cweagans/composer-patches": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "drupal/core-composer-scaffold": true,
+            "drupal/core-project-message": true,
+            "oomphinc/composer-installers-extender": true,
+            "php-http/discovery": true,
+            "phpstan/extension-installer": true,
+            "wikimedia/composer-merge-plugin": true,
+            "zaporylie/composer-drupal-optimizations": true
+        },
+        "sort-packages": true
+    },
+    "extra": {
+        "drupal-scaffold": {
+            "locations": {
+                "web-root": "web/"
+            }
+        },
+        "installer-paths": {
+            "web/core": [
+                "type:drupal-core"
+            ],
+            "web/libraries/{$name}": [
+                "type:drupal-library"
+            ],
+            "web/modules/contrib/{$name}": [
+                "type:drupal-module"
+            ],
+            "web/profiles/contrib/{$name}": [
+                "type:drupal-profile"
+            ],
+            "web/themes/contrib/{$name}": [
+                "type:drupal-theme"
+            ],
+            "drush/Commands/contrib/{$name}": [
+                "type:drupal-drush"
+            ],
+            "web/modules/custom/{$name}": [
+                "type:drupal-custom-module"
+            ],
+            "web/profiles/custom/{$name}": [
+                "type:drupal-custom-profile"
+            ],
+            "web/themes/custom/{$name}": [
+                "type:drupal-custom-theme"
+            ]
+        },
+        "drupal-core-project-message": {
+            "include-keys": [
+                "homepage",
+                "support"
+            ]
+        },
+        "patches": {
+            "drupal/core": {
+                "field": "https://www.drupal.org/files/issues/2024-08-21/2321071-74.patch",
+                "Check if rows exists": "patches/views/views_org_chart.patch"
+            },
+            "drupal/noreqnewpass": {
+                "Fix undefined array key #validate warning": "patches/noreqnewpass/undefined-validate-array-key.patch"
+            },
+            "drupal/permissions_by_term": {
+                "Move permission field at the bottom of form": "patches/permissions_by_term/permission_field_on_used_edit.patch"
+            },
+            "drupal/recently_read": {
+                "accessCheck fix 1": "https://www.drupal.org/files/issues/2023-05-23/3362224-2.patch",
+                "accessCheck fix 2": "https://www.drupal.org/files/issues/2023-11-30/3362224-3.patch"
+            }
+        }
+    }
+}

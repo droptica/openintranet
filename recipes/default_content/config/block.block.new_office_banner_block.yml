@@ -1,0 +1,30 @@
+uuid: 4e02b6c0-145d-49d6-8826-3ca0f50c0411
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:banner_block:6ba426e4-0795-4378-aeee-483cbaac7188'
+  module:
+    - block_content
+    - system
+  theme:
+    - d_theme
+id: new_office_banner_block
+theme: d_theme
+region: featured_top
+weight: 0
+provider: null
+plugin: 'block_content:6ba426e4-0795-4378-aeee-483cbaac7188'
+settings:
+  id: 'block_content:6ba426e4-0795-4378-aeee-483cbaac7188'
+  label: 'New office banner'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: '<front>'

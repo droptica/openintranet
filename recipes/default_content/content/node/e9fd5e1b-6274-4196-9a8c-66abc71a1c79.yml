@@ -1,0 +1,53 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: e9fd5e1b-6274-4196-9a8c-66abc71a1c79
+  bundle: knowledge_base_page
+  default_langcode: en
+  depends:
+    e805a0f0-00b1-4125-adfb-826ac58529ac: node
+    14e25f4f-02df-457e-b32a-148315035cc6: taxonomy_term
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'Contact details'
+  created:
+    -
+      value: 1741774278
+  promote:
+    -
+      value: true
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /knowledge/contact-details
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: '<h3>Office Address</h3><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ac lorem vel lacus placerat tristique nec eget velit.</p><h3>Phone Number</h3><p>+123 456 7890</p><h3>Email Address</h3><p><a>contact@droptica.com</a></p><h3>Working Hours</h3><p>Monday - Friday: 9:00 AM - 6:00 PM</p><h3>Customer Support</h3><p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium. Vestibulum euismod metus non orci maximus, ut fringilla elit cursus.</p><h3>Social Media</h3><ul><li>Facebook: @dropticacom</li><li>X: @droptica</li><li>LinkedIn: @droptica</li></ul>'
+      format: full_html
+      summary: ''
+  field_data_classification:
+    -
+      value: public
+  field_related_content:
+    -
+      entity: e805a0f0-00b1-4125-adfb-826ac58529ac
+  field_tags:
+    -
+      entity: 14e25f4f-02df-457e-b32a-148315035cc6

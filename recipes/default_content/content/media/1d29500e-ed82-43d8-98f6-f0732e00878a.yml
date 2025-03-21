@@ -1,0 +1,36 @@
+_meta:
+  version: '1.0'
+  entity_type: media
+  uuid: 1d29500e-ed82-43d8-98f6-f0732e00878a
+  bundle: image
+  default_langcode: en
+  depends:
+    8e5aae6b-ffa9-491d-b0fd-316eabfb45be: file
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  name:
+    -
+      value: Gdansk_25.11.2021_96.jpg
+  created:
+    -
+      value: 1742196732
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: ''
+      langcode: en
+      pathauto: 0
+  field_media_image:
+    -
+      entity: 8e5aae6b-ffa9-491d-b0fd-316eabfb45be
+      alt: 'Gdansk Droptica'
+      title: ''
+      width: 5678
+      height: 3778

@@ -1,0 +1,114 @@
+{% import _self as menus %}
+
+{#
+We call a macro which calls itself to render the full tree.
+@see http://twig.sensiolabs.org/doc/tags/macro.html
+#}
+{{ menus.menu_links(items, attributes, 0) }}
+
+{% macro menu_links(items, attributes, menu_level) %}
+  {% import _self as menus %}
+  {% if items %}
+    {% if menu_level == 0 %}
+      <ul{{ attributes.addClass('nav navbar-nav')|without('id') }}>
+    {% elseif menu_level == 1 %}
+      {# Mobile version - single column #}
+      <div class="mega-menu-wrapper d-lg-none">
+        <ul class="dropdown-menu">
+          {% for item in items %}
+            {{ menus.menu_item(item, menu_level) }}
+          {% endfor %}
+        </ul>
+      </div>
+      {# Desktop version - three columns #}
+      <div class="mega-menu-wrapper d-none d-lg-block">
+        <div class="mega-menu-columns">
+          <div class="mega-menu-column column-1">
+            <ul class="dropdown-menu">
+              {% for item in items %}
+                {% if loop.index % 3 == 1 %}
+                  {{ menus.menu_item(item, menu_level) }}
+                {% endif %}
+              {% endfor %}
+            </ul>
+          </div>
+          <div class="mega-menu-column column-2">
+            <ul class="dropdown-menu">
+              {% for item in items %}
+                {% if loop.index % 3 == 2 %}
+                  {{ menus.menu_item(item, menu_level) }}
+                {% endif %}
+              {% endfor %}
+            </ul>
+          </div>
+          <div class="mega-menu-column column-3">
+            <ul class="dropdown-menu">
+              {% for item in items %}
+                {% if loop.index % 3 == 0 %}
+                  {{ menus.menu_item(item, menu_level) }}
+                {% endif %}
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+    {% else %}
+      <ul class="dropdown-menu level-3">
+    {% endif %}
+
+    {% if menu_level == 0 %}
+      {% for item in items %}
+        {{ menus.menu_item(item, menu_level) }}
+      {% endfor %}
+      </ul>
+    {% elseif menu_level == 2 %}
+      {% for item in items %}
+        {{ menus.menu_item(item, menu_level) }}
+      {% endfor %}
+      </ul>
+    {% endif %}
+  {% endif %}
+{% endmacro %}
+
+{% macro menu_item(item, menu_level) %}
+  {% import _self as menus %}
+  {%
+    set classes = [
+    menu_level ? 'dropdown-item' : 'nav-item',
+    (item.is_expanded or (menu_level == 1 and item.below)) ? 'menu-item--expanded' : '',
+    item.is_collapsed ? 'menu-item--collapsed' : '',
+    item.in_active_trail ? 'active' : '',
+    item.below ? 'dropdown' : '',
+  ]
+  %}
+  <li{{ item.attributes.addClass(classes) }}>
+    {%
+      set link_classes = [
+      not menu_level ? 'nav-link' : '',
+      item.in_active_trail ? 'active' : '',
+      item.below ? 'dropdown-toggle' : '',
+      item.url.getOption('attributes').class ? item.url.getOption('attributes').class | join(' ') : '',
+      'nav-link-' ~ item.url.toString() | clean_class,
+    ]
+    %}
+
+    {% if item.below and menu_level == 0 %}
+      {# Only add Bootstrap dropdown attributes for top-level items #}
+      {{ link(item.title, item.url, {'class': link_classes, 'data-bs-toggle': 'dropdown', 'aria-expanded': 'false', 'aria-haspopup': 'true' }) }}
+      {{ menus.menu_links(item.below, attributes, menu_level + 1) }}
+    {% elseif item.below and menu_level == 1 %}
+      {# For level 2 items with children, add split button #}
+      <div class="menu-item-wrapper">
+        {{ link(item.title, item.url, {'class': link_classes|merge(['menu-item-link'])}) }}
+        <button class="dropdown-toggle-btn" aria-label="Toggle submenu"></button>
+      </div>
+      {{ menus.menu_links(item.below, attributes, menu_level + 1) }}
+    {% else %}
+      {# For other levels, don't add Bootstrap dropdown attributes #}
+      {{ link(item.title, item.url, {'class': link_classes}) }}
+      {% if item.below %}
+        {{ menus.menu_links(item.below, attributes, menu_level + 1) }}
+      {% endif %}
+    {% endif %}
+  </li>
+{% endmacro %}

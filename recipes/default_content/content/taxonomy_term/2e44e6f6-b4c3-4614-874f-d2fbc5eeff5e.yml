@@ -1,0 +1,41 @@
+_meta:
+  version: '1.0'
+  entity_type: taxonomy_term
+  uuid: 2e44e6f6-b4c3-4614-874f-d2fbc5eeff5e
+  bundle: office
+  default_langcode: en
+default:
+  status:
+    -
+      value: true
+  name:
+    -
+      value: 'Amsterdam Office'
+  description:
+    -
+      value: '<p>Dutch branch handling support for the Benelux region.</p>'
+      format: full_html
+  weight:
+    -
+      value: 0
+  parent:
+    -
+      target_id: 0
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /office/amsterdam-office
+      langcode: en
+      pathauto: 1
+  field_address:
+    -
+      langcode: en
+      country_code: NL
+      administrative_area: ''
+      locality: Amsterdam
+      dependent_locality: ''
+      postal_code: '1016 BX'
+      sorting_code: ''
+      address_line1: 'Herengracht 282'

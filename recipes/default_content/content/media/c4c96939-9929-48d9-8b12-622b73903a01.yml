@@ -1,0 +1,36 @@
+_meta:
+  version: '1.0'
+  entity_type: media
+  uuid: c4c96939-9929-48d9-8b12-622b73903a01
+  bundle: image
+  default_langcode: en
+  depends:
+    65ba8c3f-1be0-4316-82b7-1e646aaae2e9: file
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  name:
+    -
+      value: _MG_5631.JPG
+  created:
+    -
+      value: 1742196590
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: ''
+      langcode: en
+      pathauto: 0
+  field_media_image:
+    -
+      entity: 65ba8c3f-1be0-4316-82b7-1e646aaae2e9
+      alt: 'Droptica Team'
+      title: ''
+      width: 6720
+      height: 4480

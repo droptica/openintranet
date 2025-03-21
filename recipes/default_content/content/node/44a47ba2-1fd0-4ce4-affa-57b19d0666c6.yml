@@ -1,0 +1,66 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 44a47ba2-1fd0-4ce4-affa-57b19d0666c6
+  bundle: page
+  default_langcode: en
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'About Us'
+  created:
+    -
+      value: 1738918770
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /pages/about-us
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: |
+        <h2>Introduction</h2>
+        <p><p>NextCorp is a dynamic and forward-thinking organization dedicated to providing top-tier services and products across a wide range of industries. With a commitment to excellence, innovation, and customer satisfaction, we strive to lead in our sector while maintaining a focus on sustainable practices and ethical business operations. As a company that operates globally, we believe in fostering a diverse and inclusive environment where every employee can thrive and contribute to our shared success.</p><p>This page provides an overview of our company, our mission, values, history, and the team that makes it all possible. We are proud of the journey we've taken and excited for what lies ahead as we continue to grow and evolve.</p></p>
+        <h2>Our Mission</h2>
+        <p><p>At NextCorp, our mission is to deliver exceptional value to our customers, employees, and stakeholders. We are committed to:</p><ul><li><strong>Innovating</strong>: Continuously improving and evolving our products and services to meet the changing needs of the market.</li><li><strong>Empowering Employees</strong>: Investing in our employees' development, ensuring they have the tools, resources, and opportunities to succeed.</li><li><strong>Delivering Excellence</strong>: Providing outstanding customer service and high-quality products that exceed expectations.</li><li><strong>Sustainability</strong>: Fostering a culture of sustainability by incorporating environmentally responsible practices into our operations and decision-making</li></ul><p>&nbsp;</p></p>
+        <h2>Our Values</h2>
+        <p><p>Our values are the foundation of who we are as a company and guide our daily actions. These values reflect our commitment to integrity, responsibility, and collaboration:</p><ul><li><strong>Integrity</strong>: We are honest, transparent, and ethical in all our business dealings.</li><li><strong>Collaboration</strong>: We believe in the power of teamwork and foster a collaborative environment where everyone’s contributions are valued.</li><li><strong>Excellence</strong>: We strive for excellence in everything we do, from the quality of our products to the customer service we provide.</li><li><strong>Innovation</strong>: We embrace change and continuously seek new ways to improve and stay ahead of the competition.</li><li><strong>Customer-Centricity</strong>: We put our customers at the heart of everything we do, focusing on their needs and expectations.</li></ul></p>
+        <h2>Our History</h2>
+        <p><p>NextCorp was founded in 2007 with the vision of creating a company that would provide innovative solutions to meet the evolving needs of the marketplace. From our humble beginnings, we have grown into a global organization with offices across Europe and a diverse team of over [Number of Employees] professionals.</p><p>Throughout our history, we have expanded our product offerings and service capabilities, successfully navigating challenges and adapting to market shifts. Our commitment to innovation and customer satisfaction has driven our growth, and we continue to push boundaries as we look toward the future.</p><p>Key milestones in our journey include:</p><ul><li><strong>2010</strong>: Launch of our flagship product/service.</li><li><strong>2012</strong>: Expansion into international markets.</li><li><strong>2013</strong>: Reached [specific achievement or milestone, e.g., number of clients served, revenue growth].</li><li><strong>2018</strong>: Commitment to sustainability and green initiatives.</li><li><strong>2020</strong>: Awarded Best Company 2020.</li></ul></p>
+        <h2>Our Global Presence</h2>
+        <p><p>NextCorp operates in multiple countries, with offices in major cities across Europe. We pride ourselves on our ability to serve a global customer base while understanding and respecting the unique cultural and business nuances of each region. Our teams are strategically located to provide local expertise and global reach, ensuring that our clients receive the best possible service regardless of where they are based.</p><p>Our locations include:</p><ul><li>Paris</li><li>Madrid</li><li>Berlin</li><li>Warsaw</li></ul></p>
+        <h2>Our Leadership Team</h2>
+        <p><p>NextCorp’s success is driven by a team of visionary leaders who bring diverse experience and expertise to the table. Led by our CEO, Ben John, the leadership team is responsible for setting the strategic direction of the company and ensuring we remain agile in a competitive market.<br>Each leader brings a unique perspective, but together they share a commitment to driving the company’s mission and values forward.</p></p>
+        <h2>Our Commitment to Sustainability</h2>
+        <p><p>As part of our ongoing commitment to sustainability, NextCorp integrates environmentally friendly practices into our daily operations. From reducing waste and conserving energy to sourcing sustainable materials, we aim to minimize our environmental footprint while promoting sustainable development in the communities where we operate.</p><p>NextCorp is actively involved in various sustainability initiatives, including:</p><ul><li><strong>Reducing carbon emissions</strong> through energy-efficient technologies.</li><li><strong>Supporting local communities</strong> through social responsibility programs.</li><li><strong>Promoting green initiatives</strong> in all our offices and manufacturing facilities.</li></ul></p>
+      format: full_html
+      summary: ''
+  comment_node_page:
+    -
+      status: 0
+      cid: 0
+      last_comment_timestamp: 1738918770
+      last_comment_name: ''
+      last_comment_uid: 1
+      comment_count: 0
+  field_basic_page_reaction:
+    -
+      status: 0

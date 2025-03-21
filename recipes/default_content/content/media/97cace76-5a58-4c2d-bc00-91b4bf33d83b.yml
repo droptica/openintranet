@@ -1,0 +1,36 @@
+_meta:
+  version: '1.0'
+  entity_type: media
+  uuid: 97cace76-5a58-4c2d-bc00-91b4bf33d83b
+  bundle: image
+  default_langcode: en
+  depends:
+    ac8054e0-849b-4084-a1c7-dca4d8adb3fc: file
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  name:
+    -
+      value: Gdansk_25.11.2021_23.jpg
+  created:
+    -
+      value: 1742196165
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: ''
+      langcode: en
+      pathauto: 0
+  field_media_image:
+    -
+      entity: ac8054e0-849b-4084-a1c7-dca4d8adb3fc
+      alt: 'Droptica Office'
+      title: ''
+      width: 5406
+      height: 3597

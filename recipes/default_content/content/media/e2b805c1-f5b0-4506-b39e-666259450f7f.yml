@@ -1,0 +1,36 @@
+_meta:
+  version: '1.0'
+  entity_type: media
+  uuid: e2b805c1-f5b0-4506-b39e-666259450f7f
+  bundle: image
+  default_langcode: en
+  depends:
+    5bd31152-edcc-4c3e-a0cb-88e4807fe1a9: file
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  name:
+    -
+      value: _MG_5937.JPG
+  created:
+    -
+      value: 1739957173
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: ''
+      langcode: en
+      pathauto: 0
+  field_media_image:
+    -
+      entity: 5bd31152-edcc-4c3e-a0cb-88e4807fe1a9
+      alt: 'Sample photo'
+      title: ''
+      width: 6459
+      height: 4306

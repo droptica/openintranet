@@ -1,0 +1,27 @@
+_meta:
+  version: '1.0'
+  entity_type: file
+  uuid: 65ba8c3f-1be0-4316-82b7-1e646aaae2e9
+  default_langcode: en
+default:
+  uid:
+    -
+      target_id: 1
+  filename:
+    -
+      value: _MG_5631.JPG
+  uri:
+    -
+      value: 'public://2025-03/_MG_5631.JPG'
+  filemime:
+    -
+      value: image/jpeg
+  filesize:
+    -
+      value: 13059987
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1742196590

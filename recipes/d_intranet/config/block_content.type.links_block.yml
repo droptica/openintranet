@@ -1,0 +1,8 @@
+uuid: 87399d81-17fe-452f-a805-2cd856539291
+langcode: en
+status: true
+dependencies: {  }
+id: links_block
+label: 'Links Block'
+revision: false
+description: 'A link block, allows to create link list'

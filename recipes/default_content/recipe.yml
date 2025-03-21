@@ -1,0 +1,12 @@
+name: 'Intranet default content'
+description: 'Provides default content for intranet.'
+type: 'Intranet'
+
+install:
+  - default_content
+  - book
+  - block
+
+config:
+  import:
+    block: '*'

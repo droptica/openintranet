@@ -1,0 +1,30 @@
+_meta:
+  version: '1.0'
+  entity_type: block_content
+  uuid: 2dd95677-dcf3-4b51-966f-8dbd16c323c4
+  bundle: quick_action
+  default_langcode: en
+default:
+  status:
+    -
+      value: true
+  info:
+    -
+      value: 'Help & Requests'
+  reusable:
+    -
+      value: true
+  revision_translation_affected:
+    -
+      value: true
+  field_quick_action:
+    -
+      uri: 'internal:/form/help-requests'
+      title: 'Help & Requests'
+      options: {  }
+  field_quick_action_icon:
+    -
+      value: 'material-symbols:supervised-user-circle'
+      classes: ''
+      decorative: true
+      arialabel: ''

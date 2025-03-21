@@ -1,0 +1,64 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: cab70fbe-e2bf-4b67-8281-c5822bbbbe47
+  bundle: article
+  default_langcode: en
+  depends:
+    ba046694-1153-48e4-919b-394bff26b976: media
+    d6018267-d46a-4e91-a9d4-8bf90ddac384: taxonomy_term
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'NextCorp’s Sustainability Initiative – Our Commitment to a Greener Future!'
+  created:
+    -
+      value: 1738915900
+  promote:
+    -
+      value: true
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /news/nextcorps-sustainability-initiative-our-commitment-greener-future
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: '<h2>&nbsp;</h2><p>&nbsp;</p><p>Sustainability isn’t just a buzzword—it’s a responsibility that every company must take seriously. As a multinational company with a growing workforce, NextCorp is in a position to make a real difference. Over the past year, we’ve been exploring ways to minimize our environmental impact while maintaining efficiency and innovation. Today, we’re proud to introduce our official Sustainability Initiative, a long-term strategy focused on making our operations more eco-friendly, reducing waste, and promoting green practices across all our offices.</p><p>One of the first steps in this initiative is a major push to cut down on paper usage. While digital tools have significantly reduced the need for printing, we still generate a considerable amount of paper waste. Moving forward, we’ll be implementing strict paper reduction policies, including default digital documentation, optimized printer settings, and a ‘think before you print’ campaign. In addition, we’re encouraging all employees to use reusable notebooks or digital note-taking apps instead of traditional paper-based methods.</p><p>Another key area we’re tackling is energy consumption. Office spaces are notorious for excessive energy use, often due to unnecessary lighting, outdated equipment, or inefficient heating and cooling systems. To address this, we’re rolling out smart energy solutions, including automated lighting systems that turn off when rooms are unoccupied, upgraded energy-efficient office equipment, and guidelines for optimal heating and cooling settings. Employees will also be encouraged to power down their devices at the end of the day and use energy-saving modes whenever possible.</p><p>Waste management is another crucial component of our sustainability efforts. In many of our offices, recycling bins are already in place, but proper sorting and disposal can still be improved. We’re launching a comprehensive waste reduction program that includes better recycling facilities, clear signage on waste disposal practices, and an educational campaign to raise awareness about the impact of improper waste management. Additionally, we’ll be reducing single-use plastics in our offices by replacing disposable coffee cups, cutlery, and water bottles with reusable alternatives.</p><p>For employees who work remotely, sustainability is just as important. While our home offices may not have the same environmental footprint as corporate spaces, we can still make a difference by choosing energy-efficient devices, reducing unnecessary printing, and making conscious decisions about our home office setup. To support this, NextCorp will provide employees with resources and guidelines on maintaining an eco-friendly workspace, including tips on reducing energy usage, sourcing sustainable office supplies, and even using green hosting solutions for digital storage.</p><p>Beyond our internal efforts, we’re also looking at ways to partner with sustainable vendors and suppliers. Our procurement team is actively reviewing our supply chain to identify eco-friendly options for office supplies, technology, and even the food served in our cafeterias. We believe that by prioritizing sustainability in our purchasing decisions, we can support companies that share our values and contribute to a larger movement toward environmental responsibility.</p><p>As part of our commitment to making a difference, we’re launching an employee-led ‘Green Team’ initiative. This volunteer-based group will be responsible for organizing sustainability-focused events, sharing eco-friendly tips, and working with management to propose new ideas for making NextCorp even greener. If you’re passionate about sustainability and want to be part of this initiative, we encourage you to join the Green Team and help us drive meaningful change.</p><p>We know that creating a sustainable workplace isn’t just about policies and guidelines—it’s about shifting mindsets and making sustainability part of our company culture. That’s why we’re encouraging every employee to take an active role in this initiative. Whether it’s by reducing waste, saving energy, or finding new ways to make our offices more eco-friendly, your efforts will make a difference.</p><p>Sustainability is a journey, and we’re just getting started. Over the coming months, we’ll be tracking our progress, sharing updates, and recognizing employees who go above and beyond in making NextCorp a greener company. If you have ideas, feedback, or suggestions on how we can improve, we’d love to hear from you! Let’s work together to create a more sustainable future—one step at a time.</p><p>&nbsp;</p>'
+      format: full_html
+      summary: ''
+  comment_node_article:
+    -
+      status: 2
+      cid: 0
+      last_comment_timestamp: 1738915965
+      last_comment_name: ''
+      last_comment_uid: 1
+      comment_count: 0
+  field_background_image:
+    -
+      entity: ba046694-1153-48e4-919b-394bff26b976
+  field_intro:
+    -
+      value: 'At NextCorp, we believe that small changes can lead to a big impact. That’s why we’re launching a company-wide sustainability initiative to reduce our environmental footprint and make our workplace more eco-friendly. From reducing paper waste to optimizing energy usage, our efforts will help create a greener future for everyone!'
+  field_news_article_reaction:
+    -
+      status: 2
+  field_tags:
+    -
+      entity: d6018267-d46a-4e91-a9d4-8bf90ddac384

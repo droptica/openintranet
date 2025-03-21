@@ -1,0 +1,64 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: c08841d0-38e8-41c3-af8b-25ded3379c30
+  bundle: article
+  default_langcode: en
+  depends:
+    c5251ead-8949-4778-9163-4ae3dbedfee0: media
+    630ade6c-e56f-4c64-9327-97f588c81536: taxonomy_term
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: ' NextCorp Launches New Mentorship Program – Unlock Your Potential!'
+  created:
+    -
+      value: 1738915986
+  promote:
+    -
+      value: true
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /news/nextcorp-launches-new-mentorship-program-unlock-your-potential
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: '<h2>&nbsp;</h2><p>&nbsp;</p><p>At NextCorp, we believe that learning never stops. Our new Mentorship Program is a structured yet flexible initiative that pairs employees with experienced mentors based on career goals, skills, and interests. The goal is to create meaningful professional relationships that foster growth, development, and a stronger workplace culture. Whether you’re an aspiring leader, a specialist looking to deepen your expertise, or someone who simply wants to expand their perspective, this program is your opportunity to learn from colleagues who have been in your shoes.</p><p>Mentorship has long been recognized as one of the most effective ways to accelerate career development. Studies show that employees who have mentors are more likely to achieve career success, feel more engaged at work, and gain valuable insights that help them make informed professional decisions. With this program, we want to ensure that every employee at NextCorp has access to mentorship opportunities, regardless of their role or experience level.</p><p>So, how does it work? The Mentorship Program will operate on a quarterly cycle, with employees signing up either as mentors or mentees. Once enrolled, participants will be matched based on their professional goals, areas of expertise, and preferred mentorship style. Whether it’s one-on-one coaching, group discussions, or informal check-ins, mentorship relationships can be tailored to fit individual preferences and schedules. The program is designed to be flexible, allowing participants to engage at their own pace while receiving the support they need.</p><p>We understand that not everyone has experience as a mentor, and that’s okay! We’ll be providing training sessions and resources to help mentors develop their coaching skills, set clear objectives, and provide valuable feedback. Likewise, mentees will receive guidance on how to make the most of their mentorship experience, including setting career goals, asking the right questions, and implementing actionable advice.</p><p>Beyond career development, the mentorship program is also a fantastic way to build stronger connections across teams and departments. By fostering relationships between employees at different levels and from different backgrounds, we create a more inclusive and supportive work environment. It’s an opportunity to break down silos, encourage knowledge sharing, and create a culture where everyone has the chance to grow and succeed.</p><p>The first mentorship cycle will kick off next month, and sign-ups are now open! If you’re interested in becoming a mentor or mentee, head to the Mentorship Program page on the intranet and submit your application. The deadline to sign up is two weeks from today, so don’t miss out on this opportunity to take your career to the next level.</p><p>Have questions? Want to learn more about how mentorship can benefit you? Join our upcoming info session, where we’ll go over program details, answer your questions, and hear from employees who have experienced the power of mentorship firsthand. Stay tuned for more updates, and get ready to unlock your potential with the NextCorp Mentorship Program!</p><p>&nbsp;</p>'
+      format: full_html
+      summary: ''
+  comment_node_article:
+    -
+      status: 2
+      cid: 0
+      last_comment_timestamp: 1738916077
+      last_comment_name: ''
+      last_comment_uid: 1
+      comment_count: 0
+  field_background_image:
+    -
+      entity: c5251ead-8949-4778-9163-4ae3dbedfee0
+  field_intro:
+    -
+      value: 'Great careers don’t happen overnight—they grow through learning, guidance, and experience. That’s why NextCorp is excited to launch our new Mentorship Program, designed to connect employees with experienced mentors who can help them navigate their career paths, develop new skills, and unlock their full potential. Whether you’re looking for professional advice, industry insights, or just a supportive guide, this program is for you!'
+  field_news_article_reaction:
+    -
+      status: 2
+  field_tags:
+    -
+      entity: 630ade6c-e56f-4c64-9327-97f588c81536

@@ -1,0 +1,79 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 4f8b3f46-75ce-4a57-9dac-2a5296ae032c
+  bundle: event
+  default_langcode: en
+  depends:
+    d9174a6c-eb17-40df-ba1e-c902e80729f5: taxonomy_term
+    0ce7d53f-cc83-4bf8-8f43-d4d02f0923ae: taxonomy_term
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'Summer Team-Building Retreat'
+  created:
+    -
+      value: 1738585418
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /event/summer-team-building-retreat
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: '<p>A weekend retreat filled with outdoor activities, team challenges, and networking opportunities. Strengthen team bonds while enjoying nature and relaxation.</p><p>&nbsp;</p>'
+      format: full_html
+      summary: ''
+  field_access:
+    -
+      entity: d9174a6c-eb17-40df-ba1e-c902e80729f5
+    -
+      entity: 0ce7d53f-cc83-4bf8-8f43-d4d02f0923ae
+  field_event_date:
+    -
+      value: '2025-03-28T13:25:00'
+      end_value: '2025-03-31T16:30:00'
+  field_event_location:
+    -
+      langcode: en
+      country_code: NL
+      administrative_area: ''
+      locality: Amsterdam
+      postal_code: ''
+      address_line1: 'Brill Place 23 231'
+  field_event_online:
+    -
+      value: false
+  field_hide_location:
+    -
+      value: false
+  field_map_location:
+    -
+      value: 'MULTIPOINT ((4.918757 52.379619), (4.924121 52.379069), (4.913521 52.378414), (4.909487 52.38195))'
+      geo_type: MultiPoint
+      lat: 52.380182015899
+      lon: 4.9168040014975
+      left: 4.909487
+      top: 52.38195
+      right: 4.924121
+      bottom: 52.378414
+      geohash: u17
+      latlon: '52.380182015899,4.9168040014975'

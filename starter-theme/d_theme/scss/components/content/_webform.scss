@@ -1,0 +1,131 @@
+@import "../../mixins/text";
+
+.path-webform {
+  .main-content {
+    .section {
+      .block-system-main-block {
+        .content {
+          padding: 25px;
+          background: $white;
+          border-radius: $border-radius;
+
+          @include media-breakpoint-up(lg) {
+            padding: 2.5rem 1.5rem;
+          }
+
+          .webform-submission-form {
+            @include media-breakpoint-up(lg) {
+              padding: 0 5rem;
+            }
+
+            .js-form-item {
+              label, .fieldset-legend {
+                color: $body-tertiary-color;
+
+                @include body-500;
+              }
+
+              input {
+                &:disabled {
+                  background-color: $navy-gray-25;
+                }
+
+                &.is-invalid {
+                  border-color: $red-500;
+                }
+              }
+            }
+
+            .js-form-type-checkbox {
+              input {
+                position: relative;
+                top: 2px;
+
+                &:not(:checked) {
+                  background-color: $white;
+                }
+              }
+            }
+
+            .form-type-webform-time,
+            .form-type-textfield,
+            .form-type-date,
+            .webform-document-file,
+            .form-type-email {
+              input {
+                border-radius: .125rem;
+                background: $white;
+                color: $body-tertiary-color;
+                margin-top: .25rem;
+                padding: .75rem 1rem;
+
+                @include body-400;
+              }
+            }
+
+            .form-type-select {
+              select {
+                border-radius: .125rem;
+                background-color: $white;
+                color: $body-tertiary-color;
+                margin-top: .25rem;
+                padding: .75rem 1rem;
+
+                @include body-400;
+              }
+            }
+
+            .form-type-textfield,
+            .form-type-email {
+              input {
+                padding: .75rem 1rem .75rem 2rem;
+                background-image: url('../images/icons/anchor.svg');
+                background-repeat: no-repeat;
+                background-position: .75rem center;
+                background-size: 1rem;
+
+                &:not(:placeholder-shown) {
+                  background-image: none;
+                  padding: .75rem 1rem;
+                }
+              }
+            }
+
+            .form-type-textarea {
+              textarea {
+                padding: 1rem;
+                border-radius: .125rem;
+                margin-top: .25rem;
+                background: $white;
+
+                @include body-400;
+
+                &:placeholder-shown {
+                  font-style: italic;
+                }
+              }
+            }
+
+            .form-actions {
+              display: flex;
+              align-items: center;
+              justify-content: flex-end;
+
+              button {
+                border-radius: $border-radius;
+                background: $blue-50;
+                color: $blue-500;
+                padding: .5rem .75rem;
+                border: none;
+
+                &:hover {
+                  background: $blue-100;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

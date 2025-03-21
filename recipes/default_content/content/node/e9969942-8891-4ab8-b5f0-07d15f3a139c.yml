@@ -1,0 +1,64 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: e9969942-8891-4ab8-b5f0-07d15f3a139c
+  bundle: article
+  default_langcode: en
+  depends:
+    f2984ee5-a096-42bc-8522-ed10d4897b7d: media
+    fdd050f9-5aa0-440b-b7d1-41c5c551d9a2: taxonomy_term
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'NextCorp Achieves Record-High Customer Satisfaction – A Milestone to Celebrate!'
+  created:
+    -
+      value: 1738847291
+  promote:
+    -
+      value: true
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /news/nextcorp-achieves-record-high-customer-satisfaction-milestone-celebrate
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: '<p>&nbsp;</p><p>At NextCorp, our strength lies in collaboration. Over the past year, we have implemented new customer engagement strategies, streamlined response times, and focused on empathetic communication. This collective effort has significantly contributed to our 95% satisfaction rating. Our new AI-assisted ticketing system has reduced response times by 30%, ensuring customers get help faster than ever. By focusing on a customer-first approach, our agents have made every interaction more meaningful, boosting overall satisfaction. Through ongoing coaching sessions and knowledge-sharing, our team stays ahead of industry best practices.</p><p>&nbsp;</p><blockquote><p>Helping customers with empathy and efficiency is at the core of what we do. Seeing our hard work reflected in the satisfaction scores is truly rewarding!</p></blockquote><h2>&nbsp;</h2><p>&nbsp;</p><p>To recognize our top-performing agents, we’re launching the ‘Customer Champion’ initiative! Outstanding team members will receive awards, bonuses, and special features in our monthly newsletter. Stay tuned for details on how you can be a part of this program. This is just the beginning! We aim to maintain and exceed this success by continuing to innovate, train, and provide exceptional customer experiences. Let’s keep up the great work!</p><p>&nbsp;</p><h2>Want to share a story?</h2><p>&nbsp;</p><p>Got a success story or a tip that helped improve customer satisfaction? Share it in the #customer-success channel and let’s inspire each other to reach even greater heights!</p><p>&nbsp;</p>'
+      format: full_html
+      summary: ''
+  comment_node_article:
+    -
+      status: 2
+      cid: 0
+      last_comment_timestamp: 1738847970
+      last_comment_name: ''
+      last_comment_uid: 1
+      comment_count: 0
+  field_background_image:
+    -
+      entity: f2984ee5-a096-42bc-8522-ed10d4897b7d
+  field_intro:
+    -
+      value: 'Great news, NextCorp team! Thanks to your dedication and hard work, our customer satisfaction score has soared to an all-time high of 95%! This incredible milestone is a testament to the outstanding service you provide every day. Let’s take a moment to celebrate our success and explore how we achieved this remarkable feat.'
+  field_news_article_reaction:
+    -
+      status: 2
+  field_tags:
+    -
+      entity: fdd050f9-5aa0-440b-b7d1-41c5c551d9a2

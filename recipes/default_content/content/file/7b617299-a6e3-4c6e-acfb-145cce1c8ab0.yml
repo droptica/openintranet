@@ -1,0 +1,27 @@
+_meta:
+  version: '1.0'
+  entity_type: file
+  uuid: 7b617299-a6e3-4c6e-acfb-145cce1c8ab0
+  default_langcode: en
+default:
+  uid:
+    -
+      target_id: 1
+  filename:
+    -
+      value: person_11.jpg
+  uri:
+    -
+      value: 'public://pictures/person_11.jpg'
+  filemime:
+    -
+      value: image/jpeg
+  filesize:
+    -
+      value: 560038
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1738844209

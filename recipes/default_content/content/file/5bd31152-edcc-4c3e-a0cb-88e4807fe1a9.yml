@@ -1,0 +1,27 @@
+_meta:
+  version: '1.0'
+  entity_type: file
+  uuid: 5bd31152-edcc-4c3e-a0cb-88e4807fe1a9
+  default_langcode: en
+default:
+  uid:
+    -
+      target_id: 1
+  filename:
+    -
+      value: _MG_5937.JPG
+  uri:
+    -
+      value: 'public://2025-02/_MG_5937.JPG'
+  filemime:
+    -
+      value: image/jpeg
+  filesize:
+    -
+      value: 10613179
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1739957173

@@ -1,0 +1,44 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 8b6f6bce-52ee-4ba6-9569-c988e9e89aa7
+  bundle: knowledge_base_page
+  default_langcode: en
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: Links
+  created:
+    -
+      value: 1741775077
+  promote:
+    -
+      value: true
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /knowledge/links
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: '<h2>Overview of Our Link Management</h2><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam erat volutpat. Quisque vulputate felis sit amet efficitur maximus. Morbi lacinia placerat sapien, ut auctor libero tincidunt et. Sed aliquet velit vitae nulla scelerisque, a fermentum nisi malesuada. Mauris lobortis mauris ut velit pretium, a malesuada justo convallis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam erat volutpat. Quisque vulputate felis sit amet efficitur maximus. Morbi lacinia placerat sapien, ut auctor libero tincidunt et. Sed aliquet velit vitae nulla scelerisque, a fermentum nisi malesuada. Mauris lobortis mauris ut velit pretium, a malesuada justo convallis.</p><ul><li><a href="/">link to Resource</a></li><li><a href="/">link to Resource</a></li><li><a href="/">link to Resource</a></li><li><a href="/">link to Resource</a></li><li><a href="/">link to Resource</a></li><li><a href="/">link to Resource</a></li><li><a href="/">link to Resource</a></li><li><a href="/">link to Resource</a></li><li><a href="/">link to Resource</a></li></ul><h2>Internal Links: Connecting Our Resources</h2><p>Curabitur tincidunt eros ut elit sollicitudin, ac luctus ante facilisis. Integer lacinia neque sed magna posuere, a hendrerit tortor feugiat. Nam placerat urna non dictum scelerisque. Sed pharetra eros id nunc posuere, sed viverra libero tristique. Nulla facilisi. Proin et tortor quis felis tincidunt fermentum id ac ante. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam erat volutpat. Quisque vulputate felis sit amet efficitur maximus. Morbi lacinia placerat sapien, ut auctor libero tincidunt et. Sed aliquet velit vitae nulla scelerisque, a fermentum nisi malesuada. Mauris lobortis mauris ut velit pretium, a malesuada justo convallis.&nbsp;</p><ul><li><a href="/">link to Resource</a></li><li><a href="/">link to Resource</a></li><li><a href="/">link to Resource</a></li><li><a href="/">link to Resource</a></li><li><a href="/">link to Resource</a></li><li><a href="/">link to Resource</a></li><li><a href="/">link to Resource</a></li><li><a href="/">link to Resource</a></li><li><a href="/">link to Resource</a></li></ul><h3>External Links: Expanding Our Network</h3><p>Sed dictum neque vitae sapien cursus, sed auctor sapien eleifend. Integer ac interdum sapien. Aliquam euismod, nunc a tincidunt lobortis, nisi sem cursus orci, eget scelerisque odio nulla non nunc. Donec ultricies varius velit in volutpat. Suspendisse et lorem vel erat auctor fermentum. Morbi a dolor ac nunc tincidunt condimentum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam erat volutpat. Quisque vulputate felis sit amet efficitur maximus. Morbi lacinia placerat sapien, ut auctor libero tincidunt et. Sed aliquet velit vitae nulla scelerisque, a fermentum nisi malesuada. Mauris lobortis mauris ut velit pretium, a malesuada justo convallis.</p><ul><li><a href="/">link to Resource</a></li><li><a href="/">link to Resource</a></li><li><a href="/">link to Resource</a></li><li><a href="/">link to Resource</a></li><li><a href="/">link to Resource</a></li><li><a href="/">link to Resource</a></li><li><a href="/">link to Resource</a></li><li><a href="/">link to Resource</a></li><li><a href="/">link to Resource</a></li></ul><h3>Important Links and Resources</h3><p>Nunc tempor augue ut urna faucibus, vel auctor erat congue. Vestibulum sollicitudin, nulla in tristique hendrerit, nunc lorem pretium velit, ac lacinia leo arcu vel sapien. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Curabitur ut tempor augue, a euismod lorem. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam erat volutpat. Quisque vulputate felis sit amet efficitur maximus. Morbi lacinia placerat sapien, ut auctor libero tincidunt et. Sed aliquet velit vitae nulla scelerisque, a fermentum nisi malesuada. Mauris lobortis mauris ut velit pretium, a malesuada justo convallis.</p><ul><li><a href="/">link to Resource</a></li><li><a href="/">link to Resource</a></li><li><a href="/">link to Resource</a></li><li><a href="/">link to Resource</a></li><li><a href="/">link to Resource</a></li><li><a href="/">link to Resource</a></li><li><a href="/">link to Resource</a></li><li><a href="/">link to Resource</a></li><li><a href="/">link to Resource</a></li><li><a href="/">link to Resource</a></li><li><a href="/">link to Resource</a></li><li><a href="/">link to Resource</a></li><li><a href="/">link to Resource</a></li></ul><h2>Organizing Links for Easy Access</h2><p>Vestibulum fringilla felis non dui convallis, eget cursus metus euismod. In placerat malesuada est, ac gravida enim bibendum vel. Donec eleifend sapien vel quam dignissim, vel ultricies sapien auctor. Curabitur pretium sapien et justo fermentum, sit amet malesuada nunc interdum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam erat volutpat. Quisque vulputate felis sit amet efficitur maximus. Morbi lacinia placerat sapien, ut auctor libero tincidunt et. Sed aliquet velit vitae nulla scelerisque, a fermentum nisi malesuada. Mauris lobortis mauris ut velit pretium, a malesuada justo convallis.</p><ul><li><a href="/">link to Resource</a></li><li><a href="/">link to Resource</a></li><li><a href="/">link to Resource</a></li><li><a href="/">link to Resource</a></li><li><a href="/">link to Resource</a></li><li><a href="/">link to Resource</a></li><li><a href="/">link to Resource</a></li><li><a href="/">link to Resource</a></li><li><a href="/">link to Resource</a></li></ul>'
+      format: full_html
+      summary: ''
+  field_data_classification:
+    -
+      value: public

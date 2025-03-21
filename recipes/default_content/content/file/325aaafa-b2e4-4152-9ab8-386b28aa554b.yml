@@ -1,0 +1,27 @@
+_meta:
+  version: '1.0'
+  entity_type: file
+  uuid: 325aaafa-b2e4-4152-9ab8-386b28aa554b
+  default_langcode: en
+default:
+  uid:
+    -
+      target_id: 1
+  filename:
+    -
+      value: Gdansk_25.11.2021_34.jpg
+  uri:
+    -
+      value: 'public://2025-03/Gdansk_25.11.2021_34.jpg'
+  filemime:
+    -
+      value: image/jpeg
+  filesize:
+    -
+      value: 2655045
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1742196247

@@ -1,0 +1,81 @@
+_meta:
+  version: '1.0'
+  entity_type: user
+  uuid: d3a92782-108f-4aeb-ab96-0d6752d17ffc
+  default_langcode: en
+  depends:
+    96ba59d8-a4fb-4bed-adb6-b01518abd664: taxonomy_term
+    9cb46a24-f2d9-47c6-bc4e-464498043086: user
+    c0af832d-005f-40df-bc8d-170f506b48dc: taxonomy_term
+    7b617299-a6e3-4c6e-acfb-145cce1c8ab0: file
+default:
+  preferred_langcode:
+    -
+      value: en
+  name:
+    -
+      value: adam.klein
+  pass:
+    -
+      value: $2y$10$AJELp/hiSpCNzr8QNaL25.5CB83miSCHTJeNgfwsVgoXIr7qut.la
+      existing: ''
+      pre_hashed: false
+  mail:
+    -
+      value: adam.klein@example.com
+  timezone:
+    -
+      value: Europe/Amsterdam
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1738843814
+  access:
+    -
+      value: 0
+  login:
+    -
+      value: 0
+  path:
+    -
+      alias: /users/adamklein
+      langcode: en
+      pathauto: 1
+  field_about:
+    -
+      value: 'Hi, I’m Adam, a Senior Customer Support Agent based in the Berlin Office. I handle complex cases and support our customer service strategy. I’m passionate about customer satisfaction and believe in providing meaningful solutions to every issue. When I’m not at work, I’m enjoying hiking and spending time with my family.'
+  field_department:
+    -
+      entity: 96ba59d8-a4fb-4bed-adb6-b01518abd664
+  field_first_name:
+    -
+      value: Adam
+  field_last_name:
+    -
+      value: Klein
+  field_manager:
+    -
+      entity: 9cb46a24-f2d9-47c6-bc4e-464498043086
+  field_name:
+    -
+      value: 'Senior Customer Support Agent'
+  field_office:
+    -
+      entity: c0af832d-005f-40df-bc8d-170f506b48dc
+  field_phone:
+    -
+      value: '+49301234568'
+  field_social_links:
+    -
+      uri: 'https://linkedin.com'
+      title: Linkedin
+      options: {  }
+  user_picture:
+    -
+      entity: 6cc7ba0a-b965-4715-a16b-e2356003ddc8
+      alt: ''
+      title: ''
+      width: 1024
+      height: 1024

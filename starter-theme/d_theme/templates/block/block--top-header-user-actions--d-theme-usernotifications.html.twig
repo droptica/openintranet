@@ -1,0 +1,17 @@
+{%
+  set classes = [
+  'block',
+  'm-0 p-0',
+  'me-2',
+  'position-relative',
+  'block-' ~ configuration.provider|clean_class,
+  'block-' ~ plugin_id|clean_class,
+]
+%}
+
+<a href="/pages/notifications" {{ attributes.addClass(classes) }}>
+  <i class="icon--notification"></i>
+  <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle">
+  <span class="visually-hidden">New alerts</span>
+</span>
+</a>

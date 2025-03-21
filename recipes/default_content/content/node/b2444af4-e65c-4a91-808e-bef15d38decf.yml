@@ -1,0 +1,41 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: b2444af4-e65c-4a91-808e-bef15d38decf
+  bundle: knowledge_base_page
+  default_langcode: en
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: Sales
+  created:
+    -
+      value: 1741775222
+  promote:
+    -
+      value: true
+  sticky:
+    -
+      value: false
+  path:
+    -
+      alias: /knowledge/sales
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: '<h4>Our Sales Approach: Driving Revenue Growth</h4><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vestibulum ante at enim cursus, non laoreet lacus gravida. Aliquam euismod, lacus vel gravida iaculis, mauris felis dictum nisi, sit amet dictum purus lorem eu lorem. Cras ac eros eu urna gravida vulputate sit amet id nulla. Integer sit amet posuere purus, ac feugiat magna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vestibulum ante at enim cursus, non laoreet lacus gravida. Aliquam euismod, lacus vel gravida iaculis, mauris felis dictum nisi, sit amet dictum purus lorem eu lorem. Cras ac eros eu urna gravida vulputate sit amet id nulla. Integer sit amet posuere purus, ac feugiat magna.</p><h4>Sales Strategy: Engaging with Clients</h4><p>Sed dictum nibh vel libero egestas, et fringilla tortor accumsan. Fusce id nisl ligula. Nam hendrerit vel purus nec elementum. Maecenas venenatis malesuada risus a luctus. Proin quis bibendum mi. Ut euismod vitae nulla eu tempor. Aenean vestibulum felis id dui dictum, id laoreet mauris tincidunt. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vestibulum ante at enim cursus, non laoreet lacus gravida. Aliquam euismod, lacus vel gravida iaculis, mauris felis dictum nisi, sit amet dictum purus lorem eu lorem. Cras ac eros eu urna gravida vulputate sit amet id nulla. Integer sit amet posuere purus, ac feugiat magna.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vestibulum ante at enim cursus, non laoreet lacus gravida. Aliquam euismod, lacus vel gravida iaculis, mauris felis dictum nisi, sit amet dictum purus lorem eu lorem. Cras ac eros eu urna gravida vulputate sit amet id nulla. Integer sit amet posuere purus, ac feugiat magna.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vestibulum ante at enim cursus, non laoreet lacus gravida. Aliquam euismod, lacus vel gravida iaculis, mauris felis dictum nisi, sit amet dictum purus lorem eu lorem. Cras ac eros eu urna gravida vulputate sit amet id nulla. Integer sit amet posuere purus, ac feugiat magna.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vestibulum ante at enim cursus, non laoreet lacus gravida. Aliquam euismod, lacus vel gravida iaculis, mauris felis dictum nisi, sit amet dictum purus lorem eu lorem. Cras ac eros eu urna gravida vulputate sit amet id nulla. Integer sit amet posuere purus, ac feugiat magna.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vestibulum ante at enim cursus, non laoreet lacus gravida. Aliquam euismod, lacus vel gravida iaculis, mauris felis dictum nisi, sit amet dictum purus lorem eu lorem. Cras ac eros eu urna gravida vulputate sit amet id nulla. Integer sit amet posuere purus, ac feugiat magna.</p><h3>Sales Process: From Lead to Conversion</h3><p>Donec tristique odio nec ante suscipit, in fringilla neque malesuada. Nulla facilisi. Ut feugiat vitae magna et varius. Nam et risus velit. Curabitur imperdiet purus vitae risus pretium, eget varius leo dapibus. Duis malesuada libero sed euismod fermentum. Mauris ut nunc vel lorem maximus viverra. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vestibulum ante at enim cursus, non laoreet lacus gravida. Aliquam euismod, lacus vel gravida iaculis, mauris felis dictum nisi, sit amet dictum purus lorem eu lorem. Cras ac eros eu urna gravida vulputate sit amet id nulla. Integer sit amet posuere purus, ac feugiat magna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vestibulum ante at enim cursus, non laoreet lacus gravida. Aliquam euismod, lacus vel gravida iaculis, mauris felis dictum nisi, sit amet dictum purus lorem eu lorem. Cras ac eros eu urna gravida vulputate sit amet id nulla. Integer sit amet posuere purus, ac feugiat magna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vestibulum ante at enim cursus, non laoreet lacus gravida. Aliquam euismod, lacus vel gravida iaculis, mauris felis dictum nisi, sit amet dictum purus lorem eu lorem. Cras ac eros eu urna gravida vulputate sit amet id nulla. Integer sit amet posuere purus, ac feugiat magna. v</p><h4>Building Strong Customer Relationships</h4><p>Aenean venenatis dolor ac ante tincidunt, a efficitur eros gravida. In id nisi velit. Integer a orci varius, feugiat ante eget, porttitor metus. Cras tempus nunc id purus vulputate, ut aliquet nulla tempor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vestibulum ante at enim cursus, non laoreet lacus gravida. Aliquam euismod, lacus vel gravida iaculis, mauris felis dictum nisi, sit amet dictum purus lorem eu lorem. Cras ac eros eu urna gravida vulputate sit amet id nulla. Integer sit amet posuere purus, ac feugiat magna.</p>'
+      format: full_html
+      summary: ''
+  field_data_classification:
+    -
+      value: internal

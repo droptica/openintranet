@@ -1,0 +1,36 @@
+uuid: d9893920-534c-4b1a-bb80-f37243cde6a0
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.media.cke_media_resize_large
+    - field.field.media.image.field_media_image
+    - image.style.cke_media_resize_large
+    - media.type.image
+  module:
+    - image
+_core:
+  default_config_hash: 3CZJB6yvg9DHMxUgBfPrNslDfBJZiBaRXkNs5pqbgg0
+id: media.image.cke_media_resize_large
+targetEntityType: media
+bundle: image
+mode: cke_media_resize_large
+content:
+  field_media_image:
+    type: image
+    label: visually_hidden
+    settings:
+      image_link: ''
+      image_style: cke_media_resize_large
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  created: true
+  langcode: true
+  name: true
+  search_api_excerpt: true
+  thumbnail: true
+  uid: true

@@ -1,0 +1,16 @@
+uuid: 4e4d238d-f79d-4981-85e3-daab3950ff88
+langcode: en
+status: true
+dependencies: {  }
+id: user
+path: /user
+bypass: false
+grant_file_owners: false
+users:
+  1: '0'
+  4170: '0'
+roles:
+  authenticated: authenticated
+  content_editor: content_editor
+  administrator: administrator
+  anonymous: '0'

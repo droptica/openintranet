@@ -1,0 +1,85 @@
+_meta:
+  version: '1.0'
+  entity_type: user
+  uuid: 83a34a10-79e6-4099-a623-57b2376f1221
+  default_langcode: en
+  depends:
+    65000083-7db1-4549-abe2-9ac73b9d7cdf: taxonomy_term
+    85dca620-6114-419a-b236-927981c4fd95: user
+    f9a5f836-dc83-441e-862f-0b099e4217f4: taxonomy_term
+    7bed2c53-9ffc-4855-bcc2-7f8c44f90c1b: file
+default:
+  preferred_langcode:
+    -
+      value: en
+  name:
+    -
+      value: marek.nowak
+  pass:
+    -
+      value: $2y$10$20P0lpXmHCgbmCNcgadKwOfbryLUR4Iz.4Sr4cqNlyZOvCqbXzg9a
+      existing: ''
+      pre_hashed: false
+  mail:
+    -
+      value: marek.nowak@example.com
+  timezone:
+    -
+      value: Europe/Amsterdam
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1738146818
+  access:
+    -
+      value: 1741950198
+  login:
+    -
+      value: 1741950198
+  path:
+    -
+      alias: /users/mareknowak
+      langcode: en
+      pathauto: 1
+  field_about:
+    -
+      value: "Hi, I’m Marek, part of the IT team in our Warsaw office. I specialize in maintaining our internal systems, troubleshooting technical issues, and ensuring a smooth workflow for our remote and in-office employees. Whether it’s setting up new software, handling security updates, or assisting with network configurations, I’m here to help!\r\n\r\n📡 Areas of Expertise:\r\n\r\nIT Support & Troubleshooting\r\nNetwork & Server Administration\r\nCybersecurity Best Practices\r\nSoftware Deployment\r\n\r\n📩 Contact:\r\nFeel free to reach out to me via email or Teams if you need tech support or have IT-related questions!"
+  field_department:
+    -
+      entity: 65000083-7db1-4549-abe2-9ac73b9d7cdf
+  field_first_name:
+    -
+      value: Marek
+  field_last_name:
+    -
+      value: Nowak
+  field_manager:
+    -
+      entity: 85dca620-6114-419a-b236-927981c4fd95
+  field_name:
+    -
+      value: 'Technical Support'
+  field_office:
+    -
+      entity: f9a5f836-dc83-441e-862f-0b099e4217f4
+  field_phone:
+    -
+      value: '511511511'
+  field_social_links:
+    -
+      uri: 'https://github.com'
+      title: Github
+      options: {  }
+    -
+      uri: 'https://linkedin.com'
+      title: Linkedin
+      options: {  }
+  user_picture:
+    -
+      entity: f78c63bb-f955-4eb1-bc39-5d5c89387384
+      alt: ''
+      title: ''
+      width: 1024
+      height: 1024

@@ -1,0 +1,44 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: f441e46b-5041-4be8-a1b4-a7a4d83fc9f4
+  bundle: knowledge_base_page
+  default_langcode: en
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: Operations/Delivery
+  created:
+    -
+      value: 1741775315
+  promote:
+    -
+      value: true
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /knowledge/operationsdelivery
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: '<h4>Operational Excellence: Ensuring Efficient Delivery</h4><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer feugiat nisl sit amet tortor sollicitudin, at malesuada risus pellentesque. Ut ac risus vel arcu eleifend egestas. Fusce vehicula est at efficitur auctor. Vivamus gravida, arcu sit amet luctus feugiat, eros metus vulputate ligula, ac fermentum libero turpis ac ex.</p><h4>Streamlining Delivery: Maximizing Efficiency</h4><p>Praesent interdum erat non ligula posuere, non cursus odio feugiat. Sed varius sapien nec nunc tempus, ut scelerisque ligula gravida. Cras tincidunt purus nec nisi vehicula, sit amet mollis urna feugiat. Mauris sit amet justo ac nisi fermentum lobortis. Nulla vel urna vitae nisi facilisis feugiat.</p><h3>Optimizing Operations for Growth</h3><p>Sed facilisis lacus at nisi convallis, vel pretium mi euismod. Fusce nec libero scelerisque, auctor orci vel, facilisis eros. Morbi tempor purus et consectetur tincidunt. Phasellus in elit et odio tincidunt elementum. Mauris tincidunt nunc et dui consectetur, at feugiat ipsum dignissim.</p><h4>Future Operational Goals</h4><p>Suspendisse potenti. Etiam in urna nisi. Cras id sem nec metus bibendum malesuada. Nunc fringilla sem nec ante auctor, ut efficitur ipsum scelerisque. Curabitur sit amet turpis ac augue interdum iaculis.</p>'
+      format: full_html
+      summary: ''
+  field_data_classification:
+    -
+      value: restricted

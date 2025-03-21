@@ -1,0 +1,22 @@
+uuid: 1329909a-d7d1-4476-9deb-50e0cfa9fcd0
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: knowlege_page
+label: 'Knowledge Page'
+type: 'canonical_entities:node'
+pattern: 'knowledge/[node:title]'
+selection_criteria:
+  fd237b51-0261-4282-a5c8-48dd13a21774:
+    id: 'entity_bundle:node'
+    negate: false
+    uuid: fd237b51-0261-4282-a5c8-48dd13a21774
+    context_mapping:
+      node: node
+    bundles:
+      knowledge_base_page: knowledge_base_page
+selection_logic: and
+weight: -6
+relationships: {  }

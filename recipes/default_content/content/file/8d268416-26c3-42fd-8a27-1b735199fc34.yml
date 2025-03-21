@@ -1,0 +1,27 @@
+_meta:
+  version: '1.0'
+  entity_type: file
+  uuid: 8d268416-26c3-42fd-8a27-1b735199fc34
+  default_langcode: en
+default:
+  uid:
+    -
+      target_id: 1
+  filename:
+    -
+      value: Torun__045.jpg
+  uri:
+    -
+      value: 'public://2025-02/Torun__045.jpg'
+  filemime:
+    -
+      value: image/jpeg
+  filesize:
+    -
+      value: 3829049
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1739958278

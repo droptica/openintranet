@@ -1,0 +1,19 @@
+uuid: c17533f9-6a9e-4560-90a1-a59c3a6a8883
+langcode: en
+status: true
+dependencies:
+  module:
+    - block_content
+    - link
+id: block_content.field_quick_action
+field_name: field_quick_action
+entity_type: block_content
+type: link
+settings: {  }
+module: link
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

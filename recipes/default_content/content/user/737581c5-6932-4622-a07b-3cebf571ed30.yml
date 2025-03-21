@@ -1,0 +1,81 @@
+_meta:
+  version: '1.0'
+  entity_type: user
+  uuid: 737581c5-6932-4622-a07b-3cebf571ed30
+  default_langcode: en
+  depends:
+    96ba59d8-a4fb-4bed-adb6-b01518abd664: taxonomy_term
+    9cb46a24-f2d9-47c6-bc4e-464498043086: user
+    6cb6eb4e-1f6f-4585-990f-c2173179370c: taxonomy_term
+    d183535c-a23a-4efe-9b80-476b4bda80ee: file
+default:
+  preferred_langcode:
+    -
+      value: en
+  name:
+    -
+      value: emma.smith
+  pass:
+    -
+      value: $2y$10$2vCEOBGE3VgA3oR8uNd07.SNVWHxN7vIb5uMIA42iWmKk9RhkDquC
+      existing: ''
+      pre_hashed: false
+  mail:
+    -
+      value: emma.smith@example.com
+  timezone:
+    -
+      value: Europe/Amsterdam
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1738843814
+  access:
+    -
+      value: 0
+  login:
+    -
+      value: 0
+  path:
+    -
+      alias: /users/emmasmith
+      langcode: en
+      pathauto: 1
+  field_about:
+    -
+      value: 'Hello! I’m Emma, a Customer Support Agent working remotely. I assist customers in troubleshooting various service-related issues. I strive to deliver quick, helpful responses and keep customers happy. I enjoy reading and exploring new cooking recipes in my spare time!'
+  field_department:
+    -
+      entity: 96ba59d8-a4fb-4bed-adb6-b01518abd664
+  field_first_name:
+    -
+      value: Emma
+  field_last_name:
+    -
+      value: Smith
+  field_manager:
+    -
+      entity: 9cb46a24-f2d9-47c6-bc4e-464498043086
+  field_name:
+    -
+      value: 'Customer Support Agent'
+  field_office:
+    -
+      entity: 6cb6eb4e-1f6f-4585-990f-c2173179370c
+  field_phone:
+    -
+      value: '+44712345678'
+  field_social_links:
+    -
+      uri: 'https://linkedin.com'
+      title: Linkedin
+      options: {  }
+  user_picture:
+    -
+      entity: fc5045ba-f94b-438e-8960-109146dcd74f
+      alt: ''
+      title: ''
+      width: 1024
+      height: 1024

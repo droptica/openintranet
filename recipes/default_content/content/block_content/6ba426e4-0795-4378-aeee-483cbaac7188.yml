@@ -1,0 +1,37 @@
+_meta:
+  version: '1.0'
+  entity_type: block_content
+  uuid: 6ba426e4-0795-4378-aeee-483cbaac7188
+  bundle: banner_block
+  default_langcode: en
+  depends:
+    96392467-f863-4586-8c57-a17064cc1eec: media
+default:
+  status:
+    -
+      value: true
+  info:
+    -
+      value: 'New Office Opening'
+  reusable:
+    -
+      value: true
+  revision_translation_affected:
+    -
+      value: true
+  body:
+    -
+      value: '<p>We are excited to announce the opening of our new office in <strong>London, 15 King Street</strong>. The space has been designed to support teamwork, creativity, and efficiency, providing modern workstations, well-equipped meeting rooms, and comfortable common areas</p>'
+      format: full_html
+      summary: ''
+  field_background_media:
+    -
+      entity: 96392467-f863-4586-8c57-a17064cc1eec
+  field_banner_cta:
+    -
+      uri: 'internal:/'
+      title: 'See more'
+      options: {  }
+  field_banner_title:
+    -
+      value: 'New Office Opening – A Fresh Space for Collaboration'

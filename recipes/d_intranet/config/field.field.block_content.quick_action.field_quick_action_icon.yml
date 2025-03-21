@@ -1,0 +1,25 @@
+uuid: 0a890eec-be65-4878-a97c-01710cc98c24
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.quick_action
+    - field.storage.block_content.field_quick_action_icon
+  module:
+    - iconify_field
+id: block_content.quick_action.field_quick_action_icon
+field_name: field_quick_action_icon
+entity_type: block_content
+bundle: quick_action
+label: Icon
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  value: ''
+  classes: ''
+  decorative: true
+  arialabel: ''
+field_type: iconify_field_icon

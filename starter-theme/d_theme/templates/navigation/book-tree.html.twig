@@ -1,0 +1,71 @@
+
+
+{#
+/**
+ * @file
+ * Theme override to display a book tree.
+ *
+ * Returns HTML for a wrapper for a book sub-tree.
+ *
+ * Available variables:
+ * - items: A nested list of book items. Each book item contains:
+ *   - attributes: HTML attributes for the book item.
+ *   - below: The book item child items.
+ *   - title: The book link title.
+ *   - url: The book link URL, instance of \Drupal\Core\Url.
+ *   - is_expanded: TRUE if the link has visible children within the current
+ *     book tree.
+ *   - is_collapsed: TRUE if the link has children within the current book tree
+ *     that are not currently visible.
+ *   - in_active_trail: TRUE if the link is in the active trail.
+ */
+#}
+{% import _self as book_tree %}
+
+{{ book_tree.book_links(items, attributes, theme_hook_original, 0) }}
+
+{% macro book_links(items, attributes, parent_id, menu_level) %}
+  {% import _self as book_tree %}
+  {% if items %}
+    {% if menu_level == 0 %}
+      <div class="accordion" id="{{ parent_id }}">
+    {% endif %}
+    {% for item in items %}
+      {% set item_id = parent_id ~ '-item-' ~ loop.index %}
+      {% set in_active_trail =
+        item.in_active_trail or
+        item.is_active or
+        (item.below|filter(i => i.is_active or i.in_active_trail)|length > 0)  or
+        (item.is_expanded and item.below|filter(i => i.is_expanded)|length > 0)
+      %}
+      {%
+        set classes = [
+        'accordion-item',
+        in_active_trail ? 'active-trail',
+      ]
+      %}
+      <div {{ item.attributes.addClass(classes) }}>
+        <h2 class="accordion-header d-flex align-items-center justify-content-between" id="heading-{{ item_id }}">
+          <a href="{{ item.url.toString() }}" class="nav-link flex-grow-1 {% if item.is_active %}active{% endif %}">{{ item.title }}</a>
+          {% if item.below %}
+            <button class="accordion-button {% if in_active_trail %}show{% else %}collapsed{% endif %}" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{{ item_id }}" aria-expanded="{% if item.in_active_trail %}true{% else %}false{% endif %}" aria-controls="collapse-{{ item_id }}">
+            </button>
+          {% endif %}
+        </h2>
+        {% if item.is_active %}
+          <div class="accordion-item-navigation" id="accordionItemNavigation"></div>
+        {% endif %}
+        {% if item.below %}
+          <div id="collapse-{{ item_id }}" class="accordion-collapse collapse {% if in_active_trail %}show{% endif %}" aria-labelledby="heading-{{ item_id }}" data-bs-parent="#{{ parent_id }}">
+            <div class="accordion-body">
+              {{ book_tree.book_links(item.below, attributes, item_id, menu_level + 1) }}
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    {% endfor %}
+    {% if menu_level == 0 %}
+      </div>
+    {% endif %}
+  {% endif %}
+{% endmacro %}

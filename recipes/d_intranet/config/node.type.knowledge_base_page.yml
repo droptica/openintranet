@@ -1,0 +1,18 @@
+uuid: 55342182-773f-45fc-beb8-b37882acd51d
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main
+    parent: 'main:'
+name: 'Knowledge Base Page'
+type: knowledge_base_page
+description: 'Use for creating and managing Knowledge Pages with details.'
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: true

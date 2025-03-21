@@ -1,0 +1,42 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: 258ab9b8-adc6-492f-a56e-e7aa706bf624
+  bundle: menu_link_content
+  default_langcode: en
+  depends:
+    7df2c289-b957-4c7e-8281-57ec7cc78d38: menu_link_content
+    ec9b033d-3b2a-4559-a8af-b4f8cbf12274: node
+default:
+  enabled:
+    -
+      value: true
+  title:
+    -
+      value: Compliance
+  menu_name:
+    -
+      value: main
+  link:
+    -
+      target_uuid: ec9b033d-3b2a-4559-a8af-b4f8cbf12274
+      title: ''
+      options: {  }
+  external:
+    -
+      value: false
+  rediscover:
+    -
+      value: false
+  weight:
+    -
+      value: -47
+  expanded:
+    -
+      value: false
+  parent:
+    -
+      value: 'menu_link_content:7df2c289-b957-4c7e-8281-57ec7cc78d38'
+  revision_translation_affected:
+    -
+      value: true

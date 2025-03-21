@@ -1,0 +1,23 @@
+uuid: 8208fcbb-57eb-42b6-81ab-37ebd46dcfba
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_data_classification
+    - node.type.knowledge_base_page
+  module:
+    - options
+id: node.knowledge_base_page.field_data_classification
+field_name: field_data_classification
+entity_type: node
+bundle: knowledge_base_page
+label: 'Data classification'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: public
+default_value_callback: ''
+settings: {  }
+field_type: list_string

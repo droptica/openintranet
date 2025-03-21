@@ -1,0 +1,60 @@
+uuid: ada47bee-4bd2-41c8-90d0-9631954890f2
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.event.body
+    - field.field.node.event.field_access
+    - field.field.node.event.field_background_image
+    - field.field.node.event.field_event_date
+    - field.field.node.event.field_event_location
+    - field.field.node.event.field_event_online
+    - field.field.node.event.field_event_online_text
+    - field.field.node.event.field_hide_location
+    - field.field.node.event.field_map_location
+    - image.style.all_news_teaser
+    - node.type.event
+  module:
+    - media
+    - text
+    - user
+id: node.event.teaser
+targetEntityType: node
+bundle: event
+mode: teaser
+content:
+  body:
+    type: text_summary_or_trimmed
+    label: hidden
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  field_background_image:
+    type: media_thumbnail
+    label: hidden
+    settings:
+      image_link: content
+      image_style: all_news_teaser
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_access: true
+  field_event_date: true
+  field_event_location: true
+  field_event_online: true
+  field_event_online_text: true
+  field_hide_location: true
+  field_map_location: true
+  langcode: true
+  search_api_excerpt: true

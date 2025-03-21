@@ -1,0 +1,62 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: d469fc3f-3fa8-4504-9cee-928fbf2865ba
+  bundle: knowledge_base_page
+  default_langcode: en
+  depends:
+    e9fd5e1b-6274-4196-9a8c-66abc71a1c79: node
+    0f7bcd24-21c2-4a82-b979-80c20febf9ec: node
+    14e25f4f-02df-457e-b32a-148315035cc6: taxonomy_term
+    61215627-4fc6-4f14-89f1-5e42c337cc31: taxonomy_term
+    d6018267-d46a-4e91-a9d4-8bf90ddac384: taxonomy_term
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: Marketing
+  created:
+    -
+      value: 1741774997
+  promote:
+    -
+      value: true
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /knowledge/marketing
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: '<h2>Our Marketing Approach: Driving Growth and Engagement</h2><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sit amet dolor lectus. Phasellus congue ex nec nunc volutpat, in volutpat arcu egestas. Nam interdum vehicula erat, at aliquam neque maximus in. Curabitur tincidunt augue id arcu consequat, a pharetra nunc volutpat. Proin auctor orci eu ante elementum, at ullamcorper lorem tristique.</p><h2>Building Strong Brand Awareness</h2><p>Curabitur id lorem eget metus mollis fermentum at nec nulla. Nam auctor tempor velit, et euismod justo volutpat vel. Donec at augue sed purus euismod tincidunt vel vitae magna. Etiam faucibus urna sed nibh cursus, vel facilisis turpis consectetur. Fusce feugiat sapien euismod magna fringilla, at fermentum mi fermentum.</p><h3>Digital Marketing Strategies</h3><p>Nullam vel auctor risus. Sed maximus dolor non enim fermentum, sed volutpat purus ultricies. Etiam vel magna sed lectus aliquam convallis. Vivamus ullamcorper, libero vel vehicula bibendum, felis orci egestas orci, et tristique mi sem ut ex. Integer vulputate orci orci, in efficitur ipsum gravida non.</p><h3>Content Creation and Social Media</h3><p>Pellentesque hendrerit, eros non egestas elementum, odio libero elementum ipsum, ac eleifend ligula tortor vel magna. Fusce pretium purus et suscipit cursus. Mauris tincidunt, ipsum et posuere pretium, lorem sapien iaculis justo, et maximus justo velit vel urna. Duis tincidunt arcu ac velit mollis, a sodales dui sodales.</p><h2>Collaborating for Success</h2><p>In viverra erat sed nulla dapibus, nec vulputate magna auctor. Nam ut libero ac felis tristique posuere. Aenean suscipit, libero in luctus tincidunt, risus justo sodales libero, in pretium lorem augue eu ipsum. Suspendisse potenti. Nulla facilisi.</p>'
+      format: full_html
+      summary: ''
+  field_data_classification:
+    -
+      value: restricted
+  field_related_content:
+    -
+      entity: e9fd5e1b-6274-4196-9a8c-66abc71a1c79
+    -
+      entity: 0f7bcd24-21c2-4a82-b979-80c20febf9ec
+  field_tags:
+    -
+      entity: 14e25f4f-02df-457e-b32a-148315035cc6
+    -
+      entity: 61215627-4fc6-4f14-89f1-5e42c337cc31
+    -
+      entity: d6018267-d46a-4e91-a9d4-8bf90ddac384

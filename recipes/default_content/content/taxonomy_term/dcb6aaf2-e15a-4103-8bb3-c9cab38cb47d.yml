@@ -1,0 +1,31 @@
+_meta:
+  version: '1.0'
+  entity_type: taxonomy_term
+  uuid: dcb6aaf2-e15a-4103-8bb3-c9cab38cb47d
+  bundle: department
+  default_langcode: en
+default:
+  status:
+    -
+      value: true
+  name:
+    -
+      value: 'Finance & Accounting'
+  description:
+    -
+      value: '<p>Managing budgets, financial reporting, and accounts payable/receivable for the organization.</p>'
+      format: full_html
+  weight:
+    -
+      value: 0
+  parent:
+    -
+      target_id: 0
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /department/finance-accounting
+      langcode: en
+      pathauto: 1

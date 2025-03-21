@@ -1,0 +1,84 @@
+@import "../../../mixins/text";
+
+.search-result {
+  display: flex;
+  flex-direction: column;
+  padding: .5rem;
+
+  & > a {
+    padding: 0;
+  }
+
+  &:has(.search-result) {
+    border-bottom: 1px solid $dark-navy-100;
+  }
+
+  @include media-breakpoint-up(lg) {
+    padding: 1.5rem 1.5rem 1.5rem 0;
+    flex-direction: row;
+    gap: 1rem;
+  }
+
+  img {
+    height: 100%;
+    width: 100%;
+    display: block;
+    border-radius: 4px;
+    object-fit: cover;
+
+    @include media-breakpoint-up(lg) {
+      width: 324px;
+    }
+  }
+
+  .search-result {
+    &__content {
+      display: flex;
+      flex-direction: column;
+      row-gap: .5rem;
+
+      @include body-400;
+    }
+
+    &__title {
+      margin-top: .5rem;
+
+      @include media-breakpoint-up(lg) {
+        margin-top: 0;
+      }
+
+      a {
+        @include heading-5;
+      }
+    }
+
+    &__excerpt {
+      color: $body-color;
+
+      @include body-300;
+    }
+
+    &__author-wrapper {
+      display: flex;
+      column-gap: 1.875rem;
+      color: $body-tertiary-color;
+
+      @include body-300;
+    }
+
+    &__tags {
+      display: flex;
+      column-gap: .5rem;
+      margin-top: auto;
+
+      a {
+        background: $blue-100;
+        color: $blue-500;
+        padding: 4px 12px;
+        border-radius: .5 * $border-radius;
+
+        @include body-400;
+      }
+    }
+  }
+}

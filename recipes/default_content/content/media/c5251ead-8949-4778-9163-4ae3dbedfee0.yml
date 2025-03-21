@@ -1,0 +1,36 @@
+_meta:
+  version: '1.0'
+  entity_type: media
+  uuid: c5251ead-8949-4778-9163-4ae3dbedfee0
+  bundle: image
+  default_langcode: en
+  depends:
+    549a81cb-4bb4-413b-b662-52604f1f6855: file
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  name:
+    -
+      value: Torun__064.jpg
+  created:
+    -
+      value: 1740479862
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: ''
+      langcode: en
+      pathauto: 1
+  field_media_image:
+    -
+      entity: 549a81cb-4bb4-413b-b662-52604f1f6855
+      alt: ''
+      title: ''
+      width: 6048
+      height: 4024

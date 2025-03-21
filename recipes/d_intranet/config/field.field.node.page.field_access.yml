@@ -1,0 +1,29 @@
+uuid: 2240917b-09e5-42a3-a93c-1a4ae1bac7d8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_access
+    - node.type.page
+    - taxonomy.vocabulary.access
+id: node.page.field_access
+field_name: field_access
+entity_type: node
+bundle: page
+label: Access
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      access: access
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: access
+field_type: entity_reference

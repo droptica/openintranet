@@ -1,0 +1,58 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 4de9ab3e-1f33-4e14-9b7c-7ebd1fad5c71
+  bundle: document
+  default_langcode: en
+  depends:
+    ffe973d0-7eb7-4b76-b9c1-eccdbc1c0194: taxonomy_term
+    91e8e258-36f3-4283-9bbc-938ad793cf14: file
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'Vendor & Supplier Management'
+  created:
+    -
+      value: 1740652506
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /document/vendor-supplier-management
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: 'How the company selects and works with external vendors and suppliers.'
+      format: full_html
+      summary: 'How the company selects and works with external vendors and suppliers.'
+  field_area:
+    -
+      entity: ffe973d0-7eb7-4b76-b9c1-eccdbc1c0194
+  field_file:
+    -
+      entity: 91e8e258-36f3-4283-9bbc-938ad793cf14
+      display: true
+      description: ''
+  field_related_documents:
+    -
+      target_id: 0
+  field_version:
+    -
+      value: '1.2'

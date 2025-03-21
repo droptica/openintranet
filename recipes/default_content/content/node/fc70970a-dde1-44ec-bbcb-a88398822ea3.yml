@@ -1,0 +1,64 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: fc70970a-dde1-44ec-bbcb-a88398822ea3
+  bundle: article
+  default_langcode: en
+  depends:
+    c4c96939-9929-48d9-8b12-622b73903a01: media
+    fdd050f9-5aa0-440b-b7d1-41c5c551d9a2: taxonomy_term
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: '2024 in Review: Celebrating a Year of Growth, Innovation, and Team Success at NextCorp!'
+  created:
+    -
+      value: 1738915135
+  promote:
+    -
+      value: true
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /news/2024-review-celebrating-year-growth-innovation-and-team-success-nextcorp
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: '<h2>A Year of Record-Breaking Customer Satisfaction</h2><p>&nbsp;</p><p>2024 was the year we raised the bar for customer service excellence. Thanks to your unwavering commitment, we achieved an unprecedented <strong>96% customer satisfaction score</strong>, up from 92% in 2023. This incredible achievement is a testament to the passion and professionalism you bring to every interaction.</p><blockquote><p><em>"Our customers are at the heart of everything we do. Reaching a 96% satisfaction score is a huge milestone, and it’s all thanks to the hard work and dedication of our amazing team."</em><br>– Sarah Thompson, Head of Customer Experience</p></blockquote><p>To celebrate this success, we launched the <strong>Customer Champion Program</strong>, recognizing top-performing agents each quarter. Congratulations to all our champions—your efforts inspire us all!</p><p><br>&nbsp;</p><p>&nbsp;</p><h2>Embracing Innovation: New Tools and Technologies</h2><p>&nbsp;</p><p>This year, we invested heavily in cutting-edge tools to make your work easier and more efficient. From upgrading our CRM system to introducing AI-powered chatbots, these innovations have streamlined workflows and enhanced the customer experience.</p><p><strong>Key Highlights:</strong></p><ul><li>Launched <strong>NextGen CRM</strong>, a user-friendly platform designed to simplify case management and improve response times.</li><li>Introduced <strong>AI Assist</strong>, a chatbot that handles routine inquiries, freeing up time for more complex customer needs.</li><li>Rolled out <strong>Virtual Collaboration Hub</strong>, a one-stop platform for remote team communication and project management.</li></ul><blockquote><p><em>"The new tools have been a game-changer for me. I can focus more on building relationships with customers instead of getting bogged down by repetitive tasks."</em><br>– Mark Davies, Customer Support Agent<br>&nbsp;</p></blockquote><p>&nbsp;</p><h2>Employee Development: Investing in Your Growth</h2><p>&nbsp;</p><p>At NextCorp, we believe in empowering our team to reach their full potential. In 2024, we expanded our training and development programs, offering over <strong>50 new courses</strong> on topics ranging from advanced customer service techniques to leadership skills.</p><p><strong>Key Stats:</strong></p><ul><li>85% of employees participated in at least one training program.</li><li>30% of team members were promoted internally.</li></ul><blockquote><p><em>"The leadership training program helped me gain the confidence and skills I needed to step into a team lead role. I’m so grateful for the opportunities NextCorp provides."</em><br>– Anna Kowalski, Team Lead</p></blockquote><p>&nbsp;</p><h2>A Heartfelt Thank You</h2><p>&nbsp;</p><p>None of this would have been possible without you. Your hard work, resilience, and passion are the driving force behind NextCorp’s success. As we celebrate the achievements of 2024, let’s carry this energy forward and make 2025 our best year yet!</p><blockquote><p><em>"I’m constantly inspired by the talent and dedication of our team. Together, we’ve achieved so much, and I can’t wait to see what we’ll accomplish next."</em><br>– Benjamin Bateor, CTO</p></blockquote><hr><p><strong>Join the Conversation!</strong><br>What was your favorite moment of 2024? Share your stories and photos in the #NextCorp2024 channel. Let’s celebrate our successes together!<br>&nbsp;</p><p>&nbsp;</p>'
+      format: full_html
+      summary: ''
+  comment_node_article:
+    -
+      status: 2
+      cid: 0
+      last_comment_timestamp: 1738915396
+      last_comment_name: ''
+      last_comment_uid: 1
+      comment_count: 0
+  field_background_image:
+    -
+      entity: c4c96939-9929-48d9-8b12-622b73903a01
+  field_intro:
+    -
+      value: 'As we close the chapter on 2024, it’s time to reflect on the incredible journey we’ve shared as a team. This year has been one of growth, innovation, and remarkable achievements, all made possible by the dedication and hard work of every single one of you. From hitting record-breaking customer satisfaction scores to embracing new technologies and strengthening our remote collaboration, 2024 has truly been a year to remember. Let’s take a moment to celebrate our collective success and look ahead to an even brighter future!'
+  field_news_article_reaction:
+    -
+      status: 2
+  field_tags:
+    -
+      entity: fdd050f9-5aa0-440b-b7d1-41c5c551d9a2

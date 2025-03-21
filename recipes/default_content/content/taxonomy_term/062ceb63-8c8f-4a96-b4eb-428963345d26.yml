@@ -1,0 +1,41 @@
+_meta:
+  version: '1.0'
+  entity_type: taxonomy_term
+  uuid: 062ceb63-8c8f-4a96-b4eb-428963345d26
+  bundle: office
+  default_langcode: en
+default:
+  status:
+    -
+      value: true
+  name:
+    -
+      value: 'Madrid Office'
+  description:
+    -
+      value: '<p>Spanish branch focused on customer support for Iberian clients.</p>'
+      format: full_html
+  weight:
+    -
+      value: 0
+  parent:
+    -
+      target_id: 0
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /office/madrid-office
+      langcode: en
+      pathauto: 1
+  field_address:
+    -
+      langcode: en
+      country_code: ES
+      administrative_area: M
+      locality: Madrid
+      dependent_locality: ''
+      postal_code: '28014'
+      sorting_code: ''
+      address_line1: 'Calle de Alcalá 40'

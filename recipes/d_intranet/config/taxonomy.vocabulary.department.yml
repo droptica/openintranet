@@ -1,0 +1,9 @@
+uuid: 7b4f7c4c-4d44-4ead-b895-147e41e0177b
+langcode: en
+status: true
+dependencies: {  }
+name: Department
+vid: department
+description: 'Use Department to assign users.'
+weight: 0
+new_revision: false

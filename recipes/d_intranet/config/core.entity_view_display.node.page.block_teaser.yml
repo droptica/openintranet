@@ -1,0 +1,42 @@
+uuid: c8edd202-b1be-4262-a909-a1b2fea8e283
+langcode: en
+status: false
+dependencies:
+  config:
+    - core.entity_view_mode.node.block_teaser
+    - field.field.node.page.body
+    - field.field.node.page.comment_node_page
+    - field.field.node.page.field_access
+    - field.field.node.page.field_background_image
+    - field.field.node.page.field_basic_page_reaction
+    - field.field.node.page.field_document_ref
+    - node.type.page
+  module:
+    - user
+    - votingapi_reaction
+id: node.page.block_teaser
+targetEntityType: node
+bundle: page
+mode: block_teaser
+content:
+  field_basic_page_reaction:
+    type: votingapi_reaction_default
+    label: hidden
+    settings:
+      show_summary: false
+      show_icon: true
+      show_label: false
+      show_count: true
+      sort_reactions: none
+    third_party_settings: {  }
+    weight: 2
+    region: content
+hidden:
+  body: true
+  comment_node_page: true
+  field_access: true
+  field_background_image: true
+  field_document_ref: true
+  langcode: true
+  links: true
+  search_api_excerpt: true

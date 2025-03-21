@@ -1,0 +1,21 @@
+uuid: 01bbea15-b357-481a-a078-dbad335b3e78
+langcode: en
+status: true
+dependencies: {  }
+name: user_info
+label: 'User Info'
+effects:
+  dd200507-b28a-4884-8d4f-9e9a3fbb21c3:
+    uuid: dd200507-b28a-4884-8d4f-9e9a3fbb21c3
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 133
+      height: 133
+      anchor: center-center
+  834a1821-de43-4e6f-9ba2-b9939a6024f0:
+    uuid: 834a1821-de43-4e6f-9ba2-b9939a6024f0
+    id: image_convert
+    weight: 2
+    data:
+      extension: webp

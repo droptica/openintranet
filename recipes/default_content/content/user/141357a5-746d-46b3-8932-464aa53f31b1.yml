@@ -1,0 +1,77 @@
+_meta:
+  version: '1.0'
+  entity_type: user
+  uuid: 141357a5-746d-46b3-8932-464aa53f31b1
+  default_langcode: en
+  depends:
+    96ba59d8-a4fb-4bed-adb6-b01518abd664: taxonomy_term
+    6cb6eb4e-1f6f-4585-990f-c2173179370c: taxonomy_term
+    03abaaf7-9984-45bc-a869-0cea55eb49cf: file
+default:
+  preferred_langcode:
+    -
+      value: en
+  name:
+    -
+      value: emma.dubois
+  pass:
+    -
+      value: $2y$10$49bTichR4/qupx2T6NE8TeP2g.Q4/xeACN7i3vUb.BmDk5R0ou5oa
+      existing: ''
+      pre_hashed: false
+  mail:
+    -
+      value: emma.dubois@example.com
+  timezone:
+    -
+      value: Europe/Amsterdam
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1738843814
+  access:
+    -
+      value: 0
+  login:
+    -
+      value: 0
+  path:
+    -
+      alias: /users/emmadubois
+      langcode: en
+      pathauto: 1
+  field_about:
+    -
+      value: 'Greetings! I’m Emma, a Senior Customer Support Agent in the Paris Office. My role includes overseeing the team’s performance and making sure we maintain high customer satisfaction scores. I’m passionate about conflict resolution and believe in turning negative experiences into positive outcomes. 🌈 Outside of work, I enjoy hiking and exploring new cities.'
+  field_department:
+    -
+      entity: 96ba59d8-a4fb-4bed-adb6-b01518abd664
+  field_first_name:
+    -
+      value: Emma
+  field_last_name:
+    -
+      value: Dubois
+  field_name:
+    -
+      value: 'Senior Customer Support Agent'
+  field_office:
+    -
+      entity: 6cb6eb4e-1f6f-4585-990f-c2173179370c
+  field_phone:
+    -
+      value: '+33123456780'
+  field_social_links:
+    -
+      uri: 'https://linkedin.com'
+      title: Linkedin
+      options: {  }
+  user_picture:
+    -
+      entity: fc5045ba-f94b-438e-8960-109146dcd74f
+      alt: ''
+      title: ''
+      width: 1024
+      height: 1024

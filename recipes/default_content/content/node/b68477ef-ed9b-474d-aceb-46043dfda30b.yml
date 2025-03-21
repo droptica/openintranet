@@ -1,0 +1,68 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: b68477ef-ed9b-474d-aceb-46043dfda30b
+  bundle: article
+  default_langcode: en
+  depends:
+    68fd85ee-2fa6-426a-9347-ce7e49d96f6d: taxonomy_term
+    e2b805c1-f5b0-4506-b39e-666259450f7f: media
+    fdd050f9-5aa0-440b-b7d1-41c5c551d9a2: taxonomy_term
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'Celebrating Dog Day: A Day for Our Furry Friends'
+  created:
+    -
+      value: 1739957116
+  promote:
+    -
+      value: true
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /news/celebrating-dog-day-day-our-furry-friends
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: "<p>Today marks a special occasion on our intranet calendar as we celebrate Dog Day! This day is set aside to honor our loyal and loving canine companions both at home and at work.</p><h3>History of Dog Day</h3><p>Dog Day is celebrated annually to appreciate the influence dogs have on our everyday lives. It serves as a reminder of the roles they play not just as pets, but also as service animals, emotional support companions, and members of our families.</p><h3>Join the Celebration</h3><p>Here at the company, we're excited to bring the festivity into our workplace. Employees are encouraged to:</p><ul><li>Share photos of their dogs on our intranet gallery</li><li>Participate in virtual dog-related trivia games</li><li>Engage in a pet-friendly contest, showcasing unique pet tricks</li></ul><h3>Benefits of Having Dogs in the Workplace</h3><p>Various studies have highlighted the positive impacts of having dogs in the workplace, including:</p><ul><li>Reduced stress levels</li><li>Increased productivity</li><li>Strengthened workplace relationships</li></ul><p>Let's use this day as an opportunity to appreciate the contribution of our furry friends to both our personal and professional lives.</p><h4>Share Your Stories</h4><p>Don't forget to log in to the intranet portal and share your stories and pictures with the entire team. Let's make Dog Day an occasion to remember!</p><p>Happy Dog Day!</p>"
+      format: full_html
+      summary: ''
+  comment_node_article:
+    -
+      status: 2
+      cid: 0
+      last_comment_timestamp: 1739957241
+      last_comment_name: ''
+      last_comment_uid: 1
+      comment_count: 0
+  field_access:
+    -
+      entity: 68fd85ee-2fa6-426a-9347-ce7e49d96f6d
+  field_background_image:
+    -
+      entity: e2b805c1-f5b0-4506-b39e-666259450f7f
+  field_intro:
+    -
+      value: 'Today marks a special occasion on our intranet calendar as we celebrate Dog Day! This day is set aside to honor our loyal and loving canine companions both at home and at work.'
+  field_news_article_reaction:
+    -
+      status: 2
+  field_tags:
+    -
+      entity: fdd050f9-5aa0-440b-b7d1-41c5c551d9a2

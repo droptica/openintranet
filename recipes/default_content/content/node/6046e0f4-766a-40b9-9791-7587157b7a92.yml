@@ -1,0 +1,58 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 6046e0f4-766a-40b9-9791-7587157b7a92
+  bundle: document
+  default_langcode: en
+  depends:
+    72f005d6-5013-4ef0-9347-fd44f8171f0d: taxonomy_term
+    91e8e258-36f3-4283-9bbc-938ad793cf14: file
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'Health & Safety Regulations'
+  created:
+    -
+      value: 1740652323
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /document/health-safety-regulations
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: 'Important workplace safety rules and emergency procedures.'
+      format: full_html
+      summary: 'Important workplace safety rules and emergency procedures.'
+  field_area:
+    -
+      entity: 72f005d6-5013-4ef0-9347-fd44f8171f0d
+  field_file:
+    -
+      entity: 91e8e258-36f3-4283-9bbc-938ad793cf14
+      display: true
+      description: ''
+  field_related_documents:
+    -
+      target_id: 0
+  field_version:
+    -
+      value: '1.3'
