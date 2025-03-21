@@ -31,7 +31,7 @@ or
 ```
 PROJECTDIRNAME=intranet01
 CODEBASE="1.x"
-git clone https://git.drupalcode.org/sandbox/grzegorz.bartman-3513334.git ${PROJECTDIRNAME}
+git clone https://git.drupalcode.org/project/openintranet.git ${PROJECTDIRNAME}
 cd ${PROJECTDIRNAME}
 git checkout ${CODEBASE}
 ./launch-intranet.sh
@@ -53,6 +53,6 @@ Intranet comes with a starter theme located in `web/themes/custom/`. You can cus
 
 ## Issues
 
-If you encounter any issues, please [create an issue in the Intranet project](https://www.drupal.org/sandbox/grzegorzbartman/3513334).
+If you encounter any issues, please [create an issue in the Intranet project](https://www.drupal.org/project/openintranet).
 
 
