@@ -30,8 +30,8 @@ or
 
 ```
 PROJECTDIRNAME=intranet01
-CODEBASE="drupalorg"
-git clone git@bitbucket.org:droptica/starter_intranet.git ${PROJECTDIRNAME}
+CODEBASE="1.x"
+git clone https://git.drupalcode.org/sandbox/grzegorz.bartman-3513334.git ${PROJECTDIRNAME}
 cd ${PROJECTDIRNAME}
 git checkout ${CODEBASE}
 ./launch-intranet.sh
