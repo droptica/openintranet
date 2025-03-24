@@ -1,0 +1,25 @@
+uuid: 4d538fa9-58e3-4b80-a408-c072ca001886
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - openintranet_theme
+_core:
+  default_config_hash: Mx0R7-wFWbNQDPNe7VOei1VMdJF7L72d2xmAPTpmoMs
+id: openintranet_theme_site_branding
+theme: openintranet_theme
+region: top_header_logo
+weight: -11
+provider: null
+plugin: system_branding_block
+settings:
+  id: system_branding_block
+  label: 'Site branding'
+  label_display: '0'
+  provider: system
+  use_site_logo: true
+  use_site_name: false
+  use_site_slogan: false
+visibility: {  }

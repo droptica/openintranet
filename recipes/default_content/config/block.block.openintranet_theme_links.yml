@@ -1,0 +1,30 @@
+uuid: e54a89fa-fda0-4d51-b64c-f29280dca901
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:links_block:f536ea7f-b26f-4e13-a6b7-89ea696a25d1'
+  module:
+    - block_content
+    - system
+  theme:
+    - openintranet_theme
+id: openintranet_theme_links
+theme: openintranet_theme
+region: sidebar_first
+weight: -15
+provider: null
+plugin: 'block_content:f536ea7f-b26f-4e13-a6b7-89ea696a25d1'
+settings:
+  id: 'block_content:f536ea7f-b26f-4e13-a6b7-89ea696a25d1'
+  label: 'Highlighted links'
+  label_display: visible
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: '<front>'

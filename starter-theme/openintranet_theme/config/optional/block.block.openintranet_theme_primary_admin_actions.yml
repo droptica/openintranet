@@ -1,0 +1,20 @@
+uuid: 417c19b8-a5f8-4253-819e-de38fc43ec5f
+langcode: en
+status: true
+dependencies:
+  theme:
+    - openintranet_theme
+_core:
+  default_config_hash: D6jODR_wZaMJWN0-popKoJdCECPTY0ks-0-eUiHVZZs
+id: openintranet_theme_primary_admin_actions
+theme: openintranet_theme
+region: content
+weight: -9
+provider: null
+plugin: local_actions_block
+settings:
+  id: local_actions_block
+  label: 'Primary admin actions'
+  label_display: '0'
+  provider: core
+visibility: {  }

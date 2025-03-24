@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
 ###
-# Launches Intranet using DDEV.
+# Launches Open Intranet using DDEV.
 #
 # This requires that DDEV be installed and available in the PATH, and only works in
 # Unix-like environments (Linux, macOS, or the Windows Subsystem for Linux). This will
 # initialize DDEV configuration, start the containers, install dependencies, and open
-# Intranet in the browser.
+# Open Intranet in the browser.
 ###
 
 # Abort this entire script if any one command fails.
@@ -66,8 +66,8 @@ else
 fi
 
 #show the welcome message
-echo -e "\nCongratulations, you’ve installed Intranet!
+echo -e "\nCongratulations, you’ve installed Open Intranet!
          Next steps:
-         \u2022 Run “ddev launch” to install Intranet in a browser
-         \u2022 Run “drush site-install d_intranet install_configure_form.enable_demo_content=1” to install Intranet in a terminal
-         \u2022 Get support: https://www.drupal.org/sandbox/grzegorzbartman/3513334  -> “Issues for Intranet”\n"
+         \u2022 Run “ddev launch” to install Open Intranet in a browser
+         \u2022 Run “drush site-install openintranet install_configure_form.enable_demo_content=1” to install Open Intranet in a terminal
+         \u2022 Get support: https://www.drupal.org/sandbox/grzegorzbartman/3513334  -> “Issues for Open Intranet”\n"

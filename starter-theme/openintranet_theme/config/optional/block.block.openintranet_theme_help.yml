@@ -1,0 +1,22 @@
+uuid: aefb95e7-b2d6-4ef4-a75b-4ce61caefd23
+langcode: en
+status: true
+dependencies:
+  module:
+    - help
+  theme:
+    - openintranet_theme
+_core:
+  default_config_hash: 3VdqVcZNaPF9zYLgC67cDzeFhUKZtFl6xksiMPsHeAE
+id: openintranet_theme_help
+theme: openintranet_theme
+region: highlighted
+weight: -2
+provider: null
+plugin: help_block
+settings:
+  id: help_block
+  label: Help
+  label_display: '0'
+  provider: help
+visibility: {  }

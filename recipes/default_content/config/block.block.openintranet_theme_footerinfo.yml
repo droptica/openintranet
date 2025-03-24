@@ -1,0 +1,25 @@
+uuid: 511bc1f4-0197-4c6e-b65e-1d0e97cb350c
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:cde3fe33-31f3-4bf0-ab59-8c78f7feabb2'
+  module:
+    - block_content
+  theme:
+    - openintranet_theme
+id: openintranet_theme_footerinfo
+theme: openintranet_theme
+region: footer_fifth
+weight: -13
+provider: null
+plugin: 'block_content:cde3fe33-31f3-4bf0-ab59-8c78f7feabb2'
+settings:
+  id: 'block_content:cde3fe33-31f3-4bf0-ab59-8c78f7feabb2'
+  label: 'Footer Info'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

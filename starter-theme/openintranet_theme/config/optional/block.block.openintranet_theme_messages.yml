@@ -1,0 +1,22 @@
+uuid: 7e61ee14-7df7-4123-bea7-a52a7d4b940c
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - openintranet_theme
+_core:
+  default_config_hash: '-zMCD93lUvREZMyTS5lPjV7-V962B_KW3HbyeKaKlc8'
+id: openintranet_theme_messages
+theme: openintranet_theme
+region: highlighted
+weight: -6
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: 'Status messages'
+  label_display: '0'
+  provider: system
+visibility: {  }

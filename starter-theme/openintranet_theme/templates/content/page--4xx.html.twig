@@ -1,0 +1,29 @@
+{% extends "@openintranet_theme/layout/page.html.twig" %}
+
+{% block content %}
+  <div id="main" class="{{ container }}">
+    {{ page.breadcrumb }}
+    <div class="row row-offcanvas row-offcanvas-left clearfix">
+      <main{{ content_attributes }}>
+        <section class="section">
+          <a href="#main-content" id="main-content" tabindex="-1"></a>
+          {{ page.content|without('openintranet_theme_content') }}
+        </section>
+      </main>
+      {% if sidebar_first_exists %}
+        <div{{ sidebar_first_attributes }}>
+          <aside class="section" role="complementary">
+            {{ page.sidebar_first }}
+          </aside>
+        </div>
+      {% endif %}
+      {% if sidebar_second_exists %}
+        <div{{ sidebar_second_attributes }}>
+          <aside class="section" role="complementary">
+            {{ page.sidebar_second }}
+          </aside>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}

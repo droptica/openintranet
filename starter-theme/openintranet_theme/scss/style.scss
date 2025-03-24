@@ -1,0 +1,122 @@
+/*
+Theme Name: Bootstrap 4 Sass
+Description: Bootstrap 4 with Sass
+*/
+
+// import files
+@import "import";
+
+@import "components/layout";
+@import "components/regions/navbar_top";
+@import "components/regions/navbar_main";
+@import "components/icons";
+@import "components/_main-menu.scss";
+@import "components/pagination";
+@import "components/breadcrumbs";
+@import "components/table";
+@import "components/tabs";
+@import "components/blocks/search_block";
+@import "components/blocks/language_select_block";
+@import "components/blocks/sidebar_blocks";
+@import "components/blocks/banner_block";
+@import "components/blocks/user_profile";
+@import "components/blocks/quick_action";
+@import "components/blocks/node_preview";
+@import "components/blocks/knowledge_navigation";
+@import "components/paragraphs/tiles";
+@import "components/paragraphs/quote";
+@import "components/paragraphs/documents";
+@import "components/paragraphs/text-with-title";
+@import "components/paragraphs/text-image";
+@import "components/views/views_news";
+@import "components/views/views";
+@import "components/comments";
+@import "components/reaction";
+@import "components/footer";
+@import "components/account-menu";
+@import "components/views/views_events";
+@import "components/calendar";
+@import "components/buttons";
+@import "components/content/teaser/news";
+@import "components/content/teaser/search_result";
+@import "components/content/webform";
+@import "components/content/document";
+@import "components/content/node";
+@import "components/content/edit_form";
+
+/* GENERAL STYLES
+-------------------------------------------------*/
+
+body {
+  background: $body-bg;
+}
+
+
+/* COLORS
+--------------------------------------------------*/
+
+a {
+  @include link-base;
+}
+
+.bg-inverse {
+  background: $primary-shade !important;
+}
+
+.site-name-slogan a {
+  text-decoration: none;
+}
+
+.card-group img {
+  margin: 0;
+  width: 100%;
+  height: auto;
+}
+
+.card-group .field--type-image {
+  margin: 0;
+}
+
+.slick {
+  width: 100%;
+}
+
+.slick>div {
+  margin: 0 15px;
+}
+
+.form-control {
+  color: $body-color;
+  --bs-secondary-color: $body-color;
+}
+
+#block-openintranet-theme-page-title {
+  .content {
+    margin: 0;
+
+    h1 {
+      margin: 0;
+      color: $dark-navy-900;
+
+      @include heading-3;
+    }
+  }
+}
+
+.path-frontpage {
+  .node--view-mode-full {
+    .node__title {
+      .article-title {
+        h1 {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+#main-wrapper {
+  @include media-breakpoint-down(lg) {
+    padding-top: 1rem;
+  }
+}

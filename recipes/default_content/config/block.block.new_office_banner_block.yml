@@ -8,9 +8,9 @@ dependencies:
     - block_content
     - system
   theme:
-    - d_theme
+    - openintranet_theme
 id: new_office_banner_block
-theme: d_theme
+theme: openintranet_theme
 region: featured_top
 weight: 0
 provider: null

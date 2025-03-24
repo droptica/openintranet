@@ -1,0 +1,22 @@
+uuid: cb08d6df-840d-401d-b976-8e7cef583e7b
+langcode: en
+status: false
+dependencies:
+  module:
+    - system
+  theme:
+    - openintranet_theme
+_core:
+  default_config_hash: aWCI5DTB6vEhHXvT4tBf-Z4f3hO9X-NCs7N5WBX-gr8
+id: openintranet_theme_breadcrumbs
+theme: openintranet_theme
+region: breadcrumb
+weight: 0
+provider: null
+plugin: system_breadcrumb_block
+settings:
+  id: system_breadcrumb_block
+  label: Breadcrumbs
+  label_display: '0'
+  provider: system
+visibility: {  }

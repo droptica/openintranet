@@ -1,0 +1,25 @@
+uuid: 735e5dcf-d18f-4d38-b149-ac46fa0e2a6c
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:quick_action:2dd95677-dcf3-4b51-966f-8dbd16c323c4'
+  module:
+    - block_content
+  theme:
+    - openintranet_theme
+id: openintranet_theme_helpdesk_2
+theme: openintranet_theme
+region: header_form
+weight: 0
+provider: null
+plugin: 'block_content:2dd95677-dcf3-4b51-966f-8dbd16c323c4'
+settings:
+  id: 'block_content:2dd95677-dcf3-4b51-966f-8dbd16c323c4'
+  label: 'Help Desk'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

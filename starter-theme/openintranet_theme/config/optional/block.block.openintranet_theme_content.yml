@@ -1,0 +1,26 @@
+uuid: 79b50c04-8fc0-4054-953e-93f0a5b6ca03
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - openintranet_theme
+_core:
+  default_config_hash: VRXP-XhN4A0okqSLkhDAx-tKb6mKiNLxRs8EaDS-VaM
+id: openintranet_theme_content
+theme: openintranet_theme
+region: content
+weight: -6
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: 'Main page content'
+  label_display: '0'
+  provider: system
+visibility:
+  request_path:
+    id: request_path
+    negate: true
+    pages: '<front>'

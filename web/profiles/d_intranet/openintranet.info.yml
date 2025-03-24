@@ -1,0 +1,9 @@
+name: Open Intranet 1.0
+type: profile
+core_version_requirement: ^10
+description: 'Open Intranet 1.0 profile.'
+version: '1.0.0-beta2'
+distribution:
+  name: Open Intranet
+  install:
+    finish_url: '/'

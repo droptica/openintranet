@@ -1,10 +1,10 @@
-# Intranet - Drupal-based Intranet Starter Kit
+# Open Intranet - Drupal-based Intranet Starter Kit
 
-## About Intranet
+## About Open Intranet
 
-Intranet is a comprehensive Drupal-based starter kit designed for companies wanting to create an internal portal for their organization. It provides ready-to-use functionality commonly needed in corporate environments, saving significant development time and resources.
+Open Intranet is a comprehensive Drupal-based starter kit designed for companies wanting to create an internal portal for their organization. It provides ready-to-use functionality commonly needed in corporate environments, saving significant development time and resources.
 
-The maintainer of Intranet is [Droptica](https://www.droptica.com).
+The maintainer of Open Intranet is [Droptica](https://www.droptica.com).
 
 ## Key Features
 
@@ -18,7 +18,7 @@ The maintainer of Intranet is [Droptica](https://www.droptica.com).
 
 ## Pre-requisites
 
-To install Intranet you need [DDEV](https://ddev.com) installed on your machine.
+To install Open Intranet you need [DDEV](https://ddev.com) installed on your machine.
 
 ## Installation
 
@@ -39,20 +39,20 @@ git checkout ${CODEBASE}
 
 ### Installation options
 
-After the script finishes you can choose to run the Intranet installation via the browser or the command line.
+After the script finishes you can choose to run the Open Intranet installation via the browser or the command line.
 
-Type `ddev launch` to open the Intranet installation in your browser.
+Type `ddev launch` to open the Open Intranet installation in your browser.
 
-#### To install Intranet via the command line:
+#### To install Open Intranet via the command line:
 
-Type `ddev drush site-install d_intranet` to install the Intranet profile.
+Type `ddev drush site-install openintranet` to install the Open Intranet profile.
 
 ## Customization
 
-Intranet comes with a starter theme located in `web/themes/custom/`. You can customize this theme to match your company's branding.
+Open Intranet comes with a starter theme located in `web/themes/custom/`. You can customize this theme to match your company's branding.
 
 ## Issues
 
-If you encounter any issues, please [create an issue in the Intranet project](https://www.drupal.org/project/openintranet).
+If you encounter any issues, please [create an issue in the Open Intranet project](https://www.drupal.org/project/openintranet).
 
 

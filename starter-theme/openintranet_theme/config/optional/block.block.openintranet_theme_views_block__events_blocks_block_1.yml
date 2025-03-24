@@ -1,0 +1,29 @@
+uuid: 831b9b14-497a-48af-a906-ca827ff73321
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.events_blocks
+  module:
+    - system
+    - views
+  theme:
+    - openintranet_theme
+id: openintranet_theme_views_block__events_blocks_block_1
+theme: openintranet_theme
+region: sidebar_second
+weight: -15
+provider: null
+plugin: 'views_block:events_blocks-block_1'
+settings:
+  id: 'views_block:events_blocks-block_1'
+  label: ''
+  label_display: visible
+  provider: views
+  views_label: ''
+  items_per_page: none
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: '<front>'

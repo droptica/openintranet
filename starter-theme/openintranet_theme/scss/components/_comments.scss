@@ -1,0 +1,163 @@
+@import "../mixins/text";
+
+section.field--name-comment-node-article,
+section.field--name-comment,
+section.field--name-comment-node-page,
+.path-comment {
+  margin-top: 2rem;
+
+  & > .title:first-of-type {
+    color: $blue-500;
+    background-color: $blue-50;
+    padding: 1.5rem .5rem;
+    border-radius: $border-radius;
+
+    @include subtitle-400;
+
+    @include media-breakpoint-up(lg) {
+      padding: 1.5rem 2.5rem;
+    }
+  }
+
+  .comment-form {
+    @include media-breakpoint-up(lg) {
+      padding: 0 10rem;
+    }
+
+    .form-type-textarea {
+      label {
+        display: none;
+      }
+    }
+
+    #edit-comment-body-0-format-help {
+      display: none;
+    }
+
+    .form-actions {
+      text-align: right;
+    }
+
+    .btn-primary {
+      background-color: $blue-50 !important;
+      color: $body-secondary-color !important;
+    }
+  }
+
+  article.comment {
+    .comment {
+      h2 {
+        @include heading-4;
+      }
+
+      &__meta {
+        padding-right: 0;
+
+        .text-danger {
+          display: none;
+        }
+
+        .comment-profile-wrapper {
+          align-items: center;
+
+          .field--name-user-picture {
+            margin-right: .5rem;
+
+            img {
+              border-radius: 50%;
+              height: 32px;
+              width: 32px;
+              object-fit: cover;
+              border: 1px solid $dark-navy-300;
+            }
+          }
+
+          .comment__author {
+            .username {
+              color: $body-color;
+              font-size: $font-size-base;
+            }
+          }
+        }
+      }
+
+      &__content {
+        background: $white;
+        margin-top: .25rem;
+        padding: 1rem;
+        border: 1px solid $dark-navy-50;
+        border-radius: .125rem;
+
+
+        @include media-breakpoint-up(lg) {
+          margin-top: 1rem;
+          margin-left: 2.5rem;
+        }
+
+        h3 {
+          margin: 0;
+        }
+
+        // Remove the default left arrow.
+        &::before, &::after {
+          display: none;
+        }
+
+        .field--name-comment-body {
+          img {
+            max-width: 100%;
+            height: auto;
+            object-fit: contain;
+          }
+        }
+      }
+    }
+
+    @include media-breakpoint-up(lg) {
+      padding: 0 10rem;
+    }
+  }
+
+  .comment-form {
+    &__title {
+      @include heading-4;
+    }
+
+    .form-item-subject-0-value {
+      label {
+        color: $body-tertiary-color;
+        font-size: $font-size-xs;
+      }
+
+      input {
+        background: $white;
+      }
+    }
+
+    .form-textarea {
+      background: $white;
+    }
+
+    .form-actions {
+      .form-submit {
+        background-color: $blue-500;
+        border: none;
+
+        &:after {
+          content: url('../images/icons/send-horizontal.svg');
+          margin-left: .5rem;
+          position: relative;
+          top: 2px;
+        }
+      }
+    }
+  }
+}
+
+.path-comment {
+  main:not(:has(nav.tabs)) {
+    #block-openintranet-theme-content {
+      margin-top: 1.5rem;
+    }
+  }
+}

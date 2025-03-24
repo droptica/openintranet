@@ -1,0 +1,23 @@
+uuid: 0c709d69-4549-4ded-91c7-5722c98126d3
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.search_content
+  module:
+    - views
+  theme:
+    - openintranet_theme
+id: openintranet_theme_exposedformsearch_contentblock_1
+theme: openintranet_theme
+region: top_header
+weight: 0
+provider: null
+plugin: 'views_exposed_filter_block:search_content-block_1'
+settings:
+  id: 'views_exposed_filter_block:search_content-block_1'
+  label: ''
+  label_display: '0'
+  provider: views
+  views_label: ''
+visibility: {  }

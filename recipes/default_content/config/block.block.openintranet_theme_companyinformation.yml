@@ -1,0 +1,25 @@
+uuid: 7bdc20f0-a1b8-407a-afe6-b795d882e0d1
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:ca6d1e3d-01cf-422b-90e9-e73c78af92ec'
+  module:
+    - block_content
+  theme:
+    - openintranet_theme
+id: openintranet_theme_companyinformation
+theme: openintranet_theme
+region: footer_first
+weight: 0
+provider: null
+plugin: 'block_content:ca6d1e3d-01cf-422b-90e9-e73c78af92ec'
+settings:
+  id: 'block_content:ca6d1e3d-01cf-422b-90e9-e73c78af92ec'
+  label: Information
+  label_display: visible
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

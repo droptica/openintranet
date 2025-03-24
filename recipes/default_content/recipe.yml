@@ -1,6 +1,6 @@
-name: 'Intranet default content'
+name: 'Open Intranet default content'
 description: 'Provides default content for intranet.'
-type: 'Intranet'
+type: 'Open Intranet'
 
 install:
   - default_content

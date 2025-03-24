@@ -1,0 +1,29 @@
+uuid: 11123335-6375-4055-9f0b-7f24a2756f21
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.recently_read_content
+  module:
+    - system
+    - views
+  theme:
+    - openintranet_theme
+id: openintranet_theme_views_block__recently_read_content_block_1
+theme: openintranet_theme
+region: sidebar_first
+weight: -11
+provider: null
+plugin: 'views_block:recently_read_content-block_1'
+settings:
+  id: 'views_block:recently_read_content-block_1'
+  label: 'Your last pages'
+  label_display: visible
+  provider: views
+  views_label: 'Your last pages'
+  items_per_page: none
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: '<front>'

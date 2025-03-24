@@ -1,0 +1,85 @@
+@import "../../mixins/text";
+
+#block-openintranet-theme-views-block-events-blocks-block-1 {
+  .view-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 0 0 24px;
+  }
+
+  .views-row {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+
+  .event-item {
+    display: grid;
+    grid-template-columns: 45px 1fr;
+    gap: 16px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid $blue-50;
+    color: $body-tertiary-color;
+
+    .left-side {
+      position: relative;
+      top:10px;
+
+      .event-main-date {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        text-transform: uppercase;
+
+        .month {
+          margin-bottom: 4px;
+
+          @include body-300;
+        }
+
+        .day {
+          @include heading-5;
+
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+      }
+    }
+
+    .right-side {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+
+      .time {
+        padding: 0;
+
+        @include body-300;
+      }
+
+      .title {
+        a {
+          color: $blue-500 !important;
+          padding: 0 !important;
+
+          @include link-base;
+          @include body-400;
+
+          &:hover {
+            text-decoration: none;
+            background-color: inherit;
+          }
+        }
+      }
+
+      .location {
+        padding: 0;
+
+        @include body-300;
+      }
+    }
+  }
+}

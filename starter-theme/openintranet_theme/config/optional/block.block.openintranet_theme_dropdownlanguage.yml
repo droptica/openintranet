@@ -1,0 +1,21 @@
+uuid: 9c5d790e-9130-4ba9-abfc-2828db7591e4
+langcode: en
+status: true
+dependencies:
+  module:
+    - dropdown_language
+  theme:
+    - openintranet_theme
+id: openintranet_theme_dropdownlanguage
+theme: openintranet_theme
+region: top_header_user_actions
+weight: -12
+provider: null
+plugin: 'dropdown_language:language_interface'
+settings:
+  id: 'dropdown_language:language_interface'
+  label: 'Dropdown Language'
+  label_display: '0'
+  provider: dropdown_language
+  labels: null
+visibility: {  }

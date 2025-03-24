@@ -1,9 +1,0 @@
-name: Intranet 1.0
-type: profile
-core_version_requirement: ^10
-description: 'Intranet 1.0 profile.'
-version: '1.0.x-dev'
-distribution:
-  name: Intranet
-  install:
-    finish_url: '/'

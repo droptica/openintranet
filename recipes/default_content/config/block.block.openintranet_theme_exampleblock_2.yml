@@ -1,0 +1,32 @@
+uuid: aa992731-4cb9-48a5-b07b-ad42312db191
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_visibility_groups.block_visibility_group.homepage
+  content:
+    - 'block_content:basic:40095daf-ceef-4757-ae5a-78532cd2563d'
+  module:
+    - block_content
+    - block_visibility_groups
+  theme:
+    - openintranet_theme
+id: openintranet_theme_exampleblock_2
+theme: openintranet_theme
+region: sidebar_first
+weight: 0
+provider: null
+plugin: 'block_content:40095daf-ceef-4757-ae5a-78532cd2563d'
+settings:
+  id: 'block_content:40095daf-ceef-4757-ae5a-78532cd2563d'
+  label: 'Example Block'
+  label_display: visible
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  condition_group:
+    id: condition_group
+    negate: false
+    block_visibility_group: homepage

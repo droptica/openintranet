@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-THEME_DIR="/var/www/html/web/themes/custom/d_theme"
+THEME_DIR="/var/www/html/web/themes/custom/openintranet_theme"
 
-# Install d_theme npm packages.
+# Install openintranet_theme npm packages.
 cd  ${THEME_DIR}
 npm install
 

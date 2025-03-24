@@ -1,0 +1,22 @@
+uuid: 12f97f0b-51df-4022-ae2a-f1914bd9d7fd
+langcode: en
+status: true
+dependencies:
+  theme:
+    - openintranet_theme
+_core:
+  default_config_hash: THaf4PQJm885xvz1pbEHLZH_D4y-djOcjq8ln5et2rg
+id: openintranet_theme_secondary_local_tasks
+theme: openintranet_theme
+region: content
+weight: -7
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: 'Secondary tabs'
+  label_display: '0'
+  provider: core
+  primary: false
+  secondary: true
+visibility: {  }

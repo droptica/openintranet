@@ -1,0 +1,18 @@
+{#
+/**
+ * @file
+ * Theme override for search results in unformatted list.
+ */
+#}
+{{ attach_library('openintranet_theme/search-results') }}
+
+{% if title %}
+  <h3>{{ title }}</h3>
+{% endif %}
+
+{% for row in rows %}
+  {% set node = row.content['#row']._entity %}
+  <div{{ row.attributes.addClass('views-row', 'search-result').setAttribute('data-url', path('entity.node.canonical', {'node': node.id()})) }}>
+    {{ row.content }}
+  </div>
+{% endfor %}

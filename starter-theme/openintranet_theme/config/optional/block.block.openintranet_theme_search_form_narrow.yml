@@ -1,0 +1,21 @@
+uuid: ea8cd0e7-d438-4f25-81c8-3a8eb76bd885
+langcode: en
+status: false
+dependencies:
+  theme:
+    - openintranet_theme
+_core:
+  default_config_hash: Pr9B-pVNFBwichLZqUTHLatO-VV9FDxMI7zy0ZFyoaw
+id: openintranet_theme_search_form_narrow
+theme: openintranet_theme
+region: sidebar_first
+weight: -7
+provider: null
+plugin: search_form_block
+settings:
+  id: search_form_block
+  label: 'Search form (narrow)'
+  label_display: '0'
+  provider: search
+  page_id: ''
+visibility: {  }

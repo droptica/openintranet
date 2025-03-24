@@ -1,0 +1,25 @@
+uuid: 39ea0731-b430-4d42-aaf7-e11e8ddb502d
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:021f1b42-827b-4bdb-ae56-30c1356f0fde'
+  module:
+    - block_content
+  theme:
+    - openintranet_theme
+id: openintranet_theme_usernotifications
+theme: openintranet_theme
+region: top_header_user_actions
+weight: -14
+provider: null
+plugin: 'block_content:021f1b42-827b-4bdb-ae56-30c1356f0fde'
+settings:
+  id: 'block_content:021f1b42-827b-4bdb-ae56-30c1356f0fde'
+  label: 'User Notifications'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

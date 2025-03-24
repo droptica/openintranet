@@ -1,0 +1,27 @@
+uuid: 2439f542-e8d4-49ef-90c8-86323dcef560
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.account
+  module:
+    - system
+  theme:
+    - openintranet_theme
+_core:
+  default_config_hash: Tk-zoJLuHg6EiiTSSTyhN7yDBfUk2s62-D8PLzy8Br8
+id: account_menu_mobile
+theme: openintranet_theme
+region: primary_menu
+weight: -11
+provider: null
+plugin: 'system_menu_block:account'
+settings:
+  id: 'system_menu_block:account'
+  label: 'User account menu'
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 1
+  expand_all_items: false
+visibility: {  }

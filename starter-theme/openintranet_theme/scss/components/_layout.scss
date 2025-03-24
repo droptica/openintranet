@@ -1,0 +1,143 @@
+// Mobile layout adjustments
+@include media-breakpoint-down(lg) {
+  body {
+    #header {
+      display: flex;
+      flex-direction: row;
+      padding: 0 20px;
+
+      #navbar-top {
+        flex-basis: 67%;
+      }
+
+      #navbar-main {
+        flex-basis: 33%;
+        justify-content: flex-end;
+
+      }
+    }
+
+    &.layout-two-sidebars {
+      #main-wrapper {
+        display: flex;
+
+        .row.row-offcanvas {
+          flex-direction: column;
+        }
+
+        #content {
+          order: -1 !important;
+        }
+
+        #sidebar_second {
+          order: 1 !important;
+          width: 100%;
+          margin-top: -1rem;
+
+          .block {
+            margin: .5rem 0;
+
+            &:last-of-type {
+              margin-bottom: 0;
+            }
+          }
+        }
+
+        #sidebar_first {
+          order: 2 !important;
+          width: 100%;
+
+          .block {
+            margin: .5rem 0;
+
+            &:last-of-type {
+              margin-bottom: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  body {
+    #navbar-main {
+      .navbar-brand {
+        display: none;
+      }
+
+      #block-account-menu-mobile {
+        display: none;
+      }
+    }
+
+    &.layout-two-sidebars {
+      #main-wrapper {
+        margin-top: 2.5rem;
+
+        .main-content {
+          padding: 0 .5rem;
+        }
+
+        #sidebar_second {
+          padding: 0 .5rem;
+
+          .block {
+            margin-bottom: .5rem;
+          }
+        }
+
+        #sidebar_first {
+          padding: 0 .5rem;
+
+          .block {
+            margin-bottom: .5rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+@include media-breakpoint-up(xxl) {
+  body {
+    .container {
+      max-width: 1440px;
+    }
+  }
+}
+
+body .header {
+  background-color: $white;
+}
+
+#content {
+  & > .section:not(:has(>.tabs)):has(.node--type-knowledge-base-page) {
+    padding-top: 3rem;
+  }
+
+  & > .section:not(:has(>.tabs)):has(>#block-openintranet-theme-page-title) {
+    #block-openintranet-theme-page-title {
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  & > .section:has(>#block-openintranet-theme-page-title) {
+    padding-top: 0;
+  }
+
+  & > .section:has(>#block-user-profile-block-about-me) {
+    padding-top: 0;
+  }
+
+  & > .section:has(>#block-openintranet-theme-views-block-news-block-1) {
+    padding-top: 0;
+  }
+
+  & > .section:not(:has(>.tabs)):has(.views-element-container):not(:has(#block-user-profile-block-about-me)) {
+    .views-element-container {
+      margin-top: 1.5rem;
+    }
+  }
+}

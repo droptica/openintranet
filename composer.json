@@ -1,7 +1,7 @@
 {
-    "name": "droptica/d_intranet",
-    "version": "1.0.x-dev",
-    "description": "Intranet - is a Drupal-based website builder that helps you create beautiful, fast, and easy-to-manage intranet",
+    "name": "droptica/openintranet",
+    "version": "1.0.0-beta2",
+    "description": "Open Intranet - is a Drupal-based website builder that helps you create beautiful, fast, and easy-to-manage intranet",
     "type": "drupal-profile",
     "license": "GPL-2.0-or-later",
     "homepage": "https://www.intranet.new",

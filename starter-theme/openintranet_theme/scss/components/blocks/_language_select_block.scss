@@ -1,0 +1,45 @@
+@import "../../mixins/text";
+
+.block-dropdown-languagelanguage-interface, div[id^='block-openintranet-theme-dropdownlanguage'] {
+  @include media-breakpoint-down(md) {
+    margin-top: 1rem;
+  }
+
+  .dropbutton-widget {
+    border: none;
+    background-color: $blue-50;
+    background-image: none;
+    color: $body-secondary-color;
+    cursor: pointer;
+    text-align: center;
+    overflow: hidden;
+    padding: .55rem .5rem;
+    border-radius: $border-radius;
+    margin: .125em 0 .125em 1rem;
+
+    @include subtitle-300;
+
+    .dropbutton-toggle button {
+      background-color: unset;
+      background-image: unset;
+      border: none;
+    }
+
+    .language-link {
+      margin-right: 0;
+      padding: 0;
+      color: $body-secondary-color;
+
+      @include subtitle-300;
+    }
+
+    .dropbutton-action:hover, a:hover {
+      background: none;
+      border-bottom: 0 none;
+    }
+
+    *:not(.dropbutton-arrow) {
+      border: none;
+    }
+  }
+}

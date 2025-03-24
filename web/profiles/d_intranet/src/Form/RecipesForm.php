@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\d_intranet\Form;
+namespace Drupal\openintranet\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
@@ -14,7 +14,7 @@ final class RecipesForm extends FormBase {
    * {@inheritdoc}
    */
   public function getFormId(): string {
-    return 'd_intranet_recipes_form';
+    return 'openintranet_recipes_form';
   }
 
   /**
@@ -24,13 +24,13 @@ final class RecipesForm extends FormBase {
     $form['#title'] = $this->t('Choose content');
 
     $form['help'] = [
-      '#prefix' => '<p class="d_intranet-installer__subhead">',
+      '#prefix' => '<p class="openintranet-installer__subhead">',
       '#markup' => $this->t('You can choose to install example demo content or start with a clean site.'),
       '#suffix' => '</p>',
     ];
 
     $form['recipes'] = [
-      '#prefix' => '<div class="d_intranet-installer__form-group">',
+      '#prefix' => '<div class="openintranet-installer__form-group">',
       '#suffix' => '</div>',
       '#type' => 'checkboxes',
       '#options' => [
