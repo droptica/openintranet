@@ -65,6 +65,15 @@ else
     echo "Keeping installation files."
 fi
 
+SETTINGS_FILE="web/sites/default/settings.php"
+
+if grep -q "# \$settings\['file_private_path'\] = '';" "$SETTINGS_FILE"; then
+  echo "Setting private file path in settings.php..."
+  sed -i '' "s|# \$settings\['file_private_path'\] = '';|\$settings['file_private_path'] = '../private-files';|" "$SETTINGS_FILE"
+else
+  echo "Private file path line not found or already updated."
+fi
+
 #show the welcome message
 echo -e "\nCongratulations, you’ve installed Open Intranet!
          Next steps:

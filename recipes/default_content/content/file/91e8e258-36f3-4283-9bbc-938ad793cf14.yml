@@ -12,7 +12,7 @@ default:
       value: demo.pdf
   uri:
     -
-      value: 'public://demo.pdf'
+      value: 'private://demo.pdf'
   filemime:
     -
       value: application/pdf
