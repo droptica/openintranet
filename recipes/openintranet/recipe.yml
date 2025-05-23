@@ -38,6 +38,7 @@ install:
   - datetimehideseconds
   - dblog
   - default_content
+  - diff
   - dropdown_language
   - dynamic_page_cache
   - editor

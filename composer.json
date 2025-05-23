@@ -42,6 +42,7 @@
         "drupal/custom_book_block": "^2.0",
         "drupal/datetimehideseconds": "^1.5",
         "drupal/default_content": "^2.0@alpha",
+        "drupal/diff": "^2.0@beta",
         "drupal/dropdown_language": "^4.0",
         "drupal/easy_breadcrumb": "^2.0",
         "drupal/entity": "^1.5",
@@ -160,6 +161,9 @@
             "drupal/recently_read": {
                 "accessCheck fix 1": "https://www.drupal.org/files/issues/2023-05-23/3362224-2.patch",
                 "accessCheck fix 2": "https://www.drupal.org/files/issues/2023-11-30/3362224-3.patch"
+            },
+            "drupal/address": {
+                "[3460590] Module is not compatible with diff 2.0.x's": "https://www.drupal.org/files/issues/2024-07-10/diff-module-support-3460590-2.patch"
             }
         }
     }
