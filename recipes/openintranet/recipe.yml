@@ -111,6 +111,7 @@ install:
   - twigsuggest
   - user
   - views
+  - views_aggregator
   - views_conditional
   - views_organization_chart
   - views_ui
