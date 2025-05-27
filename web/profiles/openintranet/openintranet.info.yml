@@ -6,4 +6,4 @@ version: '1.0.0-beta2'
 distribution:
   name: Open Intranet
   install:
-    finish_url: '/'
+    finish_url: '/welcome'

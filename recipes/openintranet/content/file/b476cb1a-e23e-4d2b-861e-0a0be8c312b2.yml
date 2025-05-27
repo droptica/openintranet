@@ -1,0 +1,20 @@
+_meta:
+  version: '1.0'
+  entity_type: file
+  uuid: b476cb1a-e23e-4d2b-861e-0a0be8c312b2
+  default_langcode: en
+default:
+  filename:
+    - value: open-intranet-01.png
+  uri:
+    - value: 'public://2025-04/open-intranet-01.png'
+  filemime:
+    - value: image/png
+  filesize:
+    - value: 470407
+  status:
+    - value: true
+  uid:
+    - target_id: 1
+  created:
+    - value: 1744880000

@@ -1,0 +1,28 @@
+_meta:
+  version: '1.0'
+  entity_type: media
+  uuid: 88539345-b429-44be-850e-f37fe6bd6054
+  bundle: image
+  depends:
+    b476cb1a-e23e-4d2b-861e-0a0be8c312b2: file
+default:
+  name:
+    - value: open-intranet-01.png
+  status:
+    - value: true
+  uid:
+    - target_id: 1
+  created:
+    - value: 1744880000
+  revision_translation_affected:
+    - value: true
+  path:
+    - alias: ''
+      langcode: en
+      pathauto: 0
+  field_media_image:
+    - entity: b476cb1a-e23e-4d2b-861e-0a0be8c312b2
+      alt: ''
+      title: ''
+      width: 2000
+      height: 1558

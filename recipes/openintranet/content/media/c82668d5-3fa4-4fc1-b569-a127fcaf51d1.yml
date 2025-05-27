@@ -1,0 +1,36 @@
+_meta:
+  version: '1.0'
+  entity_type: media
+  uuid: c82668d5-3fa4-4fc1-b569-a127fcaf51d1
+  bundle: image
+  default_langcode: en
+  depends:
+    fd449ed6-e56e-49c9-a2e2-f7a19a8bb7f9: file
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  name:
+    -
+      value: open-intranet-02.png
+  created:
+    -
+      value: 1744882364
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: ''
+      langcode: en
+      pathauto: 0
+  field_media_image:
+    -
+      entity: fd449ed6-e56e-49c9-a2e2-f7a19a8bb7f9
+      alt: ''
+      title: ''
+      width: 2000
+      height: 1789
