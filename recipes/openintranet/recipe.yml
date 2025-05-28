@@ -336,3 +336,22 @@ config:
               uploaded_image: ''
               remote_image: /themes/custom/openintranet_theme/images/icons/thumbs-up.svg
               html_element: ''
+
+    user.role.authenticated:
+      simple_config_update:
+        dependencies:
+          config:
+            - filter.format.webform_default
+          module:
+            - comment
+            - filter
+            - media
+            - system
+        permissions:
+          - 'access comments'
+          - 'access content'
+          - 'edit own comments'
+          - 'post comments'
+          - 'skip comment approval'
+          - 'use text format webform_default'
+          - 'view media'
