@@ -5,11 +5,16 @@ global-styling:
     js/bootstrap.min.js: {}
     js/custom.js: {}
     js/multi-level-menu.js: {}
+    js/dropdown-menu.js: {}
   css:
     component:
       css/style.min.css: {}
     theme:
       css/style.css: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/once
 
 search-results:
   js:
