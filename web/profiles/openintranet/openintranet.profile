@@ -19,6 +19,29 @@ use Symfony\Component\Yaml\Yaml;
  * Implements hook_install_tasks().
  */
 function openintranet_install_tasks(&$install_state): array {
+  // Set a path for private files.
+  $settings_path = DRUPAL_ROOT . '/' . 'sites/default/settings.php';
+
+  if (is_writable($settings_path)) {
+    $contents = file_get_contents($settings_path);
+
+    $contents = str_replace(
+      "# \$settings['file_private_path'] = '';",
+      "\$settings['file_private_path'] = 'sites/private_files';",
+      $contents
+    );
+
+    $private_files_dir = DRUPAL_ROOT . '/sites/private_files';
+    if (!is_dir($private_files_dir)) {
+      mkdir($private_files_dir, 0755, TRUE);
+    }
+
+    file_put_contents($settings_path, $contents);
+  }
+  else {
+    error_log('settings.php is not writable.');
+  }
+
   // Check for demo content parameter from drush.
   if (!empty($install_state['forms']['install_configure_form']['enable_demo_content'])) {
     if (!isset($install_state['parameters'])) {
@@ -89,23 +112,6 @@ function openintranet_install_tasks_alter(array &$tasks, array $install_state): 
   // Set the language code to English.
   $GLOBALS['install_state']['parameters'] += ['langcode' => 'en'];
   $tasks['install_select_language']['run'] = INSTALL_TASK_SKIP;
-
-  // Set a path for private files.
-  $settings_path = DRUPAL_ROOT . '/' . 'sites/default/settings.php';
-      if (is_writable($settings_path)) {
-        $contents = file_get_contents($settings_path);
-  
-        $contents = str_replace(
-          "# \$settings['file_private_path'] = '';",
-          "\$settings['file_private_path'] = '../private_files';",
-          $contents
-        );
-  
-        file_put_contents($settings_path, $contents);
-      }
-      else {
-        error_log('settings.php is not writable.');
-      }
 }
 
 /**
