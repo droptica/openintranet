@@ -91,6 +91,23 @@ function openintranet_install_tasks_alter(array &$tasks, array $install_state): 
   $tasks['install_select_language']['run'] = INSTALL_TASK_SKIP;
 }
 
+// Set a path for private files.
+  $settings_path = DRUPAL_ROOT . '/' . 'sites/default/settings.php';
+  if (is_writable($settings_path)) {
+    $contents = file_get_contents($settings_path);
+
+    $contents = str_replace(
+      "# \$settings['file_private_path'] = '';",
+      "\$settings['file_private_path'] = '../private_files';",
+      $contents
+    );
+
+    file_put_contents($settings_path, $contents);
+  }
+  else {
+    error_log('settings.php is not writable.');
+  }
+
 /**
  * Wrapper for recipe operations that handles non-critical errors.
  */
@@ -264,23 +281,6 @@ function openintranet_install_finished(&$install_state) {
   }
   catch (\Exception $e) {
     error_log($e->getMessage());
-  }
-
-  // Set a path for private files.
-  $settings_path = DRUPAL_ROOT . '/' . 'sites/default/settings.php';
-  if (is_writable($settings_path)) {
-    $contents = file_get_contents($settings_path);
-
-    $contents = str_replace(
-      "# \$settings['file_private_path'] = '';",
-      "\$settings['file_private_path'] = '../private_files';",
-      $contents
-    );
-
-    file_put_contents($settings_path, $contents);
-  }
-  else {
-    error_log('settings.php is not writable.');
   }
 
   // Load user 1 and log them in.

@@ -40,12 +40,13 @@ dependencies:
     - navigation
     - node
     - path
+    - pfdp
     - statistics
     - system
     - taxonomy
     - toolbar
 _core:
-  default_config_hash: e_wG1u7SrGaJbY2-Szgbgl-c8T3kdirU3uTNq2c_QJQ
+  default_config_hash: 7DdlmtOfpXYV9ebPaWDszz3mPZX6q8hjRUC62QMMnYg
 id: content_editor
 label: 'Content editor'
 weight: 2
@@ -65,6 +66,8 @@ permissions:
   - 'administer media'
   - 'administer taxonomy'
   - 'administer url aliases'
+  - 'bypass pfdp'
+  - 'bypass pfdp for temporary files'
   - 'clone article node entities'
   - 'clone audio media entities'
   - 'clone block entity'

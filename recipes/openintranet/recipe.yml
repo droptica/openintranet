@@ -350,6 +350,8 @@ config:
         permissions:
           - 'access comments'
           - 'access content'
+          - 'bypass pfdp'
+          - 'bypass pfdp for temporary files'
           - 'edit own comments'
           - 'post comments'
           - 'skip comment approval'
