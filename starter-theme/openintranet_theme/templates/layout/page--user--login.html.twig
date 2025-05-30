@@ -74,6 +74,13 @@
 <div id="page-wrapper">
   <div id="page">
     <div id="main-wrapper" class="layout-main-wrapper clearfix">
+      {% if page.highlighted %}
+        <div class="highlighted">
+          <aside class="{{ container }} section clearfix" role="complementary">
+            {{ page.highlighted }}
+          </aside>
+        </div>
+      {% endif %}
       {% block content %}
         <div id="main" class="{{ container }}">
           <div class="row row-offcanvas row-offcanvas-left clearfix">

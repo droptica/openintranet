@@ -5,6 +5,7 @@ global-styling:
     js/bootstrap.min.js: {}
     js/custom.js: {}
     js/multi-level-menu.js: {}
+    js/toast.js: {}
     js/dropdown-menu.js: {}
   css:
     component:
