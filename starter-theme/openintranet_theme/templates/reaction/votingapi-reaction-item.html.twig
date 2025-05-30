@@ -1,0 +1,26 @@
+<div class="votingapi-reaction-item-wrapper">
+  <div class="votingapi-reaction-item">
+    {% set icon_class = 'votingapi-reaction-image ' ~ icon_class %}
+    {% set icon_class_active = 'active ' ~ icon_class %}
+
+    <img{{ create_attribute({
+      class: icon_class,
+      src: '/themes/custom/openintranet_theme/images/icons/thumbs-up.svg',
+      alt: icon_alt,
+    }) }}>
+
+    <img{{ create_attribute({
+      class: icon_class_active,
+      src: '/themes/custom/openintranet_theme/images/icons/thumbs-up-active.svg',
+      alt: icon_alt,
+    }) }}>
+
+    {% if label %}
+      <span class="votingapi-reaction-label">{{ label }}</span>
+    {% endif %}
+  </div>
+
+  {% if count is not empty %}
+    <div class="votingapi-reaction-count">{{ count }}</div>
+  {% endif %}
+</div>

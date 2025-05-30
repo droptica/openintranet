@@ -1,5 +1,19 @@
 @import "../mixins/text";
 
+.votingapi-reaction-form .form-switch {
+  img.active {
+    display: none;
+  }
+
+  input[type=radio]:checked + .form-check-label img {
+    display: none;
+
+    &.active {
+      display: inline-block;
+    }
+  }
+}
+
 .node--view-mode-full .field--name-field-news-article-reaction {
   form {
     .votingapi-reaction-radios {
@@ -32,6 +46,10 @@
               top: .3125rem;
             }
           }
+        }
+
+        input[type=radio]:checked + .form-check-label .votingapi-reaction-item-wrapper .votingapi-reaction-count:before {
+          content: url("../images/icons/thumbs-up-active.svg");
         }
       }
     }

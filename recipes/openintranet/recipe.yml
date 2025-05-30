@@ -347,13 +347,20 @@ config:
             - filter
             - media
             - system
+            - votingapi_reaction
         permissions:
           - 'access comments'
           - 'access content'
           - 'bypass pfdp'
           - 'bypass pfdp for temporary files'
+          - 'create reaction on node:article:field_news_article_reaction'
+          - 'create reaction on node:page:field_basic_page_reaction'
           - 'edit own comments'
+          - 'modify reaction on node:article:field_news_article_reaction'
+          - 'modify reaction on node:page:field_basic_page_reaction'
           - 'post comments'
           - 'skip comment approval'
           - 'use text format webform_default'
           - 'view media'
+          - 'view reactions on node:article:field_news_article_reaction'
+          - 'view reactions on node:page:field_basic_page_reaction'
