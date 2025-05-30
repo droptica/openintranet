@@ -221,7 +221,8 @@
         }
 
         &--name {
-          &-field-document-ref {
+          &-field-document-ref,
+          &-field-related-documents {
             .accordion {
               --bs-accordion-color: #{$dark-navy-900};
               --bs-accordion-bg: #{$white};
