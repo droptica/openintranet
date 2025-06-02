@@ -70,4 +70,4 @@ echo -e "\nCongratulations, you’ve installed Open Intranet!
          Next steps:
          \u2022 Run “ddev launch” to install Open Intranet in a browser
          \u2022 Run “drush site-install openintranet install_configure_form.enable_demo_content=1” to install Open Intranet in a terminal
-         \u2022 Get support: https://www.drupal.org/sandbox/grzegorzbartman/3513334  -> “Issues for Open Intranet”\n"
+         \u2022 Get support: https://www.drupal.org/project/issues/openintranet  -> “Issues for Open Intranet”\n"
