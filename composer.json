@@ -43,6 +43,7 @@
         "drupal/datetimehideseconds": "^1.5",
         "drupal/default_content": "^2.0@alpha",
         "drupal/diff": "^2.0@beta",
+        "drupal/disable_html5_validation": "^2.0",
         "drupal/dropdown_language": "^4.0",
         "drupal/easy_breadcrumb": "^2.0",
         "drupal/entity": "^1.5",

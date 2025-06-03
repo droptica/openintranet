@@ -39,6 +39,7 @@ install:
   - dblog
   - default_content
   - diff
+  - disable_html5_validation
   - dropdown_language
   - dynamic_page_cache
   - editor
