@@ -49,8 +49,8 @@ default:
       entity: 0ce7d53f-cc83-4bf8-8f43-d4d02f0923ae
   field_event_date:
     -
-      value: '2025-03-28T13:25:00'
-      end_value: '2025-03-31T16:30:00'
+      value: '2025-12-02T13:25:00'
+      end_value: '2025-12-05T16:30:00'
   field_event_location:
     -
       langcode: en

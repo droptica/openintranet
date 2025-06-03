@@ -206,6 +206,68 @@ function openintranet_apply_content_recipe(array &$install_state): array {
 }
 
 /**
+ * Updates event dates by setting them to random dates between 6 and 7 months in the future.
+ */
+function openintranet_update_event_dates(): void {
+  try {
+    $query = \Drupal::entityQuery('node')
+      ->condition('type', 'event')
+      ->condition('status', 1)
+      ->accessCheck(FALSE);
+    $nids = $query->execute();
+
+    if (empty($nids)) {
+      return;
+    }
+
+    $nodes = \Drupal::entityTypeManager()
+      ->getStorage('node')
+      ->loadMultiple($nids);
+
+    // Base date is 6 months from now
+    $base_date = new \Drupal\Core\Datetime\DrupalDateTime();
+    $base_date->modify('+6 months');
+
+    foreach ($nodes as $node) {
+      $event_date = $node->get('field_event_date')->getValue();
+      if (!empty($event_date)) {
+        $needs_update = FALSE;
+        foreach ($event_date as $key => $date) {
+          if (!empty($date['value'])) {
+            // Random number of days between 0 and 30 (1 month)
+            $random_days = mt_rand(0, 30);
+            $date_obj = clone $base_date;
+            $date_obj->modify("+$random_days days");
+            
+            // Random hour between 9 and 17
+            $random_hour = mt_rand(9, 17);
+            $date_obj->setTime($random_hour, 0);
+            
+            $event_date[$key]['value'] = $date_obj->format('Y-m-d\TH:i:s');
+            $needs_update = TRUE;
+
+            // Set end date to 1-3 hours after start date
+            if (!empty($date['end_value'])) {
+              $end_date = clone $date_obj;
+              $random_hours = mt_rand(1, 3);
+              $end_date->modify("+$random_hours hours");
+              $event_date[$key]['end_value'] = $end_date->format('Y-m-d\TH:i:s');
+            }
+          }
+        }
+        if ($needs_update) {
+          $node->set('field_event_date', $event_date);
+          $node->save();
+        }
+      }
+    }
+  }
+  catch (\Exception $e) {
+    error_log("Error updating event dates: " . $e->getMessage());
+  }
+}
+
+/**
  * Finished callback for content recipe.
  */
 function openintranet_content_recipe_finished($success, $results, $operations) {
@@ -229,6 +291,9 @@ function openintranet_content_recipe_finished($success, $results, $operations) {
         }
         $entityUpdateManager->getChangeList();
       }
+
+      // Update event dates
+      openintranet_update_event_dates();
     }
     catch (\Exception $e) {
       error_log("Non-critical error during content recipe cleanup: " . $e->getMessage());

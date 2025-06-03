@@ -44,8 +44,8 @@ default:
       entity: 19b9cd9a-2063-463f-9089-46d867503e51
   field_event_date:
     -
-      value: '2025-02-12T09:10:00'
-      end_value: '2025-02-12T10:15:00'
+      value: '2025-12-10T09:10:00'
+      end_value: '2025-12-10T10:15:00'
   field_event_location:
     -
       langcode: en

@@ -1,11 +1,9 @@
 _meta:
   version: '1.0'
   entity_type: node
-  uuid: 908238f4-8d49-49a2-a2c9-25544a2561b0
+  uuid: 18a8cdee-2f13-4bb3-9d6e-e1e20a0de937
   bundle: event
   default_langcode: en
-  depends:
-    5acebfac-594c-4914-b763-359e5d9464ea: media
 default:
   revision_uid:
     -
@@ -18,7 +16,7 @@ default:
       target_id: 1
   title:
     -
-      value: 'ISO27001 Audit'
+      value: 'Cloud Security Meetup'
   created:
     -
       value: 1739958208
@@ -33,29 +31,26 @@ default:
       value: true
   path:
     -
-      alias: /event/iso27001-audit
+      alias: /event/cloud-security-meetup
       langcode: en
       pathauto: 1
   body:
     -
-      value: '<p>ISO27001 Audit</p>'
+      value: '<p>Join us for a discussion on modern cloud security practices, architecture, and common pitfalls.</p>'
       format: full_html
       summary: ''
-  field_background_image:
-    -
-      entity: 5acebfac-594c-4914-b763-359e5d9464ea
   field_event_date:
     -
-      value: '2025-12-18T11:45:00'
-      end_value: '2025-12-18T13:00:00'
+      value: '2025-12-14T14:00:00'
+      end_value: '2025-12-14T15:30:00'
   field_event_location:
     -
       langcode: en
       country_code: PL
       administrative_area: ''
-      locality: Wroclaw
-      postal_code: 56-613
-      address_line1: 'Stacyjna 1'
+      locality: Kraków
+      postal_code: 30-002
+      address_line1: 'Szlak 77'
   field_event_online:
     -
       value: false
@@ -64,13 +59,13 @@ default:
       value: false
   field_map_location:
     -
-      value: 'POINT (17.03196 51.173924)'
+      value: 'POINT (19.9373 50.0614)'
       geo_type: Point
-      lat: 51.173924
-      lon: 17.03196
-      left: 17.03196
-      top: 51.173924
-      right: 17.03196
-      bottom: 51.173924
-      geohash: u3h55efm9qvg
-      latlon: '51.173924,17.03196'
+      lat: 50.0614
+      lon: 19.9373
+      left: 19.9373
+      top: 50.0614
+      right: 19.9373
+      bottom: 50.0614
+      geohash: u3nkqc8r9cuv
+      latlon: '50.0614,19.9373'
