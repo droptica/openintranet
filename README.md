@@ -29,11 +29,8 @@ To install Open Intranet you need [DDEV](https://ddev.com) installed on your mac
 or
 
 ```
-PROJECTDIRNAME=intranet01
-CODEBASE="1.x"
-git clone https://git.drupalcode.org/project/openintranet.git ${PROJECTDIRNAME}
-cd ${PROJECTDIRNAME}
-git checkout ${CODEBASE}
+git clone https://git.drupalcode.org/project/openintranet.git openintranet
+cd openintranet
 ./launch-intranet.sh
 ```
 
