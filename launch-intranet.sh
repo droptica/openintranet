@@ -21,7 +21,7 @@ NAME=$(basename "$PWD" | tr '_' '-')
 
 # If there are any other DDEV projects in this system with this name, add a numeric suffix.
 declare -i n=$(ddev list | grep --count "$NAME")
-if [ $n > 0 ]; then
+if [ $n -gt 0 ]; then
   NAME=$NAME-$(expr $n + 1)
 fi
 
