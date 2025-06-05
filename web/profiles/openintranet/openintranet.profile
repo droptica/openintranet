@@ -188,6 +188,24 @@ function openintranet_apply_content_recipe(array &$install_state): array {
     $operations[] = ['openintranet_import_book_structure', []];
     $operations[] = ['openintranet_index_content', []];
     $operations[] = ['openintranet_index_site_map', []];
+    $operations[] = ['openintranet_post_install_clean_up', []];
+
+    // Directories to delete.
+    $dirs = [
+      DRUPAL_ROOT . '/private:',
+      DRUPAL_ROOT . '/public:',
+    ];
+
+    /** @var \Drupal\Core\File\FileSystemInterface $file_system */
+    $file_system = \Drupal::service('file_system');
+
+    foreach ($dirs as $dir) {
+      if (!is_dir($dir)) {
+        continue;
+      }
+
+      $file_system->deleteRecursive($dir);
+    }
 
     // Return batch array.
     return [
@@ -238,11 +256,11 @@ function openintranet_update_event_dates(): void {
             $random_days = mt_rand(0, 30);
             $date_obj = clone $base_date;
             $date_obj->modify("+$random_days days");
-            
+
             // Random hour between 9 and 17
             $random_hour = mt_rand(9, 17);
             $date_obj->setTime($random_hour, 0);
-            
+
             $event_date[$key]['value'] = $date_obj->format('Y-m-d\TH:i:s');
             $needs_update = TRUE;
 
@@ -427,6 +445,30 @@ function openintranet_index_site_map($context): void {
   catch (\Exception $e) {
     \Drupal::messenger()->addError(t('Error indexing sitemap: @error', ['@error' => $e->getMessage()]));
   }
+}
+
+/**
+ * Cleans up after installation by deleting specific directories.
+ */
+function openintranet_post_install_clean_up($context): void {
+  // Directories to delete.
+  $dirs = [
+    DRUPAL_ROOT . '/private:',
+    DRUPAL_ROOT . '/public:',
+  ];
+
+  /** @var \Drupal\Core\File\FileSystemInterface $file_system */
+  $file_system = \Drupal::service('file_system');
+
+  foreach ($dirs as $dir) {
+    if (!is_dir($dir)) {
+      continue;
+    }
+
+    $file_system->deleteRecursive($dir);
+  }
+
+  $context['message'] = t('Cleaning after installation.');
 }
 
 /**
