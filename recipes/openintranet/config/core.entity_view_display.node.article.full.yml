@@ -11,6 +11,7 @@ dependencies:
     - field.field.node.article.field_background_image
     - field.field.node.article.field_document_ref
     - field.field.node.article.field_intro
+    - field.field.node.article.field_mark_as_must_read
     - field.field.node.article.field_news_article_reaction
     - field.field.node.article.field_tags
     - node.type.article
@@ -63,8 +64,8 @@ content:
     type: entity_reference_entity_view
     label: hidden
     settings:
-      link: false
       view_mode: teaser
+      link: false
     third_party_settings: {  }
     weight: 1
     region: content
@@ -95,8 +96,14 @@ content:
     third_party_settings: {  }
     weight: 3
     region: content
+  flag_readed:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
 hidden:
   field_access: true
+  field_mark_as_must_read: true
   langcode: true
   links: true
   search_api_excerpt: true

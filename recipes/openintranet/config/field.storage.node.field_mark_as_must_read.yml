@@ -1,0 +1,18 @@
+uuid: 4c2e2eb8-9a88-4d7b-965b-8ba9252d83c6
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_mark_as_must_read
+field_name: field_mark_as_must_read
+entity_type: node
+type: boolean
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

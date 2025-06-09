@@ -1,0 +1,21 @@
+uuid: bfb6ccfa-a678-453f-9be9-fd54c1cda3a3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_mark_as_must_read
+    - node.type.knowledge_base_page
+id: node.knowledge_base_page.field_mark_as_must_read
+field_name: field_mark_as_must_read
+entity_type: node
+bundle: knowledge_base_page
+label: 'Must Read'
+description: 'Selecting this field will add a “Mark as read” button to this content. This allows you to track on the dashboard who has read the article and who hasn’t.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

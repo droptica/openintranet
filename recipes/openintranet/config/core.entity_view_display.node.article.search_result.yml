@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.article.field_background_image
     - field.field.node.article.field_document_ref
     - field.field.node.article.field_intro
+    - field.field.node.article.field_mark_as_must_read
     - field.field.node.article.field_news_article_reaction
     - field.field.node.article.field_tags
     - node.type.article
@@ -32,7 +33,7 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 2
+    weight: 1
     region: content
   field_tags:
     type: entity_reference_label
@@ -40,12 +41,12 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 3
+    weight: 2
     region: content
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 1
+    weight: 0
     region: content
 hidden:
   body: true
@@ -53,6 +54,8 @@ hidden:
   field_access: true
   field_background_image: true
   field_document_ref: true
+  field_mark_as_must_read: true
   field_news_article_reaction: true
+  flag_readed: true
   langcode: true
   search_api_excerpt: true

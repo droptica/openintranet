@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.article.field_background_image
     - field.field.node.article.field_document_ref
     - field.field.node.article.field_intro
+    - field.field.node.article.field_mark_as_must_read
     - field.field.node.article.field_news_article_reaction
     - field.field.node.article.field_tags
     - node.type.article
@@ -28,7 +29,7 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 101
+    weight: 3
     region: content
   field_news_article_reaction:
     type: votingapi_reaction_default
@@ -40,7 +41,7 @@ content:
       show_count: true
       sort_reactions: none
     third_party_settings: {  }
-    weight: 2
+    weight: 1
     region: content
   field_tags:
     type: entity_reference_label
@@ -48,12 +49,17 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 1
+    weight: 0
+    region: content
+  flag_readed:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 4
     region: content
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 3
+    weight: 2
     region: content
 hidden:
   comment_node_article: true
@@ -61,5 +67,6 @@ hidden:
   field_background_image: true
   field_document_ref: true
   field_intro: true
+  field_mark_as_must_read: true
   langcode: true
   search_api_excerpt: true

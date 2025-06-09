@@ -49,6 +49,7 @@
         "drupal/entity": "^1.5",
         "drupal/entity_clone": "^2.1@beta",
         "drupal/field_group": "^3.6",
+        "drupal/flag": "^4.0@beta",
         "drupal/flexible_permissions": "^2.0",
         "drupal/focal_point": "^2.1",
         "drupal/frontend_editing": "^1.8",
@@ -61,6 +62,7 @@
         "drupal/libraries": "^4.0",
         "drupal/masquerade": "^2.0",
         "drupal/noreqnewpass": "^1.4",
+        "drupal/other_view_filter": "^1.3",
         "drupal/pathauto": "^1.13",
         "drupal/pathologic": "^2.0@alpha",
         "drupal/permissions_by_term": "^3.1",
@@ -165,6 +167,9 @@
             },
             "drupal/address": {
                 "[3460590] Module is not compatible with diff 2.0.x's": "https://www.drupal.org/files/issues/2024-07-10/diff-module-support-3460590-2.patch"
+            },
+            "drupal/flag":  {
+                "Add a 'User's Flaggings' view relationship": "https://www.drupal.org/files/issues/2024-05-23/3449477-2.patch"
             }
         }
     }

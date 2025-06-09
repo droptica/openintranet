@@ -1,0 +1,21 @@
+uuid: c9908015-7312-428e-a092-51562f49c3b7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_mark_as_must_read
+    - node.type.webform
+id: node.webform.field_mark_as_must_read
+field_name: field_mark_as_must_read
+entity_type: node
+bundle: webform
+label: 'Must Read'
+description: 'Selecting this field will add a “Mark as read” button to this content. This allows you to track on the dashboard who has read the article and who hasn’t.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

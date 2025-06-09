@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.knowledge_base_page.field_access
     - field.field.node.knowledge_base_page.field_data_classification
     - field.field.node.knowledge_base_page.field_document_ref
+    - field.field.node.knowledge_base_page.field_mark_as_must_read
     - field.field.node.knowledge_base_page.field_related_content
     - field.field.node.knowledge_base_page.field_tags
     - node.type.knowledge_base_page
@@ -38,8 +39,8 @@ content:
     type: entity_reference_entity_view
     label: hidden
     settings:
-      link: false
       view_mode: teaser
+      link: false
     third_party_settings: {  }
     weight: 4
     region: content
@@ -59,6 +60,11 @@ content:
     third_party_settings: {  }
     weight: 2
     region: content
+  flag_readed:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
   links:
     settings: {  }
     third_party_settings: {  }
@@ -67,5 +73,6 @@ content:
 hidden:
   book_navigation: true
   field_access: true
+  field_mark_as_must_read: true
   langcode: true
   search_api_excerpt: true

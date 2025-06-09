@@ -157,6 +157,14 @@ function openintranet_theme_preprocess_node(array &$variables) {
         $variables['revision_authors'][] = $renderer->render($view);
       }
     }
+
+    $marked_as_must_read = $node->hasField('field_mark_as_must_read')
+      && !$node->get('field_mark_as_must_read')->isEmpty()
+      && (bool)$node->get('field_mark_as_must_read')->getString();
+
+    if (!$marked_as_must_read && isset($variables['content']['flag_readed'])) {
+      $variables['content']['flag_readed']['#access'] = FALSE;
+    }
   }
 }
 

@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.webform.body
     - field.field.node.webform.field_access
+    - field.field.node.webform.field_mark_as_must_read
     - field.field.node.webform.field_webform_file_upload
     - field.field.node.webform.webform
     - node.type.webform
@@ -35,6 +36,11 @@ content:
     third_party_settings: {  }
     weight: 2
     region: content
+  flag_readed:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 4
+    region: content
   links:
     settings: {  }
     third_party_settings: {  }
@@ -51,5 +57,6 @@ content:
     region: content
 hidden:
   field_access: true
+  field_mark_as_must_read: true
   langcode: true
   search_api_excerpt: true

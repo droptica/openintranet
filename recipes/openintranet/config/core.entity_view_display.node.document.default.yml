@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.document.field_access
     - field.field.node.document.field_area
     - field.field.node.document.field_file
+    - field.field.node.document.field_mark_as_must_read
     - field.field.node.document.field_related_documents
     - field.field.node.document.field_version
     - node.type.document
@@ -24,7 +25,7 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 101
+    weight: 2
     region: content
   field_access:
     type: entity_reference_label
@@ -32,7 +33,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 102
+    weight: 3
     region: content
   field_area:
     type: entity_reference_label
@@ -40,7 +41,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 104
+    weight: 5
     region: content
   field_file:
     type: file_default
@@ -48,7 +49,7 @@ content:
     settings:
       use_description_as_link_text: true
     third_party_settings: {  }
-    weight: 2
+    weight: 0
     region: content
   field_related_documents:
     type: entity_reference_label
@@ -56,7 +57,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 103
+    weight: 4
     region: content
   field_version:
     type: string
@@ -64,13 +65,19 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 105
+    weight: 6
+    region: content
+  flag_readed:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 7
     region: content
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 100
+    weight: 1
     region: content
 hidden:
+  field_mark_as_must_read: true
   langcode: true
   search_api_excerpt: true

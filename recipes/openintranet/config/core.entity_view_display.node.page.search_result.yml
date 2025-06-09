@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.page.field_background_image
     - field.field.node.page.field_basic_page_reaction
     - field.field.node.page.field_document_ref
+    - field.field.node.page.field_mark_as_must_read
     - node.type.page
   module:
     - user
@@ -21,7 +22,7 @@ content:
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 100
+    weight: 0
     region: content
 hidden:
   body: true
@@ -30,5 +31,7 @@ hidden:
   field_background_image: true
   field_basic_page_reaction: true
   field_document_ref: true
+  field_mark_as_must_read: true
+  flag_readed: true
   langcode: true
   search_api_excerpt: true

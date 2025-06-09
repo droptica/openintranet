@@ -13,6 +13,7 @@ dependencies:
     - field.field.node.event.field_event_online_text
     - field.field.node.event.field_hide_location
     - field.field.node.event.field_map_location
+    - field.field.node.event.field_mark_as_must_read
     - image.style.all_news_teaser
     - node.type.event
   module:
@@ -30,7 +31,7 @@ content:
     settings:
       trim_length: 600
     third_party_settings: {  }
-    weight: 101
+    weight: 2
     region: content
   field_background_image:
     type: media_thumbnail
@@ -46,7 +47,7 @@ content:
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 100
+    weight: 1
     region: content
 hidden:
   field_access: true
@@ -56,5 +57,7 @@ hidden:
   field_event_online_text: true
   field_hide_location: true
   field_map_location: true
+  field_mark_as_must_read: true
+  flag_readed: true
   langcode: true
   search_api_excerpt: true

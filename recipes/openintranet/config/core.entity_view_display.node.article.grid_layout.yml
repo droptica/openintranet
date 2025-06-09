@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.article.field_background_image
     - field.field.node.article.field_document_ref
     - field.field.node.article.field_intro
+    - field.field.node.article.field_mark_as_must_read
     - field.field.node.article.field_news_article_reaction
     - field.field.node.article.field_tags
     - node.type.article
@@ -20,6 +21,11 @@ targetEntityType: node
 bundle: article
 mode: grid_layout
 content:
+  flag_readed:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
   links:
     settings: {  }
     third_party_settings: {  }
@@ -32,6 +38,7 @@ hidden:
   field_background_image: true
   field_document_ref: true
   field_intro: true
+  field_mark_as_must_read: true
   field_news_article_reaction: true
   field_tags: true
   langcode: true

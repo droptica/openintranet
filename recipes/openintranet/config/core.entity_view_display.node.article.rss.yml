@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.article.field_background_image
     - field.field.node.article.field_document_ref
     - field.field.node.article.field_intro
+    - field.field.node.article.field_mark_as_must_read
     - field.field.node.article.field_news_article_reaction
     - field.field.node.article.field_tags
     - node.type.article
@@ -23,7 +24,9 @@ bundle: article
 mode: rss
 content:
   links:
-    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
     region: content
 hidden:
   body: true
@@ -32,7 +35,9 @@ hidden:
   field_background_image: true
   field_document_ref: true
   field_intro: true
+  field_mark_as_must_read: true
   field_news_article_reaction: true
   field_tags: true
+  flag_readed: true
   langcode: true
   search_api_excerpt: true

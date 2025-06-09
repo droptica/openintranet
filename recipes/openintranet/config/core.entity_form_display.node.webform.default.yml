@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.webform.body
     - field.field.node.webform.field_access
+    - field.field.node.webform.field_mark_as_must_read
     - field.field.node.webform.field_webform_file_upload
     - field.field.node.webform.webform
     - node.type.webform
@@ -104,12 +105,24 @@ content:
       required_depth: 0
       none_label: '- Please select -'
     third_party_settings: {  }
+  field_mark_as_must_read:
+    type: boolean_checkbox
+    weight: 11
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
   field_webform_file_upload:
     type: file_generic
     weight: 3
     region: content
     settings:
       progress_indicator: throbber
+    third_party_settings: {  }
+  flag:
+    weight: 10
+    region: content
+    settings: {  }
     third_party_settings: {  }
   langcode:
     type: language_select

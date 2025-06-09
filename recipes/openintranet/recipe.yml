@@ -56,6 +56,7 @@ install:
   - flexible_permissions
   - focal_point
   - frontend_editing
+  - flag
   - geofield
   - gtm
   - help
@@ -82,6 +83,7 @@ install:
   - node
   - noreqnewpass
   - options
+  - other_view_filter
   - page_cache
   - paragraphs
   - paragraphs_edit
@@ -150,6 +152,7 @@ config:
     file_mdm: '*'
     filter: '*'
     frontend_editing: '*'
+    flag: '*'
     image: '*'
     imagemagick: '*'
     imce: '*'
@@ -346,6 +349,7 @@ config:
           module:
             - comment
             - filter
+            - flag
             - media
             - system
             - votingapi_reaction
@@ -357,6 +361,8 @@ config:
           - 'create reaction on node:article:field_news_article_reaction'
           - 'create reaction on node:page:field_basic_page_reaction'
           - 'edit own comments'
+          - 'flag readed'
+          - 'unflag readed'
           - 'modify reaction on node:article:field_news_article_reaction'
           - 'modify reaction on node:page:field_basic_page_reaction'
           - 'post comments'

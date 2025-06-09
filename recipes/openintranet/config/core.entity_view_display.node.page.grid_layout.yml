@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.page.field_background_image
     - field.field.node.page.field_basic_page_reaction
     - field.field.node.page.field_document_ref
+    - field.field.node.page.field_mark_as_must_read
     - node.type.page
   module:
     - user
@@ -18,6 +19,11 @@ targetEntityType: node
 bundle: page
 mode: grid_layout
 content:
+  flag_readed:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
   links:
     settings: {  }
     third_party_settings: {  }
@@ -30,5 +36,6 @@ hidden:
   field_background_image: true
   field_basic_page_reaction: true
   field_document_ref: true
+  field_mark_as_must_read: true
   langcode: true
   search_api_excerpt: true

@@ -13,6 +13,7 @@ dependencies:
     - field.field.node.event.field_event_online_text
     - field.field.node.event.field_hide_location
     - field.field.node.event.field_map_location
+    - field.field.node.event.field_mark_as_must_read
     - node.type.event
   module:
     - address
@@ -116,6 +117,7 @@ content:
         minZoom: 1
         maxZoom: 18
         zoomFiner: 0
+      weight: '0'
       icon:
         iconType: marker
         iconUrl: ''
@@ -152,6 +154,7 @@ content:
       geocoder:
         control: false
         settings:
+          popup: false
           autocomplete:
             placeholder: 'Search Address'
             title: 'Search an Address on the Map'
@@ -161,13 +164,16 @@ content:
           min_terms: 4
           delay: 800
           zoom: 16
-          popup: false
           options: ''
       map_lazy_load:
         lazy_load: false
-      weight: 0
     third_party_settings: {  }
     weight: 6
+    region: content
+  flag_readed:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
     region: content
   links:
     settings: {  }
@@ -178,5 +184,6 @@ hidden:
   field_access: true
   field_event_online: true
   field_hide_location: true
+  field_mark_as_must_read: true
   langcode: true
   search_api_excerpt: true

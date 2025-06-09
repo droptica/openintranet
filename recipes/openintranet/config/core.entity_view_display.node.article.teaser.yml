@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.article.field_background_image
     - field.field.node.article.field_document_ref
     - field.field.node.article.field_intro
+    - field.field.node.article.field_mark_as_must_read
     - field.field.node.article.field_news_article_reaction
     - field.field.node.article.field_tags
     - image.style.all_news_teaser
@@ -78,7 +79,9 @@ hidden:
   comment_node_article: true
   field_access: true
   field_document_ref: true
+  field_mark_as_must_read: true
   field_tags: true
+  flag_readed: true
   langcode: true
   links: true
   search_api_excerpt: true
