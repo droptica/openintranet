@@ -106,6 +106,20 @@
               }
             }
 
+            .webform-scale {
+              &-option {
+                label {
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                }
+
+                input:checked + label {
+                  background-color: $blue-100;
+                }
+              }
+            }
+
             .form-actions {
               display: flex;
               align-items: center;
