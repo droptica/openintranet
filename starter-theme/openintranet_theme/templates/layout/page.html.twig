@@ -67,9 +67,8 @@
  * @see html.html.twig
  */
 #}
-{# see https://www.drupal.org/project/drupal/issues/953034#comment-14192130 #}
-{% set sidebar_first_exists = page.sidebar_first|render|striptags('<img><video><audio><drupal-render-placeholder>')|trim is not empty %}
-{% set sidebar_second_exists = page.sidebar_second|render|striptags('<img><video><audio><drupal-render-placeholder>')|trim is not empty %}
+{% set sidebar_first_exists = page.sidebar_first is not empty %}
+{% set sidebar_second_exists = page.sidebar_second is not empty %}
 
 <div id="page-wrapper">
   <div id="page">
@@ -97,7 +96,7 @@
         {% if page.header or page.primary_menu or page.header_form %}
           <nav{{ navbar_attributes }}>
             {% if container_navbar %}
-            <div class="container">
+              <div class="container">
             {% endif %}
               {{ page.header }}
               {% if page.primary_menu or page.header_form %}
