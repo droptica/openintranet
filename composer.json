@@ -40,6 +40,7 @@
         "drupal/cshs": "^4.0",
         "drupal/ctools": "^4.1",
         "drupal/custom_book_block": "^2.0",
+        "drupal/dashboard": "^2.0",
         "drupal/datetimehideseconds": "^1.5",
         "drupal/default_content": "^2.0@alpha",
         "drupal/diff": "^2.0@beta",

@@ -42,8 +42,6 @@ third_party_settings:
         attributes: ''
         effect: none
         speed: fast
-_core:
-  default_config_hash: zCtorf17fpD4ElGMzAJU2nO8iQkcuSVAGMALOC3btN4
 id: node.document.full
 targetEntityType: node
 bundle: document

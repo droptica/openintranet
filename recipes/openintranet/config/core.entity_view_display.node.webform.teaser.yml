@@ -13,8 +13,6 @@ dependencies:
   module:
     - text
     - user
-_core:
-  default_config_hash: Ls5l3Xs7-YstJnurxFLKj38Exqr2JMZs1j9YeX1Kh2o
 id: node.webform.teaser
 targetEntityType: node
 bundle: webform

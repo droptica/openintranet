@@ -9,7 +9,6 @@ dependencies:
     - field.field.node.page.field_background_image
     - field.field.node.page.field_basic_page_reaction
     - field.field.node.page.field_document_ref
-    - field.field.node.page.field_mark_as_must_read
     - node.type.page
   module:
     - comment
@@ -73,8 +72,6 @@ third_party_settings:
         formatter: open
         description: ''
         required_fields: true
-_core:
-  default_config_hash: SfpLhPExzvR0MgFp0Wp7CrmgEnhcqQ-fXIWFhbf4ue0
 id: node.page.default
 targetEntityType: node
 bundle: page
@@ -145,13 +142,6 @@ content:
       collapsed: false
       revision: false
       removed_reference: keep
-    third_party_settings: {  }
-  field_mark_as_must_read:
-    type: boolean_checkbox
-    weight: 11
-    region: content
-    settings:
-      display_label: true
     third_party_settings: {  }
   flag:
     weight: 8

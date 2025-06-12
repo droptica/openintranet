@@ -12,7 +12,6 @@ dependencies:
     - field.field.node.event.field_event_online_text
     - field.field.node.event.field_hide_location
     - field.field.node.event.field_map_location
-    - field.field.node.event.field_mark_as_must_read
     - node.type.event
   module:
     - address
@@ -112,8 +111,6 @@ third_party_settings:
         formatter: closed
         description: ''
         required_fields: true
-_core:
-  default_config_hash: At6r4tR960rScDcbRaieqgmVmoi8HI9W3Lab_48Piew
 id: node.event.default
 targetEntityType: node
 bundle: event
@@ -256,13 +253,6 @@ content:
           delay: 800
           zoom: 16
           options: ''
-    third_party_settings: {  }
-  field_mark_as_must_read:
-    type: boolean_checkbox
-    weight: 9
-    region: content
-    settings:
-      display_label: true
     third_party_settings: {  }
   flag:
     weight: 3

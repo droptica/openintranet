@@ -33,6 +33,7 @@ install:
   - custom_book_block
   - bootstrap_barrio
   - openintranet_theme
+  - dashboard
   - datetime
   - datetime_range
   - datetimehideseconds
@@ -142,6 +143,7 @@ config:
     crop: '*'
     bootstrap_barrio: '*'
     openintranet_theme: '*'
+    dashboard: '*'
     dblog: '*'
     dropdown_language: '*'
     editor: '*'

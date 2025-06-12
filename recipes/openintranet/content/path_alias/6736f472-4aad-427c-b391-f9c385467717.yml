@@ -1,0 +1,15 @@
+_meta:
+  version: '1.0'
+  entity_type: path_alias
+  uuid: 6736f472-4aad-427c-b391-f9c385467717
+  default_langcode: und
+default:
+  path:
+    -
+      value: /admin/dashboard
+  alias:
+    -
+      value: /admin/openintranet
+  status:
+    -
+      value: true

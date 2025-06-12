@@ -6,14 +6,11 @@ dependencies:
     - field.storage.user.field_first_name
     - field.storage.user.field_last_name
     - flag.flag.readed
-    - system.menu.admin
   module:
     - flag
     - node
     - other_view_filter
     - user
-_core:
-  default_config_hash: V8rqcibcDeN17sVECx3gioDFnN74u2T_qo4hNEUAKx4
 id: must_read_report_details
 label: 'Must Read Report Details'
 module: views
@@ -1059,17 +1056,6 @@ display:
           flag: readed
       display_description: ''
       header:
-        area_text_custom_1:
-          id: area_text_custom_1
-          table: views
-          field: area_text_custom
-          relationship: none
-          group_type: group
-          admin_label: 'Main header'
-          plugin_id: text_custom
-          empty: false
-          content: "<h2>Content read statistics for {{ title }}</h2>\r\n<hr>"
-          tokenize: true
         area_text_custom:
           id: area_text_custom
           table: views
@@ -1082,7 +1068,7 @@ display:
           content: '<h4>Users who marked the content as read</h4>'
           tokenize: false
       display_extenders: {  }
-      path: admin/reports/must-read-report/%/details
+      path: admin/dashboard/must-read-report/%/details
       menu:
         type: none
         title: 'Must Read Report'
@@ -1252,7 +1238,7 @@ display:
             alter_text: true
             text: Details
             make_link: true
-            path: 'admin/reports/must-read-report/{{ nid__value }}/details'
+            path: 'admin/dashboard/must-read-report/{{ nid__value }}/details'
             absolute: false
             external: false
             replace_spaces: false
@@ -1409,16 +1395,21 @@ display:
           content: '<h4>Readed</h4>'
           tokenize: false
       display_extenders: {  }
-      path: admin/reports/must-read-report
+      path: admin/dashboard/must-read-report
       menu:
-        type: normal
+        type: tab
         title: 'Must Read Report'
         description: ''
-        weight: 0
-        expanded: false
+        weight: 5
+        expanded: true
         menu_name: admin
-        parent: system.admin_reports
+        parent: ''
         context: '0'
+      tab_options:
+        type: normal
+        title: OpenIntranet2
+        description: ''
+        weight: 0
     cache_metadata:
       max-age: -1
       contexts:

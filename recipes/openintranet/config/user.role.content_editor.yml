@@ -7,6 +7,7 @@ dependencies:
     - block_content.type.basic
     - block_content.type.links_block
     - block_content.type.quick_action
+    - dashboard.dashboard.openintranet
     - filter.format.basic_html
     - filter.format.full_html
     - filter.format.restricted_html
@@ -31,6 +32,7 @@ dependencies:
     - comment
     - content_translation
     - contextual
+    - dashboard
     - entity_clone
     - entity_clone_extras
     - file
@@ -45,8 +47,6 @@ dependencies:
     - system
     - taxonomy
     - toolbar
-_core:
-  default_config_hash: 7DdlmtOfpXYV9ebPaWDszz3mPZX6q8hjRUC62QMMnYg
 id: content_editor
 label: 'Content editor'
 weight: 2
@@ -63,6 +63,7 @@ permissions:
   - 'access navigation'
   - 'access taxonomy overview'
   - 'access toolbar'
+  - 'access user profiles'
   - 'administer media'
   - 'administer taxonomy'
   - 'administer url aliases'
@@ -244,6 +245,7 @@ permissions:
   - 'view event revisions'
   - 'view knowledge_base_page revisions'
   - 'view media'
+  - 'view openintranet dashboard'
   - 'view own unpublished content'
   - 'view own unpublished media'
   - 'view page revisions'

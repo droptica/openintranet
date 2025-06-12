@@ -14,8 +14,6 @@ dependencies:
     - text
     - user
     - webform
-_core:
-  default_config_hash: 3r1i0UMUbeNHhvmiqHDYznoS4G9XR1jq6lQ49r80lDE
 id: node.webform.default
 targetEntityType: node
 bundle: webform

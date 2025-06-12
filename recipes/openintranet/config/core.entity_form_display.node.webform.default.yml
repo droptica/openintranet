@@ -69,8 +69,6 @@ third_party_settings:
         formatter: closed
         description: ''
         required_fields: true
-_core:
-  default_config_hash: A3evv2pt6d-bKCPcgjXA5VGTemXWOxG3lSXvWiRWcck
 id: node.webform.default
 targetEntityType: node
 bundle: webform
