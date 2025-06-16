@@ -1,0 +1,38 @@
+_meta:
+  version: '1.0'
+  entity_type: comment
+  uuid: d220cbff-333d-4eae-a0c0-68eb9663882a
+  bundle: comment_node_article
+  default_langcode: en
+  depends:
+    84962f26-761a-4495-8925-115cdc058670: user
+    81b4df2b-2328-4c21-a0d7-b8b07402d39d: node
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      entity: 84962f26-761a-4495-8925-115cdc058670
+  entity_id:
+    -
+      entity: 81b4df2b-2328-4c21-a0d7-b8b07402d39d
+  subject:
+    -
+      value: 'Honestly, I was skeptical at…'
+  created:
+    -
+      value: 1749802923
+  thread:
+    -
+      value: 02/
+  entity_type:
+    -
+      value: node
+  field_name:
+    -
+      value: comment_node_article
+  comment_body:
+    -
+      value: 'Honestly, I was skeptical at first, but after using it a few times, I don’t want to go back. It speeds things up without taking over.'
+      format: plain_text

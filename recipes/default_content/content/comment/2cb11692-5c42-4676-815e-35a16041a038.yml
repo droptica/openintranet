@@ -1,0 +1,42 @@
+_meta:
+  version: '1.0'
+  entity_type: comment
+  uuid: 2cb11692-5c42-4676-815e-35a16041a038
+  bundle: comment_node_article
+  default_langcode: en
+  depends:
+    256caed8-1ee7-40a6-9926-a73677c03ef0: user
+    6626e23a-f934-4831-b79a-2fff9702e37e: comment
+    e9969942-8891-4ab8-b5f0-07d15f3a139c: node
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      entity: 256caed8-1ee7-40a6-9926-a73677c03ef0
+  pid:
+    -
+      entity: 6626e23a-f934-4831-b79a-2fff9702e37e
+  entity_id:
+    -
+      entity: e9969942-8891-4ab8-b5f0-07d15f3a139c
+  subject:
+    -
+      value: 'Same here! A client even…'
+  created:
+    -
+      value: 1749800923
+  thread:
+    -
+      value: 02.00/
+  entity_type:
+    -
+      value: node
+  field_name:
+    -
+      value: comment_node_article
+  comment_body:
+    -
+      value: 'Same here! A client even thanked me for the “blazingly fast reply” 😄'
+      format: plain_text

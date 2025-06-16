@@ -1,0 +1,38 @@
+_meta:
+  version: '1.0'
+  entity_type: comment
+  uuid: 982f87fa-a861-4262-bf34-b2655990720b
+  bundle: comment_node_article
+  default_langcode: en
+  depends:
+    e37cef48-9644-4e1e-9f4e-c938ffe4d3ed: user
+    2107128c-dead-46cb-bfdb-f7d5f3070996: node
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      entity: e37cef48-9644-4e1e-9f4e-c938ffe4d3ed
+  entity_id:
+    -
+      entity: 2107128c-dead-46cb-bfdb-f7d5f3070996
+  subject:
+    -
+      value: '123 London Street — love the…'
+  created:
+    -
+      value: 1749802232
+  thread:
+    -
+      value: 02/
+  entity_type:
+    -
+      value: node
+  field_name:
+    -
+      value: comment_node_article
+  comment_body:
+    -
+      value: '123 London Street — love the address 😄 Really excited about what this means for our UK clients.'
+      format: plain_text

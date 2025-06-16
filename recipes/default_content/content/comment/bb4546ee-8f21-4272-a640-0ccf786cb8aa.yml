@@ -1,0 +1,42 @@
+_meta:
+  version: '1.0'
+  entity_type: comment
+  uuid: bb4546ee-8f21-4272-a640-0ccf786cb8aa
+  bundle: comment_node_article
+  default_langcode: en
+  depends:
+    d1ee5deb-b648-47e2-aff2-3471c3d959f7: user
+    a519ee8b-f2a0-44fa-93e5-740397cb171b: comment
+    e9969942-8891-4ab8-b5f0-07d15f3a139c: node
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      entity: d1ee5deb-b648-47e2-aff2-3471c3d959f7
+  pid:
+    -
+      entity: a519ee8b-f2a0-44fa-93e5-740397cb171b
+  entity_id:
+    -
+      entity: e9969942-8891-4ab8-b5f0-07d15f3a139c
+  subject:
+    -
+      value: 'Not yet, but I heard it’ll…'
+  created:
+    -
+      value: 1749801104
+  thread:
+    -
+      value: 04.00/
+  entity_type:
+    -
+      value: node
+  field_name:
+    -
+      value: comment_node_article
+  comment_body:
+    -
+      value: 'Not yet, but I heard it’ll be announced next week in the newsletter. Looking forward to it!'
+      format: plain_text

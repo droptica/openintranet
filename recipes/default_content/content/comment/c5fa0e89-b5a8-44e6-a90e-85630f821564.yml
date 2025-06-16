@@ -1,0 +1,38 @@
+_meta:
+  version: '1.0'
+  entity_type: comment
+  uuid: c5fa0e89-b5a8-44e6-a90e-85630f821564
+  bundle: comment_node_article
+  default_langcode: en
+  depends:
+    141357a5-746d-46b3-8932-464aa53f31b1: user
+    e9969942-8891-4ab8-b5f0-07d15f3a139c: node
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      entity: 141357a5-746d-46b3-8932-464aa53f31b1
+  entity_id:
+    -
+      entity: e9969942-8891-4ab8-b5f0-07d15f3a139c
+  subject:
+    -
+      value: 'Wow, 95% satisfaction?! That…'
+  created:
+    -
+      value: 1749800848
+  thread:
+    -
+      value: 01/
+  entity_type:
+    -
+      value: node
+  field_name:
+    -
+      value: comment_node_article
+  comment_body:
+    -
+      value: 'Wow, 95% satisfaction?! That’s a huge milestone — congrats to the entire support team. You all deserve this recognition!'
+      format: plain_text

@@ -1,0 +1,38 @@
+_meta:
+  version: '1.0'
+  entity_type: comment
+  uuid: 2e2b2a1a-9039-4296-b252-4d48c91a81e4
+  bundle: comment_node_article
+  default_langcode: en
+  depends:
+    399cdf23-ccc5-47c1-958a-baf4872634ca: user
+    2107128c-dead-46cb-bfdb-f7d5f3070996: node
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      entity: 399cdf23-ccc5-47c1-958a-baf4872634ca
+  entity_id:
+    -
+      entity: 2107128c-dead-46cb-bfdb-f7d5f3070996
+  subject:
+    -
+      value: 'Huge congrats to the whole…'
+  created:
+    -
+      value: 1749802089
+  thread:
+    -
+      value: 01/
+  entity_type:
+    -
+      value: node
+  field_name:
+    -
+      value: comment_node_article
+  comment_body:
+    -
+      value: 'Huge congrats to the whole team on the London office! 🎉 It’s amazing to see Droptica growing internationally.'
+      format: plain_text

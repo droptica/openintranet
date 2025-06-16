@@ -1,0 +1,42 @@
+_meta:
+  version: '1.0'
+  entity_type: comment
+  uuid: 53d43e27-3ef8-4bdb-935a-0ea516d54738
+  bundle: comment_node_article
+  default_langcode: en
+  depends:
+    0021ca26-16e4-42a7-879e-359df4bab5a5: user
+    c7126a17-1a09-43d2-908e-89fddc0886d3: comment
+    2107128c-dead-46cb-bfdb-f7d5f3070996: node
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      entity: 0021ca26-16e4-42a7-879e-359df4bab5a5
+  pid:
+    -
+      entity: c7126a17-1a09-43d2-908e-89fddc0886d3
+  entity_id:
+    -
+      entity: 2107128c-dead-46cb-bfdb-f7d5f3070996
+  subject:
+    -
+      value: 'That would be awesome! A…'
+  created:
+    -
+      value: 1749802488
+  thread:
+    -
+      value: 04.00/
+  entity_type:
+    -
+      value: node
+  field_name:
+    -
+      value: comment_node_article
+  comment_body:
+    -
+      value: 'That would be awesome! A virtual toast from the rest of the team 😄'
+      format: plain_text

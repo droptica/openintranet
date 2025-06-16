@@ -1,0 +1,38 @@
+_meta:
+  version: '1.0'
+  entity_type: comment
+  uuid: 8f5d27a8-ce5e-4abd-9d43-19d2f88a5a15
+  bundle: comment_node_article
+  default_langcode: en
+  depends:
+    d7735247-77aa-4b84-a143-115a24c85c27: user
+    2107128c-dead-46cb-bfdb-f7d5f3070996: node
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      entity: d7735247-77aa-4b84-a143-115a24c85c27
+  entity_id:
+    -
+      entity: 2107128c-dead-46cb-bfdb-f7d5f3070996
+  subject:
+    -
+      value: 'Congrats everyone! Feels…'
+  created:
+    -
+      value: 1749802703
+  thread:
+    -
+      value: 07/
+  entity_type:
+    -
+      value: node
+  field_name:
+    -
+      value: comment_node_article
+  comment_body:
+    -
+      value: 'Congrats everyone! Feels great to be part of a company that’s constantly moving forward.'
+      format: plain_text

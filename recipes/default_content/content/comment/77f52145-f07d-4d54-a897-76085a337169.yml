@@ -1,0 +1,38 @@
+_meta:
+  version: '1.0'
+  entity_type: comment
+  uuid: 77f52145-f07d-4d54-a897-76085a337169
+  bundle: comment_node_article
+  default_langcode: en
+  depends:
+    de75379c-8663-4418-8508-c852aca235da: user
+    81b4df2b-2328-4c21-a0d7-b8b07402d39d: node
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      entity: de75379c-8663-4418-8508-c852aca235da
+  entity_id:
+    -
+      entity: 81b4df2b-2328-4c21-a0d7-b8b07402d39d
+  subject:
+    -
+      value: 'I’m looking forward to the…'
+  created:
+    -
+      value: 1749803093
+  thread:
+    -
+      value: 04/
+  entity_type:
+    -
+      value: node
+  field_name:
+    -
+      value: comment_node_article
+  comment_body:
+    -
+      value: 'I’m looking forward to the training sessions. I feel like I’ve only scratched the surface of what this thing can do.'
+      format: plain_text

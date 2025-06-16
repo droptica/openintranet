@@ -1,0 +1,38 @@
+_meta:
+  version: '1.0'
+  entity_type: comment
+  uuid: 5a8cfda7-8208-46d5-a324-320de52ba64d
+  bundle: comment_node_article
+  default_langcode: en
+  depends:
+    11585eb0-5b69-4d8a-8411-0391c687e26e: user
+    81b4df2b-2328-4c21-a0d7-b8b07402d39d: node
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      entity: 11585eb0-5b69-4d8a-8411-0391c687e26e
+  entity_id:
+    -
+      entity: 81b4df2b-2328-4c21-a0d7-b8b07402d39d
+  subject:
+    -
+      value: 'Big shoutout to whoever…'
+  created:
+    -
+      value: 1749803243
+  thread:
+    -
+      value: 07/
+  entity_type:
+    -
+      value: node
+  field_name:
+    -
+      value: comment_node_article
+  comment_body:
+    -
+      value: 'Big shoutout to whoever trained the model on our internal KB — it feels super tailored to what we actually deal with daily.'
+      format: plain_text

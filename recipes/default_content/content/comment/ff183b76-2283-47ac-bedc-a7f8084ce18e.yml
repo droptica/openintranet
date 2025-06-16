@@ -1,0 +1,42 @@
+_meta:
+  version: '1.0'
+  entity_type: comment
+  uuid: ff183b76-2283-47ac-bedc-a7f8084ce18e
+  bundle: comment_node_article
+  default_langcode: en
+  depends:
+    d1ee5deb-b648-47e2-aff2-3471c3d959f7: user
+    d220cbff-333d-4eae-a0c0-68eb9663882a: comment
+    81b4df2b-2328-4c21-a0d7-b8b07402d39d: node
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      entity: d1ee5deb-b648-47e2-aff2-3471c3d959f7
+  pid:
+    -
+      entity: d220cbff-333d-4eae-a0c0-68eb9663882a
+  entity_id:
+    -
+      entity: 81b4df2b-2328-4c21-a0d7-b8b07402d39d
+  subject:
+    -
+      value: 'Same here! It’s like having…'
+  created:
+    -
+      value: 1749802976
+  thread:
+    -
+      value: 02.00/
+  entity_type:
+    -
+      value: node
+  field_name:
+    -
+      value: comment_node_article
+  comment_body:
+    -
+      value: 'Same here! It’s like having a super-smart co-pilot — but I’m still the one flying the plane ✈️'
+      format: plain_text

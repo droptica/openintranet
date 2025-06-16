@@ -1,0 +1,42 @@
+_meta:
+  version: '1.0'
+  entity_type: comment
+  uuid: c31cdd70-ddf1-409e-afc3-a8c01934e8db
+  bundle: comment_node_article
+  default_langcode: en
+  depends:
+    832b1a7e-145a-4d26-8459-e94e40354987: user
+    7554ea73-f298-407e-8f05-36d64d3b69e5: comment
+    2107128c-dead-46cb-bfdb-f7d5f3070996: node
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      entity: 832b1a7e-145a-4d26-8459-e94e40354987
+  pid:
+    -
+      entity: 7554ea73-f298-407e-8f05-36d64d3b69e5
+  entity_id:
+    -
+      entity: 2107128c-dead-46cb-bfdb-f7d5f3070996
+  subject:
+    -
+      value: 'Exactly! Face-to-face…'
+  created:
+    -
+      value: 1749802388
+  thread:
+    -
+      value: 03.00/
+  entity_type:
+    -
+      value: node
+  field_name:
+    -
+      value: comment_node_article
+  comment_body:
+    -
+      value: 'Exactly! Face-to-face meetings make a big difference — especially in the UK market.'
+      format: plain_text

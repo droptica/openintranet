@@ -1,0 +1,38 @@
+_meta:
+  version: '1.0'
+  entity_type: comment
+  uuid: ad4b9eea-fcb0-4b3e-bdb3-f9a2c26b77d0
+  bundle: comment_node_article
+  default_langcode: en
+  depends:
+    256caed8-1ee7-40a6-9926-a73677c03ef0: user
+    81b4df2b-2328-4c21-a0d7-b8b07402d39d: node
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      entity: 256caed8-1ee7-40a6-9926-a73677c03ef0
+  entity_id:
+    -
+      entity: 81b4df2b-2328-4c21-a0d7-b8b07402d39d
+  subject:
+    -
+      value: 'This is such a cool step…'
+  created:
+    -
+      value: 1749803047
+  thread:
+    -
+      value: 03/
+  entity_type:
+    -
+      value: node
+  field_name:
+    -
+      value: comment_node_article
+  comment_body:
+    -
+      value: 'This is such a cool step forward. Can we get a cheat sheet for AI command triggers or common phrases it understands?'
+      format: plain_text

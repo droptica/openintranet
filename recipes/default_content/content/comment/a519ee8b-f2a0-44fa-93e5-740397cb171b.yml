@@ -1,0 +1,38 @@
+_meta:
+  version: '1.0'
+  entity_type: comment
+  uuid: a519ee8b-f2a0-44fa-93e5-740397cb171b
+  bundle: comment_node_article
+  default_langcode: en
+  depends:
+    d3a92782-108f-4aeb-ab96-0d6752d17ffc: user
+    e9969942-8891-4ab8-b5f0-07d15f3a139c: node
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      entity: d3a92782-108f-4aeb-ab96-0d6752d17ffc
+  entity_id:
+    -
+      entity: e9969942-8891-4ab8-b5f0-07d15f3a139c
+  subject:
+    -
+      value: 'Is there a place where we…'
+  created:
+    -
+      value: 1749801066
+  thread:
+    -
+      value: 04/
+  entity_type:
+    -
+      value: node
+  field_name:
+    -
+      value: comment_node_article
+  comment_body:
+    -
+      value: 'Is there a place where we can nominate someone for the Customer Champion thing yet?'
+      format: plain_text

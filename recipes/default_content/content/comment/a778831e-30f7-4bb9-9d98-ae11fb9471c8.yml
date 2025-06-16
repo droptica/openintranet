@@ -1,0 +1,38 @@
+_meta:
+  version: '1.0'
+  entity_type: comment
+  uuid: a778831e-30f7-4bb9-9d98-ae11fb9471c8
+  bundle: comment_node_article
+  default_langcode: en
+  depends:
+    737581c5-6932-4622-a07b-3cebf571ed30: user
+    81b4df2b-2328-4c21-a0d7-b8b07402d39d: node
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      entity: 737581c5-6932-4622-a07b-3cebf571ed30
+  entity_id:
+    -
+      entity: 81b4df2b-2328-4c21-a0d7-b8b07402d39d
+  subject:
+    -
+      value: 'Tried the AI assistant this…'
+  created:
+    -
+      value: 1749802860
+  thread:
+    -
+      value: 01/
+  entity_type:
+    -
+      value: node
+  field_name:
+    -
+      value: comment_node_article
+  comment_body:
+    -
+      value: 'Tried the AI assistant this morning and I’m seriously impressed. It suggested a perfect reply before I even finished reading the ticket 😮'
+      format: plain_text

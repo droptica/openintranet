@@ -1,0 +1,38 @@
+_meta:
+  version: '1.0'
+  entity_type: comment
+  uuid: 956a7662-8a83-445b-9970-dffdbc8761b5
+  bundle: comment_node_article
+  default_langcode: en
+  depends:
+    28a8ae65-341b-420f-a598-e451607b8c6a: user
+    81b4df2b-2328-4c21-a0d7-b8b07402d39d: node
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      entity: 28a8ae65-341b-420f-a598-e451607b8c6a
+  entity_id:
+    -
+      entity: 81b4df2b-2328-4c21-a0d7-b8b07402d39d
+  subject:
+    -
+      value: 'Change can be scary, but…'
+  created:
+    -
+      value: 1749803339
+  thread:
+    -
+      value: 08/
+  entity_type:
+    -
+      value: node
+  field_name:
+    -
+      value: comment_node_article
+  comment_body:
+    -
+      value: 'Change can be scary, but this feels like a step forward that keeps us in control. Can’t wait to see where it goes next.'
+      format: plain_text

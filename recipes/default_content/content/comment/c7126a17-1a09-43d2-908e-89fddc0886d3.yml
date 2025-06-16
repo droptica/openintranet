@@ -1,0 +1,38 @@
+_meta:
+  version: '1.0'
+  entity_type: comment
+  uuid: c7126a17-1a09-43d2-908e-89fddc0886d3
+  bundle: comment_node_article
+  default_langcode: en
+  depends:
+    9cb46a24-f2d9-47c6-bc4e-464498043086: user
+    2107128c-dead-46cb-bfdb-f7d5f3070996: node
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      entity: 9cb46a24-f2d9-47c6-bc4e-464498043086
+  entity_id:
+    -
+      entity: 2107128c-dead-46cb-bfdb-f7d5f3070996
+  subject:
+    -
+      value: 'Are we going to livestream…'
+  created:
+    -
+      value: 1749802429
+  thread:
+    -
+      value: 04/
+  entity_type:
+    -
+      value: node
+  field_name:
+    -
+      value: comment_node_article
+  comment_body:
+    -
+      value: 'Are we going to livestream the launch event? Would love to be part of it even remotely!'
+      format: plain_text

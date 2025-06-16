@@ -1,0 +1,38 @@
+_meta:
+  version: '1.0'
+  entity_type: comment
+  uuid: 5820043c-366a-4add-b2c4-4b21c642a86b
+  bundle: comment_node_article
+  default_langcode: en
+  depends:
+    e37cef48-9644-4e1e-9f4e-c938ffe4d3ed: user
+    81b4df2b-2328-4c21-a0d7-b8b07402d39d: node
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      entity: e37cef48-9644-4e1e-9f4e-c938ffe4d3ed
+  entity_id:
+    -
+      entity: 81b4df2b-2328-4c21-a0d7-b8b07402d39d
+  subject:
+    -
+      value: 'We’ve already seen shorter…'
+  created:
+    -
+      value: 1749803143
+  thread:
+    -
+      value: 05/
+  entity_type:
+    -
+      value: node
+  field_name:
+    -
+      value: comment_node_article
+  comment_body:
+    -
+      value: 'We’ve already seen shorter queues in our support dashboard since the pilot started. That 40% stat isn’t just hype.'
+      format: plain_text

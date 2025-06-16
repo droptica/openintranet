@@ -1,0 +1,38 @@
+_meta:
+  version: '1.0'
+  entity_type: comment
+  uuid: 80f76039-a17b-46ae-b9ff-c85c12336255
+  bundle: comment_node_article
+  default_langcode: en
+  depends:
+    85dca620-6114-419a-b236-927981c4fd95: user
+    2107128c-dead-46cb-bfdb-f7d5f3070996: node
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      entity: 85dca620-6114-419a-b236-927981c4fd95
+  entity_id:
+    -
+      entity: 2107128c-dead-46cb-bfdb-f7d5f3070996
+  subject:
+    -
+      value: 'Having access to the London…'
+  created:
+    -
+      value: 1749802646
+  thread:
+    -
+      value: 06/
+  entity_type:
+    -
+      value: node
+  field_name:
+    -
+      value: comment_node_article
+  comment_body:
+    -
+      value: 'Having access to the London talent pool is going to be huge. Can’t wait to collaborate with the local team!'
+      format: plain_text

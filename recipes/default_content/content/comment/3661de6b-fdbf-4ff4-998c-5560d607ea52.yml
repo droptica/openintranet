@@ -1,0 +1,38 @@
+_meta:
+  version: '1.0'
+  entity_type: comment
+  uuid: 3661de6b-fdbf-4ff4-998c-5560d607ea52
+  bundle: comment_node_article
+  default_langcode: en
+  depends:
+    c666869a-18a3-4aab-9938-f809e8551cee: user
+    e9969942-8891-4ab8-b5f0-07d15f3a139c: node
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      entity: c666869a-18a3-4aab-9938-f809e8551cee
+  entity_id:
+    -
+      entity: e9969942-8891-4ab8-b5f0-07d15f3a139c
+  subject:
+    -
+      value: 'Love how we’ve focused on…'
+  created:
+    -
+      value: 1749800985
+  thread:
+    -
+      value: 03/
+  entity_type:
+    -
+      value: node
+  field_name:
+    -
+      value: comment_node_article
+  comment_body:
+    -
+      value: 'Love how we’ve focused on empathy. I used to feel like I was just solving problems — now I feel like I’m actually helping people.'
+      format: plain_text

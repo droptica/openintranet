@@ -1,0 +1,38 @@
+_meta:
+  version: '1.0'
+  entity_type: comment
+  uuid: 110dbf7d-c3d8-471c-97db-970f941d6cf1
+  bundle: comment_node_article
+  default_langcode: en
+  depends:
+    fcf09e02-1474-4d11-81a8-edb3f4ec7854: user
+    2107128c-dead-46cb-bfdb-f7d5f3070996: node
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      entity: fcf09e02-1474-4d11-81a8-edb3f4ec7854
+  entity_id:
+    -
+      entity: 2107128c-dead-46cb-bfdb-f7d5f3070996
+  subject:
+    -
+      value: 'Really glad to see us…'
+  created:
+    -
+      value: 1749802569
+  thread:
+    -
+      value: 05/
+  entity_type:
+    -
+      value: node
+  field_name:
+    -
+      value: comment_node_article
+  comment_body:
+    -
+      value: 'Really glad to see us expanding in a thoughtful way — it’s not just about space, it’s about strategic presence. Well done!'
+      format: plain_text

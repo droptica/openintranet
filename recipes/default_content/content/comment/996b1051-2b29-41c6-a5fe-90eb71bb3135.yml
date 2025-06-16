@@ -1,0 +1,38 @@
+_meta:
+  version: '1.0'
+  entity_type: comment
+  uuid: 996b1051-2b29-41c6-a5fe-90eb71bb3135
+  bundle: comment_node_article
+  default_langcode: en
+  depends:
+    b0eaf4cb-9d88-453b-9bce-f4ca8d737c46: user
+    e9969942-8891-4ab8-b5f0-07d15f3a139c: node
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      entity: b0eaf4cb-9d88-453b-9bce-f4ca8d737c46
+  entity_id:
+    -
+      entity: e9969942-8891-4ab8-b5f0-07d15f3a139c
+  subject:
+    -
+      value: 'Just shared a tip in …'
+  created:
+    -
+      value: 1749801288
+  thread:
+    -
+      value: 07/
+  entity_type:
+    -
+      value: node
+  field_name:
+    -
+      value: comment_node_article
+  comment_body:
+    -
+      value: 'Just shared a tip in #customer-success that worked wonders with a frustrated client. Let’s keep this energy going 🔥'
+      format: plain_text

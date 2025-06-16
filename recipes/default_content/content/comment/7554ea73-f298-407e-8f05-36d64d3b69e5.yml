@@ -1,0 +1,38 @@
+_meta:
+  version: '1.0'
+  entity_type: comment
+  uuid: 7554ea73-f298-407e-8f05-36d64d3b69e5
+  bundle: comment_node_article
+  default_langcode: en
+  depends:
+    f2bd98bd-ae46-4026-a242-5d3476d6ddf4: user
+    2107128c-dead-46cb-bfdb-f7d5f3070996: node
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      entity: f2bd98bd-ae46-4026-a242-5d3476d6ddf4
+  entity_id:
+    -
+      entity: 2107128c-dead-46cb-bfdb-f7d5f3070996
+  subject:
+    -
+      value: 'This is a game-changer…'
+  created:
+    -
+      value: 1749802275
+  thread:
+    -
+      value: 03/
+  entity_type:
+    -
+      value: node
+  field_name:
+    -
+      value: comment_node_article
+  comment_body:
+    -
+      value: 'This is a game-changer. Having a local office will definitely help with building stronger relationships with partners in the area.'
+      format: plain_text

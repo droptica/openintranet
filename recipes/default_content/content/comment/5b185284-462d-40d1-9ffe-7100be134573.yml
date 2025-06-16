@@ -1,0 +1,38 @@
+_meta:
+  version: '1.0'
+  entity_type: comment
+  uuid: 5b185284-462d-40d1-9ffe-7100be134573
+  bundle: comment_node_article
+  default_langcode: en
+  depends:
+    c666869a-18a3-4aab-9938-f809e8551cee: user
+    81b4df2b-2328-4c21-a0d7-b8b07402d39d: node
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      entity: c666869a-18a3-4aab-9938-f809e8551cee
+  entity_id:
+    -
+      entity: 81b4df2b-2328-4c21-a0d7-b8b07402d39d
+  subject:
+    -
+      value: 'I love that it flags complex…'
+  created:
+    -
+      value: 1749803201
+  thread:
+    -
+      value: 06/
+  entity_type:
+    -
+      value: node
+  field_name:
+    -
+      value: comment_node_article
+  comment_body:
+    -
+      value: 'I love that it flags complex cases — I had one auto-escalated before I even realized how tricky it would get. Huge time saver.'
+      format: plain_text

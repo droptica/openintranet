@@ -1,0 +1,42 @@
+_meta:
+  version: '1.0'
+  entity_type: comment
+  uuid: 2a4f6db6-5a26-4852-b85e-989cba0c48a5
+  bundle: comment_node_article
+  default_langcode: en
+  depends:
+    28a8ae65-341b-420f-a598-e451607b8c6a: user
+    e6d87cf7-edaf-4354-a07f-2a3dc1814ea7: comment
+    e9969942-8891-4ab8-b5f0-07d15f3a139c: node
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      entity: 28a8ae65-341b-420f-a598-e451607b8c6a
+  pid:
+    -
+      entity: e6d87cf7-edaf-4354-a07f-2a3dc1814ea7
+  entity_id:
+    -
+      entity: e9969942-8891-4ab8-b5f0-07d15f3a139c
+  subject:
+    -
+      value: 'Absolutely — one customer…'
+  created:
+    -
+      value: 1749801251
+  thread:
+    -
+      value: 06.00/
+  entity_type:
+    -
+      value: node
+  field_name:
+    -
+      value: comment_node_article
+  comment_body:
+    -
+      value: 'Absolutely — one customer told me, “Thanks for being so kind and understanding.” That really stuck with me.'
+      format: plain_text

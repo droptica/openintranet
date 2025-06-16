@@ -1,0 +1,42 @@
+_meta:
+  version: '1.0'
+  entity_type: comment
+  uuid: d88750d7-d4b2-4c34-9556-b06635641f25
+  bundle: comment_node_article
+  default_langcode: en
+  depends:
+    0021ca26-16e4-42a7-879e-359df4bab5a5: user
+    5a8cfda7-8208-46d5-a324-320de52ba64d: comment
+    81b4df2b-2328-4c21-a0d7-b8b07402d39d: node
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      entity: 0021ca26-16e4-42a7-879e-359df4bab5a5
+  pid:
+    -
+      entity: 5a8cfda7-8208-46d5-a324-320de52ba64d
+  entity_id:
+    -
+      entity: 81b4df2b-2328-4c21-a0d7-b8b07402d39d
+  subject:
+    -
+      value: 'Agreed. I asked about a…'
+  created:
+    -
+      value: 1749803294
+  thread:
+    -
+      value: 07.00/
+  entity_type:
+    -
+      value: node
+  field_name:
+    -
+      value: comment_node_article
+  comment_body:
+    -
+      value: 'Agreed. I asked about a legacy issue from last year and it pulled the exact doc I needed. 🔍📄'
+      format: plain_text
