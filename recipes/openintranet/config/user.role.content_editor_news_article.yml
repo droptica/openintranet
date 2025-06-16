@@ -1,0 +1,91 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.basic_html
+    - filter.format.full_html
+    - filter.format.restricted_html
+    - media.type.audio
+    - media.type.document
+    - media.type.image
+    - media.type.remote_video
+    - media.type.video
+    - node.type.article
+    - taxonomy.vocabulary.access
+    - taxonomy.vocabulary.tags
+  module:
+    - ai_ckeditor
+    - comment
+    - content_translation
+    - contextual
+    - entity_clone
+    - entity_clone_extras
+    - file
+    - filter
+    - frontend_editing
+    - media
+    - navigation
+    - node
+    - path
+    - pfdp
+    - statistics
+    - system
+    - taxonomy
+    - toolbar
+id: content_editor_news_article
+label: 'Content Editor - News Article'
+weight: 8
+is_admin: null
+permissions:
+  - 'access administration pages'
+  - 'access comments'
+  - 'access content'
+  - 'access content overview'
+  - 'access contextual links'
+  - 'access files overview'
+  - 'access frontend editing'
+  - 'access media overview'
+  - 'access navigation'
+  - 'access taxonomy overview'
+  - 'access toolbar'
+  - 'bypass pfdp'
+  - 'bypass pfdp for temporary files'
+  - 'clone article node entities'
+  - 'clone audio media entities'
+  - 'clone document media entities'
+  - 'clone file entity'
+  - 'clone image media entities'
+  - 'clone media entity'
+  - 'clone node entity'
+  - 'clone remote_video media entities'
+  - 'clone video media entities'
+  - 'create article content'
+  - 'create audio media'
+  - 'create content translations'
+  - 'create document media'
+  - 'create image media'
+  - 'create media'
+  - 'create remote_video media'
+  - 'create terms in access'
+  - 'create terms in tags'
+  - 'create url aliases'
+  - 'create video media'
+  - 'delete any article content'
+  - 'delete article revisions'
+  - 'delete own article content'
+  - 'edit any article content'
+  - 'edit own article content'
+  - 'edit own comments'
+  - 'post comments'
+  - 'revert article revisions'
+  - 'translate editable entities'
+  - 'use ai ckeditor'
+  - 'use text format basic_html'
+  - 'use text format full_html'
+  - 'use text format restricted_html'
+  - 'view article revisions'
+  - 'view media'
+  - 'view own unpublished content'
+  - 'view own unpublished media'
+  - 'view post access counter'
+  - 'view the administration theme'

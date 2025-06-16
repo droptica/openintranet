@@ -27,6 +27,7 @@ dependencies:
     - taxonomy.vocabulary.office
     - taxonomy.vocabulary.tags
   module:
+    - ai_ckeditor
     - block_content
     - comment
     - content_translation
@@ -224,6 +225,7 @@ permissions:
   - 'update any media'
   - 'update content translations'
   - 'update media'
+  - 'use ai ckeditor'
   - 'use text format basic_html'
   - 'use text format full_html'
   - 'use text format restricted_html'
