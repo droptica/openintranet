@@ -6,6 +6,7 @@ install:
   - ai
   - ai_ckeditor
   - ai_provider_openai
+  - anonymous_redirect
   - automated_cron
   - autosave_form
   - backup_migrate
@@ -95,7 +96,6 @@ install:
   - permissions_by_term
   - pfdp
   - recently_read
-  - require_login
   - search
   - search_api
   - search_api_db
@@ -129,6 +129,7 @@ config:
   import:
     ai: '*'
     ai_ckeditor: '*'
+    anonymous_redirect: '*'
     automated_cron: '*'
     autosave_form: '*'
     backup_migrate: '*'
@@ -173,7 +174,6 @@ config:
     permissions_by_term: '*'
     pfdp: '*'
     recently_read: '*'
-    require_login: '*'
     search_api: '*'
     search_api_db: '*'
     shortcut: '*'

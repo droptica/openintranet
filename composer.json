@@ -22,6 +22,7 @@
         "drupal/ai": "^1.1@beta",
         "drupal/ai_agents": "^1.0",
         "drupal/ai_provider_openai": "^1.0",
+        "drupal/anonymous_redirect": "^2.4",
         "drupal/autologout": "^2.0",
         "drupal/autosave_form": "^1.10",
         "drupal/backup_migrate": "^5.0",

@@ -1,0 +1,5 @@
+_core:
+  default_config_hash: C8dml5kvcvL4SBfeQsz6HA9mJZW-JCCcOyeBHcuQOJg
+enable_redirect: true
+redirect_url: /user/login
+redirect_url_overrides: "/sites/default/files/css/*\r\n/sites/default/files/js/*"
