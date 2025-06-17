@@ -93,6 +93,10 @@ function openintranet_theme_preprocess_block(array &$variables) {
       }
     }
   }
+
+  if (!empty($variables['elements']['#id']) && $variables['elements']['#id'] === 'openintranet_theme_account_menu') {
+    $variables['#cache']['max-age'] = 0;
+  }
 }
 
 /**
