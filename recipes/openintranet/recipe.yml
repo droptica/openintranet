@@ -358,6 +358,7 @@ config:
         permissions:
           - 'access comments'
           - 'access content'
+          - 'access user profiles'
           - 'bypass pfdp'
           - 'bypass pfdp for temporary files'
           - 'create reaction on node:article:field_news_article_reaction'
