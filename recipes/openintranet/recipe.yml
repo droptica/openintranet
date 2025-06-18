@@ -26,6 +26,7 @@ install:
   - config
   - config_ignore_uuid
   - config_translation
+  - config_perms
   - content_translation
   - contextual
   - crop
@@ -119,6 +120,7 @@ install:
   - views_aggregator
   - views_conditional
   - views_organization_chart
+  - views_send
   - views_ui
   - votingapi
   - votingapi_reaction

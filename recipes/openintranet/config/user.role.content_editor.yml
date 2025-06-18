@@ -30,6 +30,7 @@ dependencies:
     - ai_ckeditor
     - block_content
     - comment
+    - config_perms
     - content_translation
     - contextual
     - dashboard
@@ -52,6 +53,7 @@ label: 'Content editor'
 weight: 2
 is_admin: false
 permissions:
+  - 'View Must Read Report Details'
   - 'access administration pages'
   - 'access comments'
   - 'access content'
