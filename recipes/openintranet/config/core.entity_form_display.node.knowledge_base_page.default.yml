@@ -7,7 +7,6 @@ dependencies:
     - field.field.node.knowledge_base_page.field_access
     - field.field.node.knowledge_base_page.field_data_classification
     - field.field.node.knowledge_base_page.field_document_ref
-    - field.field.node.knowledge_base_page.field_mark_as_must_read
     - field.field.node.knowledge_base_page.field_related_content
     - field.field.node.knowledge_base_page.field_tags
     - node.type.knowledge_base_page
@@ -129,13 +128,6 @@ content:
       collapsed: false
       revision: false
       removed_reference: keep
-    third_party_settings: {  }
-  field_mark_as_must_read:
-    type: boolean_checkbox
-    weight: 10
-    region: content
-    settings:
-      display_label: true
     third_party_settings: {  }
   field_related_content:
     type: inline_entity_form_complex

@@ -8,7 +8,6 @@ dependencies:
     - field.field.node.knowledge_base_page.field_access
     - field.field.node.knowledge_base_page.field_data_classification
     - field.field.node.knowledge_base_page.field_document_ref
-    - field.field.node.knowledge_base_page.field_mark_as_must_read
     - field.field.node.knowledge_base_page.field_related_content
     - field.field.node.knowledge_base_page.field_tags
     - node.type.knowledge_base_page
@@ -43,7 +42,6 @@ hidden:
   field_access: true
   field_data_classification: true
   field_document_ref: true
-  field_mark_as_must_read: true
   field_related_content: true
   field_tags: true
   langcode: true

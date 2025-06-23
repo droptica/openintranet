@@ -12,7 +12,6 @@ dependencies:
     - field.field.node.event.field_event_online_text
     - field.field.node.event.field_hide_location
     - field.field.node.event.field_map_location
-    - field.field.node.event.field_mark_as_must_read
     - node.type.event
   module:
     - address
@@ -192,6 +191,5 @@ content:
     region: content
 hidden:
   field_background_image: true
-  field_mark_as_must_read: true
   langcode: true
   search_api_excerpt: true

@@ -7,7 +7,6 @@ dependencies:
     - field.field.node.document.field_access
     - field.field.node.document.field_area
     - field.field.node.document.field_file
-    - field.field.node.document.field_mark_as_must_read
     - field.field.node.document.field_related_documents
     - field.field.node.document.field_version
     - node.type.document
@@ -123,13 +122,6 @@ content:
     third_party_settings:
       imce:
         enabled: false
-  field_mark_as_must_read:
-    type: boolean_checkbox
-    weight: 8
-    region: content
-    settings:
-      display_label: true
-    third_party_settings: {  }
   field_related_documents:
     type: inline_entity_form_complex
     weight: 6

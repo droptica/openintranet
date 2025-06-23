@@ -8,7 +8,6 @@ dependencies:
     - field.field.node.document.field_access
     - field.field.node.document.field_area
     - field.field.node.document.field_file
-    - field.field.node.document.field_mark_as_must_read
     - field.field.node.document.field_related_documents
     - field.field.node.document.field_version
     - node.type.document
@@ -94,7 +93,6 @@ content:
     region: content
 hidden:
   field_access: true
-  field_mark_as_must_read: true
   langcode: true
   links: true
   search_api_excerpt: true

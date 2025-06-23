@@ -13,7 +13,6 @@ dependencies:
     - field.field.node.event.field_event_online_text
     - field.field.node.event.field_hide_location
     - field.field.node.event.field_map_location
-    - field.field.node.event.field_mark_as_must_read
     - node.type.event
   module:
     - address
@@ -184,6 +183,5 @@ hidden:
   field_access: true
   field_event_online: true
   field_hide_location: true
-  field_mark_as_must_read: true
   langcode: true
   search_api_excerpt: true

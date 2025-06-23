@@ -11,7 +11,6 @@ dependencies:
     - field.field.node.page.field_background_image
     - field.field.node.page.field_basic_page_reaction
     - field.field.node.page.field_document_ref
-    - field.field.node.page.field_mark_as_must_read
     - node.type.page
   module:
     - comment
@@ -84,7 +83,6 @@ content:
     region: content
 hidden:
   field_access: true
-  field_mark_as_must_read: true
   langcode: true
   links: true
   search_api_excerpt: true
