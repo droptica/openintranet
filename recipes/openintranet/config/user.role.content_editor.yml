@@ -48,6 +48,7 @@ dependencies:
     - system
     - taxonomy
     - toolbar
+    - webform
 id: content_editor
 label: 'Content editor'
 weight: 2
@@ -66,6 +67,9 @@ permissions:
   - 'access taxonomy overview'
   - 'access toolbar'
   - 'access user profiles'
+  - 'access webform help'
+  - 'access webform overview'
+  - 'access webform submission user'
   - 'administer media'
   - 'administer taxonomy'
   - 'administer url aliases'
@@ -87,7 +91,10 @@ permissions:
   - 'clone page node entities'
   - 'clone remote_video media entities'
   - 'clone video media entities'
+  - 'clone webform entity'
   - 'clone webform node entities'
+  - 'clone webform_options entity'
+  - 'clone webform_submission entity'
   - 'create article content'
   - 'create audio media'
   - 'create banner_block block content'
@@ -110,6 +117,7 @@ permissions:
   - 'create terms in tags'
   - 'create url aliases'
   - 'create video media'
+  - 'create webform'
   - 'create webform content'
   - 'delete all taxonomy revisions'
   - 'delete any article content'
@@ -181,6 +189,7 @@ permissions:
   - 'edit any quick_action block content'
   - 'edit any remote_video media'
   - 'edit any video media'
+  - 'edit any webform'
   - 'edit any webform content'
   - 'edit own article content'
   - 'edit own audio media'
@@ -193,6 +202,7 @@ permissions:
   - 'edit own page content'
   - 'edit own remote_video media'
   - 'edit own video media'
+  - 'edit own webform'
   - 'edit own webform content'
   - 'edit terms in access'
   - 'edit terms in area'
@@ -231,6 +241,7 @@ permissions:
   - 'use text format basic_html'
   - 'use text format full_html'
   - 'use text format restricted_html'
+  - 'use text format webform_default'
   - 'view all media revisions'
   - 'view all revisions'
   - 'view all taxonomy revisions'
@@ -243,6 +254,7 @@ permissions:
   - 'view any quick_action block content history'
   - 'view any remote_video media revisions'
   - 'view any video media revisions'
+  - 'view any webform submission'
   - 'view article revisions'
   - 'view document revisions'
   - 'view event revisions'
@@ -251,6 +263,7 @@ permissions:
   - 'view openintranet dashboard'
   - 'view own unpublished content'
   - 'view own unpublished media'
+  - 'view own webform submission'
   - 'view page revisions'
   - 'view post access counter'
   - 'view term revisions in access'

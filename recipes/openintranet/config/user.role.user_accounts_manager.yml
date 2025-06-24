@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   module:
+    - config_perms
     - contextual
     - navigation
     - system
@@ -11,6 +12,7 @@ label: 'User Accounts Manager'
 weight: 10
 is_admin: null
 permissions:
+  - 'View admin user list'
   - 'access administration pages'
   - 'access contextual links'
   - 'access navigation'

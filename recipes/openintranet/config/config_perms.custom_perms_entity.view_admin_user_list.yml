@@ -1,0 +1,6 @@
+langcode: en
+status: true
+dependencies: {  }
+id: view_admin_user_list
+label: 'View admin user list'
+route: entity.user.collection

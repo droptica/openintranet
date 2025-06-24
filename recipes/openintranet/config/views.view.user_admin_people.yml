@@ -1988,7 +1988,12 @@ display:
     display_plugin: page
     position: 1
     display_options:
+      access:
+        type: perm
+        options:
+          perm: 'View admin user list'
       defaults:
+        access: false
         show_admin_links: false
       show_admin_links: false
       display_extenders: {  }

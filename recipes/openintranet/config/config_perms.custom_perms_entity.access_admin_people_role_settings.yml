@@ -1,0 +1,6 @@
+langcode: en
+status: true
+dependencies: {  }
+id: access_admin_people_role_settings
+label: 'Access admin people role-settings'
+route: user.role.settings
