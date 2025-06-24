@@ -314,7 +314,7 @@ config:
     system.site:
       simple_config_update:
         page:
-          front: '/pages/home'
+          front: '/news-homepage'
           403: '/user/login'
 
     system.theme:

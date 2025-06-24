@@ -10,6 +10,8 @@ dependencies:
   module:
     - node
     - user
+_core:
+  default_config_hash: Pqkv9n4DZBoThDQK4GHPW82Al9dLsqgHJt7wK5_LDyo
 id: news
 label: News
 module: views
@@ -353,71 +355,6 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags: {  }
-  block_1:
-    id: block_1
-    display_title: Block
-    display_plugin: block
-    position: 1
-    display_options:
-      title: ''
-      style:
-        type: grid_responsive
-        options:
-          uses_fields: false
-          columns: 1
-          cell_min_width: 100
-          grid_gutter: 8
-          alignment: horizontal
-      row:
-        type: 'entity:node'
-        options:
-          relationship: none
-          view_mode: block_teaser
-      defaults:
-        title: false
-        use_more: false
-        use_more_always: false
-        use_more_text: false
-        style: false
-        row: false
-        sorts: true
-        header: false
-      use_more: true
-      use_more_always: false
-      use_more_text: 'See more'
-      header:
-        area_text_custom:
-          id: area_text_custom
-          table: views
-          field: area_text_custom
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: text_custom
-          empty: false
-          content: '<h3>[view:label]</h3>'
-          tokenize: false
-        display_link:
-          id: display_link
-          table: views
-          field: display_link
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: display_link
-          label: 'View all News'
-          empty: false
-          display_id: page_1
-      display_extenders: {  }
-      block_description: News
-    cache_metadata:
-      max-age: -1
-      contexts:
-        - 'languages:language_content'
-        - 'languages:language_interface'
-        - 'user.node_grants:view'
-        - user.permissions
-      tags: {  }
   page_1:
     id: page_1
     display_title: Page
@@ -475,6 +412,71 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url.query_args
+        - 'user.node_grants:view'
+        - user.permissions
+      tags: {  }
+  page_2:
+    id: page_2
+    display_title: 'Page 2'
+    display_plugin: page
+    position: 1
+    display_options:
+      title: ''
+      style:
+        type: grid_responsive
+        options:
+          uses_fields: false
+          columns: 1
+          cell_min_width: 100
+          grid_gutter: 8
+          alignment: horizontal
+      row:
+        type: 'entity:node'
+        options:
+          relationship: none
+          view_mode: block_teaser
+      defaults:
+        title: false
+        use_more: false
+        use_more_always: false
+        use_more_text: false
+        style: false
+        row: false
+        sorts: true
+        header: false
+      use_more: true
+      use_more_always: false
+      use_more_text: 'See more'
+      header:
+        area_text_custom:
+          id: area_text_custom
+          table: views
+          field: area_text_custom
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text_custom
+          empty: false
+          content: '<h3>[view:label]</h3>'
+          tokenize: false
+        display_link:
+          id: display_link
+          table: views
+          field: display_link
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: display_link
+          label: 'View all News'
+          empty: false
+          display_id: page_1
+      display_extenders: {  }
+      path: news-homepage
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
         - 'user.node_grants:view'
         - user.permissions
       tags: {  }

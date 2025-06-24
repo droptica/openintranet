@@ -19,4 +19,8 @@
 .view-footer {
   border-radius: $border-radius;
   margin-top: 1rem;
+
+  @include media-breakpoint-down(lg) {
+    margin-top: .5rem
+  }
 }
