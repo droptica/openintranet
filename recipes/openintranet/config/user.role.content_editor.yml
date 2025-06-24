@@ -48,6 +48,7 @@ dependencies:
     - system
     - taxonomy
     - toolbar
+    - views_send
     - webform
 id: content_editor
 label: 'Content editor'
@@ -73,6 +74,7 @@ permissions:
   - 'administer media'
   - 'administer taxonomy'
   - 'administer url aliases'
+  - 'attachments with views_send'
   - 'bypass pfdp'
   - 'bypass pfdp for temporary files'
   - 'clone article node entities'
@@ -209,6 +211,7 @@ permissions:
   - 'edit terms in department'
   - 'edit terms in office'
   - 'edit terms in tags'
+  - 'mass mailing with views_send'
   - 'post comments'
   - 'revert all revisions'
   - 'revert all taxonomy revisions'
@@ -272,5 +275,6 @@ permissions:
   - 'view term revisions in office'
   - 'view term revisions in tags'
   - 'view the administration theme'
+  - 'view user email addresses'
   - 'view vocabulary labels'
   - 'view webform revisions'
