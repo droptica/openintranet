@@ -73,16 +73,17 @@
   'clearfix',
 ]
 %}
+
 {% set hasHeaderBackground = false %}
 {% if content.field_background_image and background_image %}
   {% set hasHeaderBackground = true %}
 {% endif %}
 
-{% if content.body["#items"] is not empty or content.field_document_ref["#items"] is not empty or hasHeaderBackground %}
-  <article{{ attributes.addClass(classes) }}>
-    <header {% if hasHeaderBackground %}data-has-background  style="background-image: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7) ), url('{{ background_image }}')"{% endif %}>
-      {% if display_submitted %}
-        <div class="node__meta">
+<article{{ attributes.addClass(classes) }}>
+  <header {% if hasHeaderBackground %}data-has-background  style="background-image: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7) ), url('{{ background_image }}')"{% endif %}>
+    {% if display_submitted %}
+      <div class="node__meta">
+        {% block clasification %}
           {% if content.field_data_classification %}
             {{ content.field_data_classification }}
           {% elseif content.field_classification %}
@@ -90,32 +91,32 @@
           {% elseif content.field_access %}
             {{ content.field_access }}
           {% endif %}
-          {% block submitted %}
-            <em{{ author_attributes }}>
-              {% trans %}Last updated: {{ date }}{% endtrans %}
-            </em>
-            <em{{ author_attributes }}>
-              {% trans %}Authors:{% endtrans %}
-              <div class="node__meta__authors">
-                {% for author in revision_authors %}
-                  {{ author }}
-                {% endfor %}
-              </div>
-            </em>
-          {% endblock %}
-          {{ metadata }}
-        </div>
-      {% endif %}
-      {{ title_prefix }}
-      {% if elements["#title"] %}
-        <h1{{ title_attributes.addClass('node__title') }}>
-          {{ elements["#title"] }}
-        </h1>
-      {% endif %}
-      {{ title_suffix }}
-    </header>
-    <div{{ content_attributes.addClass('node__content', 'clearfix') }}>
-      {{ content|without('field_classification', 'field_access', 'field_data_classification', 'field_background_image') }}
-    </div>
-  </article>
-{% endif %}
+        {% endblock %}
+        {% block submitted %}
+          <em{{ author_attributes }}>
+            {% trans %}Last updated: {{ date }}{% endtrans %}
+          </em>
+          <em{{ author_attributes }}>
+            {% trans %}Authors:{% endtrans %}
+            <div class="node__meta__authors">
+              {% for author in revision_authors %}
+                {{ author }}
+              {% endfor %}
+            </div>
+          </em>
+        {% endblock %}
+        {{ metadata }}
+      </div>
+    {% endif %}
+    {{ title_prefix }}
+    {% if elements["#title"] %}
+      <h1{{ title_attributes.addClass('node__title') }}>
+        {{ elements["#title"] }}
+      </h1>
+    {% endif %}
+    {{ title_suffix }}
+  </header>
+  <div{{ content_attributes.addClass('node__content', 'clearfix') }}>
+    {{ content|without('field_classification', 'field_access', 'field_data_classification', 'field_background_image') }}
+  </div>
+</article>
