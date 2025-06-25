@@ -36,7 +36,7 @@ dependencies:
 id: content_editor_webform
 label: 'Content Editor - Webform'
 weight: 9
-is_admin: null
+is_admin: false
 permissions:
   - 'access administration pages'
   - 'access comments'

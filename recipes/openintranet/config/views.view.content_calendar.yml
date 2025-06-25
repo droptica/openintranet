@@ -1,4 +1,3 @@
-uuid: 16bf804a-0368-4755-bc58-0acbf78e77d8
 langcode: en
 status: true
 dependencies:
@@ -6,8 +5,6 @@ dependencies:
     - calendar_view
     - node
     - user
-_core:
-  default_config_hash: fGiPoev9P8IqNK7Wxyr5byKOqCYPqojE_MUvZ593Hdo
 id: content_calendar
 label: 'Content calendar'
 module: node
@@ -314,9 +311,6 @@ display:
             multiple: false
             remember_roles:
               authenticated: authenticated
-              anonymous: '0'
-              content_editor: '0'
-              administrator: '0'
             min_placeholder: ''
             max_placeholder: ''
             placeholder: ''
@@ -360,8 +354,6 @@ display:
             multiple: false
             remember_roles:
               authenticated: authenticated
-              anonymous: '0'
-              administrator: '0'
           is_grouped: false
           group_info:
             label: ''
@@ -402,8 +394,6 @@ display:
             multiple: false
             remember_roles:
               authenticated: authenticated
-              anonymous: '0'
-              administrator: '0'
             reduce: false
           is_grouped: false
           group_info:
@@ -493,8 +483,6 @@ display:
             multiple: false
             remember_roles:
               authenticated: authenticated
-              anonymous: '0'
-              administrator: '0'
             reduce: false
           is_grouped: false
           group_info:

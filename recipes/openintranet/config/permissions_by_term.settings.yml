@@ -6,4 +6,3 @@ disable_node_access_records: false
 target_bundles:
   - access
 show_terms_in_user_form: true
-only_parents: 0

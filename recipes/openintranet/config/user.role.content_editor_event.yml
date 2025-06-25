@@ -34,7 +34,7 @@ dependencies:
 id: content_editor_event
 label: 'Content Editor - Event'
 weight: 6
-is_admin: null
+is_admin: false
 permissions:
   - 'access administration pages'
   - 'access comments'

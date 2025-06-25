@@ -1,4 +1,3 @@
-uuid: 8560a71d-7ffe-4334-9483-e4058f68e0b7
 langcode: en
 status: true
 dependencies:
@@ -6,8 +5,6 @@ dependencies:
     - node
     - recently_read
     - user
-_core:
-  default_config_hash: ks7eyAT3XpbSTpIeiDtC4k1nwLRA2uERnPtBp7Y2lpM
 id: recently_read_content
 label: 'Recently read content'
 module: views

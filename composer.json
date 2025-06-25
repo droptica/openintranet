@@ -34,11 +34,10 @@
         "drupal/ckeditor_iframe": "^3.0@beta",
         "drupal/ckeditor_media_resize": "^1.0",
         "drupal/coffee": "^2.0",
-        "drupal/config_ignore_uuid": "^1.2",
         "drupal/config_perms": "^2.3",
-        "drupal/core-composer-scaffold": ">=10.4.8 <10.5.0",
-        "drupal/core-project-message": ">=10.4.8 <10.5.0",
-        "drupal/core-recommended": ">=10.4.8 <10.5.0",
+        "drupal/core-composer-scaffold": ">=11.0.0 <11.2.0",
+        "drupal/core-project-message": ">=11.0.0 <11.2.0",
+        "drupal/core-recommended": ">=11.0.0 <11.2.0",
         "drupal/cshs": "^4.0",
         "drupal/ctools": "^4.1",
         "drupal/custom_book_block": "^2.0",
@@ -47,7 +46,7 @@
         "drupal/default_content": "^2.0@alpha",
         "drupal/diff": "^2.0@beta",
         "drupal/disable_html5_validation": "^2.0",
-        "drupal/dropdown_language": "^4.0",
+        "drupal/dropdown_language": "^4.1",
         "drupal/easy_breadcrumb": "^2.0",
         "drupal/entity": "^1.5",
         "drupal/entity_clone": "^2.1@beta",
@@ -65,7 +64,7 @@
         "drupal/libraries": "^4.0",
         "drupal/masquerade": "^2.0",
         "drupal/noreqnewpass": "^1.4",
-        "drupal/other_view_filter": "^1.3",
+        "drupal/other_view_filter": "dev-1.x",
         "drupal/pathauto": "^1.13",
         "drupal/pathologic": "^2.0@alpha",
         "drupal/permissions_by_term": "^3.1",
@@ -85,9 +84,10 @@
         "drupal/views_aggregator": "^2.1",
         "drupal/views_conditional": "^1.10",
         "drupal/views_organization_chart": "^1.0",
-        "drupal/views_send": "^2.0@RC",
+        "drupal/views_send": "2.0.x-dev",
+        "drupal/votingapi": "4.0.x-dev@dev",
         "drupal/votingapi_reaction": "^1.11",
-        "drupal/webform": "^6.2",
+        "drupal/webform": "^6.3@beta",
         "drush/drush": "^13",
         "oomphinc/composer-installers-extender": "^2.0",
         "wikimedia/composer-merge-plugin": "^2.1",
@@ -120,44 +120,25 @@
             }
         },
         "installer-paths": {
-            "web/core": [
-                "type:drupal-core"
-            ],
-            "web/libraries/{$name}": [
-                "type:drupal-library"
-            ],
-            "web/modules/contrib/{$name}": [
-                "type:drupal-module"
-            ],
-            "web/profiles/contrib/{$name}": [
-                "type:drupal-profile"
-            ],
-            "web/themes/contrib/{$name}": [
-                "type:drupal-theme"
-            ],
-            "drush/Commands/contrib/{$name}": [
-                "type:drupal-drush"
-            ],
-            "web/modules/custom/{$name}": [
-                "type:drupal-custom-module"
-            ],
-            "web/profiles/custom/{$name}": [
-                "type:drupal-custom-profile"
-            ],
-            "web/themes/custom/{$name}": [
-                "type:drupal-custom-theme"
-            ]
+            "web/core": ["type:drupal-core"],
+            "web/libraries/{$name}": ["type:drupal-library"],
+            "web/modules/contrib/{$name}": ["type:drupal-module"],
+            "web/profiles/contrib/{$name}": ["type:drupal-profile"],
+            "web/themes/contrib/{$name}": ["type:drupal-theme"],
+            "drush/Commands/contrib/{$name}": ["type:drupal-drush"],
+            "web/modules/custom/{$name}": ["type:drupal-custom-module"],
+            "web/profiles/custom/{$name}": ["type:drupal-custom-profile"],
+            "web/themes/custom/{$name}": ["type:drupal-custom-theme"]
         },
         "drupal-core-project-message": {
-            "include-keys": [
-                "homepage",
-                "support"
-            ]
+            "include-keys": ["homepage", "support"]
         },
         "patches": {
             "drupal/core": {
                 "field": "https://www.drupal.org/files/issues/2024-08-21/2321071-74.patch",
-                "Check if rows exists": "patches/views/views_org_chart.patch"
+                "Check if rows exists": "patches/views/views_org_chart.patch",
+                "Fix config export error by excluding time_diff.description from view config": "https://git.drupalcode.org/project/drupal/-/merge_requests/9250.diff",
+                "[3474018] Class is not added to MediaLibrary dialog": "https://www.drupal.org/files/issues/2024-12-17/3474018-regression-class-is.patch"
             },
             "drupal/noreqnewpass": {
                 "Fix undefined array key #validate warning": "patches/noreqnewpass/undefined-validate-array-key.patch"
@@ -170,6 +151,12 @@
             },
             "drupal/flag": {
                 "Add a 'User's Flaggings' view relationship": "https://www.drupal.org/files/issues/2024-05-23/3449477-2.patch"
+            },
+            "drupal/ckeditor_media_resize": {
+                "Fix for CKEditor v45.02": "https://git.drupalcode.org/project/ckeditor_media_resize/-/merge_requests/16.patch"
+            },
+            "drupal/views_organization_chart": {
+                "views_organization_chart - Drupal 11 compatibility fixes": "patches/views_organization_chart/views_organization_chart_drupal11_compatibility.patch"
             }
         }
     }

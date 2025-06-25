@@ -24,7 +24,6 @@ install:
   - comment
   - claro
   - config
-  - config_ignore_uuid
   - config_translation
   - config_perms
   - content_translation
@@ -109,7 +108,6 @@ install:
   - taxonomy
   - telephone
   - text
-  - tour
   - theme_switcher
   - token
   - toolbar
@@ -126,6 +124,7 @@ install:
   - votingapi_reaction
   - webform
   - webform_bootstrap
+  - webform_node
   - webform_ui
 config:
   import:
@@ -142,7 +141,6 @@ config:
     coffee: '*'
     claro: '*'
     comment: '*'
-    config_ignore_uuid: '*'
     crop: '*'
     bootstrap_barrio: '*'
     openintranet_theme: '*'
@@ -189,6 +187,7 @@ config:
     views: '*'
     votingapi: '*'
     webform: '*'
+    webform_node: '*'
     system:
       - system.menu.footer---legal-compliance
       - system.menu.footer---quick-links

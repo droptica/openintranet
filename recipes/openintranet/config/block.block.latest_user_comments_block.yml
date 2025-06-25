@@ -1,4 +1,3 @@
-uuid: 166fddd2-8c07-4c25-9d12-80fcccca1791
 langcode: en
 status: true
 dependencies:
@@ -20,9 +19,9 @@ settings:
   label: ''
   label_display: visible
   provider: views
-  context_mapping: {  }
   views_label: ''
-  items_per_page: none
+  items_per_page: null
+  context_mapping: {  }
 visibility:
   request_path:
     id: request_path

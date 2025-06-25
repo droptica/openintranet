@@ -35,7 +35,7 @@ dependencies:
 id: content_editor_document
 label: 'Content Editor - Document'
 weight: 5
-is_admin: null
+is_admin: false
 permissions:
   - 'access administration pages'
   - 'access comments'

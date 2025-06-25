@@ -35,7 +35,7 @@ dependencies:
 id: content_editor_knowledge_base
 label: 'Content Editor - Knowledge Base'
 weight: 7
-is_admin: null
+is_admin: false
 permissions:
   - 'access administration pages'
   - 'access comments'

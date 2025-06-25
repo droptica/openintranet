@@ -34,7 +34,7 @@ dependencies:
 id: content_editor_basic_page
 label: 'Content Editor - Basic Page'
 weight: 4
-is_admin: null
+is_admin: false
 permissions:
   - 'access administration pages'
   - 'access comments'

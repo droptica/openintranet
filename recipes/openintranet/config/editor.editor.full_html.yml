@@ -6,6 +6,8 @@ dependencies:
     - filter.format.full_html
   module:
     - ckeditor5
+_core:
+  default_config_hash: Q_Gs5D-j3HCPCs6g_VsVYWwk0vbtyjlBb8OsCnBu6yY
 format: full_html
 editor: ckeditor5
 settings:
@@ -69,9 +71,10 @@ settings:
           enabled: true
         ai_ckeditor_translate:
           autocreate: false
-          provider: openai__gpt-4o
+          provider: ''
           translate_vocabulary: access
           use_description: false
+          language_source: tax
           enabled: false
     ckeditor5_alignment:
       enabled_alignments:

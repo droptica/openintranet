@@ -35,7 +35,7 @@ dependencies:
 id: content_editor_news_article
 label: 'Content Editor - News Article'
 weight: 8
-is_admin: null
+is_admin: false
 permissions:
   - 'access administration pages'
   - 'access comments'

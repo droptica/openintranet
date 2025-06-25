@@ -4,5 +4,5 @@ status: true
 dependencies: {  }
 id: footer---legal-compliance
 label: 'Footer - Legal & Compliance'
-description: "The Footer shows Legal & Compliance links\t"
+description: "The Footer shows Legal & Compliance links"
 locked: false

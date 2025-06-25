@@ -1,10 +1,9 @@
-uuid: 2807a8f6-9b57-41be-9b68-19fda3d11c05
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_intro
     - field.storage.node.field_background_image
+    - field.storage.node.field_intro
     - field.storage.node.field_tags
     - field.storage.user.field_name
     - image.style.medium
@@ -304,7 +303,6 @@ display:
               past_format: '@interval ago'
               granularity: 2
               refresh: 60
-              description: ''
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -654,14 +652,6 @@ display:
             multiple: false
             remember_roles:
               authenticated: authenticated
-              anonymous: '0'
-              content_editor: '0'
-              administrator: '0'
-              developer: '0'
-              acccountadmin: '0'
-              author: '0'
-              poweruser: '0'
-              siteadmin: '0'
             expose_fields: false
             placeholder: ''
             searched_fields_id: search_api_fulltext_searched_fields
@@ -1078,7 +1068,6 @@ display:
               past_format: '@interval ago'
               granularity: 2
               refresh: 60
-              description: ''
           group_column: value
           group_columns: {  }
           group_rows: true

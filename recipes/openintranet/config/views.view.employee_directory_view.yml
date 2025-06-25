@@ -1,4 +1,3 @@
-uuid: 4c00380f-5cc9-48cf-b693-ac42572816d3
 langcode: en
 status: true
 dependencies:
@@ -14,8 +13,6 @@ dependencies:
     - better_exposed_filters
     - search_api
     - user
-_core:
-  default_config_hash: ZmFyQSk6VpSj640SiMy5hBA1Y3IGeASbOlffbq-TVsI
 id: employee_directory_view
 label: 'Employee Directory'
 module: views
@@ -236,9 +233,6 @@ display:
             multiple: false
             remember_roles:
               authenticated: authenticated
-              anonymous: '0'
-              content_editor: '0'
-              administrator: '0'
             expose_fields: false
             placeholder: ''
             searched_fields_id: search_api_fulltext_searched_fields
@@ -288,9 +282,6 @@ display:
             multiple: false
             remember_roles:
               authenticated: authenticated
-              anonymous: '0'
-              content_editor: '0'
-              administrator: '0'
             reduce: false
           is_grouped: false
           group_info:
@@ -336,9 +327,6 @@ display:
             multiple: false
             remember_roles:
               authenticated: authenticated
-              anonymous: '0'
-              content_editor: '0'
-              administrator: '0'
             reduce: false
           is_grouped: false
           group_info:
