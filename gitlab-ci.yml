@@ -1,0 +1,151 @@
+include:
+  - project: $_GITLAB_TEMPLATES_REPO
+    ref: $_GITLAB_TEMPLATES_REF
+    file:
+      - '/includes/include.drupalci.main.yml'
+      - '/includes/include.drupalci.variables.yml'
+      - '/includes/include.drupalci.workflows.yml'
+
+variables:
+  MYSQL_DATABASE: "drupal"
+  MYSQL_USER: "drupaltestbot"
+  MYSQL_PASSWORD: "drupaltestbotpw"
+  MYSQL_ROOT_PASSWORD: "root"
+  FF_NETWORK_PER_BUILD: "1"
+  SKIP_ESLINT: '1'
+  SKIP_CSPELL: '1'
+  SKIP_STYLELINT: '1'
+  _WEB_ROOT: 'alternative-name'
+  _SHOW_ENVIRONMENT_VARIABLES: 1
+  _PHPCS_EXTRA: '--ignore=tests/*'
+
+composer:
+  extends: .composer-base
+  before_script:
+    - apt-get update
+    - apt-get install -y --no-install-recommends $PHPIZE_DEPS php-imagick imagemagick libmagickwand-dev
+    - pecl install imagick
+    - docker-php-ext-enable imagick
+  variables:
+    DRUPAL_CORE: "11.1.0"
+  artifacts:
+    exclude:
+      - '.git'
+      - '.git/**/*'
+      - '$_WEB_ROOT/**/.git'
+      - '$_WEB_ROOT/**/.git/**/*'
+      - 'vendor/**/.git'
+      - 'vendor/**/.git/**/*'
+      - '$_WEB_ROOT/core/node_modules/**/*'
+    paths:
+      - .
+
+tests:
+  stage: test
+  dependencies: []  # This ensures no artifacts from previous jobs are used
+  # Use a PHP-specific Docker image with Chrome pre-installed
+  image: drupalci/php-8.3-ubuntu-apache:production
+  services:
+    - name: 'drupalci/mysql-8'
+      alias: database
+    - name: selenium/standalone-chrome:latest
+      alias: selenium
+  variables:
+    _WEB_ROOT: 'web'
+    SIMPLETEST_DB: "mysql://drupaltestbot:drupaltestbotpw@database/drupal"
+    SIMPLETEST_BASE_URL: "http://web"
+  script:
+    # === Environment Setup ===
+    - apt-get update -yqq
+    - apt-get install -yqq wget unzip curl gnupg default-mysql-client xvfb libmagickwand-dev imagemagick jq
+    - ln -sf /dev/null /var/log/apache2/access.log
+    - echo "Installing Imagick..."
+    - pecl install imagick
+    - docker-php-ext-enable imagick
+    - echo "Verifying Imagick status:"
+    - php -m | grep imagick || { echo "Imagick not loaded!"; exit 1; }
+
+    # Try to copy the starter theme with error handling
+    - mkdir -p web/themes/custom/ || echo "Could not create themes directory, but continuing"
+    - if [ -d "starter-theme/droopler_theme" ] && [ -d "web/themes/custom" ]; then
+    -   cp -r starter-theme/droopler_theme web/themes/custom/ || echo "Could not copy starter theme, but continuing"
+    - else
+    -   echo "Either starter theme directory not found or destination directory not created, skipping"
+    - fi
+
+    # === Composer Install ===
+    - echo "Installing Composer dependencies..."
+    - composer install --no-progress --prefer-dist --optimize-autoloader --ignore-platform-reqs
+
+    # === Drupal Setup ===
+    - echo "Setting up Drupal environment..."
+    - mkdir -p /var/www/html
+    - ln -sf ${CI_PROJECT_DIR} /var/www/html/
+    - ln -sf ${CI_PROJECT_DIR}/web /var/www/html/web
+
+    # Start web server
+    - echo "Starting PHP web server..."
+    - php -S 0.0.0.0:80 -t web/ > /dev/null 2>&1 &
+    - sleep 2 # Give server a moment to start
+    - echo "127.0.0.1 web" >> /etc/hosts
+
+    # Check database connection
+    - echo "Checking database connection..."
+    - mysql -h database -u drupaltestbot -pdrupaltestbotpw -e "SHOW DATABASES;"
+
+    # Create database if it doesn't exist
+    - echo "Creating database if not exists..."
+    - mysql -h database -u drupaltestbot -pdrupaltestbotpw -e "CREATE DATABASE IF NOT EXISTS drupal;"
+
+    # Create settings.php with database connection
+    - echo "Creating settings.php..."
+    - cp web/sites/default/default.settings.php web/sites/default/settings.php
+    - echo "\$databases['default']['default'] = [
+      'database' => 'drupal',
+      'username' => 'drupaltestbot',
+      'password' => 'drupaltestbotpw',
+      'prefix' => '',
+      'host' => 'database',
+      'port' => '3306',
+      'namespace' => 'Drupal\\Core\\Database\\Driver\\mysql',
+      'driver' => 'mysql',
+      ];" >> web/sites/default/settings.php
+    # Add hash salt (important!)
+    - echo "\$settings['hash_salt'] = 'dummy-salt-for-ci-tests-replace-me-later';" >> web/sites/default/settings.php
+    
+    # Ensure files dir exists and is writable
+    - mkdir -p web/sites/default/files
+    - chmod -R 777 web/sites/default/files
+
+    # Disable CSS/JS aggregation for CI
+    - echo "\$config['system.performance']['css']['preprocess'] = FALSE;" >> web/sites/default/settings.php
+    - echo "\$config['system.performance']['js']['preprocess'] = FALSE;" >> web/sites/default/settings.php
+
+    # Install Drupal with Drush
+    - echo "Installing Drupal via Drush..."
+    - ./vendor/bin/drush site-install droopler install_configure_form.enable_demo_content=1 --account-name=admin --account-pass=admin --site-name="Droopler CI" -y
+
+    # Clear cache
+    - ./vendor/bin/drush cr
+
+    # === Run Tests ===
+    # Build Codeception
+    - echo "Building Codeception..."
+    - ./vendor/bin/codecept build
+
+    # Run only Acceptance and JsCapable for now
+    - echo "Running Acceptance tests..."
+    - ./vendor/bin/codecept run Acceptance --xml --env gitlab
+
+    - echo "Running JsCapable tests..."
+    - ./vendor/bin/codecept run JsCapable --xml --env gitlab
+
+    # Output success message (if tests pass)
+    - echo "Codeception tests completed."
+
+  artifacts:
+    when: always
+    paths:
+      - tests/_output/
+      - web/sites/default/settings.php # Useful for debugging db connection
+    expire_in: 1 day
