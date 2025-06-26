@@ -10,6 +10,7 @@ modules:
             url: http://web/
         - Asserts
         - \Tests\Support\Helper\DrushHelper
+        - \Tests\Support\Helper\UserLogin
 # Add Codeception\Step\Retry trait to AcceptanceTester to enable retries
 step_decorators:
     - Codeception\Step\ConditionalAssertion
