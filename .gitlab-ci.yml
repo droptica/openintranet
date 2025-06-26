@@ -1,30 +1,49 @@
-################
-# GitLabCI template for Drupal projects.
+# This file is a template, and might need editing before it works on your project.
+# This is a sample GitLab CI/CD configuration file that should run without any modifications.
+# It demonstrates a basic 3 stage CI/CD pipeline. Instead of real tests or scripts,
+# it uses echo commands to simulate the pipeline execution.
 #
-# This template is designed to give any Contrib maintainer everything they need to test, without requiring modification.
-# It is also designed to keep up to date with Core Development automatically through the use of include files that can be centrally maintained.
-# As long as you include the project, ref and three files below, any future updates added by the Drupal Association will be used in your
-# pipelines automatically. However, you can modify this template if you have additional needs for your project.
-# The full documentation is on https://project.pages.drupalcode.org/gitlab_templates/
-################
-
-# For information on alternative values for 'ref' see https://project.pages.drupalcode.org/gitlab_templates/info/templates-version/
-# To test a Drupal 7 project, change the first include filename from .main.yml to .main-d7.yml
-include:
-  - project: $_GITLAB_TEMPLATES_REPO
-    ref: $_GITLAB_TEMPLATES_REF
-    file:
-      - '/includes/include.drupalci.main.yml'
-      - '/includes/include.drupalci.variables.yml'
-      - '/includes/include.drupalci.workflows.yml'
+# A pipeline is composed of independent jobs that run scripts, grouped into stages.
+# Stages run in sequential order, but jobs within stages run in parallel.
 #
-################
-# Pipeline configuration variables are defined with default values and descriptions in the file
-# https://git.drupalcode.org/project/gitlab_templates/-/blob/main/includes/include.drupalci.variables.yml
-# Uncomment the lines below if you want to override any of the variables. The following is just an example.
-################
-# variables:
-#   SKIP_ESLINT: '1'
-#   OPT_IN_TEST_NEXT_MAJOR: '1'
-#   _CURL_TEMPLATES_REF: 'main'
+# For more information, see: https://docs.gitlab.com/ee/ci/yaml/#stages
+#
+# You can copy and paste this template into a new `.gitlab-ci.yml` file.
+# You should not add this template to an existing `.gitlab-ci.yml` file by using the `include:` keyword.
+#
+# To contribute improvements to CI/CD templates, please follow the Development guide at:
+# https://docs.gitlab.com/development/cicd/templates/
+# This specific template is located at:
+# https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Getting-Started.gitlab-ci.yml
 
+stages:          # List of stages for jobs, and their order of execution
+  - build
+  - test
+  - deploy
+
+build-job:       # This job runs in the build stage, which runs first.
+  stage: build
+  script:
+    - echo "Compiling the code..."
+    - echo "Compile complete."
+
+unit-test-job:   # This job runs in the test stage.
+  stage: test    # It only starts when the job in the build stage completes successfully.
+  script:
+    - echo "Running unit tests... This will take about 60 seconds."
+    - sleep 60
+    - echo "Code coverage is 90%"
+
+lint-test-job:   # This job also runs in the test stage.
+  stage: test    # It can run at the same time as unit-test-job (in parallel).
+  script:
+    - echo "Linting code... This will take about 10 seconds."
+    - sleep 10
+    - echo "No lint issues found."
+
+deploy-job:      # This job runs in the deploy stage.
+  stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
+  environment: production
+  script:
+    - echo "Deploying application..."
+    - echo "Application successfully deployed."
