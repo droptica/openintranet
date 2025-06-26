@@ -1,6 +1,6 @@
 uuid: 23a6da2c-1767-4408-ad7d-34988d630a13
 langcode: en
-status: false
+status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
@@ -10,23 +10,54 @@ dependencies:
     - field.field.node.page.field_background_image
     - field.field.node.page.field_basic_page_reaction
     - field.field.node.page.field_document_ref
+    - image.style.all_news_teaser
     - node.type.page
   module:
-    - text
+    - media
+    - smart_trim
     - user
     - votingapi_reaction
+_core:
+  default_config_hash: OoEFbJ7YompNwLIP6k2cUIUXeiMY53zP9rKd26h4P0s
 id: node.page.teaser
 targetEntityType: node
 bundle: page
 mode: teaser
 content:
   body:
-    type: text_summary_or_trimmed
+    type: smart_trim
     label: hidden
     settings:
-      trim_length: 600
+      trim_length: 120
+      trim_type: chars
+      trim_suffix: ...
+      wrap_output: false
+      wrap_class: trimmed
+      more:
+        display_link: false
+        target_blank: false
+        link_trim_only: false
+        class: more-link
+        text: More
+        aria_label: 'Read more about [node:title]'
+      summary_handler: full
+      trim_options:
+        text: true
+        trim_zero: false
+        replace_tokens: false
     third_party_settings: {  }
-    weight: 101
+    weight: 1
+    region: content
+  field_background_image:
+    type: media_thumbnail
+    label: hidden
+    settings:
+      image_link: ''
+      image_style: all_news_teaser
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 0
     region: content
   field_basic_page_reaction:
     type: votingapi_reaction_default
@@ -40,16 +71,11 @@ content:
     third_party_settings: {  }
     weight: 2
     region: content
-  flag_readed:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 10
-    region: content
 hidden:
   comment_node_page: true
   field_access: true
-  field_background_image: true
   field_document_ref: true
+  flag_readed: true
   langcode: true
   links: true
   search_api_excerpt: true

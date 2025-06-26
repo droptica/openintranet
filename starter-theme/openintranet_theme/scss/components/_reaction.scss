@@ -14,42 +14,63 @@
   }
 }
 
-.node--view-mode-full .field--name-field-news-article-reaction {
-  form {
-    .votingapi-reaction-radios {
-      .form-switch {
-        padding-left: 0;
-        width: 100%;
+.node--view-mode-full,
+.node--view-mode-teaser {
+  .field--name-field-news-article-reaction,
+  .field--name-field-basic-page-reaction {
+    form {
+      .votingapi-reaction-radios {
+        .form-switch {
+          padding-left: 0;
+          width: 100%;
 
-        .votingapi-reaction-item-wrapper {
-          display: flex;
-          justify-content: space-between;
+          .votingapi-reaction-item-wrapper {
+            display: flex;
+            justify-content: space-between;
 
-          .votingapi-reaction-item {
-            border-color: $blue-100 !important;
-            background-color: $white !important;
-          }
+            .votingapi-reaction-item {
+              border-color: $blue-100 !important;
+              background-color: $white !important;
+            }
 
-          .votingapi-reaction-label {
-            color: $body-secondary-color;
-            font-weight: 500;
-          }
+            .votingapi-reaction-label {
+              color: $body-secondary-color;
+              font-weight: 500;
+            }
 
-          .votingapi-reaction-count {
-            color: $body-secondary-color;
-            font-weight: 500;
+            .votingapi-reaction-count {
+              color: $body-secondary-color;
+              font-weight: 500;
 
-            &:before {
-              content: url('../images/icons/thumbs-up.svg');
-              margin-right: .875rem;
-              position: relative;
-              top: .3125rem;
+              &:before {
+                content: url('../images/icons/thumbs-up.svg');
+                margin-right: .875rem;
+                position: relative;
+                top: .3125rem;
+              }
             }
           }
-        }
 
-        input[type=radio]:checked + .form-check-label .votingapi-reaction-item-wrapper .votingapi-reaction-count:before {
-          content: url("../images/icons/thumbs-up-active.svg");
+          input[type=radio]:checked + .form-check-label .votingapi-reaction-item-wrapper .votingapi-reaction-count:before {
+            content: url("../images/icons/thumbs-up-active.svg");
+          }
+        }
+      }
+    }
+  }
+}
+
+.node--view-mode-teaser {
+  .field--name-field-news-article-reaction,
+  .field--name-field-basic-page-reaction {
+    form {
+      .votingapi-reaction-radios {
+        .form-switch {
+          .votingapi-reaction-item-wrapper {
+            .votingapi-reaction-item {
+              display: none;
+            }
+          }
         }
       }
     }
