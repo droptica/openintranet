@@ -44,7 +44,8 @@
       }
     }
 
-    &-field-intro {
+    &-field-intro,
+    &-body {
       color: $body-tertiary-color;
 
       @include body-400;
@@ -60,35 +61,6 @@
       margin-top: 1rem;
 
       @include heading-4;
-    }
-
-    &-field-news-article-reaction {
-      .votingapi-reaction-radios {
-        margin-bottom: 0 !important;
-
-        .form-switch {
-          padding-left: 0;
-
-          .votingapi-reaction-item-wrapper {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            input[type="radio"]:checked+label, .votingapi-reaction-item {
-              background-color: transparent;
-              border: none;
-              padding: 0;
-              margin-bottom: 0;
-            }
-
-            .votingapi-reaction-count {
-              @include subtitle-300;
-
-              font-weight: 600;
-            }
-          }
-        }
-      }
     }
   }
 

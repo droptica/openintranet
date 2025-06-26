@@ -31,6 +31,7 @@
         "drupal/book": "^2.0",
         "drupal/bootstrap_sass": "^5.0",
         "drupal/calendar_view": "^2.1",
+        "drupal/ckeditor5_allowed_html": "1.5.x-dev@dev",
         "drupal/ckeditor_iframe": "^3.0@beta",
         "drupal/ckeditor_media_resize": "^1.0",
         "drupal/coffee": "^2.0",
@@ -79,6 +80,7 @@
         "drupal/statistics": "^1.0",
         "drupal/theme_switcher": "^2.1",
         "drupal/token": "^1.15",
+        "drupal/tour": "^2.0",
         "drupal/twig_tweak": "^3.4",
         "drupal/twigsuggest": "^2.0@RC",
         "drupal/views_aggregator": "^2.1",
@@ -157,6 +159,9 @@
             },
             "drupal/views_organization_chart": {
                 "views_organization_chart - Drupal 11 compatibility fixes": "patches/views_organization_chart/views_organization_chart_drupal11_compatibility.patch"
+            },
+            "drupal/votingapi_reaction": {
+                "Fix for Drupal 11": "https://git.drupalcode.org/project/votingapi_reaction/-/merge_requests/9.patch"
             }
         }
     }
