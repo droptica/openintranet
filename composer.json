@@ -93,8 +93,19 @@
         "wikimedia/composer-merge-plugin": "^2.1",
         "zaporylie/composer-drupal-optimizations": "^1.2"
     },
+    "require-dev": {
+        "codeception/codeception": "^5.1",
+        "codeception/module-asserts": "^3.0",
+        "codeception/module-db": "^3.1",
+        "codeception/module-webdriver": "^3.2",
+        "codeception/visualception": "^5.0",
+        "drupal/core-dev": ">=11.0.0 <11.2.0",
+        "guncha25/drupal-codeception": "^10.0",
+        "koehnlein/codeception-email-mailpit": "^0.3.1"
+    },
     "conflict": {
-        "drupal/drupal": "*"
+        "drupal/drupal": "*",
+        "dealerdirect/phpcodesniffer-composer-installer": "1.1.0"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
@@ -108,6 +119,7 @@
             "oomphinc/composer-installers-extender": true,
             "php-http/discovery": true,
             "phpstan/extension-installer": true,
+            "tbachert/spi": true,
             "wikimedia/composer-merge-plugin": true,
             "zaporylie/composer-drupal-optimizations": true
         },
