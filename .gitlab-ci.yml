@@ -1,3 +1,25 @@
+include:
+  - project: $_GITLAB_TEMPLATES_REPO
+    ref: $_GITLAB_TEMPLATES_REF
+    file:
+      - '/includes/include.drupalci.main.yml'
+      - '/includes/include.drupalci.variables.yml'
+      - '/includes/include.drupalci.workflows.yml'
+
+variables:
+  MYSQL_DATABASE: "drupal"
+  MYSQL_USER: "drupaltestbot"
+  MYSQL_PASSWORD: "drupaltestbotpw"
+  MYSQL_ROOT_PASSWORD: "root"
+  FF_NETWORK_PER_BUILD: "1"
+  SKIP_ESLINT: '1'
+  SKIP_CSPELL: '1'
+  SKIP_STYLELINT: '1'
+  _WEB_ROOT: 'alternative-name'
+  _SHOW_ENVIRONMENT_VARIABLES: 1
+  _PHPCS_EXTRA: '--ignore=tests/*'
+
+
 stages:          # List of stages for jobs, and their order of execution
   - build
   - test
