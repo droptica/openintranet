@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Support\Helper;
 
 use Codeception\Module;
+use Tests\Support\Data\Users;
 
 // here you can define custom actions
 // all public methods declared in helper class will be available in $I
@@ -30,7 +31,10 @@ class UserLogin extends Module
      *
      * @param string $username
      */
-    public function loginAsAdmin($username = 'admin', $password = null) {
+    public function loginAsAdmin(
+        $username = Users::TESTING_USERS[Users::ROLE_ADMINISTRATOR]['username'],
+        $password = Users::DEFAULT_PASSWORD
+    ) {
         $this->loginWithOptionalPassword($username, $password);
     }
 
@@ -39,7 +43,10 @@ class UserLogin extends Module
      *
      * @param string $username
      */
-    public function loginAsAuthenticated($username = 'authenticated', $password = null) {
+    public function loginAsAuthenticated(
+        $username = Users::TESTING_USERS[Users::ROLE_AUTHENTICATED]['username'],
+        $password = Users::DEFAULT_PASSWORD
+    ) {
         $this->loginWithOptionalPassword($username, $password);
     }
 
@@ -48,7 +55,10 @@ class UserLogin extends Module
      *
      * @param string $username
      */
-    public function loginAsContentEditor($username = 'content_editor', $password = null) {
+    public function loginAsContentEditor(
+        $username = Users::TESTING_USERS[Users::ROLE_CONTENT_EDITOR]['username'],
+        $password = Users::DEFAULT_PASSWORD
+    ) {
         $this->loginWithOptionalPassword($username, $password);
     }
 
@@ -57,7 +67,10 @@ class UserLogin extends Module
      *
      * @param string $username
      */
-    public function loginAsContentEditorBasicPage($username = 'content_editor_basic_page', $password = null) {
+    public function loginAsContentEditorBasicPage(
+        $username = Users::TESTING_USERS[Users::ROLE_CONTENT_EDITOR_BASIC_PAGE]['username'],
+        $password = Users::DEFAULT_PASSWORD
+    ) {
         $this->loginWithOptionalPassword($username, $password);
     }
 
@@ -66,7 +79,10 @@ class UserLogin extends Module
      *
      * @param string $username
      */
-    public function loginAsContentEditorDocument($username = 'content_editor_document', $password = null) {
+    public function loginAsContentEditorDocument(
+        $username = Users::TESTING_USERS[Users::ROLE_CONTENT_EDITOR_DOCUMENT]['username'],
+        $password = Users::DEFAULT_PASSWORD
+    ) {
         $this->loginWithOptionalPassword($username, $password);
     }
 
@@ -75,7 +91,10 @@ class UserLogin extends Module
      *
      * @param string $username
      */
-    public function loginAsContentEditorEvent($username = 'content_editor_event', $password = null) {
+    public function loginAsContentEditorEvent(
+        $username = Users::TESTING_USERS[Users::ROLE_CONTENT_EDITOR_EVENT]['username'],
+        $password = Users::DEFAULT_PASSWORD
+    ) {
         $this->loginWithOptionalPassword($username, $password);
     }
 
@@ -84,7 +103,10 @@ class UserLogin extends Module
      *
      * @param string $username
      */
-    public function loginAsContentEditorKnowledgeBase($username = 'content_editor_knowledge_base', $password = null) {
+    public function loginAsContentEditorKnowledgeBase(
+        $username = Users::TESTING_USERS[Users::ROLE_CONTENT_EDITOR_KNOWLEDGE_BASE]['username'],
+        $password = Users::DEFAULT_PASSWORD
+    ) {
         $this->loginWithOptionalPassword($username, $password);
     }
 
@@ -93,7 +115,10 @@ class UserLogin extends Module
      *
      * @param string $username
      */
-    public function loginAsContentEditorNewsArticle($username = 'content_editor_news_article', $password = null) {
+    public function loginAsContentEditorNewsArticle(
+        $username = Users::TESTING_USERS[Users::ROLE_CONTENT_EDITOR_NEWS_ARTICLE]['username'],
+        $password = Users::DEFAULT_PASSWORD
+    ) {
         $this->loginWithOptionalPassword($username, $password);
     }
 
@@ -102,7 +127,10 @@ class UserLogin extends Module
      *
      * @param string $username
      */
-    public function loginAsContentEditorWebform($username = 'content_editor_webform', $password = null) {
+    public function loginAsContentEditorWebform(
+        $username = Users::TESTING_USERS[Users::ROLE_CONTENT_EDITOR_WEBFORM]['username'],
+        $password = Users::DEFAULT_PASSWORD
+    ) {
         $this->loginWithOptionalPassword($username, $password);
     }
 
@@ -111,7 +139,10 @@ class UserLogin extends Module
      *
      * @param string $username
      */
-    public function loginAsUserAccountsManager($username = 'user_accounts_manager', $password = null) {
+    public function loginAsUserAccountsManager(
+        $username = Users::TESTING_USERS[Users::ROLE_USER_ACCOUNTS_MANAGER]['username'],
+        $password = Users::DEFAULT_PASSWORD
+    ) {
         $this->loginWithOptionalPassword($username, $password);
     }
 
@@ -121,7 +152,10 @@ class UserLogin extends Module
      * @param string $username
      * @param string $password
      */
-    public function loginAs($username, $password = '123') {
+    public function loginAs(
+        $username,
+        $password = Users::DEFAULT_PASSWORD
+    ) {
         /** @var \Codeception\Module\PhpBrowser $I */
         $I = $this->getModule('PhpBrowser');
         $I->amOnPage('/user/login');
