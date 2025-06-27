@@ -1,37 +1,31 @@
-include:
-  - project: $_GITLAB_TEMPLATES_REPO
-    ref: $_GITLAB_TEMPLATES_REF
-    file:
-      - '/includes/include.drupalci.main.yml'
-      - '/includes/include.drupalci.variables.yml'
-      - '/includes/include.drupalci.workflows.yml'
+stages:          # List of stages for jobs, and their order of execution
+  - build
+  - test
+  - deploy
 
-variables:
-  MYSQL_DATABASE: "drupal"
-  MYSQL_USER: "drupaltestbot"
-  MYSQL_PASSWORD: "drupaltestbotpw"
-  MYSQL_ROOT_PASSWORD: "root"
-  FF_NETWORK_PER_BUILD: "1"
-  SKIP_ESLINT: '1'
-  SKIP_CSPELL: '1'
-  SKIP_STYLELINT: '1'
-  _WEB_ROOT: 'alternative-name'
-  _SHOW_ENVIRONMENT_VARIABLES: 1
-  _PHPCS_EXTRA: '--ignore=tests/*'
-
-composer:
-  extends: .composer-base
-  before_script:
-    - apt-get update
-    - apt-get install -y --no-install-recommends $PHPIZE_DEPS php-imagick imagemagick libmagickwand-dev
-    - pecl install imagick
-    - docker-php-ext-enable imagick
-  variables:
-    DRUPAL_CORE: "11.1.8"
+build-job:       # This job runs in the build stage, which runs first.
+  stage: build
   script:
-    - composer install --no-progress --prefer-dist --optimize-autoloader --ignore-platform-reqs
-  artifacts:
-    paths:
-      - vendor/
-      - composer.lock
-    expire_in: 1 day
+    - echo "Compiling the code..."
+    - echo "Compile complete."
+
+unit-test-job:   # This job runs in the test stage.
+  stage: test    # It only starts when the job in the build stage completes successfully.
+  script:
+    - echo "Running unit tests... This will take about 60 seconds."
+    - sleep 60
+    - echo "Code coverage is 90%"
+
+lint-test-job:   # This job also runs in the test stage.
+  stage: test    # It can run at the same time as unit-test-job (in parallel).
+  script:
+    - echo "Linting code... This will take about 10 seconds."
+    - sleep 10
+    - echo "No lint issues found."
+
+deploy-job:      # This job runs in the deploy stage.
+  stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
+  environment: production
+  script:
+    - echo "Deploying application..."
+    - echo "Application successfully deployed."
