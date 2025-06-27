@@ -130,4 +130,16 @@ class UserLogin extends Module
         $I->click('#edit-submit');
         $I->see($username);
     }
+
+    /** 
+     * Logs out the current user.
+     */
+    public function logout() {
+        /** @var \Codeception\Module\PhpBrowser $I */
+        $I = $this->getModule('PhpBrowser');
+        $I->amOnPage('/user/logout');
+        $I->click('#edit-submit');
+        $I->seeInCurrentUrl('/user/login');
+    }
+
 }

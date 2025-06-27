@@ -7,6 +7,8 @@ namespace Tests\Acceptance;
 
 use Codeception\Example;
 use Tests\Support\AcceptanceTester;
+use Tests\Support\Data\Users;
+use Tests\Support\Data\ContentTypes;
 
 /**
  * @file
@@ -17,37 +19,6 @@ use Tests\Support\AcceptanceTester;
  * Class ResponseCodeTestCest.
  */
 class ResponseCodeTestCest {
-  /**
-   * @var array
-   * Node types machine names.
-   */
-  private $node_types;
-
-  /**
-   * @var array
-   * Usernames to test.
-   */
-  private $users;
-
-  /**
-   * ResponseCodeTestCest constructor.
-   * Initializes node types and users for smoke tests.
-   */
-  public function __construct() {
-    $this->node_types = ['page', 'document', 'event', 'knowledge_base_page', 'article', 'webform'];
-    $this->users = [
-      'admin',
-      'authenticated',
-      'content_editor',
-      'content_editor_basic_page',
-      'content_editor_document',
-      'content_editor_event',
-      'content_editor_knowledge_base',
-      'content_editor_news_article',
-      'content_editor_webform',
-      'user_accounts_manager',
-    ];
-  }
 
   /**
    * Provides a list of users for data-driven tests.
@@ -56,8 +27,8 @@ class ResponseCodeTestCest {
    */
   public function userProvider() {
     $users = [];
-    foreach ($this->users as $user) {
-      $users[] = [$user];
+    foreach (Users::TESTING_USERS as $role => $userData) {
+      $users[] = [$role, $userData];
     }
     return $users;
   }
@@ -71,9 +42,13 @@ class ResponseCodeTestCest {
    * @throws \Exception
    */
   public function responseCodeTestForUser(AcceptanceTester $I, Example $example) {
-    $username = $example[0];
-    $I->loginAs($username);
-    foreach ($this->node_types as $type) {
+    $role = $example[0];
+    $userData = $example[1];
+    $username = $userData['username'];
+
+    $I->loginAs($userData['username'], $userData['password']);
+
+    foreach (array_keys(ContentTypes::TESTING_CONTENT_TYPES) as $type) {
       $output = shell_exec("drush sql:query \"SELECT nid, langcode FROM node_field_data WHERE type = '$type' AND status = 1\"");
       $lines = explode("\n", trim($output));
       foreach ($lines as $line) {
@@ -87,9 +62,9 @@ class ResponseCodeTestCest {
             $I->dontSeeInCurrentUrl('/user/login');
             $I->dontSee('The website encountered an unexpected error.');
             $I->dontSeeElement('.messages--error');
-            print "Testing user: $username, type: $type, node: $url, status: pass\n";
+            print "Testing user: $username content type: $type, node: $url, status: pass\n";
           } catch (\Exception $e) {
-            print "Testing user: $username, type: $type, node: $url, status: fail, error: " . $e->getMessage() . "\n";
+            print "Testing user: $username content type: $type, node: $url, status: fail, error: " . $e->getMessage() . "\n";
             throw $e;
           }
         }
