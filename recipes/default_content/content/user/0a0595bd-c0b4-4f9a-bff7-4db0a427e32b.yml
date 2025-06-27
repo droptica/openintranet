@@ -1,0 +1,61 @@
+_meta:
+  version: '1.0'
+  entity_type: user
+  uuid: 0a0595bd-c0b4-4f9a-bff7-4db0a427e32b
+  default_langcode: en
+  depends:
+    a97a82e9-4141-4943-9d21-fd08217afa89: taxonomy_term
+    6cb6eb4e-1f6f-4585-990f-c2173179370c: taxonomy_term
+default:
+  preferred_langcode:
+    -
+      value: en
+  preferred_admin_langcode:
+    -
+      value: en
+  name:
+    -
+      value: content_editor_document
+  pass:
+    -
+      value: $2y$10$n7ZuMx9dl0nSN6gly6DnHOCNWGQ/wMch96tiiXMCc1a0lP0mtqAPa
+      existing: ''
+      pre_hashed: false
+  timezone:
+    -
+      value: Europe/Warsaw
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1751008287
+  access:
+    -
+      value: 0
+  login:
+    -
+      value: 0
+  roles:
+    -
+      target_id: content_editor_document
+  path:
+    -
+      alias: /users/contenteditordocument
+      langcode: en
+      pathauto: 1
+  field_department:
+    -
+      entity: a97a82e9-4141-4943-9d21-fd08217afa89
+  field_first_name:
+    -
+      value: 'Content Editor'
+  field_last_name:
+    -
+      value: Document
+  field_name:
+    -
+      value: 'Content Editor - Document'
+  field_office:
+    -
+      entity: 6cb6eb4e-1f6f-4585-990f-c2173179370c

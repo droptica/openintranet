@@ -12,12 +12,26 @@ use Codeception\Module;
 class UserLogin extends Module
 {
     /**
+     * Helper to log in with optional password.
+     *
+     * @param string $username
+     * @param string|null $password
+     */
+    private function loginWithOptionalPassword($username, $password = null) {
+        if ($password === null) {
+            $this->loginAs($username);
+        } else {
+            $this->loginAs($username, $password);
+        }
+    }
+
+    /**
      * Logs in as admin user.
      *
      * @param string $username
      */
-    public function loginAsAdmin($username = 'admin') {
-        $this->loginAs($username);
+    public function loginAsAdmin($username = 'admin', $password = null) {
+        $this->loginWithOptionalPassword($username, $password);
     }
 
     /**
@@ -25,17 +39,17 @@ class UserLogin extends Module
      *
      * @param string $username
      */
-    public function loginAsAuthenticated($username = 'authenticated') {
-        $this->loginAs($username);
+    public function loginAsAuthenticated($username = 'authenticated', $password = null) {
+        $this->loginWithOptionalPassword($username, $password);
     }
-    
+
     /**
      * Logs in as content editor.
      *
      * @param string $username
      */
-    public function loginAsContentEditor($username = 'content_editor') {
-        $this->loginAs($username);
+    public function loginAsContentEditor($username = 'content_editor', $password = null) {
+        $this->loginWithOptionalPassword($username, $password);
     }
 
     /**
@@ -43,8 +57,8 @@ class UserLogin extends Module
      *
      * @param string $username
      */
-    public function loginAsContentEditorBasicPage($username = 'content_editor_basic_page') {
-        $this->loginAs($username);
+    public function loginAsContentEditorBasicPage($username = 'content_editor_basic_page', $password = null) {
+        $this->loginWithOptionalPassword($username, $password);
     }
 
     /**
@@ -52,8 +66,8 @@ class UserLogin extends Module
      *
      * @param string $username
      */
-    public function loginAsContentEditorDocument($username = 'content_editor_document') {
-        $this->loginAs($username);
+    public function loginAsContentEditorDocument($username = 'content_editor_document', $password = null) {
+        $this->loginWithOptionalPassword($username, $password);
     }
 
     /**
@@ -61,8 +75,8 @@ class UserLogin extends Module
      *
      * @param string $username
      */
-    public function loginAsContentEditorEvent($username = 'content_editor_event') {
-        $this->loginAs($username);
+    public function loginAsContentEditorEvent($username = 'content_editor_event', $password = null) {
+        $this->loginWithOptionalPassword($username, $password);
     }
 
     /**
@@ -70,8 +84,8 @@ class UserLogin extends Module
      *
      * @param string $username
      */
-    public function loginAsContentEditorKnowledgeBase($username = 'content_editor_knowledge_base') {
-        $this->loginAs($username);
+    public function loginAsContentEditorKnowledgeBase($username = 'content_editor_knowledge_base', $password = null) {
+        $this->loginWithOptionalPassword($username, $password);
     }
 
     /**
@@ -79,8 +93,8 @@ class UserLogin extends Module
      *
      * @param string $username
      */
-    public function loginAsContentEditorNewsArticle($username = 'content_editor_news_article') {
-        $this->loginAs($username);
+    public function loginAsContentEditorNewsArticle($username = 'content_editor_news_article', $password = null) {
+        $this->loginWithOptionalPassword($username, $password);
     }
 
     /**
@@ -88,17 +102,17 @@ class UserLogin extends Module
      *
      * @param string $username
      */
-    public function loginAsContentEditorWebform($username = 'content_editor_webform') {
-        $this->loginAs($username);
+    public function loginAsContentEditorWebform($username = 'content_editor_webform', $password = null) {
+        $this->loginWithOptionalPassword($username, $password);
     }
-    
+
     /**
      * Logs in as user accounts manager.
      *
      * @param string $username
      */
-    public function loginAsUserAccountsManager($username = 'user_accounts_manager') {
-        $this->loginAs($username);
+    public function loginAsUserAccountsManager($username = 'user_accounts_manager', $password = null) {
+        $this->loginWithOptionalPassword($username, $password);
     }
 
     /**
@@ -114,5 +128,6 @@ class UserLogin extends Module
         $I->fillField('[name="name"]', $username);
         $I->fillField('[name="pass"]', $password);
         $I->click('#edit-submit');
+        $I->see($username);
     }
 }

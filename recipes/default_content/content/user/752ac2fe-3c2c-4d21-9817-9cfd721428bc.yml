@@ -1,0 +1,61 @@
+_meta:
+  version: '1.0'
+  entity_type: user
+  uuid: 752ac2fe-3c2c-4d21-9817-9cfd721428bc
+  default_langcode: en
+  depends:
+    a97a82e9-4141-4943-9d21-fd08217afa89: taxonomy_term
+    6cb6eb4e-1f6f-4585-990f-c2173179370c: taxonomy_term
+default:
+  preferred_langcode:
+    -
+      value: en
+  preferred_admin_langcode:
+    -
+      value: en
+  name:
+    -
+      value: content_editor_news_article
+  pass:
+    -
+      value: $2y$10$/wTOQQZuFu4p4DDTxpwQcuKfZD8CNvAyIXGcwXC4QCWEstwhuE08u
+      existing: ''
+      pre_hashed: false
+  timezone:
+    -
+      value: Europe/Warsaw
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1751008484
+  access:
+    -
+      value: 0
+  login:
+    -
+      value: 0
+  roles:
+    -
+      target_id: content_editor_news_article
+  path:
+    -
+      alias: /users/contenteditornewsarticle
+      langcode: en
+      pathauto: 1
+  field_department:
+    -
+      entity: a97a82e9-4141-4943-9d21-fd08217afa89
+  field_first_name:
+    -
+      value: 'Content Editor'
+  field_last_name:
+    -
+      value: 'News Article'
+  field_name:
+    -
+      value: 'Content Editor - News Article'
+  field_office:
+    -
+      entity: 6cb6eb4e-1f6f-4585-990f-c2173179370c

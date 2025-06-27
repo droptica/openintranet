@@ -1,0 +1,58 @@
+_meta:
+  version: '1.0'
+  entity_type: user
+  uuid: 64a85d90-5c27-4231-ba26-dd91a77529c6
+  default_langcode: en
+  depends:
+    a97a82e9-4141-4943-9d21-fd08217afa89: taxonomy_term
+    6cb6eb4e-1f6f-4585-990f-c2173179370c: taxonomy_term
+default:
+  preferred_langcode:
+    -
+      value: en
+  preferred_admin_langcode:
+    -
+      value: en
+  name:
+    -
+      value: authenticated
+  pass:
+    -
+      value: $2y$10$ZI/bFEad3G.OqeQnHEl/2uYofNWLLotXvu5m6xQ3TNWNLZ6POnVuq
+      existing: ''
+      pre_hashed: false
+  timezone:
+    -
+      value: Europe/Warsaw
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1751009068
+  access:
+    -
+      value: 0
+  login:
+    -
+      value: 0
+  path:
+    -
+      alias: /users/authenticated
+      langcode: en
+      pathauto: 1
+  field_department:
+    -
+      entity: a97a82e9-4141-4943-9d21-fd08217afa89
+  field_first_name:
+    -
+      value: Authenticated
+  field_last_name:
+    -
+      value: User
+  field_name:
+    -
+      value: 'Authenticated - User'
+  field_office:
+    -
+      entity: 6cb6eb4e-1f6f-4585-990f-c2173179370c

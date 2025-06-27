@@ -7,7 +7,12 @@ actor: AcceptanceTester
 modules:
     enabled:
         - PhpBrowser:
-            url: http://web/
+            url: https://openintranet-automation-tests.ddev.site
+            verify: false
+            curl:
+                CURLOPT_TIMEOUT: 1200
+                CURLOPT_SSL_VERIFYHOST: 0
+                CURLOPT_SSL_VERIFYPEER: 0
         - Asserts
         - \Tests\Support\Helper\DrushHelper
         - \Tests\Support\Helper\UserLogin
