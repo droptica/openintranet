@@ -67,8 +67,9 @@ tests:
 
     # Try to copy the starter theme with error handling
     - mkdir -p web/themes/custom/ || echo "Could not create themes directory, but continuing"
-    - if [ -d "starter-theme/droopler_theme" ] && [ -d "web/themes/custom" ]; then
-    -   cp -r starter-theme/droopler_theme web/themes/custom/ || echo "Could not copy starter theme, but continuing"
+    - if [ -d "starter-theme/openintranet_theme" ] && [ -d "web/themes/custom" ]; then
+    -   cp -r starter-theme/openintranet_theme web/themes/custom/ || echo "Could not copy starter theme, but continuing"
+    -   cp -r starter-theme/openintranet_theme web/themes/custom/ || echo "Could not copy starter theme, but continuing"
     - else
     -   echo "Either starter theme directory not found or destination directory not created, skipping"
     - fi
@@ -112,7 +113,7 @@ tests:
       ];" >> web/sites/default/settings.php
     # Add hash salt (important!)
     - echo "\$settings['hash_salt'] = 'dummy-salt-for-ci-tests-replace-me-later';" >> web/sites/default/settings.php
-    
+
     # Ensure files dir exists and is writable
     - mkdir -p web/sites/default/files
     - chmod -R 777 web/sites/default/files
@@ -123,7 +124,7 @@ tests:
 
     # Install Drupal with Drush
     - echo "Installing Drupal via Drush..."
-    - ./vendor/bin/drush site-install droopler install_configure_form.enable_demo_content=1 --account-name=admin --account-pass=admin --site-name="Droopler CI" -y
+    - ./vendor/bin/drush site-install openintranet install_configure_form.enable_demo_content=1 --account-name=admin --account-pass=admin --site-name="Open Intranet CI" -y
 
     # Clear cache
     - ./vendor/bin/drush cr
