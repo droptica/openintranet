@@ -87,7 +87,6 @@ class ResponseCodeTestCest {
             $I->dontSeeInCurrentUrl('/user/login');
             $I->dontSee('The website encountered an unexpected error.');
             $I->dontSeeElement('.messages--error');
-//            $I->
             print "Testing user: $username, type: $type, node: $url, status: pass\n";
           } catch (\Exception $e) {
             print "Testing user: $username, type: $type, node: $url, status: fail, error: " . $e->getMessage() . "\n";
