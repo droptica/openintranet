@@ -22,7 +22,7 @@ class Users {
     // User data arrays
     public const TESTING_USERS = [
         self::ROLE_ADMINISTRATOR => [
-            'username' => 'admin',
+            'username' => 'test_admin',
             'password' => self::DEFAULT_PASSWORD,
         ],
         self::ROLE_AUTHENTICATED => [
