@@ -79,6 +79,7 @@ hidden:
   field_document_ref: true
   field_mark_as_must_read: true
   field_tags: true
+  flag_bookmark: true
   flag_readed: true
   langcode: true
   links: true

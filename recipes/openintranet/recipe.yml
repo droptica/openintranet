@@ -368,6 +368,8 @@ config:
           - 'edit own comments'
           - 'flag readed'
           - 'unflag readed'
+          - 'flag bookmark'
+          - 'unflag bookmark'
           - 'modify reaction on node:article:field_news_article_reaction'
           - 'modify reaction on node:page:field_basic_page_reaction'
           - 'post comments'

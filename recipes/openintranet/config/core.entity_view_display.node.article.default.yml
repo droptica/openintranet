@@ -17,8 +17,6 @@ dependencies:
     - text
     - user
     - votingapi_reaction
-_core:
-  default_config_hash: br6izr-iGEu--JvNbCJNtOBpRnxpFLXfoV5y61U9Nqc
 id: node.article.default
 targetEntityType: node
 bundle: article
@@ -50,6 +48,11 @@ content:
       link: true
     third_party_settings: {  }
     weight: 0
+    region: content
+  flag_bookmark:
+    weight: 10
+    settings: {  }
+    third_party_settings: {  }
     region: content
   flag_readed:
     settings: {  }

@@ -20,8 +20,6 @@ dependencies:
     - smart_trim
     - user
     - votingapi_reaction
-_core:
-  default_config_hash: O8PxzfG8DOHHRu6M23kwR6TDPq_MNfYQ10Mp367ICUQ
 id: node.article.teaser
 targetEntityType: node
 bundle: article
@@ -81,6 +79,7 @@ hidden:
   field_document_ref: true
   field_mark_as_must_read: true
   field_tags: true
+  flag_bookmark: true
   flag_readed: true
   langcode: true
   links: true

@@ -17,6 +17,7 @@ dependencies:
   module:
     - address
     - datetime_range
+    - field_group
     - layout_builder
     - leaflet
     - media
@@ -26,6 +27,29 @@ third_party_settings:
   layout_builder:
     enabled: false
     allow_custom: false
+  field_group:
+    group_inline_links:
+      children:
+        - links
+        - flag_bookmark
+        - flag_readed
+      label: 'Inline Links'
+      parent_name: ''
+      region: content
+      weight: 7
+      format_type: html_element
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
 id: node.event.full
 targetEntityType: node
 bundle: event
@@ -166,13 +190,24 @@ content:
           options: ''
       map_lazy_load:
         lazy_load: false
+      geojson_overlays:
+        sources:
+          fields: {  }
+        path: '{"color":"#f71ed3","opacity":"0.7","stroke":true,"weight":2,"fillColor":"#ffddfe","fillOpacity":"0.1","radius":3,"dashArray":"5, 5"}'
+        zoom_to_geojson: true
+        snapping: true
     third_party_settings: {  }
     weight: 6
+    region: content
+  flag_bookmark:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 4
     region: content
   flag_readed:
     settings: {  }
     third_party_settings: {  }
-    weight: 10
+    weight: 5
     region: content
   links:
     settings: {  }

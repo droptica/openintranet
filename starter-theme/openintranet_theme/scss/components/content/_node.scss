@@ -292,21 +292,20 @@
   .inline__links {
     margin-top: 2rem;
 
-    .book-add-child, .book-add-sibling, .book-printer {
+    .book-add-child,
+    .book-add-sibling,
+    .book-printer {
       a {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
         color: $blue-500;
 
         &:hover {
           color: $body-color;
           text-decoration: none;
         }
-      }
-
-      a {
-        position: relative;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
 
         &::before {
           content: "";
@@ -338,6 +337,14 @@
       a::before {
         mask-image: url('../images/icons/printer.svg');
       }
+    }
+  }
+
+  .inline-links-container {
+    margin-top: 2rem;
+
+    .inline__links {
+      margin-top: 0;
     }
   }
 }

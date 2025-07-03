@@ -21,6 +21,11 @@ targetEntityType: node
 bundle: article
 mode: grid_layout
 content:
+  flag_bookmark:
+    weight: 10
+    settings: {  }
+    third_party_settings: {  }
+    region: content
   flag_readed:
     settings: {  }
     third_party_settings: {  }

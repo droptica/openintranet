@@ -9,10 +9,33 @@ dependencies:
     - field.field.node.webform.webform
     - node.type.webform
   module:
+    - field_group
     - file
     - text
     - user
     - webform
+third_party_settings:
+  field_group:
+    group_inline_links:
+      children:
+        - flag_readed
+      label: 'Inline Links'
+      parent_name: ''
+      region: content
+      weight: 4
+      format_type: html_element
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
 id: node.webform.default
 targetEntityType: node
 bundle: webform
@@ -36,7 +59,7 @@ content:
   flag_readed:
     settings: {  }
     third_party_settings: {  }
-    weight: 4
+    weight: 5
     region: content
   links:
     settings: {  }

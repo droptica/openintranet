@@ -1,0 +1,32 @@
+uuid: bdd0aab3-c02f-44ae-a074-933f516ebf25
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: bookmark
+label: Bookmark
+bundles:
+  - article
+  - event
+  - knowledge_base_page
+entity_type: node
+global: false
+flag_short: 'Add to Bookmarks'
+flag_long: ''
+flag_message: 'Page bookmarked successfully'
+unflag_short: 'Remove from Bookmarks'
+unflag_long: ''
+unflag_message: 'Bookmark removed'
+unflag_denied_text: ''
+weight: 0
+flag_type: 'entity:node'
+link_type: ajax_link
+flagTypeConfig:
+  show_in_links: {  }
+  show_as_field: true
+  show_on_form: true
+  show_contextual_link: false
+  extra_permissions:
+    owner: '0'
+linkTypeConfig: {  }

@@ -17,6 +17,7 @@ dependencies:
     - node.type.article
   module:
     - comment
+    - field_group
     - layout_builder
     - media
     - text
@@ -26,8 +27,28 @@ third_party_settings:
   layout_builder:
     enabled: false
     allow_custom: false
-_core:
-  default_config_hash: br6izr-iGEu--JvNbCJNtOBpRnxpFLXfoV5y61U9Nqc
+  field_group:
+    group_inline_links:
+      children:
+        - flag_bookmark
+        - flag_readed
+      label: 'Inline Links'
+      parent_name: ''
+      region: content
+      weight: 7
+      format_type: html_element
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
 id: node.article.full
 targetEntityType: node
 bundle: article
@@ -67,7 +88,7 @@ content:
       view_mode: teaser
       link: false
     third_party_settings: {  }
-    weight: 1
+    weight: 2
     region: content
   field_intro:
     type: basic_string
@@ -96,10 +117,15 @@ content:
     third_party_settings: {  }
     weight: 3
     region: content
+  flag_bookmark:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 8
+    region: content
   flag_readed:
     settings: {  }
     third_party_settings: {  }
-    weight: 10
+    weight: 9
     region: content
 hidden:
   field_access: true

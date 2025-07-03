@@ -12,9 +12,34 @@ dependencies:
     - field.field.node.knowledge_base_page.field_tags
     - node.type.knowledge_base_page
   module:
+    - field_group
     - options
     - text
     - user
+third_party_settings:
+  field_group:
+    group_inline_links:
+      children:
+        - links
+        - flag_bookmark
+        - flag_readed
+      label: 'Inline Links'
+      parent_name: ''
+      region: content
+      weight: 5
+      format_type: html_element
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
 id: node.knowledge_base_page.full
 targetEntityType: node
 bundle: knowledge_base_page
@@ -59,15 +84,20 @@ content:
     third_party_settings: {  }
     weight: 2
     region: content
+  flag_bookmark:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 7
+    region: content
   flag_readed:
     settings: {  }
     third_party_settings: {  }
-    weight: 10
+    weight: 8
     region: content
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 5
+    weight: 6
     region: content
 hidden:
   book_navigation: true
