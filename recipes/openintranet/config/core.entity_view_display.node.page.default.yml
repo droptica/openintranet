@@ -25,7 +25,7 @@ content:
     third_party_settings: {  }
     weight: 0
     region: content
-  flag_readed:
+  flag_read:
     settings: {  }
     third_party_settings: {  }
     weight: 1

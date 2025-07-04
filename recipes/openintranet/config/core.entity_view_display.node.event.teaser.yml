@@ -59,6 +59,6 @@ hidden:
   field_map_location: true
   field_mark_as_must_read: true
   flag_bookmark: true
-  flag_readed: true
+  flag_read: true
   langcode: true
   search_api_excerpt: true

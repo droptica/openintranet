@@ -18,7 +18,7 @@ third_party_settings:
   field_group:
     group_inline_links:
       children:
-        - flag_readed
+        - flag_read
       label: 'Inline Links'
       parent_name: ''
       region: content
@@ -56,7 +56,7 @@ content:
     third_party_settings: {  }
     weight: 2
     region: content
-  flag_readed:
+  flag_read:
     settings: {  }
     third_party_settings: {  }
     weight: 5

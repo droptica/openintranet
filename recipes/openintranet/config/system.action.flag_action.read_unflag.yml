@@ -3,13 +3,13 @@ langcode: en
 status: true
 dependencies:
   config:
-    - flag.flag.readed
+    - flag.flag.read
   module:
     - flag
-id: flag_action.readed_unflag
-label: 'Mark as unreaded'
+id: flag_action.read_unflag
+label: 'Mark as unread'
 type: node
-plugin: 'flag_action:readed_unflag'
+plugin: 'flag_action:read_unflag'
 configuration:
-  flag_id: readed
+  flag_id: read
   flag_action: unflag

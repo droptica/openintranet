@@ -37,6 +37,6 @@ hidden:
   field_news_article_reaction: true
   field_tags: true
   flag_bookmark: true
-  flag_readed: true
+  flag_read: true
   langcode: true
   search_api_excerpt: true

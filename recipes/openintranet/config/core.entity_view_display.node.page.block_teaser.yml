@@ -73,7 +73,7 @@ hidden:
   comment_node_page: true
   field_access: true
   field_document_ref: true
-  flag_readed: true
+  flag_read: true
   langcode: true
   links: true
   search_api_excerpt: true

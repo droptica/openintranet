@@ -4,8 +4,8 @@ status: true
 dependencies:
   module:
     - node
-id: readed
-label: Readed
+id: read
+label: Read
 bundles:
   - article
   - book
@@ -16,10 +16,10 @@ bundles:
   - webform
 entity_type: node
 global: false
-flag_short: 'Mark as readed'
+flag_short: 'Mark as read'
 flag_long: ''
 flag_message: ''
-unflag_short: 'Mark as unreaded'
+unflag_short: 'Mark as unread'
 unflag_long: ''
 unflag_message: ''
 unflag_denied_text: ''

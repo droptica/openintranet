@@ -32,7 +32,7 @@ content:
     settings: {  }
     third_party_settings: {  }
     region: content
-  flag_readed:
+  flag_read:
     settings: {  }
     third_party_settings: {  }
     weight: 10

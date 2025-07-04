@@ -55,6 +55,6 @@ hidden:
   field_mark_as_must_read: true
   field_news_article_reaction: true
   flag_bookmark: true
-  flag_readed: true
+  flag_read: true
   langcode: true
   search_api_excerpt: true

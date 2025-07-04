@@ -32,7 +32,7 @@ third_party_settings:
       children:
         - links
         - flag_bookmark
-        - flag_readed
+        - flag_read
       label: 'Inline Links'
       parent_name: ''
       region: content
@@ -204,7 +204,7 @@ content:
     third_party_settings: {  }
     weight: 4
     region: content
-  flag_readed:
+  flag_read:
     settings: {  }
     third_party_settings: {  }
     weight: 5

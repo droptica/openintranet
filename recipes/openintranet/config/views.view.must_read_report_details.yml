@@ -4,7 +4,7 @@ dependencies:
   config:
     - field.storage.user.field_first_name
     - field.storage.user.field_last_name
-    - flag.flag.readed
+    - flag.flag.read
   module:
     - flag
     - node
@@ -1121,7 +1121,7 @@ display:
           entity_type: user
           plugin_id: flag_user_content_relationship
           required: false
-          flag: readed
+          flag: read
       display_description: ''
       header:
         area_text_custom:
@@ -1445,7 +1445,7 @@ display:
           entity_type: node
           plugin_id: flag_relationship
           required: false
-          flag: readed
+          flag: read
           user_scope: any
       group_by: true
       display_description: ''
@@ -1459,7 +1459,7 @@ display:
           admin_label: ''
           plugin_id: text_custom
           empty: false
-          content: '<h4>Readed</h4>'
+          content: '<h4>Read</h4>'
           tokenize: false
       display_extenders: {  }
       path: admin/dashboard/must-read-report
@@ -1484,7 +1484,7 @@ display:
         - 'languages:language_interface'
         - user.permissions
       tags:
-        - flag.flag.readed
+        - flag.flag.read
   page_4:
     id: page_4
     display_title: 'Details - Send email'
@@ -1880,7 +1880,7 @@ display:
           entity_type: user
           plugin_id: flag_user_content_relationship
           required: false
-          flag: readed
+          flag: read
       display_description: ''
       header: {  }
       footer:
