@@ -139,7 +139,7 @@
             "drupal/core": {
                 "field": "https://www.drupal.org/files/issues/2024-08-21/2321071-74.patch",
                 "Check if rows exists": "patches/views/views_org_chart.patch",
-                "Fix config export error by excluding time_diff.description from view config": "https://git.drupalcode.org/project/drupal/-/merge_requests/9250.diff",
+                "[3400522] Fix config export error by excluding time_diff.description from view config": "https://www.drupal.org/files/issues/2025-07-01/core-3400522-time_diff-missing-schema_0.patch",
                 "[3474018] Class is not added to MediaLibrary dialog": "https://www.drupal.org/files/issues/2024-12-17/3474018-regression-class-is.patch"
             },
             "drupal/noreqnewpass": {
@@ -155,13 +155,13 @@
                 "Add a 'User's Flaggings' view relationship": "https://www.drupal.org/files/issues/2024-05-23/3449477-2.patch"
             },
             "drupal/ckeditor_media_resize": {
-                "Fix for CKEditor v45.02": "https://git.drupalcode.org/project/ckeditor_media_resize/-/merge_requests/16.patch"
+                "[3531299] Fix for CKEditor v45.02": "https://www.drupal.org/files/issues/2025-06-28/ckeditor_media_resize--2025-06-28--3531299--mr-16.patch"
             },
             "drupal/views_organization_chart": {
                 "views_organization_chart - Drupal 11 compatibility fixes": "patches/views_organization_chart/views_organization_chart_drupal11_compatibility.patch"
             },
             "drupal/votingapi_reaction": {
-                "Fix for Drupal 11": "https://git.drupalcode.org/project/votingapi_reaction/-/merge_requests/9.patch"
+                "[3505503] Can not unvote after update voting_api to 4.x": "https://www.drupal.org/files/issues/2025-07-16/votingapi_reaction--2025-07-16--mr-9.patch"
             }
         }
     }
