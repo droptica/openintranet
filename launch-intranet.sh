@@ -56,13 +56,22 @@ if ask_yes_no "Would you like to remove installation files and directories (.git
     rm -rf ddev_commands
     rm -rf starter-theme
 
+    # Use project .gitignore template for new projects
+    if [ -f .gitignore.project ]; then
+        echo "Setting up .gitignore for new project..."
+        cp .gitignore.project .gitignore
+        rm -f .gitignore.project
+        echo "Updated .gitignore for new project development (custom theme will be tracked)."
+    fi
+
     # Only ask about git init if files were removed
     if ask_yes_no "Would you like to initialize a new git repository?"; then
         echo "Initializing new git repository..."
         git init
     fi
 else
-    echo "Keeping installation files."
+    echo "Keeping installation files for open source development."
+    echo "Using default .gitignore configured for contributing to Open Intranet."
 fi
 
 #show the welcome message
