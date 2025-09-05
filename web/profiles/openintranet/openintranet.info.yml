@@ -1,8 +1,8 @@
-name: Open Intranet 1.5.x
+name: Open Intranet 1.6.x
 type: profile
 core_version_requirement: ^10 || ^11
-description: 'Open Intranet 1.5 profile.'
-version: 'dev-1.5.x'
+description: 'Open Intranet 1.6 profile.'
+version: 'dev-1.6.x'
 distribution:
   name: Open Intranet
   install:
