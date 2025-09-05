@@ -85,7 +85,6 @@
         "drupal/twigsuggest": "^2.0@RC",
         "drupal/views_aggregator": "^2.1",
         "drupal/views_conditional": "^1.10",
-        "drupal/views_kanban": "^1.0",
         "drupal/views_organization_chart": "^1.0",
         "drupal/views_send": "2.0.x-dev",
         "drupal/votingapi": "4.0.x-dev@dev",
