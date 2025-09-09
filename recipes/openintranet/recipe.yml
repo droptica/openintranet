@@ -8,6 +8,7 @@ install:
   - ai_provider_openai
   - anonymous_redirect
   - automated_cron
+  - automatic_updates
   - autosave_form
   - backup_migrate
   - better_exposed_filters
@@ -89,6 +90,7 @@ install:
   - noreqnewpass
   - options
   - other_view_filter
+  - package_manager
   - page_cache
   - paragraphs
   - paragraphs_edit
@@ -109,6 +111,7 @@ install:
   - statistics
   - system
   - taxonomy
+  - update
   - telephone
   - text
   - theme_switcher
@@ -126,6 +129,7 @@ install:
   - views_ui
   - votingapi
   - votingapi_reaction
+  - project_browser
   - webform
   - webform_node
   - webform_ui
@@ -324,18 +328,18 @@ config:
 
   actions:
     system.site:
-      simple_config_update:
+      simpleConfigUpdate:
         page:
           front: '/news-homepage'
           403: '/user/login'
 
     system.theme:
-      simple_config_update:
+      simpleConfigUpdate:
         admin: gin
         default: openintranet_theme
 
     system.theme.global:
-      simple_config_update:
+      simpleConfigUpdate:
         features:
           comment_user_picture: true
           comment_user_verification: true
@@ -343,11 +347,11 @@ config:
           node_user_picture: true
 
     user.settings:
-      simple_config_update:
+      simpleConfigUpdate:
         register: 'admin_only'
 
     votingapi.vote_type.reaction_like:
-        simple_config_update:
+        simpleConfigUpdate:
           third_party_settings:
             votingapi_reaction:
               reaction: true
@@ -357,8 +361,16 @@ config:
               remote_image: /themes/custom/openintranet_theme/images/icons/thumbs-up.svg
               html_element: ''
 
+    project_browser.admin_settings:
+      simpleConfigUpdate:
+        allowed_projects:
+          recipes:
+            - openintranet
+            - default_content
+        allow_ui_install: true
+        max_selections: 1
     user.role.authenticated:
-      simple_config_update:
+      simpleConfigUpdate:
         dependencies:
           config:
             - filter.format.webform_default
