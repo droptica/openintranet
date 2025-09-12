@@ -1,0 +1,68 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - page_manager.page.consultations
+    - views.view.consultations
+  module:
+    - layout_discovery
+    - views
+id: consultations-layout_builder-0
+label: 'Layout Builder'
+variant: layout_builder
+variant_settings:
+  id: layout_builder
+  label: null
+  weight: 0
+  uuid: 061b18b9-7a16-4513-b3ee-3581e67428b6
+  sections:
+    -
+      layout_id: layout_onecol
+      layout_settings:
+        label: ''
+        context_mapping: {  }
+        custom_id: ''
+        custom_classes: ''
+        custom_class_choose: {  }
+        custom_styles: ''
+        custom_data_attributes: ''
+        regions:
+          content:
+            region_id: ''
+            region_class_choose: {  }
+            region_classes: ''
+            region_styles: ''
+            region_data: ''
+      components:
+        4eddfbee-a202-4288-8e91-a7458b2dcecb:
+          uuid: 4eddfbee-a202-4288-8e91-a7458b2dcecb
+          region: content
+          configuration:
+            id: 'views_block:consultations-block_2'
+            label: ''
+            label_display: visible
+            provider: views
+            context_mapping: {  }
+            views_label: ''
+            items_per_page: null
+          weight: 2
+          additional: {  }
+        e3d02d5e-6af8-407d-9b36-9fe83af55853:
+          uuid: e3d02d5e-6af8-407d-9b36-9fe83af55853
+          region: content
+          configuration:
+            id: 'views_block:consultations-block_1'
+            label: ''
+            label_display: visible
+            provider: views
+            context_mapping: {  }
+            views_label: ''
+            items_per_page: null
+          weight: 1
+          additional: {  }
+      third_party_settings: {  }
+page: consultations
+weight: 0
+selection_criteria: {  }
+selection_logic: and
+static_context: {  }

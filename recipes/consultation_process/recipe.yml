@@ -1,0 +1,37 @@
+name: '[Open Intranet] Consultation Process'
+type: 'Content Type'
+description: 'Adds a consultation content type for managing consultation processes with only a title field.'
+install:
+  - node
+  - datetime
+  - options
+  - text
+  - user
+  - bpmn_io
+  - eca
+  - eca_base
+  - eca_content
+  - eca_log
+  - eca_ui
+  - eca_user
+  - eca_views
+  - page_manager
+  - page_manager_ui
+config:
+  import:
+    system:
+      - node.type.consultation
+      - node.type.consultation_review
+    eca:
+      - eca.eca.process_bgzye92
+    page_manager:
+      - page_manager.page.consultations
+      - page_manager.page_variant.consultations-layout_builder-0
+    views:
+      - views.view.consultations
+      - views.view.consultation_reviews_on_node_consultation
+content:
+  menu_link_content:
+    - a1b2c3d4-e5f6-7890-abcd-ef1234567890
+    - 9a63e430-63bf-49e5-a0b0-3eaa37c11ad2
+    - 83749ecf-dffa-4e81-8a33-f8c1c148dbd5

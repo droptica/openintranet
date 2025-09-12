@@ -1,0 +1,41 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+  bundle: menu_link_content
+  default_langcode: en
+depends:
+  9f0aed10-1cf9-4f5c-aa1d-912ce6b536b7: menu_link_content
+default:
+  enabled:
+    -
+      value: true
+  title:
+    -
+      value: Consultations
+  menu_name:
+    -
+      value: main
+  link:
+    -
+      uri: 'internal:#'
+      title: ''
+      options: {  }
+  external:
+    -
+      value: false
+  rediscover:
+    -
+      value: true
+  weight:
+    -
+      value: -46
+  expanded:
+    -
+      value: true
+  parent:
+    -
+      value: 'menu_link_content:9f0aed10-1cf9-4f5c-aa1d-912ce6b536b7'
+  revision_translation_affected:
+    -
+      value: true

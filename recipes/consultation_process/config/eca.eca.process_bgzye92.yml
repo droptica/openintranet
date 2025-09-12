@@ -1,0 +1,147 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.consultation.field_consultation_reviewers
+    - field.storage.node.field_consultation_reviewers
+    - node.type.consultation
+    - node.type.consultation_review
+    - node.type.page
+  module:
+    - eca_base
+    - eca_content
+    - eca_log
+    - modeler_api
+third_party_settings:
+  modeler_api:
+    modeler_id: bpmn_io
+    data: 'hash:bb5b0a13d0a3ffd256a3b8c844a093bf'
+    label: 'Consultation Process - Create review for each user'
+id: process_bgzye92
+weight: 0
+events:
+  content_entity__presave_1_1:
+    plugin: 'content_entity:presave'
+    label: 'Presave content entity'
+    configuration:
+      type: 'node consultation'
+    successors:
+      -
+        id: eca_token_set_value_03ut1r9
+        condition: ''
+  content_entity__custom_1:
+    plugin: 'content_entity:custom'
+    label: 'ECA custom event (entity-aware)'
+    configuration:
+      event_id: x1
+    successors:
+      -
+        id: eca_new_entity_1gclb2z
+        condition: ''
+conditions:
+  eca_count_0r4rqto:
+    plugin: eca_count
+    label: 'Compare number of list items'
+    configuration:
+      negate: false
+      left: consultation_reviewers
+      right: '0'
+      operator: greaterthan
+      type: numeric
+      case: false
+gateways:
+  Gateway_09i9lgt:
+    type: 0
+    successors:
+      -
+        id: eca_list_remove_0hn8z2d
+        condition: eca_count_0r4rqto
+actions:
+  eca_new_entity_1gclb2z:
+    label: 'Entity: create new'
+    plugin: eca_new_entity
+    configuration:
+      token_name: ''
+      type: 'node page'
+      langcode: ''
+      label: entity-label-field
+      published: false
+      owner: users_reviewers
+    successors: {  }
+  eca_list_remove_0hn8z2d:
+    label: 'List: remove item'
+    plugin: eca_list_remove
+    configuration:
+      value: ''
+      token_name: consultation_reviewers_one
+      method: first
+      index: ''
+      list_token: consultation_reviewers
+    successors:
+      -
+        id: eca_write_log_message_1jrh5l8
+        condition: ''
+      -
+        id: action_message_action_04oxke6
+        condition: ''
+  eca_write_log_message_1jrh5l8:
+    label: 'Log Message'
+    plugin: eca_write_log_message
+    configuration:
+      channel: eca_log_2
+      severity: 3
+      message: 'wiadomosc [consultation_reviewers_one]'
+    successors:
+      -
+        id: eca_new_entity_1kp0m6m
+        condition: ''
+  action_message_action_04oxke6:
+    label: 'Display a message to the user'
+    plugin: action_message_action
+    configuration:
+      message: |-
+        consultation_reviewers_one:
+        <pre>[consultation_reviewers_one]</pre>
+      replace_tokens: true
+    successors: {  }
+  eca_token_set_value_03ut1r9:
+    label: 'Token: set value'
+    plugin: eca_token_set_value
+    configuration:
+      token_name: consultation_reviewers
+      token_value: '[node:field_consultation_reviewers]'
+      use_yaml: false
+      validate_yaml: false
+    successors:
+      -
+        id: Gateway_09i9lgt
+        condition: ''
+      -
+        id: action_message_action_0v0l2d4
+        condition: ''
+  eca_new_entity_1kp0m6m:
+    label: 'Entity: create new'
+    plugin: eca_new_entity
+    configuration:
+      token_name: node_new
+      type: 'node consultation_review'
+      langcode: ''
+      label: 'basic-page: 1'
+      published: false
+      owner: '1'
+    successors:
+      -
+        id: Gateway_09i9lgt
+        condition: ''
+  action_message_action_0v0l2d4:
+    label: 'Display a message to the user'
+    plugin: action_message_action
+    configuration:
+      message: |-
+        consultation_reviewers:
+        <pre>[consultation_reviewers]</pre>
+        <hr/>
+        ===========================
+        <hr/>
+      replace_tokens: true
+    successors: {  }

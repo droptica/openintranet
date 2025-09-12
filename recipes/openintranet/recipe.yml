@@ -1,4 +1,4 @@
-name: 'Open Intranet Recipe'
+name: '[Open Intranet] Core Recipe'
 description: 'Open Intranet recipe configuration.'
 type: 'Open Intranet'
 install:
@@ -75,6 +75,8 @@ install:
   - js_cookie
   - key
   - language
+  - layout_builder_styles
+  - layout_custom_section_classes
   - leaflet
   - leaflet_markercluster
   - leaflet_views
@@ -92,6 +94,8 @@ install:
   - other_view_filter
   - package_manager
   - page_cache
+  - page_manager
+  - page_manager_ui
   - paragraphs
   - paragraphs_edit
   - path
@@ -363,11 +367,13 @@ config:
 
     project_browser.admin_settings:
       simpleConfigUpdate:
+        default_source: recipes
+        enabled_sources:
+          recipes: {}
+        allow_ui_install: true
         allowed_projects:
           recipes:
-            - openintranet
-            - default_content
-        allow_ui_install: true
+            - consultation_process
         max_selections: 1
     user.role.authenticated:
       simpleConfigUpdate:
