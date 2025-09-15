@@ -8,6 +8,7 @@ dependencies:
   module:
     - filter
     - node
+    - system
 id: content_editor_consultation
 label: 'Content Editor - Consultation'
 weight: 14
@@ -26,3 +27,4 @@ permissions:
   - 'use text format full_html'
   - 'view consultation revisions'
   - 'view consultation_review revisions'
+  - 'view the administration theme'
