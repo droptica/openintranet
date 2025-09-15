@@ -12,7 +12,7 @@ field_name: field_consultation_description
 entity_type: node
 bundle: consultation
 label: 'Consultation description'
-description: ''
+description: 'Provide detailed information about what needs to be reviewed or decided. Include background context, specific questions for reviewers, required deliverables, and any relevant attachments or references. Use formatting to organize complex information clearly.'
 required: false
 translatable: false
 default_value: {  }

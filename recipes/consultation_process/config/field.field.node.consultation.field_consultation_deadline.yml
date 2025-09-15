@@ -11,7 +11,7 @@ field_name: field_consultation_deadline
 entity_type: node
 bundle: consultation
 label: Deadline
-description: ''
+description: 'Set the final date by which all reviews must be completed and a decision made. Consider reviewer availability and complexity of the consultation. Default is 30 days from creation. This date will be used to track overdue consultations.'
 required: true
 translatable: false
 default_value:

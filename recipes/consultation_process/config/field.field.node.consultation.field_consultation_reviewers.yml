@@ -9,7 +9,7 @@ field_name: field_consultation_reviewers
 entity_type: node
 bundle: consultation
 label: Reviewers
-description: ''
+description: 'Select the users who need to review and provide input on this consultation. Choose reviewers based on their expertise, authority level, and availability. All selected reviewers will receive notifications and can provide feedback through the review system.'
 required: true
 translatable: false
 default_value: {  }
