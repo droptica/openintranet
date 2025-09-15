@@ -1,6 +1,6 @@
 name: '[Open Intranet] Consultation Process'
 type: 'Content Type'
-description: 'Adds a consultation content type for managing consultation processes with only a title field.'
+description: 'Comprehensive consultation management system with automated workflow. Creates consultation and consultation review content types with fields for deadlines, types, descriptions, and reviewers. Includes automated ECA processes for creating/deleting review tasks, Views for active/closed consultations, custom pages, and navigation menu integration. Features deadline-based filtering and reviewer assignment automation.'
 install:
   - node
   - datetime
