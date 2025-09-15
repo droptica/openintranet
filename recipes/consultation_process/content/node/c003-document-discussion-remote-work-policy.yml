@@ -39,3 +39,6 @@ default:
   field_consultation_reviewers:
     -
       target_id: 1
+  field_consultation_status:
+    -
+      value: active
