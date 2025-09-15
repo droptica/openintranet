@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_consultation_status
+    - node.type.consultation
+  module:
+    - options
+id: node.consultation.field_consultation_status
+field_name: field_consultation_status
+entity_type: node
+bundle: consultation
+label: Status
+description: 'Consultation status: Active (under review), Accepted (approved), or Rejected (declined). Keep unpublished for drafts.'
+required: true
+translatable: false
+default_value:
+  -
+    value: active
+default_value_callback: ''
+settings: {  }
+field_type: list_string

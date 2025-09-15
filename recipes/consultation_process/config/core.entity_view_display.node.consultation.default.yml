@@ -5,6 +5,7 @@ dependencies:
     - field.field.node.consultation.field_consultation_deadline
     - field.field.node.consultation.field_consultation_description
     - field.field.node.consultation.field_consultation_reviewers
+    - field.field.node.consultation.field_consultation_status
     - field.field.node.consultation.field_consultation_type
     - node.type.consultation
     - views.view.consultation_reviews_on_node_consultation
@@ -83,6 +84,21 @@ third_party_settings:
                 third_party_settings: {  }
             weight: 1
             additional: {  }
+          f2ff2401-40a9-482a-b9e2-17de2ce23907:
+            uuid: f2ff2401-40a9-482a-b9e2-17de2ce23907
+            region: content
+            configuration:
+              id: 'field_block:node:consultation:field_consultation_status'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: list_default
+                label: above
+                settings: {  }
+                third_party_settings: {  }
+            weight: 4
+            additional: {  }
         third_party_settings: {  }
       -
         layout_id: layout_onecol
@@ -144,6 +160,13 @@ content:
       link: true
     third_party_settings: {  }
     weight: 4
+    region: content
+  field_consultation_status:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 5
     region: content
   field_consultation_type:
     type: list_default
