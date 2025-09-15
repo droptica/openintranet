@@ -24,12 +24,14 @@ config:
       - node.type.consultation_review
     eca:
       - eca.eca.process_bgzye92
+      - eca.eca.process_yvck4bf
     page_manager:
       - page_manager.page.consultations
       - page_manager.page_variant.consultations-layout_builder-0
     views:
       - views.view.consultations
       - views.view.consultation_reviews_on_node_consultation
+      - views.view.consultation_reviewers_by_consultation
 content:
   menu_link_content:
     - a1b2c3d4-e5f6-7890-abcd-ef1234567890

@@ -1,0 +1,80 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.consultation.field_consultation_reviewers
+    - field.field.node.consultation_review.field_consultation_review_ref
+    - field.storage.node.field_consultation_review_ref
+    - field.storage.node.field_consultation_reviewers
+    - node.type.consultation_review
+  module:
+    - eca_content
+    - modeler_api
+third_party_settings:
+  modeler_api:
+    modeler_id: bpmn_io
+    data: 'hash:b37c2322ecaa13a824b9e4b5ec15eeb9'
+    label: 'Consultation Process - Remove reviewer after review delete'
+    colors:
+      content_entity__predelete_1_1:
+        fill: '#ffe0b2'
+        stroke: '#6b3c00'
+id: process_yvck4bf
+weight: 0
+events:
+  content_entity__predelete_1_1:
+    plugin: 'content_entity:predelete'
+    label: 'Predelete content entity'
+    configuration:
+      type: 'node consultation_review'
+    successors:
+      -
+        id: eca_token_load_entity_1y1vr7m
+        condition: eca_entity_exists_0sbak2v
+conditions:
+  eca_entity_exists_0sbak2v:
+    plugin: eca_entity_exists
+    label: 'Entity: exists'
+    configuration:
+      negate: false
+      from: properties
+      entity_type: node
+      entity_id: ''
+      revision_id: ''
+      properties: 'nid: "[entity:field_consultation_review_ref:target_id]"'
+      langcode: _interface
+      latest_revision: false
+      unchanged: false
+      entity: ''
+gateways: {  }
+actions:
+  eca_token_load_entity_1y1vr7m:
+    label: 'Get Consultation'
+    plugin: eca_token_load_entity
+    configuration:
+      token_name: consultation
+      from: properties
+      entity_type: node
+      entity_id: ''
+      revision_id: ''
+      properties: 'nid: "[entity:field_consultation_review_ref:target_id]"'
+      langcode: _interface
+      latest_revision: false
+      unchanged: false
+      object: consultation
+    successors:
+      -
+        id: eca_set_field_value_0wvww96
+        condition: ''
+  eca_set_field_value_0wvww96:
+    label: 'Remove user'
+    plugin: eca_set_field_value
+    configuration:
+      field_name: field_consultation_reviewers
+      field_value: '[entity:uid]'
+      method: remove
+      strip_tags: false
+      trim: false
+      save_entity: true
+      object: consultation
+    successors: {  }
