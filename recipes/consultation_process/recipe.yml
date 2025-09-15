@@ -29,6 +29,9 @@ config:
       - views.view.consultations
       - views.view.consultation_reviews_on_node_consultation
       - views.view.consultation_reviewers_by_consultation
+    user:
+      - user.role.consultation_manager
+      - user.role.consultation_reviewer
 content:
   menu_link_content:
     - a1b2c3d4-e5f6-7890-abcd-ef1234567890

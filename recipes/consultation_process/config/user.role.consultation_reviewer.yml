@@ -1,0 +1,49 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.full_html
+    - node.type.consultation
+    - node.type.consultation_review
+  module:
+    - comment
+    - content_translation
+    - contextual
+    - entity_clone
+    - entity_clone_extras
+    - filter
+    - navigation
+    - node
+    - path
+    - system
+    - toolbar
+id: consultation_reviewer
+label: 'Consultation Reviewer'
+weight: 13
+is_admin: false
+permissions:
+  - 'access administration pages'
+  - 'access comments'
+  - 'access content'
+  - 'access content overview'
+  - 'access contextual links'
+  - 'access navigation'
+  - 'access toolbar'
+  - 'access user profiles'
+  - 'clone consultation_review node entities'
+  - 'clone node entity'
+  - 'create consultation_review content'
+  - 'create content translations'
+  - 'create url aliases'
+  - 'delete own consultation_review content'
+  - 'edit own comments'
+  - 'edit own consultation_review content'
+  - 'post comments'
+  - 'skip comment approval'
+  - 'translate editable entities'
+  - 'update content translations'
+  - 'use text format full_html'
+  - 'view consultation revisions'
+  - 'view consultation_review revisions'
+  - 'view own unpublished content'
+  - 'view the administration theme'
