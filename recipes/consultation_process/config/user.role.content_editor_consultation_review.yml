@@ -1,0 +1,13 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.consultation_review
+  module:
+    - node
+id: content_editor_consultation_review
+label: 'Content Editor - Consultation Review - Edit Own'
+weight: 15
+is_admin: false
+permissions:
+  - 'edit own consultation_review content'
