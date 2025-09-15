@@ -80,7 +80,7 @@ third_party_settings:
                 label: above
                 settings:
                   timezone_override: ''
-                  format_type: medium
+                  format_type: html_date
                 third_party_settings: {  }
             weight: 1
             additional: {  }
