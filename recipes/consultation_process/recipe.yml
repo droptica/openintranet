@@ -25,8 +25,10 @@ config:
     eca:
       - eca.eca.process_bgzye92
       - eca.eca.process_yvck4bf
+      - eca.eca.process_r9ldkzi
     views:
       - views.view.consultations
+      - views.view.my_reviews
       - views.view.consultation_reviews_on_node_consultation
       - views.view.consultation_reviewers_by_consultation
     user:
