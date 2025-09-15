@@ -25,9 +25,6 @@ config:
     eca:
       - eca.eca.process_bgzye92
       - eca.eca.process_yvck4bf
-    page_manager:
-      - page_manager.page.consultations
-      - page_manager.page_variant.consultations-layout_builder-0
     views:
       - views.view.consultations
       - views.view.consultation_reviews_on_node_consultation
