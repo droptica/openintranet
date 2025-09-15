@@ -105,6 +105,7 @@ install:
   - permissions_by_term
   - pfdp
   - recently_read
+  - recipe_tracker
   - search
   - search_api
   - search_api_db
