@@ -1,0 +1,147 @@
+uuid: eb52df08-a9f1-4cc5-9dba-620e873ee541
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.article.field_notify_all_users_about_new
+    - field.storage.node.field_notify_all_users_about_new
+    - node.type.article
+    - views.view.user_admin_people
+  module:
+    - eca_base
+    - eca_content
+    - eca_views
+    - modeler_api
+third_party_settings:
+  modeler_api:
+    modeler_id: bpmn_io
+    data: 'hash:5277e031e640f7a7819f434040097cd3'
+    label: 'Notify users about new article'
+    version: '1.0'
+_core:
+  default_config_hash: fI66L1ewwMtFRj5tlqNmMs7YdkPqHaRBHKzPHah16FA
+id: process_j7zbyne
+weight: 0
+events:
+  content_entity__custom_1:
+    plugin: 'content_entity:custom'
+    label: 'ECA custom event (entity-aware)'
+    configuration:
+      event_id: users_notify
+    successors:
+      -
+        id: action_send_email_action_0doakyp
+        condition: ''
+  content_entity__insert_1:
+    plugin: 'content_entity:insert'
+    label: 'Insert content entity'
+    configuration:
+      type: 'node article'
+    successors:
+      -
+        id: eca_set_field_value_1cbwxlg
+        condition: eca_entity_field_value_0zukb2z
+  content_entity__update_1:
+    plugin: 'content_entity:update'
+    label: 'Update content entity'
+    configuration:
+      type: _all
+    successors:
+      -
+        id: eca_set_field_value_1cbwxlg
+        condition: eca_entity_field_value_0iy7ocl
+conditions:
+  eca_entity_field_value_0zukb2z:
+    plugin: eca_entity_field_value
+    label: 'Entity: compare field value'
+    configuration:
+      negate: false
+      expected_value: '1'
+      field_name: field_notify_all_users_about_new
+      operator: equal
+      type: value
+      case: false
+      entity: ''
+  eca_entity_field_value_0iy7ocl:
+    plugin: eca_entity_field_value
+    label: 'Entity: compare field value'
+    configuration:
+      negate: false
+      expected_value: '1'
+      field_name: field_notify_all_users_about_new
+      operator: equal
+      type: value
+      case: false
+      entity: ''
+gateways: {  }
+actions:
+  action_send_email_action_0doakyp:
+    label: 'Send email'
+    plugin: action_send_email_action
+    configuration:
+      recipient: '[entity:mail]'
+      subject: '[Open Intranet] [node:content-type:name]: [node:title]'
+      message: |-
+        Wello [entity:name],
+
+        New content has been published on Open Intranet:
+
+        Type: [node:content-type:name]
+        Title: [node:title]
+        Author: [node:author]
+        Published: [node:changed]
+
+        Read full content: [node:url]
+
+        ---
+        Best regards,
+        Droptica - Open Intranet System
+      replace_tokens: true
+    successors: {  }
+  eca_set_field_value_1cbwxlg:
+    label: 'Entity: set field value'
+    plugin: eca_set_field_value
+    configuration:
+      field_name: field_notify_all_users_about_new
+      field_value: '0'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: true
+      object: ''
+    successors:
+      -
+        id: eca_views_query_0yxy1zc
+        condition: ''
+  eca_views_query_0yxy1zc:
+    label: 'Views: Execute query'
+    plugin: eca_views_query
+    configuration:
+      token_name: users
+      view_id: user_admin_people
+      display_id: attachment_1
+      arguments: ''
+    successors:
+      -
+        id: eca_token_set_value_1dbspy2
+        condition: ''
+  eca_trigger_content_entity_custom_event_0zpdk6r:
+    label: 'Trigger a custom event (entity-aware)'
+    plugin: eca_trigger_content_entity_custom_event
+    configuration:
+      event_id: users_notify
+      tokens: node
+      object: users
+    successors: {  }
+  eca_token_set_value_1dbspy2:
+    label: 'Token: set value'
+    plugin: eca_token_set_value
+    configuration:
+      token_name: node
+      token_value: '[entity]'
+      use_yaml: false
+      validate_yaml: false
+    successors:
+      -
+        id: eca_trigger_content_entity_custom_event_0zpdk6r
+        condition: ''

@@ -11,6 +11,7 @@ dependencies:
     - field.field.node.article.field_intro
     - field.field.node.article.field_mark_as_must_read
     - field.field.node.article.field_news_article_reaction
+    - field.field.node.article.field_notify_all_users_about_new
     - field.field.node.article.field_tags
     - node.type.article
   module:
@@ -29,7 +30,7 @@ third_party_settings:
       label: ACCESS
       region: content
       parent_name: group_tabs
-      weight: 30
+      weight: 23
       format_type: tab
       format_settings:
         classes: ''
@@ -43,6 +44,7 @@ third_party_settings:
       children:
         - group_basic_info
         - group_access
+        - group_tools
       label: Tabs
       region: content
       parent_name: ''
@@ -76,6 +78,38 @@ third_party_settings:
         formatter: open
         description: ''
         required_fields: true
+    group_notifications:
+      children: {  }
+      label: NOTIFICATIONS
+      region: content
+      parent_name: ''
+      weight: 2
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        formatter: closed
+        description: ''
+        required_fields: true
+    group_tools:
+      children:
+        - field_mark_as_must_read
+        - field_notify_all_users_about_new
+      label: TOOLS
+      region: content
+      parent_name: group_tabs
+      weight: 24
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        formatter: closed
+        description: ''
+        required_fields: true
 _core:
   default_config_hash: ewbd6G2uX456-bgwseM2Q-KQG3RkASoyHmTh-XR3oLU
 id: node.article.default
@@ -95,7 +129,7 @@ content:
     third_party_settings: {  }
   created:
     type: datetime_timestamp
-    weight: 3
+    weight: 5
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -147,16 +181,23 @@ content:
     third_party_settings: {  }
   field_mark_as_must_read:
     type: boolean_checkbox
-    weight: 11
+    weight: 6
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   field_news_article_reaction:
     type: votingapi_reaction_default
-    weight: 8
+    weight: 10
     region: content
     settings: {  }
+    third_party_settings: {  }
+  field_notify_all_users_about_new:
+    type: boolean_checkbox
+    weight: 6
+    region: content
+    settings:
+      display_label: true
     third_party_settings: {  }
   field_tags:
     type: options_buttons
@@ -165,7 +206,7 @@ content:
     settings: {  }
     third_party_settings: {  }
   flag:
-    weight: 10
+    weight: 12
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -178,32 +219,32 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 7
+    weight: 9
     region: content
     settings: {  }
     third_party_settings: {  }
   promote:
     type: boolean_checkbox
-    weight: 4
+    weight: 6
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   simple_sitemap:
-    weight: 6
+    weight: 8
     region: content
     settings: {  }
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 9
+    weight: 11
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
-    weight: 5
+    weight: 7
     region: content
     settings:
       display_label: true
@@ -218,7 +259,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 2
+    weight: 4
     region: content
     settings:
       match_operator: CONTAINS

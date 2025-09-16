@@ -16,6 +16,7 @@ install:
   - block_content
   - block_visibility_groups
   - book
+  - bpmn_io
   - calendar_view
   - calendar_view_multiday
   - ckeditor5
@@ -51,6 +52,12 @@ install:
   - entity_clone
   - entity_clone_extras
   - entity_reference_revisions
+  - eca
+  - eca_base
+  - eca_content
+  - eca_modeller_bpmn
+  - eca_ui
+  - eca_views
   - field
   - field_group
   - field_ui
