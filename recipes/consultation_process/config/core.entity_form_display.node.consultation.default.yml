@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.consultation.field_consultation_attachments
     - field.field.node.consultation.field_consultation_deadline
     - field.field.node.consultation.field_consultation_description
     - field.field.node.consultation.field_consultation_reviewers
@@ -10,6 +11,7 @@ dependencies:
     - node.type.consultation
   module:
     - datetime
+    - file
     - path
     - text
 id: node.consultation.default
@@ -23,15 +25,22 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_consultation_attachments:
+    type: file_generic
+    weight: 13
+    region: content
+    settings:
+      progress_indicator: throbber
+    third_party_settings: {  }
   field_consultation_deadline:
     type: datetime_default
-    weight: 4
+    weight: 3
     region: content
     settings: {  }
     third_party_settings: {  }
   field_consultation_description:
     type: text_textarea
-    weight: 3
+    weight: 4
     region: content
     settings:
       rows: 5
@@ -39,7 +48,7 @@ content:
     third_party_settings: {  }
   field_consultation_reviewers:
     type: entity_reference_autocomplete
-    weight: 13
+    weight: 14
     region: content
     settings:
       match_operator: CONTAINS
@@ -55,7 +64,7 @@ content:
     third_party_settings: {  }
   field_consultation_type:
     type: options_select
-    weight: 0
+    weight: 1
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -100,7 +109,7 @@ content:
     third_party_settings: {  }
   title:
     type: string_textfield
-    weight: 1
+    weight: 0
     region: content
     settings:
       size: 60
