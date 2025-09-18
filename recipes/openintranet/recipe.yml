@@ -382,6 +382,7 @@ config:
         allowed_projects:
           recipes:
             - consultation_process
+            - openintranet_kanban
         max_selections: 1
     user.role.authenticated:
       simpleConfigUpdate:

@@ -1,0 +1,9 @@
+{
+  "name": "openintranet/openintranet_kanban",
+  "description": "Open Intranet Kanban Recipe - Adds kanban board functionality with field states and views kanban modules.",
+  "type": "drupal-recipe",
+  "license": "GPL-2.0-or-later",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "version": "1.0.0"
+}

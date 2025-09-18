@@ -1,0 +1,33 @@
+name: '[Open Intranet] Kanban Board (experimental)'
+type: 'Feature'
+description: 'Kanban board functionality for Open Intranet. Enables field states management and kanban-style views for content organization and workflow visualization.'
+install:
+  - field_states
+  - views_kanban
+config:
+  import:
+    system:
+      - node.type.task
+      - core.base_field_override.node.task.promote
+      - core.entity_form_display.node.task.default
+      - core.entity_view_display.node.task.default
+      - core.entity_view_display.node.task.teaser
+    field:
+      - field.field.node.task.body
+      - field.field.node.task.field_assignors
+      - field.field.node.task.field_task_history
+      - field.field.node.task.field_task_point
+      - field.field.node.task.field_task_priority
+      - field.field.node.task.field_task_progress
+      - field.field.node.task.field_task_status
+      - field.storage.node.field_assignors
+      - field.storage.node.field_task_history
+      - field.storage.node.field_task_point
+      - field.storage.node.field_task_priority
+      - field.storage.node.field_task_progress
+      - field.storage.node.field_task_status
+    views:
+      - views.view.kanban
+content:
+  menu_link_content:
+    - k1b2c3d4-e5f6-7890-abcd-ef1234567890
