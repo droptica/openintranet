@@ -1,0 +1,43 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: r003a1b2-c3d4-e5f6-7890-abcdef123003
+  bundle: rmb_room
+  default_langcode: en
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'Phone Booth - Quiet Zone Alpha'
+  created:
+    -
+      value: 1726394434
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  field_rmb_room_capacity:
+    -
+      value: 1
+  field_rmb_room_description:
+    -
+      value: 'Private soundproof booth perfect for confidential phone calls, video interviews, and focused individual work. Equipped with comfortable seating and excellent acoustics. Maximum booking: 2 hours per session.'
+      format: plain_text
+  field_rmb_room_location:
+    -
+      value: '2nd Floor, Open Office Area, Near Reception'
+  field_rmb_room_equipment:
+    -
+      value: air_conditioning
+    -
+      value: video_conference_system

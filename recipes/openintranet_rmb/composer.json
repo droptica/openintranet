@@ -1,0 +1,9 @@
+{
+  "name": "openintranet/openintranet_rmb",
+  "description": "Room Booking Recipe - Adds room booking functionality for managing conference room and facility reservations.",
+  "type": "drupal-recipe",
+  "license": "GPL-2.0-or-later",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "version": "1.0-beta1"
+}

@@ -62,6 +62,7 @@
         "drupal/flexible_permissions": "^2.0",
         "drupal/focal_point": "^2.1",
         "drupal/frontend_editing": "^1.8.15",
+        "drupal/fullcalendar_view": "^5.2",
         "drupal/gin": "^5.0",
         "drupal/gin_toolbar": "^3.0",
         "drupal/gtm": "^1.10",

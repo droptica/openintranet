@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_rmb_room_description
+    - filter.format.plain_text
+    - node.type.rmb_room
+  module:
+    - text
+id: node.rmb_room.field_rmb_room_description
+field_name: field_rmb_room_description
+entity_type: node
+bundle: rmb_room
+label: 'Room Description'
+description: 'Detailed info about the room and notes on availability (e.g., only mornings).'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats:
+    - plain_text
+field_type: text_long

@@ -1,0 +1,51 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: r002a1b2-c3d4-e5f6-7890-abcdef123002
+  bundle: rmb_room
+  default_langcode: en
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'Creative Workshop - Innovation Lab'
+  created:
+    -
+      value: 1726394434
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  field_rmb_room_capacity:
+    -
+      value: 8
+  field_rmb_room_description:
+    -
+      value: 'Flexible creative space designed for brainstorming, workshops, and collaborative sessions. Features movable furniture, colorful decor, and plenty of wall space for sticky notes and sketches. Ideal for design thinking sessions and team building activities.'
+      format: plain_text
+  field_rmb_room_location:
+    -
+      value: '3rd Floor, Creative Hub, Room 301'
+  field_rmb_room_equipment:
+    -
+      value: flipchart
+    -
+      value: whiteboard
+    -
+      value: projector
+    -
+      value: air_conditioning
+    -
+      value: coffee_machine
+    -
+      value: water_dispenser

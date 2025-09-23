@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_rmb_room_capacity
+    - node.type.rmb_room
+id: node.rmb_room.field_rmb_room_capacity
+field_name: field_rmb_room_capacity
+entity_type: node
+bundle: rmb_room
+label: 'Room Capacity'
+description: 'Maximum number of people allowed.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

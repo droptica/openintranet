@@ -1,0 +1,44 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.field_rmb_room_equipment
+field_name: field_rmb_room_equipment
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: flipchart
+      label: Flipchart
+    -
+      value: whiteboard
+      label: Whiteboard
+    -
+      value: projector
+      label: Projector
+    -
+      value: tv_display_screen
+      label: 'TV/Display Screen'
+    -
+      value: video_conference_system
+      label: 'Video Conference System'
+    -
+      value: air_conditioning
+      label: 'Air Conditioning'
+    -
+      value: coffee_machine
+      label: 'Coffee Machine'
+    -
+      value: water_dispenser
+      label: 'Water Dispenser'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
