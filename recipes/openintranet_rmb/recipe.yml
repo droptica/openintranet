@@ -7,7 +7,6 @@ install:
   - options
   - datetime_range
   - views
-  - verf
   - fullcalendar_view
 config:
   import:
