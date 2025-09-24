@@ -1,0 +1,16 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - focal_point
+name: course_cover
+label: 'Course cover (220x220)'
+effects:
+  1eb74747-f198-42a8-9d1d-dfb0f1271d4d:
+    uuid: 1eb74747-f198-42a8-9d1d-dfb0f1271d4d
+    id: focal_point_scale_and_crop
+    weight: 1
+    data:
+      width: 220
+      height: 220
+      crop_type: focal_point

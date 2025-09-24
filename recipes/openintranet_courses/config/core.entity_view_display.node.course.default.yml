@@ -1,0 +1,159 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.course.field_course_cover_image
+    - field.field.node.course.field_course_description
+    - field.field.node.course.field_course_lessons
+    - node.type.course
+  module:
+    - image
+    - layout_builder
+    - layout_discovery
+    - user
+third_party_settings:
+  layout_builder:
+    enabled: true
+    allow_custom: false
+    sections:
+      -
+        layout_id: layout_twocol_section
+        layout_settings:
+          label: ''
+          context_mapping: {  }
+          column_widths: 33-67
+          custom_id: ''
+          custom_classes: ''
+          custom_class_choose: {  }
+          custom_styles: ''
+          custom_data_attributes: ''
+          regions:
+            first:
+              region_id: ''
+              region_class_choose: {  }
+              region_classes: ''
+              region_styles: ''
+              region_data: ''
+            second:
+              region_id: ''
+              region_class_choose: {  }
+              region_classes: ''
+              region_styles: ''
+              region_data: ''
+        components:
+          2a02a3ec-3028-4cfc-941d-5628547b47c8:
+            uuid: 2a02a3ec-3028-4cfc-941d-5628547b47c8
+            region: first
+            configuration:
+              id: 'field_block:node:course:field_course_cover_image'
+              label: 'Course cover image'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: image
+                label: hidden
+                settings:
+                  image_link: ''
+                  image_style: large
+                  image_loading:
+                    attribute: lazy
+                third_party_settings: {  }
+            weight: 0
+            additional: {  }
+          5a849b24-6e27-4941-961a-c83b3d02c169:
+            uuid: 5a849b24-6e27-4941-961a-c83b3d02c169
+            region: second
+            configuration:
+              id: 'field_block:node:course:field_course_description'
+              label: 'Course description'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: basic_string
+                label: visually_hidden
+                settings: {  }
+                third_party_settings: {  }
+            weight: 0
+            additional: {  }
+        third_party_settings: {  }
+      -
+        layout_id: layout_onecol
+        layout_settings:
+          label: ''
+        components:
+          75db13c5-0e54-41f2-b873-88cd74811a52:
+            uuid: 75db13c5-0e54-41f2-b873-88cd74811a52
+            region: content
+            configuration:
+              id: 'field_block:node:course:field_course_lessons'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: entity_reference_entity_view
+                label: above
+                settings:
+                  view_mode: course_lessons_table_display
+                  link: false
+                third_party_settings: {  }
+            weight: 1
+            additional: {  }
+          74a56d17-6393-4f27-9c47-43b77e7e0fb2:
+            uuid: 74a56d17-6393-4f27-9c47-43b77e7e0fb2
+            region: content
+            configuration:
+              id: 'extra_field_block:node:course:links'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+            weight: 2
+            additional: {  }
+        third_party_settings: {  }
+_core:
+  default_config_hash: '-M0S_uJh-AQReH_LNbns29fxRj9BMi0deL8_uG0s7Ns'
+id: node.course.default
+targetEntityType: node
+bundle: course
+mode: default
+content:
+  field_course_cover_image:
+    type: image
+    label: above
+    settings:
+      image_link: ''
+      image_style: ''
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_course_description:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_course_lessons:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: course_lessons_table_display
+      link: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  langcode: true
+  search_api_excerpt: true

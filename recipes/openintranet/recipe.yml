@@ -383,6 +383,7 @@ config:
           recipes:
             - consultation_process
             - openintranet_kanban
+            - openintranet_courses
             - openintranet_rmb
         max_selections: 1
     user.role.authenticated:

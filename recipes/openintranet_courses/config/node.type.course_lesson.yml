@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main
+    parent: 'main:'
+_core:
+  default_config_hash: ra7y-Inx0lrGs5b-jj6U3EqOhTKA2NueecHnaYzafWE
+name: 'Course Lesson'
+type: course_lesson
+description: 'Course lesson'
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: false

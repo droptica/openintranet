@@ -1,0 +1,29 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: lesson_learned
+label: 'Lesson Learned'
+bundles:
+  - course_lesson
+entity_type: node
+global: false
+flag_short: 'To learn'
+flag_long: 'Mark as learned'
+flag_message: 'Marked as Learned'
+unflag_short: Learned
+unflag_long: 'Mark as "To learn"'
+unflag_message: 'Marked as "To learn"'
+unflag_denied_text: ''
+weight: 0
+flag_type: 'entity:node'
+link_type: ajax_link
+flagTypeConfig:
+  show_in_links: {  }
+  show_as_field: true
+  show_on_form: false
+  show_contextual_link: false
+  extra_permissions:
+    owner: '0'
+linkTypeConfig: {  }

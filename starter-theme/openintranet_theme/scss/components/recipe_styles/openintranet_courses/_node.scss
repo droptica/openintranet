@@ -1,0 +1,33 @@
+// override .node.sccc
+
+.path-node {
+  .node {
+    &.node--type-course {
+      .node__content {
+        .field--name-field-course-lessons {
+          .field__item {
+            .node--view-mode-course-lessons-table-display{
+              border-bottom: 1px solid #E4E7ED !important;
+            }
+            .flag-lesson-learned {
+              @extend .flag-lesson-learned  ;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+#main {
+  .field--name-field-course-lessons {
+    .node--view-mode-course-lessons-table-display {
+      .node__content {
+        padding: 0 !important;
+      }
+      .flag-lesson-learned {
+        @extend .text-center;
+      }
+    }
+  }
+}
