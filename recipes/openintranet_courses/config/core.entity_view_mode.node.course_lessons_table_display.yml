@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.course_lessons_table_display
+label: 'Course lessons table display'
+description: 'Displays lessons on a course in a table'
+targetEntityType: node
+cache: true

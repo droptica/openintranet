@@ -1,0 +1,24 @@
+@import "../../bookmark";
+
+.flag-lesson-learned {
+  @extend .flag-bookmark;
+
+  a {
+    @extend .btn;
+    @extend .btn-secondary;
+    padding-left: 2.5rem;
+  }
+  // Fine-tune positioning for the book icon
+  a svg {
+    width: 28px; // Slightly smaller than bookmark
+    left: 6px; // Better centering
+  }
+
+  // Override the unflag behavior for book icon - it should fill differently
+  &.action-unflag {
+    a {
+      background-color: var(--bs-btn-hover-bg);
+    }
+
+  }
+}

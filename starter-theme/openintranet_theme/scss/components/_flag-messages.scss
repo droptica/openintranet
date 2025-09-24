@@ -1,0 +1,77 @@
+// Ensure flag container is positioned relatively for absolute positioning of messages
+.flag {
+  position: relative !important;
+}
+
+// Override flag AJAX messages for better visibility
+.js-flag-message {
+  // Position absolutely to not affect document flow
+  position: absolute !important;
+  top: -40px; // Above the flag button
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+
+  // Remove inline positioning
+  display: block !important;
+  margin: 0;
+
+  // Styling
+  padding: 0.5rem 1rem;
+  background-color: rgba($blue-500, 0.95);
+  border: 1px solid $blue-500;
+  border-radius: $border-radius;
+  color: $white;
+  font-weight: 500;
+  font-size: 0.875rem;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+  // Make animation last much longer (2 seconds instead of 3)
+  animation: flag-flash-extended 2s ease-in-out 1 !important;
+}
+
+@keyframes flag-flash-extended {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-10px);
+  }
+  10% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  90% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-10px);
+  }
+}
+
+// Alternative: Make messages permanent (don't auto-hide)
+// Uncomment this if you want messages to stay until manually dismissed
+/*
+.js-flag-message {
+  animation: none !important;
+  opacity: 1 !important;
+  position: relative;
+
+  // Add close button
+  &::after {
+    content: '×';
+    position: absolute;
+    right: 0.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-weight: bold;
+    opacity: 0.7;
+  }
+
+  &:hover::after {
+    opacity: 1;
+  }
+}
+*/

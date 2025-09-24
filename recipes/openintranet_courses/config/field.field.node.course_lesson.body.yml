@@ -1,0 +1,31 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - filter.format.basic_html
+    - filter.format.full_html
+    - filter.format.plain_text
+    - filter.format.restricted_html
+    - node.type.course_lesson
+  module:
+    - text
+id: node.course_lesson.body
+field_name: body
+entity_type: node
+bundle: course_lesson
+label: Content
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: false
+  required_summary: false
+  allowed_formats:
+    - full_html
+    - plain_text
+    - basic_html
+    - restricted_html
+field_type: text_with_summary

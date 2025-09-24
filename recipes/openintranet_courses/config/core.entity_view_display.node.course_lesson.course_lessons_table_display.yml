@@ -1,0 +1,119 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.course_lessons_table_display
+    - field.field.node.course_lesson.body
+    - node.type.course_lesson
+  module:
+    - layout_builder
+    - user
+third_party_settings:
+  layout_builder:
+    enabled: true
+    allow_custom: false
+    sections:
+      -
+        layout_id: layout_threecol_section
+        layout_settings:
+          label: 'Course lessons table display'
+          context_mapping: {  }
+          column_widths: 25-50-25
+          custom_id: ''
+          custom_classes: ''
+          custom_class_choose: {  }
+          custom_styles: ''
+          custom_data_attributes: ''
+          regions:
+            first:
+              region_id: ''
+              region_class_choose: {  }
+              region_classes: ''
+              region_styles: ''
+              region_data: ''
+            second:
+              region_id: ''
+              region_class_choose: {  }
+              region_classes: ''
+              region_styles: ''
+              region_data: ''
+            third:
+              region_id: ''
+              region_class_choose: {  }
+              region_classes: ''
+              region_styles: ''
+              region_data: ''
+        components:
+          6eea5e77-9a12-4801-ad2c-f13cd9ea8db4:
+            uuid: 6eea5e77-9a12-4801-ad2c-f13cd9ea8db4
+            region: first
+            configuration:
+              id: 'field_block:node:course_lesson:title'
+              label: Title
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: string
+                label: above
+                settings:
+                  link_to_entity: true
+                third_party_settings: {  }
+            weight: 0
+            additional: {  }
+          1074d874-1840-4636-9711-614f9f94d2de:
+            uuid: 1074d874-1840-4636-9711-614f9f94d2de
+            region: second
+            configuration:
+              id: 'field_block:node:course_lesson:body'
+              label: Content
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: text_summary_or_trimmed
+                label: hidden
+                settings:
+                  trim_length: 150
+                third_party_settings: {  }
+            weight: 0
+            additional: {  }
+          2f1c9d87-75ee-4ede-8da2-9af16f794275:
+            uuid: 2f1c9d87-75ee-4ede-8da2-9af16f794275
+            region: third
+            configuration:
+              id: 'extra_field_block:node:course_lesson:flag_lesson_learned'
+              label: 'Flag: <em class="placeholder">Lesson Learned</em>'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                settings: {  }
+                third_party_settings: {  }
+            weight: 0
+            additional: {  }
+        third_party_settings: {  }
+id: node.course_lesson.course_lessons_table_display
+targetEntityType: node
+bundle: course_lesson
+mode: course_lessons_table_display
+content:
+  flag_lesson_learned:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  body: true
+  langcode: true
+  search_api_excerpt: true

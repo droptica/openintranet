@@ -1,0 +1,14 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - flag.flag.lesson_learned
+  module:
+    - flag
+id: flag_action.lesson_learned_unflag
+label: Learned
+type: node
+plugin: 'flag_action:lesson_learned_unflag'
+configuration:
+  flag_id: lesson_learned
+  flag_action: unflag

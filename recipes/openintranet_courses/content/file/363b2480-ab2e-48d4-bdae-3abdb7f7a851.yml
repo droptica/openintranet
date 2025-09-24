@@ -1,0 +1,27 @@
+_meta:
+  version: '1.0'
+  entity_type: file
+  uuid: 363b2480-ab2e-48d4-bdae-3abdb7f7a851
+  default_langcode: en
+default:
+  uid:
+    -
+      target_id: 1
+  filename:
+    -
+      value: password-security.png
+  uri:
+    -
+      value: 'private://2025-09/password-security.png'
+  filemime:
+    -
+      value: image/png
+  filesize:
+    -
+      value: 1434518
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1758701882

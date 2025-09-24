@@ -1,0 +1,27 @@
+_meta:
+  version: '1.0'
+  entity_type: file
+  uuid: f336216d-2118-463d-8c90-b3495aa20ea1
+  default_langcode: en
+default:
+  uid:
+    -
+      target_id: 1
+  filename:
+    -
+      value: courses-cover.png
+  uri:
+    -
+      value: 'private://default_images/courses-cover.png'
+  filemime:
+    -
+      value: image/png
+  filesize:
+    -
+      value: 45123
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1739949449

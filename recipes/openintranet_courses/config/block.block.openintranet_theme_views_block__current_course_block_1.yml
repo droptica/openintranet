@@ -1,0 +1,37 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.current_course
+  module:
+    - block_visibility_groups
+    - node
+    - views
+  theme:
+    - openintranet_theme
+id: openintranet_theme_views_block__current_course_block_1
+theme: openintranet_theme
+region: content
+weight: -17
+provider: null
+plugin: 'views_block:current_course-block_1'
+settings:
+  id: 'views_block:current_course-block_1'
+  label: ''
+  label_display: '0'
+  provider: views
+  context_mapping: {  }
+  views_label: ''
+  items_per_page: null
+visibility:
+  condition_group:
+    id: condition_group
+    negate: false
+    block_visibility_group: ''
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+    bundles:
+      course_lesson: course_lesson
