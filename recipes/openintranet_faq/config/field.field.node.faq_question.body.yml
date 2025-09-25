@@ -1,0 +1,25 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - node.type.faq_question
+  module:
+    - text
+_core:
+  default_config_hash: Obvd8hR-eyH3CGttZr-e34tLf710z9RZTQWvmP2Aack
+id: node.faq_question.body
+field_name: body
+entity_type: node
+bundle: faq_question
+label: Answer
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: false
+  required_summary: false
+  allowed_formats: {  }
+field_type: text_with_summary

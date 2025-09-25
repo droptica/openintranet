@@ -385,6 +385,7 @@ config:
             - openintranet_kanban
             - openintranet_courses
             - openintranet_rmb
+            - openintranet_faq
         max_selections: 1
     user.role.authenticated:
       simpleConfigUpdate:

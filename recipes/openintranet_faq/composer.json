@@ -1,0 +1,9 @@
+{
+  "name": "openintranet/openintranet_faq",
+  "description": "Open Intranet FAQ Recipe - Adds FAQ content types and functionality for knowledge management and self-service support.",
+  "type": "drupal-recipe",
+  "license": "GPL-2.0-or-later",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "version": "1.0-beta1"
+}
