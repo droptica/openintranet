@@ -1,0 +1,27 @@
+_meta:
+  version: '1.0'
+  entity_type: file
+  uuid: d8f9d8b4-7ae7-4734-a985-ab3080abd60d
+  default_langcode: en
+default:
+  uid:
+    -
+      target_id: 1
+  filename:
+    -
+      value: printer-plain.png
+  uri:
+    -
+      value: 'private://2025-09/printer-plain.png'
+  filemime:
+    -
+      value: image/png
+  filesize:
+    -
+      value: 1218941
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1759153373

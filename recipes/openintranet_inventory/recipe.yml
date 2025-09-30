@@ -1,0 +1,77 @@
+name: '[Open Intranet] Inventory Management'
+type: 'Asset Management'
+description: 'Comprehensive inventory management system for tracking items, storage locations, and assignments. Creates content types for inventory items, storage locations, and assignment tracking with fields for item details, location management, and user assignments. Includes Views for inventory listings, assignment history, and search functionality. Perfect for asset tracking, equipment management, and organizational inventory control.'
+install:
+  - node
+  - field
+  - user
+  - taxonomy
+  - views
+  - views_ui
+  - datetime
+  - options
+  - text
+  - image
+  - file
+  - auto_entitylabel
+  - prepopulate
+  - default_content
+config:
+  strict: false
+  import:
+    # Content types
+    system:
+      - node.type.inventory_location
+      - node.type.inventory_item
+      - node.type.inventory_assignment
+      - core.entity_form_display.node.inventory_item.default
+      - core.entity_form_display.node.inventory_assignment.default
+      - core.entity_view_display.node.inventory_item.default
+      - core.entity_view_display.node.inventory_assignment.default
+      - auto_entitylabel.settings.node.inventory_assignment
+    # Taxonomy
+    taxonomy:
+      - taxonomy.vocabulary.inventory_item_types
+    # Field storage
+    field:
+      - field.storage.node.field_inventory_number
+      - field.storage.node.field_item_type
+      - field.storage.node.field_item_serial_number
+      - field.storage.node.field_item_model
+      - field.storage.node.field_item_manufacturer
+      - field.storage.node.field_purchase_date
+      - field.storage.node.field_warranty_expiry
+      - field.storage.node.field_current_location
+      - field.storage.node.field_item_specifications
+      - field.storage.node.field_item_notes
+      - field.storage.node.field_item_image
+      - field.storage.node.field_assigned_item
+      - field.storage.node.field_assigned_to_user
+      - field.storage.node.field_assigned_to_location
+      - field.storage.node.field_assignment_date
+      - field.storage.node.field_expected_return_date
+      - field.storage.node.field_assignment_notes
+      - field.storage.node.field_assignment_image
+      - field.field.node.inventory_item.field_inventory_number
+      - field.field.node.inventory_item.field_item_type
+      - field.field.node.inventory_item.field_item_serial_number
+      - field.field.node.inventory_item.field_item_model
+      - field.field.node.inventory_item.field_item_manufacturer
+      - field.field.node.inventory_item.field_purchase_date
+      - field.field.node.inventory_item.field_warranty_expiry
+      - field.field.node.inventory_item.field_current_location
+      - field.field.node.inventory_item.field_item_specifications
+      - field.field.node.inventory_item.field_item_notes
+      - field.field.node.inventory_item.field_item_image
+      - field.field.node.inventory_assignment.field_assigned_item
+      - field.field.node.inventory_assignment.field_assigned_to_user
+      - field.field.node.inventory_assignment.field_assigned_to_location
+      - field.field.node.inventory_assignment.field_assignment_date
+      - field.field.node.inventory_assignment.field_expected_return_date
+      - field.field.node.inventory_assignment.field_assignment_notes
+      - field.field.node.inventory_assignment.field_assignment_image
+    # Views
+    views:
+      - views.view.inventory_items
+      - views.view.inventory_item_assignments
+      - views.view.inventory_reassign_this_item_button

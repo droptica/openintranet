@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_item_specifications
+    - filter.format.plain_text
+    - node.type.inventory_item
+  module:
+    - text
+id: node.inventory_item.field_item_specifications
+field_name: field_item_specifications
+entity_type: node
+bundle: inventory_item
+label: Specifications
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats:
+    - plain_text
+field_type: text_long

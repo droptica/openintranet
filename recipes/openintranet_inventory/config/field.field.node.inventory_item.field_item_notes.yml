@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_item_notes
+    - filter.format.plain_text
+    - node.type.inventory_item
+  module:
+    - text
+id: node.inventory_item.field_item_notes
+field_name: field_item_notes
+entity_type: node
+bundle: inventory_item
+label: Notes
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats:
+    - plain_text
+field_type: text_long

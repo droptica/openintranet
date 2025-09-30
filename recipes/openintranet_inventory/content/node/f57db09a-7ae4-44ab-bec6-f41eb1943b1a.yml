@@ -1,0 +1,75 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: f57db09a-7ae4-44ab-bec6-f41eb1943b1a
+  bundle: inventory_item
+  default_langcode: en
+  depends:
+    d8f9d8b4-7ae7-4734-a985-ab3080abd60d: file
+    c9a50103-b5fc-4e44-ac03-a11fa1d2e1ce: taxonomy_term
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'White Printer '
+  created:
+    -
+      value: 1759153268
+  promote:
+    -
+      value: true
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /content/white-printer
+      langcode: en
+      pathauto: 1
+  field_inventory_number:
+    -
+      value: QWERTY8765
+  field_item_image:
+    -
+      entity: d8f9d8b4-7ae7-4734-a985-ab3080abd60d
+      alt: 'plain printer'
+      title: ''
+      width: 1024
+      height: 1024
+  field_item_manufacturer:
+    -
+      value: 'White Printers'
+  field_item_model:
+    -
+      value: 'Plain white'
+  field_item_notes:
+    -
+      value: 'Nothing to note'
+      format: plain_text
+  field_item_serial_number:
+    -
+      value: ABCDEFG12345
+  field_item_specifications:
+    -
+      value: "Very white printer\r\nNo colours\r\nOnly white buttons"
+      format: plain_text
+  field_item_type:
+    -
+      entity: c9a50103-b5fc-4e44-ac03-a11fa1d2e1ce
+  field_purchase_date:
+    -
+      value: '2025-09-29'
+  field_warranty_expiry:
+    -
+      value: '2027-09-29'

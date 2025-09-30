@@ -1,0 +1,51 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: e6a5047c-70f2-44a6-9fd4-848dbf7e40a4
+  bundle: inventory_assignment
+  default_langcode: en
+  depends:
+    f57db09a-7ae4-44ab-bec6-f41eb1943b1a: node
+    ef586569-26a3-4b98-85c9-19b5a94d7a11: node
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'White Printer - number: , date: Mon, 29 Sep 2025 - 16:09'
+  created:
+    -
+      value: 1759154970
+  promote:
+    -
+      value: true
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /content/white-printer-number-date-mon-29-sep-2025-1609
+      langcode: en
+      pathauto: 1
+  field_assigned_item:
+    -
+      entity: f57db09a-7ae4-44ab-bec6-f41eb1943b1a
+  field_assigned_to_location:
+    -
+      entity: ef586569-26a3-4b98-85c9-19b5a94d7a11
+  field_assignment_date:
+    -
+      value: '2025-09-29T14:09:30'
+  field_expected_return_date:
+    -
+      value: '2025-09-29'

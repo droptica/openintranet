@@ -1,0 +1,439 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.inventory_item.field_inventory_number
+    - field.field.node.inventory_item.field_item_image
+    - field.field.node.inventory_item.field_item_manufacturer
+    - field.field.node.inventory_item.field_item_model
+    - field.field.node.inventory_item.field_item_notes
+    - field.field.node.inventory_item.field_item_serial_number
+    - field.field.node.inventory_item.field_item_specifications
+    - field.field.node.inventory_item.field_item_type
+    - field.field.node.inventory_item.field_purchase_date
+    - field.field.node.inventory_item.field_warranty_expiry
+    - node.type.inventory_item
+    - views.view.inventory_item_assignments
+    - views.view.inventory_reassign_this_item_button
+  module:
+    - datetime
+    - image
+    - layout_builder
+    - layout_discovery
+    - text
+    - user
+    - views
+third_party_settings:
+  layout_builder:
+    enabled: true
+    allow_custom: false
+    sections:
+      -
+        layout_id: layout_twocol_section
+        layout_settings:
+          label: ''
+          context_mapping: {  }
+          column_widths: 50-50
+          custom_id: ''
+          custom_classes: ''
+          custom_class_choose: {  }
+          custom_styles: ''
+          custom_data_attributes: ''
+          regions:
+            first:
+              region_id: ''
+              region_class_choose: {  }
+              region_classes: ''
+              region_styles: ''
+              region_data: ''
+            second:
+              region_id: ''
+              region_class_choose: {  }
+              region_classes: ''
+              region_styles: ''
+              region_data: ''
+        components:
+          06c8a663-d042-47ca-82f7-f702a40d589c:
+            uuid: 06c8a663-d042-47ca-82f7-f702a40d589c
+            region: second
+            configuration:
+              id: 'views_block:inventory_reassign_this_item_button-block_1'
+              label: ''
+              label_display: '0'
+              provider: views
+              context_mapping: {  }
+              views_label: ''
+              items_per_page: null
+            weight: 0
+            additional: {  }
+          7fc57f81-a40e-4b52-a822-90f1907bfb2d:
+            uuid: 7fc57f81-a40e-4b52-a822-90f1907bfb2d
+            region: first
+            configuration:
+              id: 'views_block:inventory_item_assignments-block_2'
+              label: ''
+              label_display: '0'
+              provider: views
+              context_mapping: {  }
+              views_label: ''
+              items_per_page: null
+            weight: 0
+            additional: {  }
+        third_party_settings: {  }
+      -
+        layout_id: layout_onecol
+        layout_settings:
+          label: ''
+          context_mapping: {  }
+          custom_id: ''
+          custom_classes: ''
+          custom_class_choose: {  }
+          custom_styles: ''
+          custom_data_attributes: ''
+          regions:
+            content:
+              region_id: ''
+              region_class_choose: {  }
+              region_classes: ''
+              region_styles: ''
+              region_data: ''
+        components: {  }
+        third_party_settings: {  }
+      -
+        layout_id: layout_twocol_section
+        layout_settings:
+          label: ''
+          context_mapping: {  }
+          column_widths: 50-50
+          custom_id: ''
+          custom_classes: ''
+          custom_class_choose: {  }
+          custom_styles: ''
+          custom_data_attributes: ''
+          regions:
+            first:
+              region_id: ''
+              region_class_choose: {  }
+              region_classes: ''
+              region_styles: ''
+              region_data: ''
+            second:
+              region_id: ''
+              region_class_choose: {  }
+              region_classes: ''
+              region_styles: ''
+              region_data: ''
+        components:
+          fa2f399a-3bcc-44b7-96d3-e4b774fe94fd:
+            uuid: fa2f399a-3bcc-44b7-96d3-e4b774fe94fd
+            region: first
+            configuration:
+              id: 'field_block:node:inventory_item:field_item_type'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: entity_reference_label
+                label: inline
+                settings:
+                  link: true
+                third_party_settings: {  }
+            weight: 1
+            additional: {  }
+          89c739c4-b519-4f4e-9f5e-f7c96ade7b67:
+            uuid: 89c739c4-b519-4f4e-9f5e-f7c96ade7b67
+            region: first
+            configuration:
+              id: 'field_block:node:inventory_item:field_item_serial_number'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: string
+                label: inline
+                settings:
+                  link_to_entity: false
+                third_party_settings: {  }
+            weight: 2
+            additional: {  }
+          537afe36-63de-41eb-8885-7593205eab0a:
+            uuid: 537afe36-63de-41eb-8885-7593205eab0a
+            region: first
+            configuration:
+              id: 'field_block:node:inventory_item:field_inventory_number'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: string
+                label: inline
+                settings:
+                  link_to_entity: false
+                third_party_settings: {  }
+            weight: 3
+            additional: {  }
+          368e574e-7c91-4297-b6d5-6261ae317232:
+            uuid: 368e574e-7c91-4297-b6d5-6261ae317232
+            region: second
+            configuration:
+              id: 'field_block:node:inventory_item:field_item_model'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: string
+                label: inline
+                settings:
+                  link_to_entity: false
+                third_party_settings: {  }
+            weight: 0
+            additional: {  }
+          765d19e8-4ef3-4a87-8c06-60bcf6b6d961:
+            uuid: 765d19e8-4ef3-4a87-8c06-60bcf6b6d961
+            region: second
+            configuration:
+              id: 'field_block:node:inventory_item:field_item_manufacturer'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: string
+                label: inline
+                settings:
+                  link_to_entity: false
+                third_party_settings: {  }
+            weight: 1
+            additional: {  }
+          ef450887-2a75-40dc-860a-62c4ff101cfb:
+            uuid: ef450887-2a75-40dc-860a-62c4ff101cfb
+            region: second
+            configuration:
+              id: 'field_block:node:inventory_item:field_purchase_date'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: datetime_default
+                label: inline
+                settings:
+                  timezone_override: ''
+                  format_type: medium
+                third_party_settings: {  }
+            weight: 2
+            additional: {  }
+          19c8c253-9d6a-4e9b-8d9d-f9ef2248f6a5:
+            uuid: 19c8c253-9d6a-4e9b-8d9d-f9ef2248f6a5
+            region: second
+            configuration:
+              id: 'field_block:node:inventory_item:field_warranty_expiry'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: datetime_default
+                label: inline
+                settings:
+                  timezone_override: ''
+                  format_type: medium
+                third_party_settings: {  }
+            weight: 3
+            additional: {  }
+        third_party_settings: {  }
+      -
+        layout_id: layout_onecol
+        layout_settings:
+          label: ''
+        components:
+          179a0ea9-9c94-46c2-bd68-dca02a65b31d:
+            uuid: 179a0ea9-9c94-46c2-bd68-dca02a65b31d
+            region: content
+            configuration:
+              id: 'field_block:node:inventory_item:field_item_specifications'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: text_default
+                label: above
+                settings: {  }
+                third_party_settings: {  }
+            weight: 9
+            additional: {  }
+          d2c63d06-1258-448a-ad1b-52c673864685:
+            uuid: d2c63d06-1258-448a-ad1b-52c673864685
+            region: content
+            configuration:
+              id: 'field_block:node:inventory_item:field_item_notes'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: text_default
+                label: above
+                settings: {  }
+                third_party_settings: {  }
+            weight: 10
+            additional: {  }
+          c9604977-0b4b-42be-b334-4bf06653b5ed:
+            uuid: c9604977-0b4b-42be-b334-4bf06653b5ed
+            region: content
+            configuration:
+              id: 'field_block:node:inventory_item:field_item_image'
+              label: 'Images:'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: image
+                label: above
+                settings:
+                  image_link: file
+                  image_style: medium
+                  image_loading:
+                    attribute: lazy
+                third_party_settings: {  }
+            weight: 12
+            additional: {  }
+        third_party_settings: {  }
+      -
+        layout_id: layout_onecol
+        layout_settings:
+          label: ''
+          context_mapping: {  }
+          custom_id: ''
+          custom_classes: ''
+          custom_class_choose: {  }
+          custom_styles: ''
+          custom_data_attributes: ''
+          regions:
+            content:
+              region_id: ''
+              region_class_choose: {  }
+              region_classes: ''
+              region_styles: ''
+              region_data: ''
+        components:
+          e4e93b73-fd6b-4a03-90b0-c2dbd8ce9418:
+            uuid: e4e93b73-fd6b-4a03-90b0-c2dbd8ce9418
+            region: content
+            configuration:
+              id: 'views_block:inventory_item_assignments-block_1'
+              label: ''
+              label_display: visible
+              provider: views
+              context_mapping: {  }
+              views_label: ''
+              items_per_page: null
+            weight: 0
+            additional: {  }
+          d81e6818-2900-4cae-8a3d-43144d90a2fd:
+            uuid: d81e6818-2900-4cae-8a3d-43144d90a2fd
+            region: content
+            configuration:
+              id: 'extra_field_block:node:inventory_item:links'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+            weight: 1
+            additional: {  }
+        third_party_settings: {  }
+_core:
+  default_config_hash: wRWqljtlDQjTJgFSE1aN4VCjgwnti501Wbuj9MakyG8
+id: node.inventory_item.default
+targetEntityType: node
+bundle: inventory_item
+mode: default
+content:
+  field_inventory_number:
+    type: string
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_item_image:
+    type: image
+    label: hidden
+    settings:
+      image_link: ''
+      image_style: ''
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_item_manufacturer:
+    type: string
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_item_model:
+    type: string
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_item_notes:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 9
+    region: content
+  field_item_serial_number:
+    type: string
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_item_specifications:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 8
+    region: content
+  field_item_type:
+    type: entity_reference_label
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_purchase_date:
+    type: datetime_default
+    label: inline
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_warranty_expiry:
+    type: datetime_default
+    label: inline
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 7
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
+hidden:
+  langcode: true
+  search_api_excerpt: true

@@ -386,6 +386,7 @@ config:
             - openintranet_courses
             - openintranet_rmb
             - openintranet_faq
+            - openintranet_inventory
         max_selections: 1
     user.role.authenticated:
       simpleConfigUpdate:

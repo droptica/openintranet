@@ -1,0 +1,28 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_assigned_to_user
+    - node.type.inventory_assignment
+id: node.inventory_assignment.field_assigned_to_user
+field_name: field_assigned_to_user
+entity_type: node
+bundle: inventory_assignment
+label: 'Assigned to User'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:user'
+  handler_settings:
+    target_bundles: null
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    filter:
+      type: _none
+    include_anonymous: true
+field_type: entity_reference
