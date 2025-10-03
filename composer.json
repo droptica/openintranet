@@ -172,9 +172,6 @@
             "drupal/flag": {
                 "Add a 'User's Flaggings' view relationship": "https://www.drupal.org/files/issues/2024-05-23/3449477-2.patch"
             },
-            "drupal/ckeditor_media_resize": {
-                "[3531299] Fix for CKEditor v45.02": "https://www.drupal.org/files/issues/2025-06-28/ckeditor_media_resize--2025-06-28--3531299--mr-16.patch"
-            },
             "drupal/views_organization_chart": {
                 "views_organization_chart - Drupal 11 compatibility fixes": "patches/views_organization_chart/views_organization_chart_drupal11_compatibility.patch"
             }
