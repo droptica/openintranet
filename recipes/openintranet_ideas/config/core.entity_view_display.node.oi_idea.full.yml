@@ -1,0 +1,61 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_display.comment.idea_comments.default
+    - core.entity_view_mode.node.full
+    - field.field.node.oi_idea.body
+    - field.field.node.oi_idea.field_idea_comments
+    - field.field.node.oi_idea.field_idea_files
+    - field.field.node.oi_idea.field_idea_status
+    - node.type.oi_idea
+  module:
+    - comment
+    - file
+    - text
+    - user
+_core:
+  default_config_hash: KQkAwoQcS_dOyrKT46rzMQjSLYH4qF10_ElisY2dsAs
+id: node.oi_idea.full
+targetEntityType: node
+bundle: oi_idea
+mode: full
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_idea_comments:
+    type: comment_default
+    label: above
+    settings:
+      view_mode: default
+      pager_id: 0
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_idea_files:
+    type: file_default
+    label: above
+    settings:
+      use_description_as_link_text: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  flag_idea_vote:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+hidden:
+  field_idea_status: true
+  langcode: true
+  search_api_excerpt: true

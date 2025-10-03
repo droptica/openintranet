@@ -1,0 +1,35 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - comment.type.idea_comments
+    - field.field.comment.idea_comments.comment_body
+  module:
+    - text
+id: comment.idea_comments.default
+targetEntityType: comment
+bundle: idea_comments
+mode: default
+content:
+  author:
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  comment_body:
+    type: text_textarea
+    weight: 2
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 1
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+hidden:
+  subject: true

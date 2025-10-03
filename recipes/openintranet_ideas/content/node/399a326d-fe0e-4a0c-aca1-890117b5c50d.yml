@@ -1,0 +1,54 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 399a326d-fe0e-4a0c-aca1-890117b5c50d
+  bundle: oi_idea
+  default_langcode: en
+  depends:
+    '00000000-0000-0000-0000-000000000001': user
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'Cross-Team Collaboration Days'
+  created:
+    -
+      value: 1759482626
+  promote:
+    -
+      value: true
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /content/cross-team-collaboration-days
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: '<p class="p1">To reduce silos and improve knowledge sharing, the company could hold quarterly “collaboration days” where different teams present their current projects. These sessions would allow employees to better understand each other’s work, find opportunities for cooperation, and avoid duplicated efforts. Employees would feel more connected to the broader company goals rather than only their department’s tasks. Management would benefit from higher transparency and improved alignment across teams. Over time, this initiative could foster innovation by encouraging employees from different areas to brainstorm solutions together.</p>'
+      format: full_html
+      summary: ''
+  field_idea_status:
+    -
+      value: proposed
+  field_idea_comments:
+    -
+      status: 2
+      cid: 0
+      last_comment_timestamp: 1759482636
+      last_comment_name: ''
+      last_comment_uid: 1
+      comment_count: 0

@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: idea_comments
+label: 'Idea comments'
+target_entity_type_id: node
+description: 'Allows to comment on ideas'

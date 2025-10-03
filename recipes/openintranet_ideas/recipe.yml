@@ -1,0 +1,49 @@
+name: '[Open Intranet] Ideas'
+type: 'Employee idea management'
+description: 'Employees can submit ideas and vote on them.'
+install:
+  - node
+  - text
+  - user
+  - views
+  - flag
+  - views_ui
+  - options
+  - default_content
+config:
+  strict: false
+  import:
+    system:
+      - node.type.oi_idea
+      - language.content_settings.node.oi_idea
+      - language.content_settings.comment.idea_comments
+      - core.entity_form_display.node.oi_idea.default
+      - core.entity_view_display.node.oi_idea.default
+      - core.entity_view_display.node.oi_idea.full
+      - core.entity_view_display.node.oi_idea.teaser
+      - core.entity_view_display.comment.idea_comments.default
+      - core.entity_form_display.comment.idea_comments.default
+      - system.action.flag_action.idea_vote_flag
+      - system.action.flag_action.idea_vote_unflag
+    field:
+      - field.storage.node.field_idea_files
+      - field.storage.node.field_idea_comments
+      - field.field.node.oi_idea.field_idea_files
+      - field.field.node.oi_idea.field_idea_comments
+      - field.field.node.oi_idea.body
+      - field.field.comment.idea_comments.comment_body
+    comment:
+      - comment.type.idea_comments
+    flag:
+      - flag.flag.idea_vote
+    views:
+      - views.view.ideas
+  actions:
+    user.role.authenticated:
+      grantPermissions:
+        - 'create oi_idea content'
+        - 'edit own oi_idea content'
+        - 'delete own oi_idea content'
+        - 'view oi_idea revisions'
+        - 'flag idea_vote'
+        - 'unflag idea_vote'

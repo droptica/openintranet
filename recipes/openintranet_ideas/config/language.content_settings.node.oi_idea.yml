@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.oi_idea
+id: node.oi_idea
+target_entity_type_id: node
+target_bundle: oi_idea
+default_langcode: site_default
+language_alterable: false

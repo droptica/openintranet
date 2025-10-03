@@ -1,0 +1,29 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: idea_vote
+label: 'Idea vote'
+bundles:
+  - oi_idea
+entity_type: node
+global: false
+flag_short: 'Vote for this'
+flag_long: ''
+flag_message: 'You cast your vote for this'
+unflag_short: 'You voted for this'
+unflag_long: ''
+unflag_message: 'You retracted your vote'
+unflag_denied_text: ''
+weight: 0
+flag_type: 'entity:node'
+link_type: ajax_link
+flagTypeConfig:
+  show_in_links: {  }
+  show_as_field: true
+  show_on_form: false
+  show_contextual_link: false
+  extra_permissions:
+    owner: '0'
+linkTypeConfig: {  }

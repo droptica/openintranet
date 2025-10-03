@@ -1,0 +1,14 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - flag.flag.idea_vote
+  module:
+    - flag
+id: flag_action.idea_vote_flag
+label: 'Vote for this'
+type: node
+plugin: 'flag_action:idea_vote_flag'
+configuration:
+  flag_id: idea_vote
+  flag_action: flag

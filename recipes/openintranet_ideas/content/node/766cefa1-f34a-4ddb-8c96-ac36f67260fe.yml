@@ -1,0 +1,54 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 766cefa1-f34a-4ddb-8c96-ac36f67260fe
+  bundle: oi_idea
+  default_langcode: en
+  depends:
+    '00000000-0000-0000-0000-000000000001': user
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'Green Office Initiative'
+  created:
+    -
+      value: 1759482606
+  promote:
+    -
+      value: true
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /content/green-office-initiative
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: '<p class="p1">The company could introduce a “green workplace” program aimed at reducing environmental impact and promoting sustainability. This could include simple steps like introducing recycling bins, reducing paper printing in favor of digital tools, and promoting energy-saving practices. Employees would feel proud to work in an eco-conscious environment, which also aligns with global corporate social responsibility trends. It would help reduce operational costs by cutting waste and energy use. Additionally, the company could highlight its environmental efforts in marketing and employer branding, making it more attractive to future hires.</p>'
+      format: full_html
+      summary: ''
+  field_idea_status:
+    -
+      value: implemented
+  field_idea_comments:
+    -
+      status: 2
+      cid: 0
+      last_comment_timestamp: 1759482621
+      last_comment_name: ''
+      last_comment_uid: 1
+      comment_count: 0

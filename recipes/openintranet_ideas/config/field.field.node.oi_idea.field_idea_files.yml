@@ -1,0 +1,26 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_idea_files
+    - node.type.oi_idea
+  module:
+    - file
+id: node.oi_idea.field_idea_files
+field_name: field_idea_files
+entity_type: node
+bundle: oi_idea
+label: idea_files
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:file'
+  handler_settings: {  }
+  file_directory: '[date:custom:Y]-[date:custom:m]'
+  file_extensions: 'txt rtf pdf doc docx xls xlsx jpg jpeg png zip 7z ppt pptx'
+  max_filesize: ''
+  description_field: true
+field_type: file

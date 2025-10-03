@@ -1,0 +1,54 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 98e8a369-4b54-4cbb-a70c-7fd365e08ca2
+  bundle: oi_idea
+  default_langcode: en
+  depends:
+    '00000000-0000-0000-0000-000000000001': user
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'Internal Mentorship Program'
+  created:
+    -
+      value: 1759482165
+  promote:
+    -
+      value: true
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /content/internal-mentorship-program
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: '<p class="p1"><strong>The idea is to launch a structured</strong> mentorship program within the company, where more experienced employees are paired with juniors or new hires. Mentors would provide guidance, share their professional knowledge, and help mentees navigate career development. This reduces onboarding time and builds stronger relationships across departments. Employees benefit by gaining valuable insights and growth opportunities, while the company develops a more skilled and engaged workforce. Over time, this program would also strengthen company culture and improve retention rates.</p>'
+      format: full_html
+      summary: ''
+  field_idea_status:
+    -
+      value: selected
+  field_idea_comments:
+    -
+      status: 2
+      cid: 0
+      last_comment_timestamp: 1759482603
+      last_comment_name: ''
+      last_comment_uid: 1
+      comment_count: 0
