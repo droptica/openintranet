@@ -387,7 +387,7 @@ config:
             - openintranet_rmb
             - openintranet_faq
             - openintranet_inventory
-            - openintranet_ideas
+            - openintranet_kudos
         max_selections: 1
     user.role.authenticated:
       simpleConfigUpdate:

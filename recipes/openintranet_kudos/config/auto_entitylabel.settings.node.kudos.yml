@@ -1,0 +1,10 @@
+status: 1
+pattern: 'Kudos from [current-user:field_first_name] [current-user:field_last_name]'
+escape: false
+preserve_titles: false
+save: false
+chunk: 50
+dependencies:
+  config:
+    - node.type.kudos
+new_content_behavior: 0

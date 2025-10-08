@@ -1,0 +1,20 @@
+name: '[Open Intranet] Kudos'
+type: 'Employee Recognition'
+description: 'Employee recognition and kudos system for acknowledging achievements and contributions. Creates kudos content types with fields for recognition messages, recipients, and categories. Includes Views for kudos listings and user recognition displays.'
+install:
+  - node
+  - text
+  - user
+  - views
+  - views_ui
+  - options
+  - default_content
+  - auto_entitylabel
+config:
+  strict: false
+  actions:
+    user.role.authenticated:
+      grantPermissions:
+        - 'create kudos content'
+        - 'edit own kudos content'
+        - 'delete own kudos content'
