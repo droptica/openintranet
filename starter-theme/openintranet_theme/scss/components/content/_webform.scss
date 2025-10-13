@@ -29,9 +29,16 @@
 
           .js-form-item {
             label, .fieldset-legend {
-              color: $body-tertiary-color;
-
+              
               @include body-500;
+              color: $blue-600;
+              font-size: 1.125rem;
+            }
+
+            .form-check-label {
+              &:hover {
+                font-weight: 600;
+              }
             }
 
             input {
@@ -49,10 +56,14 @@
             input {
               position: relative;
               top: 2px;
+              background-color: $blue-500;
 
               &:not(:checked) {
-                background-color: $white;
+                background-color: $blue-100;
               }
+            }
+            label {
+              color:  $dark-navy-600
             }
           }
 
@@ -121,10 +132,14 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                border-color: $blue-400 !important;
+                border-width: 2px;
               }
 
               input:checked + label {
-                background-color: $blue-100;
+                background-color: $blue-500;
+                color: $white;
+                box-shadow: none;
               }
             }
           }
@@ -132,7 +147,7 @@
           .form-actions {
             display: flex;
             align-items: center;
-            justify-content: flex-end;
+            justify-content: flex-start;
 
             button {
               border-radius: $border-radius;
@@ -145,6 +160,9 @@
                 background: $blue-100;
               }
             }
+          }
+          .description {
+            color: $dark-navy-600 !important;
           }
         }
       }
