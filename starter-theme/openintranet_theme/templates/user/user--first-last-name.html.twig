@@ -24,7 +24,11 @@
   ]
 %}
 
-{% set user = content.field_first_name["#object"] %}
+{# The user variable should be available directly in user templates #}
+{# But let's also try the field object as backup #}
+{% if not user and content.field_first_name["#object"] %}
+  {% set user = content.field_first_name["#object"] %}
+{% endif %}
 {% set first_name = content.field_first_name|render|striptags|trim %}
 {% set last_name = content.field_last_name|render|striptags|trim %}
 
@@ -37,18 +41,41 @@
   {% set name_parts = name_parts|merge([last_name]) %}
 {% endif %}
 
-{# Join the name parts with spaces #}
+{# Join the name parts with spaces, fallback to username if no names #}
 {% set full_name = name_parts|join(' ') %}
+{% if not full_name and user and user.name.value %}
+  {% set full_name = user.name.value %}
+{% endif %}
+{# Try alternative ways to get username if user.name.value doesn't work #}
+{% if not full_name and user and user.getAccountName %}
+  {% set full_name = user.getAccountName() %}
+{% endif %}
+{% if not full_name and user and user.name %}
+  {% set full_name = user.name %}
+{% endif %}
+{% if not full_name and user and user.get('name') %}
+  {% set full_name = user.get('name').value %}
+{% endif %}
+{# Final fallback if everything is empty #}
+{% if not full_name %}
+  {% set full_name = 'Unknown User' %}
+{% endif %}
 
 {# Get additional fields (excluding the name fields we're handling specially) #}
 {% set additional_fields = content|without('field_first_name', 'field_last_name') %}
 
 <div{{ attributes.addClass(classes) }}>
-  <a href="{{ path('entity.user.canonical', {'user': user.uid.value}) }}" class="user--first-last-name__link text-decoration-none">
+  {% if user and user.uid.value and user.uid.value > 0 %}
+    <a href="{{ path('entity.user.canonical', {'user': user.uid.value}) }}" class="user--first-last-name__link text-decoration-none">
+      <span class="user--first-last-name__name">
+        {{ full_name }}
+      </span>
+    </a>
+  {% else %}
     <span class="user--first-last-name__name">
       {{ full_name }}
     </span>
-  </a>
+  {% endif %}
 
   {# Display any additional fields that were added to the view mode #}
   {% if additional_fields %}
