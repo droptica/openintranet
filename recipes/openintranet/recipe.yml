@@ -388,6 +388,7 @@ config:
             - openintranet_faq
             - openintranet_inventory
             - openintranet_kudos
+            - openintranet_ideas
         max_selections: 1
     user.role.authenticated:
       simpleConfigUpdate:
