@@ -7,6 +7,8 @@ dependencies:
     - node.type.kudos
   module:
     - user
+_core:
+  default_config_hash: XS6Pp3o4oqHCdcnY9k6cNcEMmwfehenXkV5HSzajJQA
 id: node.kudos.default
 targetEntityType: node
 bundle: kudos
@@ -20,10 +22,11 @@ content:
     weight: 102
     region: content
   field_kudos_for_whom:
-    type: entity_reference_label
+    type: entity_reference_entity_view
     label: above
     settings:
-      link: true
+      view_mode: first_last_name
+      link: false
     third_party_settings: {  }
     weight: 101
     region: content
