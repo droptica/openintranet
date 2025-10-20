@@ -373,13 +373,18 @@ config:
               remote_image: /themes/custom/openintranet_theme/images/icons/thumbs-up.svg
               html_element: ''
 
+    package_manager.settings:
+      simpleConfigUpdate:
+        additional_trusted_composer_plugins:
+          - cweagans/composer-patches
+          - oomphinc/composer-installers-extender
+          - wikimedia/composer-merge-plugin
+          - zaporylie/composer-drupal-optimizations
     project_browser.admin_settings:
       simpleConfigUpdate:
-        default_source: recommended
+        default_source: recipes
         enabled_sources:
-          recommended:
-            uri: 'profiles/openintranet/openintranet-recommended-recipes.yml'
-            ttl: 86400
+          recipes: {}
         allow_ui_install: true
         max_selections: 1
     user.role.authenticated:
