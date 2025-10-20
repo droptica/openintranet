@@ -375,20 +375,12 @@ config:
 
     project_browser.admin_settings:
       simpleConfigUpdate:
-        default_source: recipes
+        default_source: recommended
         enabled_sources:
-          recipes: {}
+          recommended:
+            uri: 'profiles/openintranet/openintranet-recommended-recipes.yml'
+            ttl: 86400
         allow_ui_install: true
-        allowed_projects:
-          recipes:
-            - consultation_process
-            - openintranet_kanban
-            - openintranet_courses
-            - openintranet_rmb
-            - openintranet_faq
-            - openintranet_inventory
-            - openintranet_kudos
-            - openintranet_ideas
         max_selections: 1
     user.role.authenticated:
       simpleConfigUpdate:

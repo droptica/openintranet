@@ -1,0 +1,103 @@
+- machineName: consultation_process
+  title: '[Open Intranet] Consultation Process'
+  body:
+    summary: 'Comprehensive consultation management system with automated workflow for organizational decision-making processes.'
+    value: 'Creates consultation and consultation review content types with fields for deadlines, automated notifications, and approval workflows. Includes Views for consultation listings and management dashboards.'
+  packageName: 'consultation_process'
+  core: '^11.2'
+  categories:
+    openintranet: 'Open Intranet'
+  isCompatible: true
+  isMaintained: true
+  isCovered: true
+
+- machineName: openintranet_kanban
+  title: '[Open Intranet] Kanban Board (experimental)'
+  body:
+    summary: 'Kanban board functionality for Open Intranet.'
+    value: 'Enables field states management and kanban-style views for content organization and workflow visualization.'
+  packageName: 'openintranet_kanban'
+  core: '^11.2'
+  categories:
+    openintranet: 'Open Intranet'
+  isCompatible: true
+  isMaintained: true
+  isCovered: true
+
+- machineName: openintranet_courses
+  title: '[Open Intranet] Courses'
+  body:
+    summary: 'Comprehensive learning management system for organizational training and course delivery.'
+    value: 'Creates course and lesson content types with fields for course structure, lesson content, progress tracking, and completion certificates.'
+  packageName: 'openintranet_courses'
+  core: '^11.2'
+  categories:
+    openintranet: 'Open Intranet'
+  isCompatible: true
+  isMaintained: true
+  isCovered: true
+
+- machineName: openintranet_rmb
+  title: '[Open Intranet] Room Booking System'
+  body:
+    summary: 'Room booking system for all company facilities.'
+    value: 'This recipe provides a complete solution for managing and booking various types of rooms: conference rooms, meeting rooms, creative spaces, phone booths, and other company facilities.'
+  packageName: 'openintranet_rmb'
+  core: '^11.2'
+  categories:
+    openintranet: 'Open Intranet'
+  isCompatible: true
+  isMaintained: true
+  isCovered: true
+
+- machineName: openintranet_faq
+  title: '[Open Intranet] FAQ'
+  body:
+    summary: 'Frequently Asked Questions functionality for Open Intranet.'
+    value: 'Creates FAQ content types with fields for questions, answers. Includes Views for FAQ listings.'
+  packageName: 'openintranet_faq'
+  core: '^11.2'
+  categories:
+    openintranet: 'Open Intranet'
+  isCompatible: true
+  isMaintained: true
+  isCovered: true
+
+- machineName: openintranet_inventory
+  title: '[Open Intranet] Inventory Management'
+  body:
+    summary: 'Comprehensive inventory management system for tracking items, storage locations, and assignments.'
+    value: 'Creates content types for inventory items, storage locations, and assignment tracking with fields for item details, quantities, locations, and assignment history.'
+  packageName: 'openintranet_inventory'
+  core: '^11.2'
+  categories:
+    openintranet: 'Open Intranet'
+  isCompatible: true
+  isMaintained: true
+  isCovered: true
+
+- machineName: openintranet_kudos
+  title: '[Open Intranet] Kudos'
+  body:
+    summary: 'Employee recognition and kudos system for acknowledging achievements and contributions.'
+    value: 'Creates kudos content types with fields for recognition messages, recipients, and categories. Includes Views for kudos listings and recognition dashboards.'
+  packageName: 'openintranet_kudos'
+  core: '^11.2'
+  categories:
+    openintranet: 'Open Intranet'
+  isCompatible: true
+  isMaintained: true
+  isCovered: true
+
+- machineName: openintranet_ideas
+  title: '[Open Intranet] Ideas'
+  body:
+    summary: 'Employees can submit ideas and vote on them.'
+    value: 'Creates idea submission system with voting functionality, categories, and status tracking for employee innovation and feedback.'
+  packageName: 'openintranet_ideas'
+  core: '^11.2'
+  categories:
+    openintranet: 'Open Intranet'
+  isCompatible: true
+  isMaintained: true
+  isCovered: true

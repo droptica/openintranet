@@ -93,3 +93,6 @@ composer.lock
 # Ignore temporary files
 /tmp/
 /temp/
+
+.playwright-mcp
+
