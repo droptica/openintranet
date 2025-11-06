@@ -174,6 +174,9 @@
             },
             "drupal/views_organization_chart": {
                 "views_organization_chart - Drupal 11 compatibility fixes": "patches/views_organization_chart/views_organization_chart_drupal11_compatibility.patch"
+            },
+            "drupal/webform": {
+                "[3556342] Fix PHP Fatal error with Drupal 11.2.6 - __get method signature compatibility": "https://www.drupal.org/files/issues/2025-11-06/3556348-webform_6.3.0-beta5.patch"
             }
         }
     }
