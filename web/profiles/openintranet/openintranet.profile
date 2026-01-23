@@ -361,11 +361,11 @@ function openintranet_install_finished(&$install_state) {
   try {
     // Switch to openintranet.
     \Drupal::service('theme_installer')->install(['openintranet_theme']);
-    \Drupal::service('theme_installer')->install(['claro']);
+    \Drupal::service('theme_installer')->install(['gin']);
     \Drupal::configFactory()
       ->getEditable('system.theme')
       ->set('default', 'openintranet_theme')
-      ->set('admin', 'claro')
+      ->set('admin', 'gin')
       ->save();
   }
   catch (\Exception $e) {
