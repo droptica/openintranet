@@ -85,12 +85,14 @@
         "drupal/prepopulate": "^2.5",
         "drupal/private_files_download_permission": "^3.1",
         "drupal/project_browser": "@beta",
+        "drupal/queue_ui": "^3.2",
         "drupal/recently_read": "^1.3",
         "drupal/recipe_tracker": "^1.0",
         "drupal/search_api": "^1.35",
         "drupal/search_api_solr": "^4.3",
         "drupal/simple_sitemap": "^4.2",
         "drupal/smart_trim": "^2.2",
+        "drupal/smsapi": "^1.2",
         "drupal/statistics": "^1.0",
         "drupal/theme_switcher": "^2.1",
         "drupal/token": "^1.15",
@@ -174,6 +176,9 @@
             },
             "drupal/views_organization_chart": {
                 "views_organization_chart - Drupal 11 compatibility fixes": "patches/views_organization_chart/views_organization_chart_drupal11_compatibility.patch"
+            },
+            "drupal/smsapi": {
+                "[3569589] Add Service Region configuration for international SMS": "patches/smsapi/3569589-service-region.patch"
             }
         }
     }

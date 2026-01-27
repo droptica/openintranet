@@ -97,6 +97,7 @@ install:
   - navigation
   - node
   - noreqnewpass
+  - openintranet_messenger
   - options
   - other_view_filter
   - package_manager
@@ -119,6 +120,7 @@ install:
   - shortcut
   - simple_sitemap
   - smart_trim
+  - smsapi
   - sophron
   - statistics
   - system
@@ -142,6 +144,7 @@ install:
   - votingapi
   - votingapi_reaction
   - project_browser
+  - queue_ui
   - webform
   - webform_node
   - webform_ui
