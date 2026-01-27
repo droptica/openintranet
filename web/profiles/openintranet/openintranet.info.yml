@@ -2,7 +2,7 @@ name: Open Intranet 1.7.x
 type: profile
 core_version_requirement: ^10 || ^11
 description: 'Open Intranet 1.7 profile.'
-version: 'dev-1.7.x'
+version: 'dev-1.8.x'
 distribution:
   name: Open Intranet
   install:
