@@ -201,6 +201,7 @@ config:
     navigation: '*'
     node: '*'
     noreqnewpass: '*'
+    openintranet_messenger: '*'
     pathauto: '*'
     pathologic: '*'
     permissions_by_term: '*'

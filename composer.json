@@ -77,6 +77,7 @@
         "drupal/libraries": "^4.0",
         "drupal/masquerade": "^2.0",
         "drupal/noreqnewpass": "^1.4",
+        "drupal/openintranet_messenger": "^1.0",
         "drupal/other_view_filter": "dev-1.x",
         "drupal/page_manager": "^4.0@RC",
         "drupal/pathauto": "^1.13",
