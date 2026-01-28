@@ -1,0 +1,164 @@
+{#
+/**
+ * @file
+ * Template for document search results.
+ *
+ * Available variables:
+ * - query: The search query string.
+ * - results: Array of search results (mixed folders and documents).
+ * - total: Total number of results.
+ * - folder_count: Number of folders found.
+ * - document_count: Number of documents found.
+ * - pager: Pager render array.
+ */
+#}
+<div class="oi-documents-search">
+  {# Breadcrumbs #}
+  <nav aria-label="{{ 'Breadcrumb'|t }}" class="oi-breadcrumb-nav mb-4">
+    <ol class="breadcrumb mb-0">
+      <li class="breadcrumb-item">
+        <a href="{{ path('openintranet_documents.browser') }}" class="text-decoration-none">
+          <i class="bi bi-folder2 me-1"></i>{{ 'Documents'|t }}
+        </a>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">
+        <i class="bi bi-search me-1"></i>{{ 'Search'|t }}
+      </li>
+    </ol>
+  </nav>
+
+  {# Search form #}
+  <div class="oi-documents-toolbar mb-4">
+    <form action="{{ path('openintranet_documents.search') }}" method="get" class="oi-search-form">
+      <div class="input-group">
+        <input type="text"
+               name="q"
+               class="form-control"
+               placeholder="{{ 'Search documents and folders...'|t }}"
+               value="{{ query }}"
+               aria-label="{{ 'Search'|t }}">
+        <button type="submit" class="btn btn-primary">
+          <i class="bi bi-search"></i>
+        </button>
+      </div>
+    </form>
+  </div>
+
+  {# Results header #}
+  {% if query %}
+    <div class="oi-search-header mb-3">
+      <h5 class="mb-0">
+        {% if total > 0 %}
+          {{ 'Found %total results for "%query"'|t({'%total': total, '%query': query}) }}
+          <small class="text-muted ms-2">
+            ({{ '%folders folders, %docs documents'|t({'%folders': folder_count, '%docs': document_count}) }})
+          </small>
+        {% else %}
+          {{ 'No results found for "%query"'|t({'%query': query}) }}
+        {% endif %}
+      </h5>
+    </div>
+  {% endif %}
+
+  {# Results list #}
+  {% if results|length > 0 %}
+    <table class="table oi-search-results-table">
+      <thead>
+        <tr>
+          <th style="width: 40px;">{{ 'Type'|t }}</th>
+          <th>{{ 'Name'|t }}</th>
+          <th>{{ 'Location'|t }}</th>
+          <th>{{ 'Updated'|t }}</th>
+          <th>{{ 'Actions'|t }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in results %}
+          <tr>
+            <td class="text-center">
+              {% if item.type == 'folder' %}
+                <i class="bi bi-folder-fill text-warning fs-5" title="{{ 'Folder'|t }}"></i>
+              {% else %}
+                <i class="bi bi-file-earmark-fill text-primary fs-5" title="{{ 'Document'|t }}"></i>
+              {% endif %}
+            </td>
+            <td>
+              {% if item.type == 'folder' %}
+                <a href="{{ path('openintranet_documents.folder.view', {'oi_folder': item.entity.id()}) }}">
+                  {{ item.entity.getName() }}
+                </a>
+                {% if item.entity.getDescription() %}
+                  <br><small class="text-muted">{{ item.entity.getDescription()|slice(0, 100) }}{% if item.entity.getDescription()|length > 100 %}...{% endif %}</small>
+                {% endif %}
+              {% else %}
+                <a href="{{ path('entity.oi_document.canonical', {'oi_document': item.entity.id()}) }}">
+                  {{ item.entity.getTitle() }}
+                </a>
+                {% if item.entity.getDescription() %}
+                  <br><small class="text-muted">{{ item.entity.getDescription()|slice(0, 100) }}{% if item.entity.getDescription()|length > 100 %}...{% endif %}</small>
+                {% endif %}
+              {% endif %}
+            </td>
+            <td>
+              {% if item.type == 'folder' %}
+                {% set parent = item.entity.getParent() %}
+                {% if parent %}
+                  <a href="{{ path('openintranet_documents.folder.view', {'oi_folder': parent.id()}) }}">
+                    <i class="bi bi-folder2 me-1"></i>{{ parent.getName() }}
+                  </a>
+                {% else %}
+                  <span class="text-muted">{{ 'Root'|t }}</span>
+                {% endif %}
+              {% else %}
+                {% set folder = item.entity.getFolder() %}
+                {% if folder %}
+                  <a href="{{ path('openintranet_documents.folder.view', {'oi_folder': folder.id()}) }}">
+                    <i class="bi bi-folder2 me-1"></i>{{ folder.getName() }}
+                  </a>
+                {% else %}
+                  <span class="text-muted">{{ 'Root'|t }}</span>
+                {% endif %}
+              {% endif %}
+            </td>
+            <td>
+              {{ item.updated|date('Y-m-d H:i') }}
+            </td>
+            <td>
+              {% if item.type == 'folder' %}
+                <a href="{{ path('entity.oi_folder.edit_form', {'oi_folder': item.entity.id()}) }}"
+                   class="btn btn-sm btn-outline-secondary"
+                   title="{{ 'Edit'|t }}">
+                  <i class="bi bi-pencil"></i>
+                </a>
+              {% else %}
+                <a href="{{ path('openintranet_documents.download', {'oi_document': item.entity.id()}) }}"
+                   class="btn btn-sm btn-outline-secondary"
+                   title="{{ 'Download'|t }}">
+                  <i class="bi bi-download"></i>
+                </a>
+                <a href="{{ path('entity.oi_document.edit_form', {'oi_document': item.entity.id()}) }}"
+                   class="btn btn-sm btn-outline-secondary"
+                   title="{{ 'Edit'|t }}">
+                  <i class="bi bi-pencil"></i>
+                </a>
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    {# Pager #}
+    {{ pager }}
+  {% elseif query %}
+    <div class="alert alert-info">
+      <i class="bi bi-info-circle me-2"></i>
+      {{ 'Try different keywords or check spelling.'|t }}
+    </div>
+  {% else %}
+    <div class="alert alert-secondary">
+      <i class="bi bi-search me-2"></i>
+      {{ 'Enter a search term to find documents and folders.'|t }}
+    </div>
+  {% endif %}
+</div>
