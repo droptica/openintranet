@@ -6,7 +6,6 @@ dependencies:
     - field.field.node.knowledge_base_page.body
     - field.field.node.knowledge_base_page.field_access
     - field.field.node.knowledge_base_page.field_data_classification
-    - field.field.node.knowledge_base_page.field_document_ref
     - field.field.node.knowledge_base_page.field_related_content
     - field.field.node.knowledge_base_page.field_tags
     - node.type.knowledge_base_page
@@ -67,6 +66,5 @@ content:
 hidden:
   book_navigation: true
   field_access: true
-  field_document_ref: true
   langcode: true
   search_api_excerpt: true

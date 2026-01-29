@@ -1,0 +1,25 @@
+_meta:
+  version: '1.0'
+  entity_type: oi_folder
+  uuid: 125b4f83-f998-42d8-89d6-b5c0b4478ce0
+  depends:
+    fb39b653-e874-4766-9fb5-3854fd3ef7d8: oi_folder
+default:
+  uid:
+    -
+      target_id: 0
+  name:
+    -
+      value: 'Project Gamma'
+  description:
+    -
+      value: 'Project Gamma subfolder in Projects.'
+  parent:
+    -
+      entity: fb39b653-e874-4766-9fb5-3854fd3ef7d8
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1769601586

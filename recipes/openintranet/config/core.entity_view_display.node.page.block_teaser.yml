@@ -9,7 +9,6 @@ dependencies:
     - field.field.node.page.field_access
     - field.field.node.page.field_background_image
     - field.field.node.page.field_basic_page_reaction
-    - field.field.node.page.field_document_ref
     - image.style.news_teaser
     - node.type.page
   module:
@@ -72,7 +71,6 @@ content:
 hidden:
   comment_node_page: true
   field_access: true
-  field_document_ref: true
   flag_read: true
   langcode: true
   links: true

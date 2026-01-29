@@ -1,9 +1,0 @@
-uuid: e261e246-99e6-4c11-8d4b-4095bcaf0a23
-langcode: en
-status: true
-dependencies: {  }
-name: Area
-vid: area
-description: 'Use Area for document categorization.'
-weight: 0
-new_revision: false

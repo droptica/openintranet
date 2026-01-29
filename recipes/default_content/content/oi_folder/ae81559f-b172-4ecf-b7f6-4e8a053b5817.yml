@@ -1,0 +1,20 @@
+_meta:
+  version: '1.0'
+  entity_type: oi_folder
+  uuid: ae81559f-b172-4ecf-b7f6-4e8a053b5817
+default:
+  uid:
+    -
+      target_id: 0
+  name:
+    -
+      value: Finance
+  description:
+    -
+      value: 'Main folder for Finance department documents.'
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1769601586

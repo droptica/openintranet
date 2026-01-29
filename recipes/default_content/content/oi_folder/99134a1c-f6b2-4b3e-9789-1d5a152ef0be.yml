@@ -1,0 +1,25 @@
+_meta:
+  version: '1.0'
+  entity_type: oi_folder
+  uuid: 99134a1c-f6b2-4b3e-9789-1d5a152ef0be
+  depends:
+    ae81559f-b172-4ecf-b7f6-4e8a053b5817: oi_folder
+default:
+  uid:
+    -
+      target_id: 0
+  name:
+    -
+      value: 'Tax Documents'
+  description:
+    -
+      value: 'Tax Documents subfolder in Finance.'
+  parent:
+    -
+      entity: ae81559f-b172-4ecf-b7f6-4e8a053b5817
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1769601586

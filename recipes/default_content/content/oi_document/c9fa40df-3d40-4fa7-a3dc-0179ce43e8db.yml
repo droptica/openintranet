@@ -1,0 +1,29 @@
+_meta:
+  version: '1.0'
+  entity_type: oi_document
+  uuid: c9fa40df-3d40-4fa7-a3dc-0179ce43e8db
+  depends:
+    b4a2a10e-1750-45ca-90a3-408530554f90: file
+    fb1e4f43-1287-4f29-9695-d6f5be89f3ec: oi_folder
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 0
+  title:
+    -
+      value: 'Employee Handbook v2.1'
+  description:
+    -
+      value: 'This is a sample document: Employee Handbook v2.1. Located in the Project Beta folder.'
+  folder:
+    -
+      entity: fb1e4f43-1287-4f29-9695-d6f5be89f3ec
+  file:
+    -
+      entity: b4a2a10e-1750-45ca-90a3-408530554f90
+  created:
+    -
+      value: 1769601586

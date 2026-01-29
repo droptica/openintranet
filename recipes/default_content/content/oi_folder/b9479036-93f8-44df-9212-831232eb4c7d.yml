@@ -1,0 +1,25 @@
+_meta:
+  version: '1.0'
+  entity_type: oi_folder
+  uuid: b9479036-93f8-44df-9212-831232eb4c7d
+  depends:
+    da5fc17d-2864-442c-a2e4-33726fb7daa1: oi_folder
+default:
+  uid:
+    -
+      target_id: 0
+  name:
+    -
+      value: Security
+  description:
+    -
+      value: 'Security subfolder in IT.'
+  parent:
+    -
+      entity: da5fc17d-2864-442c-a2e4-33726fb7daa1
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1769601586

@@ -9,10 +9,10 @@ dependencies:
     - field.field.node.article.comment_node_article
     - field.field.node.article.field_access
     - field.field.node.article.field_background_image
-    - field.field.node.article.field_document_ref
     - field.field.node.article.field_intro
     - field.field.node.article.field_mark_as_must_read
     - field.field.node.article.field_news_article_reaction
+    - field.field.node.article.field_oi_document_ref
     - field.field.node.article.field_tags
     - node.type.article
   module:
@@ -81,15 +81,6 @@ content:
     third_party_settings: {  }
     weight: 6
     region: content
-  field_document_ref:
-    type: entity_reference_entity_view
-    label: hidden
-    settings:
-      view_mode: teaser
-      link: false
-    third_party_settings: {  }
-    weight: 2
-    region: content
   field_intro:
     type: basic_string
     label: hidden
@@ -108,6 +99,14 @@ content:
       sort_reactions: none
     third_party_settings: {  }
     weight: 4
+    region: content
+  field_oi_document_ref:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 2
     region: content
   field_tags:
     type: entity_reference_label

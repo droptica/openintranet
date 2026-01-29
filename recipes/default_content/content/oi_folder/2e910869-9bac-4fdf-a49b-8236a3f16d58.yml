@@ -1,0 +1,25 @@
+_meta:
+  version: '1.0'
+  entity_type: oi_folder
+  uuid: 2e910869-9bac-4fdf-a49b-8236a3f16d58
+  depends:
+    1e775862-85cb-45db-9cc6-41f966b0607a: oi_folder
+default:
+  uid:
+    -
+      target_id: 0
+  name:
+    -
+      value: Onboarding
+  description:
+    -
+      value: 'Onboarding subfolder in Human Resources.'
+  parent:
+    -
+      entity: 1e775862-85cb-45db-9cc6-41f966b0607a
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1769601586

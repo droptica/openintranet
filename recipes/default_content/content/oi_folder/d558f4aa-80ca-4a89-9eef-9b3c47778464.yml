@@ -1,0 +1,25 @@
+_meta:
+  version: '1.0'
+  entity_type: oi_folder
+  uuid: d558f4aa-80ca-4a89-9eef-9b3c47778464
+  depends:
+    8b82f1ea-a0fc-4c13-bb1a-6a937097b869: oi_folder
+default:
+  uid:
+    -
+      target_id: 0
+  name:
+    -
+      value: 'Brand Assets'
+  description:
+    -
+      value: 'Brand Assets subfolder in Marketing.'
+  parent:
+    -
+      entity: 8b82f1ea-a0fc-4c13-bb1a-6a937097b869
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1769601586

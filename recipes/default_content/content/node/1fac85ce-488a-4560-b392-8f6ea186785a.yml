@@ -7,7 +7,6 @@ _meta:
   depends:
     68fd85ee-2fa6-426a-9347-ce7e49d96f6d: taxonomy_term
     151f200e-7d17-4966-9a18-934858395ddc: taxonomy_term
-    6046e0f4-766a-40b9-9791-7587157b7a92: node
 default:
   revision_uid:
     -
@@ -59,6 +58,3 @@ default:
   field_basic_page_reaction:
     -
       status: 0
-  field_document_ref:
-    -
-      entity: 6046e0f4-766a-40b9-9791-7587157b7a92

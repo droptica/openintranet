@@ -1,0 +1,25 @@
+_meta:
+  version: '1.0'
+  entity_type: oi_folder
+  uuid: fb1e4f43-1287-4f29-9695-d6f5be89f3ec
+  depends:
+    fb39b653-e874-4766-9fb5-3854fd3ef7d8: oi_folder
+default:
+  uid:
+    -
+      target_id: 0
+  name:
+    -
+      value: 'Project Beta'
+  description:
+    -
+      value: 'Project Beta subfolder in Projects.'
+  parent:
+    -
+      entity: fb39b653-e874-4766-9fb5-3854fd3ef7d8
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1769601586

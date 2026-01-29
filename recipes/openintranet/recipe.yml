@@ -98,6 +98,7 @@ install:
   - node
   - noreqnewpass
   - openintranet_messenger
+  - openintranet_documents
   - options
   - other_view_filter
   - package_manager
@@ -202,6 +203,7 @@ config:
     node: '*'
     noreqnewpass: '*'
     openintranet_messenger: '*'
+    openintranet_documents: '*'
     pathauto: '*'
     pathologic: '*'
     permissions_by_term: '*'
@@ -242,7 +244,6 @@ config:
       - core.entity_form_display.media.video.default.yml
       - core.entity_form_display.media.video.media_library.yml
       - core.entity_form_display.node.article.default.yml
-      - core.entity_form_display.node.document.default.yml
       - core.entity_form_display.node.event.default.yml
       - core.entity_form_display.node.knowledge_base_page.default.yml
       - core.entity_form_display.node.page.default.yml
@@ -278,9 +279,6 @@ config:
       - core.entity_view_display.node.article.rss.yml
       - core.entity_view_display.node.article.search_result.yml
       - core.entity_view_display.node.article.teaser.yml
-      - core.entity_view_display.node.document.default.yml
-      - core.entity_view_display.node.document.full.yml
-      - core.entity_view_display.node.document.teaser.yml
       - core.entity_view_display.node.event.block_teaser.yml
       - core.entity_view_display.node.event.default.yml
       - core.entity_view_display.node.event.full.yml
@@ -401,6 +399,8 @@ config:
             - filter
             - flag
             - media
+            - openintranet_documents
+            - pfdp
             - system
             - votingapi_reaction
         permissions:
@@ -411,6 +411,7 @@ config:
           - 'bypass pfdp for temporary files'
           - 'create reaction on node:article:field_news_article_reaction'
           - 'create reaction on node:page:field_basic_page_reaction'
+          - 'download oi_document'
           - 'edit own comments'
           - 'flag read'
           - 'unflag read'
@@ -422,5 +423,7 @@ config:
           - 'skip comment approval'
           - 'use text format webform_default'
           - 'view media'
+          - 'view oi_document'
+          - 'view oi_folder'
           - 'view reactions on node:article:field_news_article_reaction'
           - 'view reactions on node:page:field_basic_page_reaction'

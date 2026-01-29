@@ -1,0 +1,25 @@
+_meta:
+  version: '1.0'
+  entity_type: oi_folder
+  uuid: a7040a88-11ba-4835-a613-81e012026194
+  depends:
+    1e775862-85cb-45db-9cc6-41f966b0607a: oi_folder
+default:
+  uid:
+    -
+      target_id: 0
+  name:
+    -
+      value: 'Training Materials'
+  description:
+    -
+      value: 'Training Materials subfolder in Human Resources.'
+  parent:
+    -
+      entity: 1e775862-85cb-45db-9cc6-41f966b0607a
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1769601586

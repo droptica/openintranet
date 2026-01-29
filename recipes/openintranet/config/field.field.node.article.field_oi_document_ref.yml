@@ -1,0 +1,27 @@
+uuid: 9a4b3c2d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_oi_document_ref
+    - node.type.article
+  module:
+    - openintranet_documents
+id: node.article.field_oi_document_ref
+field_name: field_oi_document_ref
+entity_type: node
+bundle: article
+label: 'Related documents'
+description: 'Select documents to attach to this content.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:oi_document'
+  handler_settings:
+    sort:
+      field: title
+      direction: ASC
+    auto_create: false
+field_type: entity_reference

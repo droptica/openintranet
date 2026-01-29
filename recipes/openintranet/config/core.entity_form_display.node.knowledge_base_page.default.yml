@@ -6,7 +6,7 @@ dependencies:
     - field.field.node.knowledge_base_page.body
     - field.field.node.knowledge_base_page.field_access
     - field.field.node.knowledge_base_page.field_data_classification
-    - field.field.node.knowledge_base_page.field_document_ref
+    - field.field.node.knowledge_base_page.field_oi_document_ref
     - field.field.node.knowledge_base_page.field_related_content
     - field.field.node.knowledge_base_page.field_tags
     - node.type.knowledge_base_page
@@ -39,8 +39,8 @@ third_party_settings:
         - title
         - body
         - field_related_content
+        - field_oi_document_ref
         - field_tags
-        - field_document_ref
       label: CONTENT
       region: content
       parent_name: group_tabs
@@ -111,23 +111,15 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_document_ref:
-    type: inline_entity_form_complex
+  field_oi_document_ref:
+    type: entity_reference_autocomplete
     weight: 124
     region: content
     settings:
-      form_mode: default
-      override_labels: false
-      label_singular: ''
-      label_plural: ''
-      allow_new: true
-      allow_existing: true
       match_operator: CONTAINS
-      allow_duplicate: false
-      collapsible: false
-      collapsed: false
-      revision: false
-      removed_reference: keep
+      match_limit: 10
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
   field_related_content:
     type: inline_entity_form_complex

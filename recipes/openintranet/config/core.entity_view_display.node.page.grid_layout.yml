@@ -9,7 +9,6 @@ dependencies:
     - field.field.node.page.field_access
     - field.field.node.page.field_background_image
     - field.field.node.page.field_basic_page_reaction
-    - field.field.node.page.field_document_ref
     - node.type.page
   module:
     - user
@@ -34,6 +33,5 @@ hidden:
   field_access: true
   field_background_image: true
   field_basic_page_reaction: true
-  field_document_ref: true
   langcode: true
   search_api_excerpt: true

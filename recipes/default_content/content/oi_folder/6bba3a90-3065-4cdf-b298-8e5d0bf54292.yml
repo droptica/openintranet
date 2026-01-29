@@ -1,0 +1,25 @@
+_meta:
+  version: '1.0'
+  entity_type: oi_folder
+  uuid: 6bba3a90-3065-4cdf-b298-8e5d0bf54292
+  depends:
+    8b82f1ea-a0fc-4c13-bb1a-6a937097b869: oi_folder
+default:
+  uid:
+    -
+      target_id: 0
+  name:
+    -
+      value: Campaigns
+  description:
+    -
+      value: 'Campaigns subfolder in Marketing.'
+  parent:
+    -
+      entity: 8b82f1ea-a0fc-4c13-bb1a-6a937097b869
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1769601586

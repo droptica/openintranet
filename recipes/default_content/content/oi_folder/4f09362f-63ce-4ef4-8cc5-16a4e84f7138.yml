@@ -1,0 +1,25 @@
+_meta:
+  version: '1.0'
+  entity_type: oi_folder
+  uuid: 4f09362f-63ce-4ef4-8cc5-16a4e84f7138
+  depends:
+    a50ce765-ac69-4788-bc3f-41367ab088c8: oi_folder
+default:
+  uid:
+    -
+      target_id: 0
+  name:
+    -
+      value: Contracts
+  description:
+    -
+      value: 'Contracts subfolder in Legal.'
+  parent:
+    -
+      entity: a50ce765-ac69-4788-bc3f-41367ab088c8
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1769601586

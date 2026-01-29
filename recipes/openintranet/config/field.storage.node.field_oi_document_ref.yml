@@ -1,0 +1,20 @@
+uuid: 8f3a2c1d-4e5b-6a7f-8c9d-0e1f2a3b4c5d
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - openintranet_documents
+id: node.field_oi_document_ref
+field_name: field_oi_document_ref
+entity_type: node
+type: entity_reference
+settings:
+  target_type: oi_document
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -16,13 +16,11 @@ dependencies:
     - media.type.remote_video
     - media.type.video
     - node.type.article
-    - node.type.document
     - node.type.event
     - node.type.knowledge_base_page
     - node.type.page
     - node.type.webform
     - taxonomy.vocabulary.access
-    - taxonomy.vocabulary.area
     - taxonomy.vocabulary.department
     - taxonomy.vocabulary.office
     - taxonomy.vocabulary.tags
@@ -83,7 +81,6 @@ permissions:
   - 'clone block_content entity'
   - 'clone block_content_type entity'
   - 'clone document media entities'
-  - 'clone document node entities'
   - 'clone event node entities'
   - 'clone file entity'
   - 'clone image media entities'
@@ -102,7 +99,6 @@ permissions:
   - 'create banner_block block content'
   - 'create basic block content'
   - 'create content translations'
-  - 'create document content'
   - 'create document media'
   - 'create event content'
   - 'create image media'
@@ -113,7 +109,6 @@ permissions:
   - 'create quick_action block content'
   - 'create remote_video media'
   - 'create terms in access'
-  - 'create terms in area'
   - 'create terms in department'
   - 'create terms in office'
   - 'create terms in tags'
@@ -129,7 +124,6 @@ permissions:
   - 'delete any banner_block block content revisions'
   - 'delete any basic block content'
   - 'delete any basic block content revisions'
-  - 'delete any document content'
   - 'delete any document media'
   - 'delete any document media revisions'
   - 'delete any event content'
@@ -149,13 +143,11 @@ permissions:
   - 'delete any webform content'
   - 'delete article revisions'
   - 'delete content translations'
-  - 'delete document revisions'
   - 'delete event revisions'
   - 'delete knowledge_base_page revisions'
   - 'delete media'
   - 'delete own article content'
   - 'delete own audio media'
-  - 'delete own document content'
   - 'delete own document media'
   - 'delete own event content'
   - 'delete own files'
@@ -167,12 +159,10 @@ permissions:
   - 'delete own webform content'
   - 'delete page revisions'
   - 'delete term revisions in access'
-  - 'delete term revisions in area'
   - 'delete term revisions in department'
   - 'delete term revisions in office'
   - 'delete term revisions in tags'
   - 'delete terms in access'
-  - 'delete terms in area'
   - 'delete terms in department'
   - 'delete terms in office'
   - 'delete terms in tags'
@@ -181,7 +171,6 @@ permissions:
   - 'edit any audio media'
   - 'edit any banner_block block content'
   - 'edit any basic block content'
-  - 'edit any document content'
   - 'edit any document media'
   - 'edit any event content'
   - 'edit any image media'
@@ -196,7 +185,6 @@ permissions:
   - 'edit own article content'
   - 'edit own audio media'
   - 'edit own comments'
-  - 'edit own document content'
   - 'edit own document media'
   - 'edit own event content'
   - 'edit own image media'
@@ -207,7 +195,6 @@ permissions:
   - 'edit own webform'
   - 'edit own webform content'
   - 'edit terms in access'
-  - 'edit terms in area'
   - 'edit terms in department'
   - 'edit terms in office'
   - 'edit terms in tags'
@@ -225,12 +212,10 @@ permissions:
   - 'revert any remote_video media revisions'
   - 'revert any video media revisions'
   - 'revert article revisions'
-  - 'revert document revisions'
   - 'revert event revisions'
   - 'revert knowledge_base_page revisions'
   - 'revert page revisions'
   - 'revert term revisions in access'
-  - 'revert term revisions in area'
   - 'revert term revisions in department'
   - 'revert term revisions in office'
   - 'revert term revisions in tags'
@@ -259,7 +244,6 @@ permissions:
   - 'view any video media revisions'
   - 'view any webform submission'
   - 'view article revisions'
-  - 'view document revisions'
   - 'view event revisions'
   - 'view knowledge_base_page revisions'
   - 'view media'
@@ -270,7 +254,6 @@ permissions:
   - 'view page revisions'
   - 'view post access counter'
   - 'view term revisions in access'
-  - 'view term revisions in area'
   - 'view term revisions in department'
   - 'view term revisions in office'
   - 'view term revisions in tags'

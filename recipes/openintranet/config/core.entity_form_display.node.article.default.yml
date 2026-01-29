@@ -7,11 +7,11 @@ dependencies:
     - field.field.node.article.comment_node_article
     - field.field.node.article.field_access
     - field.field.node.article.field_background_image
-    - field.field.node.article.field_document_ref
     - field.field.node.article.field_intro
     - field.field.node.article.field_mark_as_must_read
     - field.field.node.article.field_news_article_reaction
     - field.field.node.article.field_notify_all_users_about_new
+    - field.field.node.article.field_oi_document_ref
     - field.field.node.article.field_tags
     - node.type.article
   module:
@@ -64,7 +64,7 @@ third_party_settings:
         - body
         - field_tags
         - field_background_image
-        - field_document_ref
+        - field_oi_document_ref
       label: CONTENT
       region: content
       parent_name: group_tabs
@@ -153,24 +153,6 @@ content:
     settings:
       media_types: {  }
     third_party_settings: {  }
-  field_document_ref:
-    type: inline_entity_form_complex
-    weight: 28
-    region: content
-    settings:
-      form_mode: default
-      override_labels: false
-      label_singular: ''
-      label_plural: ''
-      allow_new: true
-      allow_existing: true
-      match_operator: CONTAINS
-      allow_duplicate: false
-      collapsible: false
-      collapsed: false
-      revision: false
-      removed_reference: keep
-    third_party_settings: {  }
   field_intro:
     type: string_textarea
     weight: 24
@@ -198,6 +180,16 @@ content:
     region: content
     settings:
       display_label: true
+    third_party_settings: {  }
+  field_oi_document_ref:
+    type: entity_reference_autocomplete
+    weight: 28
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
   field_tags:
     type: options_buttons

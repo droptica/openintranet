@@ -1,0 +1,29 @@
+_meta:
+  version: '1.0'
+  entity_type: oi_document
+  uuid: 87cf55de-8935-4b9b-84a7-f6b7270e3232
+  depends:
+    b4a2a10e-1750-45ca-90a3-408530554f90: file
+    83a81618-c47b-489e-b7f6-2e621a1b45c6: oi_folder
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 0
+  title:
+    -
+      value: 'Infrastructure Diagram'
+  description:
+    -
+      value: 'This is a sample document: Infrastructure Diagram. Located in the Reports folder.'
+  folder:
+    -
+      entity: 83a81618-c47b-489e-b7f6-2e621a1b45c6
+  file:
+    -
+      entity: b4a2a10e-1750-45ca-90a3-408530554f90
+  created:
+    -
+      value: 1769601586

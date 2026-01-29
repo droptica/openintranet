@@ -1,0 +1,25 @@
+_meta:
+  version: '1.0'
+  entity_type: oi_folder
+  uuid: cdaa4b36-a05f-4e13-94d1-de0b73700b3f
+  depends:
+    8b82f1ea-a0fc-4c13-bb1a-6a937097b869: oi_folder
+default:
+  uid:
+    -
+      target_id: 0
+  name:
+    -
+      value: 'Market Research'
+  description:
+    -
+      value: 'Market Research subfolder in Marketing.'
+  parent:
+    -
+      entity: 8b82f1ea-a0fc-4c13-bb1a-6a937097b869
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1769601586

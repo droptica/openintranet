@@ -1,0 +1,33 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - navigation
+    - openintranet_documents
+    - system
+    - toolbar
+id: content_editor_oi_document
+label: 'Content Editor - Documents'
+weight: 6
+is_admin: false
+permissions:
+  - 'access administration pages'
+  - 'access content'
+  - 'access content overview'
+  - 'access navigation'
+  - 'access toolbar'
+  - 'administer oi_document'
+  - 'administer oi_folder'
+  - 'create oi_document'
+  - 'create oi_folder'
+  - 'delete oi_document'
+  - 'delete oi_document revision'
+  - 'delete oi_folder'
+  - 'download oi_document'
+  - 'edit oi_document'
+  - 'edit oi_folder'
+  - 'revert oi_document revision'
+  - 'view oi_document'
+  - 'view oi_document revision'
+  - 'view oi_folder'
+  - 'view the administration theme'

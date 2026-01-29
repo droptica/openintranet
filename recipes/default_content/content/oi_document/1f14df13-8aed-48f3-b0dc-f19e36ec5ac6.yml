@@ -1,0 +1,29 @@
+_meta:
+  version: '1.0'
+  entity_type: oi_document
+  uuid: 1f14df13-8aed-48f3-b0dc-f19e36ec5ac6
+  depends:
+    b4a2a10e-1750-45ca-90a3-408530554f90: file
+    8b82f1ea-a0fc-4c13-bb1a-6a937097b869: oi_folder
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 0
+  title:
+    -
+      value: 'Contract Template'
+  description:
+    -
+      value: 'This is a sample document: Contract Template. Located in the Marketing folder.'
+  folder:
+    -
+      entity: 8b82f1ea-a0fc-4c13-bb1a-6a937097b869
+  file:
+    -
+      entity: b4a2a10e-1750-45ca-90a3-408530554f90
+  created:
+    -
+      value: 1769601586

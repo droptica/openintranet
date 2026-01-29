@@ -1,0 +1,29 @@
+_meta:
+  version: '1.0'
+  entity_type: oi_document
+  uuid: 383d1eb2-f9a9-4d5a-b7ca-b6d37b45ac1c
+  depends:
+    b4a2a10e-1750-45ca-90a3-408530554f90: file
+    53562eea-4d19-4659-8fd7-395e8c0c49c9: oi_folder
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 0
+  title:
+    -
+      value: 'Campaign Results Summary'
+  description:
+    -
+      value: 'This is a sample document: Campaign Results Summary. Located in the Policies folder.'
+  folder:
+    -
+      entity: 53562eea-4d19-4659-8fd7-395e8c0c49c9
+  file:
+    -
+      entity: b4a2a10e-1750-45ca-90a3-408530554f90
+  created:
+    -
+      value: 1769601586

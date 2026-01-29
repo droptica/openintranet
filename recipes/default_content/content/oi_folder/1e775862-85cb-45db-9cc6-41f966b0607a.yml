@@ -1,0 +1,20 @@
+_meta:
+  version: '1.0'
+  entity_type: oi_folder
+  uuid: 1e775862-85cb-45db-9cc6-41f966b0607a
+default:
+  uid:
+    -
+      target_id: 0
+  name:
+    -
+      value: 'Human Resources'
+  description:
+    -
+      value: 'Main folder for Human Resources department documents.'
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1769601586

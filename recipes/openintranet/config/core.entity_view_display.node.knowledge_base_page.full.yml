@@ -7,7 +7,7 @@ dependencies:
     - field.field.node.knowledge_base_page.body
     - field.field.node.knowledge_base_page.field_access
     - field.field.node.knowledge_base_page.field_data_classification
-    - field.field.node.knowledge_base_page.field_document_ref
+    - field.field.node.knowledge_base_page.field_oi_document_ref
     - field.field.node.knowledge_base_page.field_related_content
     - field.field.node.knowledge_base_page.field_tags
     - node.type.knowledge_base_page
@@ -59,12 +59,11 @@ content:
     third_party_settings: {  }
     weight: 3
     region: content
-  field_document_ref:
-    type: entity_reference_entity_view
-    label: hidden
+  field_oi_document_ref:
+    type: entity_reference_label
+    label: above
     settings:
-      view_mode: teaser
-      link: false
+      link: true
     third_party_settings: {  }
     weight: 4
     region: content

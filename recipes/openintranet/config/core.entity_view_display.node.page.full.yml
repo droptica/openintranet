@@ -10,7 +10,7 @@ dependencies:
     - field.field.node.page.field_access
     - field.field.node.page.field_background_image
     - field.field.node.page.field_basic_page_reaction
-    - field.field.node.page.field_document_ref
+    - field.field.node.page.field_oi_document_ref
     - node.type.page
   module:
     - comment
@@ -89,12 +89,11 @@ content:
     third_party_settings: {  }
     weight: 2
     region: content
-  field_document_ref:
-    type: entity_reference_entity_view
-    label: hidden
+  field_oi_document_ref:
+    type: entity_reference_label
+    label: above
     settings:
-      view_mode: teaser
-      link: false
+      link: true
     third_party_settings: {  }
     weight: 1
     region: content
