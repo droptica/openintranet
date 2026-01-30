@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - field.field.node.event.body
-    - field.field.node.event.field_access
     - field.field.node.event.field_background_image
     - field.field.node.event.field_event_date
     - field.field.node.event.field_event_location
@@ -30,14 +29,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 5
-    region: content
-  field_access:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 8
     region: content
   field_event_date:
     type: daterange_default

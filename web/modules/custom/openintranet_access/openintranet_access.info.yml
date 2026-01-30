@@ -1,0 +1,9 @@
+name: 'Open Intranet Access'
+type: module
+description: 'Group-based access control for entities with hierarchical groups.'
+package: 'Open Intranet'
+core_version_requirement: ^10.3 || ^11
+dependencies:
+  - drupal:user
+  - drupal:node
+configure: openintranet_access.settings

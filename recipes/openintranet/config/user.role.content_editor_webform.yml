@@ -72,7 +72,6 @@ permissions:
   - 'create image media'
   - 'create media'
   - 'create remote_video media'
-  - 'create terms in access'
   - 'create url aliases'
   - 'create video media'
   - 'create webform'

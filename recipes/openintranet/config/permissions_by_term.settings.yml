@@ -1,8 +1,0 @@
-_core:
-  default_config_hash: XagQZizpnAiRDP6kTFGxwkMtEItIf5zudBEmfFbOVWE
-permission_mode: false
-require_all_terms_granted: false
-disable_node_access_records: false
-target_bundles:
-  - access
-show_terms_in_user_form: true

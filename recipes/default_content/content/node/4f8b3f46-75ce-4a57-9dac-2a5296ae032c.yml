@@ -4,9 +4,7 @@ _meta:
   uuid: 4f8b3f46-75ce-4a57-9dac-2a5296ae032c
   bundle: event
   default_langcode: en
-  depends:
-    d9174a6c-eb17-40df-ba1e-c902e80729f5: taxonomy_term
-    0ce7d53f-cc83-4bf8-8f43-d4d02f0923ae: taxonomy_term
+  depends: {}
 default:
   revision_uid:
     -
@@ -42,11 +40,6 @@ default:
       value: '<p>A weekend retreat filled with outdoor activities, team challenges, and networking opportunities. Strengthen team bonds while enjoying nature and relaxation.</p><p>&nbsp;</p>'
       format: full_html
       summary: ''
-  field_access:
-    -
-      entity: d9174a6c-eb17-40df-ba1e-c902e80729f5
-    -
-      entity: 0ce7d53f-cc83-4bf8-8f43-d4d02f0923ae
   field_event_date:
     -
       value: '2025-12-02T13:25:00'

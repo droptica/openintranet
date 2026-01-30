@@ -6,7 +6,6 @@ dependencies:
     - core.entity_view_mode.node.search_result
     - field.field.node.page.body
     - field.field.node.page.comment_node_page
-    - field.field.node.page.field_access
     - field.field.node.page.field_background_image
     - field.field.node.page.field_basic_page_reaction
     - node.type.page
@@ -25,7 +24,6 @@ content:
 hidden:
   body: true
   comment_node_page: true
-  field_access: true
   field_background_image: true
   field_basic_page_reaction: true
   flag_read: true

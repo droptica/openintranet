@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.search_result
-    - field.storage.node.field_access
     - field.storage.node.field_background_image
     - field.storage.node.field_intro
     - field.storage.node.field_tags
@@ -80,14 +79,6 @@ field_settings:
     label: 'Entity type'
     property_path: search_api_entity_type
     type: string
-  field_access:
-    label: Access
-    datasource_id: 'entity:node'
-    property_path: field_access
-    type: integer
-    dependencies:
-      config:
-        - field.storage.node.field_access
   field_background_image:
     label: 'Background image'
     datasource_id: 'entity:node'

@@ -1,0 +1,14 @@
+openintranet_access.groups:
+  title: 'Open Intranet - Groups'
+  description: 'Manage user groups for access control.'
+  route_name: entity.oi_group.collection
+  menu_name: admin
+  parent: system.admin_people
+  weight: 10
+
+openintranet_access.settings:
+  title: 'Open Intranet - Access settings'
+  description: 'Configure group-based access control settings.'
+  route_name: openintranet_access.settings
+  menu_name: admin
+  parent: system.admin_config_people

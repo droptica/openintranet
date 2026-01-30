@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - field.field.node.webform.body
-    - field.field.node.webform.field_access
     - field.field.node.webform.field_webform_file_upload
     - field.field.node.webform.webform
     - node.type.webform
@@ -76,6 +75,5 @@ content:
     weight: 3
     region: content
 hidden:
-  field_access: true
   langcode: true
   search_api_excerpt: true

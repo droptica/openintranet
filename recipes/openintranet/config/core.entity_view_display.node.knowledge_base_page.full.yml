@@ -5,7 +5,6 @@ dependencies:
   config:
     - core.entity_view_mode.node.full
     - field.field.node.knowledge_base_page.body
-    - field.field.node.knowledge_base_page.field_access
     - field.field.node.knowledge_base_page.field_data_classification
     - field.field.node.knowledge_base_page.field_oi_document_ref
     - field.field.node.knowledge_base_page.field_related_content
@@ -100,6 +99,5 @@ content:
     region: content
 hidden:
   book_navigation: true
-  field_access: true
   langcode: true
   search_api_excerpt: true

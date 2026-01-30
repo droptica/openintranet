@@ -306,12 +306,6 @@ fields:
         markdown: drupal_html_to_text
         compare_key: 0
         compare_string: 1
-    field_access:
-      type: entity_reference_field_diff_builder
-      settings:
-        show_header: 1
-        markdown: drupal_html_to_text
-        compare_entity_reference: 1
     field_background_image:
       type: entity_reference_field_diff_builder
       settings:

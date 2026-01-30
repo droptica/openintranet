@@ -7,7 +7,6 @@ dependencies:
     - core.entity_view_mode.node.full
     - field.field.node.page.body
     - field.field.node.page.comment_node_page
-    - field.field.node.page.field_access
     - field.field.node.page.field_background_image
     - field.field.node.page.field_basic_page_reaction
     - field.field.node.page.field_oi_document_ref
@@ -103,7 +102,6 @@ content:
     weight: 6
     region: content
 hidden:
-  field_access: true
   langcode: true
   links: true
   search_api_excerpt: true

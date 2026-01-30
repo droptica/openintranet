@@ -5,7 +5,6 @@ dependencies:
   config:
     - core.entity_view_mode.node.full
     - field.field.node.event.body
-    - field.field.node.event.field_access
     - field.field.node.event.field_background_image
     - field.field.node.event.field_event_date
     - field.field.node.event.field_event_location
@@ -215,7 +214,6 @@ content:
     weight: 3
     region: content
 hidden:
-  field_access: true
   field_event_online: true
   field_hide_location: true
   langcode: true

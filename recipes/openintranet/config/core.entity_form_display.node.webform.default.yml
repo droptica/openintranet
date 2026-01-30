@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - field.field.node.webform.body
-    - field.field.node.webform.field_access
     - field.field.node.webform.field_webform_file_upload
     - field.field.node.webform.webform
     - node.type.webform
@@ -20,7 +19,6 @@ third_party_settings:
     group_tabs:
       children:
         - group_content
-        - group_access
       label: Tabs
       region: content
       parent_name: ''
@@ -52,22 +50,6 @@ third_party_settings:
         formatter: open
         description: ''
         required_fields: true
-    group_access:
-      children:
-        - field_access
-      label: ACCESS
-      region: content
-      parent_name: group_tabs
-      weight: 19
-      format_type: tab
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        label_as_html: false
-        formatter: closed
-        description: ''
-        required_fields: true
 id: node.webform.default
 targetEntityType: node
 bundle: webform
@@ -88,19 +70,6 @@ content:
     weight: 5
     region: content
     settings: {  }
-    third_party_settings: {  }
-  field_access:
-    type: cshs
-    weight: 21
-    region: content
-    settings:
-      save_lineage: false
-      force_deepest: true
-      parent: ''
-      level_labels: ''
-      hierarchy_depth: 0
-      required_depth: 0
-      none_label: '- Please select -'
     third_party_settings: {  }
   field_webform_file_upload:
     type: file_generic

@@ -109,9 +109,9 @@ install:
   - paragraphs_edit
   - path
   - path_alias
+  - openintranet_access
   - pathauto
   - pathologic
-  - permissions_by_term
   - pfdp
   - recently_read
   - recipe_tracker
@@ -202,11 +202,11 @@ config:
     navigation: '*'
     node: '*'
     noreqnewpass: '*'
+    openintranet_access: '*'
     openintranet_messenger: '*'
     openintranet_documents: '*'
     pathauto: '*'
     pathologic: '*'
-    permissions_by_term: '*'
     pfdp: '*'
     recently_read: '*'
     search_api: '*'

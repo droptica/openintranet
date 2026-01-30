@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - field.field.node.knowledge_base_page.body
-    - field.field.node.knowledge_base_page.field_access
     - field.field.node.knowledge_base_page.field_data_classification
     - field.field.node.knowledge_base_page.field_oi_document_ref
     - field.field.node.knowledge_base_page.field_related_content
@@ -57,7 +56,6 @@ third_party_settings:
     group_access:
       children:
         - field_data_classification
-        - field_access
       label: ACCESS
       region: content
       parent_name: group_tabs
@@ -91,19 +89,6 @@ content:
     weight: 3
     region: content
     settings: {  }
-    third_party_settings: {  }
-  field_access:
-    type: cshs
-    weight: 127
-    region: content
-    settings:
-      save_lineage: false
-      force_deepest: true
-      parent: null
-      level_labels: ''
-      hierarchy_depth: 0
-      required_depth: 0
-      none_label: '- Please select -'
     third_party_settings: {  }
   field_data_classification:
     type: options_select

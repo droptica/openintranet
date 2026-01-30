@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - field.field.node.knowledge_base_page.body
-    - field.field.node.knowledge_base_page.field_access
     - field.field.node.knowledge_base_page.field_data_classification
     - field.field.node.knowledge_base_page.field_related_content
     - field.field.node.knowledge_base_page.field_tags
@@ -65,6 +64,5 @@ content:
     region: content
 hidden:
   book_navigation: true
-  field_access: true
   langcode: true
   search_api_excerpt: true

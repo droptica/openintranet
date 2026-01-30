@@ -1,0 +1,20 @@
+# Entity types with access control enabled
+enabled_entity_types:
+  node:
+    - article
+    - event
+    - knowledge_base_page
+    - page
+    - webform
+  oi_document: true
+  oi_folder: true
+
+# UI settings
+ui:
+  show_access_summary: true
+  show_inherited_access: true
+
+# Behavior settings
+behavior:
+  owner_always_has_access: true
+  inherit_folder_access: true

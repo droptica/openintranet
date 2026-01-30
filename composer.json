@@ -78,13 +78,13 @@
         "drupal/libraries": "^4.0",
         "drupal/masquerade": "^2.0",
         "drupal/noreqnewpass": "^1.4",
-        "drupal/openintranet_documents": "1.0.0-alpha5",
+        "drupal/openintranet_access": "^1.0",
+        "drupal/openintranet_documents": "^1.0",
         "drupal/openintranet_messenger": "^1.0",
         "drupal/other_view_filter": "dev-1.x",
         "drupal/page_manager": "^4.0@RC",
         "drupal/pathauto": "^1.13",
         "drupal/pathologic": "^2.0@alpha",
-        "drupal/permissions_by_term": "^3.1",
         "drupal/prepopulate": "^2.5",
         "drupal/private_files_download_permission": "^3.1",
         "drupal/project_browser": "@beta",
@@ -168,9 +168,6 @@
             "drupal/noreqnewpass": {
                 "Fix undefined array key #validate warning": "patches/noreqnewpass/undefined-validate-array-key.patch"
             },
-            "drupal/permissions_by_term": {
-                "Move permission field at the bottom of form": "patches/permissions_by_term/permission_field_on_used_edit.patch"
-            },
             "drupal/address": {
                 "[3460590] Module is not compatible with diff 2.0.x's": "https://www.drupal.org/files/issues/2024-07-10/diff-module-support-3460590-2.patch"
             },
@@ -184,5 +181,9 @@
                 "[3569589] Add Service Region configuration for international SMS": "patches/smsapi/3569589-service-region.patch"
             }
         }
+    },
+    "require-dev": {
+        "drupal/core-dev": "^11.2",
+        "phpunit/phpunit": "^11.5"
     }
 }

@@ -8,5 +8,6 @@ install:
   - block
 
 config:
+  strict: false
   import:
     block: '*'

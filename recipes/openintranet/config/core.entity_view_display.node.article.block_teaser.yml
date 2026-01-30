@@ -6,7 +6,6 @@ dependencies:
     - core.entity_view_mode.node.block_teaser
     - field.field.node.article.body
     - field.field.node.article.comment_node_article
-    - field.field.node.article.field_access
     - field.field.node.article.field_background_image
     - field.field.node.article.field_intro
     - field.field.node.article.field_mark_as_must_read
@@ -74,7 +73,6 @@ content:
 hidden:
   body: true
   comment_node_article: true
-  field_access: true
   field_mark_as_must_read: true
   field_tags: true
   flag_bookmark: true

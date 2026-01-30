@@ -1,0 +1,31 @@
+administer openintranet access:
+  title: 'Administer Open Intranet Access'
+  description: 'Configure access settings and manage module configuration.'
+  restrict access: true
+
+administer oi_group:
+  title: 'Administer groups'
+  description: 'Full admin access to groups (create, edit, delete, manage members).'
+  restrict access: true
+
+manage oi groups:
+  title: 'Manage groups'
+  description: 'Create, edit, and delete groups.'
+  restrict access: true
+
+manage group members:
+  title: 'Manage group members'
+  description: 'Add and remove users from groups.'
+
+view oi groups:
+  title: 'View groups'
+  description: 'View list of groups and their members.'
+
+bypass openintranet access:
+  title: 'Bypass access restrictions'
+  description: 'View all content regardless of access restrictions.'
+  restrict access: true
+
+set entity access:
+  title: 'Set entity access restrictions'
+  description: 'Configure who can access specific content.'

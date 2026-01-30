@@ -7,7 +7,6 @@ dependencies:
     - core.entity_view_mode.node.full
     - field.field.node.article.body
     - field.field.node.article.comment_node_article
-    - field.field.node.article.field_access
     - field.field.node.article.field_background_image
     - field.field.node.article.field_intro
     - field.field.node.article.field_mark_as_must_read
@@ -127,7 +126,6 @@ content:
     weight: 9
     region: content
 hidden:
-  field_access: true
   field_mark_as_must_read: true
   langcode: true
   links: true

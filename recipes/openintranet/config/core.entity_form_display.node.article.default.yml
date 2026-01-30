@@ -5,7 +5,6 @@ dependencies:
   config:
     - field.field.node.article.body
     - field.field.node.article.comment_node_article
-    - field.field.node.article.field_access
     - field.field.node.article.field_background_image
     - field.field.node.article.field_intro
     - field.field.node.article.field_mark_as_must_read
@@ -24,26 +23,9 @@ dependencies:
     - votingapi_reaction
 third_party_settings:
   field_group:
-    group_access:
-      children:
-        - field_access
-      label: ACCESS
-      region: content
-      parent_name: group_tabs
-      weight: 23
-      format_type: tab
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        label_as_html: false
-        formatter: closed
-        description: ''
-        required_fields: true
     group_tabs:
       children:
         - group_basic_info
-        - group_access
         - group_tools
       label: Tabs
       region: content
@@ -132,19 +114,6 @@ content:
     weight: 5
     region: content
     settings: {  }
-    third_party_settings: {  }
-  field_access:
-    type: cshs
-    weight: 21
-    region: content
-    settings:
-      save_lineage: false
-      force_deepest: true
-      parent: null
-      level_labels: ''
-      hierarchy_depth: 0
-      required_depth: 0
-      none_label: '- Please select -'
     third_party_settings: {  }
   field_background_image:
     type: media_library_widget

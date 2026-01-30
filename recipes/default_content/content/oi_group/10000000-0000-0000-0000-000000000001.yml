@@ -1,0 +1,21 @@
+_meta:
+  version: '1.0'
+  entity_type: oi_group
+  uuid: 10000000-0000-0000-0000-000000000001
+  depends: {}
+default:
+  uid:
+    -
+      target_id: 1
+  name:
+    -
+      value: 'TechGlobal Inc'
+  description:
+    -
+      value: 'Main company - parent organization for all offices and departments.'
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1738232400
