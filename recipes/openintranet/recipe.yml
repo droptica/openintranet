@@ -110,6 +110,7 @@ install:
   - path
   - path_alias
   - openintranet_access
+  - openintranet_engagement
   - pathauto
   - pathologic
   - pfdp
@@ -203,6 +204,7 @@ config:
     node: '*'
     noreqnewpass: '*'
     openintranet_access: '*'
+    openintranet_engagement: '*'
     openintranet_messenger: '*'
     openintranet_documents: '*'
     pathauto: '*'
@@ -400,6 +402,7 @@ config:
             - flag
             - media
             - openintranet_documents
+            - openintranet_engagement
             - pfdp
             - system
             - votingapi_reaction
@@ -424,6 +427,7 @@ config:
           - 'use text format webform_default'
           - 'view media'
           - 'view oi_document'
+          - 'view own engagement score'
           - 'view oi_folder'
           - 'view reactions on node:article:field_news_article_reaction'
           - 'view reactions on node:page:field_basic_page_reaction'
