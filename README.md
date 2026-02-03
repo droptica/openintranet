@@ -19,7 +19,7 @@
 
 # What is Open Intranet?
 
-Open Intranet helps organizations unify internal communication across all employees—from office to frontline—with an open-source platform that gives you full ownership of your data and unlimited customization. Built on PHP and Drupal.
+Open Intranet is a workplace hub that brings together news, knowledge, documents, and people—with full data ownership and unlimited customization. Built on PHP and Drupal.
 
 ## Why Choose Open Intranet?
 
