@@ -11,6 +11,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\file\Entity\File;
 use Drupal\image\Entity\ImageStyle;
 use Drupal\media\Entity\Media;
+use Drupal\media\MediaInterface;
 use Drupal\node\NodeInterface;
 use Drupal\views\ViewExecutable;
 
@@ -79,10 +80,17 @@ function openintranet_theme_preprocess_block(array &$variables) {
       $renderer->addCacheableDependency($variables, $variables['content']['#block_content']);
     }
 
-    $media_id = $variables["content"]["#block_content"]->get('field_background_media')->target_id ?? null;
+    $block_content = $variables['content']['#block_content'];
+    $media_id = $block_content->hasField('field_background_media') && !$variables["content"]["#block_content"]->get('field_background_media')->isEmpty()
+      ? $block_content->get('field_background_media')->target_id
+      : NULL;
+
     if (!empty($media_id)) {
       $media = Media::load($media_id);
-      $file_id = $media->get('field_media_image')->target_id ?? null;
+      $file_id = $media instanceof MediaInterface && $media->hasField('field_media_image') && !$media->get('field_media_image')->isEmpty()
+        ? $media->get('field_media_image')->target_id
+        : NULL;
+
       if (!empty($file_id)) {
         $file = File::load($file_id);
 
@@ -92,6 +100,10 @@ function openintranet_theme_preprocess_block(array &$variables) {
         }
       }
     }
+  }
+
+  if (!empty($variables['elements']['#id']) && $variables['elements']['#id'] === 'openintranet_theme_account_menu') {
+    $variables['#cache']['max-age'] = 0;
   }
 }
 
@@ -125,10 +137,16 @@ function openintranet_theme_preprocess_node(array &$variables) {
   $database = \Drupal::service('database');
 
   if (($node = $variables['node']) instanceof NodeInterface && $node->hasField('field_background_image')) {
-    $media_id = $node->get('field_background_image')->target_id ?? NULL;
+    $media_id = !$node->get('field_background_image')->isEmpty()
+      ? $node->get('field_background_image')->target_id
+      : NULL;
+
     if (!empty($media_id)) {
       $media = Media::load($media_id);
-      $file_id = $media->get('field_media_image')->target_id ?? null;
+      $file_id = $media instanceof MediaInterface && $media->hasField('field_media_image') && !$media->get('field_media_image')->isEmpty()
+        ? $media->get('field_media_image')->target_id
+        : NULL;
+
       if (!empty($file_id)) {
         $file = File::load($file_id);
 
@@ -162,8 +180,8 @@ function openintranet_theme_preprocess_node(array &$variables) {
       && !$node->get('field_mark_as_must_read')->isEmpty()
       && (bool)$node->get('field_mark_as_must_read')->getString();
 
-    if (!$marked_as_must_read && isset($variables['content']['flag_readed'])) {
-      $variables['content']['flag_readed']['#access'] = FALSE;
+    if (!$marked_as_must_read && isset($variables['content']['flag_read'])) {
+      $variables['content']['flag_read']['#access'] = FALSE;
     }
   }
 }

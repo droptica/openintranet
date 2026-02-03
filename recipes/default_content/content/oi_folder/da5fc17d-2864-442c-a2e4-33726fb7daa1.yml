@@ -1,0 +1,20 @@
+_meta:
+  version: '1.0'
+  entity_type: oi_folder
+  uuid: da5fc17d-2864-442c-a2e4-33726fb7daa1
+default:
+  uid:
+    -
+      target_id: 0
+  name:
+    -
+      value: IT
+  description:
+    -
+      value: 'Main folder for IT department documents.'
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1769601586

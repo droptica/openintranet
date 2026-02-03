@@ -1,0 +1,29 @@
+_meta:
+  version: '1.0'
+  entity_type: oi_document
+  uuid: 923fb8bf-af48-4353-9ad1-d1628da1dd11
+  depends:
+    b4a2a10e-1750-45ca-90a3-408530554f90: file
+    da5fc17d-2864-442c-a2e4-33726fb7daa1: oi_folder
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 0
+  title:
+    -
+      value: 'Marketing Strategy Overview'
+  description:
+    -
+      value: 'This is a sample document: Marketing Strategy Overview. Located in the IT folder.'
+  folder:
+    -
+      entity: da5fc17d-2864-442c-a2e4-33726fb7daa1
+  file:
+    -
+      entity: b4a2a10e-1750-45ca-90a3-408530554f90
+  created:
+    -
+      value: 1769601586

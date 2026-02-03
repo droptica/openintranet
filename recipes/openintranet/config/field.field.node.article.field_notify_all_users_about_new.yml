@@ -1,0 +1,21 @@
+uuid: 06a98ff7-789e-462d-893c-3e093c8302a4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_notify_all_users_about_new
+    - node.type.article
+id: node.article.field_notify_all_users_about_new
+field_name: field_notify_all_users_about_new
+entity_type: node
+bundle: article
+label: 'Notify all users about new content'
+description: "Selecting this field will send emails to all users. You can change subject and body email in <a href=\"[site:base-url]/admin/config/workflow/eca/process_j7zbyne/edit?destination=/admin/config/workflow/eca\">ECA Model: Notify users about new article\r\n "
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

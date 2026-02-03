@@ -1,0 +1,41 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 9c8acfe9-2632-42b3-aec2-f416ed694823
+  bundle: faq_question
+  default_langcode: en
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'How do I add additional questions to the FAQ?'
+  created:
+    -
+      value: 1758714890
+  promote:
+    -
+      value: true
+  sticky:
+    -
+      value: false
+  path:
+    -
+      alias: /content/how-do-i-add-additional-questions-faq
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: '<p>Adding new FAQ questions &nbsp;with anwsers is easy. Just click a plus sign in the left menu and choose <strong>FAQ quesiton</strong>. A form will open and you will be able to insert a quesiton and an anwser.</p>'
+      format: full_html
+      summary: ''
+  field_faq_category:
+    -
+      value: intranet_features

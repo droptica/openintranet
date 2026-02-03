@@ -1,0 +1,27 @@
+name: '[Open Intranet] FAQ'
+type: 'Knowledge Management'
+description: 'Frequently Asked Questions functionality for Open Intranet. Creates FAQ content types with fields for questions, answers. Includes Views for FAQ listings.'
+install:
+  - node
+  - text
+  - user
+  - views
+  - views_ui
+  - options
+  - default_content
+config:
+  strict: false
+  import:
+    system:
+      - node.type.faq_question
+      - language.content_settings.node.faq_question
+      - core.base_field_override.node.faq_question.title
+      - core.entity_form_display.node.faq_question.default
+      - core.entity_view_display.node.faq_question.default
+      - core.entity_view_display.node.faq_question.full
+    field:
+      - field.storage.node.field_faq_category
+      - field.field.node.faq_question.field_faq_category
+      - field.field.node.faq_question.body
+    views:
+      - views.view.faq

@@ -4,10 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.knowledge_base_page.body
-    - field.field.node.knowledge_base_page.field_access
     - field.field.node.knowledge_base_page.field_data_classification
-    - field.field.node.knowledge_base_page.field_document_ref
-    - field.field.node.knowledge_base_page.field_mark_as_must_read
     - field.field.node.knowledge_base_page.field_related_content
     - field.field.node.knowledge_base_page.field_tags
     - node.type.knowledge_base_page
@@ -50,7 +47,12 @@ content:
     third_party_settings: {  }
     weight: 0
     region: content
-  flag_readed:
+  flag_bookmark:
+    weight: 10
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  flag_read:
     settings: {  }
     third_party_settings: {  }
     weight: 5
@@ -62,8 +64,5 @@ content:
     region: content
 hidden:
   book_navigation: true
-  field_access: true
-  field_document_ref: true
-  field_mark_as_must_read: true
   langcode: true
   search_api_excerpt: true

@@ -12,131 +12,157 @@
           @include media-breakpoint-up(lg) {
             padding: 2.5rem 1.5rem;
           }
+        }
+      }
+    }
+  }
+}
 
-          .webform-submission-form {
-            @include media-breakpoint-up(lg) {
-              padding: 0 5rem;
+.main-content {
+  .section {
+    .block-system-main-block {
+      .content {
+        .webform-submission-form {
+          @include media-breakpoint-up(lg) {
+            padding: 0 5rem;
+          }
+
+          .js-form-item {
+            label, .fieldset-legend {
+              
+              @include body-500;
+              color: $blue-600;
+              font-size: 1.125rem;
             }
 
-            .js-form-item {
-              label, .fieldset-legend {
-                color: $body-tertiary-color;
-
-                @include body-500;
-              }
-
-              input {
-                &:disabled {
-                  background-color: $navy-gray-25;
-                }
-
-                &.is-invalid {
-                  border-color: $red-500;
-                }
-              }
-            }
-
-            .js-form-type-checkbox {
-              input {
-                position: relative;
-                top: 2px;
-
-                &:not(:checked) {
-                  background-color: $white;
-                }
+            .form-check-label {
+              &:hover {
+                font-weight: 600;
               }
             }
 
-            .form-type-webform-time,
-            .form-type-textfield,
-            .form-type-date,
-            .webform-document-file,
-            .form-type-email {
-              input {
-                border-radius: .125rem;
-                background: $white;
-                color: $body-tertiary-color;
-                margin-top: .25rem;
+            input {
+              &:disabled {
+                background-color: $navy-gray-25;
+              }
+
+              &.is-invalid {
+                border-color: $red-500;
+              }
+            }
+          }
+
+          .js-form-type-checkbox {
+            input {
+              position: relative;
+              top: 2px;
+              background-color: $blue-500;
+
+              &:not(:checked) {
+                background-color: $blue-100;
+              }
+            }
+            label {
+              color:  $dark-navy-600
+            }
+          }
+
+          .form-type-webform-time,
+          .form-type-textfield,
+          .form-type-date,
+          .webform-document-file,
+          .form-type-email {
+            input {
+              border-radius: .125rem;
+              background: $white;
+              color: $body-tertiary-color;
+              margin-top: .25rem;
+              padding: .75rem 1rem;
+
+              @include body-400;
+            }
+          }
+
+          .form-type-select {
+            select {
+              border-radius: .125rem;
+              background-color: $white;
+              color: $body-tertiary-color;
+              margin-top: .25rem;
+              padding: .75rem 1rem;
+
+              @include body-400;
+            }
+          }
+
+          .form-type-textfield,
+          .form-type-email {
+            input {
+              padding: .75rem 1rem .75rem 2rem;
+              background-image: url('../images/icons/anchor.svg');
+              background-repeat: no-repeat;
+              background-position: .75rem center;
+              background-size: 1rem;
+
+              &:not(:placeholder-shown) {
+                background-image: none;
                 padding: .75rem 1rem;
-
-                @include body-400;
               }
             }
+          }
 
-            .form-type-select {
-              select {
-                border-radius: .125rem;
-                background-color: $white;
-                color: $body-tertiary-color;
-                margin-top: .25rem;
-                padding: .75rem 1rem;
+          .form-type-textarea {
+            textarea {
+              padding: 1rem;
+              border-radius: .125rem;
+              margin-top: .25rem;
+              background: $white;
 
-                @include body-400;
+              @include body-400;
+
+              &:placeholder-shown {
+                font-style: italic;
               }
             }
+          }
 
-            .form-type-textfield,
-            .form-type-email {
-              input {
-                padding: .75rem 1rem .75rem 2rem;
-                background-image: url('../images/icons/anchor.svg');
-                background-repeat: no-repeat;
-                background-position: .75rem center;
-                background-size: 1rem;
+          .webform-scale {
+            &-option {
+              label {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-color: $blue-400 !important;
+                border-width: 2px;
+              }
 
-                &:not(:placeholder-shown) {
-                  background-image: none;
-                  padding: .75rem 1rem;
-                }
+              input:checked + label {
+                background-color: $blue-500;
+                color: $white;
+                box-shadow: none;
               }
             }
+          }
 
-            .form-type-textarea {
-              textarea {
-                padding: 1rem;
-                border-radius: .125rem;
-                margin-top: .25rem;
-                background: $white;
+          .form-actions {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
 
-                @include body-400;
+            button {
+              border-radius: $border-radius;
+              background: $blue-50;
+              color: $blue-500;
+              padding: .5rem .75rem;
+              border: none;
 
-                &:placeholder-shown {
-                  font-style: italic;
-                }
+              &:hover {
+                background: $blue-100;
               }
             }
-
-            .webform-scale {
-              &-option {
-                label {
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                }
-
-                input:checked + label {
-                  background-color: $blue-100;
-                }
-              }
-            }
-
-            .form-actions {
-              display: flex;
-              align-items: center;
-              justify-content: flex-end;
-
-              button {
-                border-radius: $border-radius;
-                background: $blue-50;
-                color: $blue-500;
-                padding: .5rem .75rem;
-                border: none;
-
-                &:hover {
-                  background: $blue-100;
-                }
-              }
-            }
+          }
+          .description {
+            color: $dark-navy-600 !important;
           }
         }
       }

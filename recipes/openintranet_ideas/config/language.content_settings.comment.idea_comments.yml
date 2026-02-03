@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - comment.type.idea_comments
+id: comment.idea_comments
+target_entity_type_id: comment
+target_bundle: idea_comments
+default_langcode: site_default
+language_alterable: false

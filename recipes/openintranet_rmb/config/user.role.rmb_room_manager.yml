@@ -1,0 +1,25 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.full_html
+    - node.type.rmb_room
+  module:
+    - filter
+    - node
+    - system
+id: rmb_room_manager
+label: 'RMB - Room Manager'
+weight: 14
+is_admin: false
+permissions:
+  - 'create rmb_room content'
+  - 'delete any rmb_room content'
+  - 'delete own rmb_room content'
+  - 'delete rmb_room revisions'
+  - 'edit any rmb_room content'
+  - 'edit own rmb_room content'
+  - 'revert rmb_room revisions'
+  - 'use text format full_html'
+  - 'view rmb_room revisions'
+  - 'view the administration theme'

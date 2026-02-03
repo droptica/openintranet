@@ -1,0 +1,25 @@
+_meta:
+  version: '1.0'
+  entity_type: oi_folder
+  uuid: 720c9df5-80db-4526-b424-b4a5439eb17f
+  depends:
+    1e775862-85cb-45db-9cc6-41f966b0607a: oi_folder
+default:
+  uid:
+    -
+      target_id: 0
+  name:
+    -
+      value: 'Performance Reviews'
+  description:
+    -
+      value: 'Performance Reviews subfolder in Human Resources.'
+  parent:
+    -
+      entity: 1e775862-85cb-45db-9cc6-41f966b0607a
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1769601586

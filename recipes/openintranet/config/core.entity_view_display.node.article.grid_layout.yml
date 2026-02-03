@@ -6,9 +6,7 @@ dependencies:
     - core.entity_view_mode.node.grid_layout
     - field.field.node.article.body
     - field.field.node.article.comment_node_article
-    - field.field.node.article.field_access
     - field.field.node.article.field_background_image
-    - field.field.node.article.field_document_ref
     - field.field.node.article.field_intro
     - field.field.node.article.field_mark_as_must_read
     - field.field.node.article.field_news_article_reaction
@@ -21,7 +19,12 @@ targetEntityType: node
 bundle: article
 mode: grid_layout
 content:
-  flag_readed:
+  flag_bookmark:
+    weight: 10
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  flag_read:
     settings: {  }
     third_party_settings: {  }
     weight: 10
@@ -34,9 +37,7 @@ content:
 hidden:
   body: true
   comment_node_article: true
-  field_access: true
   field_background_image: true
-  field_document_ref: true
   field_intro: true
   field_mark_as_must_read: true
   field_news_article_reaction: true

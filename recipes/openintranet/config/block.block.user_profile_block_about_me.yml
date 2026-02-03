@@ -1,4 +1,3 @@
-uuid: 3b9ba463-88f0-46d8-bc95-bd71ad5eb1be
 langcode: en
 status: true
 dependencies:
@@ -20,9 +19,9 @@ settings:
   label: 'About me'
   label_display: visible
   provider: views
-  context_mapping: {  }
   views_label: 'About me'
-  items_per_page: none
+  items_per_page: null
+  context_mapping: {  }
 visibility:
   request_path:
     id: request_path

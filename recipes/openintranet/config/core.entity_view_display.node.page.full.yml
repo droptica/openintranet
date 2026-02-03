@@ -7,14 +7,13 @@ dependencies:
     - core.entity_view_mode.node.full
     - field.field.node.page.body
     - field.field.node.page.comment_node_page
-    - field.field.node.page.field_access
     - field.field.node.page.field_background_image
     - field.field.node.page.field_basic_page_reaction
-    - field.field.node.page.field_document_ref
-    - field.field.node.page.field_mark_as_must_read
+    - field.field.node.page.field_oi_document_ref
     - node.type.page
   module:
     - comment
+    - field_group
     - layout_builder
     - media
     - text
@@ -24,6 +23,27 @@ third_party_settings:
   layout_builder:
     enabled: false
     allow_custom: false
+  field_group:
+    group_inline_links:
+      children:
+        - flag_read
+      label: 'Inline Links'
+      parent_name: ''
+      region: content
+      weight: 5
+      format_type: html_element
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
 id: node.page.full
 targetEntityType: node
 bundle: page
@@ -54,7 +74,7 @@ content:
       image_loading:
         attribute: lazy
     third_party_settings: {  }
-    weight: 6
+    weight: 4
     region: content
   field_basic_page_reaction:
     type: votingapi_reaction_default
@@ -68,23 +88,20 @@ content:
     third_party_settings: {  }
     weight: 2
     region: content
-  field_document_ref:
-    type: entity_reference_entity_view
-    label: hidden
+  field_oi_document_ref:
+    type: entity_reference_label
+    label: above
     settings:
-      view_mode: teaser
-      link: false
+      link: true
     third_party_settings: {  }
     weight: 1
     region: content
-  flag_readed:
+  flag_read:
     settings: {  }
     third_party_settings: {  }
-    weight: 10
+    weight: 6
     region: content
 hidden:
-  field_access: true
-  field_mark_as_must_read: true
   langcode: true
   links: true
   search_api_excerpt: true

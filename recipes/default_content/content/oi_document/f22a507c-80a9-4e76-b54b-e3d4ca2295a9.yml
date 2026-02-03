@@ -1,0 +1,29 @@
+_meta:
+  version: '1.0'
+  entity_type: oi_document
+  uuid: f22a507c-80a9-4e76-b54b-e3d4ca2295a9
+  depends:
+    b4a2a10e-1750-45ca-90a3-408530554f90: file
+    6bba3a90-3065-4cdf-b298-8e5d0bf54292: oi_folder
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 0
+  title:
+    -
+      value: 'Onboarding Process'
+  description:
+    -
+      value: 'This is a sample document: Onboarding Process. Located in the Campaigns folder.'
+  folder:
+    -
+      entity: 6bba3a90-3065-4cdf-b298-8e5d0bf54292
+  file:
+    -
+      entity: b4a2a10e-1750-45ca-90a3-408530554f90
+  created:
+    -
+      value: 1769601586

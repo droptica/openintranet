@@ -1,0 +1,12 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.faq_question
+_core:
+  default_config_hash: UQ9trDCsP7U4tB6isbdW_K91WrjufFuXHCkj4UoLmmQ
+id: node.faq_question
+target_entity_type_id: node
+target_bundle: faq_question
+default_langcode: site_default
+language_alterable: false

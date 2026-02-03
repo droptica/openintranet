@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_task_history
+    - node.type.task
+id: node.task.field_task_history
+field_name: field_task_history
+entity_type: node
+bundle: task
+label: History
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

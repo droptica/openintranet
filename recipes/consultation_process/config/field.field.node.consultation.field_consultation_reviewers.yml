@@ -1,0 +1,28 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_consultation_reviewers
+    - node.type.consultation
+id: node.consultation.field_consultation_reviewers
+field_name: field_consultation_reviewers
+entity_type: node
+bundle: consultation
+label: Reviewers
+description: 'Select the users who need to review and provide input on this consultation. Choose reviewers based on their expertise, authority level, and availability. All selected reviewers will receive notifications and can provide feedback through the review system.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:user'
+  handler_settings:
+    target_bundles: null
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    filter:
+      type: _none
+    include_anonymous: true
+field_type: entity_reference

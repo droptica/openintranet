@@ -1,0 +1,9 @@
+{
+  "name": "openintranet/openintranet_ideas",
+  "description": "Open intrant ideas - ida submission and voting",
+  "type": "drupal-recipe",
+  "license": "GPL-2.0-or-later",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "version": "1.0-beta1"
+}

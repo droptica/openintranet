@@ -1,0 +1,41 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: rmb12345-6789-abcd-ef01-234567890abc
+  bundle: menu_link_content
+  default_langcode: en
+depends:
+  rmb12345-6789-abcd-ef01-234567890parent: menu_link_content
+default:
+  enabled:
+    -
+      value: true
+  title:
+    -
+      value: 'Room Booking Calendar'
+  menu_name:
+    -
+      value: main
+  link:
+    -
+      uri: 'internal:/rooms'
+      title: ''
+      options: {  }
+  external:
+    -
+      value: false
+  rediscover:
+    -
+      value: true
+  weight:
+    -
+      value: -41
+  expanded:
+    -
+      value: false
+  parent:
+    -
+      value: 'menu_link_content:rmb12345-6789-abcd-ef01-234567890parent'
+  revision_translation_affected:
+    -
+      value: true

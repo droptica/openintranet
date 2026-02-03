@@ -1,0 +1,82 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 9faa0ddf-b708-4bbb-9143-d8d9e5063fcd
+  bundle: inventory_item
+  default_langcode: en
+  depends:
+    098c5f18-849f-44f7-9154-f01ec30dfcf3: file
+    ea8cc9b2-b105-4ec1-a2cd-a169df9b1546: file
+    f7d50d3a-f690-4fdf-82bb-69e61129eebb: taxonomy_term
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'MacBook Pro'
+  created:
+    -
+      value: 1759149348
+  promote:
+    -
+      value: true
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /content/macbook-pro
+      langcode: en
+      pathauto: 1
+  field_inventory_number:
+    -
+      value: ABCDE12345
+  field_item_image:
+    -
+      entity: 098c5f18-849f-44f7-9154-f01ec30dfcf3
+      alt: mac1
+      title: ''
+      width: 1536
+      height: 1024
+    -
+      entity: ea8cc9b2-b105-4ec1-a2cd-a169df9b1546
+      alt: mac2
+      title: ''
+      width: 1536
+      height: 1024
+  field_item_manufacturer:
+    -
+      value: Apple
+  field_item_model:
+    -
+      value: Pro
+  field_item_notes:
+    -
+      value: 'A small scratch on the cover.'
+      format: plain_text
+  field_item_serial_number:
+    -
+      value: '987654321'
+  field_item_specifications:
+    -
+      value: " - Chip: Apple M4 Pro with 12-core CPU (8 performance cores, 4 efficiency cores)\r\n - GPU: 18-core GPU\r\n - Memory: 36GB unified memory\r\n - Storage: 2TB SSD\r\n - Display: 14.2\" Liquid Retina XDR (3024 x 1964)\r\n - Color: Space Black\r\n - Keyboard: Backlit Magic Keyboard with Touch ID\r\n - Ports: 3x Thunderbolt 4, HDMI, SD card slot, MagSafe 3\r\n - Battery: Up to 18 hours\r\n - Wi-Fi: Wi-Fi 6E\r\n - Bluetooth: 5.3\r\n - Camera: 1080p FaceTime HD\r\n - Audio: Six-speaker sound system with Spatial Audio\r\n - OS: macOS Sequoia\r\n"
+      format: plain_text
+  field_item_type:
+    -
+      entity: f7d50d3a-f690-4fdf-82bb-69e61129eebb
+  field_purchase_date:
+    -
+      value: '2025-09-29'
+  field_warranty_expiry:
+    -
+      value: '2027-09-29'

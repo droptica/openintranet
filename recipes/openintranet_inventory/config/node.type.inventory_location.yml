@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies: {  }
+name: 'Inventory Storage Location'
+type: inventory_location
+description: 'Physical or logical locations where inventory items are stored when not in use.'
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: true

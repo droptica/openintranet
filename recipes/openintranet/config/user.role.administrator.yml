@@ -10,6 +10,7 @@ dependencies:
     - backup_migrate
     - block
     - comment
+    - openintranet_access
     - contextual
     - filter
     - image
@@ -84,3 +85,10 @@ permissions:
   - 'use text format full_html'
   - 'view own unpublished content'
   - 'view the administration theme'
+  - 'administer openintranet access'
+  - 'administer oi_group'
+  - 'manage oi groups'
+  - 'manage group members'
+  - 'view oi groups'
+  - 'bypass openintranet access'
+  - 'set entity access'

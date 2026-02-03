@@ -1,0 +1,15 @@
+uuid: b82963b1-77c9-4093-a492-32558ce5b537
+langcode: en
+status: true
+dependencies:
+  config:
+    - flag.flag.read
+  module:
+    - flag
+id: flag_action.read_unflag
+label: 'Mark as unread'
+type: node
+plugin: 'flag_action:read_unflag'
+configuration:
+  flag_id: read
+  flag_action: unflag

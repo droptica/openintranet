@@ -1,0 +1,51 @@
+name: '[Open Intranet] Consultation Process'
+type: 'Content Type'
+description: 'Comprehensive consultation management system with automated workflow for organizational decision-making processes. Creates consultation and consultation review content types with fields for deadlines, types, descriptions, and reviewers. Includes automated ECA processes for creating/deleting review tasks, Views for active/closed consultations, custom pages, and navigation menu integration. Features deadline-based filtering and reviewer assignment automation. Perfect for managing policy reviews, budget approvals, document consultations, and compliance processes in any organization.'
+install:
+  - node
+  - datetime
+  - options
+  - text
+  - user
+  - bpmn_io
+  - eca
+  - eca_base
+  - eca_content
+  - eca_log
+  - eca_ui
+  - eca_user
+  - eca_views
+  - page_manager
+  - page_manager_ui
+config:
+  import:
+    system:
+      - node.type.consultation
+      - node.type.consultation_review
+    eca:
+      - eca.eca.process_bgzye92
+      - eca.eca.process_yvck4bf
+      - eca.eca.process_r9ldkzi
+    views:
+      - views.view.consultations
+      - views.view.my_reviews
+      - views.view.consultation_reviews_on_node_consultation
+      - views.view.consultation_reviewers_by_consultation
+    user:
+      - user.role.content_editor_consultation
+      - user.role.content_editor_consultation_review
+content:
+  menu_link_content:
+    - a1b2c3d4-e5f6-7890-abcd-ef1234567890
+    - 9a63e430-63bf-49e5-a0b0-3eaa37c11ad2
+    - 83749ecf-dffa-4e81-8a33-f8c1c148dbd5
+  node:
+    - c001a1b2-c3d4-e5f6-7890-abcdef123001
+    - c002a1b2-c3d4-e5f6-7890-abcdef123002
+    - c003a1b2-c3d4-e5f6-7890-abcdef123003
+    - c004a1b2-c3d4-e5f6-7890-abcdef123004
+    - c005a1b2-c3d4-e5f6-7890-abcdef123005
+    - c006a1b2-c3d4-e5f6-7890-abcdef123006
+    - c007a1b2-c3d4-e5f6-7890-abcdef123007
+    - c008a1b2-c3d4-e5f6-7890-abcdef123008
+    - c009a1b2-c3d4-e5f6-7890-abcdef123009

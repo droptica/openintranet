@@ -1,0 +1,29 @@
+_meta:
+  version: '1.0'
+  entity_type: oi_document
+  uuid: 9bc0ede4-c084-4b05-bad2-010b64cdcb87
+  depends:
+    b4a2a10e-1750-45ca-90a3-408530554f90: file
+    8b82f1ea-a0fc-4c13-bb1a-6a937097b869: oi_folder
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 0
+  title:
+    -
+      value: 'Security Policy Guidelines'
+  description:
+    -
+      value: 'This is a sample document: Security Policy Guidelines. Located in the Marketing folder.'
+  folder:
+    -
+      entity: 8b82f1ea-a0fc-4c13-bb1a-6a937097b869
+  file:
+    -
+      entity: b4a2a10e-1750-45ca-90a3-408530554f90
+  created:
+    -
+      value: 1769601586

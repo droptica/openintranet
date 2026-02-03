@@ -1,0 +1,44 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: c007a1b2-c3d4-e5f6-7890-abcdef123007
+  bundle: consultation
+  default_langcode: en
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'DrupalCon Europe 2027 - Platinum Sponsorship Proposal'
+  created:
+    -
+      value: 1726394434
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  field_consultation_type:
+    -
+      value: budget_approval
+  field_consultation_description:
+    -
+      value: '<p><strong>Event:</strong> DrupalCon Europe 2027</p><p><strong>Location:</strong> Barcelona, Spain</p><p><strong>Dates:</strong> October 12-15, 2027</p><p><strong>Sponsorship Level:</strong> Platinum Sponsor</p><p><strong>Total Investment:</strong> €45,000 ($48,600)</p><p>Marketing and Development teams propose platinum sponsorship of DrupalCon Europe 2027 to strengthen our position in the Drupal community, showcase our Open Intranet project, and attract top Drupal talent.</p><h3>Platinum Sponsorship Benefits:</h3><ul><li><strong>Exhibition Space:</strong> Premium 6m x 6m booth in main exhibition hall</li><li><strong>Speaking Opportunities:</strong> 2 guaranteed speaking slots (45-minute sessions)</li><li><strong>Branding:</strong> Logo on all conference materials, website, and signage</li><li><strong>Networking:</strong> Access to exclusive sponsor dinner and VIP networking events</li><li><strong>Recruitment:</strong> Access to job board and talent networking sessions</li><li><strong>Conference Passes:</strong> 8 complimentary full conference passes</li><li><strong>Video Content:</strong> Sponsored session recordings and promotional video placement</li></ul><h3>Detailed Budget Breakdown:</h3><table border="1" style="width:100%; border-collapse: collapse;"><tr><th>Expense Category</th><th>Cost (EUR)</th><th>Cost (USD)</th><th>Notes</th></tr><tr><td>Platinum Sponsorship Fee</td><td>€35,000</td><td>$37,800</td><td>Base sponsorship package</td></tr><tr><td>Booth Design & Setup</td><td>€4,500</td><td>$4,860</td><td>Custom booth, demo stations, swag</td></tr><tr><td>Travel & Accommodation</td><td>€3,200</td><td>$3,456</td><td>4 team members, 4 nights</td></tr><tr><td>Marketing Materials</td><td>€1,500</td><td>$1,620</td><td>Brochures, business cards, giveaways</td></tr><tr><td>Demo Equipment</td><td>€800</td><td>$864</td><td>Laptops, monitors, networking equipment</td></tr></table><h3>Strategic Objectives:</h3><ul><li><strong>Brand Awareness:</strong> Position company as leading Drupal solutions provider in Europe</li><li><strong>Open Intranet Promotion:</strong> Showcase our open-source contribution to 1,200+ attendees</li><li><strong>Lead Generation:</strong> Target 150+ qualified leads for enterprise Drupal services</li><li><strong>Talent Acquisition:</strong> Recruit 3-5 senior Drupal developers from conference attendees</li><li><strong>Community Engagement:</strong> Strengthen relationships with Drupal Association and key contributors</li><li><strong>Thought Leadership:</strong> Present 2 technical sessions on intranet best practices</li></ul><h3>Expected ROI:</h3><ul><li><strong>New Business:</strong> €180,000 in new contracts (4:1 ROI target)</li><li><strong>Recruitment Savings:</strong> €25,000 saved on recruitment fees for 2 hires</li><li><strong>Brand Value:</strong> Increased recognition in European Drupal market</li><li><strong>Community Contribution:</strong> Enhanced reputation as active open-source contributor</li></ul><h3>Proposed Speaking Topics:</h3><ul><li><strong>Session 1:</strong> "Building Modern Intranets with Drupal 11: Open Intranet Case Study"</li><li><strong>Session 2:</strong> "Scaling Drupal for Enterprise: Performance and Security Best Practices"</li></ul><h3>Team Attendance:</h3><ul><li>CTO - Technical presentations and community networking</li><li>Marketing Director - Lead generation and brand promotion</li><li>Senior Drupal Developer - Technical demos and developer networking</li><li>Sales Manager - Business development and client meetings</li></ul><p><strong>Approval Required From:</strong> CEO, CFO, CTO, Marketing Director</p><p><strong>Decision Deadline:</strong> March 15, 2027 (early bird sponsorship pricing expires)</p><p><em>This example demonstrates strategic conference sponsorship decisions with clear ROI expectations and community engagement objectives.</em></p>'
+      format: full_html
+  field_consultation_deadline:
+    -
+      value: '2027-03-15'
+  field_consultation_reviewers:
+    -
+      target_id: 1
+  field_consultation_status:
+    -
+      value: active

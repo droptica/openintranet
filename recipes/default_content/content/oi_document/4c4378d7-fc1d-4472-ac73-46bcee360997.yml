@@ -1,0 +1,29 @@
+_meta:
+  version: '1.0'
+  entity_type: oi_document
+  uuid: 4c4378d7-fc1d-4472-ac73-46bcee360997
+  depends:
+    b4a2a10e-1750-45ca-90a3-408530554f90: file
+    f7d6388b-6620-4ddf-bc71-0fb5fb5b4ace: oi_folder
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 0
+  title:
+    -
+      value: 'Project Timeline'
+  description:
+    -
+      value: 'This is a sample document: Project Timeline. Located in the Budgets folder.'
+  folder:
+    -
+      entity: f7d6388b-6620-4ddf-bc71-0fb5fb5b4ace
+  file:
+    -
+      entity: b4a2a10e-1750-45ca-90a3-408530554f90
+  created:
+    -
+      value: 1769601586

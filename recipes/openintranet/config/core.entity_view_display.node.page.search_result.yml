@@ -6,10 +6,8 @@ dependencies:
     - core.entity_view_mode.node.search_result
     - field.field.node.page.body
     - field.field.node.page.comment_node_page
-    - field.field.node.page.field_access
     - field.field.node.page.field_background_image
     - field.field.node.page.field_basic_page_reaction
-    - field.field.node.page.field_document_ref
     - node.type.page
   module:
     - user
@@ -26,10 +24,8 @@ content:
 hidden:
   body: true
   comment_node_page: true
-  field_access: true
   field_background_image: true
   field_basic_page_reaction: true
-  field_document_ref: true
-  flag_readed: true
+  flag_read: true
   langcode: true
   search_api_excerpt: true

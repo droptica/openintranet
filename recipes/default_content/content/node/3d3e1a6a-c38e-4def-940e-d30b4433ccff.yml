@@ -38,7 +38,7 @@ default:
     -
       value: |
         <h2></h2>
-        <p><p>Notifications available in Enterprise plan. See details here <a href="https://www.droptica.com/products/intranet/">https://www.droptica.com/products/intranet/</a></p></p>
+        <p><p>The notification system is currently in the roadmap and we need to wait for implementation. You can find the full description of the Open Intranet system on this page <a href="https://www.droptica.com/products/intranet/">https://www.droptica.com/products/intranet/</a></p></p>
       format: full_html
       summary: ''
   comment_node_page:

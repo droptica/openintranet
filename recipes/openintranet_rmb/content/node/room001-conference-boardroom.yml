@@ -1,0 +1,51 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: r001a1b2-c3d4-e5f6-7890-abcdef123001
+  bundle: rmb_room
+  default_langcode: en
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'Conference Room - Executive Boardroom'
+  created:
+    -
+      value: 1726394434
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  field_rmb_room_capacity:
+    -
+      value: 12
+  field_rmb_room_description:
+    -
+      value: 'Premium executive boardroom with panoramic city view. Perfect for board meetings, client presentations, and high-level strategic discussions. Features elegant mahogany table and leather chairs. Available Monday-Friday 8:00 AM - 6:00 PM.'
+      format: plain_text
+  field_rmb_room_location:
+    -
+      value: '15th Floor, Executive Wing, Room 1501'
+  field_rmb_room_equipment:
+    -
+      value: projector
+    -
+      value: tv_display_screen
+    -
+      value: video_conference_system
+    -
+      value: air_conditioning
+    -
+      value: coffee_machine
+    -
+      value: whiteboard

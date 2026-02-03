@@ -1,0 +1,362 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.consultation.field_consultation_reviewers
+    - field.field.node.consultation_review.field_consultation_review_ref
+    - field.storage.node.field_consultation_review_ref
+    - field.storage.node.field_consultation_reviewers
+    - node.type.consultation
+    - node.type.consultation_review
+    - views.view.consultation_reviewers_by_consultation
+  module:
+    - eca_base
+    - eca_content
+    - eca_log
+    - eca_views
+    - modeler_api
+third_party_settings:
+  modeler_api:
+    modeler_id: bpmn_io
+    data: 'hash:68e7d4d8f84e8cbf75fa009943908353'
+    label: 'Consultation Process - Create review for each user'
+    colors:
+      content_entity__presave_1:
+        fill: '#bbdefb'
+        stroke: '#0d4372'
+      content_entity__custom_1:
+        fill: '#c8e6c9'
+        stroke: '#205022'
+      eca_base__eca_custom_1_1:
+        fill: '#ffcdd2'
+        stroke: '#831311'
+      content_entity__insert_1:
+        fill: '#bbdefb'
+        stroke: '#0d4372'
+      eca_trigger_content_entity_custom_event_0qs1j07:
+        fill: '#c8e6c9'
+        stroke: '#205022'
+      eca_trigger_custom_event_0s5o2gg:
+        fill: '#ffcdd2'
+        stroke: '#831311'
+id: process_bgzye92
+weight: 0
+events:
+  content_entity__presave_1:
+    plugin: 'content_entity:presave'
+    label: 'Presave content entity'
+    configuration:
+      type: 'node consultation'
+    successors:
+      -
+        id: eca_token_set_value_1by3iu2
+        condition: ''
+  content_entity__custom_1:
+    plugin: 'content_entity:custom'
+    label: 'ECA custom event (entity-aware)'
+    configuration:
+      event_id: create_consulation_review
+    successors:
+      -
+        id: eca_new_entity_13sg3lv
+        condition: ''
+  eca_base__eca_custom_1_1:
+    plugin: 'eca_base:eca_custom'
+    label: 'ECA custom event'
+    configuration:
+      event_id: delete_review
+    successors:
+      -
+        id: eca_token_load_entity_0wvqjda
+        condition: ''
+  content_entity__insert_1:
+    plugin: 'content_entity:insert'
+    label: 'Insert content entity'
+    configuration:
+      type: _all
+    successors:
+      -
+        id: eca_token_set_value_1by3iu2
+        condition: ''
+conditions:
+  eca_list_contains_0tsc70x:
+    plugin: eca_list_contains
+    label: 'Reviewer review do not exit'
+    configuration:
+      negate: true
+      list_token: views_consultation_reviews
+      method: value
+      value: '[consultation_reviewer]'
+  eca_list_contains_1r4hfoo:
+    plugin: eca_list_contains
+    label: 'Reviewer review exits'
+    configuration:
+      negate: false
+      list_token: views_consultation_reviews
+      method: value
+      value: '[consultation_reviewer]'
+  eca_list_contains_1mxstj4:
+    plugin: eca_list_contains
+    label: 'Review to delete'
+    configuration:
+      negate: true
+      list_token: consultation_reviewers_helper
+      method: value
+      value: '[views_consultation_user]'
+  eca_list_contains_0a2x02e:
+    plugin: eca_list_contains
+    label: 'Review exists'
+    configuration:
+      negate: false
+      list_token: consultation_reviewers_helper
+      method: value
+      value: '[views_consultation_user]'
+  eca_count_0c2xk9j:
+    plugin: eca_count
+    label: 'Compare number of list items'
+    configuration:
+      negate: false
+      left: consultation_reviewers
+      right: '0'
+      operator: greaterthan
+      type: numeric
+      case: false
+  eca_count_1rpwl8o:
+    plugin: eca_count
+    label: 'Compare number of list items'
+    configuration:
+      negate: false
+      left: consultation_reviewers
+      right: '0'
+      operator: equal
+      type: numeric
+      case: false
+  eca_count_1onmlh1:
+    plugin: eca_count
+    label: 'Compare number of list items'
+    configuration:
+      negate: false
+      left: views_consultation_reviews
+      right: '0'
+      operator: greaterthan
+      type: numeric
+      case: false
+  eca_count_0emitfu:
+    plugin: eca_count
+    label: 'Compare number of list items'
+    configuration:
+      negate: false
+      left: views_consultation_reviews
+      right: '0'
+      operator: equal
+      type: numeric
+      case: false
+gateways:
+  Gateway_161bxoq:
+    type: 0
+    successors:
+      -
+        id: eca_list_remove_14vo4ub
+        condition: eca_count_0c2xk9j
+      -
+        id: eca_token_set_value_1egp4jv
+        condition: eca_count_1rpwl8o
+  Gateway_12lz5m7:
+    type: 0
+    successors:
+      -
+        id: eca_list_remove_0qkzq5w
+        condition: eca_count_1onmlh1
+actions:
+  eca_token_set_value_1by3iu2:
+    label: 'Set Consultation reviewers'
+    plugin: eca_token_set_value
+    configuration:
+      token_name: consultation_reviewers
+      token_value: '[node:field_consultation_reviewers]'
+      use_yaml: false
+      validate_yaml: false
+    successors:
+      -
+        id: eca_views_query_0kgae6c
+        condition: ''
+  eca_views_query_0kgae6c:
+    label: 'Set existing Consultation reviewers users'
+    plugin: eca_views_query
+    configuration:
+      token_name: views_consultation_reviews
+      view_id: consultation_reviewers_by_consultation
+      display_id: default
+      arguments: '[entity:nid]'
+    successors:
+      -
+        id: Gateway_161bxoq
+        condition: ''
+  eca_list_remove_14vo4ub:
+    label: 'List: remove item'
+    plugin: eca_list_remove
+    configuration:
+      value: ''
+      token_name: consultation_reviewer
+      method: first
+      index: ''
+      list_token: consultation_reviewers
+    successors:
+      -
+        id: eca_trigger_content_entity_custom_event_0qs1j07
+        condition: eca_list_contains_0tsc70x
+      -
+        id: eca_write_log_message_0oyui88
+        condition: eca_list_contains_1r4hfoo
+      -
+        id: eca_trigger_content_entity_custom_event_0qs1j07
+        condition: eca_count_0emitfu
+  eca_trigger_content_entity_custom_event_0qs1j07:
+    label: 'Create review'
+    plugin: eca_trigger_content_entity_custom_event
+    configuration:
+      event_id: create_consulation_review
+      tokens: '[consultation_reviewer]'
+      object: ''
+    successors:
+      -
+        id: Gateway_161bxoq
+        condition: ''
+  eca_new_entity_13sg3lv:
+    label: 'Entity: create review'
+    plugin: eca_new_entity
+    configuration:
+      token_name: new_review
+      type: 'node consultation_review'
+      langcode: _interface
+      label: 'Review for [entity:title]'
+      published: true
+      owner: '1'
+    successors:
+      -
+        id: eca_set_field_value_0x9w8tk
+        condition: ''
+  eca_set_field_value_0x9w8tk:
+    label: 'Entity: set reviewer'
+    plugin: eca_set_field_value
+    configuration:
+      field_name: uid
+      field_value: '[consultation_reviewer]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: false
+      object: new_review
+    successors:
+      -
+        id: eca_set_field_value_0eeifta
+        condition: ''
+  eca_set_field_value_0eeifta:
+    label: 'Entity: set Consultation and save'
+    plugin: eca_set_field_value
+    configuration:
+      field_name: field_consultation_review_ref
+      field_value: '[entity:nid]'
+      method: 'set:clear'
+      strip_tags: false
+      trim: false
+      save_entity: true
+      object: new_review
+    successors: {  }
+  eca_write_log_message_0oyui88:
+    label: 'Log Message'
+    plugin: eca_write_log_message
+    configuration:
+      channel: consultation
+      severity: 6
+      message: 'Reviewer already has review consultation_reviewer [consultation_reviewer] for consultation [entity:nid]'
+    successors:
+      -
+        id: Gateway_161bxoq
+        condition: ''
+  eca_token_set_value_1egp4jv:
+    label: 'Token: set value'
+    plugin: eca_token_set_value
+    configuration:
+      token_name: consultation_reviewers_helper
+      token_value: '[node:field_consultation_reviewers]'
+      use_yaml: false
+      validate_yaml: false
+    successors:
+      -
+        id: Gateway_12lz5m7
+        condition: ''
+  eca_list_remove_0qkzq5w:
+    label: 'List: remove item'
+    plugin: eca_list_remove
+    configuration:
+      value: ''
+      token_name: views_consultation_user
+      method: first
+      index: ''
+      list_token: views_consultation_reviews
+    successors:
+      -
+        id: eca_trigger_custom_event_0s5o2gg
+        condition: eca_list_contains_1mxstj4
+      -
+        id: eca_write_log_message_16ohgip
+        condition: eca_list_contains_0a2x02e
+  eca_trigger_custom_event_0s5o2gg:
+    label: 'Delete review'
+    plugin: eca_trigger_custom_event
+    configuration:
+      event_id: delete_review
+      tokens: '[entity:nid],[views_consultation_user]'
+    successors:
+      -
+        id: Gateway_12lz5m7
+        condition: ''
+  eca_write_log_message_16ohgip:
+    label: 'Log Message'
+    plugin: eca_write_log_message
+    configuration:
+      channel: consultation
+      severity: 6
+      message: 'Reviewer no longer has review consultation_reviewer [views_consultation_user] for consultation [entity:nid]'
+    successors:
+      -
+        id: Gateway_12lz5m7
+        condition: ''
+  eca_token_load_entity_0wvqjda:
+    label: 'Entity: load'
+    plugin: eca_token_load_entity
+    configuration:
+      token_name: review
+      from: properties
+      entity_type: node
+      entity_id: ''
+      revision_id: ''
+      properties: |-
+        uid: "[views_consultation_user]"
+        field_consultation_review_ref: "[entity:nid]"
+      langcode: _interface
+      latest_revision: false
+      unchanged: false
+      object: review
+    successors:
+      -
+        id: eca_delete_entity_1e99vxc
+        condition: ''
+  eca_delete_entity_1e99vxc:
+    label: 'Entity: delete'
+    plugin: eca_delete_entity
+    configuration:
+      object: review
+    successors:
+      -
+        id: eca_write_log_message_149bqig
+        condition: ''
+  eca_write_log_message_149bqig:
+    label: 'Log Message'
+    plugin: eca_write_log_message
+    configuration:
+      channel: consultation
+      severity: 6
+      message: 'Deleted review [review:nid]'
+    successors: {  }

@@ -1,0 +1,20 @@
+_meta:
+  version: '1.0'
+  entity_type: oi_folder
+  uuid: a50ce765-ac69-4788-bc3f-41367ab088c8
+default:
+  uid:
+    -
+      target_id: 0
+  name:
+    -
+      value: Legal
+  description:
+    -
+      value: 'Main folder for Legal department documents.'
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1769601586

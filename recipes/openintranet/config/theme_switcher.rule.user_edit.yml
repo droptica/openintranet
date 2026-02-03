@@ -12,10 +12,6 @@ theme: openintranet_theme
 admin_theme: openintranet_theme
 conjunction: and
 visibility:
-  condition_group:
-    id: condition_group
-    negate: false
-    block_visibility_group: ''
   request_path:
     id: request_path
     negate: false

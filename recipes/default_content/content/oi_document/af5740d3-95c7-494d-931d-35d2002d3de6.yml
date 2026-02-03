@@ -1,0 +1,29 @@
+_meta:
+  version: '1.0'
+  entity_type: oi_document
+  uuid: af5740d3-95c7-494d-931d-35d2002d3de6
+  depends:
+    b4a2a10e-1750-45ca-90a3-408530554f90: file
+    952d6818-b6c9-4bff-8322-f61c46f4f2c6: oi_folder
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 0
+  title:
+    -
+      value: 'Tax Filing Documentation'
+  description:
+    -
+      value: 'This is a sample document: Tax Filing Documentation. Located in the Documentation folder.'
+  folder:
+    -
+      entity: 952d6818-b6c9-4bff-8322-f61c46f4f2c6
+  file:
+    -
+      entity: b4a2a10e-1750-45ca-90a3-408530554f90
+  created:
+    -
+      value: 1769601586

@@ -12,6 +12,16 @@
 # Abort this entire script if any one command fails.
 set -e
 
+# Parse command line arguments
+# -y/--yes: Skip interactive prompts (answers "no" to remove installation files)
+AUTO_YES=false
+while [[ "$#" -gt 0 ]]; do
+    case $1 in
+        -y|--yes) AUTO_YES=true ;;
+    esac
+    shift
+done
+
 if ! command -v ddev >/dev/null; then
   echo "DDEV needs to be installed. Visit https://ddev.com/get-started for instructions."
   exit 1
@@ -49,12 +59,22 @@ ask_yes_no() {
     done
 }
 
-# Ask about removing installation files
-if ask_yes_no "Would you like to remove installation files and directories (.git, ddev_commands, starter-theme)?"; then
+# Ask about removing installation files (skip if -y flag, keep files for development)
+if [ "$AUTO_YES" = true ]; then
+    echo "Keeping installation files for open source development (auto mode)."
+elif ask_yes_no "Would you like to remove installation files and directories (.git, ddev_commands, starter-theme)?"; then
     echo "Removing installation files..."
     rm -rf .git
     rm -rf ddev_commands
     rm -rf starter-theme
+
+    # Use project .gitignore template for new projects
+    if [ -f .gitignore.project ]; then
+        echo "Setting up .gitignore for new project..."
+        cp .gitignore.project .gitignore
+        rm -f .gitignore.project
+        echo "Updated .gitignore for new project development (custom theme will be tracked)."
+    fi
 
     # Only ask about git init if files were removed
     if ask_yes_no "Would you like to initialize a new git repository?"; then
@@ -62,7 +82,8 @@ if ask_yes_no "Would you like to remove installation files and directories (.git
         git init
     fi
 else
-    echo "Keeping installation files."
+    echo "Keeping installation files for open source development."
+    echo "Using default .gitignore configured for contributing to Open Intranet."
 fi
 
 #show the welcome message

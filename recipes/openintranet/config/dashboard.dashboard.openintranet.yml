@@ -29,7 +29,7 @@ layout:
           provider: views
           context_mapping: {  }
           views_label: ''
-          items_per_page: none
+          items_per_page: 5
         weight: 0
         additional: {  }
       1a19ef2a-bf3e-48fc-9e7e-8e7e24b0e32a:
@@ -42,7 +42,7 @@ layout:
           provider: views
           context_mapping: {  }
           views_label: ''
-          items_per_page: none
+          items_per_page: 5
         weight: 0
         additional: {  }
     third_party_settings: {  }
@@ -63,7 +63,7 @@ layout:
           provider: views
           context_mapping: {  }
           views_label: ''
-          items_per_page: none
+          items_per_page: 5
         weight: 0
         additional: {  }
       a81cc662-50fa-4aaf-857c-13dc56c821a2:
@@ -76,7 +76,7 @@ layout:
           provider: views
           context_mapping: {  }
           views_label: ''
-          items_per_page: none
+          items_per_page: 5
         weight: 0
         additional: {  }
     third_party_settings: {  }

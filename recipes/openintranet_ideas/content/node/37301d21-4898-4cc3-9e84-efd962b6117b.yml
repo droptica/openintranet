@@ -1,0 +1,54 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 37301d21-4898-4cc3-9e84-efd962b6117b
+  bundle: oi_idea
+  default_langcode: en
+  depends:
+    '00000000-0000-0000-0000-000000000001': user
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'Quarterly Innovation Challenge'
+  created:
+    -
+      value: 1759482661
+  promote:
+    -
+      value: true
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /content/quarterly-innovation-challenge
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: '<p class="p1">Every quarter, the company could organize an “innovation challenge” where employees submit and vote on new ideas. These could include improvements to internal processes, suggestions for new products, or ways to enhance customer service. Winners would get recognition and possibly small rewards, while the company gains fresh, creative ideas directly from its workforce. This initiative keeps employees engaged and gives them a voice in shaping the company’s future. Over time, it can build a culture of innovation where everyone feels empowered to contribute to the company’s success.</p>'
+      format: full_html
+      summary: ''
+  field_idea_status:
+    -
+      value: proposed
+  field_idea_comments:
+    -
+      status: 2
+      cid: 0
+      last_comment_timestamp: 1759482669
+      last_comment_name: ''
+      last_comment_uid: 1
+      comment_count: 0

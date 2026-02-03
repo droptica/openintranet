@@ -1,0 +1,9 @@
+{
+  "name": "openintranet/openintranet_inventory",
+  "description": "Open Intranet Inventory Management Recipe - Adds comprehensive inventory tracking, storage locations, and assignment management functionality.",
+  "type": "drupal-recipe",
+  "license": "GPL-2.0-or-later",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "version": "1.0-beta1"
+}

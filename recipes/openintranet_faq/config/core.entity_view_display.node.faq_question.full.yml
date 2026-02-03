@@ -1,0 +1,34 @@
+langcode: en
+status: false
+dependencies:
+  config:
+    - core.entity_view_mode.node.full
+    - field.field.node.faq_question.body
+    - field.field.node.faq_question.field_faq_category
+    - node.type.faq_question
+  module:
+    - text
+    - user
+_core:
+  default_config_hash: DItCOYqv0t71Xn6WIJljezV8ryNjxoiM1fUpai20lgQ
+id: node.faq_question.full
+targetEntityType: node
+bundle: faq_question
+mode: full
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_faq_category: true
+  langcode: true
+  search_api_excerpt: true

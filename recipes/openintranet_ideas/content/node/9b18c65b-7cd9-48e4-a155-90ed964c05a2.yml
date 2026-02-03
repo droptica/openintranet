@@ -1,0 +1,54 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 9b18c65b-7cd9-48e4-a155-90ed964c05a2
+  bundle: oi_idea
+  default_langcode: en
+  depends:
+    '00000000-0000-0000-0000-000000000001': user
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'Flexible Work Hours Pilot'
+  created:
+    -
+      value: 1759482645
+  promote:
+    -
+      value: true
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /content/flexible-work-hours-pilot
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: '<p class="p1">A pilot program for flexible working hours would let employees choose when they start and finish their workday, within agreed “core hours.” This allows individuals to adapt their schedules around personal responsibilities, such as childcare or commuting. Employees would feel more trusted and empowered, which generally leads to higher satisfaction and productivity. The company would benefit from improved performance and reduced absenteeism. If successful, this pilot could become a permanent policy, boosting the company’s competitiveness in attracting top talent.</p>'
+      format: full_html
+      summary: ''
+  field_idea_status:
+    -
+      value: rejected
+  field_idea_comments:
+    -
+      status: 2
+      cid: 0
+      last_comment_timestamp: 1759482654
+      last_comment_name: ''
+      last_comment_uid: 1
+      comment_count: 0

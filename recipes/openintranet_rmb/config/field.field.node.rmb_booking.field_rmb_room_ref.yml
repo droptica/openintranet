@@ -1,0 +1,28 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_rmb_room_ref
+    - node.type.rmb_booking
+    - node.type.rmb_room
+id: node.rmb_booking.field_rmb_room_ref
+field_name: field_rmb_room_ref
+entity_type: node
+bundle: rmb_booking
+label: Room
+description: 'Select the room to reserve. '
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      rmb_room: rmb_room
+    sort:
+      field: title
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

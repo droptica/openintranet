@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {  }
+name: 'Inventory Item Types'
+vid: inventory_item_types
+description: 'Categories for inventory items like laptops, desks, printers, etc.'
+weight: 0
+new_revision: false

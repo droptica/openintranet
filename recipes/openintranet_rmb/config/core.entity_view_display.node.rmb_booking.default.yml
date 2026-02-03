@@ -1,0 +1,42 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.rmb_booking.field_rmb_booking_date
+    - field.field.node.rmb_booking.field_rmb_room_ref
+    - node.type.rmb_booking
+  module:
+    - datetime_range
+    - user
+id: node.rmb_booking.default
+targetEntityType: node
+bundle: rmb_booking
+mode: default
+content:
+  field_rmb_booking_date:
+    type: daterange_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: medium
+      from_to: both
+      separator: '-'
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_rmb_room_ref:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  langcode: true
+  search_api_excerpt: true

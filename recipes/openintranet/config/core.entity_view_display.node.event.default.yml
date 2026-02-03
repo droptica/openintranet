@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - field.field.node.event.body
-    - field.field.node.event.field_access
     - field.field.node.event.field_background_image
     - field.field.node.event.field_event_date
     - field.field.node.event.field_event_location
@@ -12,7 +11,6 @@ dependencies:
     - field.field.node.event.field_event_online_text
     - field.field.node.event.field_hide_location
     - field.field.node.event.field_map_location
-    - field.field.node.event.field_mark_as_must_read
     - node.type.event
   module:
     - address
@@ -31,14 +29,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 5
-    region: content
-  field_access:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 8
     region: content
   field_event_date:
     type: daterange_default
@@ -180,7 +170,12 @@ content:
     third_party_settings: {  }
     weight: 6
     region: content
-  flag_readed:
+  flag_bookmark:
+    weight: 10
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  flag_read:
     settings: {  }
     third_party_settings: {  }
     weight: 9
@@ -192,6 +187,5 @@ content:
     region: content
 hidden:
   field_background_image: true
-  field_mark_as_must_read: true
   langcode: true
   search_api_excerpt: true

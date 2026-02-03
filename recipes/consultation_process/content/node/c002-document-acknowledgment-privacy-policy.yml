@@ -1,0 +1,44 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: c002a1b2-c3d4-e5f6-7890-abcdef123002
+  bundle: consultation
+  default_langcode: en
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'Mandatory Reading: Updated Privacy Policy v4.2'
+  created:
+    -
+      value: 1726394434
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  field_consultation_type:
+    -
+      value: document_acknowledgment
+  field_consultation_description:
+    -
+      value: '<p><strong>Document:</strong> Company Privacy Policy v4.2 - Employee Data Processing Guidelines</p><p><strong>File:</strong> Privacy_Policy_v4.2_FINAL.pdf (12 pages)</p><p><strong>Effective Date:</strong> April 1, 2027</p><p>All employees must read and acknowledge the updated privacy policy. This version includes important changes regarding AI tool usage, remote work data handling, and new GDPR compliance requirements.</p><h3>Key Changes in Version 4.2:</h3><ul><li><strong>AI Tools Policy:</strong> Guidelines for using ChatGPT, Claude, and other AI assistants with company data</li><li><strong>Remote Work Data:</strong> New requirements for home office security and VPN usage</li><li><strong>Biometric Data:</strong> Updated consent procedures for fingerprint access systems</li><li><strong>Third-Party Integrations:</strong> New approval process for connecting external apps to company systems</li><li><strong>Data Retention:</strong> Extended retention periods for project documentation (5 years → 7 years)</li><li><strong>Employee Rights:</strong> Enhanced procedures for data access and deletion requests</li></ul><h3>Acknowledgment Requirements:</h3><ul><li>Read complete document (tracking enabled)</li><li>Complete understanding quiz (minimum 80% score)</li><li>Digital signature confirmation</li><li>Acknowledgment deadline: March 25, 2027</li></ul><h3>Compliance Tracking:</h3><ul><li>Real-time dashboard showing department completion rates</li><li>Automated reminders for pending acknowledgments</li><li>Manager notifications for team compliance status</li><li>HR escalation for overdue acknowledgments</li></ul><p><strong>Languages Available:</strong> English, Spanish, German, French</p><p><em>This example demonstrates how organizations ensure all employees are informed about critical policy updates with proper tracking and compliance monitoring.</em></p>'
+      format: full_html
+  field_consultation_deadline:
+    -
+      value: '2027-03-25'
+  field_consultation_reviewers:
+    -
+      target_id: 1
+  field_consultation_status:
+    -
+      value: active

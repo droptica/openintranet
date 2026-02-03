@@ -3,12 +3,13 @@ langcode: en
 status: true
 dependencies:
   module:
+    - ckeditor5_allowed_html
     - ckeditor_media_resize
     - editor
     - media
     - pathologic
 _core:
-  default_config_hash: vpZysv3RHJjhYzq7O_q5q8mVlHdrSzKELmXyiX6RtV0
+  default_config_hash: TxWfJRHSLVfpeEVifEhOG5MPkeV_CUeoFtISWu2HbvU
 name: 'Full HTML'
 format: full_html
 weight: -10
@@ -17,7 +18,7 @@ filters:
     id: editor_file_reference
     provider: editor
     status: false
-    weight: -43
+    weight: -42
     settings: {  }
   filter_align:
     id: filter_align
@@ -25,6 +26,15 @@ filters:
     status: true
     weight: -49
     settings: {  }
+  filter_allowed:
+    id: filter_allowed
+    provider: ckeditor5_allowed_html
+    status: true
+    weight: -50
+    settings:
+      allowed_html: '<br> <p class="text-align-left text-align-center text-align-right text-align-justify"> <h2 id="jump-*" class="text-align-left text-align-center text-align-right text-align-justify"> <h3 id class="text-align-left text-align-center text-align-right text-align-justify"> <h4 id class="text-align-left text-align-center text-align-right text-align-justify"> <h5 id class="text-align-left text-align-center text-align-right text-align-justify"> <h6 id class="text-align-left text-align-center text-align-right text-align-justify"> <table class="decorated-table"> <cite> <dl> <dt> <dd> <a hreflang href target rel title> <blockquote cite> <ul type> <ol type="1 A I" start> <li> <strong> <em> <code> <s> <sub> <hr> <tr> <td rowspan colspan> <th rowspan colspan> <thead> <tbody> <tfoot> <caption> <img src alt height width data-align data-entity-type data-entity-uuid class> <drupal-media data-entity-type data-entity-uuid alt data-align data-media-width class> <iframe src height width name tabindex title allowfullscreen frameborder> <div class="row mb-4 gy-2 gy-4 gx-0 align-items-center pe-md-4 ps-lg-4 col-12 col-md-6 col-lg-3 col-lg-5 col-lg-7">'
+      filter_html_help: false
+      filter_html_nofollow: false
   filter_autop:
     id: filter_autop
     provider: filter
@@ -40,17 +50,17 @@ filters:
   filter_html:
     id: filter_html
     provider: filter
-    status: true
-    weight: -50
+    status: false
+    weight: -44
     settings:
-      allowed_html: '<br> <p class="text-align-left text-align-center text-align-right text-align-justify"> <h2 id="jump-*" class="text-align-left text-align-center text-align-right text-align-justify"> <h3 id class="text-align-left text-align-center text-align-right text-align-justify"> <h4 id class="text-align-left text-align-center text-align-right text-align-justify"> <h5 id class="text-align-left text-align-center text-align-right text-align-justify"> <h6 id class="text-align-left text-align-center text-align-right text-align-justify"> <table class="decorated-table"> <cite> <dl> <dt> <dd> <a hreflang href> <blockquote cite> <ul type> <ol type="1 A I" start> <strong> <em> <code> <s> <sub> <li> <hr> <tr> <td rowspan colspan> <th rowspan colspan> <thead> <tbody> <tfoot> <caption> <img src alt height width data-align data-entity-type data-entity-uuid> <drupal-media data-entity-type data-entity-uuid alt data-align data-media-width> <iframe src height width name tabindex title allowfullscreen> <div class id> <h1 class id> <span class>'
+      allowed_html: '<cite> <dl> <dt> <dd> <a hreflang> <blockquote cite> <ul type> <ol type="1 A I"> <h2 id="jump-*"> <h3 id> <h4 id> <h5 id> <h6 id> <table class="decorated-table">'
       filter_html_help: true
       filter_html_nofollow: false
   filter_html_escape:
     id: filter_html_escape
     provider: filter
     status: false
-    weight: -44
+    weight: -43
     settings: {  }
   filter_html_image_secure:
     id: filter_html_image_secure

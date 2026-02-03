@@ -3,7 +3,7 @@
 .form-control, .form-select {
   background-color: $white;
   border-radius: 4px;
-  padding: 12px 8px;
+  padding: 12px 32px 12px 8px;
   border: 1px solid $blue-100;
 }
 
@@ -19,4 +19,8 @@
 .view-footer {
   border-radius: $border-radius;
   margin-top: 1rem;
+
+  @include media-breakpoint-down(lg) {
+    margin-top: .5rem
+  }
 }

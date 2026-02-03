@@ -1,0 +1,73 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 060652c6-d396-4157-98c7-1b37bd236ba5
+  bundle: course
+  default_langcode: en
+  depends:
+    363b2480-ab2e-48d4-bdae-3abdb7f7a851: file
+    6c27a96c-a567-4529-bfcb-26a3c24c2297: node
+    e3cf214a-f305-4a2e-93bf-3792be1da1d5: node
+    820d5b9c-cec1-44e3-81e4-c8061f91f743: node
+    28c24d13-22e8-41b1-a5f0-e82c1ce82c57: node
+    86f3fab6-0052-4d69-9578-f43b84107e7c: node
+    ad1accff-bb7e-4582-ac14-53e1c03ca815: node
+    ac425142-a2aa-4608-802a-a8d97706a059: node
+    4b093a9b-5973-4901-8a53-a6cb7fd1eb05: node
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'How to handle passwords'
+  created:
+    -
+      value: 1758635509
+  promote:
+    -
+      value: true
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /content/how-handle-passwords
+      langcode: en
+      pathauto: 1
+  field_course_cover_image:
+    -
+      entity: 363b2480-ab2e-48d4-bdae-3abdb7f7a851
+      alt: 'Password security'
+      title: ''
+      width: 1024
+      height: 1024
+  field_course_description:
+    -
+      value: "This comprehensive cybersecurity course focuses on password security best practices, covering everything from basic password hygiene to advanced authentication mechanisms. Designed for employees at all technical levels, this course provides practical knowledge and actionable strategies to protect personal and organizational digital assets.\r\n\r\nCourse Objectives\r\nBy the end of this course, learners will be able to:\r\n- Understand the fundamental principles of password security\r\n- Create and manage strong, unique passwords\r\n- Implement multi-factor authentication effectively\r\n- Recognize and avoid common password-related attacks\r\n- Use password management tools safely and efficiently\r\n- Apply enterprise password policies and compliance requirements\r\n- Respond appropriately to password breaches and security incidents"
+  field_course_lessons:
+    -
+      entity: 6c27a96c-a567-4529-bfcb-26a3c24c2297
+    -
+      entity: e3cf214a-f305-4a2e-93bf-3792be1da1d5
+    -
+      entity: 820d5b9c-cec1-44e3-81e4-c8061f91f743
+    -
+      entity: 28c24d13-22e8-41b1-a5f0-e82c1ce82c57
+    -
+      entity: 86f3fab6-0052-4d69-9578-f43b84107e7c
+    -
+      entity: ad1accff-bb7e-4582-ac14-53e1c03ca815
+    -
+      entity: ac425142-a2aa-4608-802a-a8d97706a059
+    -
+      entity: 4b093a9b-5973-4901-8a53-a6cb7fd1eb05

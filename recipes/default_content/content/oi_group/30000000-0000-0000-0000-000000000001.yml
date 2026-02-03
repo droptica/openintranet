@@ -1,0 +1,25 @@
+_meta:
+  version: '1.0'
+  entity_type: oi_group
+  uuid: 30000000-0000-0000-0000-000000000001
+  depends:
+    20000000-0000-0000-0000-000000000001: oi_group
+default:
+  uid:
+    -
+      target_id: 1
+  name:
+    -
+      value: 'Warsaw - Marketing'
+  description:
+    -
+      value: 'Marketing team in Warsaw office.'
+  parent:
+    -
+      entity: 20000000-0000-0000-0000-000000000001
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1738232410

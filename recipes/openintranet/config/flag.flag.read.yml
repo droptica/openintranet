@@ -1,0 +1,36 @@
+uuid: 05061477-1a80-4cb0-9b6e-3b9ff547ac1d
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: read
+label: Read
+bundles:
+  - article
+  - book
+  - document
+  - event
+  - knowledge_base_page
+  - page
+  - webform
+entity_type: node
+global: false
+flag_short: 'Mark as read'
+flag_long: ''
+flag_message: ''
+unflag_short: 'Mark as unread'
+unflag_long: ''
+unflag_message: ''
+unflag_denied_text: ''
+weight: 0
+flag_type: 'entity:node'
+link_type: ajax_link
+flagTypeConfig:
+  show_in_links: {  }
+  show_as_field: true
+  show_on_form: true
+  show_contextual_link: false
+  extra_permissions:
+    owner: '0'
+linkTypeConfig: {  }

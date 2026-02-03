@@ -1,0 +1,29 @@
+_meta:
+  version: '1.0'
+  entity_type: oi_document
+  uuid: d590519e-3ff9-4f39-8174-afb941f542a4
+  depends:
+    b4a2a10e-1750-45ca-90a3-408530554f90: file
+    3bbea3ce-e122-4c41-a378-5c595cb07e55: oi_folder
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 0
+  title:
+    -
+      value: 'Meeting Minutes - January'
+  description:
+    -
+      value: 'This is a sample document: Meeting Minutes - January. Located in the Invoices folder.'
+  folder:
+    -
+      entity: 3bbea3ce-e122-4c41-a378-5c595cb07e55
+  file:
+    -
+      entity: b4a2a10e-1750-45ca-90a3-408530554f90
+  created:
+    -
+      value: 1769601586

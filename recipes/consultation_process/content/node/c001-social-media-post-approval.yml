@@ -1,0 +1,44 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: c001a1b2-c3d4-e5f6-7890-abcdef123001
+  bundle: consultation
+  default_langcode: en
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'Social Media Post: New EcoSmart Water Bottle Launch'
+  created:
+    -
+      value: 1726394434
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  field_consultation_type:
+    -
+      value: document_review
+  field_consultation_description:
+    -
+      value: '<p><strong>Platform:</strong> Instagram, Facebook, LinkedIn</p><p><strong>Campaign:</strong> Product Launch - EcoSmart Water Bottle</p><p><strong>Proposed Post Content:</strong></p><blockquote><p>🚀 <strong>NEW PRODUCT ALERT!</strong> 🚀<br/>Meet the EcoSmart Water Bottle - where sustainability meets innovation! 💧<br/><br/>✅ Made from 100% recycled ocean plastic<br/>✅ Smart temperature display (hot/cold indicator)<br/>✅ 24-hour thermal insulation<br/>✅ Leak-proof guarantee<br/>✅ Available in 5 eco-friendly colors<br/><br/>🌱 Every bottle purchased removes 50 plastic bottles from our oceans!<br/><br/>Limited launch offer: 25% OFF with code ECOSMART25<br/>Valid until March 31st! 🎉<br/><br/>Shop now: link in bio 👆<br/>#EcoSmart #Sustainability #Innovation #PlasticFree #WaterBottle #EcoFriendly #OceanCleanup</p></blockquote><p><strong>Visual Assets:</strong></p><ul><li>Product hero shot (5 color variants)</li><li>Lifestyle photo (person hiking with bottle)</li><li>Infographic showing ocean plastic impact</li><li>Video: 15-second product demonstration</li></ul><p><strong>Posting Schedule:</strong></p><ul><li>Instagram: March 15, 2027 at 10:00 AM</li><li>Facebook: March 15, 2027 at 2:00 PM</li><li>LinkedIn: March 16, 2027 at 9:00 AM</li></ul><p><strong>Review Requirements:</strong></p><ul><li>Brand compliance check (logo usage, color scheme)</li><li>Legal review (sustainability claims, guarantee terms)</li><li>Marketing alignment with Q1 campaign strategy</li><li>Pricing and promotion code verification</li></ul><p><em>This example shows how marketing teams can get approval for specific social media content before publication, ensuring brand consistency and legal compliance.</em></p>'
+      format: full_html
+  field_consultation_deadline:
+    -
+      value: '2027-03-10'
+  field_consultation_reviewers:
+    -
+      target_id: 1
+  field_consultation_status:
+    -
+      value: active

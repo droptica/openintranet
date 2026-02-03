@@ -1,0 +1,40 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.kudos.field_kodos_for_what
+    - field.field.node.kudos.field_kudos_for_whom
+    - node.type.kudos
+  module:
+    - user
+_core:
+  default_config_hash: XS6Pp3o4oqHCdcnY9k6cNcEMmwfehenXkV5HSzajJQA
+id: node.kudos.default
+targetEntityType: node
+bundle: kudos
+mode: default
+content:
+  field_kodos_for_what:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 102
+    region: content
+  field_kudos_for_whom:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: first_last_name
+      link: false
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  langcode: true
+  search_api_excerpt: true

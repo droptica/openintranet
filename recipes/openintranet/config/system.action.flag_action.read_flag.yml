@@ -1,0 +1,15 @@
+uuid: 133f05c7-56fd-4d3f-9f4c-69f0f00983f9
+langcode: en
+status: true
+dependencies:
+  config:
+    - flag.flag.read
+  module:
+    - flag
+id: flag_action.read_flag
+label: 'Mark as read'
+type: node
+plugin: 'flag_action:read_flag'
+configuration:
+  flag_id: read
+  flag_action: flag

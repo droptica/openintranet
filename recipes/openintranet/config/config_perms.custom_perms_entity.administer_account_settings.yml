@@ -1,0 +1,6 @@
+langcode: en
+status: true
+dependencies: {  }
+id: administer_account_settings
+label: 'View Must Read Report Details'
+route: view.must_read_report_details.page_2

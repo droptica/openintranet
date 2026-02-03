@@ -6,11 +6,8 @@ dependencies:
     - core.entity_view_mode.node.grid_layout
     - field.field.node.page.body
     - field.field.node.page.comment_node_page
-    - field.field.node.page.field_access
     - field.field.node.page.field_background_image
     - field.field.node.page.field_basic_page_reaction
-    - field.field.node.page.field_document_ref
-    - field.field.node.page.field_mark_as_must_read
     - node.type.page
   module:
     - user
@@ -19,7 +16,7 @@ targetEntityType: node
 bundle: page
 mode: grid_layout
 content:
-  flag_readed:
+  flag_read:
     settings: {  }
     third_party_settings: {  }
     weight: 10
@@ -32,10 +29,7 @@ content:
 hidden:
   body: true
   comment_node_page: true
-  field_access: true
   field_background_image: true
   field_basic_page_reaction: true
-  field_document_ref: true
-  field_mark_as_must_read: true
   langcode: true
   search_api_excerpt: true

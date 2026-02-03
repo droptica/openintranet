@@ -1,0 +1,20 @@
+_meta:
+  version: '1.0'
+  entity_type: oi_folder
+  uuid: 8b82f1ea-a0fc-4c13-bb1a-6a937097b869
+default:
+  uid:
+    -
+      target_id: 0
+  name:
+    -
+      value: Marketing
+  description:
+    -
+      value: 'Main folder for Marketing department documents.'
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1769601586

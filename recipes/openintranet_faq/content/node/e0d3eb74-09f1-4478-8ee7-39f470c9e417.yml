@@ -1,0 +1,44 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: e0d3eb74-09f1-4478-8ee7-39f470c9e417
+  bundle: faq_question
+  default_langcode: en
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'What is the best way to contact IT support'
+  created:
+    -
+      value: 1758714726
+  promote:
+    -
+      value: true
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /content/what-best-way-contact-it-support
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: '<p>The best way to contact IT support is through the Contact Form located in the top right corner on the intranet.&nbsp;</p><p>If you wan to report an issue with a computer or a printer, please include the service number of the item (service numbers are visible on stickers).</p>'
+      format: full_html
+      summary: ''
+  field_faq_category:
+    -
+      value: human_resources

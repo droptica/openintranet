@@ -1,0 +1,29 @@
+_meta:
+  version: '1.0'
+  entity_type: oi_document
+  uuid: e15c0b3c-f201-4bea-9386-b0e75b8e368e
+  depends:
+    b4a2a10e-1750-45ca-90a3-408530554f90: file
+    f7d6388b-6620-4ddf-bc71-0fb5fb5b4ace: oi_folder
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 0
+  title:
+    -
+      value: 'Annual Report 2025'
+  description:
+    -
+      value: 'This is a sample document: Annual Report 2025. Located in the Budgets folder.'
+  folder:
+    -
+      entity: f7d6388b-6620-4ddf-bc71-0fb5fb5b4ace
+  file:
+    -
+      entity: b4a2a10e-1750-45ca-90a3-408530554f90
+  created:
+    -
+      value: 1769601586

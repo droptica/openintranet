@@ -1,0 +1,44 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: c009a1b2-c3d4-e5f6-7890-abcdef123009
+  bundle: consultation
+  default_langcode: en
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'Office Relocation 2027 - Requirements & Budget Planning'
+  created:
+    -
+      value: 1726394434
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  field_consultation_type:
+    -
+      value: project_approval
+  field_consultation_description:
+    -
+      value: '<p><strong>Project:</strong> Office Relocation - New Headquarters 2027</p><p><strong>Current Location:</strong> Downtown Business Center (1,200 sqm, lease expires December 2027)</p><p><strong>Reason for Relocation:</strong> Team growth from 85 to 120+ employees, need for modern facilities</p><p><strong>Target Move Date:</strong> September 2027</p><p>Facilities team requests approval for office relocation planning and budget allocation. Current space is at capacity and lease renewal would cost 40% more than current market alternatives.</p><h3>New Office Requirements:</h3><ul><li><strong>Space:</strong> Minimum 1,800 sqm (50% increase for growth)</li><li><strong>Location:</strong> Within 30 minutes public transport from city center</li><li><strong>Parking:</strong> 60+ parking spaces (hybrid work = 50% daily occupancy)</li><li><strong>Meeting Rooms:</strong> 12 rooms (various sizes: 4-20 people capacity)</li><li><strong>Open Workspace:</strong> 90 flexible workstations with hot-desking capability</li><li><strong>Private Offices:</strong> 15 offices for management and client meetings</li><li><strong>Collaboration Areas:</strong> 4 informal meeting spaces, 2 phone booths</li><li><strong>Kitchen & Dining:</strong> Full kitchen, dining area for 40 people</li><li><strong>Recreation:</strong> Game room, quiet zones, outdoor terrace access</li><li><strong>Technical:</strong> Server room, high-speed internet (1Gbps+), backup power</li></ul><h3>Budget Estimates:</h3><table border="1" style="width:100%; border-collapse: collapse;"><tr><th>Expense Category</th><th>One-time Cost</th><th>Monthly Cost</th><th>Annual Cost</th></tr><tr><td>Rent (1,800 sqm @ €18/sqm)</td><td>-</td><td>€32,400</td><td>€388,800</td></tr><tr><td>Security Deposit</td><td>€97,200</td><td>-</td><td>-</td></tr><tr><td>Office Renovation</td><td>€180,000</td><td>-</td><td>-</td></tr><tr><td>Furniture & Equipment</td><td>€85,000</td><td>-</td><td>-</td></tr><tr><td>IT Infrastructure Setup</td><td>€45,000</td><td>-</td><td>-</td></tr><tr><td>Moving Services</td><td>€25,000</td><td>-</td><td>-</td></tr><tr><td>Utilities (estimated)</td><td>-</td><td>€4,200</td><td>€50,400</td></tr><tr><td>Maintenance & Cleaning</td><td>-</td><td>€3,800</td><td>€45,600</td></tr><tr><td><strong>TOTALS</strong></td><td><strong>€432,200</strong></td><td><strong>€40,400</strong></td><td><strong>€484,800</strong></td></tr></table><h3>Location Options Under Consideration:</h3><ul><li><strong>Option A - Tech Park North:</strong> €16/sqm, modern building, excellent transport links</li><li><strong>Option B - Business District East:</strong> €19/sqm, prestigious address, limited parking</li><li><strong>Option C - Suburban Campus:</strong> €14/sqm, large space, requires shuttle service</li></ul><h3>Cost Comparison with Current Office:</h3><ul><li><strong>Current Rent:</strong> €28,800/month (€345,600/year)</li><li><strong>Proposed Rent:</strong> €32,400/month (€388,800/year)</li><li><strong>Increase:</strong> €3,600/month (€43,200/year) - 12.5% increase</li><li><strong>Cost per Employee:</strong> Current €339/month → Proposed €324/month (efficiency gain)</li></ul><h3>Timeline & Milestones:</h3><ul><li><strong>March 2027:</strong> Finalize location selection and lease negotiation</li><li><strong>April 2027:</strong> Begin renovation and IT infrastructure planning</li><li><strong>May-July 2027:</strong> Renovation work and furniture installation</li><li><strong>August 2027:</strong> IT setup, testing, and employee orientation</li><li><strong>September 2027:</strong> Phased move over 2 weeks</li><li><strong>October 2027:</strong> Full operations in new location</li></ul><h3>Employee Benefits:</h3><ul><li><strong>Workspace Quality:</strong> Modern, ergonomic workstations with natural light</li><li><strong>Collaboration:</strong> Improved meeting spaces and informal collaboration areas</li><li><strong>Wellness:</strong> Quiet zones, recreation areas, and outdoor access</li><li><strong>Flexibility:</strong> Hot-desking and hybrid work support</li><li><strong>Amenities:</strong> Better kitchen facilities and dining options</li></ul><h3>Risk Mitigation:</h3><ul><li><strong>Lease Terms:</strong> Negotiate 5-year lease with 2-year extension option</li><li><strong>Budget Contingency:</strong> 15% buffer for unexpected costs</li><li><strong>Phased Move:</strong> Minimize business disruption with careful planning</li><li><strong>Backup Options:</strong> Maintain relationships with 2 alternative locations</li></ul><p><strong>Approval Required From:</strong> CEO, CFO, COO, HR Director, IT Director</p><p><strong>Next Steps:</strong> Site visits scheduled for approved stakeholders</p><p><em>This example demonstrates comprehensive facility planning with detailed requirements, budget analysis, and stakeholder coordination for major organizational changes.</em></p>'
+      format: full_html
+  field_consultation_deadline:
+    -
+      value: '2027-02-28'
+  field_consultation_reviewers:
+    -
+      target_id: 1
+  field_consultation_status:
+    -
+      value: active

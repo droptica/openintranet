@@ -1,0 +1,44 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: c008a1b2-c3d4-e5f6-7890-abcdef123008
+  bundle: consultation
+  default_langcode: en
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'Company Lunch Budget Increase to 50 PLN per Person'
+  created:
+    -
+      value: 1726394434
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  field_consultation_type:
+    -
+      value: budget_approval
+  field_consultation_description:
+    -
+      value: '<p><strong>Proposal:</strong> Increase daily lunch allowance from 35 PLN to 50 PLN per employee</p><p><strong>Current Allowance:</strong> 35 PLN per person per day (implemented January 2024)</p><p><strong>Proposed Allowance:</strong> 50 PLN per person per day</p><p><strong>⚠️ CONSULTATION PERIOD EXPIRED ⚠️</strong></p><p>HR Department proposed increasing the company lunch budget to address rising food costs and improve employee satisfaction. This consultation period ended and the increase has been implemented.</p><h3>Justification for Increase (APPROVED):</h3><ul><li><strong>Inflation Impact:</strong> Food costs increased 18% since January 2024</li><li><strong>Market Comparison:</strong> Competitors offer 45-60 PLN lunch allowances</li><li><strong>Employee Feedback:</strong> 78% of staff requested higher lunch budget in annual survey</li><li><strong>Talent Retention:</strong> Improved benefits help retain employees in competitive market</li><li><strong>Health & Productivity:</strong> Better meal options lead to improved workplace productivity</li><li><strong>Local Business Support:</strong> Higher budget allows employees to support more local restaurants</li></ul><h3>Budget Impact Analysis (COMPLETED):</h3><table border="1" style="width:100%; border-collapse: collapse;"><tr><th>Metric</th><th>Previous (35 PLN)</th><th>New (50 PLN)</th><th>Difference</th></tr><tr><td>Daily Cost (85 employees)</td><td>2,975 PLN</td><td>4,250 PLN</td><td>+1,275 PLN</td></tr><tr><td>Monthly Cost (22 working days)</td><td>65,450 PLN</td><td>93,500 PLN</td><td>+28,050 PLN</td></tr><tr><td>Annual Cost</td><td>785,400 PLN</td><td>1,122,000 PLN</td><td>+336,600 PLN</td></tr><tr><td>Annual Cost (USD equivalent)</td><td>$196,350</td><td>$280,500</td><td>+$84,150</td></tr></table><h3>Implementation Results (COMPLETED Q2 2025):</h3><ul><li><strong>Employee Satisfaction:</strong> ✅ Lunch satisfaction increased from 6.2/10 to 8.7/10</li><li><strong>Restaurant Variety:</strong> ✅ Employees now use 23 different restaurants (up from 12)</li><li><strong>Healthy Options:</strong> ✅ 65% increase in healthy meal choices</li><li><strong>Time Efficiency:</strong> ✅ Reduced lunch break time as more nearby options became viable</li><li><strong>Team Building:</strong> ✅ More group lunches due to expanded restaurant options</li></ul><h3>Quarterly Review Results:</h3><ul><li><strong>Q2 2025:</strong> ✅ 94% employee approval rating for new lunch policy</li><li><strong>Q3 2025:</strong> ✅ Zero complaints about lunch budget adequacy</li><li><strong>Q4 2025:</strong> ✅ 12% improvement in afternoon productivity metrics</li><li><strong>Q1 2026:</strong> ✅ Lunch benefit cited by 89% of new hires as positive factor</li></ul><h3>Cost-Benefit Analysis:</h3><ul><li><strong>Direct Cost:</strong> +336,600 PLN annually</li><li><strong>Productivity Gain:</strong> +2.3% (estimated value: 450,000 PLN)</li><li><strong>Retention Savings:</strong> Prevented 3 resignations (estimated savings: 180,000 PLN)</li><li><strong>Recruitment Advantage:</strong> Faster hiring due to competitive benefits</li><li><strong>Net ROI:</strong> +87,900 PLN positive impact</li></ul><p><strong>Status:</strong> IMPLEMENTED - New 50 PLN lunch allowance effective since April 1, 2025</p><p><strong>Next Review:</strong> Scheduled for January 2027 (annual benefits review)</p><p><em>This example shows a completed budget increase consultation with measurable outcomes and ROI analysis, demonstrating how employee benefit changes can be tracked and evaluated.</em></p>'
+      format: full_html
+  field_consultation_deadline:
+    -
+      value: '2025-03-15'
+  field_consultation_reviewers:
+    -
+      target_id: 1
+  field_consultation_status:
+    -
+      value: rejected

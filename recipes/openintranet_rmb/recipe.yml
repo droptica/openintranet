@@ -1,0 +1,47 @@
+name: '[Open Intranet] Room Booking System'
+type: 'Feature'
+description: 'Room booking system for all company facilities. This recipe provides a complete solution for managing and booking various types of rooms: conference rooms, meeting rooms, creative spaces, phone booths, and other company facilities. Includes room management, booking calendar with filtering, and menu integration for easy access.'
+install:
+  - node
+  - text
+  - options
+  - datetime_range
+  - views
+  - fullcalendar_view
+config:
+  import:
+    system:
+      - node.type.rmb_room
+      - node.type.rmb_booking
+      - core.base_field_override.node.rmb_room.promote
+      - core.base_field_override.node.rmb_room.title
+      - core.base_field_override.node.rmb_booking.title
+      - core.entity_form_display.node.rmb_room.default
+      - core.entity_form_display.node.rmb_booking.default
+      - core.entity_view_display.node.rmb_room.default
+      - core.entity_view_display.node.rmb_booking.default
+      - language.content_settings.node.rmb_booking
+    field:
+      - field.field.node.rmb_room.field_rmb_room_capacity
+      - field.field.node.rmb_room.field_rmb_room_description
+      - field.field.node.rmb_room.field_rmb_room_equipment
+      - field.field.node.rmb_room.field_rmb_room_location
+      - field.storage.node.field_rmb_room_capacity
+      - field.storage.node.field_rmb_room_description
+      - field.storage.node.field_rmb_room_equipment
+      - field.storage.node.field_rmb_room_location
+      - field.storage.node.field_rmb_booking_date
+      - field.storage.node.field_rmb_room_ref
+    user:
+      - user.role.rmb_room_manager
+    views:
+      - views.view.room_booking_calendar
+content:
+  menu_link_content:
+    - rmb12345-6789-abcd-ef01-234567890parent
+    - rmb12345-6789-abcd-ef01-234567890abc
+    - rmb12345-6789-abcd-ef01-234567890def
+  node:
+    - r001a1b2-c3d4-e5f6-7890-abcdef123001
+    - r002a1b2-c3d4-e5f6-7890-abcdef123002
+    - r003a1b2-c3d4-e5f6-7890-abcdef123003

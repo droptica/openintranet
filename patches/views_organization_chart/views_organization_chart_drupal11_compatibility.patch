@@ -1,0 +1,43 @@
+diff --git a/views_organization_chart.module b/views_organization_chart.module
+index e8cb283..ddb0765 100644
+--- a/views_organization_chart.module
++++ b/views_organization_chart.module
+@@ -6,6 +6,7 @@
+  */
+ 
+ use Drupal\Core\Routing\RouteMatchInterface;
++use Drupal\Core\StringTranslation\StringTranslationTrait;
+ use Drupal\image\Entity\ImageStyle;
+ 
+ /**
+@@ -16,9 +17,9 @@ function views_organization_chart_help($route_name, RouteMatchInterface $route_m
+     // Main module help for the views_organization_chart module.
+     case 'help.page.views_organization_chart':
+       $output = '';
+-      $output .= '<h3>' . t('About') . '</h3>';
+-      $output .= '<p>' . t('use highcharts Organization chart') . '</p>';
+-      $output .= '<p>' . t('can use with user, taxonomy, content type') . '</p>';
++      $output .= '<h3>' . \Drupal::translation()->translate('About') . '</h3>';
++      $output .= '<p>' . \Drupal::translation()->translate('use highcharts Organization chart') . '</p>';
++      $output .= '<p>' . \Drupal::translation()->translate('can use with user, taxonomy, content type') . '</p>';
+       return $output;
+ 
+     default:
+@@ -59,8 +60,15 @@ function template_preprocess_views_style_views_organization_chart(&$variables) {
+     }
+     if (!empty($options["image_field"])) {
+       $imageId = $view->field[$options["image_field"]]->getValue($row);
+-      $photo_file = $fileStorage->load($imageId);
+-      $nodes[$id]['image'] = $style->buildUrl($photo_file->uri->value);
++      if ($imageId && is_numeric($imageId)) {
++        $photo_file = $fileStorage->load($imageId);
++        if ($photo_file && $photo_file->getFileUri()) {
++          $file_uri = $photo_file->getFileUri();
++          if ($file_uri && $style) {
++            $nodes[$id]['image'] = $style->buildUrl($file_uri);
++          }
++        }
++      }
+     }
+     if (!empty($options["name_field"])) {
+       $nodes[$id]['name'] = $view->field[$options["name_field"]]->advancedRender($row);

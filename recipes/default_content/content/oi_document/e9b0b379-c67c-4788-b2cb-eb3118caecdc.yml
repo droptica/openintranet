@@ -1,0 +1,29 @@
+_meta:
+  version: '1.0'
+  entity_type: oi_document
+  uuid: e9b0b379-c67c-4788-b2cb-eb3118caecdc
+  depends:
+    b4a2a10e-1750-45ca-90a3-408530554f90: file
+    a50ce765-ac69-4788-bc3f-41367ab088c8: oi_folder
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 0
+  title:
+    -
+      value: 'Training Manual'
+  description:
+    -
+      value: 'This is a sample document: Training Manual. Located in the Legal folder.'
+  folder:
+    -
+      entity: a50ce765-ac69-4788-bc3f-41367ab088c8
+  file:
+    -
+      entity: b4a2a10e-1750-45ca-90a3-408530554f90
+  created:
+    -
+      value: 1769601586

@@ -141,6 +141,11 @@
       display: flex;
       flex-direction: column;
 
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+
       .field {
         .field__label {
           @include heading-6;
@@ -218,6 +223,13 @@
               }
             }
           }
+
+          &-text-with-summary {
+            img {
+              max-width: 100%;
+              height: auto;
+            }
+          }
         }
 
         &--name {
@@ -285,21 +297,20 @@
   .inline__links {
     margin-top: 2rem;
 
-    .book-add-child, .book-add-sibling, .book-printer {
+    .book-add-child,
+    .book-add-sibling,
+    .book-printer {
       a {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
         color: $blue-500;
 
         &:hover {
           color: $body-color;
           text-decoration: none;
         }
-      }
-
-      a {
-        position: relative;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
 
         &::before {
           content: "";
@@ -333,6 +344,14 @@
       }
     }
   }
+
+  .inline-links-container {
+    margin-top: 2rem;
+
+    .inline__links {
+      margin-top: 0;
+    }
+  }
 }
 
 #main > div:not(:has(.sidebar)) {
@@ -350,6 +369,40 @@
 
       @include media-breakpoint-up(lg) {
         padding: 0 7.5rem;
+      }
+    }
+  }
+}
+
+.node--view-mode-block-teaser {
+  .field--name {
+    &-field-news-article-reaction,
+    &-field-basic-page-reaction{
+      .votingapi-reaction-radios {
+        margin-bottom: 0 !important;
+
+        .form-switch {
+          padding-left: 0;
+
+          .votingapi-reaction-item-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            input[type="radio"]:checked+label, .votingapi-reaction-item {
+              background-color: transparent;
+              border: none;
+              padding: 0;
+              margin-bottom: 0;
+            }
+
+            .votingapi-reaction-count {
+              @include subtitle-300;
+
+              font-weight: 600;
+            }
+          }
+        }
       }
     }
   }

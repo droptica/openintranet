@@ -4,10 +4,8 @@ status: true
 dependencies:
   config:
     - field.field.node.knowledge_base_page.body
-    - field.field.node.knowledge_base_page.field_access
     - field.field.node.knowledge_base_page.field_data_classification
-    - field.field.node.knowledge_base_page.field_document_ref
-    - field.field.node.knowledge_base_page.field_mark_as_must_read
+    - field.field.node.knowledge_base_page.field_oi_document_ref
     - field.field.node.knowledge_base_page.field_related_content
     - field.field.node.knowledge_base_page.field_tags
     - node.type.knowledge_base_page
@@ -40,8 +38,8 @@ third_party_settings:
         - title
         - body
         - field_related_content
+        - field_oi_document_ref
         - field_tags
-        - field_document_ref
       label: CONTENT
       region: content
       parent_name: group_tabs
@@ -58,7 +56,6 @@ third_party_settings:
     group_access:
       children:
         - field_data_classification
-        - field_access
       label: ACCESS
       region: content
       parent_name: group_tabs
@@ -93,49 +90,21 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_access:
-    type: cshs
-    weight: 127
-    region: content
-    settings:
-      save_lineage: false
-      force_deepest: true
-      parent: null
-      level_labels: ''
-      hierarchy_depth: 0
-      required_depth: 0
-      none_label: '- Please select -'
-    third_party_settings: {  }
   field_data_classification:
     type: options_select
     weight: 126
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_document_ref:
-    type: inline_entity_form_complex
+  field_oi_document_ref:
+    type: entity_reference_autocomplete
     weight: 124
     region: content
     settings:
-      form_mode: default
-      override_labels: false
-      label_singular: ''
-      label_plural: ''
-      allow_new: true
-      allow_existing: true
       match_operator: CONTAINS
-      allow_duplicate: false
-      collapsible: false
-      collapsed: false
-      revision: false
-      removed_reference: keep
-    third_party_settings: {  }
-  field_mark_as_must_read:
-    type: boolean_checkbox
-    weight: 10
-    region: content
-    settings:
-      display_label: true
+      match_limit: 10
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
   field_related_content:
     type: inline_entity_form_complex

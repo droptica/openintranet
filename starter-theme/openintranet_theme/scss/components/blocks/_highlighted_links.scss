@@ -1,0 +1,11 @@
+#block-openintranet-theme-links,
+#block-openintranet-theme-views-block-bookmarks-block-1,
+#block-openintranet-theme-views-block-recently-read-content-block-1 {
+  a {
+    display: block;
+    font-size: $link-font-size;
+    line-height: 1.55 * $link-font-size;
+    padding-top: 12px;
+    padding-bottom: 12px;;
+  }
+}

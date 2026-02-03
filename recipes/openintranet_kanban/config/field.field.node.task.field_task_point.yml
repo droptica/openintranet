@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_task_point
+    - node.type.task
+  module:
+    - options
+id: node.task.field_task_point
+field_name: field_task_point
+entity_type: node
+bundle: task
+label: Point
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings: {  }
+field_type: list_integer

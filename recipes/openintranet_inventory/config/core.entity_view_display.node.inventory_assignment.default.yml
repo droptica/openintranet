@@ -1,0 +1,86 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.inventory_assignment.field_assigned_item
+    - field.field.node.inventory_assignment.field_assigned_to_location
+    - field.field.node.inventory_assignment.field_assigned_to_user
+    - field.field.node.inventory_assignment.field_assignment_date
+    - field.field.node.inventory_assignment.field_assignment_image
+    - field.field.node.inventory_assignment.field_assignment_notes
+    - field.field.node.inventory_assignment.field_expected_return_date
+    - node.type.inventory_assignment
+  module:
+    - datetime
+    - image
+    - text
+    - user
+id: node.inventory_assignment.default
+targetEntityType: node
+bundle: inventory_assignment
+mode: default
+content:
+  field_assigned_item:
+    type: entity_reference_label
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_assigned_to_location:
+    type: entity_reference_label
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_assigned_to_user:
+    type: entity_reference_label
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_assignment_date:
+    type: datetime_default
+    label: inline
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_assignment_image:
+    type: image
+    label: above
+    settings:
+      image_link: ''
+      image_style: ''
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_assignment_notes:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_expected_return_date:
+    type: datetime_default
+    label: inline
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 4
+    region: content
+hidden:
+  langcode: true
+  links: true
+  search_api_excerpt: true

@@ -1,0 +1,53 @@
+{#
+/**
+ * @file
+ * Default theme implementation for flag links.
+ *
+ * Available functions:
+ * - flagcount(flag, flaggable) gets the number of flaggings for the given flag and flaggable.
+ *
+ * Available variables:
+ * - attributes: HTML attributes for the link element.
+ * - title: The flag link title.
+ * - action: 'flag' or 'unflag'
+ * - flag: The flag object.
+ * - flaggable: The flaggable entity.
+ */
+#}
+
+{# Depending on the flag action, set the appropriate action class. #}
+{% if action == 'unflag' %}
+  {% set action_class = 'action-unflag' %}
+{% else %}
+  {% set action_class = 'action-flag' %}
+{% endif %}
+
+{# Set the remaining Flag CSS classes. #}
+{%
+  set classes = [
+  'flag',
+  'flag-' ~ flag.id()|clean_class,
+  'js-flag-' ~ flag.id()|clean_class ~ '-' ~ flaggable.id(),
+  action_class
+]
+%}
+
+{# Set Flag Link CSS classes. #}
+{%
+  set link_classes = [
+  'btn',
+  'btn-secondary',
+]
+%}
+
+{# Set nofollow to prevent search bots from crawling anonymous flag links #}
+{% set attributes = attributes.setAttribute('rel', 'nofollow') %}
+
+<div class="{{classes|join(' ')}}">
+  <a{{ attributes.addClass(link_classes) }}>
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M15.75 5H8.25C7.55964 5 7 5.58763 7 6.3125V19L12 15.5L17 19V6.3125C17 5.58763 16.4404 5 15.75 5Z" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+    {{ title }}
+  </a>
+</div>

@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_consultation_type
+    - node.type.consultation
+  module:
+    - options
+id: node.consultation.field_consultation_type
+field_name: field_consultation_type
+entity_type: node
+bundle: consultation
+label: 'Consultation Type'
+description: 'Select the type of consultation process. This determines the workflow and review requirements. Choose ''Document Review'' for content that needs feedback, ''Document Acknowledgment'' for information that only needs confirmation, or ''Budget/Project Approval'' for decisions requiring formal approval.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

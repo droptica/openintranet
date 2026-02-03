@@ -1,0 +1,23 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: 25f73baa-1055-4742-96ba-602cde7d4873
+  bundle: menu_link_content
+  default_langcode: en
+  depends:
+    2d53a082-e090-496b-bdd1-5da2a3e8bf6b: menu_link_content
+default:
+  title:
+    - value: 'Submit News'
+  link:
+    - uri: 'internal:/form/submit-news'
+  menu_name:
+    - value: main
+  weight:
+    - value: -47
+  expanded:
+    - value: false
+  enabled:
+    - value: true
+  parent:
+    - value: 'menu_link_content:2d53a082-e090-496b-bdd1-5da2a3e8bf6b'

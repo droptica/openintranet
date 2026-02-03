@@ -15,7 +15,12 @@
     padding-left: 0;
     padding-right: 0;
   }
-
+  a{
+    font-size: 0.875rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    display: $body-color;
+  }
   .accordion-item-block {
     & > .accordion-header {
       display: flex;
@@ -62,7 +67,7 @@
         padding-left: 16px;
 
         @include body-500;
-
+        display: block;
         &.active {
           font-weight: 600;
         }
@@ -102,7 +107,6 @@
 
     a {
       color: $body-color;
-
       &:hover {
         color: $body-secondary-color;
       }
@@ -152,4 +156,3 @@ aside.section:has(#block-openintranet-theme-knowledge-base-book) {
   position: sticky;
   top: 56px;
 }
-

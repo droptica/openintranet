@@ -4,16 +4,37 @@ status: true
 dependencies:
   config:
     - field.field.node.webform.body
-    - field.field.node.webform.field_access
-    - field.field.node.webform.field_mark_as_must_read
     - field.field.node.webform.field_webform_file_upload
     - field.field.node.webform.webform
     - node.type.webform
   module:
+    - field_group
     - file
     - text
     - user
     - webform
+third_party_settings:
+  field_group:
+    group_inline_links:
+      children:
+        - flag_read
+      label: 'Inline Links'
+      parent_name: ''
+      region: content
+      weight: 4
+      format_type: html_element
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
 id: node.webform.default
 targetEntityType: node
 bundle: webform
@@ -34,10 +55,10 @@ content:
     third_party_settings: {  }
     weight: 2
     region: content
-  flag_readed:
+  flag_read:
     settings: {  }
     third_party_settings: {  }
-    weight: 4
+    weight: 5
     region: content
   links:
     settings: {  }
@@ -54,7 +75,5 @@ content:
     weight: 3
     region: content
 hidden:
-  field_access: true
-  field_mark_as_must_read: true
   langcode: true
   search_api_excerpt: true

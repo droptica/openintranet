@@ -1,0 +1,44 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: c005a1b2-c3d4-e5f6-7890-abcdef123005
+  bundle: consultation
+  default_langcode: en
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'Annual Company Meeting 2026 - Budget Proposal'
+  created:
+    -
+      value: 1726394434
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  field_consultation_type:
+    -
+      value: budget_approval
+  field_consultation_description:
+    -
+      value: '<p><strong>Event:</strong> Annual Company Meeting & Team Building Retreat 2026</p><p><strong>Total Budget Request:</strong> $125,000</p><p><strong>Dates:</strong> September 15-17, 2026 (3 days, 2 nights)</p><p><strong>Location:</strong> Mountain Resort Conference Center, Colorado</p><p><strong>Attendees:</strong> 85 employees + 10 family members</p><p>HR proposes our annual company meeting with expanded team building activities and family inclusion to boost morale and strengthen company culture after successful 2025 growth.</p><h3>Detailed Budget Breakdown:</h3><table border="1" style="width:100%; border-collapse: collapse;"><tr><th>Expense Category</th><th>Cost per Person</th><th>Total Cost</th><th>Notes</th></tr><tr><td>Accommodation (2 nights)</td><td>$280</td><td>$26,600</td><td>Double occupancy, mountain view rooms</td></tr><tr><td>Meals & Catering</td><td>$180</td><td>$17,100</td><td>All meals, coffee breaks, welcome dinner</td></tr><tr><td>Transportation</td><td>$320</td><td>$30,400</td><td>Charter buses from 3 cities</td></tr><tr><td>Activities & Team Building</td><td>$150</td><td>$14,250</td><td>Outdoor adventures, workshops, games</td></tr><tr><td>Conference Facilities</td><td>-</td><td>$8,500</td><td>Meeting rooms, AV equipment, WiFi</td></tr><tr><td>Guest Speakers</td><td>-</td><td>$12,000</td><td>Keynote speaker + leadership workshop facilitator</td></tr><tr><td>Gifts & Swag</td><td>$85</td><td>$8,075</td><td>Company branded items, achievement awards</td></tr><tr><td>Miscellaneous & Contingency</td><td>-</td><td>$8,075</td><td>Emergency fund, unexpected costs</td></tr></table><h3>Planned Activities:</h3><ul><li><strong>Day 1:</strong> Arrival, welcome lunch, company updates presentation, team building activities</li><li><strong>Day 2:</strong> Leadership workshops, outdoor adventure activities, awards ceremony, gala dinner</li><li><strong>Day 3:</strong> Strategic planning sessions, department breakouts, closing brunch</li></ul><h3>Expected Benefits:</h3><ul><li><strong>Team Cohesion:</strong> Strengthen cross-department relationships</li><li><strong>Employee Satisfaction:</strong> Boost morale and company loyalty</li><li><strong>Strategic Alignment:</strong> Ensure all teams understand 2026-2027 goals</li><li><strong>Family Engagement:</strong> Include families to improve work-life balance perception</li><li><strong>Talent Retention:</strong> Demonstrate company investment in employee experience</li></ul><h3>Cost Comparison:</h3><ul><li><strong>2025 Meeting:</strong> $95,000 (75 attendees, local venue)</li><li><strong>2024 Meeting:</strong> $78,000 (68 attendees, virtual + local hybrid)</li><li><strong>Per Person Cost:</strong> $1,315 (competitive with industry standards)</li></ul><p><strong>Approval Needed From:</strong> CFO, CEO, HR Director, Department Heads</p><p><em>This example shows comprehensive event budget planning with detailed cost breakdowns and justification for team building investments.</em></p>'
+      format: full_html
+  field_consultation_deadline:
+    -
+      value: '2027-03-30'
+  field_consultation_reviewers:
+    -
+      target_id: 1
+  field_consultation_status:
+    -
+      value: active

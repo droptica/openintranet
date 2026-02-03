@@ -1,0 +1,25 @@
+_meta:
+  version: '1.0'
+  entity_type: oi_group
+  uuid: 20000000-0000-0000-0000-000000000002
+  depends:
+    10000000-0000-0000-0000-000000000001: oi_group
+default:
+  uid:
+    -
+      target_id: 1
+  name:
+    -
+      value: 'Berlin Office'
+  description:
+    -
+      value: 'Office in Berlin, Germany.'
+  parent:
+    -
+      entity: 10000000-0000-0000-0000-000000000001
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1738232402

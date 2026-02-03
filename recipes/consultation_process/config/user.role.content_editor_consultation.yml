@@ -1,0 +1,30 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.full_html
+    - node.type.consultation
+    - node.type.consultation_review
+  module:
+    - filter
+    - node
+    - system
+id: content_editor_consultation
+label: 'Content Editor - Consultation'
+weight: 14
+is_admin: false
+permissions:
+  - 'create consultation content'
+  - 'create consultation_review content'
+  - 'delete any consultation content'
+  - 'delete any consultation_review content'
+  - 'delete consultation revisions'
+  - 'delete consultation_review revisions'
+  - 'edit any consultation content'
+  - 'edit any consultation_review content'
+  - 'revert consultation revisions'
+  - 'revert consultation_review revisions'
+  - 'use text format full_html'
+  - 'view consultation revisions'
+  - 'view consultation_review revisions'
+  - 'view the administration theme'

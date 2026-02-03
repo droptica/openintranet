@@ -1,0 +1,59 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.user.first_last_name
+    - field.field.user.user.field_about
+    - field.field.user.user.field_department
+    - field.field.user.user.field_first_name
+    - field.field.user.user.field_last_name
+    - field.field.user.user.field_manager
+    - field.field.user.user.field_name
+    - field.field.user.user.field_office
+    - field.field.user.user.field_phone
+    - field.field.user.user.field_social_links
+    - field.field.user.user.user_picture
+  module:
+    - layout_builder
+    - layout_discovery
+    - user
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+_core:
+  default_config_hash: vXE4D8H67B-J6g8ow1a_23JFuKGksYIPBnBW_8R9jXM
+id: user.user.first_last_name
+targetEntityType: user
+bundle: user
+mode: first_last_name
+content:
+  field_first_name:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: true
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_last_name:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  field_about: true
+  field_department: true
+  field_manager: true
+  field_name: true
+  field_office: true
+  field_phone: true
+  field_social_links: true
+  langcode: true
+  masquerade: true
+  member_for: true
+  search_api_excerpt: true
+  user_picture: true

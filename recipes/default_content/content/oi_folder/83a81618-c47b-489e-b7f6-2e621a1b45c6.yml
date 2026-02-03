@@ -1,0 +1,25 @@
+_meta:
+  version: '1.0'
+  entity_type: oi_folder
+  uuid: 83a81618-c47b-489e-b7f6-2e621a1b45c6
+  depends:
+    ae81559f-b172-4ecf-b7f6-4e8a053b5817: oi_folder
+default:
+  uid:
+    -
+      target_id: 0
+  name:
+    -
+      value: Reports
+  description:
+    -
+      value: 'Reports subfolder in Finance.'
+  parent:
+    -
+      entity: ae81559f-b172-4ecf-b7f6-4e8a053b5817
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1769601586

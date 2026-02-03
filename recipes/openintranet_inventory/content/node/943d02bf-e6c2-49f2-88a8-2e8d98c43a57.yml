@@ -1,0 +1,48 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 943d02bf-e6c2-49f2-88a8-2e8d98c43a57
+  bundle: inventory_assignment
+  default_langcode: en
+  depends:
+    9faa0ddf-b708-4bbb-9143-d8d9e5063fcd: node
+    ef586569-26a3-4b98-85c9-19b5a94d7a11: node
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'MacBook Pro - number: , date: Mon, 29 Sep 2025 - 16:08'
+  created:
+    -
+      value: 1759154901
+  promote:
+    -
+      value: true
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /content/macbook-pro-number-date-mon-29-sep-2025-1608
+      langcode: en
+      pathauto: 1
+  field_assigned_item:
+    -
+      entity: 9faa0ddf-b708-4bbb-9143-d8d9e5063fcd
+  field_assigned_to_location:
+    -
+      entity: ef586569-26a3-4b98-85c9-19b5a94d7a11
+  field_assignment_date:
+    -
+      value: '2025-09-29T14:08:21'

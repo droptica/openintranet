@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - comment.type.idea_comments
+    - field.storage.comment.comment_body
+    - filter.format.plain_text
+  module:
+    - text
+id: comment.idea_comments.comment_body
+field_name: comment_body
+entity_type: comment
+bundle: idea_comments
+label: Comment
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats:
+    - plain_text
+field_type: text_long

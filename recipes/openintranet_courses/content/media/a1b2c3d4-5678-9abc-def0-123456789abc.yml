@@ -1,0 +1,36 @@
+_meta:
+  version: '1.0'
+  entity_type: media
+  uuid: a1b2c3d4-5678-9abc-def0-123456789abc
+  bundle: image
+  default_langcode: en
+  depends:
+    f336216d-2118-463d-8c90-b3495aa20ea1: file
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  name:
+    -
+      value: 'Default Course Cover Image'
+  created:
+    -
+      value: 1739949449
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: ''
+      langcode: en
+      pathauto: 0
+  field_media_image:
+    -
+      entity: f336216d-2118-463d-8c90-b3495aa20ea1
+      alt: 'Default course cover image'
+      title: ''
+      width: 300
+      height: 299

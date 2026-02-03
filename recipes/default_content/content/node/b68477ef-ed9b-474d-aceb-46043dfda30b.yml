@@ -5,7 +5,6 @@ _meta:
   bundle: article
   default_langcode: en
   depends:
-    68fd85ee-2fa6-426a-9347-ce7e49d96f6d: taxonomy_term
     e2b805c1-f5b0-4506-b39e-666259450f7f: media
     fdd050f9-5aa0-440b-b7d1-41c5c551d9a2: taxonomy_term
 default:
@@ -51,9 +50,6 @@ default:
       last_comment_name: ''
       last_comment_uid: 1
       comment_count: 0
-  field_access:
-    -
-      entity: 68fd85ee-2fa6-426a-9347-ce7e49d96f6d
   field_background_image:
     -
       entity: e2b805c1-f5b0-4506-b39e-666259450f7f

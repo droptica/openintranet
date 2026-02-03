@@ -1,0 +1,4 @@
+throttle: 20
+retry: 5
+spool_expire: 0
+debug: false

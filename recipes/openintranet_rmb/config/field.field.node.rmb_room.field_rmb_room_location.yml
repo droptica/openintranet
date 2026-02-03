@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_rmb_room_location
+    - node.type.rmb_room
+id: node.rmb_room.field_rmb_room_location
+field_name: field_rmb_room_location
+entity_type: node
+bundle: rmb_room
+label: 'Room Location'
+description: 'Describe where the room is located.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

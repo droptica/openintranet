@@ -1,0 +1,19 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: 41dfd27e-35c3-4549-898a-86a4354b4181
+  bundle: menu_link_content
+  default_langcode: en
+default:
+  title:
+    - value: 'My bookmarks'
+  link:
+    - uri: 'internal:/bookmarks'
+  menu_name:
+    - value: account
+  weight:
+    - value: 0
+  expanded:
+    - value: false
+  enabled:
+    - value: true

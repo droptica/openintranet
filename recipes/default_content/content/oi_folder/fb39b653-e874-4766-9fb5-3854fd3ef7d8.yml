@@ -1,0 +1,20 @@
+_meta:
+  version: '1.0'
+  entity_type: oi_folder
+  uuid: fb39b653-e874-4766-9fb5-3854fd3ef7d8
+default:
+  uid:
+    -
+      target_id: 0
+  name:
+    -
+      value: Projects
+  description:
+    -
+      value: 'Main folder for Projects department documents.'
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1769601586

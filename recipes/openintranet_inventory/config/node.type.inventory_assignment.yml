@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies: {  }
+name: 'Inventory Assignment'
+type: inventory_assignment
+description: 'Track the history and current status of item assignments between locations and users.'
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: true

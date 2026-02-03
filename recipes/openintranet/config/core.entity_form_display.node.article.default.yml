@@ -5,12 +5,12 @@ dependencies:
   config:
     - field.field.node.article.body
     - field.field.node.article.comment_node_article
-    - field.field.node.article.field_access
     - field.field.node.article.field_background_image
-    - field.field.node.article.field_document_ref
     - field.field.node.article.field_intro
     - field.field.node.article.field_mark_as_must_read
     - field.field.node.article.field_news_article_reaction
+    - field.field.node.article.field_notify_all_users_about_new
+    - field.field.node.article.field_oi_document_ref
     - field.field.node.article.field_tags
     - node.type.article
   module:
@@ -23,26 +23,10 @@ dependencies:
     - votingapi_reaction
 third_party_settings:
   field_group:
-    group_access:
-      children:
-        - field_access
-      label: ACCESS
-      region: content
-      parent_name: group_tabs
-      weight: 30
-      format_type: tab
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        label_as_html: false
-        formatter: closed
-        description: ''
-        required_fields: true
     group_tabs:
       children:
         - group_basic_info
-        - group_access
+        - group_tools
       label: Tabs
       region: content
       parent_name: ''
@@ -62,7 +46,7 @@ third_party_settings:
         - body
         - field_tags
         - field_background_image
-        - field_document_ref
+        - field_oi_document_ref
       label: CONTENT
       region: content
       parent_name: group_tabs
@@ -74,6 +58,38 @@ third_party_settings:
         id: ''
         label_as_html: false
         formatter: open
+        description: ''
+        required_fields: true
+    group_notifications:
+      children: {  }
+      label: NOTIFICATIONS
+      region: content
+      parent_name: ''
+      weight: 2
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        formatter: closed
+        description: ''
+        required_fields: true
+    group_tools:
+      children:
+        - field_mark_as_must_read
+        - field_notify_all_users_about_new
+      label: TOOLS
+      region: content
+      parent_name: group_tabs
+      weight: 24
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        formatter: closed
         description: ''
         required_fields: true
 _core:
@@ -95,22 +111,9 @@ content:
     third_party_settings: {  }
   created:
     type: datetime_timestamp
-    weight: 3
+    weight: 5
     region: content
     settings: {  }
-    third_party_settings: {  }
-  field_access:
-    type: cshs
-    weight: 21
-    region: content
-    settings:
-      save_lineage: false
-      force_deepest: true
-      parent: null
-      level_labels: ''
-      hierarchy_depth: 0
-      required_depth: 0
-      none_label: '- Please select -'
     third_party_settings: {  }
   field_background_image:
     type: media_library_widget
@@ -118,24 +121,6 @@ content:
     region: content
     settings:
       media_types: {  }
-    third_party_settings: {  }
-  field_document_ref:
-    type: inline_entity_form_complex
-    weight: 28
-    region: content
-    settings:
-      form_mode: default
-      override_labels: false
-      label_singular: ''
-      label_plural: ''
-      allow_new: true
-      allow_existing: true
-      match_operator: CONTAINS
-      allow_duplicate: false
-      collapsible: false
-      collapsed: false
-      revision: false
-      removed_reference: keep
     third_party_settings: {  }
   field_intro:
     type: string_textarea
@@ -147,16 +132,33 @@ content:
     third_party_settings: {  }
   field_mark_as_must_read:
     type: boolean_checkbox
-    weight: 11
+    weight: 6
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   field_news_article_reaction:
     type: votingapi_reaction_default
-    weight: 8
+    weight: 10
     region: content
     settings: {  }
+    third_party_settings: {  }
+  field_notify_all_users_about_new:
+    type: boolean_checkbox
+    weight: 6
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_oi_document_ref:
+    type: entity_reference_autocomplete
+    weight: 28
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
   field_tags:
     type: options_buttons
@@ -165,7 +167,7 @@ content:
     settings: {  }
     third_party_settings: {  }
   flag:
-    weight: 10
+    weight: 12
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -178,32 +180,32 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 7
+    weight: 9
     region: content
     settings: {  }
     third_party_settings: {  }
   promote:
     type: boolean_checkbox
-    weight: 4
+    weight: 6
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   simple_sitemap:
-    weight: 6
+    weight: 8
     region: content
     settings: {  }
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 9
+    weight: 11
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
-    weight: 5
+    weight: 7
     region: content
     settings:
       display_label: true
@@ -218,7 +220,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 2
+    weight: 4
     region: content
     settings:
       match_operator: CONTAINS

@@ -1,0 +1,30 @@
+name: '[Open Intranet] Courses'
+type: 'Learning Management System'
+description: 'Comprehensive learning management system for organizational training and course delivery. Creates course and lesson content types with fields for course structure, lesson content, progress tracking, and completion status. Includes Views for course catalogs and lesson management, custom pages, and navigation menu integration. Features course enrollment, lesson progression, and completion tracking. Perfect for employee training, compliance courses, skill development programs, and knowledge management in any organization.'
+install:
+  - node
+  - datetime
+  - options
+  - text
+  - user
+  - file
+  - image
+  - media
+  - media_library
+  - views
+  - views_ui
+  - block
+  - flag
+  - default_content
+config:
+  strict: false
+  import:
+    system:
+      - node.type.course
+      - node.type.course_lesson
+    field:
+      - field.storage.node.field_course_lessons
+      - field.field.node.course.field_course_lessons
+      - field.field.node.course_lesson.body
+    flag:
+      - flag.flag.lesson_learned

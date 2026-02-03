@@ -1,0 +1,71 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.consultation.field_consultation_deadline
+    - field.field.node.consultation_review.field_consultation_review_ref
+    - field.storage.node.field_consultation_deadline
+    - field.storage.node.field_consultation_review_ref
+    - node.type.consultation_review
+  module:
+    - eca_content
+    - modeler_api
+third_party_settings:
+  modeler_api:
+    modeler_id: bpmn_io
+    data: 'hash:9d608300e3a67b774bff1baf89192135'
+    label: 'Send email on new review'
+    colors:
+      content_entity__insert_1_1:
+        fill: '#c8e6c9'
+        stroke: '#205022'
+id: process_r9ldkzi
+weight: 0
+events:
+  content_entity__insert_1_1:
+    plugin: 'content_entity:insert'
+    label: 'Insert content entity'
+    configuration:
+      type: 'node consultation_review'
+    successors:
+      -
+        id: eca_token_load_entity_0stztzl
+        condition: ''
+conditions: {  }
+gateways: {  }
+actions:
+  action_send_email_action_1hp2thn:
+    label: 'Send email'
+    plugin: action_send_email_action
+    configuration:
+      recipient: '[entity:author:mail]'
+      subject: test
+      message: |-
+        Hello [entity:author:name],
+
+        New review has been assigned to you on Open Intranet:
+        Title: [entity:title]
+        Deadline: [consultation:field_consultation_deadline]
+        Read full content: [entity:url]
+        ---
+        Best regards,
+        Droptica - Open Intranet System
+    successors: {  }
+  eca_token_load_entity_0stztzl:
+    label: 'Entity: load'
+    plugin: eca_token_load_entity
+    configuration:
+      token_name: consultation
+      from: properties
+      entity_type: node
+      entity_id: ''
+      revision_id: ''
+      properties: 'nid: "[entity:field_consultation_review_ref:target_id]"'
+      langcode: _interface
+      latest_revision: false
+      unchanged: false
+      object: consultation
+    successors:
+      -
+        id: action_send_email_action_1hp2thn
+        condition: ''

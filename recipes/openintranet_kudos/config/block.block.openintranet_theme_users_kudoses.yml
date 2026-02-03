@@ -1,0 +1,34 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.kudos_list
+  module:
+    - block_visibility_groups
+    - system
+    - views
+  theme:
+    - openintranet_theme
+id: openintranet_theme_users_kudoses
+theme: openintranet_theme
+region: content
+weight: 20
+provider: null
+plugin: 'views_block:kudos_list-block_1'
+settings:
+  id: 'views_block:kudos_list-block_1'
+  label: ''
+  label_display: visible
+  provider: views
+  context_mapping: {  }
+  views_label: ''
+  items_per_page: 20
+visibility:
+  condition_group:
+    id: condition_group
+    negate: false
+    block_visibility_group: ''
+  request_path:
+    id: request_path
+    negate: false
+    pages: '/user/*'

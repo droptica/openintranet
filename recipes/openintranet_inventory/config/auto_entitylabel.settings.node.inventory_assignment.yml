@@ -1,0 +1,12 @@
+_core:
+  default_config_hash: 0hjCADRB9qMSbl3PRdffqJ0eo6hcVJkco3aB6DFIf5s
+status: 1
+pattern: ' [node:field_assigned_item:entity:label] - number: [node:field_inventory_number], date: [node:field_assignment_date]'
+escape: false
+preserve_titles: false
+save: false
+chunk: 50
+dependencies:
+  config:
+    - node.type.inventory_assignment
+new_content_behavior: 1

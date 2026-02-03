@@ -5,10 +5,9 @@ dependencies:
   config:
     - field.field.node.page.body
     - field.field.node.page.comment_node_page
-    - field.field.node.page.field_access
     - field.field.node.page.field_background_image
     - field.field.node.page.field_basic_page_reaction
-    - field.field.node.page.field_document_ref
+    - field.field.node.page.field_oi_document_ref
     - node.type.page
   module:
     - comment
@@ -21,26 +20,9 @@ dependencies:
     - votingapi_reaction
 third_party_settings:
   field_group:
-    group_access:
-      children:
-        - field_access
-      label: ACCESS
-      region: content
-      parent_name: group_tabs
-      weight: 21
-      format_type: tab
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        label_as_html: false
-        formatter: closed
-        description: ''
-        required_fields: true
     group_tabs:
       children:
         - group_basic_info
-        - group_access
       label: Tabs
       region: content
       parent_name: ''
@@ -58,7 +40,7 @@ third_party_settings:
         - title
         - body
         - field_background_image
-        - field_document_ref
+        - field_oi_document_ref
       label: CONTENT
       region: content
       parent_name: group_tabs
@@ -99,19 +81,6 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_access:
-    type: cshs
-    weight: 5
-    region: content
-    settings:
-      save_lineage: false
-      force_deepest: true
-      parent: null
-      level_labels: ''
-      hierarchy_depth: 0
-      required_depth: 0
-      none_label: '- Please select -'
-    third_party_settings: {  }
   field_background_image:
     type: media_library_widget
     weight: 17
@@ -125,23 +94,15 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_document_ref:
-    type: inline_entity_form_complex
+  field_oi_document_ref:
+    type: entity_reference_autocomplete
     weight: 18
     region: content
     settings:
-      form_mode: default
-      override_labels: false
-      label_singular: ''
-      label_plural: ''
-      allow_new: true
-      allow_existing: true
       match_operator: CONTAINS
-      allow_duplicate: false
-      collapsible: false
-      collapsed: false
-      revision: false
-      removed_reference: keep
+      match_limit: 10
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
   flag:
     weight: 8

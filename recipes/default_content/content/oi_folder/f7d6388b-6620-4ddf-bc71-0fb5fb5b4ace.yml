@@ -1,0 +1,25 @@
+_meta:
+  version: '1.0'
+  entity_type: oi_folder
+  uuid: f7d6388b-6620-4ddf-bc71-0fb5fb5b4ace
+  depends:
+    ae81559f-b172-4ecf-b7f6-4e8a053b5817: oi_folder
+default:
+  uid:
+    -
+      target_id: 0
+  name:
+    -
+      value: Budgets
+  description:
+    -
+      value: 'Budgets subfolder in Finance.'
+  parent:
+    -
+      entity: ae81559f-b172-4ecf-b7f6-4e8a053b5817
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1769601586

@@ -1,0 +1,41 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: 83749ecf-dffa-4e81-8a33-f8c1c148dbd5
+  bundle: menu_link_content
+  default_langcode: en
+depends:
+  a1b2c3d4-e5f6-7890-abcd-ef1234567890: menu_link_content
+default:
+  enabled:
+    -
+      value: true
+  title:
+    -
+      value: Add
+  menu_name:
+    -
+      value: main
+  link:
+    -
+      uri: 'internal:/node/add/consultation'
+      title: ''
+      options: {  }
+  external:
+    -
+      value: false
+  rediscover:
+    -
+      value: true
+  weight:
+    -
+      value: -44
+  expanded:
+    -
+      value: false
+  parent:
+    -
+      value: 'menu_link_content:a1b2c3d4-e5f6-7890-abcd-ef1234567890'
+  revision_translation_affected:
+    -
+      value: true

@@ -1,0 +1,41 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 47e78cc4-8a8e-4ba2-a3de-b6ca7ee8528b
+  bundle: faq_question
+  default_langcode: en
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'How many FAQ quesitons can be created?'
+  created:
+    -
+      value: 1758715053
+  promote:
+    -
+      value: true
+  sticky:
+    -
+      value: false
+  path:
+    -
+      alias: /content/how-many-faq-quesitons-can-be-created
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: '<p>There is no limit to the amount of FAQ quesions that can be added. Please only cosider the fact that for more complex information that a simple anwser, using the Knowledge Base functionality might be a better choice.</p>'
+      format: full_html
+      summary: ''
+  field_faq_category:
+    -
+      value: intranet_features

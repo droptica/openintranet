@@ -1,18 +1,18 @@
 uuid: c8edd202-b1be-4262-a909-a1b2fea8e283
 langcode: en
-status: false
+status: true
 dependencies:
   config:
     - core.entity_view_mode.node.block_teaser
     - field.field.node.page.body
     - field.field.node.page.comment_node_page
-    - field.field.node.page.field_access
     - field.field.node.page.field_background_image
     - field.field.node.page.field_basic_page_reaction
-    - field.field.node.page.field_document_ref
-    - field.field.node.page.field_mark_as_must_read
+    - image.style.news_teaser
     - node.type.page
   module:
+    - media
+    - smart_trim
     - user
     - votingapi_reaction
 id: node.page.block_teaser
@@ -20,6 +20,41 @@ targetEntityType: node
 bundle: page
 mode: block_teaser
 content:
+  body:
+    type: smart_trim
+    label: hidden
+    settings:
+      trim_length: 200
+      trim_type: chars
+      trim_suffix: ...
+      wrap_output: false
+      wrap_class: trimmed
+      more:
+        display_link: false
+        target_blank: false
+        link_trim_only: false
+        class: more-link
+        text: More
+        aria_label: 'Read more about [node:title]'
+      summary_handler: full
+      trim_options:
+        text: true
+        trim_zero: false
+        replace_tokens: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_background_image:
+    type: media_thumbnail
+    label: hidden
+    settings:
+      image_link: content
+      image_style: news_teaser
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 0
+    region: content
   field_basic_page_reaction:
     type: votingapi_reaction_default
     label: hidden
@@ -32,18 +67,9 @@ content:
     third_party_settings: {  }
     weight: 2
     region: content
-  flag_readed:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 10
-    region: content
 hidden:
-  body: true
   comment_node_page: true
-  field_access: true
-  field_background_image: true
-  field_document_ref: true
-  field_mark_as_must_read: true
+  flag_read: true
   langcode: true
   links: true
   search_api_excerpt: true

@@ -1,0 +1,27 @@
+_meta:
+  version: '1.0'
+  entity_type: taxonomy_term
+  uuid: f7d50d3a-f690-4fdf-82bb-69e61129eebb
+  bundle: inventory_item_types
+  default_langcode: en
+default:
+  status:
+    -
+      value: true
+  name:
+    -
+      value: Laptop
+  weight:
+    -
+      value: 0
+  parent:
+    -
+      target_id: 0
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /inventory-item-types/laptop
+      langcode: en
+      pathauto: 1

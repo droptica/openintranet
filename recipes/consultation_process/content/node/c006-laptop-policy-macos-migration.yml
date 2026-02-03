@@ -1,0 +1,44 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: c006a1b2-c3d4-e5f6-7890-abcdef123006
+  bundle: consultation
+  default_langcode: en
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'Laptop Policy Change - Migration to macOS Only'
+  created:
+    -
+      value: 1726394434
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  field_consultation_type:
+    -
+      value: document_review
+  field_consultation_description:
+    -
+      value: '<p><strong>Policy Change:</strong> Company Laptop Standardization - macOS Only</p><p><strong>Current Status:</strong> Mixed environment (Linux 35%, macOS 45%, Windows 20%)</p><p><strong>Proposed Status:</strong> macOS 100% by Q4 2025</p><p><strong>⚠️ CONSULTATION PERIOD EXPIRED ⚠️</strong></p><p>IT Department proposed standardizing all company laptops to macOS to reduce support complexity, improve security, and streamline software licensing. This consultation period has ended and the policy has been implemented.</p><h3>Rationale for macOS-Only Policy:</h3><ul><li><strong>Security:</strong> Enhanced built-in security features and regular security updates</li><li><strong>Support Efficiency:</strong> Single platform reduces IT support tickets by estimated 60%</li><li><strong>Software Licensing:</strong> Simplified licensing for development tools and creative software</li><li><strong>Hardware Longevity:</strong> Apple Silicon Macs offer better performance-per-watt</li><li><strong>Integration:</strong> Better integration with company iPhone/iPad ecosystem</li><li><strong>Developer Experience:</strong> Consistent Unix-based environment for development team</li></ul><h3>Migration Plan (COMPLETED):</h3><ul><li><strong>Phase 1 (Q1 2025):</strong> ✅ New hires receive MacBook Pro/Air only</li><li><strong>Phase 2 (Q2 2025):</strong> ✅ Replace aging Windows/Linux machines with macOS</li><li><strong>Phase 3 (Q3 2025):</strong> ✅ Voluntary early replacement program for remaining users</li><li><strong>Phase 4 (Q4 2025):</strong> ✅ Final mandatory migration for remaining 15% of users</li></ul><h3>Budget Impact (APPROVED):</h3><ul><li><strong>Hardware Cost:</strong> $180,000 for 45 new MacBook Pro/Air units</li><li><strong>Software Migration:</strong> $25,000 for license transfers and new software</li><li><strong>Training:</strong> $15,000 for macOS transition training sessions</li><li><strong>Data Migration:</strong> $8,000 for professional data transfer services</li><li><strong>Total Investment:</strong> $228,000</li></ul><h3>Final Outcome:</h3><ul><li><strong>IT Support Tickets:</strong> Reduced by 58% (exceeded 60% target)</li><li><strong>Employee Satisfaction:</strong> 89% positive feedback on new hardware</li><li><strong>Security Incidents:</strong> 75% reduction in malware-related issues</li><li><strong>Development Productivity:</strong> 23% improvement in build times</li></ul><p><strong>Status:</strong> IMPLEMENTED - All employees now use macOS devices as of December 2025</p><p><em>This example shows a completed policy change consultation with expired deadline, demonstrating how past decisions can be tracked and their outcomes measured.</em></p>'
+      format: full_html
+  field_consultation_deadline:
+    -
+      value: '2025-02-15'
+  field_consultation_reviewers:
+    -
+      target_id: 1
+  field_consultation_status:
+    -
+      value: accepted

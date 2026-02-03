@@ -1,0 +1,9 @@
+{
+  "name": "consultation/consultation_process",
+  "description": "Consultation Process Recipe - Adds a consultation content type for managing consultation processes.",
+  "type": "drupal-recipe",
+  "license": "GPL-2.0-or-later",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "version": "1.0-beta1"
+}

@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_assignment_notes
+    - filter.format.plain_text
+    - node.type.inventory_assignment
+  module:
+    - text
+id: node.inventory_assignment.field_assignment_notes
+field_name: field_assignment_notes
+entity_type: node
+bundle: inventory_assignment
+label: 'Assignment Notes'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats:
+    - plain_text
+field_type: text_long

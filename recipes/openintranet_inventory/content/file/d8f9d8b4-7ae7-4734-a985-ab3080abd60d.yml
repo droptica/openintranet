@@ -1,0 +1,27 @@
+_meta:
+  version: '1.0'
+  entity_type: file
+  uuid: ea8cc9b2-b105-4ec1-a2cd-a169df9b1546
+  default_langcode: en
+default:
+  uid:
+    -
+      target_id: 1
+  filename:
+    -
+      value: mac2.png
+  uri:
+    -
+      value: 'private://2025-09/mac2.png'
+  filemime:
+    -
+      value: image/png
+  filesize:
+    -
+      value: 2221387
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1759152919

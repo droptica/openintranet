@@ -1,0 +1,25 @@
+_meta:
+  version: '1.0'
+  entity_type: oi_folder
+  uuid: 9f34ff29-43d1-4c4b-8084-8e2c45f05fc5
+  depends:
+    fb39b653-e874-4766-9fb5-3854fd3ef7d8: oi_folder
+default:
+  uid:
+    -
+      target_id: 0
+  name:
+    -
+      value: 'Project Alpha'
+  description:
+    -
+      value: 'Project Alpha subfolder in Projects.'
+  parent:
+    -
+      entity: fb39b653-e874-4766-9fb5-3854fd3ef7d8
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1769601586

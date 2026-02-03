@@ -1,9 +1,0 @@
-uuid: a2c2c507-f36a-48f0-b3ce-1eb273d58030
-langcode: en
-status: true
-dependencies: {  }
-name: Access
-vid: access
-description: "Use Access to assign content permissions.\t"
-weight: 0
-new_revision: false

@@ -1,0 +1,211 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.consultation.field_consultation_attachments
+    - field.field.node.consultation.field_consultation_deadline
+    - field.field.node.consultation.field_consultation_description
+    - field.field.node.consultation.field_consultation_reviewers
+    - field.field.node.consultation.field_consultation_status
+    - field.field.node.consultation.field_consultation_type
+    - node.type.consultation
+    - views.view.consultation_reviews_on_node_consultation
+  module:
+    - datetime
+    - file
+    - layout_builder
+    - layout_discovery
+    - options
+    - text
+    - user
+    - views
+third_party_settings:
+  layout_builder:
+    enabled: true
+    allow_custom: false
+    sections:
+      -
+        layout_id: layout_onecol
+        layout_settings:
+          label: ''
+        components:
+          2215af4b-1859-464f-ac1d-7c38c4a0c2fa:
+            uuid: 2215af4b-1859-464f-ac1d-7c38c4a0c2fa
+            region: content
+            configuration:
+              id: 'field_block:node:consultation:field_consultation_type'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: list_default
+                label: above
+                settings: {  }
+                third_party_settings: {  }
+            weight: 1
+            additional: {  }
+          f485395e-8727-441d-92ed-44b99a446eae:
+            uuid: f485395e-8727-441d-92ed-44b99a446eae
+            region: content
+            configuration:
+              id: 'field_block:node:consultation:field_consultation_description'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: text_default
+                label: above
+                settings: {  }
+                third_party_settings: {  }
+            weight: 4
+            additional: {  }
+          d1741152-d0ff-4d88-b753-5705483ed07a:
+            uuid: d1741152-d0ff-4d88-b753-5705483ed07a
+            region: content
+            configuration:
+              id: 'extra_field_block:node:consultation:links'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+            weight: 6
+            additional: {  }
+          41003759-9235-4859-ab04-f2624fd07158:
+            uuid: 41003759-9235-4859-ab04-f2624fd07158
+            region: content
+            configuration:
+              id: 'field_block:node:consultation:field_consultation_deadline'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: datetime_default
+                label: above
+                settings:
+                  timezone_override: ''
+                  format_type: html_date
+                third_party_settings: {  }
+            weight: 2
+            additional: {  }
+          f2ff2401-40a9-482a-b9e2-17de2ce23907:
+            uuid: f2ff2401-40a9-482a-b9e2-17de2ce23907
+            region: content
+            configuration:
+              id: 'field_block:node:consultation:field_consultation_status'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: list_default
+                label: above
+                settings: {  }
+                third_party_settings: {  }
+            weight: 3
+            additional: {  }
+          3f3ccdc7-07ab-4fb4-80c6-95d4123bc29a:
+            uuid: 3f3ccdc7-07ab-4fb4-80c6-95d4123bc29a
+            region: content
+            configuration:
+              id: 'field_block:node:consultation:field_consultation_attachments'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: file_default
+                label: above
+                settings:
+                  use_description_as_link_text: true
+                third_party_settings: {  }
+            weight: 5
+            additional: {  }
+        third_party_settings: {  }
+      -
+        layout_id: layout_onecol
+        layout_settings:
+          label: reviews
+          context_mapping: {  }
+          custom_id: ''
+          custom_classes: ''
+          custom_class_choose: {  }
+          custom_styles: ''
+          custom_data_attributes: ''
+          regions:
+            content:
+              region_id: ''
+              region_class_choose: {  }
+              region_classes: ''
+              region_styles: ''
+              region_data: ''
+        components:
+          ea1e9030-9e50-4952-be2e-b4feb2ace28d:
+            uuid: ea1e9030-9e50-4952-be2e-b4feb2ace28d
+            region: content
+            configuration:
+              id: 'views_block:consultation_reviews_on_node_consultation-block_1'
+              label: ''
+              label_display: visible
+              provider: views
+              context_mapping: {  }
+              views_label: ''
+              items_per_page: null
+            weight: 0
+            additional: {  }
+        third_party_settings: {  }
+id: node.consultation.default
+targetEntityType: node
+bundle: consultation
+mode: default
+content:
+  field_consultation_attachments:
+    type: file_default
+    label: above
+    settings:
+      use_description_as_link_text: true
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_consultation_deadline:
+    type: datetime_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_consultation_description:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_consultation_reviewers:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_consultation_status:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_consultation_type:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
+hidden:
+  langcode: true
+  search_api_excerpt: true

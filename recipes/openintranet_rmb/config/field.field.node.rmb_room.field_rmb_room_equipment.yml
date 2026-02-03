@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_rmb_room_equipment
+    - node.type.rmb_room
+  module:
+    - options
+id: node.rmb_room.field_rmb_room_equipment
+field_name: field_rmb_room_equipment
+entity_type: node
+bundle: rmb_room
+label: 'Room Equipment'
+description: "List available equipment.\r\n"
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

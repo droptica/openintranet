@@ -1,0 +1,6 @@
+langcode: en
+status: true
+dependencies: {  }
+id: access_admin_people_roles
+label: 'Access admin people roles'
+route: entity.user_role.collection

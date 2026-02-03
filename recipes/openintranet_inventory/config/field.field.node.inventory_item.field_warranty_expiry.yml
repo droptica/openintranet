@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_warranty_expiry
+    - node.type.inventory_item
+  module:
+    - datetime
+id: node.inventory_item.field_warranty_expiry
+field_name: field_warranty_expiry
+entity_type: node
+bundle: inventory_item
+label: 'Warranty Expiry'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

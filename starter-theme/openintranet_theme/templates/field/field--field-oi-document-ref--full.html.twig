@@ -1,0 +1,59 @@
+{#
+/**
+ * @file
+ * Theme override for the Related documents field (oi_document references).
+ *
+ * Displays documents in a Bootstrap accordion for collapsible view.
+ *
+ * Available variables:
+ * - attributes: HTML attributes for the containing element.
+ * - label_hidden: Whether to show the field label or not.
+ * - title_attributes: HTML attributes for the title.
+ * - label: The label for the field.
+ * - multiple: TRUE if a field can contain multiple items.
+ * - items: List of all the field items. Each item contains:
+ *   - attributes: List of HTML attributes for each item.
+ *   - content: The field item's content.
+ * - entity_type: The entity type to which the field belongs.
+ * - field_name: The name of the field.
+ * - field_type: The type of the field.
+ * - label_display: The display settings for the label.
+ *
+ * @see template_preprocess_field()
+ */
+#}
+{%
+  set classes = [
+    'field',
+    'field--name-' ~ field_name|clean_class,
+    'field--type-' ~ field_type|clean_class,
+    'field--label-' ~ label_display,
+  ]
+%}
+{%
+  set title_classes = [
+    'field__label',
+    label_display == 'visually_hidden' ? 'visually-hidden',
+  ]
+%}
+{% set accordion_id = 'oiDocumentsAccordion' %}
+{% set collapse_id = 'oiDocumentsCollapse' %}
+
+<div{{ attributes.addClass(classes) }}>
+  <div class="accordion" id="{{ accordion_id }}">
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#{{ collapse_id }}" aria-expanded="false" aria-controls="{{ collapse_id }}">
+          {{ label }}
+        </button>
+      </h2>
+      <div id="{{ collapse_id }}" class="accordion-collapse collapse" data-bs-parent="#{{ accordion_id }}">
+        <div class="accordion-body">
+          {% for item in items %}
+            <div{{ item.attributes.addClass('field__item') }}>{{ item.content }}</div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - user
+id: user.first_last_name
+label: 'First & Last Name'
+description: 'Displays users first and last name only'
+targetEntityType: user
+cache: true

@@ -1,0 +1,44 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: c003a1b2-c3d4-e5f6-7890-abcdef123003
+  bundle: consultation
+  default_langcode: en
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'Discussion: Remote Work Policy v3.0 Draft Review'
+  created:
+    -
+      value: 1726394434
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  field_consultation_type:
+    -
+      value: document_review
+  field_consultation_description:
+    -
+      value: '<p><strong>Document:</strong> Remote Work Policy v3.0 - Draft for Review</p><p><strong>File:</strong> Remote_Work_Policy_v3.0_DRAFT.docx (18 pages)</p><p><strong>Current Version:</strong> v2.1 (implemented January 2025)</p><p>HR has prepared a comprehensive update to our remote work policy based on 2+ years of hybrid work experience and employee feedback. We need input from all department heads and team leads before finalizing.</p><h3>Proposed Changes in v3.0:</h3><ul><li><strong>Flexible Core Hours:</strong> Reduced from 10am-3pm to 11am-2pm for better global collaboration</li><li><strong>Home Office Allowance:</strong> Increase from $500 to $800 annually for equipment and setup</li><li><strong>Required Office Days:</strong> Change from 2 days/week to 1 day/week minimum</li><li><strong>Performance Metrics:</strong> New outcome-based evaluation system (replacing time tracking)</li><li><strong>Communication Tools:</strong> Mandatory video calls for meetings >30 minutes</li><li><strong>Workspace Requirements:</strong> New ergonomic standards for home offices</li><li><strong>Travel Policy:</strong> Quarterly team meetups now optional (was mandatory)</li></ul><h3>Discussion Points for Review:</h3><ul><li><strong>Budget Impact:</strong> Increased allowance affects HR budget by $45,000 annually</li><li><strong>Team Dynamics:</strong> How will reduced office time affect collaboration?</li><li><strong>Client Relations:</strong> Impact on client-facing roles and meeting schedules</li><li><strong>Productivity Tracking:</strong> Transition from time-based to outcome-based metrics</li><li><strong>Equipment Management:</strong> IT support for distributed home office setups</li></ul><h3>Review Process:</h3><ul><li>Department heads provide feedback on team-specific impacts</li><li>Finance reviews budget implications</li><li>IT assesses technical support requirements</li><li>Legal confirms compliance with labor regulations</li><li>Employee representatives share staff feedback</li></ul><p><strong>Implementation Timeline:</strong> If approved, effective July 1, 2027</p><p><em>This example shows collaborative policy development where multiple stakeholders discuss and refine important organizational changes before implementation.</em></p>'
+      format: full_html
+  field_consultation_deadline:
+    -
+      value: '2027-04-15'
+  field_consultation_reviewers:
+    -
+      target_id: 1
+  field_consultation_status:
+    -
+      value: active

@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_kodos_for_what
+    - node.type.kudos
+id: node.kudos.field_kodos_for_what
+field_name: field_kodos_for_what
+entity_type: node
+bundle: kudos
+label: 'For what'
+description: 'Explain what is this Kudos for. Say your thanks and your praises here. This will be visible to the team and others in the organisation.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

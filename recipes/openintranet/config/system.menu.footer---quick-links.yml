@@ -4,5 +4,5 @@ status: true
 dependencies: {  }
 id: footer---quick-links
 label: 'Footer - Quick Links'
-description: "The Footer shows Quick Links links\t"
+description: "The Footer shows Quick Links links"
 locked: false

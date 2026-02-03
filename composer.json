@@ -1,6 +1,6 @@
 {
     "name": "droptica/openintranet",
-    "version": "1.0.0-beta2",
+    "version": "dev-1.9.x",
     "description": "Open Intranet - is a Drupal-based website builder that helps you create beautiful, fast, and easy-to-manage intranet",
     "type": "drupal-profile",
     "license": "GPL-2.0-or-later",
@@ -19,25 +19,32 @@
         "composer/installers": "^2.0",
         "cweagans/composer-patches": "^1.7",
         "drupal/address": "^2.0",
-        "drupal/ai": "^1.1@beta",
+        "drupal/ai": "^1.1.3",
         "drupal/ai_agents": "^1.0",
         "drupal/ai_provider_openai": "^1.0",
+        "drupal/alpine_js": "^3.0",
         "drupal/anonymous_redirect": "^2.4",
+        "drupal/auto_entitylabel": "^3.4",
         "drupal/autologout": "^2.0",
+        "drupal/automatic_updates": "^4.0",
         "drupal/autosave_form": "^1.10",
         "drupal/backup_migrate": "^5.0",
         "drupal/better_exposed_filters": "^7.0",
         "drupal/block_visibility_groups": "^2.0",
         "drupal/book": "^2.0",
         "drupal/bootstrap_sass": "^5.0",
+        "drupal/bpmn_io": "^3.0",
         "drupal/calendar_view": "^2.1",
+        "drupal/ckeditor5_allowed_html": "1.5.x-dev@dev",
         "drupal/ckeditor_iframe": "^3.0@beta",
         "drupal/ckeditor_media_resize": "^1.0",
         "drupal/coffee": "^2.0",
-        "drupal/config_ignore_uuid": "^1.2",
-        "drupal/core-composer-scaffold": "^10.3",
-        "drupal/core-project-message": "^10.3",
-        "drupal/core-recommended": "^10.3",
+        "drupal/config_perms": "^2.3",
+        "drupal/core": "^11.3",
+        "drupal/core-composer-scaffold": "^11.3",
+        "drupal/core-project-message": "^11.3",
+        "drupal/core-recipe-unpack": "^11.3",
+        "drupal/core-recommended": "^11.3",
         "drupal/cshs": "^4.0",
         "drupal/ctools": "^4.1",
         "drupal/custom_book_block": "^2.0",
@@ -46,46 +53,64 @@
         "drupal/default_content": "^2.0@alpha",
         "drupal/diff": "^2.0@beta",
         "drupal/disable_html5_validation": "^2.0",
-        "drupal/dropdown_language": "^4.0",
+        "drupal/dropdown_language": "^4.1",
         "drupal/easy_breadcrumb": "^2.0",
+        "drupal/eca": "^3",
         "drupal/entity": "^1.5",
         "drupal/entity_clone": "^2.1@beta",
         "drupal/field_group": "^3.6",
+        "drupal/field_states": "^2.0",
         "drupal/flag": "^4.0@beta",
         "drupal/flexible_permissions": "^2.0",
         "drupal/focal_point": "^2.1",
-        "drupal/frontend_editing": "^1.8",
-        "drupal/gtm": "^1.9",
+        "drupal/frontend_editing": "^1.8.15",
+        "drupal/fullcalendar_view": "^5.2",
+        "drupal/gin": "^5.0",
+        "drupal/gin_toolbar": "^3.0",
+        "drupal/gtm": "^1.10",
         "drupal/iconify_field": "^1.1",
         "drupal/imagemagick": "^4.0",
         "drupal/imce": "^3.1",
         "drupal/inline_entity_form": "^3.0@RC",
-        "drupal/leaflet": "^10.2",
+        "drupal/layout_builder_styles": "^2.1",
+        "drupal/layout_custom_section_classes": "^2.0.0",
+        "drupal/leaflet": "^10.3.8",
         "drupal/libraries": "^4.0",
         "drupal/masquerade": "^2.0",
         "drupal/noreqnewpass": "^1.4",
-        "drupal/other_view_filter": "^1.3",
+        "drupal/openintranet_access": "^1.0",
+        "drupal/openintranet_documents": "^1.0",
+        "drupal/openintranet_engagement": "^1.0",
+        "drupal/openintranet_messenger": "^1.0",
+        "drupal/other_view_filter": "dev-1.x",
+        "drupal/page_manager": "^4.0@RC",
         "drupal/pathauto": "^1.13",
         "drupal/pathologic": "^2.0@alpha",
-        "drupal/permissions_by_term": "^3.1",
+        "drupal/prepopulate": "^2.5",
         "drupal/private_files_download_permission": "^3.1",
-        "drupal/readonly_field_widget": "^1.6",
+        "drupal/project_browser": "@beta",
+        "drupal/queue_ui": "^3.2",
         "drupal/recently_read": "^1.3",
-        "drupal/require_login": "^3.0",
+        "drupal/recipe_tracker": "^1.0",
         "drupal/search_api": "^1.35",
         "drupal/search_api_solr": "^4.3",
         "drupal/simple_sitemap": "^4.2",
         "drupal/smart_trim": "^2.2",
+        "drupal/smsapi": "^1.2",
         "drupal/statistics": "^1.0",
         "drupal/theme_switcher": "^2.1",
         "drupal/token": "^1.15",
+        "drupal/tour": "^2.0.12",
         "drupal/twig_tweak": "^3.4",
         "drupal/twigsuggest": "^2.0@RC",
         "drupal/views_aggregator": "^2.1",
         "drupal/views_conditional": "^1.10",
+        "drupal/views_kanban": "^1.0",
         "drupal/views_organization_chart": "^1.0",
-        "drupal/votingapi_reaction": "^1.11",
-        "drupal/webform": "^6.2",
+        "drupal/views_send": "2.0.x-dev",
+        "drupal/votingapi": "4.0.x-dev@dev",
+        "drupal/votingapi_reaction": "^1.13",
+        "drupal/webform": "^6.3.0-beta4",
         "drush/drush": "^13",
         "oomphinc/composer-installers-extender": "^2.0",
         "wikimedia/composer-merge-plugin": "^2.1",
@@ -103,76 +128,64 @@
             "dealerdirect/phpcodesniffer-composer-installer": true,
             "drupal/core-composer-scaffold": true,
             "drupal/core-project-message": true,
+            "drupal/core-recipe-unpack": true,
             "oomphinc/composer-installers-extender": true,
             "php-http/discovery": true,
             "phpstan/extension-installer": true,
+            "tbachert/spi": true,
             "wikimedia/composer-merge-plugin": true,
             "zaporylie/composer-drupal-optimizations": true
         },
         "sort-packages": true
     },
     "extra": {
+        "composer-exit-on-patch-failure": true,
         "drupal-scaffold": {
             "locations": {
                 "web-root": "web/"
             }
         },
         "installer-paths": {
-            "web/core": [
-                "type:drupal-core"
-            ],
-            "web/libraries/{$name}": [
-                "type:drupal-library"
-            ],
-            "web/modules/contrib/{$name}": [
-                "type:drupal-module"
-            ],
-            "web/profiles/contrib/{$name}": [
-                "type:drupal-profile"
-            ],
-            "web/themes/contrib/{$name}": [
-                "type:drupal-theme"
-            ],
-            "drush/Commands/contrib/{$name}": [
-                "type:drupal-drush"
-            ],
-            "web/modules/custom/{$name}": [
-                "type:drupal-custom-module"
-            ],
-            "web/profiles/custom/{$name}": [
-                "type:drupal-custom-profile"
-            ],
-            "web/themes/custom/{$name}": [
-                "type:drupal-custom-theme"
-            ]
+            "web/core": ["type:drupal-core"],
+            "web/libraries/{$name}": ["type:drupal-library"],
+            "web/modules/contrib/{$name}": ["type:drupal-module"],
+            "web/profiles/contrib/{$name}": ["type:drupal-profile"],
+            "web/themes/contrib/{$name}": ["type:drupal-theme"],
+            "drush/Commands/contrib/{$name}": ["type:drupal-drush"],
+            "web/modules/custom/{$name}": ["type:drupal-custom-module"],
+            "web/profiles/custom/{$name}": ["type:drupal-custom-profile"],
+            "./recipes/{$name}": ["type:drupal-recipe"],
+            "web/themes/custom/{$name}": ["type:drupal-custom-theme"]
         },
         "drupal-core-project-message": {
-            "include-keys": [
-                "homepage",
-                "support"
-            ]
+            "include-keys": ["homepage", "support"]
         },
         "patches": {
             "drupal/core": {
                 "field": "https://www.drupal.org/files/issues/2024-08-21/2321071-74.patch",
-                "Check if rows exists": "patches/views/views_org_chart.patch"
+                "Check if rows exists": "patches/views/views_org_chart.patch",
+                "[3400522] Fix config export error by excluding time_diff.description from view config": "https://www.drupal.org/files/issues/2025-07-01/core-3400522-time_diff-missing-schema_0.patch",
+                "[3474018] Class is not added to MediaLibrary dialog": "https://www.drupal.org/files/issues/2024-12-17/3474018-regression-class-is.patch"
             },
             "drupal/noreqnewpass": {
                 "Fix undefined array key #validate warning": "patches/noreqnewpass/undefined-validate-array-key.patch"
             },
-            "drupal/permissions_by_term": {
-                "Move permission field at the bottom of form": "patches/permissions_by_term/permission_field_on_used_edit.patch"
-            },
-            "drupal/recently_read": {
-                "accessCheck fix 1": "https://www.drupal.org/files/issues/2023-05-23/3362224-2.patch",
-                "accessCheck fix 2": "https://www.drupal.org/files/issues/2023-11-30/3362224-3.patch"
-            },
             "drupal/address": {
                 "[3460590] Module is not compatible with diff 2.0.x's": "https://www.drupal.org/files/issues/2024-07-10/diff-module-support-3460590-2.patch"
             },
-            "drupal/flag":  {
+            "drupal/flag": {
                 "Add a 'User's Flaggings' view relationship": "https://www.drupal.org/files/issues/2024-05-23/3449477-2.patch"
+            },
+            "drupal/views_organization_chart": {
+                "views_organization_chart - Drupal 11 compatibility fixes": "patches/views_organization_chart/views_organization_chart_drupal11_compatibility.patch"
+            },
+            "drupal/smsapi": {
+                "[3569589] Add Service Region configuration for international SMS": "patches/smsapi/3569589-service-region.patch"
             }
         }
+    },
+    "require-dev": {
+        "drupal/core-dev": "^11.3",
+        "phpunit/phpunit": "^11.5"
     }
 }

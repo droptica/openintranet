@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_consultation_description
+    - filter.format.full_html
+    - node.type.consultation
+  module:
+    - text
+id: node.consultation.field_consultation_description
+field_name: field_consultation_description
+entity_type: node
+bundle: consultation
+label: 'Consultation description'
+description: 'Provide detailed information about what needs to be reviewed or decided. Include background context, specific questions for reviewers, required deliverables, and any relevant attachments or references. Use formatting to organize complex information clearly.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats:
+    - full_html
+field_type: text_long

@@ -4,10 +4,7 @@ _meta:
   uuid: 1fac85ce-488a-4560-b392-8f6ea186785a
   bundle: page
   default_langcode: en
-  depends:
-    68fd85ee-2fa6-426a-9347-ce7e49d96f6d: taxonomy_term
-    151f200e-7d17-4966-9a18-934858395ddc: taxonomy_term
-    6046e0f4-766a-40b9-9791-7587157b7a92: node
+  depends: {}
 default:
   revision_uid:
     -
@@ -51,14 +48,6 @@ default:
       last_comment_name: ''
       last_comment_uid: 1
       comment_count: 0
-  field_access:
-    -
-      entity: 68fd85ee-2fa6-426a-9347-ce7e49d96f6d
-    -
-      entity: 151f200e-7d17-4966-9a18-934858395ddc
   field_basic_page_reaction:
     -
       status: 0
-  field_document_ref:
-    -
-      entity: 6046e0f4-766a-40b9-9791-7587157b7a92

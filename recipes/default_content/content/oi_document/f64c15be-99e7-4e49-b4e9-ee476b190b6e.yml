@@ -1,0 +1,29 @@
+_meta:
+  version: '1.0'
+  entity_type: oi_document
+  uuid: f64c15be-99e7-4e49-b4e9-ee476b190b6e
+  depends:
+    b4a2a10e-1750-45ca-90a3-408530554f90: file
+    b9479036-93f8-44df-9212-831232eb4c7d: oi_folder
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 0
+  title:
+    -
+      value: 'Risk Assessment Document'
+  description:
+    -
+      value: 'This is a sample document: Risk Assessment Document. Located in the Security folder.'
+  folder:
+    -
+      entity: b9479036-93f8-44df-9212-831232eb4c7d
+  file:
+    -
+      entity: b4a2a10e-1750-45ca-90a3-408530554f90
+  created:
+    -
+      value: 1769601586
