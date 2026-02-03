@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>Open Intranet <br> Employee Communication Platform</h1>
+  <h1>Open Intranet <br> Workplace Hub</h1>
   <a href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.html">
     <img alt="License" src="https://img.shields.io/badge/license-GPLv2%2B-blue.svg" />
   </a>
