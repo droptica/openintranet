@@ -1,0 +1,55 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: d1796e6c-554c-458b-8c8c-9d98213b39c2
+  bundle: event
+  default_langcode: en
+  depends: {}
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'Q3 All-Hands Meeting'
+  created:
+    -
+      value: 1738585200
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /event/q3-all-hands-meeting
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: '<p>Quarterly all-hands meeting with updates from each department. Topics include Q3 financial results, product roadmap updates, new hire introductions, and an open Q&amp;A session with the management team. Remote employees can join via the online link.</p>'
+      format: full_html
+      summary: ''
+  field_event_date:
+    -
+      value: '2025-09-18T14:00:00'
+      end_value: '2025-09-18T16:00:00'
+  field_event_online:
+    -
+      value: true
+  field_event_online_text:
+    -
+      value: 'https://meet.google.com/abc-defg-hij'
+  field_hide_location:
+    -
+      value: false

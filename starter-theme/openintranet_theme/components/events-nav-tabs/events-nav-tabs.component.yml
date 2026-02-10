@@ -1,0 +1,17 @@
+name: Events Navigation Tabs
+description: Navigation tabs for switching between Upcoming, Archived, and Calendar event views.
+status: stable
+props:
+  type: object
+  required:
+    - active_tab
+  properties:
+    active_tab:
+      type: string
+      title: Active tab identifier
+      description: Which tab is currently active.
+      enum:
+        - upcoming
+        - archived
+        - calendar
+      default: upcoming

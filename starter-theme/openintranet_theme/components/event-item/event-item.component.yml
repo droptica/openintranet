@@ -1,0 +1,6 @@
+name: Event Item
+description: Makes event item rows fully clickable. Attaches to existing .event-item elements rendered by Views.
+status: stable
+props:
+  type: object
+  properties: {}

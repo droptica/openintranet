@@ -224,9 +224,19 @@ function openintranet_apply_content_recipe(array &$install_state): array {
 }
 
 /**
- * Updates event dates by setting them to random dates between 6 and 7 months in the future.
+ * Updates event dates to random dates relative to now.
+ *
+ * Most events get dates 6-7 months in the future (upcoming).
+ * Events with specific UUIDs get dates 3-9 months in the past (archived).
  */
 function openintranet_update_event_dates(): void {
+  // UUIDs of events that should appear as archived (past dates).
+  $archived_event_uuids = [
+    '9050bf63-c6b2-4443-8547-74174ea9673e',
+    'fa796915-6897-48e0-a8aa-74a0ab296fa0',
+    'd1796e6c-554c-458b-8c8c-9d98213b39c2',
+  ];
+
   try {
     $query = \Drupal::entityQuery('node')
       ->condition('type', 'event')
@@ -242,41 +252,51 @@ function openintranet_update_event_dates(): void {
       ->getStorage('node')
       ->loadMultiple($nids);
 
-    // Base date is 6 months from now
-    $base_date = new \Drupal\Core\Datetime\DrupalDateTime();
-    $base_date->modify('+6 months');
+    // Base date for upcoming events: 6 months from now.
+    $future_base = new \Drupal\Core\Datetime\DrupalDateTime();
+    $future_base->modify('+6 months');
+
+    // Base date for archived events: 3 months ago.
+    $past_base = new \Drupal\Core\Datetime\DrupalDateTime();
+    $past_base->modify('-3 months');
 
     foreach ($nodes as $node) {
       $event_date = $node->get('field_event_date')->getValue();
-      if (!empty($event_date)) {
-        $needs_update = FALSE;
-        foreach ($event_date as $key => $date) {
-          if (!empty($date['value'])) {
-            // Random number of days between 0 and 30 (1 month)
-            $random_days = mt_rand(0, 30);
-            $date_obj = clone $base_date;
-            $date_obj->modify("+$random_days days");
+      if (empty($event_date)) {
+        continue;
+      }
 
-            // Random hour between 9 and 17
-            $random_hour = mt_rand(9, 17);
-            $date_obj->setTime($random_hour, 0);
+      $is_archived = in_array($node->uuid(), $archived_event_uuids, TRUE);
+      $base_date = $is_archived ? clone $past_base : clone $future_base;
 
-            $event_date[$key]['value'] = $date_obj->format('Y-m-d\TH:i:s');
-            $needs_update = TRUE;
+      $needs_update = FALSE;
+      foreach ($event_date as $key => $date) {
+        if (!empty($date['value'])) {
+          // Random offset: 0-180 days for archived, 0-30 days for upcoming.
+          $random_days = $is_archived ? mt_rand(0, 180) : mt_rand(0, 30);
+          $date_obj = clone $base_date;
+          // Archived events go further into the past.
+          $date_obj->modify($is_archived ? "-$random_days days" : "+$random_days days");
 
-            // Set end date to 1-3 hours after start date
-            if (!empty($date['end_value'])) {
-              $end_date = clone $date_obj;
-              $random_hours = mt_rand(1, 3);
-              $end_date->modify("+$random_hours hours");
-              $event_date[$key]['end_value'] = $end_date->format('Y-m-d\TH:i:s');
-            }
+          // Random hour between 9 and 17.
+          $random_hour = mt_rand(9, 17);
+          $date_obj->setTime($random_hour, 0);
+
+          $event_date[$key]['value'] = $date_obj->format('Y-m-d\TH:i:s');
+          $needs_update = TRUE;
+
+          // Set end date to 1-3 hours after start date.
+          if (!empty($date['end_value'])) {
+            $end_date = clone $date_obj;
+            $random_hours = mt_rand(1, 3);
+            $end_date->modify("+$random_hours hours");
+            $event_date[$key]['end_value'] = $end_date->format('Y-m-d\TH:i:s');
           }
         }
-        if ($needs_update) {
-          $node->set('field_event_date', $event_date);
-          $node->save();
-        }
+      }
+      if ($needs_update) {
+        $node->set('field_event_date', $event_date);
+        $node->save();
       }
     }
   }

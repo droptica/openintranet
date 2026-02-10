@@ -1,10 +1,46 @@
 @import "../../mixins/text";
 
-#block-openintranet-theme-views-block-events-blocks-block-1 {
+// Navigation tabs for events listing and calendar views (SDC component).
+// Fallback styles - values must match SDC CSS (events-nav-tabs.css).
+.view-events-listing,
+.view-events-calendar {
+  .events-nav-tabs.nav-tabs {
+    border-bottom: 1px solid $blue-100;
+    margin-bottom: 24px;
+    padding-left: 0;
+
+    .nav-item .nav-link {
+      font-weight: 500;
+      font-size: 0.875rem;
+      line-height: 1.5;
+      color: $body-tertiary-color;
+      background: none;
+      border: none;
+      padding: 8px 20px 16px 20px;
+
+      &:hover {
+        color: $blue-500;
+      }
+
+      &.active {
+        color: $blue-800;
+        background: none;
+        border-bottom: 2px solid $blue-500;
+      }
+    }
+
+    // Align first tab with container content edge.
+    .nav-item:first-child .nav-link {
+      padding-left: 0;
+    }
+  }
+}
+
+#block-openintranet-theme-views-block-events-blocks-block-1,
+.view-events-listing {
   .view-content {
     display: flex;
     flex-direction: column;
-    gap: 16px;
     margin: 0 0 24px;
   }
 
@@ -16,15 +52,22 @@
 
   .event-item {
     display: grid;
-    grid-template-columns: 45px 1fr;
+    grid-template-columns: 45px 1fr auto;
     gap: 16px;
-    padding-bottom: 24px;
+    padding: 16px 12px;
+    margin: 0 -12px;
     border-bottom: 1px solid $blue-50;
+    border-radius: 8px;
     color: $body-tertiary-color;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+
+    &:hover {
+      background-color: $blue-50;
+    }
 
     .left-side {
-      position: relative;
-      top:10px;
 
       .event-main-date {
         display: flex;
@@ -79,6 +122,24 @@
         padding: 0;
 
         @include body-300;
+      }
+    }
+
+    .event-image {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+
+      img {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: $border-radius;
+      }
+
+      // Hide the wrapper when there is no image.
+      &:empty {
+        display: none;
       }
     }
   }

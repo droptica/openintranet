@@ -1,0 +1,56 @@
+{#
+/**
+ * @file
+ * Events listing page template (Upcoming and Archived).
+ *
+ * Navigation tabs rendered via SDC component.
+ * White background via block-background class (consistent with other pages).
+ */
+#}
+{%
+  set classes = [
+  'view',
+  'view-events-listing',
+  'd-flex',
+  'flex-column',
+  'block',
+  'block-background',
+  'view-' ~ id|clean_class,
+  'view-id-' ~ id,
+  'view-display-id-' ~ display_id,
+  dom_id ? 'js-view-dom-id-' ~ dom_id,
+]
+%}
+{# Determine active tab from the display_id. #}
+{% set active_tab = display_id == 'page_archived' ? 'archived' : 'upcoming' %}
+
+<div{{ attributes.addClass(classes) }}>
+  {% include 'openintranet_theme:events-nav-tabs' with { active_tab: active_tab } only %}
+
+  {% if rows %}
+    <div class="view-content">
+      {{ rows }}
+    </div>
+  {% elseif empty %}
+    <div class="view-empty">
+      {{ empty }}
+    </div>
+  {% endif %}
+
+  {% if pager %}
+    {{ pager }}
+  {% endif %}
+</div>
+<script>
+  // Make entire event rows clickable by navigating to the title link.
+  (function () {
+    document.querySelectorAll('.view-events-listing .event-item').forEach(function (item) {
+      item.addEventListener('click', function (e) {
+        // Don't hijack clicks on actual links (title, image).
+        if (e.target.closest('a')) return;
+        var link = item.querySelector('.title a');
+        if (link) link.click();
+      });
+    });
+  })();
+</script>

@@ -1,0 +1,72 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: fa796915-6897-48e0-a8aa-74a0ab296fa0
+  bundle: event
+  default_langcode: en
+  depends: {}
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'Spring Wellness Day'
+  created:
+    -
+      value: 1738585000
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /event/spring-wellness-day
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: '<p>Take a break and focus on your well-being! Our Spring Wellness Day features yoga sessions, mindfulness workshops, healthy cooking demonstrations, and ergonomic workspace consultations. All activities are optional — join what interests you most.</p>'
+      format: full_html
+      summary: ''
+  field_event_date:
+    -
+      value: '2025-04-10T09:00:00'
+      end_value: '2025-04-10T16:00:00'
+  field_event_location:
+    -
+      langcode: en
+      country_code: DE
+      administrative_area: ''
+      locality: Berlin
+      postal_code: ''
+      address_line1: 'Friedrichstrasse 43'
+  field_event_online:
+    -
+      value: false
+  field_hide_location:
+    -
+      value: false
+  field_map_location:
+    -
+      value: 'POINT (13.388860 52.520008)'
+      geo_type: Point
+      lat: 52.520008
+      lon: 13.388860
+      left: 13.388860
+      top: 52.520008
+      right: 13.388860
+      bottom: 52.520008
+      geohash: u33db2m5p3qe
+      latlon: '52.520008,13.388860'

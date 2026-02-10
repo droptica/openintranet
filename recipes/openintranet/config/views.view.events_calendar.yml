@@ -822,7 +822,7 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      path: events
+      path: events/calendar
     cache_metadata:
       max-age: -1
       contexts:

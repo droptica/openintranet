@@ -1,0 +1,31 @@
+/* Events navigation tabs component styles. */
+.events-nav-tabs.nav-tabs {
+  border-bottom: 1px solid var(--oi-blue-100, #d6daf5);
+  margin-bottom: 24px;
+  padding-left: 0;
+}
+
+.events-nav-tabs .nav-item .nav-link {
+  font-weight: 500;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--oi-body-tertiary-color, #6c757d);
+  background: none;
+  border: none;
+  padding: 8px 20px 16px 20px;
+}
+
+/* Align first tab with container content edge. */
+.events-nav-tabs .nav-item:first-child .nav-link {
+  padding-left: 0;
+}
+
+.events-nav-tabs .nav-item .nav-link:hover {
+  color: var(--oi-blue-500, #4258f5);
+}
+
+.events-nav-tabs .nav-item .nav-link.active {
+  color: var(--oi-blue-800, #1a2a8a);
+  background: none;
+  border-bottom: 2px solid var(--oi-blue-500, #4258f5);
+}

@@ -1,0 +1,72 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 9050bf63-c6b2-4443-8547-74174ea9673e
+  bundle: event
+  default_langcode: en
+  depends: {}
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'Annual Company Kickoff 2025'
+  created:
+    -
+      value: 1735689600
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /event/annual-company-kickoff-2025
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: '<p>Start the new year strong! Join our annual company kickoff where leadership will share the strategic vision for 2025, celebrate last year''s achievements, and outline key priorities for the upcoming quarters. Includes team presentations and a networking lunch.</p>'
+      format: full_html
+      summary: ''
+  field_event_date:
+    -
+      value: '2025-01-15T10:00:00'
+      end_value: '2025-01-15T14:00:00'
+  field_event_location:
+    -
+      langcode: en
+      country_code: PL
+      administrative_area: ''
+      locality: Warsaw
+      postal_code: ''
+      address_line1: 'Plac Europejski 2'
+  field_event_online:
+    -
+      value: false
+  field_hide_location:
+    -
+      value: false
+  field_map_location:
+    -
+      value: 'POINT (20.987654 52.232222)'
+      geo_type: Point
+      lat: 52.232222
+      lon: 20.987654
+      left: 20.987654
+      top: 52.232222
+      right: 20.987654
+      bottom: 52.232222
+      geohash: u3qcnhqe1p6h
+      latlon: '52.232222,20.987654'

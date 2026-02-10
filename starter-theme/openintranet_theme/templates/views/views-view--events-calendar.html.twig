@@ -1,0 +1,44 @@
+{#
+/**
+ * @file
+ * Events calendar page template.
+ *
+ * Navigation tabs rendered via SDC component.
+ * White background via block-background class (consistent with other pages).
+ */
+#}
+{#
+  Note: block/block-background classes intentionally omitted here.
+  The outer views-element-container.block-primary already provides
+  white background and 24px padding. Adding block-background would
+  cause double padding due to its high-specificity CSS rule.
+#}
+{%
+  set classes = [
+  'view',
+  'd-flex',
+  'flex-column',
+  'view-events-calendar',
+  'view-' ~ id|clean_class,
+  'view-id-' ~ id,
+  'view-display-id-' ~ display_id,
+  dom_id ? 'js-view-dom-id-' ~ dom_id,
+]
+%}
+<div{{ attributes.addClass(classes) }}>
+  {% include 'openintranet_theme:events-nav-tabs' with { active_tab: 'calendar' } only %}
+
+  {% if rows %}
+    <div class="view-content">
+      {{ rows }}
+    </div>
+  {% elseif empty %}
+    <div class="view-empty">
+      {{ empty }}
+    </div>
+  {% endif %}
+
+  {% if pager %}
+    {{ pager }}
+  {% endif %}
+</div>

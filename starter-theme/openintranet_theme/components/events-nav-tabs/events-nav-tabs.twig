@@ -1,0 +1,20 @@
+{#
+/**
+ * @file
+ * Events navigation tabs component.
+ *
+ * Props:
+ *   - active_tab: string (upcoming|archived|calendar) - which tab is active.
+ */
+#}
+<ul class="events-nav-tabs nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link{{ active_tab == 'upcoming' ? ' active' : '' }}" href="/events">{{ 'Upcoming'|t }}</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link{{ active_tab == 'archived' ? ' active' : '' }}" href="/events/archived">{{ 'Archived'|t }}</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link{{ active_tab == 'calendar' ? ' active' : '' }}" href="/events/calendar">{{ 'Calendar'|t }}</a>
+  </li>
+</ul>
