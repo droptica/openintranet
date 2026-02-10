@@ -1,0 +1,9 @@
+{
+  "name": "openintranet/openintranet_sso_keycloak",
+  "description": "Open Intranet SSO Keycloak Recipe - Single Sign-On with Keycloak via OpenID Connect.",
+  "type": "drupal-recipe",
+  "license": "GPL-2.0-or-later",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "version": "1.0-beta1"
+}

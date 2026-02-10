@@ -1,0 +1,31 @@
+name: '[Open Intranet] SSO: Keycloak'
+description: 'Single Sign-On with Keycloak (self-hosted identity provider) via OpenID Connect. After applying this recipe, configure the Keycloak endpoints and credentials at /admin/config/services/openid-connect.'
+type: 'Integration'
+
+install:
+  - openid_connect
+
+config:
+  strict: false
+  import:
+    openid_connect:
+      - openid_connect.settings
+
+  actions:
+    openid_connect.settings:
+      simpleConfigUpdate:
+        always_save_userinfo: true
+        connect_existing_users: true
+        override_registration_settings: true
+        user_login_display: above
+
+    user.role.authenticated:
+      grantPermissions:
+        - 'openid connect set own password'
+
+    # Ensure the anonymous_redirect module does not block OIDC callback paths.
+    # The /openid-connect/* path must be accessible to anonymous users during
+    # the SSO redirect flow from the identity provider back to Drupal.
+    anonymous_redirect.settings:
+      simpleConfigUpdate:
+        redirect_url_overrides: "/sites/default/files/css/*\r\n/sites/default/files/js/*\r\n/user/reset/*\r\n/openid-connect/*"

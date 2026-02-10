@@ -1,6 +1,6 @@
 {
     "name": "droptica/openintranet",
-    "version": "dev-1.9.x",
+    "version": "dev-1.x",
     "description": "Open Intranet - is a Drupal-based website builder that helps you create beautiful, fast, and easy-to-manage intranet",
     "type": "drupal-profile",
     "license": "GPL-2.0-or-later",
@@ -78,6 +78,7 @@
         "drupal/libraries": "^4.0",
         "drupal/masquerade": "^2.0",
         "drupal/noreqnewpass": "^1.4",
+        "drupal/openid_connect": "^3.0@alpha",
         "drupal/openintranet_access": "^1.0",
         "drupal/openintranet_documents": "^1.0",
         "drupal/openintranet_engagement": "^1.0",

@@ -16248,7 +16248,7 @@ nav.tabs ul .nav-item.active a {
   font-weight: bold;
 }
 
-/* Login page stype */
+/* Login page style */
 .page-user-login main .region-content,
 .page-user-password main .region-content {
   max-width: 400px;
@@ -16256,6 +16256,13 @@ nav.tabs ul .nav-item.active a {
   padding: 1rem 1rem;
   margin: 0 auto;
   border-radius: 0.5rem;
+}
+
+/* SSO login button spacing */
+.page-user-login #openid-connect-login-form {
+  margin-bottom: 1.5rem !important;
+  padding-bottom: 1.5rem !important;
+  border-bottom: 1px solid #dee2e6 !important;
 }
 
 body.path-user .field--label-inline .field__label {
