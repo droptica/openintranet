@@ -55,7 +55,7 @@ install:
   - eca
   - eca_base
   - eca_content
-  - eca_modeller_bpmn
+
   - eca_ui
   - eca_views
   - field
@@ -79,7 +79,7 @@ install:
   - imagemagick
   - imce
   - inline_entity_form
-  - js_cookie
+
   - key
   - language
   - layout_builder_styles
