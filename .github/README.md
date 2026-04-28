@@ -46,9 +46,9 @@ Drupal 11 distribution for internal communication, knowledge management, and emp
 ### Knowledge Management
 
 - **Knowledge Base** — Hierarchical Book-style documentation with full revision history
-- **Wiki pages** — Collaboratively edited pages with diff and rollback
-- **AI-powered search** — RAG with vector search to surface answers, not just keywords
-- **AI-assisted content** — Suggested text for news, articles, and announcements
+- **Wiki-style pages** — Collaboratively edited pages with diff and rollback
+- **AI-assisted authoring** — In-editor content suggestions powered by OpenAI through Drupal AI + CKEditor integration
+- **AI agents** — Automate repetitive content tasks via the Drupal AI Agents framework
 - **Recently-read tracking** — Personalized continue-where-you-left-off views
 - **Glossary & internal links** — Curate a single source of truth for company terminology
 
@@ -70,38 +70,73 @@ Drupal 11 distribution for internal communication, knowledge management, and emp
 
 ### Integrations
 
-- **LDAP / Active Directory** — Sync users and groups from your directory
-- **SAML / OpenID Connect (SSO)** — Single sign-on with Keycloak, Azure AD, Okta, Google Workspace
+- **OpenID Connect SSO** — Sign in via Keycloak, Azure AD, Okta, Google Workspace; ready-to-use Keycloak recipe included
 - **SMS gateway** — Send notifications via SMSAPI and compatible providers
-- **Apache Solr** — Drop-in enterprise search backend
-- **Calendars** — iCal feeds for Google, Microsoft 365, Apple Calendar
-- **REST/JSON:API** — Build mobile apps, dashboards, and custom integrations
+- **Apache Solr** — Drop-in enterprise search backend (`search_api_solr`)
+- **Calendar views** — Internal events with Calendar View and FullCalendar
+- **REST / JSON:API** — Build mobile apps, dashboards, and custom integrations on top of Drupal core APIs
 - **ECA workflow automation** — No-code event–condition–action automations
 
 ### Admin & Compliance
 
 - **Role-based access control** — Drupal's mature permission system, refined for intranet use
-- **Audit trail** — Track user actions and content changes for accountability
+- **Content revisions & history** — Built-in versioning, diff and rollback for every edit
 - **Adoption analytics** — RFV scoring, active users, and segment health out of the box
 - **Auto-logout & session control** — Configurable idle timeouts
 - **Backup & migrate** — Built-in tooling for scheduled backups
 - **Masquerade** — Support staff can troubleshoot as another user safely
-- **GDPR-friendly** — Data export, deletion, and consent flows
+- **GDPR-friendly** — Data export and account deletion flows out of the box
 - **Multilingual** — Full i18n with translation workflows for 100+ languages
+
+## Easily extensible with thousands of Drupal modules
+
+Open Intranet is built on Drupal 11, so you can drop in any of the **40 000+ contributed modules** on [drupal.org](https://www.drupal.org/project/project_module) without touching the distribution. A few popular ones that fit intranet use cases:
+
+| Need | Drupal module |
+| --- | --- |
+| LDAP / Active Directory sync | [`ldap`](https://www.drupal.org/project/ldap) |
+| SAML 2.0 SSO | [`samlauth`](https://www.drupal.org/project/samlauth) / [`saml_sp`](https://www.drupal.org/project/saml_sp) |
+| Vector / RAG search on top of the Drupal AI suite | [`ai`](https://www.drupal.org/project/ai) (`ai_search` submodule) |
+| Two-factor authentication | [`tfa`](https://www.drupal.org/project/tfa) |
+| Password policy & expiration | [`password_policy`](https://www.drupal.org/project/password_policy) |
+| Audit log of user actions | [`audit_log`](https://www.drupal.org/project/audit_log) / [`watchdog_external`](https://www.drupal.org/project/watchdog_external) |
+| GDPR consent & cookie compliance | [`gdpr`](https://www.drupal.org/project/gdpr), [`eu_cookie_compliance`](https://www.drupal.org/project/eu_cookie_compliance) |
+| Migrate content from SharePoint / Confluence / legacy intranets | [`migrate_plus`](https://www.drupal.org/project/migrate_plus), [`migrate_tools`](https://www.drupal.org/project/migrate_tools), [`feeds`](https://www.drupal.org/project/feeds) |
+| Production email transport | [`mailgun`](https://www.drupal.org/project/mailgun), [`sendgrid_integration`](https://www.drupal.org/project/sendgrid_integration), [`symfony_mailer`](https://www.drupal.org/project/symfony_mailer) |
+| Slack / Teams / webhook notifications | [`slack`](https://www.drupal.org/project/slack), [`webhooks`](https://www.drupal.org/project/webhooks) |
+| Mobile app / OAuth2 server | [`simple_oauth`](https://www.drupal.org/project/simple_oauth), [`jsonapi_extras`](https://www.drupal.org/project/jsonapi_extras) |
+| CRM connector | [`webform_civicrm`](https://www.drupal.org/project/webform_civicrm), [`hubspot`](https://www.drupal.org/project/hubspot) |
+| Real-time chat / messaging | [`message`](https://www.drupal.org/project/message), [`private_message`](https://www.drupal.org/project/private_message) |
+| Spam protection & rate limiting | [`honeypot`](https://www.drupal.org/project/honeypot), [`flood_control`](https://www.drupal.org/project/flood_control) |
+| SEO & internal redirects | [`metatag`](https://www.drupal.org/project/metatag), [`redirect`](https://www.drupal.org/project/redirect) |
+
+> [!NOTE]
+> The above modules are **not bundled** with Open Intranet. Add them via Composer (`composer require drupal/<module>`) and enable as needed.
 
 ## Quick Start
 
-```bash
-composer create-project droptica/openintranet:^1 my-intranet
-cd my-intranet
-drush site:install openintranet
-```
-
-Or, if you already have DDEV installed, the fastest path is:
+The fastest path — DDEV one-liner that handles everything:
 
 ```bash
 curl -sL https://intranet.new/install.sh | bash
 ```
+
+Or install manually:
+
+```bash
+git clone https://git.drupalcode.org/project/openintranet.git
+cd openintranet
+./launch-intranet.sh
+```
+
+After the launch script finishes, install the site either in your browser (`ddev launch`) or from the command line:
+
+```bash
+ddev drush site-install openintranet install_configure_form.enable_demo_content=1
+```
+
+> [!NOTE]
+> Open Intranet is a Drupal **distribution**, not a Composer package. Use `git clone` or the DDEV one-liner above — there is no `composer create-project drupal/openintranet`.
 
 Full installation guide: [open-intranet.com/docs/getting-started/installation](https://open-intranet.com/docs/getting-started/installation)
 
