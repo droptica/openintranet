@@ -77,7 +77,11 @@ composer.lock
 
 # Ignore configuration files that shouldn't be in version control
 .editorconfig
-.gitattributes
+# .gitattributes is tracked: it carries `.github/ export-ignore` so that
+# GitHub-mirror-only marketing assets do not end up in Composer release
+# tarballs. The Drupal core scaffold is told to leave this file alone via
+# composer.json -> extra.drupal-scaffold.file-mapping.
+# .gitattributes
 
 # Ignore patches that are applied during installation
 *.patch
