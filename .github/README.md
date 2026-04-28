@@ -172,7 +172,7 @@ Development happens on **drupal.org**, not GitHub. To contribute:
 
 1. **Issues** — Open and discuss tickets in the [drupal.org issue queue](https://www.drupal.org/project/issues/openintranet).
 2. **Patches & merge requests** — Submit through [drupal.org issue forks](https://www.drupal.org/docs/develop/git/using-gitlab-to-contribute-to-drupal/creating-issue-forks). GitHub pull requests are **not** merged.
-3. **Discussions** — Join the conversation in the [Drupal Slack](https://www.drupal.org/slack), channel `#intranet`.
+3. **Discussions** — Join the conversation in the [Drupal Slack](https://www.drupal.org/slack), channel `#open-intranet`.
 4. **Source repository** — [git.drupalcode.org/project/openintranet](https://git.drupalcode.org/project/openintranet)
 
 This GitHub repository is a read-only mirror to give the project visibility on GitHub. All commits flow from drupal.org → GitHub one-way.
@@ -181,8 +181,9 @@ This GitHub repository is a read-only mirror to give the project visibility on G
 
 Open Intranet is built and maintained by [**Droptica**](https://www.droptica.com) — a Drupal agency since 2011.
 
-- Project page: [drupal.org/project/openintranet](https://www.drupal.org/project/openintranet)
-- Full list of contributors: [drupal.org/project/openintranet/committers](https://www.drupal.org/project/openintranet/committers)
+- Project website: [open-intranet.com](https://www.open-intranet.com)
+- Project page on Drupal.org: [drupal.org/project/openintranet](https://www.drupal.org/project/openintranet)
+
 
 ## License
 
@@ -193,4 +194,3 @@ Open Intranet is built and maintained by [**Droptica**](https://www.droptica.com
 Built and maintained by [**Droptica**](https://www.droptica.com) — a Drupal agency since 2011.
 
 We build solid open source solutions for ambitious companies: corporations, SMEs, startups, universities, and government.
-
