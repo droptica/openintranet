@@ -21,7 +21,7 @@ Drupal 11 distribution for internal communication, knowledge management, and emp
 
 ---
 
-![Open Intranet — Home dashboard with featured news, highlighted links, news feed and upcoming events](.github/assets/screenshot-home.png)
+![Open Intranet — Home dashboard with featured news, highlighted links, news feed and upcoming events](assets/screenshot-home.png)
 
 ## Why Open Intranet
 
@@ -109,15 +109,15 @@ Full installation guide: [open-intranet.com/docs/getting-started/installation](h
 
 <table>
   <tr>
-    <td><img src=".github/assets/screenshot-news-feed.png" alt="News feed" /></td>
-    <td><img src=".github/assets/screenshot-documents.png" alt="Document detail view with preview and access controls" /></td>
+    <td><img src="assets/screenshot-news-feed.png" alt="News feed" /></td>
+    <td><img src="assets/screenshot-documents.png" alt="Document detail view with preview and access controls" /></td>
   </tr>
   <tr>
-    <td><img src=".github/assets/screenshot-knowledge-base.png" alt="Knowledge Base / Book hierarchy with sidebar navigation" /></td>
-    <td><img src=".github/assets/screenshot-ai-assistant.png" alt="AI Assistant generating content for a knowledge base page" /></td>
+    <td><img src="assets/screenshot-knowledge-base.png" alt="Knowledge Base / Book hierarchy with sidebar navigation" /></td>
+    <td><img src="assets/screenshot-ai-assistant.png" alt="AI Assistant generating content for a knowledge base page" /></td>
   </tr>
   <tr>
-    <td colspan="2" align="center"><img src=".github/assets/screenshot-people-directory.png" alt="Employee directory" /></td>
+    <td colspan="2" align="center"><img src="assets/screenshot-people-directory.png" alt="Employee directory" /></td>
   </tr>
 </table>
 
