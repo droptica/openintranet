@@ -15,7 +15,7 @@ Drupal 11 distribution for internal communication, knowledge management, and emp
 [![Issue queue](https://img.shields.io/badge/issues-drupal.org-blue.svg)](https://www.drupal.org/project/issues/openintranet)
 [![PHP 8.3+](https://img.shields.io/badge/php-8.3%2B-777BB4.svg)](https://www.php.net/)
 
-[Website](https://open-intranet.com) · [Documentation](https://open-intranet.com/docs) · [Drupal.org project](https://www.drupal.org/project/openintranet) · [Issue queue](https://www.drupal.org/project/issues/openintranet) · [Request demo](https://www.droptica.com/products/intranet/)
+[Website](https://open-intranet.com) · [Documentation](https://open-intranet.com/docs/) · [Drupal.org project](https://www.drupal.org/project/openintranet) · [Issue queue](https://www.drupal.org/project/issues/openintranet) · [Request demo](https://www.droptica.com/products/intranet/)
 
 </div>
 
