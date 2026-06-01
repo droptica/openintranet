@@ -192,7 +192,7 @@ function openintranet_theme_preprocess_node(array &$variables) {
 function openintranet_theme_preprocess_page_title(array &$variables) {
   if (\Drupal::routeMatch()->getRouteName() === 'entity.taxonomy_term.canonical') {
     if ($term = \Drupal::routeMatch()->getParameter('taxonomy_term')) {
-      $variables['title']['#markup'] = $term->getName();
+      $variables['title'] = $term->getName();
     }
   }
 }
