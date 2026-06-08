@@ -134,3 +134,138 @@ form {
     margin-top: 0;
   }
 }
+
+#user-form {
+  // Frame the whole form as a clean card. The global `form` reset above strips
+  // padding/background/border with !important, so re-apply them scoped here.
+  &.block-primary {
+    padding: 1.5rem 1.5rem .5rem !important;
+    background: $white !important;
+    border: 1px solid $blue-100 !important;
+    border-radius: $border-radius !important;
+  }
+
+  // Clean underline tabs (replaces the filled active box + stray bottom border
+  // that made the inactive tabs look struck-through).
+  .field-group-tabs-wrapper .horizontal-tabs {
+    border: 0;
+  }
+
+  .horizontal-tabs-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .25rem;
+
+    // Core/Barrio draws a full-width 1px baseline via this ::after — that is the
+    // line that looked like it struck through the inactive tabs. Remove it.
+    &::after {
+      display: none;
+    }
+  }
+
+  .horizontal-tab-button {
+    padding: .5rem 1rem;
+    border: 0;
+    border-radius: 0;
+    background: none;
+
+    // The active-tab underline is provided by core via `a::before`; we only
+    // need to drop the filled background box from the base theme. This block
+    // intentionally overrides spacing/background only and inherits the base
+    // `form .horizontal-tab-button` typography (body-500) — keep the two in sync.
+    &.selected,
+    &:hover {
+      background: none;
+      color: $body-secondary-color;
+    }
+  }
+
+  .horizontal-tabs-panes {
+    padding: 1.5rem 0 0;
+    border-bottom: 0;
+  }
+
+  // Picture field → tidy circular avatar next to the upload control.
+  .field--name-user-picture {
+    .image-widget {
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .image-preview img {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      border: 1px solid $blue-100;
+      object-fit: cover;
+    }
+  }
+
+  .form-actions {
+    display: flex;
+    gap: .5rem;
+    align-items: center;
+    margin-top: 1.5rem;
+
+    .button--primary {
+      background-color: $body-secondary-color;
+      color: $white;
+
+      &:hover,
+      &:focus-visible {
+        background-color: shade-color($body-secondary-color, 8%);
+        color: $white;
+      }
+    }
+  }
+
+  label {
+    display: block;
+    margin-bottom: .25rem;
+  }
+
+  .description,
+  small {
+    display: block;
+    margin-top: .25rem;
+  }
+
+  .horizontal-tab-button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid $blue-500;
+    outline-offset: 2px;
+  }
+}
+
+@include media-breakpoint-down(lg) {
+  #user-form.block-primary {
+    padding: 1rem 1rem .25rem !important;
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  #user-form {
+    // Place the first/last name field wrappers side by side. They are
+    // separate block wrappers (.field--name-…), so float the wrappers and
+    // clear the field that follows them so the rest of the form stacks.
+    // Assumes both name fields render (they are required) and that `field_name`
+    // stays the next field in this form display. If that order changes or a name
+    // field is hidden, revisit — a flex wrapper would be more robust but needs a
+    // field_group container (a config change beyond this CSS-only task).
+    .field--name-field-first-name,
+    .field--name-field-last-name {
+      float: left;
+      width: calc(50% - 1rem);
+    }
+
+    .field--name-field-first-name {
+      margin-right: 1rem;
+    }
+
+    .field--name-field-name {
+      clear: both;
+    }
+  }
+}
