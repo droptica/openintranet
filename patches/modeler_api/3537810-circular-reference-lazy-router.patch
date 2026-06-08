@@ -1,0 +1,48 @@
+--- a/modeler_api.services.yml
++++ b/modeler_api.services.yml
+@@ -16,7 +16,7 @@
+       - '@modeler_api.context_list_builder'
+       - '@modeler_api.dependency_list_builder'
+       - '@modeler_api.template_token_list_builder'
+-      - '@router.no_access_checks'
++      - !service_closure '@router.no_access_checks'
+       - !service_closure '@entity_type.manager'
+       - !service_closure '@router.route_provider'
+       - !service_closure '@token'
+--- a/src/Api.php
++++ b/src/Api.php
+@@ -103,7 +103,7 @@
+     protected ContextListBuilder $contextListBuilder,
+     protected DependencyListBuilder $dependencyListBuilder,
+     protected TemplateTokenListBuilder $templateTokenListBuilder,
+-    protected RouterInterface $router,
++    protected \Closure $routerFactory,
+     protected \Closure $entityTypeManagerFactory,
+     protected \Closure $routeProviderFactory,
+     protected \Closure $tokenFactory,
+@@ -128,6 +128,16 @@
+    */
+   protected function getRouteProvider(): RouteProviderInterface {
+     return ($this->routeProviderFactory)();
++  }
++
++  /**
++   * Get the router service.
++   *
++   * @return \Symfony\Component\Routing\RouterInterface
++   *   The router service.
++   */
++  protected function getRouter(): RouterInterface {
++    return ($this->routerFactory)();
+   }
+ 
+   /**
+@@ -904,7 +914,7 @@
+     }
+ 
+     try {
+-      $result = $this->router->match('/' . $parentPath);
++      $result = $this->getRouter()->match('/' . $parentPath);
+       return $result['_route'] ?? NULL;
+     }
+     catch (\Exception) {
