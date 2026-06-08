@@ -1,0 +1,11 @@
+services:
+  logger.channel.openintranet:
+    parent: logger.channel_base
+    arguments: ['openintranet']
+  openintranet.book_structure_importer:
+    class: Drupal\openintranet\BookStructureImporter
+    arguments:
+      - '@book.manager'
+      - '@entity.repository'
+      - '@logger.channel.openintranet'
+      - '%app.root%'

@@ -7,20 +7,20 @@
 
 declare(strict_types=1);
 
+use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Recipe\Recipe;
 use Drupal\Core\Recipe\RecipeRunner;
 use Drupal\user\Entity\User;
 use Drupal\openintranet\Form\RecipesForm;
 use Drupal\Core\Form\FormStateInterface;
 use Symfony\Component\Process\Process;
-use Symfony\Component\Yaml\Yaml;
 
 /**
  * Implements hook_install_tasks().
  */
 function openintranet_install_tasks(&$install_state): array {
   // Set a path for private files.
-  $settings_path = DRUPAL_ROOT . '/' . 'sites/default/settings.php';
+  $settings_path = DRUPAL_ROOT . '/sites/default/settings.php';
 
   if (is_writable($settings_path)) {
     $contents = file_get_contents($settings_path);
@@ -69,7 +69,6 @@ function openintranet_install_tasks(&$install_state): array {
       'display_name' => t('Choose content'),
       'type' => 'form',
       'run' => INSTALL_TASK_RUN_IF_NOT_COMPLETED,
-      // @phpstan-ignore-next-line
       'function' => RecipesForm::class,
     ];
   }
@@ -253,11 +252,11 @@ function openintranet_update_event_dates(): void {
       ->loadMultiple($nids);
 
     // Base date for upcoming events: 6 months from now.
-    $future_base = new \Drupal\Core\Datetime\DrupalDateTime();
+    $future_base = new DrupalDateTime();
     $future_base->modify('+6 months');
 
     // Base date for archived events: 3 months ago.
-    $past_base = new \Drupal\Core\Datetime\DrupalDateTime();
+    $past_base = new DrupalDateTime();
     $past_base->modify('-3 months');
 
     foreach ($nodes as $node) {
@@ -330,7 +329,7 @@ function openintranet_content_recipe_finished($success, $results, $operations) {
         $entityUpdateManager->getChangeList();
       }
 
-      // Update event dates
+      // Update event dates.
       openintranet_update_event_dates();
     }
     catch (\Exception $e) {
@@ -519,68 +518,10 @@ function openintranet_download_webform_libraries($context): void {
  *   Batch context.
  */
 function openintranet_import_book_structure(array &$context): void {
-  $book_structure_file = DRUPAL_ROOT . '/../recipes/default_content/book/book.structure.yml';
+  $result = \Drupal::service('openintranet.book_structure_importer')->import();
 
-  if (!file_exists($book_structure_file)) {
-    $context['message'] = t('Book structure file not found. Skipping book structure import.');
-    return;
-  }
-
-  try {
-    $book_structure = Yaml::parse(file_get_contents($book_structure_file));
-
-    /** @var \Drupal\book\BookManagerInterface $book_manager */
-    $book_manager = \Drupal::service('book.manager');
-    /** @var \Drupal\Core\Entity\EntityRepositoryInterface $entity_repository */
-    $entity_repository = \Drupal::service('entity.repository');
-    /** @var \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager */
-
-    $uuid_map = [];
-
-    foreach ($book_structure as $link) {
-      $converted_link = [];
-
-      foreach ($link as $key => $uuid) {
-        if ($uuid === null) {
-          $converted_link[$key] = 0;
-          continue;
-        }
-
-        if (!in_array($key, ['nid', 'bid', 'pid']) || empty($uuid)) {
-          $converted_link[$key] = $uuid;
-          continue;
-        }
-
-        if (!isset($uuid_map[$uuid])) {
-          $node = $entity_repository->loadEntityByUuid('node', $uuid);
-          if ($node) {
-            $uuid_map[$uuid] = $node->id();
-          } else {
-            $uuid_map[$uuid] = 0;
-          }
-        }
-
-        $converted_link[$key] = $uuid_map[$uuid];
-      }
-
-      $defaults = [
-        'has_children' => 0,
-        'weight' => 0,
-        'depth' => 1,
-      ];
-
-      foreach ($defaults as $key => $default_value) {
-        if (!isset($converted_link[$key])) {
-          $converted_link[$key] = $default_value;
-        }
-      }
-
-      $book_manager->saveBookLink($converted_link, TRUE);
-    }
-
-    $context['message'] = t('Book structure imported successfully.');
-  }
-  catch (\Exception $e) {
-    error_log($e->getMessage());
-  }
+  $context['message'] = t(
+    'Book structure imported: @i link(s), @s skipped.',
+    ['@i' => $result['imported'], '@s' => $result['skipped']],
+  );
 }
