@@ -1,0 +1,16 @@
+@import "../../mixins/text";
+
+// Highlight CKEditor block quotes in rendered rich-text fields. The bare
+// <blockquote> tag is otherwise unstyled — Bootstrap only styles the
+// `.blockquote` class, which CKEditor does not add — so quotes don't stand out.
+.field--type-text-long,
+.field--type-text-with-summary,
+.field--type-text {
+  blockquote {
+    margin: 1rem 0;
+    padding: .5rem 0 .5rem 1rem;
+    border-left: 4px solid $body-secondary-color;
+    color: $body-tertiary-color;
+    @include body-italic;
+  }
+}
