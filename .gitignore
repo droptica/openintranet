@@ -96,3 +96,6 @@ composer.lock
 
 .playwright-mcp
 
+
+# Local task notes (not for the repo)
+/tasks/

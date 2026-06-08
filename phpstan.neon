@@ -1,0 +1,12 @@
+parameters:
+	level: 2
+	fileExtensions:
+		- php
+		- module
+		- inc
+		- install
+		- theme
+		- profile
+	excludePaths:
+		- */node_modules/*
+		- */dist/*

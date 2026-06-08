@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset name="openintranet">
+  <description>Drupal coding standards for Open Intranet custom code.</description>
+
+  <!-- Scan targets are passed by the `ddev phpcs` wrapper (resilient to dirs that do not exist yet). -->
+
+  <!-- PHP-ish files only; never lint compiled assets or deps. -->
+  <arg name="extensions" value="php,module,inc,install,theme,profile,engine"/>
+  <arg name="parallel" value="8"/>
+  <arg name="colors"/>
+  <arg value="sp"/>
+
+  <exclude-pattern>*/node_modules/*</exclude-pattern>
+  <exclude-pattern>*/css/*</exclude-pattern>
+  <exclude-pattern>*/js/*</exclude-pattern>
+  <exclude-pattern>*/dist/*</exclude-pattern>
+  <exclude-pattern>*.min.*</exclude-pattern>
+
+  <rule ref="Drupal"/>
+  <rule ref="DrupalPractice"/>
+</ruleset>

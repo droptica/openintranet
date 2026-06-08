@@ -1,0 +1,13 @@
+#!/bin/bash
+## Description: Run Drupal phpcs on custom code (optional path args)
+## Usage: phpcs [path ...]
+## Example: "ddev phpcs" or "ddev phpcs web/modules/custom/foo/foo.module"
+cd /var/www/html || exit 1
+if [ "$#" -gt 0 ]; then
+  ./vendor/bin/phpcs --standard=phpcs.xml "$@"
+else
+  targets=()
+  [ -d web/modules/custom ] && targets+=("web/modules/custom")
+  [ -d starter-theme/openintranet_theme ] && targets+=("starter-theme/openintranet_theme")
+  ./vendor/bin/phpcs --standard=phpcs.xml "${targets[@]}"
+fi

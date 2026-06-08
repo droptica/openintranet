@@ -1,0 +1,13 @@
+#!/bin/bash
+## Description: Run Drupal phpstan (level 2) on custom code (optional path args)
+## Usage: phpstan [path ...]
+## Example: "ddev phpstan" or "ddev phpstan starter-theme/openintranet_theme/openintranet_theme.theme"
+cd /var/www/html || exit 1
+if [ "$#" -gt 0 ]; then
+  ./vendor/bin/phpstan analyse -c phpstan.neon --memory-limit=-1 "$@"
+else
+  targets=()
+  [ -d web/modules/custom ] && targets+=("web/modules/custom")
+  [ -d starter-theme/openintranet_theme ] && targets+=("starter-theme/openintranet_theme")
+  ./vendor/bin/phpstan analyse -c phpstan.neon --memory-limit=-1 "${targets[@]}"
+fi
