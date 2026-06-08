@@ -154,12 +154,13 @@
                 <h1 class="title">User profile</h1>
               </div>
             </div>
-            <div class="row">
-              <div class="col"></div>
-              <div class="col-md-8">
-                {{ page.content.openintranet_theme_primary_local_tasks }}
+            {% if content_local_tasks %}
+              <div class="row">
+                <div class="col-md-8">
+                  <nav class="content-local-tasks" aria-label="{{ 'Local tasks'|t }}">{{ content_local_tasks }}</nav>
+                </div>
               </div>
-            </div>
+            {% endif %}
             <div class="row row-offcanvas row-offcanvas-left clearfix">
               <div class="block block-background d-flex p-0 flex-column flex-lg-row">
                 <main{{ content_attributes }}>

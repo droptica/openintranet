@@ -187,6 +187,45 @@ function openintranet_theme_preprocess_node(array &$variables) {
 }
 
 /**
+ * Implements hook_preprocess_HOOK().
+ *
+ * Render the standard local task tabs (View / Edit / Delete / Revisions ...)
+ * near the page content on node and user pages. The placed local_tasks_block
+ * is suppressed under the core Navigation top bar, so the tabs are rebuilt here
+ * from the block plugin and exposed to page.html.twig.
+ */
+function openintranet_theme_preprocess_page(array &$variables) {
+  $variables['content_local_tasks'] = NULL;
+
+  $route_match = \Drupal::routeMatch();
+  $is_node_page = $route_match->getParameter('node') !== NULL;
+  $is_user_page = $route_match->getParameter('user') !== NULL;
+
+  if ($is_node_page || $is_user_page) {
+    $build = \Drupal::service('plugin.manager.block')
+      ->createInstance('local_tasks_block', [])
+      ->build();
+
+    // Drupal hides a lone "View" task (or none), which would leave an empty
+    // wrapper. Probe a COPY of the render array (renderInIsolation() marks the
+    // array it renders as #printed, so render the copy and keep $build clean
+    // for Twig) and only expose the tabs when there is something to show. The
+    // block runs its own access checks, so the tabs stay permission-aware.
+    $probe = $build;
+    $rendered = (string) \Drupal::service('renderer')->renderInIsolation($probe);
+
+    if (trim(strip_tags($rendered)) !== '') {
+      // Vary by route + permissions so the tabs never leak across pages/users.
+      $build['#cache']['contexts'] = Cache::mergeContexts(
+        $build['#cache']['contexts'] ?? [],
+        ['route', 'user.permissions']
+      );
+      $variables['content_local_tasks'] = $build;
+    }
+  }
+}
+
+/**
  * Implements hook_preprocess_page_title().
  */
 function openintranet_theme_preprocess_page_title(array &$variables) {

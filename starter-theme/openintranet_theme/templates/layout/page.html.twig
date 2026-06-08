@@ -153,6 +153,9 @@
               <main{{ content_attributes }}>
                 <section class="section">
                   <a href="#main-content" id="main-content" tabindex="-1"></a>
+                  {% if content_local_tasks %}
+                    <nav class="content-local-tasks" aria-label="{{ 'Local tasks'|t }}">{{ content_local_tasks }}</nav>
+                  {% endif %}
                   {{ page.content }}
                 </section>
               </main>

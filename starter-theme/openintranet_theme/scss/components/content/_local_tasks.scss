@@ -1,0 +1,56 @@
+@import "../../mixins/text";
+
+// Local tasks (Edit | View | Delete …) surfaced near the page content on node
+// and user pages. Barrio renders them as Bootstrap `.nav.nav-tabs`, so target
+// those classes and give a clean underline-tab look using the theme tokens.
+.content-local-tasks {
+  margin-bottom: 1.5rem;
+
+  .nav-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .25rem;
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px solid $blue-100;
+  }
+
+  .nav-item {
+    margin: 0 0 -1px;
+  }
+
+  .nav-link {
+    @include body-400;
+
+    padding: .5rem 1rem;
+    color: $body-color;
+    background: none;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    border-radius: 0;
+
+    &:hover,
+    &:focus-visible {
+      color: $body-secondary-color;
+      background: none;
+      border-bottom-color: $blue-100;
+    }
+
+    &.active {
+      @include body-400-bold;
+
+      color: $body-secondary-color;
+      background: none;
+      border-color: transparent;
+      border-bottom-color: $body-secondary-color;
+    }
+  }
+
+  // Barrio also flags the active state on the <li>.
+  .nav-item.active .nav-link {
+    @include body-400-bold;
+
+    color: $body-secondary-color;
+    border-bottom-color: $body-secondary-color;
+  }
+}
