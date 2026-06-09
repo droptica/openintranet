@@ -39,8 +39,9 @@ class BookStructureImporter {
   /**
    * Constructs a BookStructureImporter object.
    *
-   * @param \Drupal\book\BookManagerInterface $bookManager
-   *   The book manager.
+   * @param \Drupal\book\BookManagerInterface|null $bookManager
+   *   The book manager, or NULL when the book module is not installed (e.g.
+   *   during the early installer container compile, before book is enabled).
    * @param \Drupal\Core\Entity\EntityRepositoryInterface $entityRepository
    *   The entity repository, used to resolve nodes by UUID.
    * @param \Psr\Log\LoggerInterface $logger
@@ -49,7 +50,7 @@ class BookStructureImporter {
    *   The application root path.
    */
   public function __construct(
-    protected BookManagerInterface $bookManager,
+    protected ?BookManagerInterface $bookManager,
     protected EntityRepositoryInterface $entityRepository,
     protected LoggerInterface $logger,
     protected string $appRoot,
@@ -71,6 +72,17 @@ class BookStructureImporter {
    *   keyed by 'imported' and 'skipped'.
    */
   public function import(?string $file = NULL): array {
+    // The book manager is an optional dependency (see the service definition):
+    // it is NULL until the book module is installed. import() is only meant to
+    // run post-install, but guard defensively so an early call degrades to a
+    // logged no-op instead of a fatal.
+    if ($this->bookManager === NULL) {
+      $this->logger->warning(
+        'Book module is not installed; skipping book structure import.',
+      );
+      return ['imported' => 0, 'skipped' => 0];
+    }
+
     $file ??= $this->appRoot
       . '/../recipes/default_content/book/book.structure.yml';
 
@@ -198,6 +210,9 @@ class BookStructureImporter {
    *   referenced node could not be found.
    */
   private function importLink(array $link, array &$uuid_map): bool {
+    // import() returns early when the book manager is unavailable, so it is
+    // always set by the time this is reached.
+    assert($this->bookManager instanceof BookManagerInterface);
     $converted = [];
 
     foreach ($link as $key => $value) {

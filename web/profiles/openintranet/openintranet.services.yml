@@ -5,7 +5,12 @@ services:
   openintranet.book_structure_importer:
     class: Drupal\openintranet\BookStructureImporter
     arguments:
-      - '@book.manager'
+      # Optional reference: the book module is not yet installed when the
+      # installer first compiles the container, so a hard reference would fail
+      # container compilation. By the time import() is actually called (the
+      # profile batch op / the Drush command, both post-install) the container
+      # has been rebuilt and the real book.manager is injected.
+      - '@?book.manager'
       - '@entity.repository'
       - '@logger.channel.openintranet'
       - '%app.root%'
