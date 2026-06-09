@@ -55,7 +55,6 @@ install:
   - eca
   - eca_base
   - eca_content
-  - eca_modeller_bpmn
   - eca_ui
   - eca_views
   - field
