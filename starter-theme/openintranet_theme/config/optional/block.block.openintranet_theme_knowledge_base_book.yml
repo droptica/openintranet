@@ -31,4 +31,5 @@ visibility:
     context_mapping:
       node: '@node.node_route_context:node'
     bundles:
+      book: book
       knowledge_base_page: knowledge_base_page
