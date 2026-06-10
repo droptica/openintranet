@@ -107,3 +107,9 @@ composer.lock
 # Local AI workflow files (not for the repo)
 /.claude/skills/
 /docs/superpowers/
+/CLAUDE.md
+
+# DDEV project files are generated locally by launch-intranet.sh (ddev config).
+# Tracking anything under .ddev/ breaks the launcher: it skips `ddev config`
+# whenever the directory exists. Command sources live in ddev_commands/.
+/.ddev/

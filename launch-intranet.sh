@@ -35,8 +35,10 @@ if [ $n -gt 0 ]; then
   NAME=$NAME-$(expr $n + 1)
 fi
 
-# Configure DDEV if not already done.
-test -d .ddev || ddev config --project-type=drupal10 --docroot=web --php-version=8.3 --ddev-version-constraint=">=1.24.0" --project-name="$NAME"
+# Configure DDEV if not already done. Check for the config file, not the
+# directory: a clone may contain a .ddev/ directory without a config.yaml,
+# and skipping `ddev config` then makes `ddev start` fail.
+test -f .ddev/config.yaml || ddev config --project-type=drupal10 --docroot=web --php-version=8.3 --ddev-version-constraint=">=1.24.0" --project-name="$NAME"
 # Start your engines.
 ddev start
 # Install dependencies if not already done.
