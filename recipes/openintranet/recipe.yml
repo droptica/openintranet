@@ -78,7 +78,6 @@ install:
   - imagemagick
   - imce
   - inline_entity_form
-  - js_cookie
   - key
   - language
   - layout_builder_styles

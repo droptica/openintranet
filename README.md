@@ -36,14 +36,17 @@ Open Intranet is a workplace hub that brings together news, knowledge, documents
 
 ## Ready-to-go intranet features
 
-- **News & Announcements**: Share company updates and important information
+- **News & Announcements**: Share company updates with access control per department or team
 - **Events Calendar**: Schedule and manage company events
 - **Knowledge Base**: Create and organize internal documentation
 - **Document Management**: Store and share company documents
 - **Employee Directory**: Searchable listing of staff with profiles
-- **User Management**: Integration with LDAP and role-based access control
+- **Internal Forms**: Custom forms for employee requests and feedback
+- **Social Interactions**: Comments, reactions, and peer recognition (kudos)
+- **User Management**: Integration with LDAP/SSO and role-based access control
 - **Adoption Analytics**: Track engagement with RFV scoring, active users, and segment health
-- **AI-Assisted Search**: Find information fast with RAG-powered vector search
+- **AI-Assisted Content**: AI helps create and improve news, articles, and announcements
+- **AI-Powered Search**: Find information fast with RAG-powered vector search
 - **Multi-Channel Notifications**: Reach users and external contacts via email and SMS
 - **Responsive Design**: Works across desktop and mobile devices
 
@@ -80,7 +83,19 @@ For organizations that need professional support, [Droptica](https://www.droptic
 
 Want to see Open Intranet in action? [Request a demo](https://www.droptica.com/products/intranet/)—a Droptica specialist will walk you through the system. After the presentation, you'll receive a dedicated demo instance for 14 days to explore on your own.
 
+You can also watch a [2-minute video demo on YouTube](https://www.youtube.com/watch?v=7PRuKjPJ9qs).
+
 ## Or install it yourself
+
+### Quick install (recommended)
+
+Requires [DDEV](https://ddev.com) installed on your machine.
+
+```
+curl -sL https://intranet.new/install.sh | bash
+```
+
+### Manual install
 
 **Step 1**: Install [DDEV](https://ddev.com).
 
@@ -108,6 +123,23 @@ cd openintranet
 - [Docker](https://www.docker.com) (required by DDEV)
 - [Git](https://git-scm.com)
 
+## FAQ
+
+**Is it really free?**
+Yes. Open Intranet is released under GPL v2+. You can download, install, modify, and use it without paying anything. Droptica offers optional paid services for organizations that need professional support.
+
+**Can I connect the intranet with our existing tools?**
+Absolutely. Open Intranet can integrate with Active Directory, LDAP, and SAML/OpenID Connect for SSO. It also works with Google Workspace, Microsoft 365 for calendars and documents, and with HR/ERP/CRM platforms via API.
+
+**Will employees require training?**
+Most likely not. Open Intranet has a user-friendly layout, similar to modern web platforms. Employees can get started and navigate the system with minimal guidance.
+
+**How does AI work in Open Intranet?**
+Open Intranet includes AI-assisted content creation (suggesting text for news, articles, and announcements) and AI-powered search using RAG (Retrieval-Augmented Generation) with vector search to help employees find information fast.
+
+**Can I deploy it on-premises?**
+Yes. Open Intranet runs on standard PHP infrastructure. You can deploy it on your own servers, in a private cloud, or use any hosting provider that supports PHP and MySQL/PostgreSQL.
+
 # Resources
 
 #### Learn more about Open Intranet
@@ -116,6 +148,7 @@ cd openintranet
 - [Release notes](https://www.drupal.org/project/openintranet/releases)
 - [Issue queue](https://www.drupal.org/project/openintranet/issues)
 - [Git repository](https://git.drupalcode.org/project/openintranet)
+- [Video demo](https://www.youtube.com/watch?v=7PRuKjPJ9qs)
 
 #### License
 
