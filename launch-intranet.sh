@@ -39,16 +39,39 @@ fi
 # directory: a clone may contain a .ddev/ directory without a config.yaml,
 # and skipping `ddev config` then makes `ddev start` fail.
 test -f .ddev/config.yaml || ddev config --project-type=drupal10 --docroot=web --php-version=8.3 --ddev-version-constraint=">=1.24.0" --project-name="$NAME"
-# Start your engines.
-ddev start
-# Install dependencies if not already done.
-test -f composer.lock || ddev composer install
+
+# Prepare all project files BEFORE `ddev start`: with Mutagen (the default on
+# macOS) the container only sees host files after a sync cycle, so files
+# copied after the start may not be inside the container yet when the first
+# `drush site-install` runs ("openintranet_theme" is not a known module or
+# theme). `ddev start` waits for the initial sync, so anything created here
+# is guaranteed to be visible in the container.
 
 # Copy the DDEV commands to the project.
 cp -r ddev_commands/* .ddev/commands/
 
-# Copy the starter theme to the project.
-cp -r starter-theme/ web/themes/custom/
+# Copy the starter theme to the project. The parent directory does not exist
+# on a fresh clone (composer creates web/themes later), so create it first.
+mkdir -p web/themes/custom
+cp -R starter-theme/openintranet_theme web/themes/custom/
+
+# Set up the private file system BEFORE any drush run. The install profile
+# patches settings.php too, but editing the file mid-install does not affect
+# the already-running `drush site-install` process (single bootstrap), so the
+# private:// stream wrapper never registers and the demo content import fails
+# copying demo.pdf. Patching the file here, before any Drupal process starts,
+# makes the first `drush site-install` work.
+SETTINGS_FILE=web/sites/default/settings.php
+if [ -f "$SETTINGS_FILE" ] && grep -q "^# \$settings\['file_private_path'\] = '';" "$SETTINGS_FILE"; then
+  sed "s|^# \$settings\['file_private_path'\] = '';|\$settings['file_private_path'] = 'sites/private_files';|" "$SETTINGS_FILE" > "$SETTINGS_FILE.tmp" \
+    && mv "$SETTINGS_FILE.tmp" "$SETTINGS_FILE"
+fi
+mkdir -p web/sites/private_files
+
+# Start your engines.
+ddev start
+# Install dependencies if not already done.
+test -f composer.lock || ddev composer install
 
 ask_yes_no() {
     while true; do
