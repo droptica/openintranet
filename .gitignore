@@ -103,3 +103,7 @@ composer.lock
 
 # Local task notes (not for the repo)
 /tasks/
+
+# Local AI workflow files (not for the repo)
+/.claude/skills/
+/docs/superpowers/
