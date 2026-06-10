@@ -182,6 +182,9 @@
             },
             "drupal/views_organization_chart": {
                 "views_organization_chart - Drupal 11 compatibility fixes": "patches/views_organization_chart/views_organization_chart_drupal11_compatibility.patch"
+            },
+            "drupal/modeler_api": {
+                "[3537810] Fix ServiceCircularReferenceException by lazy-loading the router in Api": "patches/modeler_api/3537810-circular-reference-lazy-router.patch"
             }
         }
     },
