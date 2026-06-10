@@ -1,0 +1,34 @@
+<?php
+
+/**
+ * @file
+ * Install and update functions for the Open Intranet profile.
+ */
+
+declare(strict_types=1);
+
+/**
+ * Show the Knowledge Base sidebar on "Book page" nodes too.
+ *
+ * The sidebar block was visible only for the knowledge_base_page bundle, so a
+ * book whose root node uses the Book module's "Book page" content type
+ * rendered without any navigation. New installs get the updated optional
+ * theme config; this brings existing sites in line.
+ */
+function openintranet_update_110001(): void {
+  $config = \Drupal::configFactory()
+    ->getEditable('block.block.openintranet_theme_knowledge_base_book');
+
+  if ($config->isNew()) {
+    // The block does not exist on this site (e.g. a different theme).
+    return;
+  }
+
+  $key = 'visibility.entity_bundle:node.bundles';
+  $bundles = $config->get($key) ?? [];
+  if (!isset($bundles['book'])) {
+    $bundles['book'] = 'book';
+    ksort($bundles);
+    $config->set($key, $bundles)->save();
+  }
+}
