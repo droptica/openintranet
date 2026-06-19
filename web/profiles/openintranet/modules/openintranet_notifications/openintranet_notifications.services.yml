@@ -36,3 +36,8 @@ services:
     arguments:
       - '@keyvalue.expirable'
       - '@datetime.time'
+
+  openintranet_notifications.audit_logger:
+    class: Drupal\openintranet_notifications\Service\AuditLogger
+    arguments:
+      - '@logger.channel.openintranet_notifications'
