@@ -135,6 +135,17 @@ action.configuration.openintranet_notifications_enqueue_delivery:
       type: string
       label: 'Recipients'
 
+action.configuration.openintranet_notifications_send_now:
+  type: mapping
+  label: 'Notification: send now (synchronous)'
+  mapping:
+    notification:
+      type: string
+      label: 'Notification'
+    channel:
+      type: string
+      label: 'Channel'
+
 openintranet_notifications.settings:
   type: config_object
   label: 'Open Intranet Notifications settings'
