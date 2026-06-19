@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\openintranet_notifications\Renderer;
 
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Plugin\PluginBase;
 use Drupal\Core\Render\RendererInterface;
@@ -39,6 +40,8 @@ abstract class NotificationTemplateRendererBase extends PluginBase implements No
    *   The Twig environment.
    * @param \Drupal\Core\Render\RendererInterface $renderer
    *   The renderer service.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
+   *   The entity type manager.
    */
   public function __construct(
     array $configuration,
@@ -47,6 +50,7 @@ abstract class NotificationTemplateRendererBase extends PluginBase implements No
     protected readonly Token $token,
     protected readonly TwigEnvironment $twig,
     protected readonly RendererInterface $renderer,
+    protected readonly EntityTypeManagerInterface $entityTypeManager,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
   }
@@ -62,6 +66,7 @@ abstract class NotificationTemplateRendererBase extends PluginBase implements No
       $container->get('token'),
       $container->get('twig'),
       $container->get('renderer'),
+      $container->get('entity_type.manager'),
     );
   }
 
