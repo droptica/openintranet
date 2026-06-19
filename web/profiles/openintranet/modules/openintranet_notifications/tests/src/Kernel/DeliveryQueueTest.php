@@ -99,4 +99,44 @@ final class DeliveryQueueTest extends KernelTestBase {
     self::assertSame(2, \Drupal::queue('openintranet_notification_delivery')->numberOfItems());
   }
 
+  /**
+   * Builds an unsaved row with the single-formula idempotency key.
+   */
+  public function testCreateDeliveryRowBuildsExpectedIdempotencyKey(): void {
+    $account = User::create(['name' => 'recipient2', 'status' => 1]);
+    $account->save();
+
+    $notification = $this->container->get('entity_type.manager')
+      ->getStorage('openintranet_notification')
+      ->create([
+        'type' => 'default',
+        'uid' => (int) $account->id(),
+        'subject' => 'Hi',
+        'body' => 'B',
+        'status' => 'queued',
+      ]);
+    $notification->save();
+
+    $recipient = new NotificationRecipient(
+      type: 'user',
+      id: (int) $account->id(),
+      account: $account,
+    );
+
+    $delivery = $this->deliveryQueue->createDeliveryRow($notification, $recipient, 'inbox');
+
+    // Built, not persisted, and pending.
+    self::assertTrue($delivery->isNew());
+    self::assertSame('pending', $delivery->get('status')->value);
+    self::assertSame('inbox', $delivery->get('channel')->value);
+
+    $expectedKey = hash('sha256', $notification->id() . ':' . $account->id() . ':inbox');
+    self::assertSame($expectedKey, $delivery->get('idempotency_key')->value);
+
+    // No row was written by the builder alone.
+    $storage = $this->container->get('entity_type.manager')
+      ->getStorage('openintranet_notif_delivery');
+    self::assertCount(0, $storage->loadMultiple());
+  }
+
 }

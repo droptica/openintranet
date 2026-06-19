@@ -13,6 +13,7 @@ use Drupal\openintranet_notifications\Channel\ChannelPluginManager;
 use Drupal\openintranet_notifications\Dto\NotificationMessage;
 use Drupal\openintranet_notifications\Dto\NotificationRecipient;
 use Drupal\openintranet_notifications\Entity\NotificationInterface;
+use Drupal\openintranet_notifications\Service\DeliveryQueue;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -42,11 +43,19 @@ final class SendNow extends ConfigurableActionBase {
   protected ChannelPluginManager $channelManager;
 
   /**
+   * The delivery queue service (builds the shared delivery row).
+   *
+   * @var \Drupal\openintranet_notifications\Service\DeliveryQueue
+   */
+  protected DeliveryQueue $deliveryQueue;
+
+  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
     $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
     $instance->channelManager = $container->get('plugin.manager.notification_channel');
+    $instance->deliveryQueue = $container->get('openintranet_notifications.delivery_queue');
     return $instance;
   }
 
@@ -66,17 +75,9 @@ final class SendNow extends ConfigurableActionBase {
     $recipient = $this->buildRecipient($notification);
     $channel = $this->channelManager->createInstance($channelId);
 
-    /** @var \Drupal\openintranet_notifications\Entity\NotificationDeliveryInterface $delivery */
-    $delivery = $this->entityTypeManager->getStorage('openintranet_notif_delivery')->create([
-      'notification_id' => $notification->id(),
-      'recipient_type' => $recipient->type,
-      'recipient_id' => $recipient->id,
-      'contact_value' => $recipient->value,
-      'channel' => $channelId,
-      'address' => $channel->getRecipientAddress($recipient),
-      'status' => 'pending',
-      'idempotency_key' => hash('sha256', $notification->id() . ':' . (string) ($recipient->id ?? $recipient->value) . ':' . $channelId),
-    ]);
+    // Reuse the service's single delivery-row builder (shared idempotency-key
+    // formula); SendNow persists and sends it synchronously instead of queuing.
+    $delivery = $this->deliveryQueue->createDeliveryRow($notification, $recipient, $channelId);
 
     $message = new NotificationMessage(
       subject: (string) $notification->get('subject')->value,
