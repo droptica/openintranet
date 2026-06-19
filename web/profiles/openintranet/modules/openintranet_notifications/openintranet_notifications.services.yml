@@ -7,3 +7,8 @@ services:
     parent: logger.channel_base
     arguments:
       - 'openintranet_notifications'
+
+  openintranet_notifications.preference_resolver:
+    class: Drupal\openintranet_notifications\Service\PreferenceResolver
+    autowire: true
+  Drupal\openintranet_notifications\Service\PreferenceResolverInterface: '@openintranet_notifications.preference_resolver'
