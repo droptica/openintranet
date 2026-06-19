@@ -29,6 +29,10 @@ final class RateLimiter {
   /**
    * Whether a send is allowed under the limit, counting this attempt.
    *
+   * A denied attempt does not write or extend the counter, so sustained traffic
+   * against a throttled tuple cannot keep re-extending the TTL into a permanent
+   * lockout — the window still expires on schedule.
+   *
    * @param int $uid
    *   The recipient user id.
    * @param string $channel
@@ -41,14 +45,20 @@ final class RateLimiter {
    *   The rolling window length in seconds.
    *
    * @return bool
-   *   TRUE when the count after this attempt is within the limit.
+   *   TRUE when this attempt is within the limit.
+   *
+   * @todo Stage 2: store the window-end for a precise fixed window when real
+   *   per-type limits are wired, instead of re-arming the TTL on each allow.
    */
   public function allow(int $uid, string $channel, string $type, int $limit, int $windowSec): bool {
     $store = $this->store();
     $key = "$uid:$channel:$type";
-    $count = (int) $store->get($key, 0) + 1;
-    $store->setWithExpire($key, $count, $windowSec);
-    return $count <= $limit;
+    $count = (int) $store->get($key, 0);
+    if ($count >= $limit) {
+      return FALSE;
+    }
+    $store->setWithExpire($key, $count + 1, $windowSec);
+    return TRUE;
   }
 
   /**

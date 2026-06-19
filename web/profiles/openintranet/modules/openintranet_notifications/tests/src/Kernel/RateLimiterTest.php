@@ -55,6 +55,24 @@ final class RateLimiterTest extends KernelTestBase {
   }
 
   /**
+   * Denied attempts do not write or extend the counter (no lockout creep).
+   */
+  public function testDeniedAttemptsDoNotExtendWindow(): void {
+    // Fill the tuple to its limit of 2.
+    self::assertTrue($this->rateLimiter->allow(42, 'email_core', 'new_article', 2, 3600));
+    self::assertTrue($this->rateLimiter->allow(42, 'email_core', 'new_article', 2, 3600));
+
+    // Several denied attempts must not bump the stored count past the limit.
+    self::assertFalse($this->rateLimiter->allow(42, 'email_core', 'new_article', 2, 3600));
+    self::assertFalse($this->rateLimiter->allow(42, 'email_core', 'new_article', 2, 3600));
+    self::assertFalse($this->rateLimiter->allow(42, 'email_core', 'new_article', 2, 3600));
+
+    $store = $this->container->get('keyvalue.expirable')
+      ->get('openintranet_notifications.rate_limit');
+    self::assertSame(2, $store->get('42:email_core:new_article'));
+  }
+
+  /**
    * Distinct (user, channel, type) tuples are counted independently.
    */
   public function testDistinctTuplesAreIndependent(): void {
