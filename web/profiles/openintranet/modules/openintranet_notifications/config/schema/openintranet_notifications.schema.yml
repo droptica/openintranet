@@ -1,0 +1,74 @@
+openintranet_notifications.openintranet_notification_type.*:
+  type: config_entity
+  label: 'Notification type'
+  mapping:
+    id:
+      type: machine_name
+      label: 'Machine name'
+    label:
+      type: required_label
+      label: 'Label'
+    description:
+      type: string
+      label: 'Description'
+    category:
+      type: string
+      label: 'Category'
+    default_priority:
+      type: string
+      label: 'Default priority'
+    default_channels:
+      type: sequence
+      label: 'Default channels'
+      sequence:
+        type: string
+        label: 'Channel id'
+    forced_channels:
+      type: sequence
+      label: 'Forced channels'
+      sequence:
+        type: string
+        label: 'Channel id'
+    recipient_resolvers:
+      type: sequence
+      label: 'Recipient resolvers'
+      sequence:
+        type: mapping
+        label: 'Recipient resolver'
+        mapping:
+          id:
+            type: string
+            label: 'Resolver plugin id'
+          configuration:
+            type: mapping
+            label: 'Resolver configuration'
+    template_map:
+      type: sequence
+      label: 'Template map'
+      sequence:
+        type: string
+        label: 'Template name'
+    subject_template:
+      type: string
+      label: 'Subject template'
+    body_template:
+      type: text
+      label: 'Body template'
+    summary_template:
+      type: string
+      label: 'Summary template'
+    delivery_policy:
+      type: string
+      label: 'Delivery policy plugin id'
+    dedupe_window:
+      type: integer
+      label: 'Dedupe window (seconds)'
+    user_can_override:
+      type: boolean
+      label: 'User can override channels'
+    audit_retention_days:
+      type: integer
+      label: 'Audit retention (days)'
+    enabled:
+      type: boolean
+      label: 'Enabled'
