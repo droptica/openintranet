@@ -61,6 +61,11 @@ final class NotificationDispatcherTest extends KernelTestBase {
     $this->installEntitySchema('openintranet_notif_delivery');
     $this->installSchema('system', ['sequences']);
     $this->installConfig(['openintranet_notifications']);
+    // Tests install their own "default" type fixture, so drop the types
+    // shipped in config/install first.
+    $typeStorage = $this->container->get('entity_type.manager')
+      ->getStorage('openintranet_notification_type');
+    $typeStorage->delete($typeStorage->loadMultiple());
 
     // A type whose policy selects [inbox, log_only] for any user.
     NotificationType::create([

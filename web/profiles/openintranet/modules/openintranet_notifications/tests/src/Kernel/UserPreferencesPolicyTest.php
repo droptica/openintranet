@@ -50,10 +50,22 @@ final class UserPreferencesPolicyTest extends KernelTestBase {
     $this->installEntitySchema('user');
     $this->installEntitySchema('user_notification_settings');
     $this->installConfig(['openintranet_notifications']);
+    // Each test installs its own "default" type fixture with tailored channels,
+    // so drop the type entities shipped in config/install first.
+    $this->deleteShippedNotificationTypes();
 
     /** @var \Drupal\openintranet_notifications\Policy\DeliveryPolicyManager $manager */
     $manager = $this->container->get('plugin.manager.notification_delivery_policy');
     $this->policy = $manager->createInstance('user_preferences');
+  }
+
+  /**
+   * Deletes the notification types shipped in the module's config/install.
+   */
+  private function deleteShippedNotificationTypes(): void {
+    $storage = $this->container->get('entity_type.manager')
+      ->getStorage('openintranet_notification_type');
+    $storage->delete($storage->loadMultiple());
   }
 
   /**

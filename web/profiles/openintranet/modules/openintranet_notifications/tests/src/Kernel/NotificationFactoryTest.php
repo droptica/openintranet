@@ -56,6 +56,11 @@ final class NotificationFactoryTest extends KernelTestBase {
     // The token renderer reaches date tokens, which need default date formats.
     $this->installConfig(['system']);
     $this->installConfig(['openintranet_notifications']);
+    // Tests install their own "default" type fixtures, so drop the types
+    // shipped in config/install first.
+    $typeStorage = $this->container->get('entity_type.manager')
+      ->getStorage('openintranet_notification_type');
+    $typeStorage->delete($typeStorage->loadMultiple());
 
     NotificationType::create([
       'id' => 'default',

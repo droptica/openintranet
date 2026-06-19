@@ -65,10 +65,14 @@ abstract class NotificationActionKernelTestBase extends KernelTestBase {
     $this->installEntitySchema('node');
     $this->installSchema('system', ['sequences']);
     $this->installConfig(['openintranet_notifications']);
+    // Replace the shipped "default" type with a fixture whose policy selects
+    // [inbox, log_only] for any user.
+    $typeStorage = $this->container->get('entity_type.manager')
+      ->getStorage('openintranet_notification_type');
+    $typeStorage->delete($typeStorage->loadMultiple());
 
     NodeType::create(['type' => 'article', 'name' => 'Article'])->save();
 
-    // A type whose policy selects [inbox, log_only] for any user.
     NotificationType::create([
       'id' => 'default',
       'label' => 'Default',
