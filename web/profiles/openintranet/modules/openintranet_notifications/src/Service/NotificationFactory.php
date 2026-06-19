@@ -126,12 +126,27 @@ final class NotificationFactory {
    *   The token replacement data.
    */
   private function buildTokenData(NotificationInterface $notification, array $values, ?EntityInterface $source): array {
-    $context = $values['context'] ?? [];
-    $tokenData = is_array($context) ? $context : [];
+    $context = is_array($values['context'] ?? NULL) ? $values['context'] : [];
+    $tokenData = [];
 
+    // Expose every entity-valued context entry under its entity-type-id key so
+    // templates can reference it (e.g. the commented node under [node]). On a
+    // type collision the last entry wins; the explicit source below is set
+    // afterwards, so it overrides for its own entity type.
+    foreach ($context as $value) {
+      if ($value instanceof EntityInterface) {
+        $tokenData[$value->getEntityTypeId()] = $value;
+      }
+    }
+
+    // The source entity is exposed under BOTH its entity-type-id key (core
+    // tokens, e.g. [node:title]) and a generic 'entity' key (json_payload and
+    // render_array read 'entity').
     if ($source !== NULL) {
       $tokenData[$source->getEntityTypeId()] = $source;
+      $tokenData['entity'] = $source;
     }
+
     if (isset($values['recipient_account']) && $values['recipient_account'] instanceof EntityInterface) {
       $tokenData['user'] = $values['recipient_account'];
     }
@@ -139,6 +154,7 @@ final class NotificationFactory {
       $tokenData['actor'] = $values['actor'];
     }
     $tokenData['notification'] = $notification;
+    $tokenData['payload'] = $context['payload'] ?? [];
 
     return $tokenData;
   }

@@ -121,9 +121,22 @@ final class NotificationDispatcher {
    *   Extra build values merged into each notification (subject, body, etc.).
    */
   public function dispatchRequest(string $typeId, array $recipients, array $context = []): void {
+    // The source entity is the dispatch entity/source_entity context key; the
+    // actor is the acting account. The whole keyed context is nested under
+    // 'context' so the factory can expose every entity-valued entry to the
+    // renderer token data, instead of spreading flat (which lost it).
+    $source = $context['source_entity'] ?? ($context['entity'] ?? NULL);
+    $actor = $context['actor'] ?? NULL;
+
     if ($recipients === []) {
       foreach ($this->resolveRecipients($typeId, $context) as $recipient) {
-        $values = ['uid' => $recipient->id, 'recipient_account' => $recipient->account] + $context;
+        $values = [
+          'uid' => $recipient->id,
+          'recipient_account' => $recipient->account,
+          'source_entity' => $source,
+          'actor' => $actor,
+          'context' => $context,
+        ];
         $n = $this->notificationFactory->create($typeId, $values);
         $this->enqueue($n);
       }
@@ -131,7 +144,17 @@ final class NotificationDispatcher {
     }
 
     foreach ($recipients as $recipientId) {
-      $n = $this->notificationFactory->create($typeId, ['uid' => $recipientId] + $context);
+      // Explicit recipients carry only a uid, so load the account here too so
+      // [user:*] tokens resolve in this branch as well (#12).
+      $recipientAccount = $this->entityTypeManager->getStorage('user')->load((int) $recipientId);
+      $values = [
+        'uid' => $recipientId,
+        'recipient_account' => $recipientAccount,
+        'source_entity' => $source,
+        'actor' => $actor,
+        'context' => $context,
+      ];
+      $n = $this->notificationFactory->create($typeId, $values);
       $this->enqueue($n);
     }
   }
