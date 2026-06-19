@@ -78,4 +78,30 @@ abstract class NotificationRecipientResolverBase extends PluginBase implements N
     );
   }
 
+  /**
+   * Loads users by uid and wraps them as recipients, dropping blocked ones.
+   *
+   * @param array<int, int|string> $uids
+   *   The user ids to load.
+   *
+   * @return \Drupal\openintranet_notifications\Dto\NotificationRecipient[]
+   *   The non-blocked user recipients.
+   */
+  protected function buildUserRecipientsFromUids(array $uids): array {
+    if ($uids === []) {
+      return [];
+    }
+    $recipients = [];
+    foreach ($this->entityTypeManager->getStorage('user')->loadMultiple($uids) as $user) {
+      if (!$user instanceof UserInterface) {
+        continue;
+      }
+      $recipient = $this->buildUserRecipient($user);
+      if ($recipient !== NULL) {
+        $recipients[] = $recipient;
+      }
+    }
+    return $recipients;
+  }
+
 }

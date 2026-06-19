@@ -52,21 +52,8 @@ final class ViewResultUsers extends NotificationRecipientResolverBase {
         $uids[$uid] = $uid;
       }
     }
-    if ($uids === []) {
-      return [];
-    }
 
-    $recipients = [];
-    foreach ($this->entityTypeManager->getStorage('user')->loadMultiple($uids) as $user) {
-      if (!$user instanceof UserInterface) {
-        continue;
-      }
-      $recipient = $this->buildUserRecipient($user);
-      if ($recipient !== NULL) {
-        $recipients[] = $recipient;
-      }
-    }
-    return $recipients;
+    return $this->buildUserRecipientsFromUids($uids);
   }
 
   /**

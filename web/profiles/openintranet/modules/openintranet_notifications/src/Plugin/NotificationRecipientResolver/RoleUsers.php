@@ -7,7 +7,6 @@ namespace Drupal\openintranet_notifications\Plugin\NotificationRecipientResolver
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\openintranet_notifications\Attribute\NotificationRecipientResolver;
 use Drupal\openintranet_notifications\Resolver\NotificationRecipientResolverBase;
-use Drupal\user\UserInterface;
 
 /**
  * Resolves all active users holding a configured role.
@@ -32,27 +31,13 @@ final class RoleUsers extends NotificationRecipientResolverBase {
       return [];
     }
 
-    $storage = $this->entityTypeManager->getStorage('user');
-    $uids = $storage->getQuery()
+    $uids = $this->entityTypeManager->getStorage('user')->getQuery()
       ->accessCheck(FALSE)
       ->condition('status', 1)
       ->condition('roles', $role)
       ->execute();
-    if ($uids === []) {
-      return [];
-    }
 
-    $recipients = [];
-    foreach ($storage->loadMultiple($uids) as $user) {
-      if (!$user instanceof UserInterface) {
-        continue;
-      }
-      $recipient = $this->buildUserRecipient($user);
-      if ($recipient !== NULL) {
-        $recipients[] = $recipient;
-      }
-    }
-    return $recipients;
+    return $this->buildUserRecipientsFromUids($uids);
   }
 
 }
