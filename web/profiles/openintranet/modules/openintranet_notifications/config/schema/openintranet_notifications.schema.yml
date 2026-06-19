@@ -165,6 +165,20 @@ action.configuration.openintranet_notifications_mark_seen_read:
       type: string
       label: 'Mode'
 
+eca.condition.plugin.openintranet_notifications_user_channel_enabled:
+  type: eca.condition.plugin
+  label: 'Notification: user channel enabled'
+  mapping:
+    uid:
+      type: string
+      label: 'Recipient user id'
+    notification_type:
+      type: string
+      label: 'Notification type'
+    channel:
+      type: string
+      label: 'Channel'
+
 openintranet_notifications.settings:
   type: config_object
   label: 'Open Intranet Notifications settings'
