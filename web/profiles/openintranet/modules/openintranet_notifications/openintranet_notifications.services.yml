@@ -1,0 +1,67 @@
+services:
+  plugin.manager.notification_channel:
+    class: Drupal\openintranet_notifications\Channel\ChannelPluginManager
+    parent: default_plugin_manager
+
+  plugin.manager.notification_recipient_resolver:
+    class: Drupal\openintranet_notifications\Resolver\RecipientResolverManager
+    parent: default_plugin_manager
+
+  plugin.manager.notification_delivery_policy:
+    class: Drupal\openintranet_notifications\Policy\DeliveryPolicyManager
+    parent: default_plugin_manager
+
+  plugin.manager.notification_template_renderer:
+    class: Drupal\openintranet_notifications\Renderer\TemplateRendererManager
+    parent: default_plugin_manager
+
+  logger.channel.openintranet_notifications:
+    parent: logger.channel_base
+    arguments:
+      - 'openintranet_notifications'
+
+  openintranet_notifications.preference_resolver:
+    class: Drupal\openintranet_notifications\Service\PreferenceResolver
+    autowire: true
+  Drupal\openintranet_notifications\Service\PreferenceResolverInterface: '@openintranet_notifications.preference_resolver'
+
+  openintranet_notifications.deduplicator:
+    class: Drupal\openintranet_notifications\Service\Deduplicator
+    arguments:
+      - '@keyvalue.expirable'
+      - '@datetime.time'
+
+  openintranet_notifications.rate_limiter:
+    class: Drupal\openintranet_notifications\Service\RateLimiter
+    arguments:
+      - '@keyvalue.expirable'
+      - '@datetime.time'
+
+  openintranet_notifications.audit_logger:
+    class: Drupal\openintranet_notifications\Service\AuditLogger
+    arguments:
+      - '@logger.channel.openintranet_notifications'
+
+  openintranet_notifications.notification_factory:
+    class: Drupal\openintranet_notifications\Service\NotificationFactory
+    arguments:
+      - '@entity_type.manager'
+      - '@openintranet_notifications.deduplicator'
+
+  openintranet_notifications.delivery_queue:
+    class: Drupal\openintranet_notifications\Service\DeliveryQueue
+    arguments:
+      - '@entity_type.manager'
+      - '@plugin.manager.notification_channel'
+      - '@queue'
+      - '@config.factory'
+
+  openintranet_notifications.notification_dispatcher:
+    class: Drupal\openintranet_notifications\Service\NotificationDispatcher
+    arguments:
+      - '@openintranet_notifications.notification_factory'
+      - '@plugin.manager.notification_delivery_policy'
+      - '@openintranet_notifications.deduplicator'
+      - '@openintranet_notifications.rate_limiter'
+      - '@openintranet_notifications.delivery_queue'
+      - '@entity_type.manager'

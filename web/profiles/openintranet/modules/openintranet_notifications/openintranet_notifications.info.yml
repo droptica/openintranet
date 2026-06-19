@@ -6,8 +6,8 @@ core_version_requirement: ^11
 dependencies:
   - drupal:dynamic_entity_reference
   - drupal:options
+  - drupal:text
   - eca:eca
   - eca:eca_base
   - eca:eca_content
   - token:token
-  - key:key

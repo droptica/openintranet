@@ -1,0 +1,255 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Drupal\openintranet_notifications\Entity;
+
+use Drupal\Core\Config\Entity\ConfigEntityBase;
+use Drupal\Core\Entity\Attribute\ConfigEntityType;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+
+/**
+ * Defines the notification_type config entity.
+ *
+ * Routing profile + template for one kind of notification (00-synteza §4.1).
+ * Channel/policy/resolver ids are stored as plain strings; the entity does not
+ * validate plugin existence (that is the dispatcher's concern at send time).
+ */
+#[ConfigEntityType(
+  id: 'openintranet_notification_type',
+  label: new TranslatableMarkup('Notification type'),
+  label_collection: new TranslatableMarkup('Notification types'),
+  label_singular: new TranslatableMarkup('notification type'),
+  label_plural: new TranslatableMarkup('notification types'),
+  config_prefix: 'openintranet_notification_type',
+  entity_keys: [
+    'id' => 'id',
+    'label' => 'label',
+    'status' => 'enabled',
+  ],
+  admin_permission: 'administer notification types',
+  label_count: [
+    'singular' => '@count notification type',
+    'plural' => '@count notification types',
+  ],
+  config_export: [
+    'id',
+    'label',
+    'description',
+    'category',
+    'default_priority',
+    'default_channels',
+    'forced_channels',
+    'recipient_resolvers',
+    'template_map',
+    'subject_template',
+    'body_template',
+    'summary_template',
+    'delivery_policy',
+    'dedupe_window',
+    'user_can_override',
+    'audit_retention_days',
+    'enabled',
+  ],
+)]
+final class NotificationType extends ConfigEntityBase implements NotificationTypeInterface {
+
+  /**
+   * The machine name.
+   */
+  protected string $id;
+
+  /**
+   * The human-readable label.
+   */
+  protected string $label;
+
+  /**
+   * The human-readable description.
+   */
+  protected string $description = '';
+
+  /**
+   * The grouping category used by the admin UI.
+   */
+  protected string $category = '';
+
+  /**
+   * The default priority (low|normal|high|urgent).
+   */
+  protected string $default_priority = 'normal';
+
+  /**
+   * The channel ids selected by default.
+   *
+   * @var string[]
+   */
+  protected array $default_channels = [];
+
+  /**
+   * The channel ids the user cannot opt out of.
+   *
+   * @var string[]
+   */
+  protected array $forced_channels = [];
+
+  /**
+   * The recipient resolver configurations.
+   *
+   * @var array<int, array{id: string, configuration: array<string, mixed>}>
+   */
+  protected array $recipient_resolvers = [];
+
+  /**
+   * The per-channel template map (channel id => template name).
+   *
+   * @var array<string, string>
+   */
+  protected array $template_map = [];
+
+  /**
+   * The subject token template.
+   */
+  protected string $subject_template = '';
+
+  /**
+   * The body token template.
+   */
+  protected string $body_template = '';
+
+  /**
+   * The summary token template.
+   */
+  protected string $summary_template = '';
+
+  /**
+   * The delivery policy plugin id.
+   */
+  protected string $delivery_policy = 'user_preferences';
+
+  /**
+   * The dedupe window in seconds.
+   */
+  protected int $dedupe_window = 0;
+
+  /**
+   * Whether users may override the default channel selection.
+   */
+  protected bool $user_can_override = TRUE;
+
+  /**
+   * How many days delivery audit records are retained.
+   */
+  protected int $audit_retention_days = 0;
+
+  /**
+   * Whether this notification type is enabled.
+   */
+  protected bool $enabled = TRUE;
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getDescription(): string {
+    return $this->description;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getCategory(): string {
+    return $this->category;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getDefaultPriority(): string {
+    return $this->default_priority;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getDefaultChannels(): array {
+    return $this->default_channels;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getForcedChannels(): array {
+    return $this->forced_channels;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getRecipientResolvers(): array {
+    return $this->recipient_resolvers;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getTemplateMap(): array {
+    return $this->template_map;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getSubjectTemplate(): string {
+    return $this->subject_template;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getBodyTemplate(): string {
+    return $this->body_template;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getSummaryTemplate(): string {
+    return $this->summary_template;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getDeliveryPolicy(): string {
+    return $this->delivery_policy;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getDedupeWindow(): int {
+    return $this->dedupe_window;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function userCanOverride(): bool {
+    return $this->user_can_override;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getAuditRetentionDays(): int {
+    return $this->audit_retention_days;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function isEnabled(): bool {
+    return $this->enabled;
+  }
+
+}
