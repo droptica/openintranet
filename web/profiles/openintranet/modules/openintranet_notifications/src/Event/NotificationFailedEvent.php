@@ -1,0 +1,36 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Drupal\openintranet_notifications\Event;
+
+use Drupal\eca\Event\TokenReceiverInterface;
+use Drupal\eca\Event\TokenReceiverTrait;
+use Drupal\openintranet_notifications\Entity\NotificationDeliveryInterface;
+use Drupal\openintranet_notifications\Entity\NotificationInterface;
+use Symfony\Contracts\EventDispatcher\Event;
+
+/**
+ * Dispatched after a delivery attempt fails but may still be retried.
+ *
+ * Mirrors eca_base CustomEvent: implements TokenReceiverInterface so ECA can
+ * preserve action-provided tokens across the event's successors.
+ */
+final class NotificationFailedEvent extends Event implements TokenReceiverInterface {
+
+  use TokenReceiverTrait;
+
+  /**
+   * Constructs a NotificationFailedEvent.
+   *
+   * @param \Drupal\openintranet_notifications\Entity\NotificationDeliveryInterface $delivery
+   *   The delivery that failed.
+   * @param \Drupal\openintranet_notifications\Entity\NotificationInterface|null $notification
+   *   The parent notification, when known.
+   */
+  public function __construct(
+    public readonly NotificationDeliveryInterface $delivery,
+    public readonly ?NotificationInterface $notification = NULL,
+  ) {}
+
+}
