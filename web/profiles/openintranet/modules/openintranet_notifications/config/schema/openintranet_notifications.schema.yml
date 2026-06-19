@@ -107,6 +107,23 @@ action.configuration.openintranet_notifications_create:
       type: string
       label: 'Output token name'
 
+action.configuration.openintranet_notifications_resolve_recipients:
+  type: mapping
+  label: 'Notification: resolve recipients'
+  mapping:
+    resolver_id:
+      type: string
+      label: 'Resolver id'
+    configuration:
+      type: ignore
+      label: 'Resolver configuration'
+    notification_type:
+      type: string
+      label: 'Notification type'
+    token_name:
+      type: string
+      label: 'Output token name'
+
 openintranet_notifications.settings:
   type: config_object
   label: 'Open Intranet Notifications settings'

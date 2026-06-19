@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\openintranet_notifications\Kernel\Action;
 
+use Drupal\eca\Plugin\DataType\DataTransferObject;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\node\Entity\Node;
 use Drupal\node\Entity\NodeType;
@@ -159,6 +160,28 @@ abstract class NotificationActionKernelTestBase extends KernelTestBase {
    */
   protected function queueCount(): int {
     return (int) \Drupal::queue('openintranet_notification_delivery')->numberOfItems();
+  }
+
+  /**
+   * Reads an output uid-list token the way a consuming action would.
+   *
+   * A non-token-typed array stored via addTokenData() is wrapped in a DTO;
+   * getOrReplace('[name]') returns that DTO, whose flat values are the uids.
+   *
+   * @param string $name
+   *   The token name.
+   *
+   * @return array<int, int>
+   *   The sorted uid list.
+   */
+  protected function readUidToken(string $name): array {
+    $value = $this->tokenServices->getOrReplace('[' . $name . ']');
+    if ($value instanceof DataTransferObject) {
+      $value = $value->toArray();
+    }
+    $uids = array_map('intval', \is_array($value) ? $value : [$value]);
+    sort($uids);
+    return $uids;
   }
 
 }
