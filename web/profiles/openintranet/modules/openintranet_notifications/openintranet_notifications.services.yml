@@ -1,0 +1,9 @@
+services:
+  plugin.manager.notification_channel:
+    class: Drupal\openintranet_notifications\Channel\ChannelPluginManager
+    parent: default_plugin_manager
+
+  logger.channel.openintranet_notifications:
+    parent: logger.channel_base
+    arguments:
+      - 'openintranet_notifications'
