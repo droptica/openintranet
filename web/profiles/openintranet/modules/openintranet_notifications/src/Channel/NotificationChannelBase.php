@@ -34,8 +34,8 @@ abstract class NotificationChannelBase extends PluginBase implements Notificatio
    * {@inheritdoc}
    */
   public function isAvailable(): bool {
-    // @todo Honor per-channel kill switch from
-    // openintranet_notifications.settings (INTRNTST-117 Task 1.18).
+    // Channel-config availability only; the global kill switch is enforced by
+    // the delivery policy. Real channels override this with their own check.
     return TRUE;
   }
 
