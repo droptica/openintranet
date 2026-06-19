@@ -11,4 +11,3 @@ dependencies:
   - eca:eca_base
   - eca:eca_content
   - token:token
-  - key:key
