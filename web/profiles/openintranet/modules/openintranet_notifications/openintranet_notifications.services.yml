@@ -47,3 +47,11 @@ services:
     arguments:
       - '@entity_type.manager'
       - '@openintranet_notifications.deduplicator'
+
+  openintranet_notifications.delivery_queue:
+    class: Drupal\openintranet_notifications\Service\DeliveryQueue
+    arguments:
+      - '@entity_type.manager'
+      - '@plugin.manager.notification_channel'
+      - '@queue'
+      - '@config.factory'
