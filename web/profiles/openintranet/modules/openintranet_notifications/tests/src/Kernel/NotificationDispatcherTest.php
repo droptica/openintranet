@@ -9,6 +9,7 @@ use Drupal\openintranet_notifications\Entity\NotificationType;
 use Drupal\openintranet_notifications\Service\NotificationDispatcher;
 use Drupal\openintranet_notifications\Service\NotificationFactory;
 use Drupal\user\Entity\User;
+use Drupal\user\Entity\Role;
 
 /**
  * Tests the NotificationDispatcher orchestration service.
@@ -186,6 +187,38 @@ final class NotificationDispatcherTest extends KernelTestBase {
 
     self::assertSame('queued', $this->reload((int) $n2->id())->get('status')->value);
     self::assertCount(2, $this->loadDeliveriesFor((int) $n2->id()));
+  }
+
+  /**
+   * An empty recipient set resolves recipients via the type's resolvers.
+   */
+  public function testDispatchRequestResolvesRecipientsFromTypeResolvers(): void {
+    Role::create(['id' => 'editor', 'label' => 'Editor'])->save();
+    foreach ([41, 42] as $uid) {
+      $user = User::load($uid);
+      $user->addRole('editor');
+      $user->save();
+    }
+
+    NotificationType::create([
+      'id' => 'resolved',
+      'label' => 'Resolved',
+      'default_channels' => ['inbox', 'log_only'],
+      'forced_channels' => ['inbox', 'log_only'],
+      'delivery_policy' => 'user_preferences',
+      'dedupe_window' => 0,
+      'recipient_resolvers' => [
+        ['id' => 'role_users', 'configuration' => ['role' => 'editor']],
+      ],
+    ])->save();
+
+    $this->dispatcher->dispatchRequest('resolved', [], ['subject' => 'Hi', 'body' => 'B']);
+
+    $notifications = $this->loadAllNotifications();
+    self::assertCount(2, $notifications);
+    $uids = array_map(static fn ($n) => (int) $n->get('uid')->target_id, $notifications);
+    sort($uids);
+    self::assertSame([41, 42], $uids);
   }
 
 }

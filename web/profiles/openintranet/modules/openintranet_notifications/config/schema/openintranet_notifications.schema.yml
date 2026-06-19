@@ -40,7 +40,7 @@ openintranet_notifications.openintranet_notification_type.*:
             type: string
             label: 'Resolver plugin id'
           configuration:
-            type: mapping
+            type: ignore
             label: 'Resolver configuration'
     template_map:
       type: sequence

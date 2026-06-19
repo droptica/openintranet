@@ -66,3 +66,4 @@ services:
       - '@openintranet_notifications.rate_limiter'
       - '@openintranet_notifications.delivery_queue'
       - '@entity_type.manager'
+      - '@plugin.manager.notification_recipient_resolver'

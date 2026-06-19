@@ -9,6 +9,7 @@ use Drupal\openintranet_notifications\Dto\NotificationRecipient;
 use Drupal\openintranet_notifications\Entity\NotificationInterface;
 use Drupal\openintranet_notifications\Entity\NotificationTypeInterface;
 use Drupal\openintranet_notifications\Policy\DeliveryPolicyManager;
+use Drupal\openintranet_notifications\Resolver\RecipientResolverManager;
 
 /**
  * Orchestrates a notification from build to enqueued deliveries.
@@ -27,6 +28,7 @@ final class NotificationDispatcher {
     private readonly RateLimiter $rateLimiter,
     private readonly DeliveryQueue $deliveryQueue,
     private readonly EntityTypeManagerInterface $entityTypeManager,
+    private readonly RecipientResolverManager $recipientResolverManager,
   ) {}
 
   /**
@@ -112,12 +114,52 @@ final class NotificationDispatcher {
    *   Extra build values merged into each notification (subject, body, etc.).
    */
   public function dispatchRequest(string $typeId, array $recipients, array $context = []): void {
-    // @todo When $recipients is empty, resolve via the type's
-    //   recipient_resolvers (Stage 2).
+    if ($recipients === []) {
+      foreach ($this->resolveRecipients($typeId, $context) as $recipient) {
+        $values = ['uid' => $recipient->id, 'recipient_account' => $recipient->account] + $context;
+        $n = $this->notificationFactory->create($typeId, $values);
+        $this->enqueue($n);
+      }
+      return;
+    }
+
     foreach ($recipients as $recipientId) {
       $n = $this->notificationFactory->create($typeId, ['uid' => $recipientId] + $context);
       $this->enqueue($n);
     }
+  }
+
+  /**
+   * Resolves the recipient set from a type's recipient_resolvers.
+   *
+   * @param string $typeId
+   *   The notification_type id.
+   * @param array<string, mixed> $context
+   *   The dispatch context handed to each resolver.
+   *
+   * @return array<int, \Drupal\openintranet_notifications\Dto\NotificationRecipient>
+   *   The user recipients, de-duplicated by user id.
+   */
+  private function resolveRecipients(string $typeId, array $context): array {
+    /** @var \Drupal\openintranet_notifications\Entity\NotificationTypeInterface|null $type */
+    $type = $this->entityTypeManager
+      ->getStorage('openintranet_notification_type')
+      ->load($typeId);
+    if ($type === NULL) {
+      return [];
+    }
+
+    $resolved = [];
+    foreach ($type->getRecipientResolvers() as $definition) {
+      $resolver = $this->recipientResolverManager
+        ->createInstance($definition['id'], $definition['configuration'] ?? []);
+      foreach ($resolver->resolve($context) as $recipient) {
+        if ($recipient->id !== NULL) {
+          $resolved[$recipient->id] = $recipient;
+        }
+      }
+    }
+    return array_values($resolved);
   }
 
   /**
