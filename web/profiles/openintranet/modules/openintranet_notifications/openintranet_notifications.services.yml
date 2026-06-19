@@ -55,3 +55,14 @@ services:
       - '@plugin.manager.notification_channel'
       - '@queue'
       - '@config.factory'
+
+  openintranet_notifications.notification_dispatcher:
+    class: Drupal\openintranet_notifications\Service\NotificationDispatcher
+    arguments:
+      - '@openintranet_notifications.notification_factory'
+      - '@plugin.manager.notification_delivery_policy'
+      - '@openintranet_notifications.deduplicator'
+      - '@openintranet_notifications.rate_limiter'
+      - '@openintranet_notifications.delivery_queue'
+      - '@entity_type.manager'
+      - '@config.factory'
