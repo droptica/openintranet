@@ -146,6 +146,14 @@ action.configuration.openintranet_notifications_send_now:
       type: string
       label: 'Channel'
 
+action.configuration.openintranet_notifications_cancel:
+  type: mapping
+  label: 'Notification: cancel'
+  mapping:
+    notification:
+      type: string
+      label: 'Notification'
+
 openintranet_notifications.settings:
   type: config_object
   label: 'Open Intranet Notifications settings'
