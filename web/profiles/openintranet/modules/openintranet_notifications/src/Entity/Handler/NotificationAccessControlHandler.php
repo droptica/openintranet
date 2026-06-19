@@ -29,8 +29,10 @@ final class NotificationAccessControlHandler extends EntityAccessControlHandler 
       return AccessResult::allowed()->cachePerPermissions();
     }
 
-    $is_owner = $entity instanceof FieldableEntityInterface
-      && (int) $entity->get('uid')->target_id === (int) $account->id();
+    $uid = $entity instanceof FieldableEntityInterface ? $entity->get('uid')->target_id : NULL;
+    // Anonymous (uid 0) must never match a notification whose recipient is
+    // unset/0; ownership requires a real, equal account id.
+    $is_owner = $account->id() > 0 && $uid !== NULL && (int) $uid === (int) $account->id();
     return match ($operation) {
       'view', 'update' => AccessResult::allowedIf($is_owner)
         ->cachePerUser()
