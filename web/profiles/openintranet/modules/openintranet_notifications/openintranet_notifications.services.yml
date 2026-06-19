@@ -67,3 +67,4 @@ services:
       - '@openintranet_notifications.delivery_queue'
       - '@entity_type.manager'
       - '@plugin.manager.notification_recipient_resolver'
+      - '@event_dispatcher'

@@ -8,8 +8,12 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\openintranet_notifications\Dto\NotificationRecipient;
 use Drupal\openintranet_notifications\Entity\NotificationInterface;
 use Drupal\openintranet_notifications\Entity\NotificationTypeInterface;
+use Drupal\openintranet_notifications\Event\NotificationCreatedEvent;
+use Drupal\openintranet_notifications\Event\NotificationEvents;
+use Drupal\openintranet_notifications\Event\NotificationQueuedEvent;
 use Drupal\openintranet_notifications\Policy\DeliveryPolicyManager;
 use Drupal\openintranet_notifications\Resolver\RecipientResolverManager;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Orchestrates a notification from build to enqueued deliveries.
@@ -29,6 +33,7 @@ final class NotificationDispatcher {
     private readonly DeliveryQueue $deliveryQueue,
     private readonly EntityTypeManagerInterface $entityTypeManager,
     private readonly RecipientResolverManager $recipientResolverManager,
+    private readonly EventDispatcherInterface $eventDispatcher,
   ) {}
 
   /**
@@ -85,12 +90,14 @@ final class NotificationDispatcher {
 
     // An empty channel set (blocked/filtered recipient) must not linger as
     // 'queued' or record dedupe; mark it cancelled so a future legit send for
-    // the same key is not suppressed (FIX #4).
+    // the same key is not suppressed (FIX #4). No lifecycle event fires here.
     if (empty($channels)) {
       $n->set('status', 'cancelled');
       $n->save();
       return;
     }
+
+    $this->eventDispatcher->dispatch(new NotificationCreatedEvent($n), NotificationEvents::CREATED);
 
     $this->deliveryQueue->createAndEnqueue($n, $recipient, $channels);
     if ($window > 0) {
@@ -100,7 +107,7 @@ final class NotificationDispatcher {
     $n->set('status', 'queued');
     $n->save();
 
-    // @todo Fire the ECA notification:created event here (wired in Stage 2).
+    $this->eventDispatcher->dispatch(new NotificationQueuedEvent($n), NotificationEvents::QUEUED);
   }
 
   /**

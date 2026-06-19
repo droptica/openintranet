@@ -7,6 +7,7 @@ namespace Drupal\Tests\openintranet_notifications\Kernel;
 use Drupal\Core\Queue\DelayedRequeueException;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\openintranet_notifications\Entity\NotificationDeliveryInterface;
+use Drupal\openintranet_notifications\Event\NotificationEvents;
 use Drupal\openintranet_notifications\Plugin\QueueWorker\NotificationDeliveryWorker;
 use Drupal\openintranet_notifications_test\Plugin\NotificationChannel\CountingChannel;
 use Drupal\user\Entity\User;
@@ -326,6 +327,74 @@ final class NotificationDeliveryWorkerTest extends KernelTestBase {
     $this->worker->processItem(['delivery_id' => $delivery->id()]);
 
     self::assertSame('skipped', $this->reload($delivery)->get('status')->value);
+  }
+
+  /**
+   * A successful send fires the DELIVERED event once.
+   */
+  public function testDeliveredEventFiresOnSuccess(): void {
+    $delivered = 0;
+    $failed = 0;
+    $dispatcher = $this->container->get('event_dispatcher');
+    $dispatcher->addListener(NotificationEvents::DELIVERED, function () use (&$delivered): void {
+      $delivered++;
+    });
+    $dispatcher->addListener(NotificationEvents::FAILED, function () use (&$failed): void {
+      $failed++;
+    });
+
+    $delivery = $this->createDelivery(['channel' => 'null', 'status' => 'pending']);
+    $this->worker->processItem(['delivery_id' => $delivery->id()]);
+
+    self::assertSame(1, $delivered);
+    self::assertSame(0, $failed);
+  }
+
+  /**
+   * A terminal failure fires FAILED and PERMANENTLY_FAILED.
+   */
+  public function testPermanentlyFailedEventFiresOnTerminalFailure(): void {
+    $failed = 0;
+    $permanently = 0;
+    $dispatcher = $this->container->get('event_dispatcher');
+    $dispatcher->addListener(NotificationEvents::FAILED, function () use (&$failed): void {
+      $failed++;
+    });
+    $dispatcher->addListener(NotificationEvents::PERMANENTLY_FAILED, function () use (&$permanently): void {
+      $permanently++;
+    });
+
+    $delivery = $this->createDelivery(['channel' => 'always_permanent', 'status' => 'pending']);
+    $this->worker->processItem(['delivery_id' => $delivery->id()]);
+
+    self::assertSame(1, $failed);
+    self::assertSame(1, $permanently);
+  }
+
+  /**
+   * A non-terminal retryable failure fires FAILED but not PERMANENTLY_FAILED.
+   */
+  public function testRetryableFailureFiresFailedButNotPermanent(): void {
+    $failed = 0;
+    $permanently = 0;
+    $dispatcher = $this->container->get('event_dispatcher');
+    $dispatcher->addListener(NotificationEvents::FAILED, function () use (&$failed): void {
+      $failed++;
+    });
+    $dispatcher->addListener(NotificationEvents::PERMANENTLY_FAILED, function () use (&$permanently): void {
+      $permanently++;
+    });
+
+    $delivery = $this->createDelivery(['channel' => 'flaky_retryable', 'status' => 'pending']);
+    try {
+      $this->worker->processItem(['delivery_id' => $delivery->id()]);
+    }
+    catch (DelayedRequeueException) {
+      // Expected: a retryable failure re-queues with backoff.
+    }
+
+    self::assertSame(1, $failed);
+    self::assertSame(0, $permanently);
   }
 
 }

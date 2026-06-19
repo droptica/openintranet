@@ -6,6 +6,9 @@ namespace Drupal\Tests\openintranet_notifications\Kernel;
 
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\openintranet_notifications\Entity\NotificationType;
+use Drupal\openintranet_notifications\Event\NotificationCreatedEvent;
+use Drupal\openintranet_notifications\Event\NotificationEvents;
+use Drupal\openintranet_notifications\Event\NotificationQueuedEvent;
 use Drupal\openintranet_notifications\Service\NotificationDispatcher;
 use Drupal\openintranet_notifications\Service\NotificationFactory;
 use Drupal\user\Entity\User;
@@ -219,6 +222,52 @@ final class NotificationDispatcherTest extends KernelTestBase {
     $uids = array_map(static fn ($n) => (int) $n->get('uid')->target_id, $notifications);
     sort($uids);
     self::assertSame([41, 42], $uids);
+  }
+
+  /**
+   * Created and queued events fire once per recipient on a successful send.
+   */
+  public function testCreatedAndQueuedEventsFirePerRecipient(): void {
+    $created = 0;
+    $queued = 0;
+    $dispatcher = $this->container->get('event_dispatcher');
+    $dispatcher->addListener(NotificationEvents::CREATED, function (NotificationCreatedEvent $event) use (&$created): void {
+      $created++;
+    });
+    $dispatcher->addListener(NotificationEvents::QUEUED, function (NotificationQueuedEvent $event) use (&$queued): void {
+      $queued++;
+    });
+
+    $this->dispatcher->dispatchRequest('default', [41, 42, 43], ['subject' => 'Hi', 'body' => 'B']);
+
+    self::assertSame(3, $created);
+    self::assertSame(3, $queued);
+  }
+
+  /**
+   * The blocked/empty-channel cancel path fires neither created nor queued.
+   */
+  public function testNoEventsOnBlockedRecipientPath(): void {
+    $created = 0;
+    $queued = 0;
+    $dispatcher = $this->container->get('event_dispatcher');
+    $dispatcher->addListener(NotificationEvents::CREATED, function () use (&$created): void {
+      $created++;
+    });
+    $dispatcher->addListener(NotificationEvents::QUEUED, function () use (&$queued): void {
+      $queued++;
+    });
+
+    $blocked = User::load(43);
+    $blocked->set('status', 0)->save();
+
+    $n = $this->factory->create('default', ['uid' => 43, 'subject' => 'Hi', 'body' => 'B']);
+    $n->save();
+    $this->dispatcher->enqueue($n);
+
+    self::assertSame('cancelled', $this->reload((int) $n->id())->get('status')->value);
+    self::assertSame(0, $created);
+    self::assertSame(0, $queued);
   }
 
 }
