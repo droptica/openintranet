@@ -15,6 +15,17 @@ final class CreateActionTest extends NotificationActionKernelTestBase {
    * Creates and saves a single notification, writing its id to a token.
    */
   public function testCreateSavesNotificationAndWritesIdToken(): void {
+    // Create a first notification so the asserted id below is not 1: that
+    // proves the token round-trip carries the real id rather than passing
+    // coincidentally on the first kernel id.
+    $this->actionManager->createInstance('openintranet_notifications_create', [
+      'notification_type' => 'default',
+      'uid' => '41',
+      'subject' => 'First',
+      'body' => 'First body',
+      'token_name' => 'first_id',
+    ])->execute(NULL);
+
     $action = $this->actionManager->createInstance('openintranet_notifications_create', [
       'notification_type' => 'default',
       'uid' => '42',
@@ -26,17 +37,21 @@ final class CreateActionTest extends NotificationActionKernelTestBase {
     $action->execute(NULL);
 
     $notifications = $this->loadAllNotifications();
-    self::assertCount(1, $notifications);
-    $notification = reset($notifications);
+    self::assertCount(2, $notifications);
+    $notification = end($notifications);
     self::assertSame(42, (int) $notification->get('uid')->target_id);
     self::assertSame('Hi there', $notification->get('subject')->value);
     self::assertSame('Body text', $notification->get('body')->value);
     self::assertSame('created', $notification->get('status')->value);
 
-    // The new id is written to the configured output token.
+    // The new id is written to the configured output token. Read it via the
+    // string representation: ECA wraps the stored scalar in a DTO, so casting
+    // to (int) would warn and collapse to 1; the string round-trip exercises
+    // the real value for any id.
+    self::assertGreaterThan(1, (int) $notification->id());
     self::assertSame(
-      (int) $notification->id(),
-      (int) $this->tokenServices->getTokenData('new_notification_id'),
+      (string) $notification->id(),
+      (string) $this->tokenServices->getOrReplace('[new_notification_id]'),
     );
   }
 
@@ -54,7 +69,8 @@ final class CreateActionTest extends NotificationActionKernelTestBase {
 
     $action->execute(NULL);
 
-    $notification = reset($this->loadAllNotifications());
+    $notifications = $this->loadAllNotifications();
+    $notification = reset($notifications);
     self::assertCount(0, $this->loadDeliveriesFor((int) $notification->id()));
     self::assertSame(0, $this->queueCount());
   }
