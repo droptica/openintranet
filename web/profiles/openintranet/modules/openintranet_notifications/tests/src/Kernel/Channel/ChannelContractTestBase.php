@@ -15,11 +15,14 @@ use Drupal\openintranet_notifications\Dto\NotificationRecipient;
  *
  * Stage 3 channels MUST extend this base — it is the §14 "contract test per
  * channel" harness. The invariants asserted here hold for ANY channel,
- * regardless of transport:
- * - send() ALWAYS returns a DeliveryResult and never throws on a transport
- *   error (the worker classifies the outcome, the channel does not bubble up);
+ * regardless of transport, and are pinned by concrete per-channel hooks so the
+ * assertions actually bite rather than re-deriving the implementation:
  * - isAvailable() returns a bool;
- * - canSendTo() agrees with address presence (getRecipientAddress() !== NULL).
+ * - canSendTo() is TRUE for an addressable recipient and FALSE for an
+ *   unaddressable one (channels that address everyone declare no unaddressable
+ *   recipient, so that leg is skipped);
+ * - send() never throws on a transport error — it classifies the outcome as a
+ *   DeliveryResult so the worker decides whether to retry.
  *
  * @group openintranet_notifications
  */
@@ -48,6 +51,29 @@ abstract class ChannelContractTestBase extends KernelTestBase {
   abstract protected function channelId(): string;
 
   /**
+   * A recipient the channel can address.
+   */
+  abstract protected function addressableRecipient(): NotificationRecipient;
+
+  /**
+   * A recipient the channel cannot address, or NULL when it addresses everyone.
+   */
+  protected function unaddressableRecipient(): ?NotificationRecipient {
+    return NULL;
+  }
+
+  /**
+   * A scenario that drives the channel's failure branch.
+   *
+   * @return array{0: \Drupal\openintranet_notifications\Dto\NotificationRecipient, 1: \Drupal\openintranet_notifications\Dto\NotificationMessage}|null
+   *   A [recipient, message] tuple whose send() reports a failure, or NULL when
+   *   the channel has no failure path (it always succeeds).
+   */
+  protected function failingScenario(): ?array {
+    return NULL;
+  }
+
+  /**
    * Instantiates the channel under test.
    */
   protected function createChannel(): NotificationChannelInterface {
@@ -59,13 +85,6 @@ abstract class ChannelContractTestBase extends KernelTestBase {
   }
 
   /**
-   * A representative user recipient for contract assertions.
-   */
-  protected function recipient(): NotificationRecipient {
-    return new NotificationRecipient(type: 'user', id: 1, langcode: 'en');
-  }
-
-  /**
    * The isAvailable() method returns a boolean.
    */
   public function testIsAvailableReturnsBool(): void {
@@ -73,23 +92,40 @@ abstract class ChannelContractTestBase extends KernelTestBase {
   }
 
   /**
-   * The canSendTo() method agrees with getRecipientAddress() being non-NULL.
+   * The canSendTo() call accepts addressable and rejects unaddressable ones.
    */
-  public function testCanSendToAgreesWithAddressPresence(): void {
+  public function testCanSendToMatchesAddressability(): void {
     $channel = $this->createChannel();
-    $recipient = $this->recipient();
-    $hasAddress = $channel->getRecipientAddress($recipient) !== NULL;
-    self::assertSame($hasAddress, $channel->canSendTo($recipient));
+    self::assertTrue($channel->canSendTo($this->addressableRecipient()));
+
+    $unaddressable = $this->unaddressableRecipient();
+    if ($unaddressable === NULL) {
+      // The channel addresses everyone; there is no unaddressable recipient.
+      return;
+    }
+    self::assertFalse($channel->canSendTo($unaddressable));
   }
 
   /**
-   * The send() method always returns a DeliveryResult and never throws.
+   * The send() failure branch returns a DeliveryResult and never throws.
    */
-  public function testSendAlwaysReturnsDeliveryResult(): void {
-    $channel = $this->createChannel();
-    $message = new NotificationMessage(subject: 'Contract subject', body: 'Body');
-    $result = $channel->send($this->recipient(), $message);
+  public function testSendFailureReturnsResultWithoutThrowing(): void {
+    $scenario = $this->failingScenario();
+    if ($scenario === NULL) {
+      // The channel has no failure path; the happy-path send still must yield a
+      // DeliveryResult so the no-throw / always-classify invariant is covered.
+      $result = $this->createChannel()->send(
+        $this->addressableRecipient(),
+        new NotificationMessage(subject: 'Contract subject', body: 'Body'),
+      );
+      self::assertInstanceOf(DeliveryResult::class, $result);
+      return;
+    }
+
+    [$recipient, $message] = $scenario;
+    $result = $this->createChannel()->send($recipient, $message);
     self::assertInstanceOf(DeliveryResult::class, $result);
+    self::assertFalse($result->success);
   }
 
 }
