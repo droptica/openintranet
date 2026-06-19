@@ -87,4 +87,28 @@ final class RateLimiterTest extends KernelTestBase {
     self::assertFalse($this->rateLimiter->allow(42, 'email_core', 'new_article', 1, 3600));
   }
 
+  /**
+   * The peek reads the current count without consuming budget.
+   */
+  public function testIsWithinLimitIsNonMutating(): void {
+    // No hits recorded yet: a fresh tuple is within any positive limit.
+    self::assertTrue($this->rateLimiter->isWithinLimit(42, 'email_core', 'new_article', 2));
+
+    // Record two hits, filling the limit of 2.
+    self::assertTrue($this->rateLimiter->allow(42, 'email_core', 'new_article', 2, 3600));
+    self::assertTrue($this->rateLimiter->allow(42, 'email_core', 'new_article', 2, 3600));
+
+    // The peek reports at-limit and, crucially, does not bump the counter.
+    self::assertFalse($this->rateLimiter->isWithinLimit(42, 'email_core', 'new_article', 2));
+    self::assertFalse($this->rateLimiter->isWithinLimit(42, 'email_core', 'new_article', 2));
+
+    $store = $this->container->get('keyvalue.expirable')
+      ->get('openintranet_notifications.rate_limit');
+    self::assertSame(2, $store->get('42:email_core:new_article'));
+
+    // A subsequent allow() still has exactly one slot consumed (count 2),
+    // confirming the peeks never touched the stored value.
+    self::assertFalse($this->rateLimiter->allow(42, 'email_core', 'new_article', 2, 3600));
+  }
+
 }

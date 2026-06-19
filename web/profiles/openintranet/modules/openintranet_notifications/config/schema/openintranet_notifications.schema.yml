@@ -187,6 +187,23 @@ eca.condition.plugin.openintranet_notifications_not_recently_sent:
       type: string
       label: 'Dedupe key'
 
+eca.condition.plugin.openintranet_notifications_below_rate_limit:
+  type: eca.condition.plugin
+  label: 'Notification: below rate limit'
+  mapping:
+    uid:
+      type: string
+      label: 'Recipient user id'
+    channel:
+      type: string
+      label: 'Channel'
+    notification_type:
+      type: string
+      label: 'Notification type'
+    limit:
+      type: string
+      label: 'Limit'
+
 openintranet_notifications.settings:
   type: config_object
   label: 'Open Intranet Notifications settings'
