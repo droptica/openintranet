@@ -23,6 +23,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 #[Action(
   id: 'openintranet_notifications_resolve_recipients',
   label: new TranslatableMarkup('Notification: resolve recipients'),
+  type: 'entity',
 )]
 #[EcaAction(
   description: new TranslatableMarkup('Resolve a recipient set (a single resolver or the type resolvers) and write the uid list to a token.'),

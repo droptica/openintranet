@@ -23,6 +23,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 #[Action(
   id: 'openintranet_notifications_create',
   label: new TranslatableMarkup('Notification: create'),
+  type: 'entity',
 )]
 #[EcaAction(
   description: new TranslatableMarkup('Build and save a single notification for one recipient, writing its id to a token.'),

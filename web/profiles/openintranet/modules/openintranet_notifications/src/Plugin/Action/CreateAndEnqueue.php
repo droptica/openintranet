@@ -25,6 +25,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 #[Action(
   id: 'openintranet_notifications_create_and_enqueue',
   label: new TranslatableMarkup('Notification: create and enqueue'),
+  type: 'entity',
 )]
 #[EcaAction(
   description: new TranslatableMarkup('Create and enqueue notifications of a type for a recipient set (empty lets the type resolve recipients).'),
