@@ -2,10 +2,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.consultation.field_consultation_deadline
-    - field.field.node.consultation_review.field_consultation_review_ref
-    - field.storage.node.field_consultation_deadline
-    - field.storage.node.field_consultation_review_ref
     - node.type.consultation_review
   module:
     - eca_content
@@ -31,43 +27,21 @@ events:
       type: 'node consultation_review'
     successors:
       -
-        id: eca_token_load_entity_0stztzl
+        id: action_notify_review_author
         condition: ''
 conditions: {  }
 gateways: {  }
 actions:
-  # Load the parent consultation into the [consultation] token so the type's
-  # body template can resolve [consultation:field_consultation_deadline].
-  eca_token_load_entity_0stztzl:
-    label: 'Entity: load'
-    plugin: eca_token_load_entity
-    configuration:
-      token_name: consultation
-      from: properties
-      entity_type: node
-      entity_id: ''
-      revision_id: ''
-      properties: 'nid: "[entity:field_consultation_review_ref:target_id]"'
-      langcode: _interface
-      latest_revision: false
-      unchanged: false
-      object: consultation
-    successors:
-      -
-        id: action_notify_review_author
-        condition: ''
-  # Empty recipients let the consultation_review_assigned type's entity_author
-  # resolver target the review's author. The action plugin has no entity "type",
-  # so ECA passes it NULL as the chain object: inject the review via [entity] so
-  # the resolver (entity_key: entity) sees it, and the loaded consultation via
-  # [consultation] so the deadline token renders. Replaces the mail action.
+  # The review node is the event object, injected as entity/source_entity by the
+  # action's type:entity attribute. Empty recipients let the
+  # consultation_review_assigned type's entity_author resolver target the
+  # review's author; the deadline chains from the review's parent consultation
+  # reference in the type template, so no load step or context key is needed.
   action_notify_review_author:
     label: 'Notify the review author'
     plugin: openintranet_notifications_create_and_enqueue
     configuration:
       notification_type: consultation_review_assigned
       recipients: ''
-      context:
-        entity: '[entity]'
-        consultation: '[consultation]'
+      context: {  }
     successors: {  }

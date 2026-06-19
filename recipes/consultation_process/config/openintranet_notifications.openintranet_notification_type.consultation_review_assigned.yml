@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - field.field.node.consultation.field_consultation_deadline
+    - field.field.node.consultation_review.field_consultation_review_ref
     - node.type.consultation_review
 id: consultation_review_assigned
 label: 'Consultation review assigned'
@@ -20,7 +21,9 @@ recipient_resolvers:
 template_map: {  }
 template_renderer: token_text
 subject_template: 'You have been added as reviewer of "[node:title]"'
-body_template: "You have been added as a reviewer of \"[node:title]\".\n\nDeadline: [consultation:field_consultation_deadline]\n\n[node:url]"
+# The deadline chains from the review's parent consultation reference, so no
+# custom [consultation] token (and no model load step) is needed.
+body_template: "You have been added as a reviewer of \"[node:title]\".\n\nDeadline: [node:field_consultation_review_ref:entity:field_consultation_deadline]\n\n[node:url]"
 summary_template: 'Review assigned: [node:title]'
 delivery_policy: user_preferences
 dedupe_window: 600
