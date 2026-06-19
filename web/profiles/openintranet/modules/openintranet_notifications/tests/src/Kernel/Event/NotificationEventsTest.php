@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\openintranet_notifications\Kernel\Event;
 
+use Drupal\eca\Event\EntityEventInterface;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\openintranet_notifications\Entity\Notification;
 use Drupal\openintranet_notifications\Entity\NotificationDelivery;
@@ -174,6 +175,33 @@ final class NotificationEventsTest extends KernelTestBase {
   public function testDigestReadyEventCarriesUid(): void {
     $event = new NotificationDigestReadyEvent(42);
     self::assertSame(42, $event->uid);
+  }
+
+  /**
+   * Notification events expose the notification via EntityEventInterface.
+   *
+   * ECA's EcaExecutionGeneralSubscriber reads getEntity() to expose
+   * [entity:*]/[ENTITY_TYPE:*] tokens for the event's successors.
+   */
+  public function testNotificationEventsExposeEntity(): void {
+    $notification = Notification::create(['type' => 'default']);
+
+    self::assertInstanceOf(EntityEventInterface::class, new NotificationCreatedEvent($notification));
+    self::assertSame($notification, (new NotificationCreatedEvent($notification))->getEntity());
+    self::assertSame($notification, (new NotificationQueuedEvent($notification))->getEntity());
+    self::assertSame($notification, (new NotificationSeenEvent($notification))->getEntity());
+  }
+
+  /**
+   * Delivery events expose the delivery via EntityEventInterface.
+   */
+  public function testDeliveryEventsExposeDelivery(): void {
+    $delivery = NotificationDelivery::create(['channel' => 'log_only']);
+
+    self::assertInstanceOf(EntityEventInterface::class, new NotificationDeliveredEvent($delivery));
+    self::assertSame($delivery, (new NotificationDeliveredEvent($delivery))->getEntity());
+    self::assertSame($delivery, (new NotificationFailedEvent($delivery))->getEntity());
+    self::assertSame($delivery, (new NotificationPermanentlyFailedEvent($delivery))->getEntity());
   }
 
 }
