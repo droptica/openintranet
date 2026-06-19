@@ -6,9 +6,10 @@ namespace Drupal\openintranet_notifications\Plugin\QueueWorker;
 
 use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\KeyValueStore\KeyValueExpirableFactoryInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Queue\Attribute\QueueWorker;
-use Drupal\Core\Queue\QueueFactory;
+use Drupal\Core\Queue\DelayedRequeueException;
 use Drupal\Core\Queue\QueueWorkerBase;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\openintranet_notifications\Channel\ChannelPluginManager;
@@ -45,16 +46,25 @@ final class NotificationDeliveryWorker extends QueueWorkerBase implements Contai
    */
   private const BACKOFF_BASE_SECONDS = 300;
 
+  /**
+   * The TTL of an in-flight send claim.
+   *
+   * Must be < BACKOFF_BASE_SECONDS so a legitimate retry (which only runs after
+   * a >= 300s backoff) is never blocked by a stale claim, and >= the maximum
+   * duration of a single send attempt so a slow send is not double-claimed.
+   */
+  private const CLAIM_TTL_SECONDS = 120;
+
   public function __construct(
     array $configuration,
     string $plugin_id,
     $plugin_definition,
     private readonly EntityTypeManagerInterface $entityTypeManager,
     private readonly ChannelPluginManager $channelManager,
-    private readonly QueueFactory $queueFactory,
     private readonly TimeInterface $time,
     private readonly LoggerInterface $logger,
     private readonly AuditLogger $auditLogger,
+    private readonly KeyValueExpirableFactoryInterface $keyValueExpirable,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
   }
@@ -69,10 +79,10 @@ final class NotificationDeliveryWorker extends QueueWorkerBase implements Contai
       $plugin_definition,
       $container->get('entity_type.manager'),
       $container->get('plugin.manager.notification_channel'),
-      $container->get('queue'),
       $container->get('datetime.time'),
       $container->get('logger.channel.openintranet_notifications'),
       $container->get('openintranet_notifications.audit_logger'),
+      $container->get('keyvalue.expirable'),
     );
   }
 
@@ -98,13 +108,13 @@ final class NotificationDeliveryWorker extends QueueWorkerBase implements Contai
       return;
     }
 
-    // Early defer: honor the backoff schedule without sending.
-    // ponytail: core DatabaseQueue has no native delay; next_attempt is
-    // enforced by this re-enqueue loop. Swap to advancedqueue for true delayed
-    // delivery if cron churn becomes a problem.
-    if ((int) $delivery->get('next_attempt')->value > $this->time->getRequestTime()) {
-      $this->reEnqueue($deliveryId);
-      return;
+    // Backoff is enforced by re-queuing the SAME item with a delay: core's
+    // Cron catches DelayedRequeueException and calls delayItem(), so the row's
+    // own next_attempt/attempt_count survive and cron does not spin the window.
+    $now = $this->time->getRequestTime();
+    $nextAttempt = (int) $delivery->get('next_attempt')->value;
+    if ($nextAttempt > $now) {
+      throw new DelayedRequeueException(($nextAttempt - $now), 'Backoff: delivery not yet due.');
     }
 
     $channelId = (string) $delivery->get('channel')->value;
@@ -123,33 +133,43 @@ final class NotificationDeliveryWorker extends QueueWorkerBase implements Contai
     $recipient = $this->buildRecipient($delivery);
     $message = $this->buildMessage($delivery);
 
+    // Idempotency claim: atomically reserve this delivery before sending so two
+    // overlapping cron runs (or a lease-expiry re-claim) cannot both send. The
+    // claim is never released early; its TTL closes the window. A success makes
+    // the row terminal (guarded above) and a retry only runs after a backoff
+    // longer than the claim TTL, by when the claim has already expired.
+    $store = $this->keyValueExpirable->get('openintranet_notifications.delivery_claim');
+    $claimKey = (string) $delivery->get('idempotency_key')->value;
+    if (!$store->setWithExpireIfNotExists($claimKey, $now, self::CLAIM_TTL_SECONDS)) {
+      return;
+    }
+
     $result = $channel->send($recipient, $message);
     $attemptCount = (int) $delivery->get('attempt_count')->value + 1;
     $delivery->set('attempt_count', $attemptCount);
 
     if ($result->success) {
       $delivery->markSent($result->providerMessageId);
-    }
-    elseif ($result->retryable && $attemptCount < self::MAX_ATTEMPTS) {
-      $delivery->scheduleRetry(self::BACKOFF_BASE_SECONDS * $attemptCount);
-      $this->reEnqueue($deliveryId);
-    }
-    else {
-      // Permanent failure, or the retry budget is exhausted.
-      $delivery->markFailed($result);
-      // @todo Fire the ECA notification:permanently_failed event (Stage 2).
+      $this->auditLogger->log($delivery, $result);
+      $delivery->save();
+      return;
     }
 
+    if ($result->retryable && $attemptCount < self::MAX_ATTEMPTS) {
+      $delay = self::BACKOFF_BASE_SECONDS * $attemptCount;
+      $delivery->scheduleRetry($delay);
+      $this->auditLogger->log($delivery, $result);
+      // Persist attempt_count/next_attempt/status BEFORE the throw so the next
+      // pass sees the updated row; cron then delays the SAME queue item.
+      $delivery->save();
+      throw new DelayedRequeueException($delay, 'Retry backoff.');
+    }
+
+    // Permanent failure, or the retry budget is exhausted.
+    $delivery->markFailed($result);
+    // @todo Fire the ECA notification:permanently_failed event (Stage 2).
     $this->auditLogger->log($delivery, $result);
     $delivery->save();
-  }
-
-  /**
-   * Re-enqueues a delivery for a later processing pass.
-   */
-  private function reEnqueue(int|string $deliveryId): void {
-    $this->queueFactory->get('openintranet_notification_delivery')
-      ->createItem(['delivery_id' => $deliveryId]);
   }
 
   /**

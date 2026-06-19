@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\openintranet_notifications\Kernel;
 
+use Drupal\Core\Queue\DelayedRequeueException;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\openintranet_notifications\Entity\NotificationDeliveryInterface;
 use Drupal\openintranet_notifications\Plugin\QueueWorker\NotificationDeliveryWorker;
@@ -11,7 +12,7 @@ use Drupal\openintranet_notifications_test\Plugin\NotificationChannel\CountingCh
 use Drupal\user\Entity\User;
 
 /**
- * Tests the idempotent NotificationDeliveryWorker (retry + backoff).
+ * Tests the idempotent NotificationDeliveryWorker (retry + backoff + claim).
  *
  * @group openintranet_notifications
  */
@@ -35,6 +36,16 @@ final class NotificationDeliveryWorkerTest extends KernelTestBase {
     'eca_base',
     'eca_content',
   ];
+
+  /**
+   * The first-retry backoff in seconds (BACKOFF_BASE_SECONDS * 1).
+   */
+  private const FIRST_BACKOFF = 300;
+
+  /**
+   * The key-value collection holding in-flight send claims.
+   */
+  private const CLAIM_COLLECTION = 'openintranet_notifications.delivery_claim';
 
   /**
    * The worker under test.
@@ -115,10 +126,10 @@ final class NotificationDeliveryWorkerTest extends KernelTestBase {
   }
 
   /**
-   * Number of items waiting in the delivery queue.
+   * The current CountingChannel send counter.
    */
-  private function queueCount(): int {
-    return \Drupal::queue('openintranet_notification_delivery')->numberOfItems();
+  private function countingSends(): int {
+    return (int) \Drupal::state()->get(CountingChannel::STATE_KEY, 0);
   }
 
   /**
@@ -129,7 +140,7 @@ final class NotificationDeliveryWorkerTest extends KernelTestBase {
 
     $this->worker->processItem(['delivery_id' => $delivery->id()]);
 
-    self::assertSame(0, (int) \Drupal::state()->get(CountingChannel::STATE_KEY, 0));
+    self::assertSame(0, $this->countingSends());
   }
 
   /**
@@ -144,34 +155,93 @@ final class NotificationDeliveryWorkerTest extends KernelTestBase {
   }
 
   /**
-   * A retryable failure bumps the attempt count and re-enqueues with backoff.
+   * A retryable failure bumps the attempt count and DELAYS the same item.
+   *
+   * The worker must NOT enqueue a zero-delay copy: it persists the bumped
+   * attempt/backoff then throws DelayedRequeueException so cron delays the same
+   * item (FIX #1). On the first retry the delay is exactly BACKOFF_BASE_SECONDS
+   * (FIX #14).
    */
-  public function testRetryableFailureBumpsAttemptAndReEnqueuesWithBackoff(): void {
+  public function testRetryableFailureBumpsAttemptAndThrowsDelayedRequeue(): void {
     $delivery = $this->createDelivery(['channel' => 'flaky_retryable', 'status' => 'pending']);
+    $requestTime = \Drupal::time()->getRequestTime();
 
-    $this->worker->processItem(['delivery_id' => $delivery->id()]);
+    $thrown = NULL;
+    try {
+      $this->worker->processItem(['delivery_id' => $delivery->id()]);
+    }
+    catch (DelayedRequeueException $e) {
+      $thrown = $e;
+    }
+
+    self::assertInstanceOf(DelayedRequeueException::class, $thrown);
+    self::assertSame(self::FIRST_BACKOFF, $thrown->getDelay());
 
     $reloaded = $this->reload($delivery);
     self::assertSame(1, (int) $reloaded->get('attempt_count')->value);
     self::assertSame('pending', $reloaded->get('status')->value);
-    self::assertGreaterThan(\Drupal::time()->getRequestTime(), (int) $reloaded->get('next_attempt')->value);
-    self::assertSame(1, $this->queueCount());
+    self::assertSame($requestTime + self::FIRST_BACKOFF, (int) $reloaded->get('next_attempt')->value);
   }
 
   /**
-   * A permanent failure marks the delivery failed and does not re-enqueue.
+   * An early-defer (next_attempt in the future) delays without sending.
+   *
+   * FIX #16: the worker throws DelayedRequeueException and the channel is never
+   * called, so the counting state counter stays 0.
    */
-  public function testPermanentFailureMarksFailedAndDoesNotReEnqueue(): void {
-    $delivery = $this->createDelivery(['channel' => 'always_permanent', 'status' => 'pending']);
+  public function testEarlyDeferThrowsDelayedRequeueWithoutSending(): void {
+    $requestTime = \Drupal::time()->getRequestTime();
+    $delivery = $this->createDelivery([
+      'channel' => 'counting',
+      'status' => 'pending',
+      'next_attempt' => $requestTime + 9999,
+    ]);
 
-    $this->worker->processItem(['delivery_id' => $delivery->id()]);
+    $thrown = NULL;
+    try {
+      $this->worker->processItem(['delivery_id' => $delivery->id()]);
+    }
+    catch (DelayedRequeueException $e) {
+      $thrown = $e;
+    }
 
-    self::assertSame('failed', $this->reload($delivery)->get('status')->value);
-    self::assertSame(0, $this->queueCount());
+    self::assertInstanceOf(DelayedRequeueException::class, $thrown);
+    self::assertGreaterThan(0, $thrown->getDelay());
+    self::assertSame(0, $this->countingSends());
+  }
+
+  /**
+   * Below the attempt budget, a retryable failure delays the item (FIX #15).
+   */
+  public function testRetryBelowMaxAttemptsThrowsDelayedRequeue(): void {
+    $delivery = $this->createDelivery([
+      'channel' => 'flaky_retryable',
+      'status' => 'pending',
+      'attempt_count' => 3,
+    ]);
+
+    $thrown = NULL;
+    try {
+      $this->worker->processItem(['delivery_id' => $delivery->id()]);
+    }
+    catch (DelayedRequeueException $e) {
+      $thrown = $e;
+    }
+
+    self::assertInstanceOf(DelayedRequeueException::class, $thrown);
+    // attempt_count becomes 4; 4 < 5 so it retries with delay 300 * 4.
+    self::assertSame(self::FIRST_BACKOFF * 4, $thrown->getDelay());
+
+    $reloaded = $this->reload($delivery);
+    self::assertSame('pending', $reloaded->get('status')->value);
+    self::assertSame(4, (int) $reloaded->get('attempt_count')->value);
   }
 
   /**
    * Exhausting the attempt budget turns a retryable failure permanent.
+   *
+   * FIX #15: no exception is thrown, the row is 'failed' and carries the
+   * channel's retryable error code.
    */
   public function testMaxAttemptsExhaustedBecomesPermanent(): void {
     $delivery = $this->createDelivery([
@@ -182,8 +252,80 @@ final class NotificationDeliveryWorkerTest extends KernelTestBase {
 
     $this->worker->processItem(['delivery_id' => $delivery->id()]);
 
-    self::assertSame('failed', $this->reload($delivery)->get('status')->value);
-    self::assertSame(0, $this->queueCount());
+    $reloaded = $this->reload($delivery);
+    self::assertSame('failed', $reloaded->get('status')->value);
+    self::assertSame('E_RETRY', $reloaded->get('last_error_code')->value);
+  }
+
+  /**
+   * A permanent failure marks the delivery failed with no exception (FIX #15).
+   */
+  public function testPermanentFailureMarksFailed(): void {
+    $delivery = $this->createDelivery(['channel' => 'always_permanent', 'status' => 'pending']);
+
+    $this->worker->processItem(['delivery_id' => $delivery->id()]);
+
+    $reloaded = $this->reload($delivery);
+    self::assertSame('failed', $reloaded->get('status')->value);
+    self::assertSame('E_PERM', $reloaded->get('last_error_code')->value);
+  }
+
+  /**
+   * Processing the same sent delivery twice never sends twice (FIX #11).
+   */
+  public function testProcessTwiceIsIdempotent(): void {
+    $delivery = $this->createDelivery(['channel' => 'counting', 'status' => 'pending']);
+
+    $this->worker->processItem(['delivery_id' => $delivery->id()]);
+    self::assertSame(1, $this->countingSends());
+    self::assertSame('sent', $this->reload($delivery)->get('status')->value);
+
+    // A second pass over the now-terminal row must not send again.
+    $this->worker->processItem(['delivery_id' => $delivery->id()]);
+    self::assertSame(1, $this->countingSends());
+    self::assertSame('sent', $this->reload($delivery)->get('status')->value);
+  }
+
+  /**
+   * A pre-existing claim blocks a concurrent send (FIX #2).
+   */
+  public function testConcurrentClaimSkipsSend(): void {
+    $delivery = $this->createDelivery(['channel' => 'counting', 'status' => 'pending']);
+    $claimKey = (string) $delivery->get('idempotency_key')->value;
+
+    // Simulate another worker already holding the claim for this delivery.
+    /** @var \Drupal\Core\KeyValueStore\KeyValueExpirableFactoryInterface $factory */
+    $factory = $this->container->get('keyvalue.expirable');
+    $factory->get(self::CLAIM_COLLECTION)
+      ->setWithExpire($claimKey, \Drupal::time()->getRequestTime(), 120);
+
+    $this->worker->processItem(['delivery_id' => $delivery->id()]);
+
+    self::assertSame(0, $this->countingSends());
+    self::assertSame('pending', $this->reload($delivery)->get('status')->value);
+  }
+
+  /**
+   * A delivery on a missing channel is skipped, not sent (FIX #16).
+   */
+  public function testMissingChannelIsSkipped(): void {
+    $delivery = $this->createDelivery(['channel' => 'does_not_exist', 'status' => 'pending']);
+
+    $this->worker->processItem(['delivery_id' => $delivery->id()]);
+
+    self::assertSame('skipped', $this->reload($delivery)->get('status')->value);
+    self::assertSame(0, $this->countingSends());
+  }
+
+  /**
+   * A delivery on an unavailable channel is skipped, not sent (FIX #16).
+   */
+  public function testUnavailableChannelIsSkipped(): void {
+    $delivery = $this->createDelivery(['channel' => 'unavailable_stub', 'status' => 'pending']);
+
+    $this->worker->processItem(['delivery_id' => $delivery->id()]);
+
+    self::assertSame('skipped', $this->reload($delivery)->get('status')->value);
   }
 
 }
