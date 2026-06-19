@@ -3,6 +3,18 @@ services:
     class: Drupal\openintranet_notifications\Channel\ChannelPluginManager
     parent: default_plugin_manager
 
+  plugin.manager.notification_recipient_resolver:
+    class: Drupal\openintranet_notifications\Resolver\RecipientResolverManager
+    parent: default_plugin_manager
+
+  plugin.manager.notification_delivery_policy:
+    class: Drupal\openintranet_notifications\Policy\DeliveryPolicyManager
+    parent: default_plugin_manager
+
+  plugin.manager.notification_template_renderer:
+    class: Drupal\openintranet_notifications\Renderer\TemplateRendererManager
+    parent: default_plugin_manager
+
   logger.channel.openintranet_notifications:
     parent: logger.channel_base
     arguments:
