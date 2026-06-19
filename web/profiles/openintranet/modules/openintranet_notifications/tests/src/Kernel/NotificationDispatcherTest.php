@@ -137,12 +137,55 @@ final class NotificationDispatcherTest extends KernelTestBase {
 
   /**
    * A second identical dispatch within the window is deduplicated.
+   *
+   * The dedupe must suppress deliveries and queue items too, not merely the
+   * notification count (FIX #13).
    */
   public function testDedupeSkipsSecondIdenticalWithinWindow(): void {
     $this->dispatcher->dispatchRequest('default', [42], ['subject' => 'Hi', 'body' => 'B']);
+
+    $notifications = $this->loadAllNotifications();
+    self::assertCount(1, $notifications);
+    $first = reset($notifications);
+    self::assertCount(2, $this->loadDeliveriesFor((int) $first->id()));
+    self::assertSame(2, \Drupal::queue('openintranet_notification_delivery')->numberOfItems());
+
     $this->dispatcher->dispatchRequest('default', [42], ['subject' => 'Hi', 'body' => 'B']);
 
     self::assertCount(1, $this->loadAllNotifications());
+    self::assertCount(2, $this->loadDeliveriesFor((int) $first->id()));
+    self::assertSame(2, \Drupal::queue('openintranet_notification_delivery')->numberOfItems());
+  }
+
+  /**
+   * A blocked recipient (policy returns []) cancels the notification.
+   *
+   * No deliveries, no queue items, and dedupe must NOT be recorded so a later
+   * non-blocked dispatch with the same key still goes through (FIX #4).
+   */
+  public function testBlockedRecipientCancelsAndDoesNotRecordDedupe(): void {
+    $blocked = User::load(43);
+    $blocked->set('status', 0)->save();
+
+    $n = $this->factory->create('default', ['uid' => 43, 'subject' => 'Hi', 'body' => 'B']);
+    $n->save();
+    $dedupeKey = (string) $n->get('dedupe_key')->value;
+    $this->dispatcher->enqueue($n);
+
+    self::assertSame('cancelled', $this->reload((int) $n->id())->get('status')->value);
+    self::assertCount(0, $this->loadDeliveriesFor((int) $n->id()));
+    self::assertSame(0, \Drupal::queue('openintranet_notification_delivery')->numberOfItems());
+
+    // The dedupe key was not recorded: a non-blocked dispatch with the same key
+    // still produces deliveries.
+    $blocked->set('status', 1)->save();
+    $n2 = $this->factory->create('default', ['uid' => 43, 'subject' => 'Hi', 'body' => 'B']);
+    $n2->set('dedupe_key', $dedupeKey);
+    $n2->save();
+    $this->dispatcher->enqueue($n2);
+
+    self::assertSame('queued', $this->reload((int) $n2->id())->get('status')->value);
+    self::assertCount(2, $this->loadDeliveriesFor((int) $n2->id()));
   }
 
 }

@@ -55,9 +55,9 @@ final class DeduplicatorTest extends KernelTestBase {
       $this->deduplicator->computeKey('new_comment', 'node:5', 'user:42', 'thread-1'),
     );
 
-    self::assertFalse($this->deduplicator->isDuplicate($key, 600));
+    self::assertFalse($this->deduplicator->isDuplicate($key));
     $this->deduplicator->record($key, 600);
-    self::assertTrue($this->deduplicator->isDuplicate($key, 600));
+    self::assertTrue($this->deduplicator->isDuplicate($key));
   }
 
   /**

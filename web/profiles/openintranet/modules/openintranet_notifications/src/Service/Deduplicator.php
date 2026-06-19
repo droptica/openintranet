@@ -51,14 +51,11 @@ final class Deduplicator {
    *
    * @param string $key
    *   The dedupe key.
-   * @param int $windowSec
-   *   The dedupe window in seconds (kept for call-site symmetry; the stored
-   *   entry's own TTL governs expiry).
    *
    * @return bool
    *   TRUE when a non-expired entry exists for the key.
    */
-  public function isDuplicate(string $key, int $windowSec): bool {
+  public function isDuplicate(string $key): bool {
     return $this->store()->has($key);
   }
 

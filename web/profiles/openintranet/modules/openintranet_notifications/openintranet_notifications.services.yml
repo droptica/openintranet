@@ -65,4 +65,3 @@ services:
       - '@openintranet_notifications.rate_limiter'
       - '@openintranet_notifications.delivery_queue'
       - '@entity_type.manager'
-      - '@config.factory'

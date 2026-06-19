@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Drupal\openintranet_notifications\Service;
 
-use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\openintranet_notifications\Dto\NotificationRecipient;
 use Drupal\openintranet_notifications\Entity\NotificationInterface;
@@ -28,7 +27,6 @@ final class NotificationDispatcher {
     private readonly RateLimiter $rateLimiter,
     private readonly DeliveryQueue $deliveryQueue,
     private readonly EntityTypeManagerInterface $entityTypeManager,
-    private readonly ConfigFactoryInterface $configFactory,
   ) {}
 
   /**
@@ -63,7 +61,9 @@ final class NotificationDispatcher {
     $dedupeKey = (string) $n->get('dedupe_key')->value;
 
     // Dedupe guard first: a duplicate must not persist or create deliveries.
-    if ($this->deduplicator->isDuplicate($dedupeKey, $window)) {
+    // A non-positive window disables dedupe entirely (FIX #3): recording with a
+    // zero TTL would store a born-expired entry that never matches.
+    if ($window > 0 && $this->deduplicator->isDuplicate($dedupeKey)) {
       return;
     }
 
@@ -81,8 +81,19 @@ final class NotificationDispatcher {
     $policy = $this->policyManager->createInstance($policyId);
     $channels = $policy->selectChannels($type, $recipient, []);
 
+    // An empty channel set (blocked/filtered recipient) must not linger as
+    // 'queued' or record dedupe; mark it cancelled so a future legit send for
+    // the same key is not suppressed (FIX #4).
+    if (empty($channels)) {
+      $n->set('status', 'cancelled');
+      $n->save();
+      return;
+    }
+
     $this->deliveryQueue->createAndEnqueue($n, $recipient, $channels);
-    $this->deduplicator->record($dedupeKey, $window);
+    if ($window > 0) {
+      $this->deduplicator->record($dedupeKey, $window);
+    }
 
     $n->set('status', 'queued');
     $n->save();
