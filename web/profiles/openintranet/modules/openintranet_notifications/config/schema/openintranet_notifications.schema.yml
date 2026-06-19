@@ -179,6 +179,14 @@ eca.condition.plugin.openintranet_notifications_user_channel_enabled:
       type: string
       label: 'Channel'
 
+eca.condition.plugin.openintranet_notifications_not_recently_sent:
+  type: eca.condition.plugin
+  label: 'Notification: not recently sent'
+  mapping:
+    dedupe_key:
+      type: string
+      label: 'Dedupe key'
+
 openintranet_notifications.settings:
   type: config_object
   label: 'Open Intranet Notifications settings'
