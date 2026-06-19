@@ -42,6 +42,7 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
     'forced_channels',
     'recipient_resolvers',
     'template_map',
+    'template_renderer',
     'subject_template',
     'body_template',
     'summary_template',
@@ -106,6 +107,11 @@ final class NotificationType extends ConfigEntityBase implements NotificationTyp
    * @var array<string, string>
    */
   protected array $template_map = [];
+
+  /**
+   * The template renderer plugin id.
+   */
+  protected string $template_renderer = 'token_text';
 
   /**
    * The subject token template.
@@ -194,6 +200,13 @@ final class NotificationType extends ConfigEntityBase implements NotificationTyp
    */
   public function getTemplateMap(): array {
     return $this->template_map;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getTemplateRenderer(): string {
+    return $this->template_renderer;
   }
 
   /**

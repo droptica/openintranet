@@ -48,6 +48,9 @@ openintranet_notifications.openintranet_notification_type.*:
       sequence:
         type: string
         label: 'Template name'
+    template_renderer:
+      type: string
+      label: 'Template renderer plugin id'
     subject_template:
       type: string
       label: 'Subject template'

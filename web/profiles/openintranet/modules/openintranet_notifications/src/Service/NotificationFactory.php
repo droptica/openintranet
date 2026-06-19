@@ -7,6 +7,8 @@ namespace Drupal\openintranet_notifications\Service;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\openintranet_notifications\Entity\NotificationInterface;
+use Drupal\openintranet_notifications\Entity\NotificationTypeInterface;
+use Drupal\openintranet_notifications\Renderer\TemplateRendererManager;
 
 /**
  * Builds notification entities from a type and a value array.
@@ -20,6 +22,7 @@ final class NotificationFactory {
   public function __construct(
     private readonly EntityTypeManagerInterface $entityTypeManager,
     private readonly Deduplicator $deduplicator,
+    private readonly TemplateRendererManager $templateRendererManager,
   ) {}
 
   /**
@@ -52,6 +55,7 @@ final class NotificationFactory {
       'status' => 'created',
     ];
 
+    $source = NULL;
     $sourceRef = '';
     if (isset($values['source_entity']) && $values['source_entity'] instanceof EntityInterface) {
       $source = $values['source_entity'];
@@ -74,7 +78,69 @@ final class NotificationFactory {
       ->getStorage('openintranet_notification')
       ->create($build);
 
+    // Back-compat: an explicit subject/body in $values (Stage 1 / override) is
+    // used verbatim. Otherwise render the type's templates once, at create.
+    $hasExplicit = isset($values['subject']) || isset($values['body']);
+    if (!$hasExplicit) {
+      $this->renderInto($notification, $type, $values, $source);
+    }
+
     return $notification;
+  }
+
+  /**
+   * Renders the type's templates into the notification's subject/body/summary.
+   *
+   * @param \Drupal\openintranet_notifications\Entity\NotificationInterface $notification
+   *   The unsaved notification to populate.
+   * @param \Drupal\openintranet_notifications\Entity\NotificationTypeInterface $type
+   *   The notification type carrying the templates and renderer id.
+   * @param array<string, mixed> $values
+   *   The build values (carry context, recipient_account, actor).
+   * @param \Drupal\Core\Entity\EntityInterface|null $source
+   *   The source entity, exposed under its entity-type-id token key.
+   */
+  private function renderInto(NotificationInterface $notification, NotificationTypeInterface $type, array $values, ?EntityInterface $source): void {
+    $rendererId = $type->getTemplateRenderer() ?: 'token_text';
+    $renderer = $this->templateRendererManager->createInstance($rendererId);
+
+    $tokenData = $this->buildTokenData($notification, $values, $source);
+    $message = $renderer->render($type, '', $tokenData);
+
+    $notification->set('subject', $message->subject);
+    $notification->set('body', $message->body);
+    $notification->set('summary', $message->summary);
+  }
+
+  /**
+   * Builds the token data handed to the renderer.
+   *
+   * @param \Drupal\openintranet_notifications\Entity\NotificationInterface $notification
+   *   The unsaved notification.
+   * @param array<string, mixed> $values
+   *   The build values (context, recipient_account, actor).
+   * @param \Drupal\Core\Entity\EntityInterface|null $source
+   *   The source entity.
+   *
+   * @return array<string, mixed>
+   *   The token replacement data.
+   */
+  private function buildTokenData(NotificationInterface $notification, array $values, ?EntityInterface $source): array {
+    $context = $values['context'] ?? [];
+    $tokenData = is_array($context) ? $context : [];
+
+    if ($source !== NULL) {
+      $tokenData[$source->getEntityTypeId()] = $source;
+    }
+    if (isset($values['recipient_account']) && $values['recipient_account'] instanceof EntityInterface) {
+      $tokenData['user'] = $values['recipient_account'];
+    }
+    if (isset($values['actor']) && $values['actor'] instanceof EntityInterface) {
+      $tokenData['actor'] = $values['actor'];
+    }
+    $tokenData['notification'] = $notification;
+
+    return $tokenData;
   }
 
 }

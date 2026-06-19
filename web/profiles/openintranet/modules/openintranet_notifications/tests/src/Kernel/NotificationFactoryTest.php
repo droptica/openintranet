@@ -27,6 +27,7 @@ final class NotificationFactoryTest extends KernelTestBase {
     'user',
     'node',
     'field',
+    'filter',
     'openintranet_notifications',
     'dynamic_entity_reference',
     'options',
@@ -52,6 +53,8 @@ final class NotificationFactoryTest extends KernelTestBase {
     $this->installEntitySchema('user');
     $this->installEntitySchema('node');
     $this->installSchema('node', ['node_access']);
+    // The token renderer reaches date tokens, which need default date formats.
+    $this->installConfig(['system']);
     $this->installConfig(['openintranet_notifications']);
 
     NotificationType::create([
@@ -118,6 +121,61 @@ final class NotificationFactoryTest extends KernelTestBase {
   public function testPriorityFallsBackToTypeDefault(): void {
     $notification = $this->factory->create('default', ['uid' => 1]);
     self::assertSame('normal', $notification->get('priority')->value);
+  }
+
+  /**
+   * With no explicit subject/body, the type's templates are rendered.
+   *
+   * The source node is exposed under its entity-type key ([node:title]) so the
+   * default token_text renderer can replace it.
+   */
+  public function testRendersTypeTemplatesWhenNoExplicitSubject(): void {
+    NotificationType::create([
+      'id' => 'rendered',
+      'label' => 'Rendered',
+      'default_channels' => ['inbox'],
+      'subject_template' => 'New: [node:title]',
+      'body_template' => 'Body for [node:title]',
+      'summary_template' => 'Sum [node:title]',
+    ])->save();
+
+    $node = Node::create(['type' => 'article', 'title' => 'Hello World']);
+    $node->save();
+
+    $notification = $this->factory->create('rendered', [
+      'uid' => 42,
+      'source_entity' => $node,
+    ]);
+
+    self::assertSame('New: Hello World', $notification->get('subject')->value);
+    self::assertSame('Body for Hello World', $notification->get('body')->value);
+    self::assertSame('Sum Hello World', $notification->get('summary')->value);
+  }
+
+  /**
+   * An explicit subject/body in values overrides the type templates.
+   */
+  public function testExplicitSubjectOverridesTemplates(): void {
+    NotificationType::create([
+      'id' => 'rendered2',
+      'label' => 'Rendered2',
+      'default_channels' => ['inbox'],
+      'subject_template' => 'New: [node:title]',
+      'body_template' => 'Body for [node:title]',
+    ])->save();
+
+    $node = Node::create(['type' => 'article', 'title' => 'Hello World']);
+    $node->save();
+
+    $notification = $this->factory->create('rendered2', [
+      'uid' => 42,
+      'source_entity' => $node,
+      'subject' => 'Explicit',
+      'body' => 'Explicit body',
+    ]);
+
+    self::assertSame('Explicit', $notification->get('subject')->value);
+    self::assertSame('Explicit body', $notification->get('body')->value);
   }
 
 }
