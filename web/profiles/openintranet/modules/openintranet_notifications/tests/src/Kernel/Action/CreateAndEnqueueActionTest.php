@@ -51,6 +51,29 @@ final class CreateAndEnqueueActionTest extends NotificationActionKernelTestBase 
   }
 
   /**
+   * A comma-separated recipients string resolves to one notification per uid.
+   */
+  public function testCommaSeparatedRecipientsFanOut(): void {
+    $node = $this->createArticle(41);
+
+    $action = $this->actionManager->createInstance('openintranet_notifications_create_and_enqueue', [
+      'notification_type' => 'default',
+      'recipients' => '[recipients]',
+    ]);
+    // A scalar comma-separated string, as a token may yield.
+    $this->tokenServices->addTokenData('recipients', '41,42');
+
+    $action->execute($node);
+
+    $notifications = $this->loadAllNotifications();
+    self::assertCount(2, $notifications, 'One notification per comma-separated uid.');
+
+    $uids = array_map(static fn ($n) => (int) $n->get('uid')->target_id, $notifications);
+    sort($uids);
+    self::assertSame([41, 42], $uids);
+  }
+
+  /**
    * An empty recipients token lets the type's resolvers run.
    */
   public function testEmptyRecipientsUsesTypeResolvers(): void {

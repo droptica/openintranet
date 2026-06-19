@@ -50,6 +50,17 @@ trait NotificationActionTrait {
     $candidates = \is_iterable($value) ? $value : [$value];
     $uids = [];
     foreach ($candidates as $item) {
+      // A non-numeric string carrying commas is a "12,15"-style list: split it
+      // and normalize each part.
+      if (\is_string($item) && !ctype_digit(trim($item)) && str_contains($item, ',')) {
+        foreach (explode(',', $item) as $part) {
+          $uid = $this->normalizeUid(trim($part));
+          if ($uid !== NULL) {
+            $uids[$uid] = $uid;
+          }
+        }
+        continue;
+      }
       $uid = $this->normalizeUid($item);
       if ($uid !== NULL) {
         $uids[$uid] = $uid;
@@ -63,7 +74,7 @@ trait NotificationActionTrait {
    * Normalizes a single recipient candidate to a uid.
    *
    * @param mixed $item
-   *   A uid (int/numeric string), a user entity, or a comma-separated string.
+   *   A uid (int or numeric string) or a user entity.
    *
    * @return int|null
    *   The uid, or NULL when not resolvable.
