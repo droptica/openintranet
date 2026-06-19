@@ -69,6 +69,16 @@ final class CreateAndEnqueue extends ConfigurableActionBase {
       $context['actor'] = $actor;
     }
 
+    // Let the model inject extra typed context (e.g. the commented node) by
+    // mapping context keys to token expressions. getOrReplace() preserves the
+    // entity object so resolvers receive the entity, not its id.
+    foreach ($this->configuration['context'] as $key => $tokenExpr) {
+      $resolved = $this->tokenService->getOrReplace((string) $tokenExpr);
+      if ($resolved !== NULL && $resolved !== '') {
+        $context[$key] = $resolved;
+      }
+    }
+
     $recipients = $this->resolveRecipientUids((string) $this->configuration['recipients']);
 
     $this->dispatcher->dispatchRequest($typeId, $recipients, $context);
@@ -81,6 +91,7 @@ final class CreateAndEnqueue extends ConfigurableActionBase {
     return [
       'notification_type' => '',
       'recipients' => '',
+      'context' => [],
     ] + parent::defaultConfiguration();
   }
 
@@ -103,6 +114,12 @@ final class CreateAndEnqueue extends ConfigurableActionBase {
       '#default_value' => $this->configuration['recipients'],
       '#eca_token_replacement' => TRUE,
     ];
+    $form['context'] = [
+      '#type' => 'textarea',
+      '#title' => $this->t('Context tokens'),
+      '#description' => $this->t('One "key: token" pair per line, injecting extra typed context for the type resolvers (e.g. "commented_entity: [commented_node]").'),
+      '#default_value' => $this->contextToString($this->configuration['context']),
+    ];
     return parent::buildConfigurationForm($form, $form_state);
   }
 
@@ -112,7 +129,50 @@ final class CreateAndEnqueue extends ConfigurableActionBase {
   public function submitConfigurationForm(array &$form, FormStateInterface $form_state): void {
     $this->configuration['notification_type'] = $form_state->getValue('notification_type');
     $this->configuration['recipients'] = $form_state->getValue('recipients');
+    $this->configuration['context'] = $this->contextFromString((string) $form_state->getValue('context'));
     parent::submitConfigurationForm($form, $form_state);
+  }
+
+  /**
+   * Formats the context map as "key: token" lines for the form.
+   *
+   * @param array<string, string> $context
+   *   The context-key to token-expression map.
+   *
+   * @return string
+   *   One "key: token" pair per line.
+   */
+  private function contextToString(array $context): string {
+    $lines = [];
+    foreach ($context as $key => $tokenExpr) {
+      $lines[] = $key . ': ' . $tokenExpr;
+    }
+    return implode("\n", $lines);
+  }
+
+  /**
+   * Parses "key: token" lines from the form back into a context map.
+   *
+   * @param string $value
+   *   The submitted textarea value.
+   *
+   * @return array<string, string>
+   *   The context-key to token-expression map.
+   */
+  private function contextFromString(string $value): array {
+    $context = [];
+    foreach (preg_split('/\R/', $value) ?: [] as $line) {
+      $line = trim($line);
+      if ($line === '' || !str_contains($line, ':')) {
+        continue;
+      }
+      [$key, $tokenExpr] = explode(':', $line, 2);
+      $key = trim($key);
+      if ($key !== '') {
+        $context[$key] = trim($tokenExpr);
+      }
+    }
+    return $context;
   }
 
   /**

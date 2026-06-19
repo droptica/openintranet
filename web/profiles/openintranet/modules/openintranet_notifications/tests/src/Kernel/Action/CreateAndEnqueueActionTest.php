@@ -121,6 +121,45 @@ final class CreateAndEnqueueActionTest extends NotificationActionKernelTestBase 
   }
 
   /**
+   * A configured context token reaches the type's resolver.
+   *
+   * The context map injects the node (resolved from a token, preserving the
+   * entity object) under 'commented_entity'; entity_author keyed on that runs
+   * against it and resolves the node's author.
+   */
+  public function testContextTokenReachesResolver(): void {
+    NotificationType::create([
+      'id' => 'commented',
+      'label' => 'Commented',
+      'default_channels' => ['inbox', 'log_only'],
+      'forced_channels' => ['inbox', 'log_only'],
+      'delivery_policy' => 'user_preferences',
+      'dedupe_window' => 0,
+      'recipient_resolvers' => [
+        ['id' => 'entity_author', 'configuration' => ['entity_key' => 'commented_entity']],
+      ],
+    ])->save();
+
+    // The action's primary object is a different entity; only the context map
+    // carries the node whose author must be resolved.
+    $node = $this->createArticle(43);
+    $this->tokenServices->addTokenData('node', $node);
+
+    $action = $this->actionManager->createInstance('openintranet_notifications_create_and_enqueue', [
+      'notification_type' => 'commented',
+      'recipients' => '',
+      'context' => ['commented_entity' => '[node]'],
+    ]);
+
+    $action->execute(NULL);
+
+    $notifications = $this->loadAllNotifications();
+    self::assertCount(1, $notifications);
+    $notification = reset($notifications);
+    self::assertSame(43, (int) $notification->get('uid')->target_id, 'The resolver saw the node from the context token map.');
+  }
+
+  /**
    * Created/queued events fire once per recipient.
    */
   public function testEventsFirePerRecipient(): void {
