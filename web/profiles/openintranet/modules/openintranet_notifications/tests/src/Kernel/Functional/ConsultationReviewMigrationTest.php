@@ -119,7 +119,7 @@ final class ConsultationReviewMigrationTest extends KernelTestBase {
         ['id' => 'entity_author', 'configuration' => []],
       ],
       'subject_template' => 'You have been added as reviewer of "[node:title]"',
-      'body_template' => 'Deadline: [consultation:field_consultation_deadline]',
+      'body_template' => "You have been added as a reviewer of \"[node:title]\".\n\nDeadline: [node:field_consultation_review_ref:entity:field_consultation_deadline]",
       'summary_template' => 'Review assigned: [node:title]',
     ])->save();
   }
@@ -167,6 +167,20 @@ final class ConsultationReviewMigrationTest extends KernelTestBase {
     $notification = reset($notifications);
     self::assertSame('consultation_review_assigned', $notification->get('type')->value);
     self::assertSame(42, (int) $notification->get('uid')->target_id, 'The notification targets the review author (the reviewer).');
+
+    // The review node must reach the renderer token data: the subject renders
+    // the review title and the body chains the parent consultation's deadline
+    // off the review. Regression guard for the empty-render blocker (FIX 1/2).
+    self::assertSame('You have been added as reviewer of "Please review the budget"', (string) $notification->get('subject')->value, 'The subject rendered the review title.');
+    $body = (string) $notification->get('body')->value;
+    self::assertStringContainsString('Please review the budget', $body, 'The body rendered the review title.');
+    self::assertStringContainsString('2026-12-31', $body, 'The body chained the parent consultation deadline off the review.');
+    self::assertStringNotContainsString('[node:', $body, 'No unresolved node tokens remain in the body.');
+
+    // The triggering review must land as the notification's source entity
+    // (FIX 1: the event entity reaches the action). Empty here is the blocker.
+    self::assertSame('node', (string) $notification->get('source_entity')->target_type, 'The source entity type is the review node.');
+    self::assertSame((string) $review->id(), (string) $notification->get('source_entity')->target_id, 'The source entity references the triggering review.');
 
     // No real mail: the test collector must be empty (inbox/log channels only).
     $captured = $this->container->get('state')->get('system.test_mail_collector') ?? [];

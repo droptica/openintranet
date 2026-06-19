@@ -63,7 +63,8 @@ final class NewCommentModelTest extends KernelTestBase {
     $this->installSchema('system', ['sequences']);
     $this->installSchema('comment', ['comment_entity_statistics']);
     $this->installSchema('node', ['node_access']);
-    $this->installConfig(['filter', 'comment', 'openintranet_notifications']);
+    // The system config provides the date formats the token-info path needs.
+    $this->installConfig(['system', 'filter', 'comment', 'openintranet_notifications']);
 
     // Anonymous + admin so the current user always resolves to a real account.
     User::create(['uid' => 0, 'name' => 'anonymous', 'status' => 0])->save();
@@ -97,8 +98,8 @@ final class NewCommentModelTest extends KernelTestBase {
         ['id' => 'entity_author', 'configuration' => ['entity_key' => 'commented_entity']],
       ],
       'subject_template' => 'New comment on "[node:title]"',
-      'body_template' => 'A new comment was posted.',
-      'summary_template' => 'New comment',
+      'body_template' => "[comment:author:name] commented on \"[node:title]\".\n\n[node:url]",
+      'summary_template' => 'New comment on "[node:title]"',
     ])->save();
   }
 
@@ -150,10 +151,25 @@ final class NewCommentModelTest extends KernelTestBase {
     self::assertSame('new_comment', $notification->get('type')->value);
     self::assertSame(41, (int) $notification->get('uid')->target_id, 'The notification targets the article author, not the commenter.');
 
+    // The commented node (passed via context.commented_entity) must reach the
+    // renderer token data under [node] and the comment under [comment]: the
+    // subject/body render with the real values. Regression guard (FIX 1/2).
+    self::assertSame('New comment on "Hello world"', (string) $notification->get('subject')->value, 'The subject rendered the commented node title.');
+    $body = (string) $notification->get('body')->value;
+    self::assertStringContainsString('commenter commented on "Hello world".', $body, 'The body rendered the commenter name and the commented node title.');
+    self::assertStringNotContainsString('[node:', $body, 'No unresolved node tokens remain in the body.');
+    self::assertStringNotContainsString('[comment:', $body, 'No unresolved comment tokens remain in the body.');
+
+    // The triggering comment must land as the notification's source entity
+    // (FIX 1: the event entity reaches the action). Empty here is the blocker.
+    self::assertSame('comment', (string) $notification->get('source_entity')->target_type, 'The source entity type is the comment.');
+    self::assertSame((string) $comment->id(), (string) $notification->get('source_entity')->target_id, 'The source entity references the triggering comment.');
+
+    // Two test channels (inbox + log_only) = two delivery rows.
     $deliveries = $this->container->get('entity_type.manager')
       ->getStorage('openintranet_notif_delivery')
       ->loadByProperties(['notification_id' => $notification->id()]);
-    self::assertNotEmpty($deliveries, 'At least one delivery row was created.');
+    self::assertCount(2, $deliveries, 'One delivery row per forced test channel (inbox + log_only).');
 
     // No real mail: the test collector must be empty (inbox/log channels only).
     $captured = $this->container->get('state')->get('system.test_mail_collector') ?? [];

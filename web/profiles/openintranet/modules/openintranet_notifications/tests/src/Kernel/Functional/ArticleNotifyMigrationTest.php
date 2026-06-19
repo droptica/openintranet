@@ -111,8 +111,8 @@ final class ArticleNotifyMigrationTest extends KernelTestBase {
         ],
       ],
       'subject_template' => 'New article: [node:title]',
-      'body_template' => 'A new article was published.',
-      'summary_template' => 'New article',
+      'body_template' => "A new article \"[node:title]\" has been published.\n\nRead more: [node:url]",
+      'summary_template' => 'New article: [node:title]',
     ])->save();
   }
 
@@ -157,6 +157,16 @@ final class ArticleNotifyMigrationTest extends KernelTestBase {
     self::assertSame([1, 41, 42, 43], $uids, 'A new_article notification was created for every active user the view returned.');
     foreach ($notifications as $notification) {
       self::assertSame('new_article', $notification->get('type')->value);
+      // The article node must reach the renderer token data: the subject/body
+      // render with the real article title (not an empty token clear). This is
+      // the regression guard for the empty-render blocker (FIX 1/2).
+      self::assertSame('New article: Hello world', (string) $notification->get('subject')->value, 'The subject rendered the article title.');
+      self::assertStringContainsString('Hello world', (string) $notification->get('body')->value, 'The body rendered the article title.');
+      self::assertStringNotContainsString('[node:', (string) $notification->get('body')->value, 'No unresolved node tokens remain in the body.');
+      // The triggering article must land as the notification's source entity
+      // (FIX 1: the event entity reaches the action); empty is the blocker.
+      self::assertSame('node', (string) $notification->get('source_entity')->target_type, 'The source entity type is the article node.');
+      self::assertSame((string) $article->id(), (string) $notification->get('source_entity')->target_id, 'The source entity references the triggering article.');
     }
 
     // The reset action set the flag back to 0.
