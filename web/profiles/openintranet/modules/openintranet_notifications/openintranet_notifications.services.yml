@@ -24,3 +24,9 @@ services:
     class: Drupal\openintranet_notifications\Service\PreferenceResolver
     autowire: true
   Drupal\openintranet_notifications\Service\PreferenceResolverInterface: '@openintranet_notifications.preference_resolver'
+
+  openintranet_notifications.deduplicator:
+    class: Drupal\openintranet_notifications\Service\Deduplicator
+    arguments:
+      - '@keyvalue.expirable'
+      - '@datetime.time'
