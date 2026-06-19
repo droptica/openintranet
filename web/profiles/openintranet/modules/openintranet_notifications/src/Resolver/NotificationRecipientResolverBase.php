@@ -17,6 +17,10 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * Concrete resolvers read their inputs from the dispatch context and from
  * $this->configuration, then build user recipients via buildUserRecipient(),
  * which skips blocked accounts (00-synteza §9).
+ *
+ * @phpstan-consistent-constructor
+ *   All resolvers inherit this constructor unchanged, so new static() in
+ *   create() is safe.
  */
 abstract class NotificationRecipientResolverBase extends PluginBase implements NotificationRecipientResolverInterface, ContainerFactoryPluginInterface {
 
