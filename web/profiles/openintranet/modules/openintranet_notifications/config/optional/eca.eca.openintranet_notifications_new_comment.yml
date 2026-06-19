@@ -1,0 +1,68 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - comment.type.comment_node_article
+    - field.field.node.article.comment_node_article
+  module:
+    - comment
+    - eca_content
+    - openintranet_notifications
+# Blob-free, hand-authored model: ECA executes from the arrays below. The
+# modeler_api stanza carries only label/version with storage:none (no "data"
+# hash) so it cannot desync in BPMN.iO.
+third_party_settings:
+  modeler_api:
+    modeler_id: bpmn_io
+    storage: none
+    label: 'Notifications: new comment'
+    version: '1.0'
+id: openintranet_notifications_new_comment
+weight: 0
+template: false
+events:
+  event_comment_insert:
+    plugin: 'content_entity:insert'
+    label: 'Insert article comment'
+    configuration:
+      type: 'comment comment_node_article'
+    successors:
+      -
+        id: action_load_commented_node
+        condition: ''
+conditions: {  }
+gateways: {  }
+actions:
+  # [comment:entity] resolves to a string, not the node object, so load the
+  # commented node from the comment's "entity_id" reference into a token first.
+  action_load_commented_node:
+    plugin: eca_token_load_entity_ref
+    label: 'Load commented node'
+    configuration:
+      field_name_entity_ref: entity_id
+      token_name: commented_node
+      from: current
+      entity_type: _none
+      entity_id: ''
+      revision_id: ''
+      properties: ''
+      langcode: _interface
+      latest_revision: false
+      unchanged: false
+      object: ''
+    successors:
+      -
+        id: action_notify_author
+        condition: ''
+  # @todo Per-thread dedupe (comment-thread:[commented_entity:id]:[recipient:uid])
+  #   is a refinement (§12); the factory currently derives the dedupe key from
+  #   the source entity.
+  action_notify_author:
+    plugin: openintranet_notifications_create_and_enqueue
+    label: 'Notify the commented node author'
+    configuration:
+      notification_type: new_comment
+      recipients: ''
+      context:
+        commented_entity: '[commented_node]'
+    successors: {  }

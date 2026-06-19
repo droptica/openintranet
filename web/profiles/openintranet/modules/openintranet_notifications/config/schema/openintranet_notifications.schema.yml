@@ -40,7 +40,7 @@ openintranet_notifications.openintranet_notification_type.*:
             type: string
             label: 'Resolver plugin id'
           configuration:
-            type: mapping
+            type: ignore
             label: 'Resolver configuration'
     template_map:
       type: sequence
@@ -48,6 +48,9 @@ openintranet_notifications.openintranet_notification_type.*:
       sequence:
         type: string
         label: 'Template name'
+    template_renderer:
+      type: string
+      label: 'Template renderer plugin id'
     subject_template:
       type: string
       label: 'Subject template'
@@ -72,6 +75,137 @@ openintranet_notifications.openintranet_notification_type.*:
     enabled:
       type: boolean
       label: 'Enabled'
+
+action.configuration.openintranet_notifications_create_and_enqueue:
+  type: mapping
+  label: 'Notification: create and enqueue'
+  mapping:
+    notification_type:
+      type: string
+      label: 'Notification type'
+    recipients:
+      type: string
+      label: 'Recipients'
+    context:
+      type: sequence
+      label: 'Context tokens'
+      sequence:
+        type: string
+        label: 'Token expression'
+
+action.configuration.openintranet_notifications_create:
+  type: mapping
+  label: 'Notification: create'
+  mapping:
+    notification_type:
+      type: string
+      label: 'Notification type'
+    uid:
+      type: string
+      label: 'Recipient user id'
+    subject:
+      type: string
+      label: 'Subject'
+    body:
+      type: string
+      label: 'Body'
+    token_name:
+      type: string
+      label: 'Output token name'
+
+action.configuration.openintranet_notifications_resolve_recipients:
+  type: mapping
+  label: 'Notification: resolve recipients'
+  mapping:
+    resolver_id:
+      type: string
+      label: 'Resolver id'
+    configuration:
+      type: ignore
+      label: 'Resolver configuration'
+    notification_type:
+      type: string
+      label: 'Notification type'
+    token_name:
+      type: string
+      label: 'Output token name'
+
+action.configuration.openintranet_notifications_enqueue_delivery:
+  type: mapping
+  label: 'Notification: enqueue delivery'
+  mapping:
+    notification:
+      type: string
+      label: 'Notification'
+
+action.configuration.openintranet_notifications_send_now:
+  type: mapping
+  label: 'Notification: send now (synchronous)'
+  mapping:
+    notification:
+      type: string
+      label: 'Notification'
+    channel:
+      type: string
+      label: 'Channel'
+
+action.configuration.openintranet_notifications_cancel:
+  type: mapping
+  label: 'Notification: cancel'
+  mapping:
+    notification:
+      type: string
+      label: 'Notification'
+
+action.configuration.openintranet_notifications_mark_seen_read:
+  type: mapping
+  label: 'Notification: mark seen/read'
+  mapping:
+    notification:
+      type: string
+      label: 'Notification'
+    mode:
+      type: string
+      label: 'Mode'
+
+eca.condition.plugin.openintranet_notifications_user_channel_enabled:
+  type: eca.condition.plugin
+  label: 'Notification: user channel enabled'
+  mapping:
+    uid:
+      type: string
+      label: 'Recipient user id'
+    notification_type:
+      type: string
+      label: 'Notification type'
+    channel:
+      type: string
+      label: 'Channel'
+
+eca.condition.plugin.openintranet_notifications_not_recently_sent:
+  type: eca.condition.plugin
+  label: 'Notification: not recently sent'
+  mapping:
+    dedupe_key:
+      type: string
+      label: 'Dedupe key'
+
+eca.condition.plugin.openintranet_notifications_below_rate_limit:
+  type: eca.condition.plugin
+  label: 'Notification: below rate limit'
+  mapping:
+    uid:
+      type: string
+      label: 'Recipient user id'
+    channel:
+      type: string
+      label: 'Channel'
+    notification_type:
+      type: string
+      label: 'Notification type'
+    limit:
+      type: string
+      label: 'Limit'
 
 openintranet_notifications.settings:
   type: config_object

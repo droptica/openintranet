@@ -64,6 +64,11 @@ interface NotificationTypeInterface extends ConfigEntityInterface {
   public function getTemplateMap(): array;
 
   /**
+   * Gets the template renderer plugin id (defaults to token_text).
+   */
+  public function getTemplateRenderer(): string;
+
+  /**
    * Gets the subject token template.
    */
   public function getSubjectTemplate(): string;

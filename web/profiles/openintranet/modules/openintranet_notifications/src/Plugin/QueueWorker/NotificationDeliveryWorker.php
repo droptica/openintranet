@@ -17,9 +17,14 @@ use Drupal\openintranet_notifications\Dto\NotificationMessage;
 use Drupal\openintranet_notifications\Dto\NotificationRecipient;
 use Drupal\openintranet_notifications\Entity\NotificationDeliveryInterface;
 use Drupal\openintranet_notifications\Entity\NotificationInterface;
+use Drupal\openintranet_notifications\Event\NotificationDeliveredEvent;
+use Drupal\openintranet_notifications\Event\NotificationEvents;
+use Drupal\openintranet_notifications\Event\NotificationFailedEvent;
+use Drupal\openintranet_notifications\Event\NotificationPermanentlyFailedEvent;
 use Drupal\openintranet_notifications\Service\AuditLogger;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Delivers one queued delivery row on its channel, with retry and idempotency.
@@ -65,6 +70,7 @@ final class NotificationDeliveryWorker extends QueueWorkerBase implements Contai
     private readonly LoggerInterface $logger,
     private readonly AuditLogger $auditLogger,
     private readonly KeyValueExpirableFactoryInterface $keyValueExpirable,
+    private readonly EventDispatcherInterface $eventDispatcher,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
   }
@@ -83,6 +89,7 @@ final class NotificationDeliveryWorker extends QueueWorkerBase implements Contai
       $container->get('logger.channel.openintranet_notifications'),
       $container->get('openintranet_notifications.audit_logger'),
       $container->get('keyvalue.expirable'),
+      $container->get('event_dispatcher'),
     );
   }
 
@@ -152,8 +159,15 @@ final class NotificationDeliveryWorker extends QueueWorkerBase implements Contai
       $delivery->markSent($result->providerMessageId);
       $this->auditLogger->log($delivery, $result);
       $delivery->save();
+      $notification = $this->loadNotification($delivery);
+      $this->eventDispatcher->dispatch(new NotificationDeliveredEvent($delivery, $notification), NotificationEvents::DELIVERED);
       return;
     }
+
+    // Every failed attempt fires FAILED; PERMANENTLY_FAILED fires only when the
+    // attempt becomes terminal (permanent error or exhausted retry budget).
+    $notification = $this->loadNotification($delivery);
+    $this->eventDispatcher->dispatch(new NotificationFailedEvent($delivery, $notification), NotificationEvents::FAILED);
 
     if ($result->retryable && $attemptCount < self::MAX_ATTEMPTS) {
       $delay = self::BACKOFF_BASE_SECONDS * $attemptCount;
@@ -167,9 +181,24 @@ final class NotificationDeliveryWorker extends QueueWorkerBase implements Contai
 
     // Permanent failure, or the retry budget is exhausted.
     $delivery->markFailed($result);
-    // @todo Fire the ECA notification:permanently_failed event (Stage 2).
     $this->auditLogger->log($delivery, $result);
     $delivery->save();
+    $this->eventDispatcher->dispatch(new NotificationPermanentlyFailedEvent($delivery, $notification), NotificationEvents::PERMANENTLY_FAILED);
+  }
+
+  /**
+   * Loads the delivery's parent notification, if it still exists.
+   */
+  private function loadNotification(NotificationDeliveryInterface $delivery): ?NotificationInterface {
+    $notificationId = $delivery->get('notification_id')->target_id;
+    if ($notificationId === NULL) {
+      return NULL;
+    }
+    /** @var \Drupal\openintranet_notifications\Entity\NotificationInterface|null $notification */
+    $notification = $this->entityTypeManager
+      ->getStorage('openintranet_notification')
+      ->load($notificationId);
+    return $notification;
   }
 
   /**

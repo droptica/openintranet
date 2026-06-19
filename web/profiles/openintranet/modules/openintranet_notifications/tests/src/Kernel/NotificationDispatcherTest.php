@@ -6,9 +6,13 @@ namespace Drupal\Tests\openintranet_notifications\Kernel;
 
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\openintranet_notifications\Entity\NotificationType;
+use Drupal\openintranet_notifications\Event\NotificationCreatedEvent;
+use Drupal\openintranet_notifications\Event\NotificationEvents;
+use Drupal\openintranet_notifications\Event\NotificationQueuedEvent;
 use Drupal\openintranet_notifications\Service\NotificationDispatcher;
 use Drupal\openintranet_notifications\Service\NotificationFactory;
 use Drupal\user\Entity\User;
+use Drupal\user\Entity\Role;
 
 /**
  * Tests the NotificationDispatcher orchestration service.
@@ -57,6 +61,11 @@ final class NotificationDispatcherTest extends KernelTestBase {
     $this->installEntitySchema('openintranet_notif_delivery');
     $this->installSchema('system', ['sequences']);
     $this->installConfig(['openintranet_notifications']);
+    // Tests install their own "default" type fixture, so drop the types
+    // shipped in config/install first.
+    $typeStorage = $this->container->get('entity_type.manager')
+      ->getStorage('openintranet_notification_type');
+    $typeStorage->delete($typeStorage->loadMultiple());
 
     // A type whose policy selects [inbox, log_only] for any user.
     NotificationType::create([
@@ -186,6 +195,84 @@ final class NotificationDispatcherTest extends KernelTestBase {
 
     self::assertSame('queued', $this->reload((int) $n2->id())->get('status')->value);
     self::assertCount(2, $this->loadDeliveriesFor((int) $n2->id()));
+  }
+
+  /**
+   * An empty recipient set resolves recipients via the type's resolvers.
+   */
+  public function testDispatchRequestResolvesRecipientsFromTypeResolvers(): void {
+    Role::create(['id' => 'editor', 'label' => 'Editor'])->save();
+    foreach ([41, 42] as $uid) {
+      $user = User::load($uid);
+      $user->addRole('editor');
+      $user->save();
+    }
+
+    NotificationType::create([
+      'id' => 'resolved',
+      'label' => 'Resolved',
+      'default_channels' => ['inbox', 'log_only'],
+      'forced_channels' => ['inbox', 'log_only'],
+      'delivery_policy' => 'user_preferences',
+      'dedupe_window' => 0,
+      'recipient_resolvers' => [
+        ['id' => 'role_users', 'configuration' => ['role' => 'editor']],
+      ],
+    ])->save();
+
+    $this->dispatcher->dispatchRequest('resolved', [], ['subject' => 'Hi', 'body' => 'B']);
+
+    $notifications = $this->loadAllNotifications();
+    self::assertCount(2, $notifications);
+    $uids = array_map(static fn ($n) => (int) $n->get('uid')->target_id, $notifications);
+    sort($uids);
+    self::assertSame([41, 42], $uids);
+  }
+
+  /**
+   * Created and queued events fire once per recipient on a successful send.
+   */
+  public function testCreatedAndQueuedEventsFirePerRecipient(): void {
+    $created = 0;
+    $queued = 0;
+    $dispatcher = $this->container->get('event_dispatcher');
+    $dispatcher->addListener(NotificationEvents::CREATED, function (NotificationCreatedEvent $event) use (&$created): void {
+      $created++;
+    });
+    $dispatcher->addListener(NotificationEvents::QUEUED, function (NotificationQueuedEvent $event) use (&$queued): void {
+      $queued++;
+    });
+
+    $this->dispatcher->dispatchRequest('default', [41, 42, 43], ['subject' => 'Hi', 'body' => 'B']);
+
+    self::assertSame(3, $created);
+    self::assertSame(3, $queued);
+  }
+
+  /**
+   * The blocked/empty-channel cancel path fires neither created nor queued.
+   */
+  public function testNoEventsOnBlockedRecipientPath(): void {
+    $created = 0;
+    $queued = 0;
+    $dispatcher = $this->container->get('event_dispatcher');
+    $dispatcher->addListener(NotificationEvents::CREATED, function () use (&$created): void {
+      $created++;
+    });
+    $dispatcher->addListener(NotificationEvents::QUEUED, function () use (&$queued): void {
+      $queued++;
+    });
+
+    $blocked = User::load(43);
+    $blocked->set('status', 0)->save();
+
+    $n = $this->factory->create('default', ['uid' => 43, 'subject' => 'Hi', 'body' => 'B']);
+    $n->save();
+    $this->dispatcher->enqueue($n);
+
+    self::assertSame('cancelled', $this->reload((int) $n->id())->get('status')->value);
+    self::assertSame(0, $created);
+    self::assertSame(0, $queued);
   }
 
 }

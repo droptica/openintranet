@@ -9,6 +9,7 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Queue\QueueFactory;
 use Drupal\openintranet_notifications\Channel\ChannelPluginManager;
 use Drupal\openintranet_notifications\Dto\NotificationRecipient;
+use Drupal\openintranet_notifications\Entity\NotificationDeliveryInterface;
 use Drupal\openintranet_notifications\Entity\NotificationInterface;
 
 /**
@@ -43,28 +44,50 @@ final class DeliveryQueue {
   public function createAndEnqueue(NotificationInterface $notification, NotificationRecipient $recipient, array $channelIds): array {
     $queueId = $this->configFactory->get('openintranet_notifications.settings')->get('queue.id');
     $queue = $this->queueFactory->get($queueId);
-    $storage = $this->entityTypeManager->getStorage('openintranet_notif_delivery');
-    $recipientRef = (string) ($recipient->id ?? $recipient->value);
 
     $ids = [];
     foreach ($channelIds as $channelId) {
-      $channel = $this->channelManager->createInstance($channelId);
-      $delivery = $storage->create([
-        'notification_id' => $notification->id(),
-        'recipient_type' => $recipient->type,
-        'recipient_id' => $recipient->id,
-        'contact_value' => $recipient->value,
-        'channel' => $channelId,
-        'address' => $channel->getRecipientAddress($recipient),
-        'status' => 'pending',
-        'idempotency_key' => hash('sha256', $notification->id() . ':' . $recipientRef . ':' . $channelId),
-      ]);
+      $delivery = $this->createDeliveryRow($notification, $recipient, $channelId);
       $delivery->save();
       $queue->createItem(['delivery_id' => $delivery->id()]);
       $ids[] = $delivery->id();
     }
 
     return $ids;
+  }
+
+  /**
+   * Builds a single unsaved delivery row for one recipient × one channel.
+   *
+   * The single home of the idempotency-key formula and the pending-row shape.
+   * The caller persists it (and enqueues or sends) — this method does neither.
+   *
+   * @param \Drupal\openintranet_notifications\Entity\NotificationInterface $notification
+   *   The notification being delivered.
+   * @param \Drupal\openintranet_notifications\Dto\NotificationRecipient $recipient
+   *   The recipient identity.
+   * @param string $channelId
+   *   The channel plugin id.
+   *
+   * @return \Drupal\openintranet_notifications\Entity\NotificationDeliveryInterface
+   *   The unsaved, pending delivery row.
+   */
+  public function createDeliveryRow(NotificationInterface $notification, NotificationRecipient $recipient, string $channelId): NotificationDeliveryInterface {
+    $channel = $this->channelManager->createInstance($channelId);
+    $recipientRef = (string) ($recipient->id ?? $recipient->value);
+
+    /** @var \Drupal\openintranet_notifications\Entity\NotificationDeliveryInterface $delivery */
+    $delivery = $this->entityTypeManager->getStorage('openintranet_notif_delivery')->create([
+      'notification_id' => $notification->id(),
+      'recipient_type' => $recipient->type,
+      'recipient_id' => $recipient->id,
+      'contact_value' => $recipient->value,
+      'channel' => $channelId,
+      'address' => $channel->getRecipientAddress($recipient),
+      'status' => 'pending',
+      'idempotency_key' => hash('sha256', $notification->id() . ':' . $recipientRef . ':' . $channelId),
+    ]);
+    return $delivery;
   }
 
 }

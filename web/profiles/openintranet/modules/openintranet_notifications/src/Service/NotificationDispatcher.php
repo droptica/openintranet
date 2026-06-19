@@ -8,7 +8,12 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\openintranet_notifications\Dto\NotificationRecipient;
 use Drupal\openintranet_notifications\Entity\NotificationInterface;
 use Drupal\openintranet_notifications\Entity\NotificationTypeInterface;
+use Drupal\openintranet_notifications\Event\NotificationCreatedEvent;
+use Drupal\openintranet_notifications\Event\NotificationEvents;
+use Drupal\openintranet_notifications\Event\NotificationQueuedEvent;
 use Drupal\openintranet_notifications\Policy\DeliveryPolicyManager;
+use Drupal\openintranet_notifications\Resolver\RecipientResolverManager;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Orchestrates a notification from build to enqueued deliveries.
@@ -27,6 +32,8 @@ final class NotificationDispatcher {
     private readonly RateLimiter $rateLimiter,
     private readonly DeliveryQueue $deliveryQueue,
     private readonly EntityTypeManagerInterface $entityTypeManager,
+    private readonly RecipientResolverManager $recipientResolverManager,
+    private readonly EventDispatcherInterface $eventDispatcher,
   ) {}
 
   /**
@@ -83,12 +90,14 @@ final class NotificationDispatcher {
 
     // An empty channel set (blocked/filtered recipient) must not linger as
     // 'queued' or record dedupe; mark it cancelled so a future legit send for
-    // the same key is not suppressed (FIX #4).
+    // the same key is not suppressed (FIX #4). No lifecycle event fires here.
     if (empty($channels)) {
       $n->set('status', 'cancelled');
       $n->save();
       return;
     }
+
+    $this->eventDispatcher->dispatch(new NotificationCreatedEvent($n), NotificationEvents::CREATED);
 
     $this->deliveryQueue->createAndEnqueue($n, $recipient, $channels);
     if ($window > 0) {
@@ -98,7 +107,7 @@ final class NotificationDispatcher {
     $n->set('status', 'queued');
     $n->save();
 
-    // @todo Fire the ECA notification:created event here (wired in Stage 2).
+    $this->eventDispatcher->dispatch(new NotificationQueuedEvent($n), NotificationEvents::QUEUED);
   }
 
   /**
@@ -112,12 +121,75 @@ final class NotificationDispatcher {
    *   Extra build values merged into each notification (subject, body, etc.).
    */
   public function dispatchRequest(string $typeId, array $recipients, array $context = []): void {
-    // @todo When $recipients is empty, resolve via the type's
-    //   recipient_resolvers (Stage 2).
+    // The source entity is the dispatch entity/source_entity context key; the
+    // actor is the acting account. The whole keyed context is nested under
+    // 'context' so the factory can expose every entity-valued entry to the
+    // renderer token data, instead of spreading flat (which lost it).
+    $source = $context['source_entity'] ?? ($context['entity'] ?? NULL);
+    $actor = $context['actor'] ?? NULL;
+
+    if ($recipients === []) {
+      foreach ($this->resolveRecipients($typeId, $context) as $recipient) {
+        $values = [
+          'uid' => $recipient->id,
+          'recipient_account' => $recipient->account,
+          'source_entity' => $source,
+          'actor' => $actor,
+          'context' => $context,
+        ];
+        $n = $this->notificationFactory->create($typeId, $values);
+        $this->enqueue($n);
+      }
+      return;
+    }
+
     foreach ($recipients as $recipientId) {
-      $n = $this->notificationFactory->create($typeId, ['uid' => $recipientId] + $context);
+      // Explicit recipients carry only a uid, so load the account here too so
+      // [user:*] tokens resolve in this branch as well (#12).
+      $recipientAccount = $this->entityTypeManager->getStorage('user')->load((int) $recipientId);
+      $values = [
+        'uid' => $recipientId,
+        'recipient_account' => $recipientAccount,
+        'source_entity' => $source,
+        'actor' => $actor,
+        'context' => $context,
+      ];
+      $n = $this->notificationFactory->create($typeId, $values);
       $this->enqueue($n);
     }
+  }
+
+  /**
+   * Resolves the recipient set from a type's recipient_resolvers.
+   *
+   * @param string $typeId
+   *   The notification_type id.
+   * @param array<string, mixed> $context
+   *   The dispatch context handed to each resolver.
+   *
+   * @return array<int, \Drupal\openintranet_notifications\Dto\NotificationRecipient>
+   *   The user recipients, de-duplicated by user id.
+   */
+  private function resolveRecipients(string $typeId, array $context): array {
+    /** @var \Drupal\openintranet_notifications\Entity\NotificationTypeInterface|null $type */
+    $type = $this->entityTypeManager
+      ->getStorage('openintranet_notification_type')
+      ->load($typeId);
+    if ($type === NULL) {
+      return [];
+    }
+
+    $resolved = [];
+    foreach ($type->getRecipientResolvers() as $definition) {
+      $resolver = $this->recipientResolverManager
+        ->createInstance($definition['id'], $definition['configuration'] ?? []);
+      foreach ($resolver->resolve($context) as $recipient) {
+        if ($recipient->id !== NULL) {
+          $resolved[$recipient->id] = $recipient;
+        }
+      }
+    }
+    return array_values($resolved);
   }
 
   /**
