@@ -137,9 +137,6 @@ action.configuration.openintranet_notifications_enqueue_delivery:
     notification:
       type: string
       label: 'Notification'
-    recipients:
-      type: string
-      label: 'Recipients'
 
 action.configuration.openintranet_notifications_send_now:
   type: mapping

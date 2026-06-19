@@ -22,7 +22,6 @@ final class EnqueueDeliveryActionTest extends NotificationActionKernelTestBase {
 
     $action = $this->actionManager->createInstance('openintranet_notifications_enqueue_delivery', [
       'notification' => '[notification]',
-      'recipients' => '',
     ]);
 
     $action->execute(NULL);
@@ -38,7 +37,6 @@ final class EnqueueDeliveryActionTest extends NotificationActionKernelTestBase {
   public function testMissingNotificationIsNoop(): void {
     $action = $this->actionManager->createInstance('openintranet_notifications_enqueue_delivery', [
       'notification' => '[notification]',
-      'recipients' => '',
     ]);
 
     $action->execute(NULL);

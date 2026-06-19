@@ -66,7 +66,6 @@ final class EnqueueDelivery extends ConfigurableActionBase {
   public function defaultConfiguration(): array {
     return [
       'notification' => '',
-      'recipients' => '',
     ] + parent::defaultConfiguration();
   }
 
@@ -82,13 +81,6 @@ final class EnqueueDelivery extends ConfigurableActionBase {
       '#eca_token_replacement' => TRUE,
       '#required' => TRUE,
     ];
-    $form['recipients'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Recipients'),
-      '#description' => $this->t('Optional override token; by default the notification own recipient is used.'),
-      '#default_value' => $this->configuration['recipients'],
-      '#eca_token_replacement' => TRUE,
-    ];
     return parent::buildConfigurationForm($form, $form_state);
   }
 
@@ -97,7 +89,6 @@ final class EnqueueDelivery extends ConfigurableActionBase {
    */
   public function submitConfigurationForm(array &$form, FormStateInterface $form_state): void {
     $this->configuration['notification'] = $form_state->getValue('notification');
-    $this->configuration['recipients'] = $form_state->getValue('recipients');
     parent::submitConfigurationForm($form, $form_state);
   }
 
