@@ -41,3 +41,9 @@ services:
     class: Drupal\openintranet_notifications\Service\AuditLogger
     arguments:
       - '@logger.channel.openintranet_notifications'
+
+  openintranet_notifications.notification_factory:
+    class: Drupal\openintranet_notifications\Service\NotificationFactory
+    arguments:
+      - '@entity_type.manager'
+      - '@openintranet_notifications.deduplicator'
