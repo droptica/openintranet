@@ -7,6 +7,7 @@ namespace Drupal\Tests\openintranet_notifications\Kernel;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\openintranet_notifications\Dto\NotificationRecipient;
 use Drupal\openintranet_notifications\Entity\NotificationType;
+use Drupal\openintranet_notifications\Entity\UserNotificationSettingsInterface;
 use Drupal\openintranet_notifications\Policy\NotificationDeliveryPolicyInterface;
 use Drupal\user\Entity\User;
 
@@ -158,6 +159,73 @@ final class UserPreferencesPolicyTest extends KernelTestBase {
     $recipient = new NotificationRecipient(type: 'user', id: 44, account: $account);
 
     self::assertSame([], $this->policy->selectChannels($type, $recipient, []));
+  }
+
+  /**
+   * A non-forced channel whose user preference is off is dropped.
+   *
+   * The drop is provably the preference filter: the channel is globally enabled
+   * and available, and flipping the preference on brings it back.
+   */
+  public function testPreferenceOffDropsNonForcedChannel(): void {
+    $type = NotificationType::create([
+      'id' => 'default',
+      'label' => 'Default',
+      'default_channels' => ['inbox', 'log_only'],
+      'forced_channels' => ['inbox'],
+      'delivery_policy' => 'user_preferences',
+    ]);
+    $type->save();
+
+    // Both channels globally enabled and not killed, so only the pref differs.
+    $this->config('openintranet_notifications.settings')
+      ->set('enabled_channels', ['inbox', 'log_only'])
+      ->save();
+
+    $account = $this->createActiveUser(46);
+    // The inbox pref is irrelevant (forced); the log_only pref is off.
+    $this->setPrefs(46, ['inbox' => TRUE, 'log_only' => FALSE]);
+    $recipient = new NotificationRecipient(type: 'user', id: 46, account: $account);
+
+    self::assertSame(['inbox'], $this->policy->selectChannels($type, $recipient, []));
+
+    // Flip log_only on: it must now be selected, proving the prior drop was the
+    // preference filter and not availability or the kill switch.
+    $storage = $this->container->get('entity_type.manager')
+      ->getStorage('user_notification_settings');
+    $matches = $storage->loadByProperties(['uid' => 46]);
+    $settings = reset($matches);
+    self::assertInstanceOf(UserNotificationSettingsInterface::class, $settings);
+    $settings->set('preferences', ['default' => ['inbox' => TRUE, 'log_only' => TRUE]]);
+    $settings->save();
+
+    $channels = $this->policy->selectChannels($type, $recipient, []);
+    self::assertContains('log_only', $channels);
+  }
+
+  /**
+   * A preferred, available channel not in enabled_channels is dropped.
+   */
+  public function testGlobalEnabledChannelsFilterDropsChannel(): void {
+    $type = NotificationType::create([
+      'id' => 'default',
+      'label' => 'Default',
+      'default_channels' => ['inbox', 'log_only'],
+      'delivery_policy' => 'user_preferences',
+    ]);
+    $type->save();
+
+    // log_only is NOT globally enabled, so it is dropped purely on this filter
+    // while its preference is on and the channel is available.
+    $this->config('openintranet_notifications.settings')
+      ->set('enabled_channels', ['inbox'])
+      ->save();
+
+    $account = $this->createActiveUser(47);
+    $this->setPrefs(47, ['inbox' => TRUE, 'log_only' => TRUE]);
+    $recipient = new NotificationRecipient(type: 'user', id: 47, account: $account);
+
+    self::assertSame(['inbox'], $this->policy->selectChannels($type, $recipient, []));
   }
 
   /**
