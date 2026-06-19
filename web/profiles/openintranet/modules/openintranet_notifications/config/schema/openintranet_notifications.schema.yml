@@ -87,6 +87,26 @@ action.configuration.openintranet_notifications_create_and_enqueue:
       type: string
       label: 'Recipients'
 
+action.configuration.openintranet_notifications_create:
+  type: mapping
+  label: 'Notification: create'
+  mapping:
+    notification_type:
+      type: string
+      label: 'Notification type'
+    uid:
+      type: string
+      label: 'Recipient user id'
+    subject:
+      type: string
+      label: 'Subject'
+    body:
+      type: string
+      label: 'Body'
+    token_name:
+      type: string
+      label: 'Output token name'
+
 openintranet_notifications.settings:
   type: config_object
   label: 'Open Intranet Notifications settings'
