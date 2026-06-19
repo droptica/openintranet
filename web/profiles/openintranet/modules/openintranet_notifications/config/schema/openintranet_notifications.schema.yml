@@ -154,6 +154,17 @@ action.configuration.openintranet_notifications_cancel:
       type: string
       label: 'Notification'
 
+action.configuration.openintranet_notifications_mark_seen_read:
+  type: mapping
+  label: 'Notification: mark seen/read'
+  mapping:
+    notification:
+      type: string
+      label: 'Notification'
+    mode:
+      type: string
+      label: 'Mode'
+
 openintranet_notifications.settings:
   type: config_object
   label: 'Open Intranet Notifications settings'
