@@ -1,0 +1,13 @@
+name: 'Open Intranet Notifications'
+type: module
+description: 'ECA-orchestrated multi-channel notification framework (notifications, deliveries, channels, policies).'
+package: 'Open Intranet'
+core_version_requirement: ^11
+dependencies:
+  - drupal:dynamic_entity_reference
+  - drupal:options
+  - eca:eca
+  - eca:eca_base
+  - eca:eca_content
+  - token:token
+  - key:key

@@ -1,0 +1,8 @@
+<?php
+
+/**
+ * @file
+ * Open Intranet Notifications module.
+ */
+
+declare(strict_types=1);
