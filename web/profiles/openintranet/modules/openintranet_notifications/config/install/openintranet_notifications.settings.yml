@@ -1,0 +1,14 @@
+enabled_channels:
+  - inbox
+  - log_only
+enabled_types:
+  - default
+default_user_preferences:
+  default:
+    inbox: true
+    log_only: false
+queue:
+  id: openintranet_notification_delivery
+retention:
+  default_days: 90
+kill_switch: {  }

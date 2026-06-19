@@ -72,3 +72,49 @@ openintranet_notifications.openintranet_notification_type.*:
     enabled:
       type: boolean
       label: 'Enabled'
+
+openintranet_notifications.settings:
+  type: config_object
+  label: 'Open Intranet Notifications settings'
+  mapping:
+    enabled_channels:
+      type: sequence
+      label: 'Globally enabled channels'
+      sequence:
+        type: string
+        label: 'Channel id'
+    enabled_types:
+      type: sequence
+      label: 'Globally enabled notification types'
+      sequence:
+        type: string
+        label: 'Notification type id'
+    default_user_preferences:
+      type: sequence
+      label: 'Default user preferences'
+      sequence:
+        type: sequence
+        label: 'Per-type channel defaults'
+        sequence:
+          type: boolean
+          label: 'Channel enabled by default'
+    queue:
+      type: mapping
+      label: 'Delivery queue'
+      mapping:
+        id:
+          type: string
+          label: 'Queue id'
+    retention:
+      type: mapping
+      label: 'Audit retention'
+      mapping:
+        default_days:
+          type: integer
+          label: 'Default retention (days)'
+    kill_switch:
+      type: sequence
+      label: 'Per-channel kill switch'
+      sequence:
+        type: boolean
+        label: 'Channel killed'
