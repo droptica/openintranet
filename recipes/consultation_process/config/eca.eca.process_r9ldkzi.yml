@@ -10,17 +10,19 @@ dependencies:
   module:
     - eca_content
     - modeler_api
+    - openintranet_notifications
+# Blob-free, hand-authored model: ECA executes from the arrays below. The
+# modeler_api stanza carries only label/version with storage:none (no "data"
+# hash) so it cannot desync in BPMN.iO.
 third_party_settings:
   modeler_api:
     modeler_id: bpmn_io
-    data: 'hash:9d608300e3a67b774bff1baf89192135'
+    storage: none
     label: 'Send email on new review'
-    colors:
-      content_entity__insert_1_1:
-        fill: '#c8e6c9'
-        stroke: '#205022'
+    version: '1.0'
 id: process_r9ldkzi
 weight: 0
+template: false
 events:
   content_entity__insert_1_1:
     plugin: 'content_entity:insert'
@@ -34,23 +36,8 @@ events:
 conditions: {  }
 gateways: {  }
 actions:
-  action_send_email_action_1hp2thn:
-    label: 'Send email'
-    plugin: action_send_email_action
-    configuration:
-      recipient: '[entity:author:mail]'
-      subject: test
-      message: |-
-        Hello [entity:author:name],
-
-        New review has been assigned to you on Open Intranet:
-        Title: [entity:title]
-        Deadline: [consultation:field_consultation_deadline]
-        Read full content: [entity:url]
-        ---
-        Best regards,
-        Droptica - Open Intranet System
-    successors: {  }
+  # Load the parent consultation into the [consultation] token so the type's
+  # body template can resolve [consultation:field_consultation_deadline].
   eca_token_load_entity_0stztzl:
     label: 'Entity: load'
     plugin: eca_token_load_entity
@@ -67,5 +54,20 @@ actions:
       object: consultation
     successors:
       -
-        id: action_send_email_action_1hp2thn
+        id: action_notify_review_author
         condition: ''
+  # Empty recipients let the consultation_review_assigned type's entity_author
+  # resolver target the review's author. The action plugin has no entity "type",
+  # so ECA passes it NULL as the chain object: inject the review via [entity] so
+  # the resolver (entity_key: entity) sees it, and the loaded consultation via
+  # [consultation] so the deadline token renders. Replaces the mail action.
+  action_notify_review_author:
+    label: 'Notify the review author'
+    plugin: openintranet_notifications_create_and_enqueue
+    configuration:
+      notification_type: consultation_review_assigned
+      recipients: ''
+      context:
+        entity: '[entity]'
+        consultation: '[consultation]'
+    successors: {  }
