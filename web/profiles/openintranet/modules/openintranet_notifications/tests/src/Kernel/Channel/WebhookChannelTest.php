@@ -185,6 +185,20 @@ final class WebhookChannelTest extends KernelTestBase {
   }
 
   /**
+   * A non-Guzzle error classifies as a retryable HTTP_EXCEPTION failure.
+   */
+  public function testGenericExceptionIsRetryable(): void {
+    $this->setWebhookConfig(['url' => 'https://hook.example.com/in']);
+    $this->mockHttpClient([new \RuntimeException('unexpected')]);
+
+    $result = $this->channel()->send($this->recipient(), $this->message());
+
+    self::assertFalse($result->success);
+    self::assertTrue($result->retryable);
+    self::assertSame('HTTP_EXCEPTION', $result->errorCode);
+  }
+
+  /**
    * With no url configured and a non-endpoint recipient, send is NO_URL.
    */
   public function testNoUrlIsPermanentFailure(): void {
