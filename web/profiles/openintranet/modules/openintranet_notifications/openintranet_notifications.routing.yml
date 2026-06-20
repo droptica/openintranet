@@ -1,0 +1,7 @@
+openintranet_notifications.channel_status:
+  path: '/admin/config/openintranet/notifications/channels'
+  defaults:
+    _controller: '\Drupal\openintranet_notifications\Controller\ChannelStatusController::overview'
+    _title: 'Notification channels'
+  requirements:
+    _permission: 'administer notification channels'
