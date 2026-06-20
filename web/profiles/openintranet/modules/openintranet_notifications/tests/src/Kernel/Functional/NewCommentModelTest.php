@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\openintranet_notifications\Kernel\Functional;
 
+use Drupal\Core\Config\Entity\ConfigEntityInterface;
 use Drupal\comment\Entity\Comment;
 use Drupal\comment\Tests\CommentTestTrait;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\node\Entity\Node;
 use Drupal\node\Entity\NodeType;
+use Drupal\openintranet_notifications\Entity\Notification;
 use Drupal\openintranet_notifications\Entity\NotificationType;
 use Drupal\user\Entity\User;
 use Symfony\Component\Yaml\Yaml;
@@ -148,6 +150,7 @@ final class NewCommentModelTest extends KernelTestBase {
     self::assertCount(1, $notifications, 'One notification was created for the article author.');
 
     $notification = reset($notifications);
+    assert($notification instanceof Notification);
     self::assertSame('new_comment', $notification->get('type')->value);
     self::assertSame(41, (int) $notification->get('uid')->target_id, 'The notification targets the article author, not the commenter.');
 
@@ -186,11 +189,11 @@ final class NewCommentModelTest extends KernelTestBase {
     $path = $this->container->get('extension.list.module')->getPath('openintranet_notifications')
       . '/config/optional/eca.eca.openintranet_notifications_new_comment.yml';
     $values = Yaml::parseFile($path);
-    $this->container->get('entity_type.manager')
+    $eca = $this->container->get('entity_type.manager')
       ->getStorage('eca')
-      ->create($values)
-      ->trustData()
-      ->save();
+      ->create($values);
+    assert($eca instanceof ConfigEntityInterface);
+    $eca->trustData()->save();
   }
 
 }

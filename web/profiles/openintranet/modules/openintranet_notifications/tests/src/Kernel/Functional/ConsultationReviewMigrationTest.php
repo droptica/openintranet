@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\openintranet_notifications\Kernel\Functional;
 
+use Drupal\Core\Config\Entity\ConfigEntityInterface;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\node\Entity\Node;
 use Drupal\node\Entity\NodeType;
+use Drupal\openintranet_notifications\Entity\Notification;
 use Drupal\openintranet_notifications\Entity\NotificationType;
 use Drupal\user\Entity\User;
 use Symfony\Component\Yaml\Yaml;
@@ -165,6 +167,7 @@ final class ConsultationReviewMigrationTest extends KernelTestBase {
     self::assertCount(1, $notifications, 'One consultation_review_assigned notification was created for the review author.');
 
     $notification = reset($notifications);
+    assert($notification instanceof Notification);
     self::assertSame('consultation_review_assigned', $notification->get('type')->value);
     self::assertSame(42, (int) $notification->get('uid')->target_id, 'The notification targets the review author (the reviewer).');
 
@@ -194,11 +197,11 @@ final class ConsultationReviewMigrationTest extends KernelTestBase {
     $root = $this->container->getParameter('app.root');
     $path = dirname($root) . '/recipes/consultation_process/config/eca.eca.process_r9ldkzi.yml';
     $values = Yaml::parseFile($path);
-    $this->container->get('entity_type.manager')
+    $eca = $this->container->get('entity_type.manager')
       ->getStorage('eca')
-      ->create($values)
-      ->trustData()
-      ->save();
+      ->create($values);
+    assert($eca instanceof ConfigEntityInterface);
+    $eca->trustData()->save();
   }
 
 }
