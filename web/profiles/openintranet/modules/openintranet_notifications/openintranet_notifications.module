@@ -6,3 +6,16 @@
  */
 
 declare(strict_types=1);
+
+/**
+ * Implements hook_mail().
+ *
+ * Populates the email_core channel's 'notification' message from the params it
+ * passes to MailManagerInterface::mail(); without this the mail body is empty.
+ */
+function openintranet_notifications_mail(string $key, array &$message, array $params): void {
+  if ($key === 'notification') {
+    $message['subject'] = $params['subject'];
+    $message['body'][] = $params['body'];
+  }
+}
