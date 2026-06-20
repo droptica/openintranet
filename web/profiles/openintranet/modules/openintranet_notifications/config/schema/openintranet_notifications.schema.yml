@@ -252,3 +252,20 @@ openintranet_notifications.settings:
       sequence:
         type: boolean
         label: 'Channel killed'
+
+openintranet_notifications.channel.webhook:
+  type: config_object
+  label: 'Webhook channel settings'
+  mapping:
+    url:
+      type: string
+      label: 'Endpoint URL'
+    key_id:
+      type: string
+      label: 'HMAC key id (Key module)'
+    timeout:
+      type: integer
+      label: 'Request timeout (seconds)'
+    signature_header:
+      type: string
+      label: 'Signature header name'

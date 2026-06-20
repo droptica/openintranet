@@ -1,0 +1,4 @@
+url: ''
+key_id: ''
+timeout: 10
+signature_header: 'X-Signature'

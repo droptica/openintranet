@@ -1,0 +1,5 @@
+openintranet_notifications.channel_status:
+  title: 'Notification channels'
+  description: 'Read-only status of the discovered notification channels.'
+  route_name: openintranet_notifications.channel_status
+  parent: system.admin_config_services

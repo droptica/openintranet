@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\openintranet_notifications\Kernel\Functional;
 
+use Drupal\Core\Config\Entity\ConfigEntityInterface;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\node\Entity\Node;
 use Drupal\node\Entity\NodeType;
+use Drupal\openintranet_notifications\Entity\Notification;
 use Drupal\openintranet_notifications\Entity\NotificationType;
 use Drupal\user\Entity\User;
 use Symfony\Component\Yaml\Yaml;
@@ -150,12 +152,13 @@ final class ArticleNotifyMigrationTest extends KernelTestBase {
 
     // One notification per active user the view returns (admin uid 1 + 41-43).
     $uids = array_map(
-      static fn ($n) => (int) $n->get('uid')->target_id,
+      static fn (Notification $n) => (int) $n->get('uid')->target_id,
       $notifications,
     );
     sort($uids);
     self::assertSame([1, 41, 42, 43], $uids, 'A new_article notification was created for every active user the view returned.');
     foreach ($notifications as $notification) {
+      assert($notification instanceof Notification);
       self::assertSame('new_article', $notification->get('type')->value);
       // The article node must reach the renderer token data: the subject/body
       // render with the real article title (not an empty token clear). This is
@@ -202,11 +205,11 @@ final class ArticleNotifyMigrationTest extends KernelTestBase {
     $root = $this->container->getParameter('app.root');
     $path = dirname($root) . '/recipes/openintranet/config/eca.eca.process_j7zbyne.yml';
     $values = Yaml::parseFile($path);
-    $this->container->get('entity_type.manager')
+    $eca = $this->container->get('entity_type.manager')
       ->getStorage('eca')
-      ->create($values)
-      ->trustData()
-      ->save();
+      ->create($values);
+    assert($eca instanceof ConfigEntityInterface);
+    $eca->trustData()->save();
   }
 
 }

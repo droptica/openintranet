@@ -1,0 +1,8 @@
+name: 'Open Intranet Notifications: SMSAPI'
+type: module
+description: 'Adds an SMS notification channel backed by the SMSAPI integration.'
+package: 'Open Intranet'
+core_version_requirement: ^11
+dependencies:
+  - openintranet_notifications
+  - smsapi:smsapi
