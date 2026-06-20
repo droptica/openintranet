@@ -31,6 +31,11 @@ final class SmsApiServiceDouble implements SmsapiServiceInterface {
   public bool $shouldSucceed = TRUE;
 
   /**
+   * Whether sendSms() throws instead of returning, modelling a thrown error.
+   */
+  public bool $shouldThrow = FALSE;
+
+  /**
    * Captures the arguments of the last sendSms() call.
    *
    * @var array<string, string>
@@ -53,6 +58,9 @@ final class SmsApiServiceDouble implements SmsapiServiceInterface {
       'message' => $message,
       'sender' => $sender,
     ];
+    if ($this->shouldThrow) {
+      throw new \RuntimeException('boom');
+    }
     if (!$this->shouldSucceed) {
       return NULL;
     }
