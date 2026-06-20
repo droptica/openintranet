@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\openintranet_notifications\Kernel\Channel;
 
+use Drupal\Core\Mail\MailManagerInterface;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\openintranet_notifications\Channel\NotificationChannelInterface;
 use Drupal\openintranet_notifications\Dto\NotificationMessage;
@@ -100,6 +101,54 @@ final class EmailCoreChannelTest extends KernelTestBase {
     self::assertFalse($result->success);
     self::assertFalse($result->retryable);
     self::assertSame('NO_ADDRESS', $result->errorCode);
+  }
+
+  /**
+   * A core-mail ['result' => FALSE] classifies as a retryable MAIL_FAILED.
+   */
+  public function testMailFailureIsRetryableFailure(): void {
+    $mailManager = $this->createMock(MailManagerInterface::class);
+    $mailManager->method('mail')->willReturn(['result' => FALSE]);
+    $this->container->set('plugin.manager.mail', $mailManager);
+
+    $result = $this->channel()->send($this->addressableRecipient(), new NotificationMessage(subject: 'Subj', body: 'Body'));
+
+    self::assertFalse($result->success);
+    self::assertTrue($result->retryable);
+    self::assertSame('MAIL_FAILED', $result->errorCode);
+  }
+
+  /**
+   * A throwing mail manager is caught as a retryable MAIL_EXCEPTION.
+   */
+  public function testMailExceptionIsRetryableFailure(): void {
+    $mailManager = $this->createMock(MailManagerInterface::class);
+    $mailManager->method('mail')->willThrowException(new \RuntimeException('boom'));
+    $this->container->set('plugin.manager.mail', $mailManager);
+
+    $result = $this->channel()->send($this->addressableRecipient(), new NotificationMessage(subject: 'Subj', body: 'Body'));
+
+    self::assertFalse($result->success);
+    self::assertTrue($result->retryable);
+    self::assertSame('MAIL_EXCEPTION', $result->errorCode);
+  }
+
+  /**
+   * A user recipient the channel can address by mail.
+   */
+  private function addressableRecipient(): NotificationRecipient {
+    $user = User::create([
+      'name' => 'retry',
+      'mail' => 'retry@example.com',
+      'status' => 1,
+    ]);
+    $user->save();
+    return new NotificationRecipient(
+      type: 'user',
+      id: (int) $user->id(),
+      langcode: 'en',
+      account: $user,
+    );
   }
 
 }
