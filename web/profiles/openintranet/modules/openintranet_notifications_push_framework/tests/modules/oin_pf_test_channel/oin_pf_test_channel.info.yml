@@ -1,0 +1,7 @@
+name: 'Open Intranet Notifications Push Framework test channel'
+type: module
+description: 'Test-only Push Framework channel plugin the push adapter can delegate to.'
+package: Testing
+core_version_requirement: ^11
+dependencies:
+  - push_framework:push_framework
