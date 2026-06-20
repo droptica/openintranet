@@ -82,16 +82,7 @@ final class EasyEmailChannel extends NotificationChannelBase {
    * {@inheritdoc}
    */
   public function getRecipientAddress(NotificationRecipient $recipient): ?string {
-    if ($recipient->isUser() && $recipient->account !== NULL) {
-      $mail = $recipient->account->getEmail();
-      if ($mail !== NULL && $mail !== '') {
-        return $mail;
-      }
-    }
-    if ($recipient->type === 'email' && $recipient->value !== NULL && $recipient->value !== '') {
-      return $recipient->value;
-    }
-    return NULL;
+    return $this->resolveUserOrEmailAddress($recipient);
   }
 
   /**

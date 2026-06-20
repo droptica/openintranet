@@ -46,4 +46,29 @@ abstract class NotificationChannelBase extends PluginBase implements Notificatio
     return $this->getRecipientAddress($recipient) !== NULL;
   }
 
+  /**
+   * Resolves an email address for a user or email-type recipient.
+   *
+   * Shared by the email channels: a user is addressed by its account mail and
+   * an email-type recipient by its raw value; everything else is unaddressable.
+   *
+   * @param \Drupal\openintranet_notifications\Dto\NotificationRecipient $recipient
+   *   The recipient to address.
+   *
+   * @return string|null
+   *   The email address, or NULL when the recipient has none.
+   */
+  protected function resolveUserOrEmailAddress(NotificationRecipient $recipient): ?string {
+    if ($recipient->isUser() && $recipient->account !== NULL) {
+      $mail = $recipient->account->getEmail();
+      if ($mail !== NULL && $mail !== '') {
+        return $mail;
+      }
+    }
+    if ($recipient->type === 'email' && $recipient->value !== NULL && $recipient->value !== '') {
+      return $recipient->value;
+    }
+    return NULL;
+  }
+
 }

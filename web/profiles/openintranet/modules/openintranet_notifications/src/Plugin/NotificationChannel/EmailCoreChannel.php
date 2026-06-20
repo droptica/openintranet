@@ -70,13 +70,7 @@ final class EmailCoreChannel extends NotificationChannelBase {
    * {@inheritdoc}
    */
   public function getRecipientAddress(NotificationRecipient $recipient): ?string {
-    if ($recipient->isUser() && $recipient->account !== NULL && $recipient->account->getEmail() !== NULL && $recipient->account->getEmail() !== '') {
-      return $recipient->account->getEmail();
-    }
-    if ($recipient->type === 'email' && $recipient->value !== NULL && $recipient->value !== '') {
-      return $recipient->value;
-    }
-    return NULL;
+    return $this->resolveUserOrEmailAddress($recipient);
   }
 
   /**
