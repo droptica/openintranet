@@ -229,7 +229,7 @@ final class EasyEmailChannelTest extends KernelTestBase {
   }
 
   /**
-   * A FALSE send result maps to a retryable EASY_EMAIL_FAILED failure.
+   * A genuine non-duplicate FALSE maps to a retryable EASY_EMAIL_FAILED.
    */
   public function testFalseSendResultIsRetryableFailure(): void {
     $this->useHandler('false');
@@ -239,6 +239,22 @@ final class EasyEmailChannelTest extends KernelTestBase {
     self::assertFalse($result->success);
     self::assertTrue($result->retryable);
     self::assertSame('EASY_EMAIL_FAILED', $result->errorCode);
+  }
+
+  /**
+   * A suppressed duplicate (FALSE) maps to success, not a retryable failure.
+   *
+   * Easy Email's sendEmail() short-circuits to FALSE when a message with the
+   * same unique key was already sent; the message is effectively delivered, so
+   * the channel must not ask the queue worker to retry it.
+   */
+  public function testSuppressedDuplicateIsSuccess(): void {
+    $this->useHandler('duplicate');
+
+    $result = $this->channel()->send($this->recipient(), $this->message());
+
+    self::assertTrue($result->success);
+    self::assertFalse($result->retryable);
   }
 
   /**

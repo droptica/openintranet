@@ -41,7 +41,9 @@ final class TestEmailHandler implements EmailHandlerInterface {
    * @param \Drupal\easy_email\Service\EmailHandlerInterface $inner
    *   The real handler, used to mint genuine easy_email entities.
    * @param string $mode
-   *   How sendEmail() behaves: 'sent', 'unsent', 'false' or 'throw'.
+   *   How sendEmail() behaves: 'sent', 'unsent', 'false', 'duplicate' or
+   *   'throw'. In 'duplicate' mode sendEmail() short-circuits to FALSE and
+   *   duplicateExists() reports TRUE, modelling a suppressed duplicate.
    */
   public function __construct(
     private readonly EmailHandlerInterface $inner,
@@ -61,7 +63,8 @@ final class TestEmailHandler implements EmailHandlerInterface {
    * {@inheritdoc}
    */
   public function duplicateExists(EasyEmailInterface $email) {
-    return FALSE;
+    // Mirrors EmailHandler: a suppressed duplicate is reported as existing.
+    return $this->mode === 'duplicate';
   }
 
   /**
@@ -74,8 +77,9 @@ final class TestEmailHandler implements EmailHandlerInterface {
       'sent' => [(clone $email)->setSentTime(1)],
       // A returned-but-unsent entity models a backend failure.
       'unsent' => [$email],
-      // The handler short-circuits (duplicate/already-sent) and returns FALSE.
-      'false' => FALSE,
+      // The handler short-circuits and returns FALSE: a genuine failure with no
+      // duplicate ('false'), or a suppressed duplicate ('duplicate').
+      'false', 'duplicate' => FALSE,
       'throw' => throw new \RuntimeException('boom'),
       default => [$email],
     };

@@ -118,6 +118,15 @@ final class EasyEmailChannel extends NotificationChannelBase {
           return DeliveryResult::success();
         }
       }
+      return DeliveryResult::retryableFailure('EASY_EMAIL_FAILED', 'Easy Email reported the message was not sent.');
+    }
+
+    // A non-array (FALSE) is a short-circuit: an already-sent message or a
+    // suppressed duplicate (same unique key already delivered) is effectively
+    // delivered — classify it as success so the worker does not retry it. Only
+    // a genuine non-duplicate FALSE is a retryable failure.
+    if ($email->isSent() || $this->emailHandler->duplicateExists($email)) {
+      return DeliveryResult::success();
     }
     return DeliveryResult::retryableFailure('EASY_EMAIL_FAILED', 'Easy Email reported the message was not sent.');
   }
