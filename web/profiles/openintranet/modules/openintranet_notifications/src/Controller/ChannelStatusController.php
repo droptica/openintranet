@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Drupal\openintranet_notifications\Controller;
 
-use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\openintranet_notifications\Channel\ChannelPluginManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -20,10 +19,7 @@ final class ChannelStatusController extends ControllerBase {
 
   public function __construct(
     private readonly ChannelPluginManager $channelManager,
-    ConfigFactoryInterface $configFactory,
-  ) {
-    $this->configFactory = $configFactory;
-  }
+  ) {}
 
   /**
    * {@inheritdoc}
@@ -31,7 +27,6 @@ final class ChannelStatusController extends ControllerBase {
   public static function create(ContainerInterface $container): self {
     return new self(
       $container->get('plugin.manager.notification_channel'),
-      $container->get('config.factory'),
     );
   }
 
@@ -42,7 +37,7 @@ final class ChannelStatusController extends ControllerBase {
    *   A render array.
    */
   public function overview(): array {
-    $settings = $this->configFactory->get('openintranet_notifications.settings');
+    $settings = $this->config('openintranet_notifications.settings');
     $enabled = (array) $settings->get('enabled_channels');
     $killSwitch = (array) $settings->get('kill_switch');
 
