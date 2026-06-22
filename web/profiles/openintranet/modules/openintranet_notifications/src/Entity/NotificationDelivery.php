@@ -7,10 +7,13 @@ namespace Drupal\openintranet_notifications\Entity;
 use Drupal\Core\Entity\Attribute\ContentEntityType;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Entity\Routing\AdminHtmlRouteProvider;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\openintranet_notifications\Dto\DeliveryResult;
 use Drupal\openintranet_notifications\Entity\Handler\NotificationDeliveryAccessControlHandler;
+use Drupal\openintranet_notifications\Entity\Handler\NotificationDeliveryListBuilder;
+use Drupal\views\EntityViewsData;
 
 /**
  * Defines the notification_delivery content entity.
@@ -33,12 +36,20 @@ use Drupal\openintranet_notifications\Entity\Handler\NotificationDeliveryAccessC
   ],
   handlers: [
     'access' => NotificationDeliveryAccessControlHandler::class,
+    'list_builder' => NotificationDeliveryListBuilder::class,
+    'route_provider' => [
+      'html' => AdminHtmlRouteProvider::class,
+    ],
+    'views_data' => EntityViewsData::class,
   ],
   base_table: 'openintranet_notif_delivery',
   admin_permission: 'view notification logs',
   entity_keys: [
     'id' => 'id',
     'uuid' => 'uuid',
+  ],
+  links: [
+    'collection' => '/admin/openintranet/notifications/deliveries',
   ],
 )]
 final class NotificationDelivery extends ContentEntityBase implements NotificationDeliveryInterface {

@@ -3,3 +3,39 @@ openintranet_notifications.channel_status:
   description: 'Read-only status of the discovered notification channels.'
   route_name: openintranet_notifications.channel_status
   parent: system.admin_config_services
+
+openintranet_notifications.notification_type.collection:
+  title: 'Notification types'
+  description: 'Manage notification routing profiles (channels, templates, delivery policy).'
+  route_name: entity.openintranet_notification_type.collection
+  parent: system.admin_config_services
+
+openintranet_notifications.notification.collection:
+  title: 'Notifications'
+  description: 'Browse notification records (inbox/audit log).'
+  route_name: entity.openintranet_notification.collection
+  parent: system.admin_config_services
+
+openintranet_notifications.notif_delivery.collection:
+  title: 'Notification deliveries'
+  description: 'Browse delivery attempts; filter by status.'
+  route_name: entity.openintranet_notif_delivery.collection
+  parent: system.admin_config_services
+
+openintranet_notifications.delivery_bulk:
+  title: 'Bulk delivery operations'
+  description: 'Retry failed or cancel pending notification deliveries in bulk.'
+  route_name: openintranet_notifications.delivery_bulk
+  parent: system.admin_config_services
+
+openintranet_notifications.test:
+  title: 'Test notification'
+  description: 'Preview (dry-run) or send a test notification of a chosen type.'
+  route_name: openintranet_notifications.test
+  parent: system.admin_config_services
+
+openintranet_notifications.settings:
+  title: 'Notification settings'
+  description: 'Global notification settings: enabled channels and types, retention, and per-channel kill switch.'
+  route_name: openintranet_notifications.settings
+  parent: system.admin_config_services

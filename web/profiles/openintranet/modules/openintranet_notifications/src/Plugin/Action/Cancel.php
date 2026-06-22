@@ -10,6 +10,8 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\eca\Attribute\EcaAction;
 use Drupal\eca\Plugin\Action\ConfigurableActionBase;
 use Drupal\openintranet_notifications\Entity\NotificationInterface;
+use Drupal\openintranet_notifications\Service\DeliveryQueue;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Cancels a notification and its still-pending deliveries.
@@ -36,6 +38,22 @@ final class Cancel extends ConfigurableActionBase {
   private const CANCELLABLE_STATUSES = ['pending', 'processing'];
 
   /**
+   * The delivery queue service (owns the shared per-delivery cancel logic).
+   *
+   * @var \Drupal\openintranet_notifications\Service\DeliveryQueue
+   */
+  protected DeliveryQueue $deliveryQueue;
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
+    $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
+    $instance->deliveryQueue = $container->get('openintranet_notifications.delivery_queue');
+    return $instance;
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function execute(?object $object = NULL): void {
@@ -53,8 +71,7 @@ final class Cancel extends ConfigurableActionBase {
     /** @var \Drupal\openintranet_notifications\Entity\NotificationDeliveryInterface $delivery */
     foreach ($deliveries as $delivery) {
       if (\in_array($delivery->get('status')->value, self::CANCELLABLE_STATUSES, TRUE)) {
-        $delivery->set('status', 'cancelled');
-        $delivery->save();
+        $this->deliveryQueue->cancel($delivery);
       }
     }
   }

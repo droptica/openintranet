@@ -68,3 +68,10 @@ services:
       - '@entity_type.manager'
       - '@plugin.manager.notification_recipient_resolver'
       - '@event_dispatcher'
+
+  openintranet_notifications.retention_purger:
+    class: Drupal\openintranet_notifications\Service\RetentionPurger
+    arguments:
+      - '@entity_type.manager'
+      - '@config.factory'
+      - '@datetime.time'
