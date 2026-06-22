@@ -75,6 +75,13 @@ final class Notification extends ContentEntityBase implements NotificationInterf
   /**
    * {@inheritdoc}
    */
+  public function isSeen(): bool {
+    return $this->get('seen_at')->value !== NULL;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type): array {
     $fields = parent::baseFieldDefinitions($entity_type);
 

@@ -89,6 +89,7 @@ final class NotificationBellBlock extends BlockBase implements ContainerFactoryP
       ->accessCheck(FALSE)
       ->condition('uid', $uid)
       ->sort('created', 'DESC')
+      ->sort('id', 'DESC')
       ->range(0, self::RECENT_LIMIT)
       ->execute();
 

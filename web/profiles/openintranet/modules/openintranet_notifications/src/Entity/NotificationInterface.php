@@ -30,4 +30,9 @@ interface NotificationInterface extends ContentEntityInterface {
    */
   public function isRead(): bool;
 
+  /**
+   * Whether the notification has been seen (seen_at is set).
+   */
+  public function isSeen(): bool;
+
 }

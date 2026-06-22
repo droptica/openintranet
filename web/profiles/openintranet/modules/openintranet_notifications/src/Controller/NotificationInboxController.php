@@ -150,7 +150,7 @@ final class NotificationInboxController extends ControllerBase {
    */
   private function markSeen(array $notifications): void {
     foreach ($notifications as $notification) {
-      if ($notification->get('seen_at')->value !== NULL) {
+      if ($notification->isSeen()) {
         continue;
       }
       $notification->setSeen();
