@@ -10,18 +10,21 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\eca\Attribute\EcaAction;
 use Drupal\eca\Plugin\Action\ConfigurableActionBase;
 use Drupal\openintranet_notifications\Channel\ChannelPluginManager;
-use Drupal\openintranet_notifications\Dto\NotificationMessage;
 use Drupal\openintranet_notifications\Dto\NotificationRecipient;
 use Drupal\openintranet_notifications\Entity\NotificationInterface;
 use Drupal\openintranet_notifications\Service\DeliveryQueue;
+use Drupal\openintranet_notifications\Service\DeliverySender;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Sends a notification synchronously on one channel, bypassing the queue.
  *
- * Test/small-use only: it creates a single delivery row, calls the channel
- * directly and records the outcome. It deliberately carries no retry logic
- * (that lives in the queue worker) — a failure is recorded once and left.
+ * Test/small-use only: it builds a single delivery row and hands it to the
+ * shared DeliverySender, which runs the SAME idempotency claim, terminal and
+ * channel-availability guards as the queue worker — so SendNow can never
+ * double-send or diverge from the async path. It only differs in WHEN it runs
+ * (synchronously, no queue) and that it does not translate a retryable failure
+ * into a backoff re-queue: a failure is recorded once and left.
  */
 #[Action(
   id: 'openintranet_notifications_send_now',
@@ -50,12 +53,20 @@ final class SendNow extends ConfigurableActionBase {
   protected DeliveryQueue $deliveryQueue;
 
   /**
+   * The shared per-delivery sender (claim, guards, send, classify, roll-up).
+   *
+   * @var \Drupal\openintranet_notifications\Service\DeliverySender
+   */
+  protected DeliverySender $deliverySender;
+
+  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
     $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
     $instance->channelManager = $container->get('plugin.manager.notification_channel');
     $instance->deliveryQueue = $container->get('openintranet_notifications.delivery_queue');
+    $instance->deliverySender = $container->get('openintranet_notifications.delivery_sender');
     return $instance;
   }
 
@@ -73,28 +84,15 @@ final class SendNow extends ConfigurableActionBase {
     }
 
     $recipient = $this->buildRecipient($notification);
-    $channel = $this->channelManager->createInstance($channelId);
 
     // Reuse the service's single delivery-row builder (shared idempotency-key
-    // formula); SendNow persists and sends it synchronously instead of queuing.
+    // formula), persist it, then hand it to the shared sender so the same
+    // claim, terminal and channel-availability guards run as in the worker — no
+    // double-send, no divergent logic. SendNow does not re-queue a retryable
+    // failure; the sender records it once and the row is left as-is.
     $delivery = $this->deliveryQueue->createDeliveryRow($notification, $recipient, $channelId);
-
-    $message = new NotificationMessage(
-      subject: (string) $notification->get('subject')->value,
-      body: (string) $notification->get('body')->value,
-      summary: (string) $notification->get('summary')->value,
-      payload: $notification->get('payload')->first()?->getValue() ?? [],
-    );
-
-    $result = $channel->send($recipient, $message);
-    $delivery->set('attempt_count', 1);
-    if ($result->success) {
-      $delivery->markSent($result->providerMessageId);
-    }
-    else {
-      $delivery->markFailed($result);
-    }
     $delivery->save();
+    $this->deliverySender->send($delivery);
   }
 
   /**
