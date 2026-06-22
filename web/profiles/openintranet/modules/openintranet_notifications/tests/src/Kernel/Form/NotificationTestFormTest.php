@@ -120,6 +120,24 @@ final class NotificationTestFormTest extends KernelTestBase {
   }
 
   /**
+   * The channel override is wired preview-only via #states and its description.
+   *
+   * @covers ::buildForm
+   */
+  public function testChannelOverrideIsPreviewOnly(): void {
+    $form_object = NotificationTestForm::create($this->container);
+    $form_state = new FormState();
+    $form = $this->container->get('form_builder')
+      ->buildForm($form_object, $form_state);
+
+    self::assertSame(
+      [':input[name="dry_run"]' => ['checked' => TRUE]],
+      $form['channel']['#states']['enabled'],
+    );
+    self::assertStringContainsString('preview', (string) $form['channel']['#description']);
+  }
+
+  /**
    * Dry-run renders a preview and persists nothing.
    *
    * @covers ::submitForm

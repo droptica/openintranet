@@ -71,8 +71,13 @@ final class NotificationTestForm extends FormBase {
     $form['channel'] = [
       '#type' => 'select',
       '#title' => $this->t('Channel override'),
-      '#description' => $this->t('Optional: preview a single channel instead of the resolved set.'),
+      '#description' => $this->t('Optional: preview a single channel instead of the resolved set. Applies to the dry-run preview only; a live send always uses the resolved channels.'),
       '#options' => ['' => $this->t('- None -')] + $this->channelOptions(),
+      // The override only affects the dry-run preview, so disable it for a live
+      // send to stop it reading as a control over real dispatch (§review #3).
+      '#states' => [
+        'enabled' => [':input[name="dry_run"]' => ['checked' => TRUE]],
+      ],
     ];
     $form['dry_run'] = [
       '#type' => 'checkbox',
