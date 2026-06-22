@@ -165,14 +165,27 @@ final class DigestBuilderTest extends KernelTestBase {
   public function testLimitCapsCandidates(): void {
     // Three pending items across two users; a limit of 1 candidate row picks
     // only the oldest (created ASC), so exactly one user is digested.
-    $this->createNotification('digest', 1);
-    $this->createNotification('digest', 1);
-    $this->createNotification('digest', 2);
+    $a1 = $this->createNotification('digest', 1);
+    $a2 = $this->createNotification('digest', 1);
+    $b1 = $this->createNotification('digest', 2);
 
     $count = $this->builder->buildAndDispatch(1);
 
     self::assertSame(1, $count);
     self::assertSame([1], $this->firedUids);
+
+    // Only the oldest user-1 item was digested; the second user-1 item and the
+    // user-2 item survive uncapped for the next run.
+    $this->notificationStorage->resetCache();
+    $first = $this->notificationStorage->load($a1);
+    \assert($first instanceof NotificationInterface);
+    self::assertTrue($first->isDigested());
+
+    foreach ([$a2, $b1] as $id) {
+      $survivor = $this->notificationStorage->load($id);
+      \assert($survivor instanceof NotificationInterface);
+      self::assertFalse($survivor->isDigested());
+    }
   }
 
   /**

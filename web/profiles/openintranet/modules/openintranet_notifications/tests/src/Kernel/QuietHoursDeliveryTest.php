@@ -99,6 +99,27 @@ final class QuietHoursDeliveryTest extends KernelTestBase {
   }
 
   /**
+   * Stores a quiet-hours window for the recipient that does NOT cover "now".
+   *
+   * Builds a same-day window two hours ahead of now (start +2h, end +4h), so
+   * the current request time falls before the window: the populated-window
+   * isWithin()===FALSE branch is exercised.
+   */
+  private function setQuietHoursNotCoveringNow(): void {
+    $now = \Drupal::time()->getRequestTime();
+    $tz = new \DateTimeZone('UTC');
+    $start = (new \DateTime('@' . ($now + 2 * 3600)))->setTimezone($tz)->format('H:i');
+    $end = (new \DateTime('@' . ($now + 4 * 3600)))->setTimezone($tz)->format('H:i');
+
+    UserNotificationSettings::create([
+      'uid' => self::UID,
+      'quiet_hours_start' => $start,
+      'quiet_hours_end' => $end,
+      'quiet_hours_tz' => 'UTC',
+    ])->save();
+  }
+
+  /**
    * Creates a delivery row (with its parent notification) for a channel.
    *
    * @param string $channel
@@ -212,6 +233,65 @@ final class QuietHoursDeliveryTest extends KernelTestBase {
     // No UserNotificationSettings entity for the recipient.
     $delivery = $this->createDelivery('counting');
 
+    $this->worker->processItem(['delivery_id' => $delivery->id()]);
+
+    self::assertSame(1, $this->countingSends());
+    self::assertSame('sent', $this->reload($delivery)->get('status')->value);
+  }
+
+  /**
+   * A transport delivery sends when the configured window does not cover now.
+   *
+   * Exercises the populated-window isWithin()===FALSE branch: a window exists
+   * for the recipient but the current request time is outside it.
+   */
+  public function testTransportSendsOutsideQuietHours(): void {
+    $this->setQuietHoursNotCoveringNow();
+    $delivery = $this->createDelivery('counting');
+
+    // No DelayedRequeueException: the window does not cover now, so it sends.
+    $this->worker->processItem(['delivery_id' => $delivery->id()]);
+
+    self::assertSame(1, $this->countingSends());
+    self::assertSame('sent', $this->reload($delivery)->get('status')->value);
+  }
+
+  /**
+   * A non-user (email) recipient is never deferred for quiet hours.
+   *
+   * Even with a window covering now stored for self::UID, an email-recipient
+   * delivery (no uid) bypasses the quiet-hours defer: the worker guards on
+   * recipient_type === 'user'.
+   */
+  public function testNonUserRecipientNotDeferred(): void {
+    $this->setQuietHoursCoveringNow();
+
+    $notification = $this->container->get('entity_type.manager')
+      ->getStorage('openintranet_notification')
+      ->create([
+        'type' => 'default',
+        'uid' => self::UID,
+        'subject' => 'Hi',
+        'body' => 'Body',
+        'status' => 'queued',
+      ]);
+    $notification->save();
+
+    $delivery = $this->container->get('entity_type.manager')
+      ->getStorage('openintranet_notif_delivery')
+      ->create([
+        'notification_id' => $notification->id(),
+        'recipient_type' => 'email',
+        'contact_value' => 'someone@example.com',
+        'channel' => 'counting',
+        'address' => 'someone@example.com',
+        'status' => 'pending',
+        'idempotency_key' => 'k-email-' . $notification->id(),
+      ]);
+    $delivery->save();
+    \assert($delivery instanceof NotificationDeliveryInterface);
+
+    // No DelayedRequeueException: the user-only guard does not match.
     $this->worker->processItem(['delivery_id' => $delivery->id()]);
 
     self::assertSame(1, $this->countingSends());
