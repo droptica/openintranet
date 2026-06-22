@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\Tests\openintranet_notifications\Kernel\Entity;
 
 use Drupal\KernelTests\KernelTestBase;
+use Drupal\openintranet_notifications\Entity\Handler\NotificationTypeListBuilder;
 use Drupal\openintranet_notifications\Entity\NotificationType;
 
 /**
@@ -62,6 +63,7 @@ final class NotificationTypeListBuilderTest extends KernelTestBase {
 
     $list_builder = $this->container->get('entity_type.manager')
       ->getListBuilder('openintranet_notification_type');
+    \assert($list_builder instanceof NotificationTypeListBuilder);
 
     $header = $list_builder->buildHeader();
     self::assertArrayHasKey('label', $header);
