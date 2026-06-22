@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Drupal\Tests\openintranet_notifications\Kernel\Entity;
 
 use Drupal\KernelTests\KernelTestBase;
+use Drupal\openintranet_notifications\Entity\Handler\NotificationListBuilder;
 use Drupal\openintranet_notifications\Entity\Notification;
+use Drupal\openintranet_notifications\Entity\NotificationInterface;
 use Symfony\Component\HttpFoundation\InputBag;
 
 /**
@@ -55,6 +57,7 @@ final class NotificationListBuilderTest extends KernelTestBase {
   public function testHeaderHasExpectedColumns(): void {
     $list_builder = $this->container->get('entity_type.manager')
       ->getListBuilder('openintranet_notification');
+    \assert($list_builder instanceof NotificationListBuilder);
     $header = $list_builder->buildHeader();
     foreach (['id', 'type', 'uid', 'subject', 'priority', 'status', 'created', 'read'] as $key) {
       self::assertArrayHasKey($key, $header);
@@ -88,6 +91,7 @@ final class NotificationListBuilderTest extends KernelTestBase {
 
     $list_builder = $this->container->get('entity_type.manager')
       ->getListBuilder('openintranet_notification');
+    \assert($list_builder instanceof NotificationListBuilder);
 
     $unread_row = $list_builder->buildRow($unread);
     self::assertSame($unread->id(), $unread_row['id']);
@@ -128,6 +132,7 @@ final class NotificationListBuilderTest extends KernelTestBase {
     $notification = $this->container->get('entity_type.manager')
       ->getStorage('openintranet_notification')
       ->load(reset($ids));
+    \assert($notification instanceof NotificationInterface);
     self::assertSame('failed', $notification->get('status')->value);
   }
 

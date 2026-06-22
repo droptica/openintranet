@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Drupal\Tests\openintranet_notifications\Kernel\Entity;
 
 use Drupal\KernelTests\KernelTestBase;
+use Drupal\openintranet_notifications\Entity\Handler\NotificationDeliveryListBuilder;
 use Drupal\openintranet_notifications\Entity\NotificationDelivery;
+use Drupal\openintranet_notifications\Entity\NotificationDeliveryInterface;
 use Symfony\Component\HttpFoundation\InputBag;
 
 /**
@@ -76,6 +78,7 @@ final class NotificationDeliveryListBuilderTest extends KernelTestBase {
     $storage = $this->container->get('entity_type.manager')
       ->getStorage('openintranet_notif_delivery');
     $delivery = $storage->load(reset($ids));
+    \assert($delivery instanceof NotificationDeliveryInterface);
     self::assertSame('failed', $delivery->get('status')->value);
   }
 
@@ -99,6 +102,7 @@ final class NotificationDeliveryListBuilderTest extends KernelTestBase {
     $this->setRequestQuery([]);
     $list_builder = $this->container->get('entity_type.manager')
       ->getListBuilder('openintranet_notif_delivery');
+    \assert($list_builder instanceof NotificationDeliveryListBuilder);
 
     $delivery = NotificationDelivery::create([
       'notification_id' => 1,

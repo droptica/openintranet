@@ -6,6 +6,7 @@ namespace Drupal\Tests\openintranet_notifications\Kernel\Service;
 
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\KernelTests\KernelTestBase;
+use Drupal\openintranet_notifications\Entity\NotificationInterface;
 use Drupal\openintranet_notifications\Entity\NotificationType;
 use Drupal\openintranet_notifications\Event\NotificationDigestReadyEvent;
 use Drupal\openintranet_notifications\Event\NotificationEvents;
@@ -132,10 +133,12 @@ final class DigestBuilderTest extends KernelTestBase {
     // The three digest_only notifications are now digested.
     foreach ([$a1, $a2, $b1] as $id) {
       $notification = $this->notificationStorage->load($id);
+      \assert($notification instanceof NotificationInterface);
       self::assertTrue($notification->isDigested());
     }
     // The immediate one is untouched and never fired.
     $notification = $this->notificationStorage->load($immediate);
+    \assert($notification instanceof NotificationInterface);
     self::assertFalse($notification->isDigested());
   }
 
