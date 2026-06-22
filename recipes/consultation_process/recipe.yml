@@ -15,6 +15,8 @@ install:
   - eca_ui
   - eca_user
   - eca_views
+  - modeler_api
+  - openintranet_notifications
   - page_manager
   - page_manager_ui
 config:
@@ -26,6 +28,8 @@ config:
       - eca.eca.process_bgzye92
       - eca.eca.process_yvck4bf
       - eca.eca.process_r9ldkzi
+    openintranet_notifications:
+      - openintranet_notifications.openintranet_notification_type.consultation_review_assigned
     views:
       - views.view.consultations
       - views.view.my_reviews
