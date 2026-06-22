@@ -38,6 +38,17 @@ config:
     user:
       - user.role.content_editor_consultation
       - user.role.content_editor_consultation_review
+  actions:
+    # Ship the default per-user channel preferences for this recipe's
+    # notification type, merged into the module's settings. Without a row a
+    # default user has no preferred channel and the user_preferences policy
+    # selects nothing, so the type would deliver nothing out of the box. A
+    # dotted key sets only this nested row and leaves the other rows intact.
+    openintranet_notifications.settings:
+      simpleConfigUpdate:
+        default_user_preferences.consultation_review_assigned:
+          inbox: true
+          email_core: true
 content:
   menu_link_content:
     - a1b2c3d4-e5f6-7890-abcd-ef1234567890

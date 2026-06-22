@@ -79,10 +79,14 @@ final class NotificationSettingsFormTest extends KernelTestBase {
     self::assertTrue($kill_switch['log_only']);
     self::assertFalse($kill_switch['inbox']);
 
-    // Unmanaged keys must survive the write untouched.
+    // Unmanaged keys must survive the write untouched: the shipped
+    // default_user_preferences map (a row per type) is not a form-managed key.
     self::assertSame('openintranet_notification_delivery', $config->get('queue.id'));
     self::assertSame(
-      ['default' => ['inbox' => TRUE, 'log_only' => FALSE]],
+      [
+        'default' => ['inbox' => TRUE, 'email_core' => TRUE, 'log_only' => FALSE],
+        'new_comment' => ['inbox' => TRUE, 'email_core' => TRUE],
+      ],
       $config->get('default_user_preferences'),
     );
   }
@@ -98,7 +102,7 @@ final class NotificationSettingsFormTest extends KernelTestBase {
     $form = $this->container->get('form_builder')->buildForm($form_object, $form_state);
 
     self::assertSame(
-      ['inbox', 'log_only'],
+      ['inbox', 'email_core', 'log_only'],
       array_values($form['enabled_channels']['#default_value']),
     );
     self::assertSame(['default'], array_values($form['enabled_types']['#default_value']));

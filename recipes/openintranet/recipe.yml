@@ -346,6 +346,18 @@ config:
       - core.entity_view_mode.user.user_profile
 
   actions:
+    # Ship the default per-user channel preferences for the recipe's notification
+    # types, merged into the settings the module installs (it already ships rows
+    # for "default" and "new_comment"). Without a row a default user has no
+    # preferred channel and the user_preferences policy selects nothing, so the
+    # type would deliver nothing out of the box. A dotted key sets only this
+    # nested row and leaves the module's rows intact.
+    openintranet_notifications.settings:
+      simpleConfigUpdate:
+        default_user_preferences.new_article:
+          inbox: true
+          email_core: true
+
     system.site:
       simpleConfigUpdate:
         page:

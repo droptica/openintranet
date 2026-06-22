@@ -50,10 +50,17 @@ final class SettingsDefaultsTest extends KernelTestBase {
   public function testSettingsDefaults(): void {
     $settings = $this->config('openintranet_notifications.settings');
 
-    self::assertSame(['inbox', 'log_only'], $settings->get('enabled_channels'));
+    // email_core is shipped enabled: it is the core mail channel the real types
+    // advertise, so an out-of-box install must be able to deliver on it.
+    self::assertSame(['inbox', 'email_core', 'log_only'], $settings->get('enabled_channels'));
     self::assertSame(['default'], $settings->get('enabled_types'));
+    // Every type the module ships has a default-preferences row, so a default
+    // user with no saved preference still receives on inbox + email_core.
     self::assertSame(
-      ['default' => ['inbox' => TRUE, 'log_only' => FALSE]],
+      [
+        'default' => ['inbox' => TRUE, 'email_core' => TRUE, 'log_only' => FALSE],
+        'new_comment' => ['inbox' => TRUE, 'email_core' => TRUE],
+      ],
       $settings->get('default_user_preferences'),
     );
     self::assertSame('openintranet_notification_delivery', $settings->get('queue.id'));
