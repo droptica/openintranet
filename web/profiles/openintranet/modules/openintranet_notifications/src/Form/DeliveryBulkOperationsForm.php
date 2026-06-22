@@ -21,6 +21,19 @@ use Symfony\Component\HttpFoundation\RequestStack;
 final class DeliveryBulkOperationsForm extends FormBase {
 
   /**
+   * The delivery statuses offered by the GET filter (mirrors the base field).
+   */
+  private const STATUSES = [
+    'pending' => 'Pending',
+    'processing' => 'Processing',
+    'sent' => 'Sent',
+    'delivered' => 'Delivered',
+    'failed' => 'Failed',
+    'skipped' => 'Skipped',
+    'cancelled' => 'Cancelled',
+  ];
+
+  /**
    * The delivery statuses the retry button acts on.
    */
   private const RETRYABLE_STATUSES = ['failed'];
@@ -65,10 +78,12 @@ final class DeliveryBulkOperationsForm extends FormBase {
       ->range(0, 200);
 
     $status = (string) $this->request->getCurrentRequest()?->query->get('status', '');
-    if ($status !== '') {
+    if ($status !== '' && isset(self::STATUSES[$status])) {
       $query->condition('status', $status);
     }
     $ids = $query->execute();
+
+    $form['status_filter'] = $this->buildStatusFilter($status);
 
     $options = [];
     /** @var \Drupal\openintranet_notifications\Entity\NotificationDeliveryInterface $delivery */
@@ -143,6 +158,44 @@ final class DeliveryBulkOperationsForm extends FormBase {
       }
     }
     $this->messenger()->addStatus($this->formatPlural($cancelled, 'Cancelled 1 delivery.', 'Cancelled @count deliveries.'));
+  }
+
+  /**
+   * Builds the GET status filter widget shown above the tableselect.
+   *
+   * A standalone method=get form (outside the POST bulk form) so picking a
+   * status reloads this page with ?status=, which the pre-filter branch reads.
+   *
+   * @param string $current
+   *   The current ?status= value (validated against self::STATUSES).
+   *
+   * @return array<string, mixed>
+   *   A render array for the filter form.
+   */
+  private function buildStatusFilter(string $current): array {
+    $options = ['' => $this->t('- Any status -')];
+    foreach (self::STATUSES as $value => $label) {
+      $options[$value] = $this->t('@label', ['@label' => $label]);
+    }
+
+    return [
+      '#type' => 'html_tag',
+      '#tag' => 'form',
+      '#attributes' => ['method' => 'get', 'class' => ['openintranet-notif-status-filter']],
+      'status' => [
+        '#type' => 'select',
+        '#name' => 'status',
+        '#title' => $this->t('Status'),
+        '#options' => $options,
+        '#value' => isset(self::STATUSES[$current]) ? $current : '',
+      ],
+      'submit' => [
+        '#type' => 'html_tag',
+        '#tag' => 'button',
+        '#value' => $this->t('Apply'),
+        '#attributes' => ['type' => 'submit'],
+      ],
+    ];
   }
 
   /**

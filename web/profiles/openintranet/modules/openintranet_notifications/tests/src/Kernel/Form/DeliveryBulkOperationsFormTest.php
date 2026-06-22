@@ -8,6 +8,7 @@ use Drupal\Core\Form\FormState;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\openintranet_notifications\Form\DeliveryBulkOperationsForm;
 use Drupal\user\Entity\User;
+use Symfony\Component\HttpFoundation\InputBag;
 
 /**
  * Tests the bulk retry/cancel deliveries form (Chunk 4C).
@@ -191,6 +192,50 @@ final class DeliveryBulkOperationsFormTest extends KernelTestBase {
     self::assertSame('pending', $this->statusOf((int) $selected->id()));
     self::assertSame('failed', $this->statusOf((int) $unselected->id()));
     self::assertSame(1, (int) \Drupal::queue('openintranet_notification_delivery')->numberOfItems());
+  }
+
+  /**
+   * A ?status= filter (now reachable via the form widget) pre-filters the rows.
+   *
+   * @covers ::buildForm
+   */
+  public function testStatusQueryPreFiltersTableselect(): void {
+    $failed = $this->createDelivery('failed');
+    $this->createDelivery('pending');
+    $this->createDelivery('sent');
+
+    $this->setRequestQuery(['status' => 'failed']);
+    $form = $this->build();
+
+    $options = $form['deliveries']['#options'];
+    self::assertCount(1, $options);
+    self::assertArrayHasKey((int) $failed->id(), $options);
+
+    // The form renders a GET status widget so ?status= is UI-reachable.
+    self::assertArrayHasKey('status_filter', $form);
+  }
+
+  /**
+   * Builds the bulk form and returns its render array.
+   *
+   * @return array<string, mixed>
+   *   The built form.
+   */
+  private function build(): array {
+    $form_object = DeliveryBulkOperationsForm::create($this->container);
+    $form_state = new FormState();
+    return $this->container->get('form_builder')->buildForm($form_object, $form_state);
+  }
+
+  /**
+   * Sets query parameters on the bootstrapped current request.
+   *
+   * @param array<string, string> $query
+   *   The query parameters.
+   */
+  private function setRequestQuery(array $query): void {
+    $request = $this->container->get('request_stack')->getCurrentRequest();
+    $request->query = new InputBag($query);
   }
 
 }
