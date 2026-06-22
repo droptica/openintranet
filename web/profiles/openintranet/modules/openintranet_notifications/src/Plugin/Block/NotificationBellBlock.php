@@ -109,6 +109,9 @@ final class NotificationBellBlock extends BlockBase implements ContainerFactoryP
       '#count' => $count,
       '#items' => $items,
       '#see_all_url' => Url::fromUserInput('/notifications'),
+      '#attached' => [
+        'library' => ['openintranet_notifications/notification_bell'],
+      ],
       '#cache' => [
         'contexts' => ['user'],
         'tags' => $this->entityTypeManager->getDefinition('openintranet_notification')->getListCacheTags(),

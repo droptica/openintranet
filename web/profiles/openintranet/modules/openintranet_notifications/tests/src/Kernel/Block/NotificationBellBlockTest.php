@@ -106,6 +106,7 @@ final class NotificationBellBlockTest extends KernelTestBase {
 
     self::assertSame(2, $build['#count']);
     self::assertSame('openintranet_notification_bell', $build['#theme']);
+    self::assertContains('openintranet_notifications/notification_bell', $build['#attached']['library'], 'The dropdown toggle library is attached.');
   }
 
   /**
