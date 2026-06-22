@@ -9,3 +9,15 @@ openintranet_notifications.notification_type.collection:
   description: 'Manage notification routing profiles (channels, templates, delivery policy).'
   route_name: entity.openintranet_notification_type.collection
   parent: system.admin_config_services
+
+openintranet_notifications.notification.collection:
+  title: 'Notifications'
+  description: 'Browse notification records (inbox/audit log).'
+  route_name: entity.openintranet_notification.collection
+  parent: system.admin_config_services
+
+openintranet_notifications.notif_delivery.collection:
+  title: 'Notification deliveries'
+  description: 'Browse delivery attempts; filter by status.'
+  route_name: entity.openintranet_notif_delivery.collection
+  parent: system.admin_config_services

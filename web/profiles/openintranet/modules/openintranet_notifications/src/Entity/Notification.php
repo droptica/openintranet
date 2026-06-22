@@ -7,9 +7,12 @@ namespace Drupal\openintranet_notifications\Entity;
 use Drupal\Core\Entity\Attribute\ContentEntityType;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Entity\Routing\AdminHtmlRouteProvider;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\openintranet_notifications\Entity\Handler\NotificationAccessControlHandler;
+use Drupal\openintranet_notifications\Entity\Handler\NotificationListBuilder;
+use Drupal\views\EntityViewsData;
 
 /**
  * Defines the openintranet_notification content entity.
@@ -28,6 +31,11 @@ use Drupal\openintranet_notifications\Entity\Handler\NotificationAccessControlHa
   ],
   handlers: [
     'access' => NotificationAccessControlHandler::class,
+    'list_builder' => NotificationListBuilder::class,
+    'route_provider' => [
+      'html' => AdminHtmlRouteProvider::class,
+    ],
+    'views_data' => EntityViewsData::class,
   ],
   base_table: 'openintranet_notification',
   admin_permission: 'view notification logs',
@@ -35,6 +43,9 @@ use Drupal\openintranet_notifications\Entity\Handler\NotificationAccessControlHa
     'id' => 'id',
     'label' => 'subject',
     'uuid' => 'uuid',
+  ],
+  links: [
+    'collection' => '/admin/openintranet/notifications',
   ],
 )]
 final class Notification extends ContentEntityBase implements NotificationInterface {
