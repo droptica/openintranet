@@ -100,6 +100,43 @@ final class NotificationInboxControllerTest extends KernelTestBase {
   }
 
   /**
+   * The inbox listing and its mark-seen side effect are bounded.
+   *
+   * Creating more than the per-request cap proves the query is ranged and that
+   * only the listed (most recent) notifications are marked seen.
+   *
+   * @covers ::inbox
+   */
+  public function testInboxListingIsBounded(): void {
+    $user = $this->makeUser('a');
+    $this->setCurrentUser($user);
+
+    // Create more than the controller's INBOX_LIMIT (50). The oldest one falls
+    // outside the listing window and must stay unseen.
+    $created = [];
+    for ($i = 0; $i < 55; $i++) {
+      $created[] = $this->makeNotification($user, 'N' . $i);
+    }
+    $oldest = $created[0];
+    self::assertNull($oldest->get('seen_at')->value, 'The oldest starts unseen.');
+
+    $build = $this->controller->inbox();
+    self::assertCount(50, $build['list']['#items'], 'The listing is capped at the limit.');
+
+    // The oldest is outside the listing window, so it is not marked seen —
+    // proving the mark-seen side effect is bounded to the listed set.
+    self::assertNull(
+      $this->reload($oldest)->get('seen_at')->value,
+      'A notification outside the listing window is not marked seen.',
+    );
+    // A recent one inside the window is marked seen.
+    self::assertNotNull(
+      $this->reload($created[54])->get('seen_at')->value,
+      'A notification inside the listing window is marked seen.',
+    );
+  }
+
+  /**
    * Visiting a single notification marks it read.
    *
    * @covers ::view

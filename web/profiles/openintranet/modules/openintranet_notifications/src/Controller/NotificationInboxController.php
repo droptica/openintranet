@@ -25,6 +25,11 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
  */
 final class NotificationInboxController extends ControllerBase {
 
+  /**
+   * Maximum number of notifications listed (and marked seen) per request.
+   */
+  private const INBOX_LIMIT = 50;
+
   public function __construct(
     private readonly AccountInterface $account,
     private readonly DateFormatterInterface $dateFormatter,
@@ -45,6 +50,9 @@ final class NotificationInboxController extends ControllerBase {
   /**
    * Lists the current user's notifications and marks the unseen ones seen.
    *
+   * The listing is bounded to the most recent INBOX_LIMIT notifications, and
+   * the mark-seen side effect is bounded to that same listed set.
+   *
    * @return array
    *   A render array.
    */
@@ -55,6 +63,7 @@ final class NotificationInboxController extends ControllerBase {
       ->condition('uid', (int) $this->account->id())
       ->sort('created', 'DESC')
       ->sort('id', 'DESC')
+      ->range(0, self::INBOX_LIMIT)
       ->execute();
     /** @var \Drupal\openintranet_notifications\Entity\NotificationInterface[] $notifications */
     $notifications = $storage->loadMultiple($ids);
