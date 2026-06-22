@@ -267,9 +267,11 @@ final class NotificationTypeForm extends EntityForm {
   /**
    * Parses the resolver textarea value into the stored structure.
    *
-   * Accepts either the raw YAML string from the textarea or an already-decoded
-   * array (the value is decoded once and then carried as an array across the
-   * validate/submit phases), so it is idempotent.
+   * The raw YAML string is re-parsed independently in each phase (validateForm
+   * decodes it to report errors; copyFormValuesToEntity decodes it again to
+   * store the normalized list) — the decoded value is never written back to the
+   * form state. This is safe because the method is idempotent: it accepts the
+   * raw YAML string or an already-decoded array and yields the same result.
    *
    * @param mixed $value
    *   The raw form value: a YAML string or an already-decoded array.
