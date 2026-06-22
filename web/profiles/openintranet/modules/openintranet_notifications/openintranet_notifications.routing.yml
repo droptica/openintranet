@@ -29,3 +29,15 @@ openintranet_notifications.settings:
     _title: 'Notification settings'
   requirements:
     _permission: 'administer notification channels'
+
+openintranet_notifications.user_preferences:
+  path: '/user/{user}/notifications'
+  defaults:
+    _form: '\Drupal\openintranet_notifications\Form\UserNotificationPreferencesForm'
+    _title: 'Notification preferences'
+  requirements:
+    _custom_access: '\Drupal\openintranet_notifications\Access\NotificationPreferencesAccess::access'
+  options:
+    parameters:
+      user:
+        type: 'entity:user'
