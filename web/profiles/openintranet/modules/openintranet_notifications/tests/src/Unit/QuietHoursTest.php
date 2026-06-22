@@ -119,6 +119,51 @@ final class QuietHoursTest extends TestCase {
   }
 
   /**
+   * Seconds-until-end is measured in real elapsed seconds across a DST change.
+   *
+   * A 22:00-07:00 Europe/Warsaw window, evaluated at 23:30 local on the evening
+   * leading into a clock change, must land on the true next 07:00 local — the
+   * wall-clock minutes-of-day math would always say 7h30m (27000s), but the
+   * real elapsed time is shorter on the spring-forward night (the clock skips
+   * an hour: 6h30m = 23400s) and longer on the fall-back night (the clock
+   * repeats an hour: 8h30m = 30600s).
+   *
+   * @covers ::secondsUntilEnd
+   */
+  public function testSecondsUntilEndAcrossDstChange(): void {
+    $window = ['start' => '22:00', 'end' => '07:00', 'tz' => 'Europe/Warsaw'];
+
+    // Spring forward (2026-03-29 02:00 -> 03:00): the night loses an hour, so
+    // 23:30 -> next 07:00 is 6h30m of real time, not 7h30m.
+    self::assertSame(
+      6 * 3600 + 30 * 60,
+      QuietHours::secondsUntilEnd($window, self::ts('2026-03-28 23:30', 'Europe/Warsaw')),
+    );
+
+    // Fall back (2026-10-25 03:00 -> 02:00): the night gains an hour, so
+    // 23:30 -> next 07:00 is 8h30m of real time.
+    self::assertSame(
+      8 * 3600 + 30 * 60,
+      QuietHours::secondsUntilEnd($window, self::ts('2026-10-24 23:30', 'Europe/Warsaw')),
+    );
+  }
+
+  /**
+   * Seconds-until-end lands on the HH:MM:00 boundary (no sub-minute drift).
+   *
+   * @covers ::secondsUntilEnd
+   */
+  public function testSecondsUntilEndLandsOnMinuteBoundary(): void {
+    $window = ['start' => '09:00', 'end' => '17:00', 'tz' => 'Europe/Warsaw'];
+    // From 12:30:37 to 17:00:00 is 4h 29m 23s; the elapsed 37s are not rounded
+    // away into the next minute.
+    self::assertSame(
+      4 * 3600 + 29 * 60 + 23,
+      QuietHours::secondsUntilEnd($window, self::ts('2026-06-22 12:30:37', 'Europe/Warsaw')),
+    );
+  }
+
+  /**
    * Seconds-until-end is 0 when not currently inside the quiet window.
    *
    * @covers ::secondsUntilEnd

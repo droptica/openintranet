@@ -44,6 +44,10 @@ final class QuietHours {
   /**
    * Seconds from $now until the next occurrence of the window's end.
    *
+   * Computed from real \DateTime timestamps in the window timezone, so the
+   * delay is correct in elapsed seconds across a DST change and always lands on
+   * the HH:MM:00 boundary (no wall-clock minute math, no sub-minute drift).
+   *
    * @param array{start?: ?string, end?: ?string, tz?: ?string} $quietHours
    *   The quiet-hours window.
    * @param int $now
@@ -62,18 +66,19 @@ final class QuietHours {
     \assert($bounds !== NULL);
     [$minutesNow, , $endMinutes] = $bounds;
 
-    // Minutes from now until end; wrap past midnight when end <= now.
-    $deltaMinutes = $endMinutes - $minutesNow;
-    if ($deltaMinutes <= 0) {
-      $deltaMinutes += 24 * 60;
-    }
-
-    // Subtract the seconds already elapsed in the current minute so the delay
-    // lands exactly on the HH:MM:00 boundary.
     $tz = self::timezone($quietHours);
-    $secondsIntoMinute = (int) (new \DateTime('@' . $now))->setTimezone($tz)->format('s');
+    $endH = \intdiv($endMinutes, 60);
+    $endM = $endMinutes % 60;
 
-    return $deltaMinutes * 60 - $secondsIntoMinute;
+    // The next wall-clock occurrence of the end HH:MM in the window timezone:
+    // today when the end time-of-day is still ahead of now, else tomorrow.
+    $endDt = (new \DateTime('@' . $now))->setTimezone($tz);
+    if ($endMinutes <= $minutesNow) {
+      $endDt->modify('+1 day');
+    }
+    $endDt->setTime($endH, $endM, 0);
+
+    return $endDt->getTimestamp() - $now;
   }
 
   /**
