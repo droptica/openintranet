@@ -153,10 +153,6 @@ final class Notification extends ContentEntityBase implements NotificationInterf
       ->setLabel(new TranslatableMarkup('Dedupe key'))
       ->setSetting('max_length', 255);
 
-    $fields['context_hash'] = BaseFieldDefinition::create('string')
-      ->setLabel(new TranslatableMarkup('Context hash'))
-      ->setSetting('max_length', 255);
-
     $fields['created'] = BaseFieldDefinition::create('created')
       ->setLabel(new TranslatableMarkup('Created'));
 

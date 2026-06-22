@@ -126,6 +126,12 @@ final class NotificationType extends ConfigEntityBase implements NotificationTyp
    * The per-channel template map (channel id => template name).
    *
    * @var array<string, string>
+   *
+   * @todo Reserved for future per-channel rendering. The factory currently
+   *   renders once per notification with an empty channel id (see
+   *   NotificationFactory::renderInto()), so the renderers' per-channel lookup
+   *   (getTemplateMap()[$channelId]) never matches and falls back to the body
+   *   template. Wire per-channel rendering or drop this map + schema + form.
    */
   protected array $template_map = [];
 
