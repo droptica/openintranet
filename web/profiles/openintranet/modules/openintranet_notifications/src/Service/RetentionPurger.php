@@ -68,6 +68,11 @@ final class RetentionPurger {
   /**
    * Resolves the ids of notifications past their retention window.
    *
+   * A resolved window of 0 (or less) means "retain forever": such types are
+   * excluded from purging entirely. The candidate query is bounded by the most
+   * lenient positive window so a run never loads notifications too recent to be
+   * expirable under any type, and by $limit when set.
+   *
    * @param int|null $limit
    *   The maximum number of ids to return, or NULL for no cap.
    *
@@ -82,22 +87,47 @@ final class RetentionPurger {
     $defaultDays = (int) ($this->configFactory->get('openintranet_notifications.settings')
       ->get('retention.default_days') ?? 90);
 
+    // Resolve the positive retention window per type up front. Types whose
+    // window is <= 0 retain forever and are never purged; only positive windows
+    // are eligible.
+    $typeDays = [];
+    foreach ($this->entityTypeManager->getStorage('openintranet_notification_type')->loadMultiple() as $id => $type) {
+      \assert($type instanceof NotificationTypeInterface);
+      $days = $this->retentionDaysForType($type, $defaultDays);
+      if ($days > 0) {
+        $typeDays[(string) $id] = $days;
+      }
+    }
+    if ($typeDays === []) {
+      return [];
+    }
+
+    // The smallest positive window is the most lenient cutoff: a notification
+    // newer than it cannot be expired under any type, so it is never loaded.
+    $minWindowSeconds = min($typeDays) * 86400;
+
     $storage = $this->entityTypeManager->getStorage('openintranet_notification');
-    $candidateIds = $storage->getQuery()
+    $query = $storage->getQuery()
       ->accessCheck(FALSE)
       ->condition('status', self::TERMINAL_STATUSES, 'IN')
-      ->sort('created', 'ASC')
-      ->execute();
+      ->condition('created', $now - $minWindowSeconds, '<')
+      ->sort('created', 'ASC');
+    if ($limit !== NULL) {
+      $query->range(0, $limit);
+    }
+    $candidateIds = $query->execute();
     if ($candidateIds === []) {
       return [];
     }
 
-    $typeDays = [];
     $expired = [];
     foreach ($storage->loadMultiple($candidateIds) as $notification) {
       \assert($notification instanceof NotificationInterface);
       $type = (string) $notification->get('type')->value;
-      $typeDays[$type] ??= $this->retentionDaysForType($type, $defaultDays);
+      // Types with no positive window were excluded above; skip their records.
+      if (!isset($typeDays[$type])) {
+        continue;
+      }
       $created = (int) $notification->get('created')->value;
       if ($now - $created > $typeDays[$type] * 86400) {
         $expired[] = $notification->id();
@@ -112,16 +142,19 @@ final class RetentionPurger {
 
   /**
    * Resolves the retention window in days for a notification type.
+   *
+   * @param \Drupal\openintranet_notifications\Entity\NotificationTypeInterface $type
+   *   The notification type entity.
+   * @param int $defaultDays
+   *   The global default retention window in days.
+   *
+   * @return int
+   *   The type's own audit_retention_days when positive, otherwise the global
+   *   default. A value of 0 (or less) means "retain forever".
    */
-  private function retentionDaysForType(string $type, int $defaultDays): int {
-    $entity = $this->entityTypeManager->getStorage('openintranet_notification_type')->load($type);
-    if ($entity instanceof NotificationTypeInterface) {
-      $days = $entity->getAuditRetentionDays();
-      if ($days > 0) {
-        return $days;
-      }
-    }
-    return $defaultDays;
+  private function retentionDaysForType(NotificationTypeInterface $type, int $defaultDays): int {
+    $days = $type->getAuditRetentionDays();
+    return $days > 0 ? $days : $defaultDays;
   }
 
 }

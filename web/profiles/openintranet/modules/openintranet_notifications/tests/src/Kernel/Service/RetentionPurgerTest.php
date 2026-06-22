@@ -196,6 +196,68 @@ final class RetentionPurgerTest extends KernelTestBase {
   }
 
   /**
+   * A resolved retention window of 0 means retain forever: nothing is purged.
+   */
+  public function testZeroWindowRetainsForever(): void {
+    // Global default 0 AND a type whose own audit_retention_days is 0 → the
+    // type resolves to a 0 window and must be excluded from purging entirely.
+    $this->config('openintranet_notifications.settings')
+      ->set('retention.default_days', 0)
+      ->save();
+
+    $old = $this->createNotification('fallback', 1000, 'delivered');
+    $delivery = $this->createDelivery($old);
+
+    $deleted = $this->purger->purge();
+    self::assertSame(0, $deleted);
+
+    $this->notificationStorage->resetCache();
+    $this->deliveryStorage->resetCache();
+    self::assertNotNull($this->notificationStorage->load($old));
+    self::assertNotNull($this->deliveryStorage->load($delivery));
+  }
+
+  /**
+   * A type with a positive window is still purged when the global default is 0.
+   */
+  public function testPositiveTypeWindowPurgesEvenWhenDefaultZero(): void {
+    $this->config('openintranet_notifications.settings')
+      ->set('retention.default_days', 0)
+      ->save();
+
+    // The short type has its own 30-day window → purged despite 0 default.
+    $shortExpired = $this->createNotification('short', 40, 'delivered');
+    // The fallback type falls back to the 0 default → retained forever.
+    $fallbackKept = $this->createNotification('fallback', 1000, 'delivered');
+
+    $deleted = $this->purger->purge();
+    self::assertSame(1, $deleted);
+
+    $this->notificationStorage->resetCache();
+    self::assertNull($this->notificationStorage->load($shortExpired));
+    self::assertNotNull($this->notificationStorage->load($fallbackKept));
+  }
+
+  /**
+   * A notification newer than the most lenient window is never a candidate.
+   */
+  public function testRecentNotificationNeverCandidate(): void {
+    // The most lenient positive window across the two types is 90 days
+    // (fallback → default). A 10-day-old terminal record is too recent to be
+    // expirable under any window and must survive.
+    $recent = $this->createNotification('fallback', 10, 'delivered');
+    // An old one on the short window is purged, proving the run did work.
+    $expired = $this->createNotification('short', 40, 'delivered');
+
+    $deleted = $this->purger->purge();
+    self::assertSame(1, $deleted);
+
+    $this->notificationStorage->resetCache();
+    self::assertNotNull($this->notificationStorage->load($recent));
+    self::assertNull($this->notificationStorage->load($expired));
+  }
+
+  /**
    * Cron enforces retention by purging expired notifications.
    */
   public function testCronPurges(): void {
