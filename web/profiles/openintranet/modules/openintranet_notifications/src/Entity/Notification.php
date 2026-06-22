@@ -45,6 +45,7 @@ use Drupal\views\EntityViewsData;
     'uuid' => 'uuid',
   ],
   links: [
+    'canonical' => '/notifications/{openintranet_notification}',
     'collection' => '/admin/openintranet/notifications',
   ],
 )]
