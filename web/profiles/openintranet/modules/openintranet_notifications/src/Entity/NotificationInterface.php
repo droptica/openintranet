@@ -35,4 +35,14 @@ interface NotificationInterface extends ContentEntityInterface {
    */
   public function isSeen(): bool;
 
+  /**
+   * Marks the notification as included in a digest, stamping the current time.
+   */
+  public function markDigested(): void;
+
+  /**
+   * Whether the notification has been included in a digest (digested is set).
+   */
+  public function isDigested(): bool;
+
 }

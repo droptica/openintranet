@@ -82,6 +82,20 @@ final class Notification extends ContentEntityBase implements NotificationInterf
   /**
    * {@inheritdoc}
    */
+  public function markDigested(): void {
+    $this->set('digested', \Drupal::time()->getRequestTime());
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function isDigested(): bool {
+    return $this->get('digested')->value !== NULL;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type): array {
     $fields = parent::baseFieldDefinitions($entity_type);
 
@@ -154,6 +168,11 @@ final class Notification extends ContentEntityBase implements NotificationInterf
     $fields['seen_at'] = BaseFieldDefinition::create('timestamp')
       ->setLabel(new TranslatableMarkup('Seen at'))
       ->setDescription(new TranslatableMarkup('When the recipient saw the notification; NULL means unseen.'))
+      ->setDefaultValue(NULL);
+
+    $fields['digested'] = BaseFieldDefinition::create('timestamp')
+      ->setLabel(new TranslatableMarkup('Digested at'))
+      ->setDescription(new TranslatableMarkup('When the notification was included in a digest; NULL means not yet digested.'))
       ->setDefaultValue(NULL);
 
     $fields['status'] = BaseFieldDefinition::create('list_string')

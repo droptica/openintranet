@@ -83,4 +83,34 @@ final class NotificationEntityTest extends KernelTestBase {
     self::assertGreaterThan(0, (int) $reloaded->get('seen_at')->value);
   }
 
+  /**
+   * The digested marker starts NULL and markDigested() stamps it once.
+   */
+  public function testDigestedHelpers(): void {
+    $notification = Notification::create([
+      'type' => 'default',
+      'uid' => 7,
+      'subject' => 'Digest me',
+      'status' => 'created',
+      'priority' => 'normal',
+    ]);
+    $notification->save();
+
+    $storage = $this->container->get('entity_type.manager')
+      ->getStorage('openintranet_notification');
+    $storage->resetCache();
+    /** @var \Drupal\openintranet_notifications\Entity\NotificationInterface $reloaded */
+    $reloaded = $storage->load($notification->id());
+
+    // Not yet included in a digest out of the box.
+    self::assertNull($reloaded->get('digested')->value);
+    self::assertFalse($reloaded->isDigested());
+
+    // markDigested() stamps the marker and isDigested() flips to TRUE.
+    $reloaded->markDigested();
+    self::assertNotNull($reloaded->get('digested')->value);
+    self::assertGreaterThan(0, (int) $reloaded->get('digested')->value);
+    self::assertTrue($reloaded->isDigested());
+  }
+
 }
