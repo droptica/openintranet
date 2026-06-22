@@ -88,6 +88,31 @@ final class RateLimiterTest extends KernelTestBase {
   }
 
   /**
+   * The per-dispatch and per-channel counters are independent key spaces.
+   *
+   * The dispatcher caps notifications per (uid, type) on the reserved
+   * ALL_CHANNELS sentinel; the ECA condition caps sends per (uid, channel,
+   * type) on a real channel id. They MUST be separate counters: filling the
+   * per-dispatch counter must not throttle a per-channel check and vice versa
+   * (no silent disjoint-keyspace surprise — they are independent BY DESIGN).
+   */
+  public function testPerDispatchAndPerChannelCountersAreIndependent(): void {
+    // Fill the dispatcher's per-(uid, type) counter on the sentinel channel.
+    self::assertTrue($this->rateLimiter->allow(42, RateLimiter::ALL_CHANNELS, 'new_article', 1, 3600));
+    self::assertFalse($this->rateLimiter->allow(42, RateLimiter::ALL_CHANNELS, 'new_article', 1, 3600));
+
+    // The ECA condition's per-channel peek for the same uid/type is unaffected:
+    // it reads a separate (uid, channel, type) counter that is still empty.
+    self::assertTrue($this->rateLimiter->isWithinLimit(42, 'email_core', 'new_article', 1));
+    self::assertTrue($this->rateLimiter->isWithinLimit(42, 'inbox', 'new_article', 1));
+
+    // Conversely, the sentinel is a reserved id distinct from every channel:
+    // recording a real-channel send does not bump the per-dispatch counter.
+    self::assertTrue($this->rateLimiter->allow(43, 'email_core', 'new_article', 1, 3600));
+    self::assertTrue($this->rateLimiter->allow(43, RateLimiter::ALL_CHANNELS, 'new_article', 1, 3600));
+  }
+
+  /**
    * The peek reads the current count without consuming budget.
    */
   public function testIsWithinLimitIsNonMutating(): void {

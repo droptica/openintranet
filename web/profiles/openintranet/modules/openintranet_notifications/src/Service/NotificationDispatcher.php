@@ -85,11 +85,14 @@ final class NotificationDispatcher {
       return;
     }
 
+    // Per-dispatch cap on the reserved ALL_CHANNELS sentinel: this counts
+    // notifications per (uid, type) regardless of channel, a SEPARATE counter
+    // from the per-channel BelowRateLimit ECA condition (see RateLimiter).
     // @todo Source the rate limit and window from per-type settings (Stage 2);
     //   Stage 1 uses a permissive default so the guard is wired but inert.
     $limit = 1000;
     $rateWindow = 3600;
-    if (!$this->rateLimiter->allow($uid, 'all', $type->id(), $limit, $rateWindow)) {
+    if (!$this->rateLimiter->allow($uid, RateLimiter::ALL_CHANNELS, $type->id(), $limit, $rateWindow)) {
       return;
     }
 

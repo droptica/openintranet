@@ -169,6 +169,40 @@ final class DeliveryQueueTest extends KernelTestBase {
   }
 
   /**
+   * Requeue clears the idempotency claim so a retry can actually send.
+   *
+   * A just-failed delivery may still hold its claim (TTL not yet expired).
+   * Without clearing it, an immediate requeue would be swallowed by the shared
+   * sender's setWithExpireIfNotExists guard. Requeue must delete the claim.
+   */
+  public function testRequeueClearsIdempotencyClaim(): void {
+    $storage = $this->container->get('entity_type.manager')
+      ->getStorage('openintranet_notif_delivery');
+    /** @var \Drupal\openintranet_notifications\Entity\NotificationDeliveryInterface $delivery */
+    $delivery = $storage->create([
+      'notification_id' => 1,
+      'channel' => 'inbox',
+      'status' => 'failed',
+      'attempt_count' => 5,
+      'address' => 'inbox:1',
+      'idempotency_key' => 'claim-key-1',
+    ]);
+    $delivery->save();
+
+    // Simulate the in-flight claim left by the just-failed send attempt.
+    /** @var \Drupal\Core\KeyValueStore\KeyValueStoreExpirableInterface $claimStore */
+    $claimStore = $this->container->get('keyvalue.expirable')
+      ->get('openintranet_notifications.delivery_claim');
+    $claimStore->setWithExpire('claim-key-1', 123, 120);
+    self::assertTrue($claimStore->has('claim-key-1'));
+
+    $this->deliveryQueue->requeue($delivery);
+
+    // The claim is gone, so a reprocess can re-claim and send.
+    self::assertFalse($claimStore->has('claim-key-1'));
+  }
+
+  /**
    * Cancel marks a delivery cancelled without enqueuing anything.
    */
   public function testCancelMarksCancelled(): void {

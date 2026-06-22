@@ -6,6 +6,7 @@ namespace Drupal\openintranet_notifications\Service;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\KeyValueStore\KeyValueExpirableFactoryInterface;
 use Drupal\Core\Queue\QueueFactory;
 use Drupal\openintranet_notifications\Channel\ChannelPluginManager;
 use Drupal\openintranet_notifications\Dto\NotificationRecipient;
@@ -21,11 +22,20 @@ use Drupal\openintranet_notifications\Entity\NotificationInterface;
  */
 final class DeliveryQueue {
 
+  /**
+   * The key-value collection holding in-flight send claims.
+   *
+   * Mirrors DeliverySender::CLAIM_COLLECTION; requeue() clears the claim so a
+   * retry can re-claim and send.
+   */
+  private const CLAIM_COLLECTION = 'openintranet_notifications.delivery_claim';
+
   public function __construct(
     private readonly EntityTypeManagerInterface $entityTypeManager,
     private readonly ChannelPluginManager $channelManager,
     private readonly QueueFactory $queueFactory,
     private readonly ConfigFactoryInterface $configFactory,
+    private readonly KeyValueExpirableFactoryInterface $keyValueExpirable,
   ) {}
 
   /**
@@ -105,6 +115,14 @@ final class DeliveryQueue {
     $delivery->set('next_attempt', 0);
     $delivery->set('attempt_count', 0);
     $delivery->save();
+
+    // Clear any in-flight idempotency claim from the just-failed attempt: its
+    // TTL may not have expired, and the shared sender's claim guard would
+    // otherwise swallow this immediate retry without ever sending.
+    $claimKey = (string) $delivery->get('idempotency_key')->value;
+    if ($claimKey !== '') {
+      $this->keyValueExpirable->get(self::CLAIM_COLLECTION)->delete($claimKey);
+    }
 
     $queueId = $this->configFactory->get('openintranet_notifications.settings')->get('queue.id');
     $this->queueFactory->get($queueId)->createItem(['delivery_id' => $delivery->id()]);

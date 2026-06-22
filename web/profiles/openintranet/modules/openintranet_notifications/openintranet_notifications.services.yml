@@ -35,7 +35,6 @@ services:
     class: Drupal\openintranet_notifications\Service\RateLimiter
     arguments:
       - '@keyvalue.expirable'
-      - '@datetime.time'
 
   openintranet_notifications.audit_logger:
     class: Drupal\openintranet_notifications\Service\AuditLogger
@@ -56,6 +55,7 @@ services:
       - '@plugin.manager.notification_channel'
       - '@queue'
       - '@config.factory'
+      - '@keyvalue.expirable'
 
   openintranet_notifications.notification_dispatcher:
     class: Drupal\openintranet_notifications\Service\NotificationDispatcher

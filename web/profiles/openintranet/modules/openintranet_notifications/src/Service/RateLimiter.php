@@ -4,17 +4,34 @@ declare(strict_types=1);
 
 namespace Drupal\openintranet_notifications\Service;
 
-use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Core\KeyValueStore\KeyValueExpirableFactoryInterface;
 use Drupal\Core\KeyValueStore\KeyValueStoreExpirableInterface;
 
 /**
  * Per-(user, channel, type) rate limiter.
  *
- * Caps how many notifications a recipient may receive on a channel for a type
- * within a rolling window (00-synteza §12). Counters expire with the window.
+ * Caps how many sends a recipient may take on a channel for a type within a
+ * rolling window (00-synteza §12). Counters key on (uid, channel, type) and
+ * expire with the window.
+ *
+ * Two callers use this on PURPOSE-SEPARATE counters, never a shared one:
+ * - The dispatcher applies a per-dispatch cap (one notification fans out to
+ *   many channels) keyed on the reserved ALL_CHANNELS sentinel, so it counts
+ *   notifications per (uid, type) regardless of channel.
+ * - The BelowRateLimit ECA condition applies a per-channel cap keyed on a real
+ *   channel id, counting sends per (uid, channel, type).
+ * ALL_CHANNELS can never collide with a real channel id (channel ids are plugin
+ * ids), so the two key spaces are independent by construction and by design.
  */
 final class RateLimiter {
+
+  /**
+   * Reserved channel sentinel for the dispatcher's per-(uid, type) cap.
+   *
+   * Distinct from every real channel plugin id, so the per-dispatch counter
+   * never shares a key with a per-channel counter.
+   */
+  public const ALL_CHANNELS = '__all__';
 
   /**
    * The expirable key-value collection holding the counters.
@@ -23,7 +40,6 @@ final class RateLimiter {
 
   public function __construct(
     private readonly KeyValueExpirableFactoryInterface $keyValueExpirableFactory,
-    private readonly TimeInterface $time,
   ) {}
 
   /**
