@@ -3,3 +3,9 @@ openintranet_notifications.channel_status:
   description: 'Read-only status of the discovered notification channels.'
   route_name: openintranet_notifications.channel_status
   parent: system.admin_config_services
+
+openintranet_notifications.notification_type.collection:
+  title: 'Notification types'
+  description: 'Manage notification routing profiles (channels, templates, delivery policy).'
+  route_name: entity.openintranet_notification_type.collection
+  parent: system.admin_config_services

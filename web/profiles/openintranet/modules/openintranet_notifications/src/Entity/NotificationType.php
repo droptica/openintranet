@@ -6,7 +6,11 @@ namespace Drupal\openintranet_notifications\Entity;
 
 use Drupal\Core\Config\Entity\ConfigEntityBase;
 use Drupal\Core\Entity\Attribute\ConfigEntityType;
+use Drupal\Core\Entity\Routing\AdminHtmlRouteProvider;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\openintranet_notifications\Entity\Handler\NotificationTypeListBuilder;
+use Drupal\openintranet_notifications\Form\NotificationTypeDeleteForm;
+use Drupal\openintranet_notifications\Form\NotificationTypeForm;
 
 /**
  * Defines the notification_type config entity.
@@ -28,6 +32,23 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
     'status' => 'enabled',
   ],
   admin_permission: 'administer notification types',
+  handlers: [
+    'list_builder' => NotificationTypeListBuilder::class,
+    'form' => [
+      'add' => NotificationTypeForm::class,
+      'edit' => NotificationTypeForm::class,
+      'delete' => NotificationTypeDeleteForm::class,
+    ],
+    'route_provider' => [
+      'html' => AdminHtmlRouteProvider::class,
+    ],
+  ],
+  links: [
+    'collection' => '/admin/config/openintranet/notifications/types',
+    'add-form' => '/admin/config/openintranet/notifications/types/add',
+    'edit-form' => '/admin/config/openintranet/notifications/types/{openintranet_notification_type}',
+    'delete-form' => '/admin/config/openintranet/notifications/types/{openintranet_notification_type}/delete',
+  ],
   label_count: [
     'singular' => '@count notification type',
     'plural' => '@count notification types',
