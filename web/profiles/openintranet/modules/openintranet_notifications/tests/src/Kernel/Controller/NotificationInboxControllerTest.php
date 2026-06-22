@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\openintranet_notifications\Kernel\Controller;
 
+use Drupal\Core\Routing\TrustedRedirectResponse;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\openintranet_notifications\Access\NotificationViewAccess;
@@ -150,6 +151,48 @@ final class NotificationInboxControllerTest extends KernelTestBase {
     $this->controller->view($notification);
 
     self::assertTrue($this->reload($notification)->isRead(), 'View stamps read_at.');
+  }
+
+  /**
+   * Viewing an already-read notification does not re-save it.
+   *
+   * @covers ::view
+   */
+  public function testViewIsIdempotentForReadNotification(): void {
+    $userA = $this->makeUser('a');
+    $notification = $this->makeNotification($userA, 'Read once');
+    $this->setCurrentUser($userA);
+
+    // First view stamps read_at.
+    $this->controller->view($notification);
+    $stamp = (int) $this->reload($notification)->get('read_at')->value;
+    self::assertGreaterThan(0, $stamp, 'The first view stamps read_at.');
+
+    // Viewing again must not re-stamp (the entity is only saved when unread).
+    $this->controller->view($this->reload($notification));
+    self::assertSame(
+      $stamp,
+      (int) $this->reload($notification)->get('read_at')->value,
+      'A second view does not re-stamp read_at.',
+    );
+  }
+
+  /**
+   * A notification carrying a target URL redirects there on view.
+   *
+   * @covers ::view
+   */
+  public function testViewRedirectsToTargetUrl(): void {
+    $userA = $this->makeUser('a');
+    $notification = $this->makeNotification($userA, 'Go elsewhere');
+    $notification->set('url', 'https://example.com/target');
+    $notification->save();
+    $this->setCurrentUser($userA);
+
+    $response = $this->controller->view($notification);
+
+    self::assertInstanceOf(TrustedRedirectResponse::class, $response);
+    self::assertSame('https://example.com/target', $response->getTargetUrl());
   }
 
   /**

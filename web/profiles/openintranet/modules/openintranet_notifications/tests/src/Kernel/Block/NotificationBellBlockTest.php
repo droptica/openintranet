@@ -158,6 +158,33 @@ final class NotificationBellBlockTest extends KernelTestBase {
     self::assertArrayNotHasKey('#count', $build);
     self::assertArrayNotHasKey('#items', $build);
     self::assertArrayNotHasKey('#theme', $build);
+    // The empty render still varies by user so it is never reused across users.
+    self::assertContains('user', $build['#cache']['contexts']);
+  }
+
+  /**
+   * The dropdown is capped at RECENT_LIMIT and ordered newest first.
+   *
+   * @covers ::build
+   */
+  public function testItemsAreCappedAndNewestFirst(): void {
+    $capped = User::create(['name' => 'capped', 'status' => 1]);
+    $capped->save();
+    $this->container->get('current_user')->setAccount($capped);
+
+    // Create more than RECENT_LIMIT (10) own notifications. They share a
+    // created timestamp, so the id DESC tiebreaker decides the order.
+    for ($i = 0; $i < 15; $i++) {
+      $this->createNotification($capped->id(), 'Item ' . $i, FALSE);
+    }
+
+    $build = $this->buildBell();
+
+    self::assertCount(10, $build['#items'], 'The dropdown is capped at RECENT_LIMIT.');
+    // The newest (highest id, last created: "Item 14") is first; the 10th item
+    // is "Item 5" (15 items, newest 10 kept).
+    self::assertSame('Item 14', $build['#items'][0]['subject']);
+    self::assertSame('Item 5', $build['#items'][9]['subject']);
   }
 
 }
