@@ -33,3 +33,9 @@ openintranet_notifications.test:
   description: 'Preview (dry-run) or send a test notification of a chosen type.'
   route_name: openintranet_notifications.test
   parent: system.admin_config_services
+
+openintranet_notifications.settings:
+  title: 'Notification settings'
+  description: 'Global notification settings: enabled channels and types, retention, and per-channel kill switch.'
+  route_name: openintranet_notifications.settings
+  parent: system.admin_config_services

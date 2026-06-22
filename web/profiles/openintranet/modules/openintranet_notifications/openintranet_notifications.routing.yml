@@ -21,3 +21,11 @@ openintranet_notifications.test:
     _title: 'Test notification'
   requirements:
     _permission: 'administer notification types'
+
+openintranet_notifications.settings:
+  path: '/admin/config/openintranet/notifications'
+  defaults:
+    _form: '\Drupal\openintranet_notifications\Form\NotificationSettingsForm'
+    _title: 'Notification settings'
+  requirements:
+    _permission: 'administer notification channels'
