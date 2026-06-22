@@ -57,6 +57,7 @@ install:
   - eca_content
   - eca_ui
   - eca_views
+  - modeler_api
   - field
   - field_group
   - field_ui
@@ -97,6 +98,7 @@ install:
   - noreqnewpass
   - openintranet_messenger
   - openintranet_documents
+  - openintranet_notifications
   - options
   - other_view_filter
   - package_manager
@@ -205,6 +207,9 @@ config:
     openintranet_engagement: '*'
     openintranet_messenger: '*'
     openintranet_documents: '*'
+    openintranet_notifications: '*'
+    eca:
+      - eca.eca.process_j7zbyne
     pathauto: '*'
     pathologic: '*'
     pfdp: '*'

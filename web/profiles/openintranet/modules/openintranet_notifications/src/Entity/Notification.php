@@ -45,6 +45,7 @@ use Drupal\views\EntityViewsData;
     'uuid' => 'uuid',
   ],
   links: [
+    'canonical' => '/notifications/{openintranet_notification}',
     'collection' => '/admin/openintranet/notifications',
   ],
 )]
@@ -69,6 +70,13 @@ final class Notification extends ContentEntityBase implements NotificationInterf
    */
   public function isRead(): bool {
     return $this->get('read_at')->value !== NULL;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function isSeen(): bool {
+    return $this->get('seen_at')->value !== NULL;
   }
 
   /**

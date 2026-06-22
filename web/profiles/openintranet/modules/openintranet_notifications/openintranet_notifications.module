@@ -8,6 +8,21 @@
 declare(strict_types=1);
 
 /**
+ * Implements hook_theme().
+ */
+function openintranet_notifications_theme(): array {
+  return [
+    'openintranet_notification_bell' => [
+      'variables' => [
+        'count' => 0,
+        'items' => [],
+        'see_all_url' => NULL,
+      ],
+    ],
+  ];
+}
+
+/**
  * Implements hook_mail().
  *
  * Populates the email_core channel's 'notification' message from the params it
