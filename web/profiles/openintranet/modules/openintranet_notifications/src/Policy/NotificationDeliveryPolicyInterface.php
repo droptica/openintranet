@@ -42,4 +42,16 @@ interface NotificationDeliveryPolicyInterface extends PluginInspectionInterface 
    */
   public function selectChannels(NotificationTypeInterface $type, NotificationRecipient $recipient, array $context): array;
 
+  /**
+   * What an empty channel selection from this policy means.
+   *
+   * The dispatcher consults this only when selectChannels() returns []: Drop
+   * (the default) is a true drop stamped 'cancelled'; Defer and Audit are
+   * intentional empty sets that still persist and fire the created event.
+   *
+   * @return \Drupal\openintranet_notifications\Policy\EmptySelectionDisposition
+   *   The disposition for an empty selection.
+   */
+  public function emptySelectionDisposition(): EmptySelectionDisposition;
+
 }

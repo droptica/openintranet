@@ -82,6 +82,16 @@ abstract class NotificationDeliveryPolicyBase extends PluginBase implements Noti
   }
 
   /**
+   * {@inheritdoc}
+   *
+   * Policies whose empty set is a true drop (the default) keep Drop; those
+   * whose empty set is intentional override this.
+   */
+  public function emptySelectionDisposition(): EmptySelectionDisposition {
+    return EmptySelectionDisposition::Drop;
+  }
+
+  /**
    * Whether the recipient is a user account that is blocked.
    *
    * @param \Drupal\openintranet_notifications\Dto\NotificationRecipient $recipient

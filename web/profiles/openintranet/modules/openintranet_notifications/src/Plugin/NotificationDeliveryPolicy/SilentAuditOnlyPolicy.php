@@ -8,6 +8,7 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\openintranet_notifications\Attribute\NotificationDeliveryPolicy;
 use Drupal\openintranet_notifications\Dto\NotificationRecipient;
 use Drupal\openintranet_notifications\Entity\NotificationTypeInterface;
+use Drupal\openintranet_notifications\Policy\EmptySelectionDisposition;
 use Drupal\openintranet_notifications\Policy\NotificationDeliveryPolicyBase;
 
 /**
@@ -31,6 +32,16 @@ final class SilentAuditOnlyPolicy extends NotificationDeliveryPolicyBase {
    */
   public function selectChannels(NotificationTypeInterface $type, NotificationRecipient $recipient, array $context): array {
     return [];
+  }
+
+  /**
+   * {@inheritdoc}
+   *
+   * The empty set is intentional: the notification is an audit record, not a
+   * cancellation, so it persists and reaches the terminal audit state.
+   */
+  public function emptySelectionDisposition(): EmptySelectionDisposition {
+    return EmptySelectionDisposition::Audit;
   }
 
 }

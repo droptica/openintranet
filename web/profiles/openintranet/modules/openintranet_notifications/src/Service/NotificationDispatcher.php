@@ -12,6 +12,7 @@ use Drupal\openintranet_notifications\Event\NotificationCreatedEvent;
 use Drupal\openintranet_notifications\Event\NotificationEvents;
 use Drupal\openintranet_notifications\Event\NotificationQueuedEvent;
 use Drupal\openintranet_notifications\Policy\DeliveryPolicyManager;
+use Drupal\openintranet_notifications\Policy\EmptySelectionDisposition;
 use Drupal\openintranet_notifications\Resolver\RecipientResolverManager;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -88,12 +89,27 @@ final class NotificationDispatcher {
     $policy = $this->policyManager->createInstance($policyId);
     $channels = $policy->selectChannels($type, $recipient, []);
 
-    // An empty channel set (blocked/filtered recipient) must not linger as
-    // 'queued' or record dedupe; mark it cancelled so a future legit send for
-    // the same key is not suppressed (FIX #4). No lifecycle event fires here.
+    // An empty channel set is ambiguous: a true drop (blocked/filtered
+    // recipient) must be cancelled, but digest_only/silent_audit_only return []
+    // BY DESIGN and must persist + fire CREATED. The policy disambiguates.
     if (empty($channels)) {
-      $n->set('status', 'cancelled');
+      $disposition = $policy->emptySelectionDisposition();
+      if ($disposition === EmptySelectionDisposition::Drop) {
+        // A true drop must not linger as 'queued' or record dedupe; mark it
+        // cancelled so a future legit send for the same key is not suppressed
+        // (FIX #4). No lifecycle event fires here.
+        $n->set('status', 'cancelled');
+        $n->save();
+        return;
+      }
+
+      // Intentional empty set: persist and fire CREATED. Defer (digest_only)
+      // stays 'queued' so the DigestBuilder picks it up (digested IS NULL);
+      // Audit (silent_audit_only) reaches the terminal 'delivered' audit state
+      // (recorded, nothing to send).
+      $n->set('status', $disposition === EmptySelectionDisposition::Audit ? 'delivered' : 'queued');
       $n->save();
+      $this->eventDispatcher->dispatch(new NotificationCreatedEvent($n), NotificationEvents::CREATED);
       return;
     }
 

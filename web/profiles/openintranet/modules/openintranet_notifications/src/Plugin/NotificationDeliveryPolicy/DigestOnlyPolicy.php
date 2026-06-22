@@ -8,6 +8,7 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\openintranet_notifications\Attribute\NotificationDeliveryPolicy;
 use Drupal\openintranet_notifications\Dto\NotificationRecipient;
 use Drupal\openintranet_notifications\Entity\NotificationTypeInterface;
+use Drupal\openintranet_notifications\Policy\EmptySelectionDisposition;
 use Drupal\openintranet_notifications\Policy\NotificationDeliveryPolicyBase;
 
 /**
@@ -33,6 +34,16 @@ final class DigestOnlyPolicy extends NotificationDeliveryPolicyBase {
    */
   public function selectChannels(NotificationTypeInterface $type, NotificationRecipient $recipient, array $context): array {
     return [];
+  }
+
+  /**
+   * {@inheritdoc}
+   *
+   * The empty set is intentional: the notification persists undigested for the
+   * DigestBuilder to aggregate later, so it must not be stamped 'cancelled'.
+   */
+  public function emptySelectionDisposition(): EmptySelectionDisposition {
+    return EmptySelectionDisposition::Defer;
   }
 
 }

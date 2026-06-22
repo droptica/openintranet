@@ -250,6 +250,77 @@ final class NotificationDispatcherTest extends KernelTestBase {
   }
 
   /**
+   * A digest_only dispatch persists, is not cancelled, fires CREATED, digests.
+   *
+   * The digest_only policy legitimately selects no immediate channel; the empty
+   * set is the policy's INTENDED outcome, so the notification must persist
+   * (status NOT cancelled), the CREATED event must fire, and the DigestBuilder
+   * must still pick it up (digested IS NULL).
+   */
+  public function testDigestOnlyPersistsNotCancelledAndStaysDigestable(): void {
+    $created = 0;
+    $this->container->get('event_dispatcher')->addListener(
+      NotificationEvents::CREATED,
+      function () use (&$created): void {
+        $created++;
+      },
+    );
+
+    NotificationType::create([
+      'id' => 'digest',
+      'label' => 'Digest',
+      'delivery_policy' => 'digest_only',
+      'dedupe_window' => 0,
+    ])->save();
+
+    $n = $this->factory->create('digest', ['uid' => 42, 'subject' => 'Hi', 'body' => 'B']);
+    $n->save();
+    $this->dispatcher->enqueue($n);
+
+    self::assertNotSame('cancelled', $this->reload((int) $n->id())->get('status')->value);
+    self::assertCount(0, $this->loadDeliveriesFor((int) $n->id()));
+    self::assertSame(1, $created);
+
+    // The DigestBuilder still finds it (not digested, not cancelled-out).
+    $dispatched = $this->container->get('openintranet_notifications.digest_builder')->buildAndDispatch();
+    self::assertSame(1, $dispatched);
+    self::assertTrue($this->reload((int) $n->id())->isDigested());
+  }
+
+  /**
+   * A silent_audit_only dispatch persists, is not cancelled and fires CREATED.
+   *
+   * The silent_audit_only policy records an audit entry with no channel; it is
+   * not a cancellation. The notification persists, the CREATED event fires,
+   * there are no deliveries, and the status is the terminal audit state
+   * 'delivered' (audit recorded, nothing to send).
+   */
+  public function testSilentAuditPersistsNotCancelledAndFiresCreated(): void {
+    $created = 0;
+    $this->container->get('event_dispatcher')->addListener(
+      NotificationEvents::CREATED,
+      function () use (&$created): void {
+        $created++;
+      },
+    );
+
+    NotificationType::create([
+      'id' => 'audit',
+      'label' => 'Audit',
+      'delivery_policy' => 'silent_audit_only',
+      'dedupe_window' => 0,
+    ])->save();
+
+    $n = $this->factory->create('audit', ['uid' => 42, 'subject' => 'Hi', 'body' => 'B']);
+    $n->save();
+    $this->dispatcher->enqueue($n);
+
+    self::assertSame('delivered', $this->reload((int) $n->id())->get('status')->value);
+    self::assertCount(0, $this->loadDeliveriesFor((int) $n->id()));
+    self::assertSame(1, $created);
+  }
+
+  /**
    * The blocked/empty-channel cancel path fires neither created nor queued.
    */
   public function testNoEventsOnBlockedRecipientPath(): void {
