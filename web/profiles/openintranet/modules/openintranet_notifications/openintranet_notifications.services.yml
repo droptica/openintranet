@@ -75,3 +75,10 @@ services:
       - '@entity_type.manager'
       - '@config.factory'
       - '@datetime.time'
+
+  openintranet_notifications.digest_builder:
+    class: Drupal\openintranet_notifications\Service\DigestBuilder
+    arguments:
+      - '@entity_type.manager'
+      - '@event_dispatcher'
+      - '@datetime.time'

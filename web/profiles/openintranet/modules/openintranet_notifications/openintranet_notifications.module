@@ -39,11 +39,13 @@ function openintranet_notifications_mail(string $key, array &$message, array $pa
  * Implements hook_cron().
  *
  * Enforces log retention automatically with a modest per-run cap so a large
- * backlog drains over successive cron runs rather than in one heavy delete.
+ * backlog drains over successive cron runs rather than in one heavy delete,
+ * then aggregates pending digest_only notifications into per-user digests.
  *
  * @todo Add a settings flag to disable automatic cron purging if an operator
  *   prefers to run openintranet_notifications:purge manually.
  */
 function openintranet_notifications_cron(): void {
   \Drupal::service('openintranet_notifications.retention_purger')->purge(100);
+  \Drupal::service('openintranet_notifications.digest_builder')->buildAndDispatch(100);
 }
