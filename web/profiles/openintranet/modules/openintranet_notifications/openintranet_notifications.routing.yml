@@ -5,3 +5,11 @@ openintranet_notifications.channel_status:
     _title: 'Notification channels'
   requirements:
     _permission: 'administer notification channels'
+
+openintranet_notifications.delivery_bulk:
+  path: '/admin/openintranet/notifications/deliveries/bulk'
+  defaults:
+    _form: '\Drupal\openintranet_notifications\Form\DeliveryBulkOperationsForm'
+    _title: 'Bulk delivery operations'
+  requirements:
+    _permission: 'retry notification deliveries'

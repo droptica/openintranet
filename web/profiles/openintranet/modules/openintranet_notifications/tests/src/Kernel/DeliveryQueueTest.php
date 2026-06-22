@@ -139,4 +139,57 @@ final class DeliveryQueueTest extends KernelTestBase {
     self::assertCount(0, $storage->loadMultiple());
   }
 
+  /**
+   * Requeue resets a delivery for a fresh attempt and enqueues one item.
+   */
+  public function testRequeueResetsAndEnqueues(): void {
+    $storage = $this->container->get('entity_type.manager')
+      ->getStorage('openintranet_notif_delivery');
+    /** @var \Drupal\openintranet_notifications\Entity\NotificationDeliveryInterface $delivery */
+    $delivery = $storage->create([
+      'notification_id' => 1,
+      'channel' => 'inbox',
+      'status' => 'failed',
+      'attempt_count' => 5,
+      'next_attempt' => 9999,
+      'address' => 'inbox:1',
+    ]);
+    $delivery->save();
+
+    $this->deliveryQueue->requeue($delivery);
+
+    $storage->resetCache([(int) $delivery->id()]);
+    /** @var \Drupal\openintranet_notifications\Entity\NotificationDeliveryInterface $reloaded */
+    $reloaded = $storage->load((int) $delivery->id());
+    self::assertSame('pending', $reloaded->get('status')->value);
+    self::assertSame(0, (int) $reloaded->get('attempt_count')->value);
+    self::assertSame(0, (int) $reloaded->get('next_attempt')->value);
+
+    self::assertSame(1, \Drupal::queue('openintranet_notification_delivery')->numberOfItems());
+  }
+
+  /**
+   * Cancel marks a delivery cancelled without enqueuing anything.
+   */
+  public function testCancelMarksCancelled(): void {
+    $storage = $this->container->get('entity_type.manager')
+      ->getStorage('openintranet_notif_delivery');
+    /** @var \Drupal\openintranet_notifications\Entity\NotificationDeliveryInterface $delivery */
+    $delivery = $storage->create([
+      'notification_id' => 1,
+      'channel' => 'inbox',
+      'status' => 'pending',
+      'address' => 'inbox:1',
+    ]);
+    $delivery->save();
+
+    $this->deliveryQueue->cancel($delivery);
+
+    $storage->resetCache([(int) $delivery->id()]);
+    /** @var \Drupal\openintranet_notifications\Entity\NotificationDeliveryInterface $reloaded */
+    $reloaded = $storage->load((int) $delivery->id());
+    self::assertSame('cancelled', $reloaded->get('status')->value);
+    self::assertSame(0, \Drupal::queue('openintranet_notification_delivery')->numberOfItems());
+  }
+
 }

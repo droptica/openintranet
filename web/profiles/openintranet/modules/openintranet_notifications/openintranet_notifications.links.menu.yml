@@ -21,3 +21,9 @@ openintranet_notifications.notif_delivery.collection:
   description: 'Browse delivery attempts; filter by status.'
   route_name: entity.openintranet_notif_delivery.collection
   parent: system.admin_config_services
+
+openintranet_notifications.delivery_bulk:
+  title: 'Bulk delivery operations'
+  description: 'Retry failed or cancel pending notification deliveries in bulk.'
+  route_name: openintranet_notifications.delivery_bulk
+  parent: system.admin_config_services

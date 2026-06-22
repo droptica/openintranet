@@ -90,4 +90,38 @@ final class DeliveryQueue {
     return $delivery;
   }
 
+  /**
+   * Resets a delivery for a fresh attempt and re-enqueues a work item.
+   *
+   * The single home of the requeue logic so the bulk-ops form, the drush
+   * retry command, and any future caller all reset and enqueue identically
+   * (00-synteza §7/§16 DRY).
+   *
+   * @param \Drupal\openintranet_notifications\Entity\NotificationDeliveryInterface $delivery
+   *   The delivery to retry; status is reset to pending and re-queued.
+   */
+  public function requeue(NotificationDeliveryInterface $delivery): void {
+    $delivery->set('status', 'pending');
+    $delivery->set('next_attempt', 0);
+    $delivery->set('attempt_count', 0);
+    $delivery->save();
+
+    $queueId = $this->configFactory->get('openintranet_notifications.settings')->get('queue.id');
+    $this->queueFactory->get($queueId)->createItem(['delivery_id' => $delivery->id()]);
+  }
+
+  /**
+   * Cancels a single delivery so the worker skips it.
+   *
+   * The single home of the delivery-cancel logic, shared by the bulk-ops form
+   * and the cancel ECA action so there is one implementation, not two.
+   *
+   * @param \Drupal\openintranet_notifications\Entity\NotificationDeliveryInterface $delivery
+   *   The delivery to cancel; status is set to cancelled and saved.
+   */
+  public function cancel(NotificationDeliveryInterface $delivery): void {
+    $delivery->set('status', 'cancelled');
+    $delivery->save();
+  }
+
 }
