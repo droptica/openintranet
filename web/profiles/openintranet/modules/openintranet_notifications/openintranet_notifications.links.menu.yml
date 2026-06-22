@@ -27,3 +27,9 @@ openintranet_notifications.delivery_bulk:
   description: 'Retry failed or cancel pending notification deliveries in bulk.'
   route_name: openintranet_notifications.delivery_bulk
   parent: system.admin_config_services
+
+openintranet_notifications.test:
+  title: 'Test notification'
+  description: 'Preview (dry-run) or send a test notification of a chosen type.'
+  route_name: openintranet_notifications.test
+  parent: system.admin_config_services

@@ -13,3 +13,11 @@ openintranet_notifications.delivery_bulk:
     _title: 'Bulk delivery operations'
   requirements:
     _permission: 'retry notification deliveries'
+
+openintranet_notifications.test:
+  path: '/admin/config/openintranet/notifications/test'
+  defaults:
+    _form: '\Drupal\openintranet_notifications\Form\NotificationTestForm'
+    _title: 'Test notification'
+  requirements:
+    _permission: 'administer notification types'
