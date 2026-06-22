@@ -118,7 +118,7 @@ Open Intranet is built on Drupal 11, so you can drop in any of the **40 000+ con
 The fastest path — DDEV one-liner that handles everything:
 
 ```bash
-curl -sL https://intranet.new/install.sh | bash
+curl -sL https://install.open-intranet.com/install.sh | bash
 ```
 
 Or install manually:
