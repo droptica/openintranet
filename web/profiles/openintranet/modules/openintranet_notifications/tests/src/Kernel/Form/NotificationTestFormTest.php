@@ -86,11 +86,13 @@ final class NotificationTestFormTest extends KernelTestBase {
    *
    * @param bool $dryRun
    *   Whether to run in dry-run mode.
+   * @param string $channel
+   *   The channel override, or '' to resolve via the policy.
    *
    * @return \Drupal\Core\Form\FormState
    *   The submitted form state (carries the preview result via storage).
    */
-  private function submit(bool $dryRun): FormState {
+  private function submit(bool $dryRun, string $channel = ''): FormState {
     $form_object = NotificationTestForm::create($this->container);
     $form_state = new FormState();
     // A checkbox with a TRUE #default_value cannot be un-checked by submitting
@@ -100,7 +102,7 @@ final class NotificationTestFormTest extends KernelTestBase {
     $form_state->setValues([
       'notification_type' => 'mention',
       'uid' => (int) $this->recipient->id(),
-      'channel' => '',
+      'channel' => $channel,
       'dry_run' => $dryRun ? 1 : NULL,
     ]);
     $this->container->get('form_builder')->submitForm($form_object, $form_state);
@@ -159,6 +161,48 @@ final class NotificationTestFormTest extends KernelTestBase {
     self::assertSame('Hi alice', $preview['subject']);
     self::assertContains('inbox', $preview['channels']);
     self::assertContains('log_only', $preview['channels']);
+  }
+
+  /**
+   * A dry-run channel override previews exactly that channel (policy bypassed).
+   *
+   * @covers ::submitForm
+   */
+  public function testDryRunChannelOverridePreviewsOnlyThatChannel(): void {
+    $form_state = $this->submit(TRUE, 'log_only');
+
+    self::assertEmpty($form_state->getErrors(), implode("\n", array_map('strval', $form_state->getErrors())));
+
+    // Nothing is persisted: this is a display-only preview.
+    self::assertSame(0, $this->countEntities('openintranet_notification'));
+    self::assertSame(0, $this->countEntities('openintranet_notif_delivery'));
+
+    $preview = $form_state->get('preview');
+    self::assertIsArray($preview);
+    // The override wins over the policy's resolved set (inbox + log_only).
+    self::assertSame(['log_only'], $preview['channels']);
+  }
+
+  /**
+   * A dry-run whose resolved channel set is empty shows the 'none' branch.
+   *
+   * @covers ::submitForm
+   */
+  public function testDryRunEmptyChannelsPreviewsNoneBranch(): void {
+    // No globally enabled channels: every candidate (incl. forced) is dropped,
+    // so the policy resolves an empty set.
+    $this->config('openintranet_notifications.settings')
+      ->set('enabled_channels', [])
+      ->save();
+
+    $form_state = $this->submit(TRUE);
+
+    self::assertEmpty($form_state->getErrors(), implode("\n", array_map('strval', $form_state->getErrors())));
+    self::assertSame(0, $this->countEntities('openintranet_notification'));
+
+    $preview = $form_state->get('preview');
+    self::assertIsArray($preview);
+    self::assertSame([], $preview['channels']);
   }
 
   /**
