@@ -7,6 +7,7 @@ namespace Drupal\openintranet_notifications\Form;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\openintranet_notifications\Entity\NotificationDelivery;
 use Drupal\openintranet_notifications\Service\DeliveryQueue;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -32,16 +33,6 @@ final class DeliveryBulkOperationsForm extends FormBase {
     'skipped' => 'Skipped',
     'cancelled' => 'Cancelled',
   ];
-
-  /**
-   * The delivery statuses the retry button acts on.
-   */
-  private const RETRYABLE_STATUSES = ['failed'];
-
-  /**
-   * The delivery statuses the cancel button acts on.
-   */
-  private const CANCELLABLE_STATUSES = ['pending', 'processing'];
 
   public function __construct(
     private readonly EntityTypeManagerInterface $entityTypeManager,
@@ -138,7 +129,7 @@ final class DeliveryBulkOperationsForm extends FormBase {
   public function retrySubmit(array &$form, FormStateInterface $form_state): void {
     $retried = 0;
     foreach ($this->loadSelected($form_state) as $delivery) {
-      if (\in_array($delivery->get('status')->value, self::RETRYABLE_STATUSES, TRUE)) {
+      if (\in_array($delivery->get('status')->value, NotificationDelivery::RETRYABLE_STATUSES, TRUE)) {
         $this->deliveryQueue->requeue($delivery);
         $retried++;
       }
@@ -152,7 +143,7 @@ final class DeliveryBulkOperationsForm extends FormBase {
   public function cancelSubmit(array &$form, FormStateInterface $form_state): void {
     $cancelled = 0;
     foreach ($this->loadSelected($form_state) as $delivery) {
-      if (\in_array($delivery->get('status')->value, self::CANCELLABLE_STATUSES, TRUE)) {
+      if (\in_array($delivery->get('status')->value, NotificationDelivery::CANCELLABLE_STATUSES, TRUE)) {
         $this->deliveryQueue->cancel($delivery);
         $cancelled++;
       }

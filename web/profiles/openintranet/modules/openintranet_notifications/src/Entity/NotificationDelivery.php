@@ -60,6 +60,24 @@ final class NotificationDelivery extends ContentEntityBase implements Notificati
   private const TERMINAL_STATUSES = ['sent', 'delivered', 'cancelled'];
 
   /**
+   * The delivery statuses that may still be cancelled.
+   *
+   * The single home shared by the cancel ECA action and the bulk-operations
+   * form so the cancellable set never drifts between them.
+   *
+   * @todo Replace the status string sets (cancellable/retryable/terminal and
+   *   the base-field allowed_values) with a DeliveryStatus PHP 8.3 enum once
+   *   the entity list_string field can be backed by an enum without churning
+   *   every config/string comparison across the module.
+   */
+  public const CANCELLABLE_STATUSES = ['pending', 'processing'];
+
+  /**
+   * The delivery statuses a retry may act on.
+   */
+  public const RETRYABLE_STATUSES = ['failed'];
+
+  /**
    * {@inheritdoc}
    */
   public function markSent(?string $providerMessageId = NULL): void {

@@ -9,6 +9,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\eca\Attribute\EcaAction;
 use Drupal\eca\Plugin\Action\ConfigurableActionBase;
+use Drupal\openintranet_notifications\Entity\NotificationDelivery;
 use Drupal\openintranet_notifications\Entity\NotificationInterface;
 use Drupal\openintranet_notifications\Service\DeliveryQueue;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -31,11 +32,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 final class Cancel extends ConfigurableActionBase {
 
   use NotificationActionTrait;
-
-  /**
-   * The delivery statuses that are still cancellable.
-   */
-  private const CANCELLABLE_STATUSES = ['pending', 'processing'];
 
   /**
    * The delivery queue service (owns the shared per-delivery cancel logic).
@@ -70,7 +66,7 @@ final class Cancel extends ConfigurableActionBase {
       ->loadByProperties(['notification_id' => $notification->id()]);
     /** @var \Drupal\openintranet_notifications\Entity\NotificationDeliveryInterface $delivery */
     foreach ($deliveries as $delivery) {
-      if (\in_array($delivery->get('status')->value, self::CANCELLABLE_STATUSES, TRUE)) {
+      if (\in_array($delivery->get('status')->value, NotificationDelivery::CANCELLABLE_STATUSES, TRUE)) {
         $this->deliveryQueue->cancel($delivery);
       }
     }
