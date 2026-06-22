@@ -25,7 +25,6 @@ final class NotificationListBuilder extends EntityListBuilder {
    */
   private const STATUSES = [
     'created' => 'Created',
-    'resolving' => 'Resolving',
     'queued' => 'Queued',
     'delivered' => 'Delivered',
     'partial' => 'Partial',
