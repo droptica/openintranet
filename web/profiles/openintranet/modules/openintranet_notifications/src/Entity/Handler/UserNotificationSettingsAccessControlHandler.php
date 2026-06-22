@@ -28,7 +28,10 @@ final class UserNotificationSettingsAccessControlHandler extends EntityAccessCon
       return AccessResult::allowed()->cachePerPermissions();
     }
 
-    $is_owner = $entity instanceof FieldableEntityInterface
+    // Anonymous (uid 0) must never match a settings entity whose owner is
+    // unset/0; ownership requires a real, equal account id.
+    $is_owner = $account->id() > 0
+      && $entity instanceof FieldableEntityInterface
       && (int) $entity->get('uid')->target_id === (int) $account->id();
     $own = $is_owner && $account->hasPermission('administer own notification preferences');
 

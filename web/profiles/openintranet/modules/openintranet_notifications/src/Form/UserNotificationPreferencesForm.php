@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\openintranet_notifications\Form;
 
+use Drupal\Core\Datetime\TimeZoneFormHelper;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
@@ -128,7 +129,7 @@ final class UserNotificationPreferencesForm extends FormBase {
     $form['quiet_hours']['quiet_hours_tz'] = [
       '#type' => 'select',
       '#title' => $this->t('Timezone'),
-      '#options' => $this->timezoneOptions(),
+      '#options' => TimeZoneFormHelper::getOptionsListByRegion(),
       '#empty_option' => $this->t('- Site default -'),
       '#default_value' => $quiet['tz'] ?? '',
     ];
@@ -205,17 +206,6 @@ final class UserNotificationPreferencesForm extends FormBase {
       }
     }
     return $overridable;
-  }
-
-  /**
-   * Builds the timezone select options.
-   *
-   * @return array<string, string>
-   *   Timezone identifier => label.
-   */
-  private function timezoneOptions(): array {
-    $zones = \DateTimeZone::listIdentifiers();
-    return array_combine($zones, $zones);
   }
 
   /**
