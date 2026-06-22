@@ -28,6 +28,52 @@ final class NotificationRecipient {
   ) {}
 
   /**
+   * Builds a user recipient from a loaded account.
+   *
+   * The single seam for the "load user → user recipient" build duplicated
+   * across the dispatcher, sender, actions and resolver base. Langcode always
+   * comes from the account's preferred langcode so the channels render in the
+   * recipient's language.
+   *
+   * @param \Drupal\Core\Session\AccountInterface $user
+   *   The recipient account.
+   *
+   * @return self
+   *   The user recipient DTO.
+   */
+  public static function forUser(AccountInterface $user): self {
+    return new self(
+      type: 'user',
+      id: (int) $user->id(),
+      langcode: $user->getPreferredLangcode(),
+      account: $user,
+    );
+  }
+
+  /**
+   * Builds a user recipient from a uid, tolerating a missing account.
+   *
+   * Used where the recipient may have been deleted since the row was written:
+   * the langcode falls back to English when no account is available.
+   *
+   * @param int $uid
+   *   The recipient user id.
+   * @param \Drupal\Core\Session\AccountInterface|null $account
+   *   The loaded account, or NULL when it could not be loaded.
+   *
+   * @return self
+   *   The user recipient DTO.
+   */
+  public static function forUserId(int $uid, ?AccountInterface $account = NULL): self {
+    return new self(
+      type: 'user',
+      id: $uid,
+      langcode: $account !== NULL ? $account->getPreferredLangcode() : 'en',
+      account: $account,
+    );
+  }
+
+  /**
    * Whether this recipient is an internal user with an id.
    */
   public function isUser(): bool {

@@ -187,12 +187,7 @@ final class DeliverySender {
     if ($recipientType === 'user') {
       $uid = (int) $delivery->get('recipient_id')->value;
       $user = $this->entityTypeManager->getStorage('user')->load($uid);
-      return new NotificationRecipient(
-        type: 'user',
-        id: $uid,
-        langcode: $user !== NULL ? $user->getPreferredLangcode() : 'en',
-        account: $user,
-      );
+      return NotificationRecipient::forUserId($uid, $user);
     }
 
     return new NotificationRecipient(

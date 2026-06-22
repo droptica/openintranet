@@ -7,6 +7,7 @@ namespace Drupal\openintranet_notifications\Form;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Session\AccountInterface;
 use Drupal\openintranet_notifications\Channel\ChannelPluginManager;
 use Drupal\openintranet_notifications\Dto\NotificationRecipient;
 use Drupal\openintranet_notifications\Policy\DeliveryPolicyManager;
@@ -163,13 +164,13 @@ final class NotificationTestForm extends FormBase {
    *   The notification_type id.
    * @param int $uid
    *   The recipient user id.
-   * @param \Drupal\user\UserInterface|null $account
+   * @param \Drupal\Core\Session\AccountInterface|null $account
    *   The loaded recipient account, if any.
    *
    * @return array<int, string>
    *   The selected channel ids.
    */
-  private function resolveChannels(string $typeId, int $uid, ?object $account): array {
+  private function resolveChannels(string $typeId, int $uid, ?AccountInterface $account): array {
     /** @var \Drupal\openintranet_notifications\Entity\NotificationTypeInterface|null $type */
     $type = $this->entityTypeManager
       ->getStorage('openintranet_notification_type')
@@ -178,11 +179,7 @@ final class NotificationTestForm extends FormBase {
       return [];
     }
 
-    $recipient = new NotificationRecipient(
-      type: 'user',
-      id: $uid,
-      account: $account,
-    );
+    $recipient = NotificationRecipient::forUserId($uid, $account);
     $policyId = $type->getDeliveryPolicy() ?: 'user_preferences';
     $policy = $this->policyManager->createInstance($policyId);
     return $policy->selectChannels($type, $recipient, []);

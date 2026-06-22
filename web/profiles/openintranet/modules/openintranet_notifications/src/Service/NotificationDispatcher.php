@@ -54,12 +54,7 @@ final class NotificationDispatcher {
       return;
     }
 
-    $recipient = new NotificationRecipient(
-      type: 'user',
-      id: $uid,
-      langcode: $user->getPreferredLangcode(),
-      account: $user,
-    );
+    $recipient = NotificationRecipient::forUser($user);
 
     $type = $this->loadType($n);
     if ($type === NULL) {

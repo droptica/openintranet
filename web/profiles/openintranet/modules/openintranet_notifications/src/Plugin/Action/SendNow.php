@@ -107,12 +107,7 @@ final class SendNow extends ConfigurableActionBase {
   private function buildRecipient(NotificationInterface $notification): NotificationRecipient {
     $uid = (int) $notification->get('uid')->target_id;
     $user = $this->entityTypeManager->getStorage('user')->load($uid);
-    return new NotificationRecipient(
-      type: 'user',
-      id: $uid,
-      langcode: $user !== NULL ? $user->getPreferredLangcode() : 'en',
-      account: $user,
-    );
+    return NotificationRecipient::forUserId($uid, $user);
   }
 
   /**

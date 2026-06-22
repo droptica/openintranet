@@ -70,12 +70,7 @@ abstract class NotificationRecipientResolverBase extends PluginBase implements N
     if ($user->isBlocked()) {
       return NULL;
     }
-    return new NotificationRecipient(
-      type: 'user',
-      id: (int) $user->id(),
-      langcode: $user->getPreferredLangcode(),
-      account: $user,
-    );
+    return NotificationRecipient::forUser($user);
   }
 
   /**
