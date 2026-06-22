@@ -22,6 +22,8 @@ use Symfony\Component\HttpFoundation\RequestStack;
  */
 final class NotificationDeliveryListBuilder extends EntityListBuilder {
 
+  use StatusFilterListBuilderTrait;
+
   /**
    * The delivery statuses offered by the filter (mirrors the base field).
    */
@@ -40,9 +42,17 @@ final class NotificationDeliveryListBuilder extends EntityListBuilder {
     EntityStorageInterface $storage,
     private readonly DateFormatterInterface $dateFormatter,
     private readonly AuditLogger $auditLogger,
-    private readonly RequestStack $requestStack,
+    RequestStack $requestStack,
   ) {
     parent::__construct($entity_type, $storage);
+    $this->requestStack = $requestStack;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function statusFilterOptions(): array {
+    return self::STATUSES;
   }
 
   /**
@@ -56,34 +66,6 @@ final class NotificationDeliveryListBuilder extends EntityListBuilder {
       $container->get('openintranet_notifications.audit_logger'),
       $container->get('request_stack'),
     );
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function getEntityIds(): array {
-    $query = $this->getStorage()->getQuery()
-      ->accessCheck(TRUE)
-      ->sort($this->entityType->getKey('id'), 'DESC');
-
-    $status = (string) $this->requestStack->getCurrentRequest()?->query->get('status', '');
-    if ($status !== '' && isset(self::STATUSES[$status])) {
-      $query->condition('status', $status);
-    }
-
-    if ($this->limit) {
-      $query->pager($this->limit);
-    }
-    return $query->execute();
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function render(): array {
-    $build['filter'] = $this->buildFilterForm();
-    $build += parent::render();
-    return $build;
   }
 
   /**
@@ -129,39 +111,6 @@ final class NotificationDeliveryListBuilder extends EntityListBuilder {
     $type = (string) $entity->get('recipient_type')->value;
     $address = $this->auditLogger->maskPii((string) $entity->get('address')->value);
     return $address === '' ? $type : $type . ': ' . $address;
-  }
-
-  /**
-   * Builds the GET status filter form rendered above the listing.
-   *
-   * @return array<string, mixed>
-   *   A render array for the filter form.
-   */
-  private function buildFilterForm(): array {
-    $current = (string) $this->requestStack->getCurrentRequest()?->query->get('status', '');
-    $options = ['' => $this->t('- Any status -')];
-    foreach (self::STATUSES as $value => $label) {
-      $options[$value] = $this->t('@label', ['@label' => $label]);
-    }
-
-    return [
-      '#type' => 'html_tag',
-      '#tag' => 'form',
-      '#attributes' => ['method' => 'get', 'class' => ['openintranet-notif-delivery-filter']],
-      'status' => [
-        '#type' => 'select',
-        '#name' => 'status',
-        '#title' => $this->t('Status'),
-        '#options' => $options,
-        '#value' => isset(self::STATUSES[$current]) ? $current : '',
-      ],
-      'submit' => [
-        '#type' => 'html_tag',
-        '#tag' => 'button',
-        '#value' => $this->t('Apply'),
-        '#attributes' => ['type' => 'submit'],
-      ],
-    ];
   }
 
 }

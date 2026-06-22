@@ -11,18 +11,43 @@ use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\openintranet_notifications\Entity\NotificationInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Lists openintranet_notification records (§4.2, §14 notification dashboard).
  */
 final class NotificationListBuilder extends EntityListBuilder {
 
+  use StatusFilterListBuilderTrait;
+
+  /**
+   * The notification statuses offered by the filter (mirrors the base field).
+   */
+  private const STATUSES = [
+    'created' => 'Created',
+    'resolving' => 'Resolving',
+    'queued' => 'Queued',
+    'delivered' => 'Delivered',
+    'partial' => 'Partial',
+    'failed' => 'Failed',
+    'cancelled' => 'Cancelled',
+  ];
+
   public function __construct(
     EntityTypeInterface $entity_type,
     EntityStorageInterface $storage,
     private readonly DateFormatterInterface $dateFormatter,
+    RequestStack $requestStack,
   ) {
     parent::__construct($entity_type, $storage);
+    $this->requestStack = $requestStack;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function statusFilterOptions(): array {
+    return self::STATUSES;
   }
 
   /**
@@ -33,6 +58,7 @@ final class NotificationListBuilder extends EntityListBuilder {
       $entity_type,
       $container->get('entity_type.manager')->getStorage($entity_type->id()),
       $container->get('date.formatter'),
+      $container->get('request_stack'),
     );
   }
 

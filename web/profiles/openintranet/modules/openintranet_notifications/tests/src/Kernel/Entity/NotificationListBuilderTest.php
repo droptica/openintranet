@@ -6,6 +6,7 @@ namespace Drupal\Tests\openintranet_notifications\Kernel\Entity;
 
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\openintranet_notifications\Entity\Notification;
+use Symfony\Component\HttpFoundation\InputBag;
 
 /**
  * Tests the notification list builder (Chunk 4B).
@@ -100,6 +101,99 @@ final class NotificationListBuilderTest extends KernelTestBase {
 
     $read_row = $list_builder->buildRow($read);
     self::assertSame('Yes', (string) $read_row['read']);
+  }
+
+  /**
+   * With no status filter the list returns every notification.
+   *
+   * @covers ::getEntityIds
+   */
+  public function testNoFilterReturnsAll(): void {
+    $this->seedStatuses();
+    $this->setRequestQuery([]);
+    self::assertCount(3, $this->invokeGetEntityIds());
+  }
+
+  /**
+   * A valid status filter narrows the list to that status only.
+   *
+   * @covers ::getEntityIds
+   */
+  public function testStatusFilterReturnsOnlyMatching(): void {
+    $this->seedStatuses();
+    $this->setRequestQuery(['status' => 'failed']);
+    $ids = $this->invokeGetEntityIds();
+    self::assertCount(1, $ids);
+
+    $notification = $this->container->get('entity_type.manager')
+      ->getStorage('openintranet_notification')
+      ->load(reset($ids));
+    self::assertSame('failed', $notification->get('status')->value);
+  }
+
+  /**
+   * An unknown status value is ignored and the list is unfiltered.
+   *
+   * @covers ::getEntityIds
+   */
+  public function testInvalidStatusFilterIgnored(): void {
+    $this->seedStatuses();
+    $this->setRequestQuery(['status' => 'bogus']);
+    self::assertCount(3, $this->invokeGetEntityIds());
+  }
+
+  /**
+   * The render() output prepends a status filter form above the table.
+   *
+   * @covers ::render
+   */
+  public function testRenderPrependsFilterForm(): void {
+    $this->setRequestQuery([]);
+    $list_builder = $this->container->get('entity_type.manager')
+      ->getListBuilder('openintranet_notification');
+    $build = $list_builder->render();
+    self::assertArrayHasKey('filter', $build);
+    self::assertArrayHasKey('table', $build);
+  }
+
+  /**
+   * Saves three notifications with distinct statuses (created/queued/failed).
+   */
+  private function seedStatuses(): void {
+    foreach (['created', 'queued', 'failed'] as $status) {
+      Notification::create([
+        'type' => 'mention',
+        'uid' => 1,
+        'subject' => 'S',
+        'priority' => 'normal',
+        'status' => $status,
+      ])->save();
+    }
+  }
+
+  /**
+   * Sets query parameters on the bootstrapped current request.
+   *
+   * @param array<string, string> $query
+   *   The query parameters.
+   */
+  private function setRequestQuery(array $query): void {
+    $request = $this->container->get('request_stack')->getCurrentRequest();
+    $request->query = new InputBag($query);
+  }
+
+  /**
+   * Invokes the protected getEntityIds() on a fresh list builder instance.
+   *
+   * @return array<int|string>
+   *   The matched entity ids.
+   */
+  private function invokeGetEntityIds(): array {
+    $list_builder = $this->container->get('entity_type.manager')
+      ->getListBuilder('openintranet_notification');
+    $method = new \ReflectionMethod($list_builder, 'getEntityIds');
+    $method->setAccessible(TRUE);
+    return array_values($method->invoke($list_builder));
   }
 
 }
