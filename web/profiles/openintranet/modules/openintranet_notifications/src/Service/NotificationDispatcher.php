@@ -65,6 +65,16 @@ final class NotificationDispatcher {
     if ($type === NULL) {
       return;
     }
+
+    // Disabled-type gate (FIX 3): the entity `enabled` flag is the dispatch
+    // gate, so disabling a type takes effect — nothing is persisted, no
+    // deliveries are created and no queue item is enqueued. The
+    // `enabled_types` settings list is an advisory admin allow-list, not a hard
+    // dispatch gate, so it never silently disables a shipped/migrated type.
+    if (!$type->isEnabled()) {
+      return;
+    }
+
     $window = $type->getDedupeWindow();
     $dedupeKey = (string) $n->get('dedupe_key')->value;
 

@@ -321,6 +321,45 @@ final class NotificationDispatcherTest extends KernelTestBase {
   }
 
   /**
+   * A disabled type produces no notification, no deliveries and no queue items.
+   *
+   * The entity `enabled` flag is the dispatch gate: a disabled type bails
+   * before anything dispatches, so disabling a type takes effect (FIX 3).
+   */
+  public function testDisabledTypeProducesNothing(): void {
+    NotificationType::create([
+      'id' => 'off',
+      'label' => 'Off',
+      'default_channels' => ['inbox', 'log_only'],
+      'forced_channels' => ['inbox', 'log_only'],
+      'delivery_policy' => 'user_preferences',
+      'dedupe_window' => 0,
+      'enabled' => FALSE,
+    ])->save();
+
+    $n = $this->factory->create('off', ['uid' => 42, 'subject' => 'Hi', 'body' => 'B']);
+    $n->save();
+    $this->dispatcher->enqueue($n);
+
+    self::assertCount(0, $this->loadDeliveriesFor((int) $n->id()));
+    self::assertSame(0, \Drupal::queue('openintranet_notification_delivery')->numberOfItems());
+    // The notification it left behind is not 'queued' (it never dispatched).
+    self::assertNotSame('queued', $this->reload((int) $n->id())->get('status')->value);
+  }
+
+  /**
+   * An enabled type dispatches normally (the gate does not over-block).
+   */
+  public function testEnabledTypeStillDispatches(): void {
+    $n = $this->factory->create('default', ['uid' => 42, 'subject' => 'Hi', 'body' => 'B']);
+    $n->save();
+    $this->dispatcher->enqueue($n);
+
+    self::assertSame('queued', $this->reload((int) $n->id())->get('status')->value);
+    self::assertCount(2, $this->loadDeliveriesFor((int) $n->id()));
+  }
+
+  /**
    * The blocked/empty-channel cancel path fires neither created nor queued.
    */
   public function testNoEventsOnBlockedRecipientPath(): void {
