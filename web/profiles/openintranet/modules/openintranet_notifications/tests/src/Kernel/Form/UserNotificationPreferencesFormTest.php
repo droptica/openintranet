@@ -210,4 +210,56 @@ final class UserNotificationPreferencesFormTest extends KernelTestBase {
     self::assertSame('Europe/Warsaw', $quiet['tz']);
   }
 
+  /**
+   * A malformed quiet-hours time is rejected with a form error.
+   *
+   * @covers ::validateForm
+   */
+  public function testInvalidQuietHoursTimeIsRejected(): void {
+    $form_state = $this->submit([
+      'pref' => [
+        'mention' => [
+          'inbox' => 1,
+          'log_only' => 0,
+        ],
+      ],
+      'quiet_hours_start' => '25:99',
+      'quiet_hours_end' => '',
+      'quiet_hours_tz' => '',
+    ]);
+
+    $errors = $form_state->getErrors();
+    self::assertArrayHasKey('quiet_hours_start', $errors, 'A malformed start time triggers a field error.');
+
+    // The bad value must not have been persisted.
+    $matches = $this->container->get('entity_type.manager')
+      ->getStorage('user_notification_settings')
+      ->loadByProperties(['uid' => $this->account->id()]);
+    self::assertEmpty($matches, 'Nothing is saved when validation fails.');
+  }
+
+  /**
+   * A well-formed quiet-hours time passes validation and persists.
+   *
+   * @covers ::validateForm
+   */
+  public function testValidQuietHoursTimePasses(): void {
+    $form_state = $this->submit([
+      'pref' => [
+        'mention' => [
+          'inbox' => 1,
+          'log_only' => 0,
+        ],
+      ],
+      'quiet_hours_start' => '09:30',
+      'quiet_hours_end' => '17:45',
+      'quiet_hours_tz' => '',
+    ]);
+    self::assertEmpty($form_state->getErrors(), implode("\n", array_map('strval', $form_state->getErrors())));
+
+    $quiet = $this->loadSettings()->getQuietHours();
+    self::assertSame('09:30', $quiet['start']);
+    self::assertSame('17:45', $quiet['end']);
+  }
+
 }

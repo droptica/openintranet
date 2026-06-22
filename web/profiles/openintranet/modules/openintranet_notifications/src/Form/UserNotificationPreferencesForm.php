@@ -146,6 +146,20 @@ final class UserNotificationPreferencesForm extends FormBase {
   /**
    * {@inheritdoc}
    */
+  public function validateForm(array &$form, FormStateInterface $form_state): void {
+    foreach (['quiet_hours_start', 'quiet_hours_end'] as $key) {
+      $value = trim((string) $form_state->getValue($key));
+      // A malformed value would silently disable the quiet window, so reject it
+      // rather than store it. Empty clears the window and is always valid.
+      if ($value !== '' && preg_match('/^([01]\d|2[0-3]):[0-5]\d$/', $value) !== 1) {
+        $form_state->setErrorByName($key, $this->t('Enter a valid 24h time as HH:MM.'));
+      }
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function submitForm(array &$form, FormStateInterface $form_state): void {
     $uid = (int) $form_state->get('uid');
     $settings = $this->preferenceResolver->loadOrCreateFor($uid);
