@@ -21,7 +21,9 @@ use Drupal\openintranet_notifications\Event\NotificationDeliveredEvent;
 use Drupal\openintranet_notifications\Event\NotificationEvents;
 use Drupal\openintranet_notifications\Event\NotificationFailedEvent;
 use Drupal\openintranet_notifications\Event\NotificationPermanentlyFailedEvent;
+use Drupal\openintranet_notifications\QuietHours;
 use Drupal\openintranet_notifications\Service\AuditLogger;
+use Drupal\openintranet_notifications\Service\PreferenceResolverInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -60,6 +62,18 @@ final class NotificationDeliveryWorker extends QueueWorkerBase implements Contai
    */
   private const CLAIM_TTL_SECONDS = 120;
 
+  /**
+   * Channels that send regardless of recipient quiet hours.
+   *
+   * On-site / dev channels are never deferred: the inbox is read on demand and
+   * log_only/null have no recipient-facing transport. Every other channel is a
+   * deferrable transport.
+   *
+   * @todo replace the allowlist with a per-channel "respects quiet hours" flag
+   *   once channels can declare it on their plugin definition.
+   */
+  private const QUIET_HOURS_EXEMPT_CHANNELS = ['inbox', 'log_only', 'null'];
+
   public function __construct(
     array $configuration,
     string $plugin_id,
@@ -71,6 +85,7 @@ final class NotificationDeliveryWorker extends QueueWorkerBase implements Contai
     private readonly AuditLogger $auditLogger,
     private readonly KeyValueExpirableFactoryInterface $keyValueExpirable,
     private readonly EventDispatcherInterface $eventDispatcher,
+    private readonly PreferenceResolverInterface $preferenceResolver,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
   }
@@ -90,6 +105,7 @@ final class NotificationDeliveryWorker extends QueueWorkerBase implements Contai
       $container->get('openintranet_notifications.audit_logger'),
       $container->get('keyvalue.expirable'),
       $container->get('event_dispatcher'),
+      $container->get('openintranet_notifications.preference_resolver'),
     );
   }
 
@@ -135,6 +151,23 @@ final class NotificationDeliveryWorker extends QueueWorkerBase implements Contai
       $delivery->set('status', 'skipped');
       $delivery->save();
       return;
+    }
+
+    // Quiet-hours deferral: a deferrable transport send to a user recipient who
+    // is currently within their quiet window is re-queued until the window ends
+    // (same DelayedRequeueException mechanism as the backoff defer above, so
+    // the row's status/next_attempt survive and cron does not spin). Exempt
+    // on-site/dev channels and non-user recipients (no uid → no quiet hours).
+    if (!\in_array($channelId, self::QUIET_HOURS_EXEMPT_CHANNELS, TRUE)
+      && (string) $delivery->get('recipient_type')->value === 'user') {
+      $uid = (int) $delivery->get('recipient_id')->value;
+      $quietHours = $this->preferenceResolver->getQuietHours($uid);
+      if (!empty($quietHours) && QuietHours::isWithin($quietHours, $now)) {
+        $delay = QuietHours::secondsUntilEnd($quietHours, $now);
+        $delivery->scheduleRetry($delay);
+        $delivery->save();
+        throw new DelayedRequeueException($delay, 'Deferred for recipient quiet hours.');
+      }
     }
 
     $recipient = $this->buildRecipient($delivery);

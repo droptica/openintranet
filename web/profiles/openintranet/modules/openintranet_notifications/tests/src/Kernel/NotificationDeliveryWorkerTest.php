@@ -64,6 +64,7 @@ final class NotificationDeliveryWorkerTest extends KernelTestBase {
   protected function setUp(): void {
     parent::setUp();
     $this->installEntitySchema('user');
+    $this->installEntitySchema('user_notification_settings');
     $this->installEntitySchema('openintranet_notification');
     $this->installEntitySchema('openintranet_notif_delivery');
     $this->installSchema('system', ['sequences']);
