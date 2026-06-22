@@ -7,6 +7,7 @@ namespace Drupal\Tests\openintranet_notifications\Kernel;
 use Drupal\Core\Queue\DelayedRequeueException;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\openintranet_notifications\Entity\NotificationDeliveryInterface;
+use Drupal\openintranet_notifications\Entity\NotificationInterface;
 use Drupal\openintranet_notifications\Event\NotificationEvents;
 use Drupal\openintranet_notifications\Plugin\QueueWorker\NotificationDeliveryWorker;
 use Drupal\openintranet_notifications_test\Plugin\NotificationChannel\CountingChannel;
@@ -370,6 +371,79 @@ final class NotificationDeliveryWorkerTest extends KernelTestBase {
 
     self::assertSame(1, $failed);
     self::assertSame(1, $permanently);
+  }
+
+  /**
+   * Loads the parent notification status of a delivery, fresh from storage.
+   */
+  private function parentStatus(NotificationDeliveryInterface $delivery): string {
+    $storage = $this->container->get('entity_type.manager')->getStorage('openintranet_notification');
+    $id = (int) $delivery->get('notification_id')->target_id;
+    $storage->resetCache([$id]);
+    $notification = $storage->load($id);
+    \assert($notification instanceof NotificationInterface);
+    return (string) $notification->get('status')->value;
+  }
+
+  /**
+   * A single successful delivery rolls the parent notification to delivered.
+   */
+  public function testSuccessfulSendRollsParentToDelivered(): void {
+    $delivery = $this->createDelivery(['channel' => 'null', 'status' => 'pending']);
+
+    $this->worker->processItem(['delivery_id' => $delivery->id()]);
+
+    self::assertSame('delivered', $this->parentStatus($delivery));
+  }
+
+  /**
+   * A permanent failure (sole delivery) rolls the parent to failed.
+   */
+  public function testPermanentFailureRollsParentToFailed(): void {
+    $delivery = $this->createDelivery(['channel' => 'always_permanent', 'status' => 'pending']);
+
+    $this->worker->processItem(['delivery_id' => $delivery->id()]);
+
+    self::assertSame('failed', $this->parentStatus($delivery));
+  }
+
+  /**
+   * A skipped delivery (missing channel) rolls a skipped-only parent to failed.
+   */
+  public function testSkippedSoleDeliveryRollsParentToFailed(): void {
+    $delivery = $this->createDelivery(['channel' => 'does_not_exist', 'status' => 'pending']);
+
+    $this->worker->processItem(['delivery_id' => $delivery->id()]);
+
+    self::assertSame('failed', $this->parentStatus($delivery));
+  }
+
+  /**
+   * Retention now purges a delivered+old notification (it never could before).
+   *
+   * Before the status roll-up the parent lingered at 'queued', so the purger
+   * (which queries terminal statuses) never reached it. The worker now rolls it
+   * to 'delivered', making it expirable.
+   */
+  public function testRetentionPurgesNotificationDeliveredByWorker(): void {
+    $delivery = $this->createDelivery(['channel' => 'null', 'status' => 'pending']);
+    $this->worker->processItem(['delivery_id' => $delivery->id()]);
+
+    $storage = $this->container->get('entity_type.manager')->getStorage('openintranet_notification');
+    $notificationId = (int) $delivery->get('notification_id')->target_id;
+    self::assertSame('delivered', $this->parentStatus($delivery));
+
+    // Age the notification past the 90-day default retention window.
+    $notification = $storage->load($notificationId);
+    \assert($notification instanceof NotificationInterface);
+    $notification->set('created', \Drupal::time()->getRequestTime() - (100 * 86400));
+    $notification->save();
+
+    $purged = $this->container->get('openintranet_notifications.retention_purger')->purge();
+
+    self::assertSame(1, $purged);
+    $storage->resetCache([$notificationId]);
+    self::assertNull($storage->load($notificationId));
   }
 
   /**

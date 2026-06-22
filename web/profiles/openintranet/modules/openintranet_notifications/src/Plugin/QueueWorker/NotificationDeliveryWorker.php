@@ -23,6 +23,7 @@ use Drupal\openintranet_notifications\Event\NotificationFailedEvent;
 use Drupal\openintranet_notifications\Event\NotificationPermanentlyFailedEvent;
 use Drupal\openintranet_notifications\QuietHours;
 use Drupal\openintranet_notifications\Service\AuditLogger;
+use Drupal\openintranet_notifications\Service\NotificationStatusResolver;
 use Drupal\openintranet_notifications\Service\PreferenceResolverInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -86,6 +87,7 @@ final class NotificationDeliveryWorker extends QueueWorkerBase implements Contai
     private readonly KeyValueExpirableFactoryInterface $keyValueExpirable,
     private readonly EventDispatcherInterface $eventDispatcher,
     private readonly PreferenceResolverInterface $preferenceResolver,
+    private readonly NotificationStatusResolver $statusResolver,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
   }
@@ -106,6 +108,7 @@ final class NotificationDeliveryWorker extends QueueWorkerBase implements Contai
       $container->get('keyvalue.expirable'),
       $container->get('event_dispatcher'),
       $container->get('openintranet_notifications.preference_resolver'),
+      $container->get('openintranet_notifications.notification_status_resolver'),
     );
   }
 
@@ -144,12 +147,14 @@ final class NotificationDeliveryWorker extends QueueWorkerBase implements Contai
     if (!$this->channelManager->hasDefinition($channelId)) {
       $delivery->set('status', 'skipped');
       $delivery->save();
+      $this->rollUpParent($delivery);
       return;
     }
     $channel = $this->channelManager->createInstance($channelId);
     if (!$channel->isAvailable()) {
       $delivery->set('status', 'skipped');
       $delivery->save();
+      $this->rollUpParent($delivery);
       return;
     }
 
@@ -193,6 +198,9 @@ final class NotificationDeliveryWorker extends QueueWorkerBase implements Contai
       $this->auditLogger->log($delivery, $result);
       $delivery->save();
       $notification = $this->loadNotification($delivery);
+      if ($notification !== NULL) {
+        $this->statusResolver->rollUpNotificationStatus($notification);
+      }
       $this->eventDispatcher->dispatch(new NotificationDeliveredEvent($delivery, $notification), NotificationEvents::DELIVERED);
       return;
     }
@@ -216,7 +224,20 @@ final class NotificationDeliveryWorker extends QueueWorkerBase implements Contai
     $delivery->markFailed($result);
     $this->auditLogger->log($delivery, $result);
     $delivery->save();
+    if ($notification !== NULL) {
+      $this->statusResolver->rollUpNotificationStatus($notification);
+    }
     $this->eventDispatcher->dispatch(new NotificationPermanentlyFailedEvent($delivery, $notification), NotificationEvents::PERMANENTLY_FAILED);
+  }
+
+  /**
+   * Rolls the delivery's parent notification status up from its rows.
+   */
+  private function rollUpParent(NotificationDeliveryInterface $delivery): void {
+    $notification = $this->loadNotification($delivery);
+    if ($notification !== NULL) {
+      $this->statusResolver->rollUpNotificationStatus($notification);
+    }
   }
 
   /**
