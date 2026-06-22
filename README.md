@@ -92,7 +92,7 @@ You can also watch a [2-minute video demo on YouTube](https://www.youtube.com/wa
 Requires [DDEV](https://ddev.com) installed on your machine.
 
 ```
-curl -sL https://intranet.new/install.sh | bash
+curl -sL https://install.open-intranet.com/install.sh | bash
 ```
 
 ### Manual install
