@@ -121,9 +121,17 @@ final class UserNotificationPreferencesFormTest extends KernelTestBase {
    * @covers ::buildForm
    */
   public function testNonOverridableTypeIsAbsent(): void {
-    $form_object = UserNotificationPreferencesForm::create($this->container);
-    $form_state = new FormState();
-    $form = $form_object->buildForm([], $form_state, $this->account);
+    // Build through the form builder so element defaults (e.g.
+    // #description_display) are applied; building the form object directly
+    // skips form_builder::prepareForm() and emits a #description_display
+    // warning on render.
+    $form = $this->container->get('form_builder')
+      ->getForm(UserNotificationPreferencesForm::class, $this->account);
+
+    // The overridable "Mention" type is a matrix row; the non-overridable
+    // "System alert" type is not.
+    self::assertArrayHasKey('mention', $form['pref']);
+    self::assertArrayNotHasKey('system_alert', $form['pref']);
 
     $rendered = (string) $this->container->get('renderer')->renderRoot($form);
     self::assertStringContainsString('Mention', $rendered);
