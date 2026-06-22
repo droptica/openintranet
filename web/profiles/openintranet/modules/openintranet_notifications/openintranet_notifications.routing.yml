@@ -40,15 +40,16 @@ openintranet_notifications.inbox:
 
 # Defined statically so it pre-empts the AdminHtmlRouteProvider-generated
 # canonical route (EntityRouteProviderSubscriber never overrides an existing
-# route name): this user-facing view marks the notification read and enforces
-# own-only access, unlike the provider's default entity view.
+# route name): this user-facing view marks the notification read, unlike the
+# provider's default entity view. Access is the entity handler's own 'view'
+# op (owner-or-"view notification logs"), so the rule lives in one place.
 entity.openintranet_notification.canonical:
   path: '/notifications/{openintranet_notification}'
   defaults:
     _controller: '\Drupal\openintranet_notifications\Controller\NotificationInboxController::view'
     _title: 'Notification'
   requirements:
-    _custom_access: '\Drupal\openintranet_notifications\Access\NotificationViewAccess::access'
+    _entity_access: 'openintranet_notification.view'
   options:
     parameters:
       openintranet_notification:

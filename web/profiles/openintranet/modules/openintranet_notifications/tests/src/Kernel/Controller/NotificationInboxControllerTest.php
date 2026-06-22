@@ -7,7 +7,6 @@ namespace Drupal\Tests\openintranet_notifications\Kernel\Controller;
 use Drupal\Core\Routing\TrustedRedirectResponse;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\KernelTests\KernelTestBase;
-use Drupal\openintranet_notifications\Access\NotificationViewAccess;
 use Drupal\openintranet_notifications\Controller\NotificationInboxController;
 use Drupal\openintranet_notifications\Entity\Notification;
 use Drupal\openintranet_notifications\Entity\NotificationInterface;
@@ -198,29 +197,31 @@ final class NotificationInboxControllerTest extends KernelTestBase {
   /**
    * The owner may view their own notification; others and anonymous may not.
    *
-   * @covers \Drupal\openintranet_notifications\Access\NotificationViewAccess::access
+   * The canonical route guards with _entity_access 'view', so this asserts the
+   * entity access handler the route now relies on.
+   *
+   * @covers \Drupal\openintranet_notifications\Entity\Handler\NotificationAccessControlHandler::checkAccess
    */
   public function testViewAccessIsOwnOnly(): void {
-    $checker = NotificationViewAccess::create($this->container);
     $userA = $this->makeUser('a');
     $userB = $this->makeUser('b');
     $admin = $this->makeUser('admin', ['view notification logs']);
     $notification = $this->makeNotification($userA, 'Private');
 
     self::assertTrue(
-      $checker->access($userA, $notification)->isAllowed(),
+      $notification->access('view', $userA),
       'The owner may view their own notification.',
     );
     self::assertFalse(
-      $checker->access($userB, $notification)->isAllowed(),
+      $notification->access('view', $userB),
       'A different user must NOT view another user\'s notification.',
     );
     self::assertFalse(
-      $checker->access(User::getAnonymousUser(), $notification)->isAllowed(),
+      $notification->access('view', User::getAnonymousUser()),
       'Anonymous must be denied.',
     );
     self::assertTrue(
-      $checker->access($admin, $notification)->isAllowed(),
+      $notification->access('view', $admin),
       'A "view notification logs" admin may view any notification.',
     );
   }
