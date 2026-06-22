@@ -47,4 +47,16 @@ final class NotificationDashboardRoutesTest extends KernelTestBase {
     self::assertSame('view notification logs', $delivery->getRequirement('_permission'));
   }
 
+  /**
+   * The canonical view route guards with the entity access handler.
+   */
+  public function testCanonicalRouteUsesEntityAccess(): void {
+    $route = $this->container->get('router.route_provider')
+      ->getRouteByName('entity.openintranet_notification.canonical');
+
+    self::assertSame('/notifications/{openintranet_notification}', $route->getPath());
+    self::assertSame('openintranet_notification.view', $route->getRequirement('_entity_access'));
+    self::assertNull($route->getRequirement('_custom_access'));
+  }
+
 }
