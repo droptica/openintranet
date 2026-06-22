@@ -48,7 +48,7 @@ final class NotificationCommands extends DrushCommands {
     $query = $storage->getQuery()
       ->accessCheck(FALSE)
       ->condition('status', 'failed');
-    $limit = $options['limit'];
+    $limit = $options['limit'] ?? NULL;
     if ($limit !== NULL) {
       $query->range(0, (int) $limit);
     }
@@ -73,7 +73,7 @@ final class NotificationCommands extends DrushCommands {
   #[CLI\Usage(name: 'openintranet_notifications:purge', description: 'Purge all notifications past their retention window.')]
   #[CLI\Usage(name: 'openintranet_notifications:purge --limit=500', description: 'Purge up to 500 expired notifications.')]
   public function purge(array $options = ['limit' => NULL]): void {
-    $limit = $options['limit'] !== NULL ? (int) $options['limit'] : NULL;
+    $limit = isset($options['limit']) ? (int) $options['limit'] : NULL;
     $count = $this->retentionPurger->purge($limit);
     $this->logger()->success(dt('Purged @count notifications.', ['@count' => $count]));
   }
