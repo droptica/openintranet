@@ -33,6 +33,20 @@ interface NotificationChannelInterface extends PluginInspectionInterface {
   public function isAvailable(): bool;
 
   /**
+   * The maximum number of send attempts before a failure becomes permanent.
+   *
+   * The per-channel retry budget (00-synteza §3.1: "max prób per kanał, np.
+   * 5"). The shared DeliverySender reads this instead of a single global cap,
+   * so a flaky transport can lower it (e.g. SMS → 2) without touching the
+   * worker.
+   * The base default is 5; channels override only when they need a tighter cap.
+   *
+   * @return int
+   *   The maximum attempt count for this channel (>= 1).
+   */
+  public function maxAttempts(): int;
+
+  /**
    * Extracts this channel's own address from the recipient.
    *
    * Each channel resolves the address it needs (email -> user mail / raw value;

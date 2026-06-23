@@ -232,12 +232,107 @@ final class NotificationDeliveryWorkerTest extends KernelTestBase {
     }
 
     self::assertInstanceOf(DelayedRequeueException::class, $thrown);
-    // attempt_count becomes 4; 4 < 5 so it retries with delay 300 * 4.
-    self::assertSame(self::FIRST_BACKOFF * 4, $thrown->getDelay());
+    // attempt_count becomes 4; 4 < 5 so it retries with EXPONENTIAL backoff:
+    // 300 * 2 ** (4 - 1) = 300 * 8 = 2400.
+    self::assertSame(self::FIRST_BACKOFF * 8, $thrown->getDelay());
 
     $reloaded = $this->reload($delivery);
     self::assertSame('pending', $reloaded->get('status')->value);
     self::assertSame(4, (int) $reloaded->get('attempt_count')->value);
+  }
+
+  /**
+   * The retry backoff grows exponentially: 300, 600, 1200, 2400 (FIX A1).
+   *
+   * Each pass over a retryable delivery bumps attempt_count and schedules the
+   * next attempt at BACKOFF_BASE_SECONDS * 2 ** (attempt_count - 1). The worker
+   * defers the SAME item, so we drive it pass-by-pass, advancing past each
+   * scheduled next_attempt before the following pass.
+   */
+  public function testBackoffSequenceIsExponential(): void {
+    $delivery = $this->createDelivery(['channel' => 'flaky_retryable', 'status' => 'pending']);
+
+    $expected = [
+      self::FIRST_BACKOFF * 1,
+      self::FIRST_BACKOFF * 2,
+      self::FIRST_BACKOFF * 4,
+      self::FIRST_BACKOFF * 8,
+    ];
+
+    $claimKey = (string) $delivery->get('idempotency_key')->value;
+    $claimStore = $this->container->get('keyvalue.expirable')->get(self::CLAIM_COLLECTION);
+
+    foreach ($expected as $i => $delay) {
+      // Clear the prior pass's idempotency claim and re-stamp next_attempt to
+      // now: with frozen request time the claim TTL never elapses and the
+      // early-defer guard would otherwise fire on the scheduled next_attempt.
+      $claimStore->delete($claimKey);
+      $now = \Drupal::time()->getRequestTime();
+      $reloaded = $this->reload($delivery);
+      $reloaded->set('next_attempt', $now)->save();
+
+      $thrown = NULL;
+      try {
+        $this->worker->processItem(['delivery_id' => $delivery->id()]);
+      }
+      catch (DelayedRequeueException $e) {
+        $thrown = $e;
+      }
+
+      self::assertInstanceOf(DelayedRequeueException::class, $thrown);
+      self::assertSame($delay, $thrown->getDelay(), "Backoff for attempt " . ($i + 1));
+      self::assertSame($i + 1, (int) $this->reload($delivery)->get('attempt_count')->value);
+    }
+  }
+
+  /**
+   * A channel overriding maxAttempts() to 2 exhausts after 2 attempts (FIX A1).
+   *
+   * The per-channel cap is read from the channel, not a global const: this
+   * channel becomes permanent on the SECOND attempt where a default channel
+   * would still retry.
+   */
+  public function testPerChannelMaxAttemptsExhaustsEarly(): void {
+    $delivery = $this->createDelivery([
+      'channel' => 'low_cap_retryable',
+      'status' => 'pending',
+      'attempt_count' => 1,
+    ]);
+
+    // attempt_count becomes 2; 2 is NOT < maxAttempts()=2, so it goes permanent
+    // with no DelayedRequeueException.
+    $this->worker->processItem(['delivery_id' => $delivery->id()]);
+
+    $reloaded = $this->reload($delivery);
+    self::assertSame('failed', $reloaded->get('status')->value);
+    self::assertSame('E_RETRY', $reloaded->get('last_error_code')->value);
+    self::assertSame(2, (int) $reloaded->get('attempt_count')->value);
+  }
+
+  /**
+   * A default-cap channel still retries at attempt 2 (per-channel cap holds).
+   *
+   * The same attempt_count that exhausts the low-cap channel still retries on a
+   * default-cap (5) channel, proving the cap is per-channel.
+   */
+  public function testDefaultChannelStillRetriesAtSecondAttempt(): void {
+    $delivery = $this->createDelivery([
+      'channel' => 'flaky_retryable',
+      'status' => 'pending',
+      'attempt_count' => 1,
+    ]);
+
+    $thrown = NULL;
+    try {
+      $this->worker->processItem(['delivery_id' => $delivery->id()]);
+    }
+    catch (DelayedRequeueException $e) {
+      $thrown = $e;
+    }
+
+    self::assertInstanceOf(DelayedRequeueException::class, $thrown);
+    self::assertSame('pending', $this->reload($delivery)->get('status')->value);
+    self::assertSame(2, (int) $this->reload($delivery)->get('attempt_count')->value);
   }
 
   /**

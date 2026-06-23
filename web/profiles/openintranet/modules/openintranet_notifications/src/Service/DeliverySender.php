@@ -31,12 +31,20 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 final class DeliverySender {
 
   /**
-   * The maximum number of send attempts before a failure becomes permanent.
+   * The default max send attempts when a channel declares no tighter cap.
+   *
+   * Mirrors NotificationChannelBase::DEFAULT_MAX_ATTEMPTS. The effective cap is
+   * read per-delivery from the channel's maxAttempts() (00-synteza §3.1: "max
+   * prób per kanał, np. 5"); this const is only the fallback used when the
+   * channel is missing, and keeps the historical global behaviour.
    */
   public const MAX_ATTEMPTS = 5;
 
   /**
-   * The base backoff in seconds, multiplied by the attempt count.
+   * The base backoff in seconds, doubled on each successive attempt.
+   *
+   * The retry delay is EXPONENTIAL (00-synteza §3.1): for attempt N the delay
+   * is BACKOFF_BASE_SECONDS * 2 ** (N - 1), i.e. 300, 600, 1200, 2400, … .
    */
   public const BACKOFF_BASE_SECONDS = 300;
 
@@ -130,8 +138,13 @@ final class DeliverySender {
     $notification = $this->loadNotification($delivery);
     $this->eventDispatcher->dispatch(new NotificationFailedEvent($delivery, $notification), NotificationEvents::FAILED);
 
-    if ($result->retryable && $attemptCount < self::MAX_ATTEMPTS) {
-      $delay = self::BACKOFF_BASE_SECONDS * $attemptCount;
+    // The retry budget is per-channel (00-synteza §3.1): the channel declares
+    // its own cap (default 5), so a flaky transport can lower it without the
+    // worker knowing the channel.
+    $maxAttempts = $channel->maxAttempts();
+    if ($result->retryable && $attemptCount < $maxAttempts) {
+      // Exponential backoff: 300, 600, 1200, 2400, … (00-synteza §3.1).
+      $delay = self::BACKOFF_BASE_SECONDS * (2 ** ($attemptCount - 1));
       $delivery->scheduleRetry($delay);
       $this->auditLogger->log($delivery, $result);
       // Persist attempt_count/next_attempt/status so a re-queue (or the next

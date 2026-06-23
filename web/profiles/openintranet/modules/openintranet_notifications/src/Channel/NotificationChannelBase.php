@@ -17,6 +17,11 @@ use Drupal\openintranet_notifications\Dto\NotificationRecipient;
 abstract class NotificationChannelBase extends PluginBase implements NotificationChannelInterface, ContainerFactoryPluginInterface {
 
   /**
+   * The default per-channel retry budget (00-synteza §3.1).
+   */
+  protected const DEFAULT_MAX_ATTEMPTS = 5;
+
+  /**
    * {@inheritdoc}
    */
   public function getId(): string {
@@ -37,6 +42,13 @@ abstract class NotificationChannelBase extends PluginBase implements Notificatio
     // Channel-config availability only; the global kill switch is enforced by
     // the delivery policy. Real channels override this with their own check.
     return TRUE;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function maxAttempts(): int {
+    return static::DEFAULT_MAX_ATTEMPTS;
   }
 
   /**
