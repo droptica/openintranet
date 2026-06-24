@@ -176,6 +176,7 @@ final class Notification extends ContentEntityBase implements NotificationInterf
       ->setRequired(TRUE)
       ->setSetting('allowed_values', [
         'created' => 'Created',
+        'resolving' => 'Resolving',
         'queued' => 'Queued',
         'delivered' => 'Delivered',
         'partial' => 'Partial',

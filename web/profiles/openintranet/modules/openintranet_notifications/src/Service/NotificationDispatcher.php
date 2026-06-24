@@ -51,6 +51,7 @@ final class NotificationDispatcher {
     $uid = (int) $n->get('uid')->target_id;
     $user = $this->entityTypeManager->getStorage('user')->load($uid);
     if ($user === NULL) {
+      $this->abandon($n);
       return;
     }
 
@@ -58,6 +59,7 @@ final class NotificationDispatcher {
 
     $type = $this->loadType($n);
     if ($type === NULL) {
+      $this->abandon($n);
       return;
     }
 
@@ -67,6 +69,7 @@ final class NotificationDispatcher {
     // `enabled_types` settings list is an advisory admin allow-list, not a hard
     // dispatch gate, so it never silently disables a shipped/migrated type.
     if (!$type->isEnabled()) {
+      $this->abandon($n);
       return;
     }
 
@@ -77,6 +80,7 @@ final class NotificationDispatcher {
     // A non-positive window disables dedupe entirely (FIX #3): recording with a
     // zero TTL would store a born-expired entry that never matches.
     if ($window > 0 && $this->deduplicator->isDuplicate($dedupeKey)) {
+      $this->abandon($n);
       return;
     }
 
@@ -88,6 +92,7 @@ final class NotificationDispatcher {
     $limit = 1000;
     $rateWindow = 3600;
     if (!$this->rateLimiter->allow($uid, RateLimiter::ALL_CHANNELS, $type->id(), $limit, $rateWindow)) {
+      $this->abandon($n);
       return;
     }
 
@@ -162,6 +167,13 @@ final class NotificationDispatcher {
           'context' => $context,
         ];
         $n = $this->notificationFactory->create($typeId, $values);
+        // The recipients were resolved by the type's resolvers (not pre-
+        // supplied), so the notification passes through 'resolving' before
+        // enqueue rolls it to 'queued' (00-synteza §4.2). enqueue() owns the
+        // dedupe/rate guards and the final status, so this only records the
+        // resolution phase as an observable, audit-visible state.
+        $n->set('status', 'resolving');
+        $n->save();
         $this->enqueue($n);
       }
       return;
@@ -181,6 +193,28 @@ final class NotificationDispatcher {
       $n = $this->notificationFactory->create($typeId, $values);
       $this->enqueue($n);
     }
+  }
+
+  /**
+   * Cancels a notification that was persisted before a guard rejected it.
+   *
+   * The resolve-path saves the notification at 'resolving' before enqueue runs
+   * its guards (00-synteza §4.2). When a guard bails (missing user/type,
+   * disabled type, dedupe hit, rate limit), that persisted row must not be left
+   * stranded at the non-terminal 'resolving': it is stamped terminal
+   * 'cancelled' so it never lingers and retention can purge it. An unsaved
+   * notification (the pre-resolved path, which only saves after the guards) is
+   * left untouched — there is no row to cancel.
+   *
+   * @param \Drupal\openintranet_notifications\Entity\NotificationInterface $n
+   *   The notification a guard rejected.
+   */
+  private function abandon(NotificationInterface $n): void {
+    if ($n->isNew()) {
+      return;
+    }
+    $n->set('status', 'cancelled');
+    $n->save();
   }
 
   /**

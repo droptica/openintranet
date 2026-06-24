@@ -230,6 +230,70 @@ final class NotificationDispatcherTest extends KernelTestBase {
   }
 
   /**
+   * The resolve-path passes a notification through 'resolving' (§4.2).
+   *
+   * When recipients are not pre-supplied, the dispatcher resolves them via the
+   * type's resolvers and the per-recipient notification passes through the
+   * 'resolving' status before reaching 'queued'. The test module's presave spy
+   * records every status seen, so 'resolving' must appear there even though the
+   * final persisted status is 'queued'.
+   */
+  public function testResolvePathPassesThroughResolvingStatus(): void {
+    Role::create(['id' => 'editor', 'label' => 'Editor'])->save();
+    $user = User::load(41);
+    $user->addRole('editor');
+    $user->save();
+
+    NotificationType::create([
+      'id' => 'resolved',
+      'label' => 'Resolved',
+      'default_channels' => ['inbox', 'log_only'],
+      'forced_channels' => ['inbox', 'log_only'],
+      'delivery_policy' => 'user_preferences',
+      'dedupe_window' => 0,
+      'recipient_resolvers' => [
+        ['id' => 'role_users', 'configuration' => ['role' => 'editor']],
+      ],
+    ])->save();
+
+    \Drupal::state()->delete('openintranet_notifications_test.observed_statuses');
+
+    $this->dispatcher->dispatchRequest('resolved', [], ['subject' => 'Hi', 'body' => 'B']);
+
+    $observed = \Drupal::state()->get('openintranet_notifications_test.observed_statuses', []);
+    self::assertContains('resolving', $observed, 'The resolve-path sets the notification to resolving.');
+
+    // The final persisted status is 'queued' (rollup/lifecycle intact).
+    $notifications = $this->loadAllNotifications();
+    self::assertCount(1, $notifications);
+    $n = reset($notifications);
+    self::assertSame('queued', $this->reload((int) $n->id())->get('status')->value);
+  }
+
+  /**
+   * The notification status field accepts 'resolving' (§4.2 reachable value).
+   */
+  public function testStatusFieldAcceptsResolving(): void {
+    $n = $this->factory->create('default', ['uid' => 42, 'subject' => 'Hi', 'body' => 'B']);
+    $n->set('status', 'resolving');
+    $n->save();
+
+    self::assertSame('resolving', $this->reload((int) $n->id())->get('status')->value);
+  }
+
+  /**
+   * The pre-resolved-recipients path goes straight to queued (§4.2).
+   */
+  public function testPreResolvedRecipientsSkipResolving(): void {
+    \Drupal::state()->delete('openintranet_notifications_test.observed_statuses');
+
+    $this->dispatcher->dispatchRequest('default', [42], ['subject' => 'Hi', 'body' => 'B']);
+
+    $observed = \Drupal::state()->get('openintranet_notifications_test.observed_statuses', []);
+    self::assertNotContains('resolving', $observed, 'A pre-resolved dispatch never passes through resolving.');
+  }
+
+  /**
    * Created and queued events fire once per recipient on a successful send.
    */
   public function testCreatedAndQueuedEventsFirePerRecipient(): void {
