@@ -100,6 +100,53 @@ final class NotificationInboxControllerTest extends KernelTestBase {
   }
 
   /**
+   * Entering the inbox marks the listed notifications read (§10).
+   *
+   * §10 ("mark-as-read po wejściu"): visiting /notifications marks the listed
+   * unread notifications read (read_at set) so the bell unread count drops.
+   * Read implies seen, an already-read one is not re-stamped, and another
+   * user's notifications are untouched (own-only).
+   *
+   * @covers ::inbox
+   */
+  public function testInboxMarksListedNotificationsRead(): void {
+    $userA = $this->makeUser('a');
+    $userB = $this->makeUser('b');
+
+    $a1 = $this->makeNotification($userA, 'A first');
+    $a2 = $this->makeNotification($userA, 'A second');
+    $b1 = $this->makeNotification($userB, 'B only');
+
+    // One of user A's notifications is already read; entering must not re-stamp
+    // its read_at (idempotent).
+    $a2->setRead();
+    $a2->save();
+    $a2Stamp = (int) $this->reload($a2)->get('read_at')->value;
+    self::assertGreaterThan(0, $a2Stamp, 'A2 starts read.');
+    self::assertFalse($a1->isRead(), 'A1 starts unread.');
+
+    $this->setCurrentUser($userA);
+    $this->controller->inbox();
+
+    // The previously-unread listed notification is now read and (read implies
+    // seen) also seen.
+    $a1Reloaded = $this->reload($a1);
+    self::assertTrue($a1Reloaded->isRead(), 'Entering the inbox marks A1 read.');
+    self::assertTrue($a1Reloaded->isSeen(), 'Read implies seen for A1.');
+
+    // The already-read notification keeps its original read_at (no re-stamp).
+    self::assertSame(
+      $a2Stamp,
+      (int) $this->reload($a2)->get('read_at')->value,
+      'An already-read notification is not re-stamped on entry.',
+    );
+
+    // Another user's notification is untouched (own-only).
+    self::assertFalse($this->reload($b1)->isRead(), 'B1 stays unread (own-only).');
+    self::assertFalse($this->reload($b1)->isSeen(), 'B1 stays unseen (own-only).');
+  }
+
+  /**
    * The inbox listing and its mark-seen side effect are bounded.
    *
    * Creating more than the per-request cap proves the query is ranged and that

@@ -19,14 +19,16 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
  * User-facing /notifications inbox + single notification view (Chunk 5C).
  *
  * The inbox lists the current user's own notifications (newest first) and, as a
- * side effect of rendering, marks the listed unseen ones seen — firing
- * NotificationEvents::SEEN for each. The single view marks a notification read.
- * Own-only access is enforced by the route requirements and the inbox query.
+ * side effect of rendering, marks the listed unread ones read (00-synteza §10:
+ * "mark-as-read po wejściu") — read implies seen, so it also stamps seen_at and
+ * fires NotificationEvents::SEEN for the freshly-seen ones. The single view
+ * marks a notification read. Own-only access is enforced by the route
+ * requirements and the inbox query.
  */
 final class NotificationInboxController extends ControllerBase {
 
   /**
-   * Maximum number of notifications listed (and marked seen) per request.
+   * Maximum number of notifications listed (and marked read) per request.
    */
   private const INBOX_LIMIT = 50;
 
@@ -48,10 +50,11 @@ final class NotificationInboxController extends ControllerBase {
   }
 
   /**
-   * Lists the current user's notifications and marks the unseen ones seen.
+   * Lists the current user's notifications and marks the unread ones read.
    *
    * The listing is bounded to the most recent INBOX_LIMIT notifications, and
-   * the mark-seen side effect is bounded to that same listed set.
+   * the mark-read side effect (00-synteza §10) is bounded to that same listed
+   * set.
    *
    * @return array
    *   A render array.
@@ -88,7 +91,7 @@ final class NotificationInboxController extends ControllerBase {
       ];
     }
 
-    $this->markSeen($notifications);
+    $this->markRead($notifications);
 
     return [
       'list' => [
@@ -96,7 +99,7 @@ final class NotificationInboxController extends ControllerBase {
         '#items' => $items,
         '#empty' => $this->t('You have no notifications.'),
       ],
-      // Rendering the inbox marks notifications seen, so it must never be
+      // Rendering the inbox marks notifications read, so it must never be
       // served from cache.
       '#cache' => [
         'max-age' => 0,
@@ -143,22 +146,33 @@ final class NotificationInboxController extends ControllerBase {
   }
 
   /**
-   * Marks the given notifications seen and fires the seen event for each.
+   * Marks the given notifications read on inbox entry (00-synteza §10).
+   *
+   * Read implies seen: an unread notification is stamped read and, when not yet
+   * seen, also stamped seen with NotificationEvents::SEEN fired for it. An
+   * already-read notification is skipped (idempotent — its read_at/seen_at are
+   * preserved and it is not re-saved).
    *
    * @param \Drupal\openintranet_notifications\Entity\NotificationInterface[] $notifications
    *   The notifications listed in the inbox.
    */
-  private function markSeen(array $notifications): void {
+  private function markRead(array $notifications): void {
     foreach ($notifications as $notification) {
-      if ($notification->isSeen()) {
+      if ($notification->isRead()) {
         continue;
       }
-      $notification->setSeen();
+      $notification->setRead();
+      $newlySeen = !$notification->isSeen();
+      if ($newlySeen) {
+        $notification->setSeen();
+      }
       $notification->save();
-      $this->eventDispatcher->dispatch(
-        new NotificationSeenEvent($notification),
-        NotificationEvents::SEEN,
-      );
+      if ($newlySeen) {
+        $this->eventDispatcher->dispatch(
+          new NotificationSeenEvent($notification),
+          NotificationEvents::SEEN,
+        );
+      }
     }
   }
 
