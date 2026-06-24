@@ -542,6 +542,26 @@ final class NotificationDeliveryWorkerTest extends KernelTestBase {
   }
 
   /**
+   * The delivery passes through 'processing' while the channel sends (§4.3).
+   *
+   * The shared sender must stamp and persist status 'processing' after winning
+   * the idempotency claim and before the channel call, so an in-flight read
+   * sees 'processing'; on success the row settles at 'sent'. The probe channel
+   * reads the persisted delivery rows during send() and records them in state.
+   */
+  public function testInFlightDeliveryPassesThroughProcessing(): void {
+    $delivery = $this->createDelivery(['channel' => 'processing_probe', 'status' => 'pending']);
+
+    $this->worker->processItem(['delivery_id' => $delivery->id()]);
+
+    $observed = \Drupal::state()->get('openintranet_notifications_test.processing_probe_statuses', []);
+    self::assertContains('processing', $observed, 'The delivery is processing while the channel sends.');
+
+    // The success path settles the row at the terminal 'sent' status.
+    self::assertSame('sent', $this->reload($delivery)->get('status')->value);
+  }
+
+  /**
    * A non-terminal retryable failure fires FAILED but not PERMANENTLY_FAILED.
    */
   public function testRetryableFailureFiresFailedButNotPermanent(): void {

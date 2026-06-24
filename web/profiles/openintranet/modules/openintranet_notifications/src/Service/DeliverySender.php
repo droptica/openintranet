@@ -114,6 +114,13 @@ final class DeliverySender {
       return DeliveryOutcome::NotSent;
     }
 
+    // Mark the row in-flight before the channel call (00-synteza §4.3): the
+    // claim is won, so this attempt owns the send. 'processing' is non-terminal
+    // and still cancellable, so the no-double-send guard above is unaffected;
+    // markSent/markFailed/skip below stamp the terminal outcome.
+    $delivery->set('status', 'processing');
+    $delivery->save();
+
     $recipient = $this->buildRecipient($delivery);
     $message = $this->buildMessage($delivery);
 
