@@ -22,14 +22,14 @@ use Drupal\openintranet_notifications\Policy\NotificationDeliveryPolicyBase;
  * The priority is read from $context['priority'] when the dispatcher supplies
  * it, otherwise from the type's default priority.
  *
- * @todo The dispatcher currently calls selectChannels() with an empty context
- *   (NotificationDispatcher), so per-notification priority falls back to the
- *   type default; pass the notification's priority in $context['priority'] to
- *   tier per message rather than per type.
- * @todo Scope: this is priority-TIERED CHANNEL SELECTION only. Timed
- *   re-escalation ("send SMS N minutes later if email was not delivered") is a
- *   re-dispatch concern that does not fit a single selectChannels() call and is
- *   deferred; it would be driven by the queue worker / next_attempt mechanism.
+ * Timed escalation (00-synteza §3.2) tiers the SEND TIME of the selected
+ * channels: for urgent/high, the immediate tier (inbox, email_core) sends at
+ * once while the escalation tier (sms_smsapi, push) is held back by
+ * ESCALATION_DELAY_SECONDS via channelDelays(). The delivery queue stamps the
+ * later tier's next_attempt into the future and the worker's early-defer
+ * staggers it; on a successful immediate-tier send the shared sender cancels
+ * the still-pending, not-yet-due escalation rows, so the SMS only fires when
+ * email never landed.
  */
 #[NotificationDeliveryPolicy(
   id: 'urgent_escalation',
@@ -42,6 +42,20 @@ final class UrgentEscalationPolicy extends NotificationDeliveryPolicyBase {
    * Priorities that trigger the full escalation set.
    */
   private const ESCALATION_PRIORITIES = ['urgent', 'high'];
+
+  /**
+   * The escalation-tier channels held back behind the escalation delay.
+   *
+   * The disruptive / costly transports (00-synteza §3.2): they fire only after
+   * the immediate tier has had ESCALATION_DELAY_SECONDS to land, and are
+   * cancelled if it did. Every other selected channel is immediate.
+   */
+  private const ESCALATION_CHANNELS = ['sms_smsapi', 'push'];
+
+  /**
+   * Seconds the escalation tier waits before its first send (default 600).
+   */
+  private const ESCALATION_DELAY_SECONDS = 600;
 
   /**
    * {@inheritdoc}
@@ -71,6 +85,26 @@ final class UrgentEscalationPolicy extends NotificationDeliveryPolicyBase {
     }
 
     return $selected;
+  }
+
+  /**
+   * {@inheritdoc}
+   *
+   * Only escalating priorities (urgent/high) tier their send time: the
+   * escalation-tier channels wait ESCALATION_DELAY_SECONDS, every other
+   * selected channel sends immediately. normal/low never delay anything.
+   */
+  public function channelDelays(NotificationTypeInterface $type, NotificationRecipient $recipient, array $context): array {
+    $priority = $context['priority'] ?? $type->getDefaultPriority();
+    if (!\in_array($priority, self::ESCALATION_PRIORITIES, TRUE)) {
+      return [];
+    }
+
+    $delays = [];
+    foreach (self::ESCALATION_CHANNELS as $channelId) {
+      $delays[$channelId] = self::ESCALATION_DELAY_SECONDS;
+    }
+    return $delays;
   }
 
 }

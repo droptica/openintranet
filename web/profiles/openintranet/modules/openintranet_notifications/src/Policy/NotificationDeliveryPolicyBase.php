@@ -84,6 +84,16 @@ abstract class NotificationDeliveryPolicyBase extends PluginBase implements Noti
   /**
    * {@inheritdoc}
    *
+   * No timed escalation by default: every selected channel sends immediately.
+   * A policy that tiers its channels (e.g. urgent_escalation) overrides this.
+   */
+  public function channelDelays(NotificationTypeInterface $type, NotificationRecipient $recipient, array $context): array {
+    return [];
+  }
+
+  /**
+   * {@inheritdoc}
+   *
    * Policies whose empty set is a true drop (the default) keep Drop; those
    * whose empty set is intentional override this.
    */

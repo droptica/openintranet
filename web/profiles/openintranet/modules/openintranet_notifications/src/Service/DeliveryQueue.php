@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\openintranet_notifications\Service;
 
+use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\KeyValueStore\KeyValueExpirableFactoryInterface;
@@ -36,6 +37,7 @@ final class DeliveryQueue {
     private readonly QueueFactory $queueFactory,
     private readonly ConfigFactoryInterface $configFactory,
     private readonly KeyValueExpirableFactoryInterface $keyValueExpirable,
+    private readonly TimeInterface $time,
   ) {}
 
   /**
@@ -47,17 +49,27 @@ final class DeliveryQueue {
    *   The recipient identity.
    * @param string[] $channelIds
    *   The channel plugin ids to deliver on.
+   * @param array<string, int> $delays
+   *   Optional per-channel timed-escalation delays (00-synteza §3.2): a channel
+   *   id => seconds map. Each row's initial next_attempt is set to now + the
+   *   channel's delay (default 0 = immediate), so the worker's early-defer
+   *   holds the later tier back until it is due, with no extra queue backend.
    *
    * @return array<int, int|string>
    *   The created delivery entity ids.
    */
-  public function createAndEnqueue(NotificationInterface $notification, NotificationRecipient $recipient, array $channelIds): array {
+  public function createAndEnqueue(NotificationInterface $notification, NotificationRecipient $recipient, array $channelIds, array $delays = []): array {
     $queueId = $this->configFactory->get('openintranet_notifications.settings')->get('queue.id');
     $queue = $this->queueFactory->get($queueId);
+    $now = $this->time->getRequestTime();
 
     $ids = [];
     foreach ($channelIds as $channelId) {
       $delivery = $this->createDeliveryRow($notification, $recipient, $channelId);
+      $delay = max(0, (int) ($delays[$channelId] ?? 0));
+      if ($delay > 0) {
+        $delivery->set('next_attempt', $now + $delay);
+      }
       $delivery->save();
       $queue->createItem(['delivery_id' => $delivery->id()]);
       $ids[] = $delivery->id();

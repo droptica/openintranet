@@ -100,7 +100,11 @@ final class NotificationDispatcher {
 
     $policyId = $type->getDeliveryPolicy() ?: 'user_preferences';
     $policy = $this->policyManager->createInstance($policyId);
-    $channels = $policy->selectChannels($type, $recipient, []);
+    // Thread the per-notification priority so the policy tiers per message, not
+    // per type (00-synteza §3.2): selectChannels() and channelDelays() both
+    // read $context['priority'], falling back to the type default when absent.
+    $context = ['priority' => (string) $n->get('priority')->value];
+    $channels = $policy->selectChannels($type, $recipient, $context);
 
     // An empty channel set is ambiguous: a true drop (blocked/filtered
     // recipient) must be cancelled, but digest_only/silent_audit_only return []
@@ -128,7 +132,11 @@ final class NotificationDispatcher {
 
     $this->eventDispatcher->dispatch(new NotificationCreatedEvent($n), NotificationEvents::CREATED);
 
-    $this->deliveryQueue->createAndEnqueue($n, $recipient, $channels);
+    // Timed escalation (00-synteza §3.2): the policy may hold an escalation
+    // tier (e.g. SMS) behind a delay; createAndEnqueue stamps each row's
+    // next_attempt so the worker staggers it. Immediate channels send now.
+    $delays = $policy->channelDelays($type, $recipient, $context);
+    $this->deliveryQueue->createAndEnqueue($n, $recipient, $channels, $delays);
     if ($window > 0) {
       $this->deduplicator->record($dedupeKey, $window);
     }

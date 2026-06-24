@@ -43,6 +43,29 @@ interface NotificationDeliveryPolicyInterface extends PluginInspectionInterface 
   public function selectChannels(NotificationTypeInterface $type, NotificationRecipient $recipient, array $context): array;
 
   /**
+   * The per-channel send delay for a timed (tiered) escalation.
+   *
+   * Maps a SELECTED channel id to the number of seconds its delivery should
+   * wait before its first send attempt (00-synteza §3.2: "email first, SMS
+   * after N minutes for urgent"). The delivery queue stamps each row's initial
+   * next_attempt = now + delay; the worker's early-defer staggers the later
+   * tier automatically, so no new queue backend is needed. A channel absent
+   * from the map (or mapped to 0) sends immediately. The default is [] — no
+   * policy delays anything unless it opts in.
+   *
+   * @param \Drupal\openintranet_notifications\Entity\NotificationTypeInterface $type
+   *   The notification type.
+   * @param \Drupal\openintranet_notifications\Dto\NotificationRecipient $recipient
+   *   The recipient identity.
+   * @param array $context
+   *   The dispatch context (carries the per-notification priority).
+   *
+   * @return array<string, int>
+   *   A channel id => delay-seconds map; channels not listed send immediately.
+   */
+  public function channelDelays(NotificationTypeInterface $type, NotificationRecipient $recipient, array $context): array;
+
+  /**
    * What an empty channel selection from this policy means.
    *
    * The dispatcher consults this only when selectChannels() returns []: Drop

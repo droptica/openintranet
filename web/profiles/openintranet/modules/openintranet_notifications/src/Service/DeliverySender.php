@@ -132,6 +132,12 @@ final class DeliverySender {
       $delivery->markSent($result->providerMessageId);
       $this->auditLogger->log($delivery, $result);
       $delivery->save();
+      // Timed escalation cancel-on-success (00-synteza §3.2): this channel
+      // landed, so cancel the notification's still-pending escalation tiers
+      // that are not yet due — the email reached the user, the later SMS/push
+      // is no longer needed. A permanent failure (below) does NOT cancel them,
+      // so the escalation still fires when its delay elapses.
+      $this->cancelNotYetDueSiblings($delivery);
       $notification = $this->loadNotification($delivery);
       if ($notification !== NULL) {
         $this->statusResolver->rollUpNotificationStatus($notification);
@@ -169,6 +175,46 @@ final class DeliverySender {
     }
     $this->eventDispatcher->dispatch(new NotificationPermanentlyFailedEvent($delivery, $notification), NotificationEvents::PERMANENTLY_FAILED);
     return DeliveryOutcome::PermanentlyFailed;
+  }
+
+  /**
+   * Cancels a notification's not-yet-due pending escalation tiers.
+   *
+   * Called after a successful send (00-synteza §3.2 cancel-on-success): the
+   * sibling deliveries of the SAME notification that are still 'pending' with a
+   * future next_attempt are the escalation tiers that have not fired yet (e.g.
+   * the SMS held 10 minutes behind a delivered email). They are stamped
+   * 'cancelled' so they never send. A pending sibling already due (next_attempt
+   * <= now) is left alone — it is mid-flight in the queue, not a held tier —
+   * and the just-sent delivery itself is excluded.
+   *
+   * @param \Drupal\openintranet_notifications\Entity\NotificationDeliveryInterface $sentDelivery
+   *   The delivery that just succeeded.
+   */
+  private function cancelNotYetDueSiblings(NotificationDeliveryInterface $sentDelivery): void {
+    $notificationId = $sentDelivery->get('notification_id')->target_id;
+    if ($notificationId === NULL) {
+      return;
+    }
+
+    $now = $this->time->getRequestTime();
+    $storage = $this->entityTypeManager->getStorage('openintranet_notif_delivery');
+    $ids = $storage->getQuery()
+      ->accessCheck(FALSE)
+      ->condition('notification_id', $notificationId)
+      ->condition('status', 'pending')
+      ->condition('next_attempt', $now, '>')
+      ->condition('id', $sentDelivery->id(), '<>')
+      ->execute();
+    if ($ids === []) {
+      return;
+    }
+
+    foreach ($storage->loadMultiple($ids) as $sibling) {
+      \assert($sibling instanceof NotificationDeliveryInterface);
+      $sibling->set('status', 'cancelled');
+      $sibling->save();
+    }
   }
 
   /**
