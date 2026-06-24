@@ -9,6 +9,8 @@ use Drupal\Core\Entity\EntityRepositoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\TypedData\TranslatableInterface;
+use Drupal\openintranet_notifications\Dto\NotificationMessage;
+use Drupal\openintranet_notifications\Dto\NotificationRecipient;
 use Drupal\openintranet_notifications\Entity\NotificationInterface;
 use Drupal\openintranet_notifications\Entity\NotificationTypeInterface;
 use Drupal\openintranet_notifications\Renderer\TemplateRendererManager;
@@ -99,6 +101,82 @@ final class NotificationFactory {
     }
 
     return $notification;
+  }
+
+  /**
+   * Renders a saved notification's message for a specific channel (§4.1).
+   *
+   * Wires the type's per-channel template_map: when the type maps $channelId to
+   * a template, the renderer's per-channel lookup returns the mapped body, so
+   * the message sent on that channel differs from the channel-agnostic stored
+   * body. Token data is reconstructed from the STORED notification (source
+   * entity reference, actor, recipient, payload), so only tokens reachable from
+   * those resolve — extra create-time context entities are not available at
+   * send time. The caller should only invoke this when a template_map entry
+   * exists; with no entry the renderer falls back to the same body the stored
+   * notification already holds, so calling it would be wasted work.
+   *
+   * @param \Drupal\openintranet_notifications\Entity\NotificationInterface $notification
+   *   The saved notification to re-render.
+   * @param \Drupal\openintranet_notifications\Entity\NotificationTypeInterface $type
+   *   The notification type carrying template_map and the renderer id.
+   * @param string $channelId
+   *   The target channel plugin id.
+   * @param \Drupal\openintranet_notifications\Dto\NotificationRecipient $recipient
+   *   The recipient, whose langcode drives the render language (§9).
+   *
+   * @return \Drupal\openintranet_notifications\Dto\NotificationMessage
+   *   The channel-specific rendered message.
+   */
+  public function renderForChannel(NotificationInterface $notification, NotificationTypeInterface $type, string $channelId, NotificationRecipient $recipient): NotificationMessage {
+    $rendererId = $type->getTemplateRenderer() ?: 'token_text';
+    $renderer = $this->templateRendererManager->createInstance($rendererId);
+
+    $values = $this->reconstructValues($notification, $recipient);
+    $source = $values['source_entity'] ?? NULL;
+    $tokenData = $this->buildTokenData($notification, $values, $source);
+
+    return $renderer->render($type, $channelId, $tokenData);
+  }
+
+  /**
+   * Rebuilds the render values from a saved notification and recipient.
+   *
+   * @param \Drupal\openintranet_notifications\Entity\NotificationInterface $notification
+   *   The saved notification.
+   * @param \Drupal\openintranet_notifications\Dto\NotificationRecipient $recipient
+   *   The recipient, supplying the account and langcode.
+   *
+   * @return array<string, mixed>
+   *   The values buildTokenData() expects.
+   */
+  private function reconstructValues(NotificationInterface $notification, NotificationRecipient $recipient): array {
+    // buildTokenData() reads the payload from $values['context']['payload'], so
+    // the stored payload is nested under 'context' to match the create path.
+    $values = [
+      'recipient_account' => $recipient->account,
+      'context' => ['payload' => $notification->get('payload')->first()?->getValue() ?? []],
+    ];
+
+    $sourceRef = $notification->get('source_entity')->first()?->getValue() ?? [];
+    $targetType = $sourceRef['target_type'] ?? NULL;
+    $targetId = $sourceRef['target_id'] ?? NULL;
+    if (is_string($targetType) && $targetType !== '' && $targetId !== NULL) {
+      $source = $this->entityTypeManager->getStorage($targetType)->load($targetId);
+      if ($source !== NULL) {
+        $values['source_entity'] = $source;
+      }
+    }
+
+    $actorId = $notification->get('actor_uid')->target_id;
+    if ($actorId !== NULL) {
+      $actor = $this->entityTypeManager->getStorage('user')->load($actorId);
+      if ($actor !== NULL) {
+        $values['actor'] = $actor;
+      }
+    }
+
+    return $values;
   }
 
   /**

@@ -125,15 +125,14 @@ final class NotificationType extends ConfigEntityBase implements NotificationTyp
   protected array $recipient_resolvers = [];
 
   /**
-   * The per-channel template map (channel id => template name).
+   * The per-channel template map (channel id => body template).
+   *
+   * Wired at send time (00-synteza §4.1): DeliverySender::buildMessage() renders
+   * the mapped template via NotificationFactory::renderForChannel() for a
+   * channel with an entry here, overriding the channel-agnostic stored body. A
+   * channel with no entry sends the stored default.
    *
    * @var array<string, string>
-   *
-   * @todo Reserved for future per-channel rendering. The factory currently
-   *   renders once per notification with an empty channel id (see
-   *   NotificationFactory::renderInto()), so the renderers' per-channel lookup
-   *   (getTemplateMap()[$channelId]) never matches and falls back to the body
-   *   template. Wire per-channel rendering or drop this map + schema + form.
    */
   protected array $template_map = [];
 

@@ -87,6 +87,7 @@ services:
       - '@keyvalue.expirable'
       - '@event_dispatcher'
       - '@openintranet_notifications.notification_status_resolver'
+      - '@openintranet_notifications.notification_factory'
 
   openintranet_notifications.retention_purger:
     class: Drupal\openintranet_notifications\Service\RetentionPurger

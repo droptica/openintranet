@@ -12,6 +12,7 @@ use Drupal\openintranet_notifications\Dto\NotificationMessage;
 use Drupal\openintranet_notifications\Dto\NotificationRecipient;
 use Drupal\openintranet_notifications\Entity\NotificationDeliveryInterface;
 use Drupal\openintranet_notifications\Entity\NotificationInterface;
+use Drupal\openintranet_notifications\Entity\NotificationTypeInterface;
 use Drupal\openintranet_notifications\Event\NotificationDeliveredEvent;
 use Drupal\openintranet_notifications\Event\NotificationEvents;
 use Drupal\openintranet_notifications\Event\NotificationFailedEvent;
@@ -70,6 +71,7 @@ final class DeliverySender {
     private readonly KeyValueExpirableFactoryInterface $keyValueExpirable,
     private readonly EventDispatcherInterface $eventDispatcher,
     private readonly NotificationStatusResolver $statusResolver,
+    private readonly NotificationFactory $notificationFactory,
   ) {}
 
   /**
@@ -122,7 +124,7 @@ final class DeliverySender {
     $delivery->save();
 
     $recipient = $this->buildRecipient($delivery);
-    $message = $this->buildMessage($delivery);
+    $message = $this->buildMessage($delivery, $channelId, $recipient);
 
     $result = $channel->send($recipient, $message);
     $attemptCount = (int) $delivery->get('attempt_count')->value + 1;
@@ -263,9 +265,26 @@ final class DeliverySender {
   }
 
   /**
-   * Builds the rendered message DTO from the parent notification.
+   * Builds the message DTO for a delivery, applying any per-channel template.
+   *
+   * The default message is the channel-agnostic body the factory rendered once
+   * and stored on the notification. When the type maps THIS channel to its own
+   * template (00-synteza §4.1), the channel-specific template is rendered at
+   * send time and overrides the stored subject/body/summary, so a per-channel
+   * template_map entry genuinely changes what that channel sends. A channel
+   * with no map entry keeps the stored default.
+   *
+   * @param \Drupal\openintranet_notifications\Entity\NotificationDeliveryInterface $delivery
+   *   The delivery being sent.
+   * @param string $channelId
+   *   The target channel plugin id.
+   * @param \Drupal\openintranet_notifications\Dto\NotificationRecipient $recipient
+   *   The recipient (langcode drives the channel-specific render language).
+   *
+   * @return \Drupal\openintranet_notifications\Dto\NotificationMessage
+   *   The message to send on the channel.
    */
-  private function buildMessage(NotificationDeliveryInterface $delivery): NotificationMessage {
+  private function buildMessage(NotificationDeliveryInterface $delivery, string $channelId, NotificationRecipient $recipient): NotificationMessage {
     /** @var \Drupal\openintranet_notifications\Entity\NotificationInterface $notification */
     $notification = $this->entityTypeManager
       ->getStorage('openintranet_notification')
@@ -273,6 +292,21 @@ final class DeliverySender {
     \assert($notification instanceof NotificationInterface);
 
     $payload = $notification->get('payload')->first()?->getValue() ?? [];
+
+    // Per-channel template_map (§4.1): if the type maps this channel, render
+    // the channel-specific template at send time instead of the stored default.
+    $type = $this->entityTypeManager
+      ->getStorage('openintranet_notification_type')
+      ->load((string) $notification->get('type')->value);
+    if ($type instanceof NotificationTypeInterface && isset($type->getTemplateMap()[$channelId])) {
+      $rendered = $this->notificationFactory->renderForChannel($notification, $type, $channelId, $recipient);
+      return new NotificationMessage(
+        subject: $rendered->subject,
+        body: $rendered->body,
+        summary: $rendered->summary,
+        payload: $payload,
+      );
+    }
 
     return new NotificationMessage(
       subject: (string) $notification->get('subject')->value,
