@@ -113,6 +113,32 @@ final class RateLimiterTest extends KernelTestBase {
   }
 
   /**
+   * Recording a tick increments the per-channel counter the peek reads.
+   *
+   * The per-(user, channel, type) dimension (§8) is exposed only through the
+   * below_rate_limit ECA peek; record() is the unconditional tick the
+   * dispatcher fires per created delivery so that peek reflects real usage.
+   * Unlike allow(), record() never refuses — it has no limit and only bumps
+   * the counter — so it cannot itself throttle a send. After N records the
+   * peek at limit N is false.
+   */
+  public function testRecordIncrementsCounterUnconditionally(): void {
+    $this->rateLimiter->record(42, 'email_core', 'new_article', 3600);
+    $this->rateLimiter->record(42, 'email_core', 'new_article', 3600);
+
+    // Two ticks recorded: the peek at limit 2 is at-limit, at limit 3 is below.
+    self::assertFalse($this->rateLimiter->isWithinLimit(42, 'email_core', 'new_article', 2));
+    self::assertTrue($this->rateLimiter->isWithinLimit(42, 'email_core', 'new_article', 3));
+
+    $store = $this->container->get('keyvalue.expirable')
+      ->get('openintranet_notifications.rate_limit');
+    self::assertSame(2, $store->get('42:email_core:new_article'));
+
+    // A different channel is an independent counter, untouched above.
+    self::assertTrue($this->rateLimiter->isWithinLimit(42, 'inbox', 'new_article', 1));
+  }
+
+  /**
    * The peek reads the current count without consuming budget.
    */
   public function testIsWithinLimitIsNonMutating(): void {

@@ -8,6 +8,7 @@ use Drupal\KernelTests\KernelTestBase;
 use Drupal\openintranet_notifications\Entity\NotificationType;
 use Drupal\openintranet_notifications\Service\NotificationDispatcher;
 use Drupal\openintranet_notifications\Service\NotificationFactory;
+use Drupal\openintranet_notifications\Service\RateLimiter;
 use Drupal\user\Entity\User;
 
 /**
@@ -179,6 +180,47 @@ final class RateLimitDispatchTest extends KernelTestBase {
 
     self::assertSame(2, $this->queuedCountFor(41));
     self::assertSame(2, $this->queuedCountFor(42));
+  }
+
+  /**
+   * Each created delivery records a per-(user, channel, type) usage tick (§8).
+   *
+   * The dispatcher's per-(user, type) cap is one dimension; §8 also calls for a
+   * per-CHANNEL dimension. That dimension is exposed to admins through the
+   * below_rate_limit ECA condition, whose peek can only throttle if SOMETHING
+   * increments a per-(user, channel, type) counter. Dispatching a notification
+   * must record that tick on every channel it fans out to, so after N
+   * deliveries on a channel the peek sees N — proving the per-channel dimension
+   * is real, not a counter that is forever 0. A different channel is
+   * independent.
+   */
+  public function testEachDeliveryRecordsPerChannelUsage(): void {
+    $this->makeType('per_channel', 0);
+
+    // Two channels fan out per dispatch (inbox + log_only); three dispatches.
+    $this->dispatchOnce('per_channel', 42, 1);
+    $this->dispatchOnce('per_channel', 42, 2);
+    $this->dispatchOnce('per_channel', 42, 3);
+
+    $limiter = $this->container->get('openintranet_notifications.rate_limiter');
+    \assert($limiter instanceof RateLimiter);
+
+    // The inbox channel saw three sends for (42, inbox, per_channel): the peek
+    // at limit 3 is now at-limit (FALSE), proving the counter incremented.
+    self::assertFalse($limiter->isWithinLimit(42, 'inbox', 'per_channel', 3));
+    // Below three it is over budget too; below four it is still within.
+    self::assertFalse($limiter->isWithinLimit(42, 'inbox', 'per_channel', 2));
+    self::assertTrue($limiter->isWithinLimit(42, 'inbox', 'per_channel', 4));
+
+    // The log_only channel was also hit three times, independently.
+    self::assertFalse($limiter->isWithinLimit(42, 'log_only', 'per_channel', 3));
+
+    // A channel never delivered on is untouched: still at zero.
+    self::assertTrue($limiter->isWithinLimit(42, 'email_core', 'per_channel', 1));
+
+    // Recording the per-channel tick must NOT bleed into the dispatcher's
+    // per-(user, type) cap on the reserved sentinel: that counter is separate.
+    self::assertSame(3, $this->queuedCountFor(42), 'The per-channel record-tick never gates dispatch.');
   }
 
   /**

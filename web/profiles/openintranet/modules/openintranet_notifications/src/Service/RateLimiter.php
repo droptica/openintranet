@@ -78,6 +78,33 @@ final class RateLimiter {
   }
 
   /**
+   * Records one usage tick for a tuple, unconditionally (no limit check).
+   *
+   * Unlike allow(), this never refuses: it always bumps the counter and arms
+   * the TTL. It is the increment behind the per-(uid, channel, type) dimension
+   * of §8 — the dispatcher fires it for every delivery it creates so the
+   * below_rate_limit ECA peek (isWithinLimit) reflects real per-channel usage
+   * and can actually throttle. The per-(uid, type) dispatch gate is enforced
+   * separately by allow() on the ALL_CHANNELS sentinel; this tick is a pure
+   * counter for the opt-in condition to read and never gates a send itself.
+   *
+   * @param int $uid
+   *   The recipient user id.
+   * @param string $channel
+   *   The channel plugin id.
+   * @param string $type
+   *   The notification type id.
+   * @param int $windowSec
+   *   The rolling window length in seconds.
+   */
+  public function record(int $uid, string $channel, string $type, int $windowSec): void {
+    $store = $this->store();
+    $key = "$uid:$channel:$type";
+    $count = (int) $store->get($key, 0);
+    $store->setWithExpire($key, $count + 1, $windowSec);
+  }
+
+  /**
    * Whether the tuple is currently below the limit, without consuming budget.
    *
    * A non-mutating peek: it reads the stored count but never increments it or

@@ -148,6 +148,18 @@ final class NotificationDispatcher {
     // next_attempt so the worker staggers it. Immediate channels send now.
     $delays = $policy->channelDelays($type, $recipient, $context);
     $this->deliveryQueue->createAndEnqueue($n, $recipient, $channels, $delays);
+
+    // Per-(user, channel, type) usage tick for §8's per-channel dimension: one
+    // per channel actually delivered on, so the below_rate_limit ECA
+    // condition's peek reflects real per-channel usage and can throttle. This
+    // is a pure counter — record() never refuses — so it cannot gate this
+    // dispatch; the per-(user, type) gate above (allow on ALL_CHANNELS) is the
+    // real limiter.
+    $rateWindow = $type->getRateLimitWindow();
+    foreach ($channels as $channelId) {
+      $this->rateLimiter->record($uid, (string) $channelId, $type->id(), $rateWindow);
+    }
+
     if ($window > 0) {
       $this->deduplicator->record($dedupeKey, $window);
     }
