@@ -29,7 +29,7 @@ final class RenderArray extends NotificationTemplateRendererBase {
    * {@inheritdoc}
    */
   public function render(NotificationTypeInterface $type, string $channelId, array $tokenData): NotificationMessage {
-    $subject = (string) $this->token->replace($type->getSubjectTemplate(), $tokenData, ['clear' => TRUE]);
+    $subject = $this->replace($type->getSubjectTemplate(), $tokenData);
 
     return new NotificationMessage(
       subject: $subject,

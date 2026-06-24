@@ -5,7 +5,10 @@ declare(strict_types=1);
 namespace Drupal\openintranet_notifications\Service;
 
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\EntityRepositoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\TypedData\TranslatableInterface;
 use Drupal\openintranet_notifications\Entity\NotificationInterface;
 use Drupal\openintranet_notifications\Entity\NotificationTypeInterface;
 use Drupal\openintranet_notifications\Renderer\TemplateRendererManager;
@@ -23,6 +26,7 @@ final class NotificationFactory {
     private readonly EntityTypeManagerInterface $entityTypeManager,
     private readonly Deduplicator $deduplicator,
     private readonly TemplateRendererManager $templateRendererManager,
+    private readonly EntityRepositoryInterface $entityRepository,
   ) {}
 
   /**
@@ -129,13 +133,23 @@ final class NotificationFactory {
     $context = is_array($values['context'] ?? NULL) ? $values['context'] : [];
     $tokenData = [];
 
+    // §9: render in the recipient's preferred langcode. The langcode is
+    // resolved first so every source/context entity is exposed in the
+    // recipient's translation: the [node:title] token returns $node->getTitle()
+    // on the object given (it does not re-translate), so the translated object
+    // must be the one handed to the renderer. The langcode is also passed to
+    // Token::replace (renderer base) for locale-sensitive and body/summary
+    // tokens that DO honour it.
+    $recipient = $values['recipient_account'] ?? NULL;
+    $langcode = $recipient instanceof AccountInterface ? $recipient->getPreferredLangcode() : NULL;
+
     // Expose every entity-valued context entry under its entity-type-id key so
     // templates can reference it (e.g. the commented node under [node]). On a
     // type collision the last entry wins; the explicit source below is set
     // afterwards, so it overrides for its own entity type.
     foreach ($context as $value) {
       if ($value instanceof EntityInterface) {
-        $tokenData[$value->getEntityTypeId()] = $value;
+        $tokenData[$value->getEntityTypeId()] = $this->translate($value, $langcode);
       }
     }
 
@@ -143,6 +157,7 @@ final class NotificationFactory {
     // tokens, e.g. [node:title]) and a generic 'entity' key (json_payload and
     // render_array read 'entity').
     if ($source !== NULL) {
+      $source = $this->translate($source, $langcode);
       $tokenData[$source->getEntityTypeId()] = $source;
       $tokenData['entity'] = $source;
     }
@@ -156,7 +171,34 @@ final class NotificationFactory {
     $tokenData['notification'] = $notification;
     $tokenData['payload'] = $context['payload'] ?? [];
 
+    if ($langcode !== NULL) {
+      $tokenData['langcode'] = $langcode;
+    }
+
     return $tokenData;
+  }
+
+  /**
+   * Returns the entity's translation for a langcode, or the entity unchanged.
+   *
+   * Uses the entity repository's context-aware fallback so a missing
+   * translation degrades to the best available one (§9). A NULL langcode (no
+   * recipient account) or a non-translatable entity is returned as-is.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   The entity to translate.
+   * @param string|null $langcode
+   *   The recipient's preferred langcode, or NULL when unknown.
+   *
+   * @return \Drupal\Core\Entity\EntityInterface
+   *   The translated entity, or the original when no translation applies.
+   */
+  private function translate(EntityInterface $entity, ?string $langcode): EntityInterface {
+    if ($langcode === NULL || !$entity instanceof TranslatableInterface) {
+      return $entity;
+    }
+    $translated = $this->entityRepository->getTranslationFromContext($entity, $langcode);
+    return $translated instanceof EntityInterface ? $translated : $entity;
   }
 
 }

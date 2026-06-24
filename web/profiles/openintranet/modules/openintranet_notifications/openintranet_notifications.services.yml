@@ -47,6 +47,7 @@ services:
       - '@entity_type.manager'
       - '@openintranet_notifications.deduplicator'
       - '@plugin.manager.notification_template_renderer'
+      - '@entity.repository'
 
   openintranet_notifications.delivery_queue:
     class: Drupal\openintranet_notifications\Service\DeliveryQueue

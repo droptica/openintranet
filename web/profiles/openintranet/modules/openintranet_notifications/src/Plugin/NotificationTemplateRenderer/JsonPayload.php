@@ -31,8 +31,8 @@ final class JsonPayload extends NotificationTemplateRendererBase {
    * {@inheritdoc}
    */
   public function render(NotificationTypeInterface $type, string $channelId, array $tokenData): NotificationMessage {
-    $title = (string) $this->token->replace($type->getSubjectTemplate(), $tokenData, ['clear' => TRUE]);
-    $body = (string) $this->token->replace($type->getBodyTemplate(), $tokenData, ['clear' => TRUE]);
+    $title = $this->replace($type->getSubjectTemplate(), $tokenData);
+    $body = $this->replace($type->getBodyTemplate(), $tokenData);
 
     $notification = $tokenData['notification'] ?? NULL;
     $source = $tokenData['entity'] ?? NULL;

@@ -38,19 +38,4 @@ final class TokenText extends NotificationTemplateRendererBase {
     );
   }
 
-  /**
-   * Replaces tokens in a template, clearing unresolved tokens.
-   *
-   * @param string $template
-   *   The template carrying tokens.
-   * @param array $tokenData
-   *   The token replacement data.
-   *
-   * @return string
-   *   The template with tokens replaced.
-   */
-  protected function replace(string $template, array $tokenData): string {
-    return (string) $this->token->replace($template, $tokenData, ['clear' => TRUE]);
-  }
-
 }

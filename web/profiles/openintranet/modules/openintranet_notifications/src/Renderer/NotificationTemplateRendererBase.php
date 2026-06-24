@@ -70,4 +70,31 @@ abstract class NotificationTemplateRendererBase extends PluginBase implements No
     );
   }
 
+  /**
+   * Replaces tokens in a template, honouring the recipient langcode (§9).
+   *
+   * The factory threads the recipient's preferred langcode under the reserved
+   * `langcode` token-data key; it is passed to Token::replace so locale- and
+   * translation-sensitive tokens (e.g. [node:title] on a translated entity)
+   * resolve in the recipient's language. Absent the key, Token falls back to
+   * the current language, preserving the prior behaviour.
+   *
+   * @param string $template
+   *   The template carrying tokens.
+   * @param array $tokenData
+   *   The token replacement data; the reserved `langcode` entry is consumed as
+   *   the replacement language rather than passed as token data.
+   *
+   * @return string
+   *   The template with tokens replaced and unresolved tokens cleared.
+   */
+  protected function replace(string $template, array $tokenData): string {
+    $options = ['clear' => TRUE];
+    if (!empty($tokenData['langcode']) && is_string($tokenData['langcode'])) {
+      $options['langcode'] = $tokenData['langcode'];
+    }
+    unset($tokenData['langcode']);
+    return (string) $this->token->replace($template, $tokenData, $options);
+  }
+
 }
