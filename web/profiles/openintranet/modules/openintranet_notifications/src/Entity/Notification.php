@@ -82,6 +82,13 @@ final class Notification extends ContentEntityBase implements NotificationInterf
   /**
    * {@inheritdoc}
    */
+  public function getContextHash(): string {
+    return (string) $this->get('context_hash')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function markDigested(): void {
     $this->set('digested', \Drupal::time()->getRequestTime());
   }
@@ -152,6 +159,16 @@ final class Notification extends ContentEntityBase implements NotificationInterf
     $fields['dedupe_key'] = BaseFieldDefinition::create('string')
       ->setLabel(new TranslatableMarkup('Dedupe key'))
       ->setSetting('max_length', 255);
+
+    // Context fingerprint for audit/grouping (00-synteza §4.2): a hash of the
+    // notification context (type + source + payload + actor), distinct from
+    // dedupe_key (which adds the recipient + dedupe context for per-recipient
+    // suppression). Two recipients of the same event share a context_hash but
+    // get different dedupe_keys.
+    $fields['context_hash'] = BaseFieldDefinition::create('string')
+      ->setLabel(new TranslatableMarkup('Context hash'))
+      ->setDescription(new TranslatableMarkup('A fingerprint of the notification context for audit/grouping, distinct from the dedupe key.'))
+      ->setSetting('max_length', 64);
 
     $fields['created'] = BaseFieldDefinition::create('created')
       ->setLabel(new TranslatableMarkup('Created'));

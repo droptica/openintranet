@@ -36,6 +36,15 @@ interface NotificationInterface extends ContentEntityInterface {
   public function isSeen(): bool;
 
   /**
+   * Returns the context fingerprint hash (00-synteza §4.2).
+   *
+   * A hash of the notification context (type + source + payload + actor) for
+   * audit/grouping, distinct from the dedupe key (which also factors the
+   * recipient). Empty when not stamped.
+   */
+  public function getContextHash(): string;
+
+  /**
    * Marks the notification as included in a digest, stamping the current time.
    */
   public function markDigested(): void;

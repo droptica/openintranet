@@ -158,6 +158,52 @@ final class NotificationFactoryTest extends KernelTestBase {
   }
 
   /**
+   * The factory stamps a context_hash distinct from the dedupe_key (§4.2).
+   *
+   * The context_hash fingerprints the notification CONTEXT (type + source +
+   * payload + actor) and excludes the recipient, so two recipients of the same
+   * event share a context_hash but get different dedupe_keys. A different
+   * context yields a different context_hash.
+   */
+  public function testStampsContextHashDistinctFromDedupeKey(): void {
+    $node = Node::create(['type' => 'article', 'title' => 'Source']);
+    $node->save();
+    $actor = User::create(['name' => 'actor', 'status' => 1]);
+    $actor->save();
+
+    $values = static fn (int $uid): array => [
+      'uid' => $uid,
+      'source_entity' => $node,
+      'actor' => $actor,
+      'payload' => ['k' => 'v'],
+      'subject' => 'S',
+      'body' => 'B',
+    ];
+
+    $a = $this->factory->create('default', $values(42));
+    $b = $this->factory->create('default', $values(43));
+
+    $hashA = (string) $a->get('context_hash')->value;
+    self::assertNotEmpty($hashA, 'A created notification carries a non-empty context_hash.');
+
+    // Same context, different recipient: context_hash matches but dedupe_key
+    // differs — that is the whole point of the distinction.
+    self::assertSame($hashA, (string) $b->get('context_hash')->value, 'Same context yields the same context_hash regardless of recipient.');
+    self::assertNotSame((string) $a->get('dedupe_key')->value, (string) $b->get('dedupe_key')->value, 'The dedupe_key still varies per recipient.');
+
+    // A different payload is a different context: the hash changes.
+    $c = $this->factory->create('default', [
+      'uid' => 42,
+      'source_entity' => $node,
+      'actor' => $actor,
+      'payload' => ['k' => 'OTHER'],
+      'subject' => 'S',
+      'body' => 'B',
+    ]);
+    self::assertNotSame($hashA, (string) $c->get('context_hash')->value, 'A different context yields a different context_hash.');
+  }
+
+  /**
    * An explicit subject/body in values overrides the type templates.
    */
   public function testExplicitSubjectOverridesTemplates(): void {

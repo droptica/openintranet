@@ -88,6 +88,20 @@ final class NotificationFactory {
     $dedupeRef = $context !== '' ? $context : $sourceRef;
     $build['dedupe_key'] = $this->deduplicator->computeKey($typeId, $dedupeRef, 'user:' . $uid);
 
+    // Context fingerprint (00-synteza §4.2): a stable hash of the notification
+    // context — type + source + payload + actor — distinct from the dedupe_key
+    // (which adds the recipient + dedupe context). Recipient-independent, so
+    // two recipients of the same event share it; used for audit/grouping, not
+    // for per-recipient suppression.
+    $actorRef = isset($build['actor_uid']) ? 'user:' . $build['actor_uid'] : '';
+    $payload = $values['payload'] ?? [];
+    $build['context_hash'] = hash('sha256', implode('|', [
+      $typeId,
+      $sourceRef,
+      $actorRef,
+      serialize($payload),
+    ]));
+
     /** @var \Drupal\openintranet_notifications\Entity\NotificationInterface $notification */
     $notification = $this->entityTypeManager
       ->getStorage('openintranet_notification')
