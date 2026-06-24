@@ -127,10 +127,10 @@ final class NotificationType extends ConfigEntityBase implements NotificationTyp
   /**
    * The per-channel template map (channel id => body template).
    *
-   * Wired at send time (00-synteza §4.1): DeliverySender::buildMessage() renders
-   * the mapped template via NotificationFactory::renderForChannel() for a
-   * channel with an entry here, overriding the channel-agnostic stored body. A
-   * channel with no entry sends the stored default.
+   * Wired at send time (00-synteza §4.1): DeliverySender::buildMessage()
+   * renders the mapped template via NotificationFactory::renderForChannel() for
+   * a channel with an entry here, overriding the channel-agnostic stored body.
+   * A channel with no entry sends the stored default.
    *
    * @var array<string, string>
    */
