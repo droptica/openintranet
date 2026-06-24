@@ -10,6 +10,16 @@ label: 'Consultation review assigned'
 description: 'Notifies a user that they have been assigned as a reviewer of a consultation.'
 category: consultation
 default_priority: normal
+# 00-synteza §12: "email default, SMS only urgent" for consultation reviews.
+# The "email default" half ships here: default_channels is inbox + email_core
+# (no SMS) under the user_preferences policy, so SMS is NEVER sent by default —
+# the safe half holds out of the box. The "SMS only urgent" half is a per-
+# deployment opt-in, not core behaviour, because it depends on an optional
+# submodule: to enable it (1) turn on openintranet_notifications_smsapi, (2) add
+# sms_smsapi to default_channels below, and (3) switch delivery_policy to
+# urgent_escalation. urgent_escalation leaves normal/low priority identical to
+# user_preferences and only escalates urgent/high to every usable channel
+# (incl. SMS once steps 1-2 are done), so non-urgent reviews stay email+inbox.
 default_channels:
   - inbox
   - email_core
