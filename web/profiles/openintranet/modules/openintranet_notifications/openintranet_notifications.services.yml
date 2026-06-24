@@ -69,6 +69,7 @@ services:
       - '@entity_type.manager'
       - '@plugin.manager.notification_recipient_resolver'
       - '@event_dispatcher'
+      - '@logger.channel.openintranet_notifications'
 
   openintranet_notifications.notification_status_resolver:
     class: Drupal\openintranet_notifications\Service\NotificationStatusResolver

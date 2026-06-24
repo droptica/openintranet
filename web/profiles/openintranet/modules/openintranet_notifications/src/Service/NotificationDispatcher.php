@@ -14,6 +14,7 @@ use Drupal\openintranet_notifications\Event\NotificationQueuedEvent;
 use Drupal\openintranet_notifications\Policy\DeliveryPolicyManager;
 use Drupal\openintranet_notifications\Policy\EmptySelectionDisposition;
 use Drupal\openintranet_notifications\Resolver\RecipientResolverManager;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
@@ -35,6 +36,7 @@ final class NotificationDispatcher {
     private readonly EntityTypeManagerInterface $entityTypeManager,
     private readonly RecipientResolverManager $recipientResolverManager,
     private readonly EventDispatcherInterface $eventDispatcher,
+    private readonly LoggerInterface $logger,
   ) {}
 
   /**
@@ -84,16 +86,25 @@ final class NotificationDispatcher {
       return;
     }
 
-    // Per-dispatch cap on the reserved ALL_CHANNELS sentinel: this counts
-    // notifications per (uid, type) regardless of channel, a SEPARATE counter
-    // from the per-channel BelowRateLimit ECA condition (see RateLimiter).
-    // @todo Source the rate limit and window from per-type settings (Stage 2);
-    //   Stage 1 uses a permissive default so the guard is wired but inert.
-    $limit = 1000;
-    $rateWindow = 3600;
-    if (!$this->rateLimiter->allow($uid, RateLimiter::ALL_CHANNELS, $type->id(), $limit, $rateWindow)) {
-      $this->abandon($n);
-      return;
+    // Per-(user, type) rate limit on the reserved ALL_CHANNELS sentinel: this
+    // counts notifications per (uid, type) regardless of channel, a SEPARATE
+    // counter from the per-channel BelowRateLimit ECA condition (see
+    // RateLimiter). The cap is per user, per type, per window. A non-positive
+    // type rate_limit disables the guard, so shipped types (which never set it)
+    // are unaffected; the per-channel dimension is left to the ECA condition.
+    $limit = $type->getRateLimit();
+    if ($limit > 0) {
+      $window = $type->getRateLimitWindow();
+      if (!$this->rateLimiter->allow($uid, RateLimiter::ALL_CHANNELS, $type->id(), $limit, $window)) {
+        $this->logger->info('Rate limit reached for type @type and user @uid (limit @limit per @window s); dispatch skipped.', [
+          '@type' => $type->id(),
+          '@uid' => $uid,
+          '@limit' => $limit,
+          '@window' => $window,
+        ]);
+        $this->abandon($n);
+        return;
+      }
     }
 
     $n->save();

@@ -66,6 +66,12 @@ openintranet_notifications.openintranet_notification_type.*:
     dedupe_window:
       type: integer
       label: 'Dedupe window (seconds)'
+    rate_limit:
+      type: integer
+      label: 'Rate limit (per user per window; 0 = unlimited)'
+    rate_limit_window:
+      type: integer
+      label: 'Rate-limit window (seconds)'
     user_can_override:
       type: boolean
       label: 'User can override channels'

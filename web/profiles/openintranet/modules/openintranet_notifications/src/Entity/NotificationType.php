@@ -69,6 +69,8 @@ use Drupal\openintranet_notifications\Form\NotificationTypeForm;
     'summary_template',
     'delivery_policy',
     'dedupe_window',
+    'rate_limit',
+    'rate_limit_window',
     'user_can_override',
     'audit_retention_days',
     'enabled',
@@ -164,6 +166,16 @@ final class NotificationType extends ConfigEntityBase implements NotificationTyp
    * The dedupe window in seconds.
    */
   protected int $dedupe_window = 0;
+
+  /**
+   * The per-(user, type) rate limit; 0 disables the cap (00-synteza §8).
+   */
+  protected int $rate_limit = 0;
+
+  /**
+   * The rate-limit window in seconds (paired with rate_limit).
+   */
+  protected int $rate_limit_window = 3600;
 
   /**
    * Whether users may override the default channel selection.
@@ -269,6 +281,20 @@ final class NotificationType extends ConfigEntityBase implements NotificationTyp
    */
   public function getDedupeWindow(): int {
     return $this->dedupe_window;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getRateLimit(): int {
+    return $this->rate_limit;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getRateLimitWindow(): int {
+    return $this->rate_limit_window;
   }
 
   /**

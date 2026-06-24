@@ -94,6 +94,20 @@ interface NotificationTypeInterface extends ConfigEntityInterface {
   public function getDedupeWindow(): int;
 
   /**
+   * Gets the per-(user, type) rate limit; 0 disables the cap (00-synteza §8).
+   *
+   * @return int
+   *   The maximum notifications a single user may receive for this type within
+   *   the rate-limit window. A non-positive value means no limit.
+   */
+  public function getRateLimit(): int;
+
+  /**
+   * Gets the rate-limit window in seconds (paired with the rate limit).
+   */
+  public function getRateLimitWindow(): int;
+
+  /**
    * Whether users may override the default channel selection.
    */
   public function userCanOverride(): bool;

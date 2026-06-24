@@ -145,6 +145,20 @@ final class NotificationTypeForm extends EntityForm {
       '#min' => 0,
       '#default_value' => $type->getDedupeWindow(),
     ];
+    $form['rate_limit'] = [
+      '#type' => 'number',
+      '#title' => $this->t('Rate limit (per user)'),
+      '#description' => $this->t('Maximum notifications of this type a single user may receive within the rate-limit window. 0 disables the cap.'),
+      '#min' => 0,
+      '#default_value' => $type->getRateLimit(),
+    ];
+    $form['rate_limit_window'] = [
+      '#type' => 'number',
+      '#title' => $this->t('Rate-limit window (seconds)'),
+      '#description' => $this->t('The rolling window the rate limit applies over.'),
+      '#min' => 1,
+      '#default_value' => $type->getRateLimitWindow(),
+    ];
     $form['user_can_override'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Users can override the default channel selection'),
