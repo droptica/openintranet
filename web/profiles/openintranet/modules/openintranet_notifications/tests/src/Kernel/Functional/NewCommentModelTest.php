@@ -180,6 +180,80 @@ final class NewCommentModelTest extends KernelTestBase {
   }
 
   /**
+   * Two comments on one node to one recipient dedupe to a single notification.
+   *
+   * §12: the new_comment dedupe key is per-thread
+   * (comment-thread:[commented_entity:id]:[recipient:uid]), so within the
+   * dedupe window a second comment on the SAME node to the SAME author creates
+   * no second notification, while a comment on a DIFFERENT node does.
+   */
+  public function testPerThreadDedupe(): void {
+    $this->installNewCommentModel();
+
+    // A positive dedupe window turns the per-thread suppression on.
+    $type = $this->container->get('entity_type.manager')
+      ->getStorage('openintranet_notification_type')
+      ->load('new_comment');
+    assert($type instanceof NotificationType);
+    $type->set('dedupe_window', 600)->save();
+
+    User::create(['uid' => 41, 'name' => 'author', 'status' => 1])->save();
+    User::create(['uid' => 42, 'name' => 'commenter', 'status' => 1])->save();
+
+    $articleA = Node::create(['type' => 'article', 'title' => 'Thread A', 'uid' => 41, 'status' => 1]);
+    $articleA->save();
+    $articleB = Node::create(['type' => 'article', 'title' => 'Thread B', 'uid' => 41, 'status' => 1]);
+    $articleB->save();
+
+    /** @var \Drupal\Core\Session\AccountSwitcherInterface $switcher */
+    $switcher = $this->container->get('account_switcher');
+    $switcher->switchTo(User::load(1));
+
+    // Two comments on article A: the second must be deduped (same thread + same
+    // recipient author).
+    $this->postComment($articleA, 42, 'First');
+    $this->postComment($articleA, 42, 'Second');
+    // A comment on a different node A->B: a separate thread, so it notifies.
+    $this->postComment($articleB, 42, 'Other thread');
+
+    $switcher->switchBack();
+
+    $notifications = $this->container->get('entity_type.manager')
+      ->getStorage('openintranet_notification')
+      ->loadByProperties(['type' => 'new_comment', 'uid' => 41]);
+    // Exactly two non-cancelled notifications: one per distinct thread. The
+    // deduped repeat comment on thread A is saved at 'resolving' then stamped
+    // 'cancelled' by the dedupe guard, so it leaves no live notification.
+    $live = array_filter($notifications, static function ($n): bool {
+      assert($n instanceof Notification);
+      return (string) $n->get('status')->value !== 'cancelled';
+    });
+    self::assertCount(2, $live, 'One notification per distinct thread: the repeat comment on thread A is deduped.');
+  }
+
+  /**
+   * Posts a comment on a node as the given author.
+   *
+   * @param \Drupal\node\Entity\Node $node
+   *   The commented node.
+   * @param int $uid
+   *   The commenter uid.
+   * @param string $subject
+   *   The comment subject.
+   */
+  private function postComment(Node $node, int $uid, string $subject): void {
+    Comment::create([
+      'entity_type' => 'node',
+      'entity_id' => $node->id(),
+      'field_name' => 'comment_node_article',
+      'comment_type' => 'comment_node_article',
+      'subject' => $subject,
+      'uid' => $uid,
+      'status' => 1,
+    ])->save();
+  }
+
+  /**
    * Installs the shipped new_comment ECA model from config/optional.
    *
    * The optional config is not auto-installed in a kernel test, so it is read

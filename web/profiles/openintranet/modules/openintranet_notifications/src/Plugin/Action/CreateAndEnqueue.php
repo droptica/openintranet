@@ -117,6 +117,15 @@ final class CreateAndEnqueue extends ConfigurableActionBase {
       }
     }
 
+    // The per-thread dedupe disambiguator (00-synteza §12): a string template
+    // with embedded tokens (e.g. "comment-thread:[commented_node:nid]"), so it
+    // is token-REPLACED (not getOrReplace, which only resolves a whole-string
+    // token). The resolved string becomes the dedupe identity in the factory.
+    $dedupeContext = trim((string) $this->tokenService->replaceClear((string) $this->configuration['dedupe_context']));
+    if ($dedupeContext !== '') {
+      $context['dedupe_context'] = $dedupeContext;
+    }
+
     $recipients = $this->resolveRecipientUids((string) $this->configuration['recipients']);
 
     $this->dispatcher->dispatchRequest($typeId, $recipients, $context);
@@ -130,6 +139,7 @@ final class CreateAndEnqueue extends ConfigurableActionBase {
       'notification_type' => '',
       'recipients' => '',
       'context' => [],
+      'dedupe_context' => '',
     ] + parent::defaultConfiguration();
   }
 
@@ -158,6 +168,13 @@ final class CreateAndEnqueue extends ConfigurableActionBase {
       '#description' => $this->t('One "key: token" pair per line, injecting extra typed context for the type resolvers (e.g. "commented_entity: [commented_node]").'),
       '#default_value' => $this->contextToString($this->configuration['context']),
     ];
+    $form['dedupe_context'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Dedupe context'),
+      '#description' => $this->t('Optional per-thread dedupe disambiguator with tokens (e.g. "comment-thread:[commented_node:nid]"). When set, it becomes the dedupe identity together with the recipient, so all notifications sharing it dedupe within the type window.'),
+      '#default_value' => $this->configuration['dedupe_context'],
+      '#eca_token_replacement' => TRUE,
+    ];
     return parent::buildConfigurationForm($form, $form_state);
   }
 
@@ -168,6 +185,7 @@ final class CreateAndEnqueue extends ConfigurableActionBase {
     $this->configuration['notification_type'] = $form_state->getValue('notification_type');
     $this->configuration['recipients'] = $form_state->getValue('recipients');
     $this->configuration['context'] = $this->contextFromString((string) $form_state->getValue('context'));
+    $this->configuration['dedupe_context'] = $form_state->getValue('dedupe_context');
     parent::submitConfigurationForm($form, $form_state);
   }
 

@@ -98,6 +98,9 @@ action.configuration.openintranet_notifications_create_and_enqueue:
       sequence:
         type: string
         label: 'Token expression'
+    dedupe_context:
+      type: string
+      label: 'Dedupe context'
 
 action.configuration.openintranet_notifications_create:
   type: mapping

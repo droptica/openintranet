@@ -54,9 +54,10 @@ actions:
       -
         id: action_notify_author
         condition: ''
-  # @todo Per-thread dedupe (comment-thread:[commented_entity:id]:[recipient:uid])
-  #   is a refinement (§12); the factory currently derives the dedupe key from
-  #   the source entity.
+  # Per-thread dedupe (§12): dedupe_context keys the notification on the
+  # commented node + recipient (comment-thread:[commented_node:nid] + recipient
+  # uid), so repeat comments on one thread to one author dedupe within the
+  # type's window instead of one notification per comment.
   action_notify_author:
     plugin: openintranet_notifications_create_and_enqueue
     label: 'Notify the commented node author'
@@ -65,4 +66,5 @@ actions:
       recipients: ''
       context:
         commented_entity: '[commented_node]'
+      dedupe_context: 'comment-thread:[commented_node:nid]'
     successors: {  }

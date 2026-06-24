@@ -74,8 +74,17 @@ final class NotificationFactory {
       $build['actor_uid'] = $values['actor']->id();
     }
 
+    // Dedupe identity (00-synteza §12). When the caller supplies a
+    // dedupe_context (e.g. the new_comment model's
+    // "comment-thread:[commented_node:nid]"), it BECOMES the dedupe identity in
+    // place of the per-source ref: a comment thread fans out one notification
+    // per (thread, recipient), so 100 comments on one node to one author dedupe
+    // within the window. The per-comment source ref would otherwise make every
+    // comment unique and defeat the thread key. With no dedupe_context the key
+    // keeps its (type, source, recipient) shape.
     $context = (string) ($values['dedupe_context'] ?? '');
-    $build['dedupe_key'] = $this->deduplicator->computeKey($typeId, $sourceRef, 'user:' . $uid, $context);
+    $dedupeRef = $context !== '' ? $context : $sourceRef;
+    $build['dedupe_key'] = $this->deduplicator->computeKey($typeId, $dedupeRef, 'user:' . $uid);
 
     /** @var \Drupal\openintranet_notifications\Entity\NotificationInterface $notification */
     $notification = $this->entityTypeManager

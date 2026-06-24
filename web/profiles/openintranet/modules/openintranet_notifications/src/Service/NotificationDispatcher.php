@@ -175,6 +175,11 @@ final class NotificationDispatcher {
     // renderer token data, instead of spreading flat (which lost it).
     $source = $context['source_entity'] ?? ($context['entity'] ?? NULL);
     $actor = $context['actor'] ?? NULL;
+    // The per-thread dedupe disambiguator (00-synteza §12): when the model
+    // maps a 'dedupe_context' (e.g. "comment-thread:[commented_node:nid]"), it
+    // becomes the dedupe identity so all comments in one thread to one
+    // recipient dedupe.
+    $dedupeContext = is_string($context['dedupe_context'] ?? NULL) ? $context['dedupe_context'] : '';
 
     if ($recipients === []) {
       foreach ($this->resolveRecipients($typeId, $context) as $recipient) {
@@ -184,6 +189,7 @@ final class NotificationDispatcher {
           'source_entity' => $source,
           'actor' => $actor,
           'context' => $context,
+          'dedupe_context' => $dedupeContext,
         ];
         $n = $this->notificationFactory->create($typeId, $values);
         // The recipients were resolved by the type's resolvers (not pre-
@@ -208,6 +214,7 @@ final class NotificationDispatcher {
         'source_entity' => $source,
         'actor' => $actor,
         'context' => $context,
+        'dedupe_context' => $dedupeContext,
       ];
       $n = $this->notificationFactory->create($typeId, $values);
       $this->enqueue($n);
