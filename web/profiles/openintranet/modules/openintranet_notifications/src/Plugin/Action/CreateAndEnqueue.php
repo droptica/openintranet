@@ -12,6 +12,7 @@ use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\eca\Attribute\EcaAction;
 use Drupal\eca\Plugin\Action\ConfigurableActionBase;
+use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\openintranet_notifications\Service\NotificationDispatcher;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -36,6 +37,14 @@ final class CreateAndEnqueue extends ConfigurableActionBase {
   use NotificationActionTrait;
 
   /**
+   * Resolver ids that fan out to a whole role / all active users (§8).
+   *
+   * A dispatch through one of these (with no explicit recipients) is a
+   * broadcast and is gated on the 'notify all active users' permission.
+   */
+  private const BROAD_RESOLVER_IDS = ['role_users', 'all_active_users'];
+
+  /**
    * The notification dispatcher.
    *
    * @var \Drupal\openintranet_notifications\Service\NotificationDispatcher
@@ -43,11 +52,25 @@ final class CreateAndEnqueue extends ConfigurableActionBase {
   protected NotificationDispatcher $dispatcher;
 
   /**
+   * The logger channel factory.
+   *
+   * Injected as the FACTORY, not the built channel: building the
+   * openintranet_notifications channel inside this action's create() recurses
+   * through the action plugin discovery and aborts the request. The factory is
+   * a leaf service, so resolving it is safe; the channel is fetched lazily only
+   * on the rarely-hit broadcast-denied branch.
+   *
+   * @var \Drupal\Core\Logger\LoggerChannelFactoryInterface
+   */
+  protected LoggerChannelFactoryInterface $loggerFactory;
+
+  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
     $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
     $instance->dispatcher = $container->get('openintranet_notifications.notification_dispatcher');
+    $instance->loggerFactory = $container->get('logger.factory');
     return $instance;
   }
 
@@ -57,6 +80,20 @@ final class CreateAndEnqueue extends ConfigurableActionBase {
   public function execute(?object $object = NULL): void {
     $typeId = trim((string) $this->tokenService->replaceClear($this->configuration['notification_type']));
     if ($typeId === '') {
+      return;
+    }
+
+    $recipientsToken = (string) $this->configuration['recipients'];
+    // Broadcast gate (00-synteza §8): a fan-out to a whole role/all-active set
+    // must be held by the acting account. Re-check here (not only in access())
+    // because ECA may invoke execute() without an access pass; an ungated
+    // broadcast must create nothing, so bail before any notification is built.
+    if ($this->isBroadcast($typeId, $recipientsToken)
+      && !$this->currentUser->hasPermission('notify all active users')) {
+      $this->loggerFactory->get('openintranet_notifications')->info('Broadcast notification of type @type denied for user @uid: missing "notify all active users".', [
+        '@type' => $typeId,
+        '@uid' => $this->currentUser->id(),
+      ]);
       return;
     }
 
@@ -179,12 +216,59 @@ final class CreateAndEnqueue extends ConfigurableActionBase {
   /**
    * {@inheritdoc}
    *
-   * @todo Gate the "notify all active users" broadcast on a base permission
-   *   once a resolver exposes that semantics (Stage 2 scope: default allowed).
+   * Broadcast dispatches (no explicit recipients + a broad resolver on the
+   * type) require 'notify all active users' (00-synteza §8). Every other
+   * dispatch (explicit recipients, or per-author/per-field resolvers) is
+   * allowed, so normal sends are never gated.
    */
   public function access($object, ?AccountInterface $account = NULL, $return_as_object = FALSE) {
-    $result = AccessResult::allowed();
+    $account = $account ?? $this->currentUser;
+
+    $typeId = trim((string) $this->tokenService->replaceClear($this->configuration['notification_type']));
+    $result = ($typeId !== '' && $this->isBroadcast($typeId, (string) $this->configuration['recipients']))
+      ? AccessResult::allowedIfHasPermission($account, 'notify all active users')
+      : AccessResult::allowed();
+
     return $return_as_object ? $result : $result->isAllowed();
+  }
+
+  /**
+   * Whether this dispatch fans out to a whole role / all active users (§8).
+   *
+   * A dispatch is a broadcast when the action carries NO explicit recipients
+   * (so the type's own resolvers fan it out) AND the type configures a broad
+   * resolver (role_users / all_active_users). An explicit recipients token or a
+   * per-author/per-field resolver set is never a broadcast.
+   *
+   * @param string $typeId
+   *   The resolved notification_type id.
+   * @param string $recipientsToken
+   *   The configured recipients token expression (unresolved).
+   *
+   * @return bool
+   *   TRUE when the dispatch is a broadcast.
+   */
+  private function isBroadcast(string $typeId, string $recipientsToken): bool {
+    // An explicit recipients token means the author chose the recipients; the
+    // type's resolvers never run, so it is not a broadcast.
+    if (trim($recipientsToken) !== '') {
+      return FALSE;
+    }
+
+    /** @var \Drupal\openintranet_notifications\Entity\NotificationTypeInterface|null $type */
+    $type = $this->entityTypeManager
+      ->getStorage('openintranet_notification_type')
+      ->load($typeId);
+    if ($type === NULL) {
+      return FALSE;
+    }
+
+    foreach ($type->getRecipientResolvers() as $definition) {
+      if (in_array($definition['id'] ?? '', self::BROAD_RESOLVER_IDS, TRUE)) {
+        return TRUE;
+      }
+    }
+    return FALSE;
   }
 
 }

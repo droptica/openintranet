@@ -92,6 +92,12 @@ abstract class NotificationActionKernelTestBase extends KernelTestBase {
       User::create(['uid' => $uid, 'name' => 'user' . $uid, 'status' => 1])->save();
     }
 
+    // Run the actions as user 1 (superuser): these fan-out tests are not about
+    // the broadcast permission gate, so the acting account must clear it. The
+    // gate itself is exercised by BroadcastPermissionGateTest, which overrides
+    // the current user per case.
+    $this->container->get('current_user')->setAccount(User::load(1));
+
     $this->actionManager = $this->container->get('plugin.manager.action');
     $this->tokenServices = $this->container->get('eca.token_services');
   }
