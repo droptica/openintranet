@@ -149,6 +149,17 @@ final class NotificationDelivery extends ContentEntityBase implements Notificati
       ->setDescription(new TranslatableMarkup('The transport address the channel resolved.'))
       ->setSetting('max_length', 255);
 
+    // 'sent' = handed to the channel/provider successfully; this is our
+    // terminal success state (markSent writes it). 'delivered' is RESERVED for
+    // a future provider-confirmation receipt (e.g. an email/webhook callback or
+    // an SMS DLR) and is intentionally never written today: the module ingests
+    // no such receipts, so a distinct 'delivered' would be unverifiable.
+    // Keeping it in allowed_values + TERMINAL_STATUSES reserves the slot for
+    // that stage and lets the silent_audit_only policy stamp the NOTIFICATION
+    // 'delivered' (an audit state, recorded with nothing to send) without a
+    // schema change (00-synteza §4.3).
+    // @todo Write 'delivered' on a real provider delivery-receipt once a
+    //   channel ingests DLR/webhook confirmations.
     $fields['status'] = BaseFieldDefinition::create('list_string')
       ->setLabel(new TranslatableMarkup('Status'))
       ->setRequired(TRUE)
