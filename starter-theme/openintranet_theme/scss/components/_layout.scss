@@ -8,12 +8,12 @@
 
       #navbar-top {
         flex-basis: 67%;
+        flex-grow: 1;
       }
 
       #navbar-main {
-        flex-basis: 33%;
+        flex: 0 0 auto;
         justify-content: flex-end;
-
       }
     }
 

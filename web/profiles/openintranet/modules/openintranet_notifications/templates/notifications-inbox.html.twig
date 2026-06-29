@@ -1,0 +1,32 @@
+{#
+/**
+ * @file
+ * /notifications inbox list. Each row: avatar + actor + subject + time.
+ *
+ * Available variables:
+ * - items: each with 'url' (Url), 'subject', 'created_ago', 'is_read' (bool),
+ *   'actor_name' (string|null), 'actor_avatar' (string|null).
+ */
+#}
+{% if items is not empty %}
+  <ul class="notifications-inbox__list">
+    {% for item in items %}
+      <li class="notifications-inbox__item{{ item.is_read ? '' : ' notifications-inbox__item--unread' }}">
+        <a class="notifications-inbox__link" href="{{ item.url }}">
+          {% if item.actor_avatar %}
+            <img class="notifications-inbox__avatar" src="{{ item.actor_avatar }}" alt="" />
+          {% else %}
+            <span class="notifications-inbox__avatar notifications-inbox__avatar--empty" aria-hidden="true"></span>
+          {% endif %}
+          <span class="notifications-inbox__text">
+            {%- if item.actor_name %}<span class="notifications-inbox__actor">{{ item.actor_name }}</span> {% endif -%}
+            {{ item.subject }}
+          </span>
+          <span class="notifications-inbox__time">{{ item.created_ago }}</span>
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p class="notifications-inbox__empty">{{ 'You have no notifications.'|t }}</p>
+{% endif %}

@@ -34,6 +34,8 @@
     height: 24px;
     background-image: url('../images/icons/notification.svg');
     background-repeat: no-repeat;
+    // Modifier used without the base .icon class, so set display here.
+    display: inline-block;
   }
 
   &--help {

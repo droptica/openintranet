@@ -1,0 +1,10 @@
+name: '[Open Intranet] Notifications'
+type: 'Notifications'
+description: 'ECA-orchestrated multi-channel notification framework for Open Intranet (notification types, deliveries, channels, delivery policies, user preferences).'
+install:
+  - openintranet_notifications
+config:
+  import:
+    openintranet_notifications: '*'
+    block:
+      - block.block.openintranet_theme_usernotifications

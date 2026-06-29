@@ -1,0 +1,32 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.article
+    - views.view.user_admin_people
+id: new_article
+label: 'New article'
+description: 'Notifies the configured audience when a new article is published.'
+category: content
+default_priority: normal
+default_channels:
+  - inbox
+  - email_core
+forced_channels: {  }
+# Recipients come from the rows of the existing people view attachment used to
+# build the article-notify audience.
+recipient_resolvers:
+  - id: view_result_users
+    configuration:
+      view_id: user_admin_people
+      display_id: attachment_1
+template_map: {  }
+template_renderer: token_text
+subject_template: 'New article: [node:title]'
+body_template: "A new article \"[node:title]\" has been published.\n\n[node:body:summary]\n\nRead more: [node:url]"
+summary_template: 'New article: [node:title]'
+delivery_policy: user_preferences
+dedupe_window: 600
+user_can_override: true
+audit_retention_days: 90
+enabled: true
