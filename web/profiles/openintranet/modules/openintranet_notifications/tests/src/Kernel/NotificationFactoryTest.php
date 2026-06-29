@@ -229,4 +229,35 @@ final class NotificationFactoryTest extends KernelTestBase {
     self::assertSame('Explicit body', $notification->get('body')->value);
   }
 
+  /**
+   * The click target URL defaults to the source entity's canonical URL.
+   */
+  public function testUrlDefaultsToSourceEntityCanonical(): void {
+    $node = Node::create(['type' => 'article', 'title' => 'Linked']);
+    $node->save();
+
+    $notification = $this->factory->create('default', [
+      'uid' => 1,
+      'source_entity' => $node,
+    ]);
+
+    self::assertSame('/node/' . $node->id(), $notification->get('url')->value);
+  }
+
+  /**
+   * An explicit url overrides the source-entity default.
+   */
+  public function testExplicitUrlOverridesSourceEntity(): void {
+    $node = Node::create(['type' => 'article', 'title' => 'Linked']);
+    $node->save();
+
+    $notification = $this->factory->create('default', [
+      'uid' => 1,
+      'source_entity' => $node,
+      'url' => 'internal:/custom',
+    ]);
+
+    self::assertSame('internal:/custom', $notification->get('url')->value);
+  }
+
 }

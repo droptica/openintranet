@@ -47,7 +47,7 @@ final class UserNotificationPreferencesForm extends FormBase {
     $instance = new static();
     $instance->entityTypeManager = $container->get('entity_type.manager');
     $instance->preferenceResolver = $container->get(PreferenceResolverInterface::class);
-    $instance->channelManager = $container->get('plugin.manager.notification_channel');
+    $instance->channelManager = $container->get('plugin.manager.openintranet_notification_channel');
     $instance->setConfigFactory($container->get('config.factory'));
     return $instance;
   }
@@ -67,6 +67,7 @@ final class UserNotificationPreferencesForm extends FormBase {
       throw new \InvalidArgumentException('A user is required to build the preference form.');
     }
     $form_state->set('uid', (int) $user->id());
+    $form['#attributes']['class'][] = 'notifications-preferences';
 
     $channels = $this->channelColumns();
     $types = $this->overridableTypes();

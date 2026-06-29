@@ -67,7 +67,7 @@ final class NotificationDeliveryWorker extends QueueWorkerBase implements Contai
       $plugin_id,
       $plugin_definition,
       $container->get('entity_type.manager'),
-      $container->get('plugin.manager.notification_channel'),
+      $container->get('plugin.manager.openintranet_notification_channel'),
       $container->get('datetime.time'),
       $container->get('openintranet_notifications.preference_resolver'),
       $container->get('openintranet_notifications.delivery_sender'),

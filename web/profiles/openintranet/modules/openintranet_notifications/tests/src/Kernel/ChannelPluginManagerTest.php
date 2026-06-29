@@ -34,12 +34,27 @@ final class ChannelPluginManagerTest extends KernelTestBase {
    * The null and log_only channels are discovered and instantiable.
    */
   public function testNullAndLogChannelsAreDiscovered(): void {
-    $manager = $this->container->get('plugin.manager.notification_channel');
+    $manager = $this->container->get('plugin.manager.openintranet_notification_channel');
     $defs = $manager->getDefinitions();
     self::assertArrayHasKey('null', $defs);
     self::assertArrayHasKey('log_only', $defs);
     $null = $manager->createInstance('null');
     self::assertTrue($null->isAvailable());
+  }
+
+  /**
+   * Selectable definitions hide the internal null channel but keep real ones.
+   */
+  public function testSelectableDefinitionsExcludeInternalChannels(): void {
+    $manager = $this->container->get('plugin.manager.openintranet_notification_channel');
+    $selectable = $manager->getSelectableDefinitions();
+
+    self::assertArrayNotHasKey('null', $selectable, 'The no-op null channel is not offered as a choice.');
+    self::assertArrayHasKey('inbox', $selectable);
+    self::assertArrayHasKey('email_core', $selectable);
+    self::assertArrayHasKey('log_only', $selectable);
+    // Still discoverable for the read-only status page / runtime delivery.
+    self::assertArrayHasKey('null', $manager->getDefinitions());
   }
 
 }

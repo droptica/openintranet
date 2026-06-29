@@ -88,7 +88,7 @@ final class EasyEmailChannelTest extends KernelTestBase {
    */
   private function channel(array $configuration = ['email_type' => self::EMAIL_TYPE]): NotificationChannelInterface {
     /** @var \Drupal\openintranet_notifications\Channel\ChannelPluginManager $manager */
-    $manager = $this->container->get('plugin.manager.notification_channel');
+    $manager = $this->container->get('plugin.manager.openintranet_notification_channel');
     $channel = $manager->createInstance('email_easy_email', $configuration);
     self::assertInstanceOf(NotificationChannelInterface::class, $channel);
     return $channel;
@@ -112,7 +112,7 @@ final class EasyEmailChannelTest extends KernelTestBase {
    * Enabling the submodule makes the channel discoverable.
    */
   public function testChannelIsDiscovered(): void {
-    $manager = $this->container->get('plugin.manager.notification_channel');
+    $manager = $this->container->get('plugin.manager.openintranet_notification_channel');
     self::assertArrayHasKey('email_easy_email', $manager->getDefinitions());
   }
 

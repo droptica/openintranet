@@ -63,7 +63,7 @@ final class EasyEmailChannelContractTest extends ChannelContractTestBase {
    */
   protected function createChannel(): NotificationChannelInterface {
     /** @var \Drupal\openintranet_notifications\Channel\ChannelPluginManager $manager */
-    $manager = $this->container->get('plugin.manager.notification_channel');
+    $manager = $this->container->get('plugin.manager.openintranet_notification_channel');
     $channel = $manager->createInstance($this->channelId(), ['email_type' => self::EMAIL_TYPE]);
     self::assertInstanceOf(NotificationChannelInterface::class, $channel);
     return $channel;

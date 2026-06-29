@@ -55,6 +55,26 @@ final class NotificationDeliveryListBuilderTest extends KernelTestBase {
   }
 
   /**
+   * The status filter vocabulary is single-sourced from the entity's
+   * allowed_values, so the dashboard filter cannot drift from real statuses.
+   *
+   * @covers ::statusFilterOptions
+   */
+  public function testStatusFilterMatchesEntityAllowedValues(): void {
+    $allowed = $this->container->get('entity_field.manager')
+      ->getBaseFieldDefinitions('openintranet_notif_delivery')['status']
+      ->getSetting('allowed_values');
+
+    self::assertSame($allowed, NotificationDelivery::STATUS_LABELS);
+
+    $list_builder = $this->container->get('entity_type.manager')
+      ->getListBuilder('openintranet_notif_delivery');
+    $method = new \ReflectionMethod($list_builder, 'statusFilterOptions');
+    $method->setAccessible(TRUE);
+    self::assertSame($allowed, $method->invoke($list_builder));
+  }
+
+  /**
    * With no status filter the list returns every delivery.
    *
    * @covers ::getEntityIds

@@ -162,6 +162,27 @@ final class NotificationListBuilderTest extends KernelTestBase {
   }
 
   /**
+   * The status filter vocabulary is single-sourced from the entity's
+   * allowed_values, so it cannot drift (regression: 'resolving' was missing).
+   *
+   * @covers ::statusFilterOptions
+   */
+  public function testStatusFilterMatchesEntityAllowedValues(): void {
+    $allowed = $this->container->get('entity_field.manager')
+      ->getBaseFieldDefinitions('openintranet_notification')['status']
+      ->getSetting('allowed_values');
+
+    $list_builder = $this->container->get('entity_type.manager')
+      ->getListBuilder('openintranet_notification');
+    $method = new \ReflectionMethod($list_builder, 'statusFilterOptions');
+    $method->setAccessible(TRUE);
+    $options = $method->invoke($list_builder);
+
+    self::assertArrayHasKey('resolving', $options);
+    self::assertSame($allowed, $options);
+  }
+
+  /**
    * Saves three notifications with distinct statuses (created/queued/failed).
    */
   private function seedStatuses(): void {

@@ -23,9 +23,10 @@ use Drupal\openintranet_notifications\Policy\NotificationDeliveryPolicyBase;
  * it, otherwise from the type's default priority.
  *
  * Timed escalation (00-synteza §3.2) tiers the SEND TIME of the selected
- * channels: for urgent/high, the immediate tier (inbox, email_core) sends at
- * once while the escalation tier (sms_smsapi, push) is held back by
- * ESCALATION_DELAY_SECONDS via channelDelays(). The delivery queue stamps the
+ * channels: for urgent/high, the immediate tier sends at once while the
+ * escalation tier (channels the channel layer flags isEscalationTier(), e.g.
+ * SMS/push) is held back by ESCALATION_DELAY_SECONDS via channelDelays(). The
+ * delivery queue stamps the
  * later tier's next_attempt into the future and the worker's early-defer
  * staggers it; on a successful immediate-tier send the shared sender cancels
  * the still-pending, not-yet-due escalation rows, so the SMS only fires when
@@ -42,15 +43,6 @@ final class UrgentEscalationPolicy extends NotificationDeliveryPolicyBase {
    * Priorities that trigger the full escalation set.
    */
   private const ESCALATION_PRIORITIES = ['urgent', 'high'];
-
-  /**
-   * The escalation-tier channels held back behind the escalation delay.
-   *
-   * The disruptive / costly transports (00-synteza §3.2): they fire only after
-   * the immediate tier has had ESCALATION_DELAY_SECONDS to land, and are
-   * cancelled if it did. Every other selected channel is immediate.
-   */
-  private const ESCALATION_CHANNELS = ['sms_smsapi', 'push'];
 
   /**
    * Seconds the escalation tier waits before its first send (default 600).
@@ -90,9 +82,10 @@ final class UrgentEscalationPolicy extends NotificationDeliveryPolicyBase {
   /**
    * {@inheritdoc}
    *
-   * Only escalating priorities (urgent/high) tier their send time: the
-   * escalation-tier channels wait ESCALATION_DELAY_SECONDS, every other
-   * selected channel sends immediately. normal/low never delay anything.
+   * Only escalating priorities (urgent/high) tier their send time: candidate
+   * channels the channel layer flags isEscalationTier() wait
+   * ESCALATION_DELAY_SECONDS, every other channel sends immediately. normal/low
+   * never delay anything.
    */
   public function channelDelays(NotificationTypeInterface $type, NotificationRecipient $recipient, array $context): array {
     $priority = $context['priority'] ?? $type->getDefaultPriority();
@@ -100,9 +93,14 @@ final class UrgentEscalationPolicy extends NotificationDeliveryPolicyBase {
       return [];
     }
 
+    // The escalation tier is whatever the channel layer flags costly, so a new
+    // SMS/push transport is held back without editing this policy.
     $delays = [];
-    foreach (self::ESCALATION_CHANNELS as $channelId) {
-      $delays[$channelId] = self::ESCALATION_DELAY_SECONDS;
+    foreach ($this->candidateChannels($type) as $channelId) {
+      if ($this->channelManager->hasDefinition($channelId)
+        && $this->channelManager->createInstance($channelId)->isEscalationTier()) {
+        $delays[$channelId] = self::ESCALATION_DELAY_SECONDS;
+      }
     }
     return $delays;
   }

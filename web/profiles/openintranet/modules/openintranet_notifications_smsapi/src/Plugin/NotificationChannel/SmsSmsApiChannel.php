@@ -110,6 +110,13 @@ final class SmsSmsApiChannel extends NotificationChannelBase {
   /**
    * {@inheritdoc}
    */
+  public function isEscalationTier(): bool {
+    return TRUE;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function send(NotificationRecipient $recipient, NotificationMessage $message): DeliveryResult {
     $phone = $this->getRecipientAddress($recipient);
     if ($phone === NULL) {

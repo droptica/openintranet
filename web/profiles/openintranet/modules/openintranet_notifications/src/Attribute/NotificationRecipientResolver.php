@@ -24,12 +24,17 @@ final class NotificationRecipientResolver extends Plugin {
    *   The resolver description.
    * @param class-string|null $deriver
    *   The deriver class.
+   * @param bool $broadcast
+   *   Whether this resolver fans out to a whole role / all active users. A
+   *   dispatch through a broadcast resolver (with no explicit recipients) is
+   *   gated on the 'notify all active users' permission (00-synteza §8).
    */
   public function __construct(
     public readonly string $id,
     public readonly string|TranslatableMarkup|null $label = NULL,
     public readonly string|TranslatableMarkup|null $description = NULL,
     public readonly ?string $deriver = NULL,
+    public readonly bool $broadcast = FALSE,
   ) {}
 
 }

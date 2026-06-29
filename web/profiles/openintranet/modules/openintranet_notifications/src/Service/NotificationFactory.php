@@ -56,6 +56,7 @@ final class NotificationFactory {
       'subject' => $values['subject'] ?? '',
       'body' => $values['body'] ?? '',
       'summary' => $values['summary'] ?? '',
+      'url' => $values['url'] ?? '',
       'payload' => $values['payload'] ?? [],
       'priority' => $values['priority'] ?? $type->getDefaultPriority(),
       'status' => 'created',
@@ -70,6 +71,10 @@ final class NotificationFactory {
         'target_id' => $source->id(),
       ];
       $sourceRef = $source->getEntityTypeId() . ':' . $source->id();
+      // Default the click target to the source entity (the article/comment).
+      if ($build['url'] === '' && $source->hasLinkTemplate('canonical')) {
+        $build['url'] = $source->toUrl('canonical')->toString(TRUE)->getGeneratedUrl();
+      }
     }
 
     if (isset($values['actor']) && $values['actor'] instanceof EntityInterface) {

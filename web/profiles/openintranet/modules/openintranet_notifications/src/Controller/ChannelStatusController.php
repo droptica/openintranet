@@ -26,7 +26,7 @@ final class ChannelStatusController extends ControllerBase {
    */
   public static function create(ContainerInterface $container): self {
     return new self(
-      $container->get('plugin.manager.notification_channel'),
+      $container->get('plugin.manager.openintranet_notification_channel'),
     );
   }
 

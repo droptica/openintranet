@@ -6,12 +6,14 @@ namespace Drupal\openintranet_notifications\Plugin\Block;
 
 use Drupal\Core\Block\Attribute\Block;
 use Drupal\Core\Block\BlockBase;
+use Drupal\Core\Datetime\DateFormatterInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Url;
 use Drupal\openintranet_notifications\Entity\NotificationInterface;
+use Drupal\openintranet_notifications\Service\NotificationActorPresenter;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -41,6 +43,10 @@ final class NotificationBellBlock extends BlockBase implements ContainerFactoryP
    *   The entity type manager.
    * @param \Drupal\Core\Session\AccountInterface $currentUser
    *   The current user.
+   * @param \Drupal\Core\Datetime\DateFormatterInterface $dateFormatter
+   *   The date formatter for relative timestamps.
+   * @param \Drupal\openintranet_notifications\Service\NotificationActorPresenter $actorPresenter
+   *   Resolves each notification's actor name and avatar.
    */
   public function __construct(
     array $configuration,
@@ -48,6 +54,8 @@ final class NotificationBellBlock extends BlockBase implements ContainerFactoryP
     mixed $plugin_definition,
     private readonly EntityTypeManagerInterface $entityTypeManager,
     private readonly AccountInterface $currentUser,
+    private readonly DateFormatterInterface $dateFormatter,
+    private readonly NotificationActorPresenter $actorPresenter,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
   }
@@ -62,6 +70,8 @@ final class NotificationBellBlock extends BlockBase implements ContainerFactoryP
       $plugin_definition,
       $container->get('entity_type.manager'),
       $container->get('current_user'),
+      $container->get('date.formatter'),
+      $container->get('openintranet_notifications.actor_presenter'),
     );
   }
 
@@ -96,11 +106,16 @@ final class NotificationBellBlock extends BlockBase implements ContainerFactoryP
     $items = [];
     foreach ($storage->loadMultiple($recent_ids) as $notification) {
       assert($notification instanceof NotificationInterface);
-      $url = $notification->get('url')->value;
+      $actor = $this->actorPresenter->present($notification);
+      $created = (int) $notification->get('created')->value;
       $items[] = [
         'subject' => $notification->get('subject')->value,
-        'url' => $url !== NULL && $url !== '' ? Url::fromUri($url) : NULL,
-        'created' => (int) $notification->get('created')->value,
+        // Canonical view marks the notification read, then redirects to target.
+        'url' => $notification->toUrl('canonical'),
+        'created_ago' => $this->dateFormatter->formatTimeDiffSince($created, ['granularity' => 1]),
+        'is_read' => $notification->isRead(),
+        'actor_name' => $actor['name'],
+        'actor_avatar' => $actor['avatar'],
       ];
     }
 
@@ -108,7 +123,7 @@ final class NotificationBellBlock extends BlockBase implements ContainerFactoryP
       '#theme' => 'openintranet_notification_bell',
       '#count' => $count,
       '#items' => $items,
-      '#see_all_url' => Url::fromUserInput('/notifications'),
+      '#see_all_url' => Url::fromRoute('openintranet_notifications.inbox'),
       '#attached' => [
         'library' => ['openintranet_notifications/notification_bell'],
       ],

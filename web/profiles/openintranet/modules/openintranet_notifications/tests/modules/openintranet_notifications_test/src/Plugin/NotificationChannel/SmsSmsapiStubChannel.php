@@ -34,4 +34,11 @@ final class SmsSmsapiStubChannel extends ToggleableChannelBase {
     return self::STATE_KEY;
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function isEscalationTier(): bool {
+    return TRUE;
+  }
+
 }

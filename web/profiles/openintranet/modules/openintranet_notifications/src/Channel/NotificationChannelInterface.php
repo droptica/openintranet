@@ -67,6 +67,15 @@ interface NotificationChannelInterface extends PluginInspectionInterface {
   public function canSendTo(NotificationRecipient $recipient): bool;
 
   /**
+   * Whether this is a disruptive/costly escalation-tier transport.
+   *
+   * Escalation-tier channels (e.g. SMS, push) are held behind the immediate
+   * tier by urgent_escalation (00-synteza §3.2). This keeps "which transports
+   * are costly" with the channel instead of hardcoded in the policy.
+   */
+  public function isEscalationTier(): bool;
+
+  /**
    * Delivers the message to the recipient.
    *
    * MUST classify the outcome via DeliveryResult and never throw on a transport

@@ -59,6 +59,13 @@ abstract class NotificationChannelBase extends PluginBase implements Notificatio
   }
 
   /**
+   * {@inheritdoc}
+   */
+  public function isEscalationTier(): bool {
+    return FALSE;
+  }
+
+  /**
    * Resolves an email address for a user or email-type recipient.
    *
    * Shared by the email channels: a user is addressed by its account mail and

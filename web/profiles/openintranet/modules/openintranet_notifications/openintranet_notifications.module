@@ -13,10 +13,19 @@ declare(strict_types=1);
 function openintranet_notifications_theme(): array {
   return [
     'openintranet_notification_bell' => [
+      // The template file is notification-bell.html.twig, not the hook-derived
+      // openintranet-notification-bell.html.twig, so name it explicitly.
+      'template' => 'notification-bell',
       'variables' => [
         'count' => 0,
         'items' => [],
         'see_all_url' => NULL,
+      ],
+    ],
+    'openintranet_notifications_inbox' => [
+      'template' => 'notifications-inbox',
+      'variables' => [
+        'items' => [],
       ],
     ],
   ];
@@ -48,4 +57,14 @@ function openintranet_notifications_mail(string $key, array &$message, array $pa
 function openintranet_notifications_cron(): void {
   \Drupal::service('openintranet_notifications.retention_purger')->purge(100);
   \Drupal::service('openintranet_notifications.digest_builder')->buildAndDispatch(100);
+}
+
+/**
+ * Implements hook_gin_ignore_sticky_form_actions().
+ *
+ * The bulk form's buttons act on the row selection below them, so Gin's sticky
+ * top bar puts them far from the table they operate on; keep them inline.
+ */
+function openintranet_notifications_gin_ignore_sticky_form_actions(): array {
+  return ['openintranet_notifications_delivery_bulk'];
 }

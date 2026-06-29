@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\openintranet_notifications\Kernel\Block;
 
+use Drupal\Core\Url;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\openintranet_notifications\Entity\Notification;
 use Drupal\user\Entity\User;
@@ -129,7 +130,7 @@ final class NotificationBellBlockTest extends KernelTestBase {
     foreach ($build['#items'] as $item) {
       self::assertArrayHasKey('subject', $item);
       self::assertArrayHasKey('url', $item);
-      self::assertArrayHasKey('created', $item);
+      self::assertArrayHasKey('created_ago', $item);
     }
   }
 
@@ -186,6 +187,94 @@ final class NotificationBellBlockTest extends KernelTestBase {
     // is "Item 5" (15 items, newest 10 kept).
     self::assertSame('Item 14', $build['#items'][0]['subject']);
     self::assertSame('Item 5', $build['#items'][9]['subject']);
+  }
+
+  /**
+   * The build renders through Twig (the #theme hook resolves to a template).
+   *
+   * Asserting the build array alone never asks Twig to resolve '#theme' to a
+   * file, so a hook-name vs template-filename mismatch only surfaces on a real
+   * render (it crashed the live site with a Twig LoaderError). This guards it.
+   *
+   * @covers ::build
+   */
+  public function testRendersThroughTwig(): void {
+    $this->container->get('current_user')->setAccount($this->account);
+
+    $build = $this->buildBell();
+    $html = (string) $this->container->get('renderer')->renderRoot($build);
+
+    self::assertStringContainsString('notification-bell__toggle', $html);
+    self::assertStringContainsString('notification-bell__badge', $html, 'The unread count badge is rendered.');
+  }
+
+  /**
+   * The badge is always rendered, showing a muted "0" when nothing is unread.
+   */
+  public function testEmptyBadgeRendersZeroState(): void {
+    $empty = User::create(['name' => 'empty', 'status' => 1]);
+    $empty->save();
+    $this->container->get('current_user')->setAccount($empty);
+
+    $build = $this->buildBell();
+    self::assertSame(0, $build['#count']);
+
+    $html = (string) $this->container->get('renderer')->renderRoot($build);
+    self::assertStringContainsString('notification-bell__badge', $html, 'The badge renders even at zero.');
+    self::assertStringContainsString('notification-bell__badge--empty', $html, 'The zero state gets the muted modifier.');
+  }
+
+  /**
+   * Bell items link to the canonical view so clicking one marks it read.
+   *
+   * The bell points at /notifications/{id} (which marks read, then redirects to
+   * any target) rather than straight to the target URL — otherwise opening a
+   * notification from the bell would never clear it from the unread count.
+   */
+  public function testItemsLinkToCanonicalView(): void {
+    $this->container->get('current_user')->setAccount($this->account);
+
+    $build = $this->buildBell();
+
+    self::assertNotEmpty($build['#items']);
+    $url = $build['#items'][0]['url'];
+    self::assertInstanceOf(Url::class, $url);
+    self::assertSame('entity.openintranet_notification.canonical', $url->getRouteName());
+  }
+
+  /**
+   * The "see all" link is built from the inbox route, not a hardcoded path.
+   */
+  public function testSeeAllUrlUsesInboxRoute(): void {
+    $this->container->get('current_user')->setAccount($this->account);
+
+    $url = $this->buildBell()['#see_all_url'];
+    self::assertInstanceOf(Url::class, $url);
+    self::assertSame('openintranet_notifications.inbox', $url->getRouteName());
+  }
+
+  /**
+   * The item carries the actor's display name (LinkedIn-style author).
+   */
+  public function testItemCarriesActorName(): void {
+    $author = User::create(['name' => 'Jane Author', 'status' => 1]);
+    $author->save();
+    $notification = Notification::create([
+      'type' => 'mention',
+      'uid' => $this->account->id(),
+      'subject' => 'With actor',
+      'actor_uid' => $author->id(),
+      'priority' => 'normal',
+      'status' => 'delivered',
+    ]);
+    $notification->save();
+    $this->container->get('current_user')->setAccount($this->account);
+
+    $names = array_map(
+      static fn (array $item): ?string => $item['actor_name'],
+      $this->buildBell()['#items'],
+    );
+    self::assertContains('Jane Author', $names);
   }
 
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\Tests\openintranet_notifications\Kernel\Form;
 
 use Drupal\Core\Form\FormState;
+use Drupal\Core\Url;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\openintranet_notifications\Form\DeliveryBulkOperationsForm;
 use Drupal\user\Entity\User;
@@ -211,8 +212,39 @@ final class DeliveryBulkOperationsFormTest extends KernelTestBase {
     self::assertCount(1, $options);
     self::assertArrayHasKey((int) $failed->id(), $options);
 
-    // The form renders a GET status widget so ?status= is UI-reachable.
-    self::assertArrayHasKey('status_filter', $form);
+    // The form renders a status select + apply button so ?status= is reachable.
+    self::assertArrayHasKey('status_filter', $form['filter']);
+  }
+
+  /**
+   * Apply-filter redirects to this page with a validated ?status= query.
+   *
+   * @covers ::applyFilterSubmit
+   */
+  public function testApplyFilterRedirectsWithStatus(): void {
+    $form_object = DeliveryBulkOperationsForm::create($this->container);
+    $form_state = new FormState();
+    $form_state->setValues(['status_filter' => 'failed']);
+    $form = [];
+    $form_object->applyFilterSubmit($form, $form_state);
+
+    $redirect = $form_state->getRedirect();
+    self::assertInstanceOf(Url::class, $redirect);
+    self::assertSame('openintranet_notifications.delivery_bulk', $redirect->getRouteName());
+    self::assertSame(['status' => 'failed'], $redirect->getOption('query'));
+  }
+
+  /**
+   * With no rows selected, retry warns and changes nothing.
+   *
+   * @covers ::retrySubmit
+   */
+  public function testRetryWithNoSelectionChangesNothing(): void {
+    $failed = $this->createDelivery('failed');
+    $this->submit([], 'retry');
+
+    self::assertSame('failed', $this->statusOf((int) $failed->id()));
+    self::assertSame(0, (int) \Drupal::queue('openintranet_notification_delivery')->numberOfItems());
   }
 
   /**

@@ -31,7 +31,7 @@ final class NotificationTypeForm extends EntityForm {
    */
   public static function create(ContainerInterface $container): self {
     return new self(
-      $container->get('plugin.manager.notification_channel'),
+      $container->get('plugin.manager.openintranet_notification_channel'),
       $container->get('plugin.manager.notification_delivery_policy'),
       $container->get('plugin.manager.notification_template_renderer'),
     );
@@ -257,7 +257,7 @@ final class NotificationTypeForm extends EntityForm {
    *   Channel id => label.
    */
   private function channelOptions(): array {
-    return $this->pluginOptions($this->channelManager->getDefinitions());
+    return $this->pluginOptions($this->channelManager->getSelectableDefinitions());
   }
 
   /**

@@ -64,7 +64,7 @@ final class SendNow extends ConfigurableActionBase {
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
     $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
-    $instance->channelManager = $container->get('plugin.manager.notification_channel');
+    $instance->channelManager = $container->get('plugin.manager.openintranet_notification_channel');
     $instance->deliveryQueue = $container->get('openintranet_notifications.delivery_queue');
     $instance->deliverySender = $container->get('openintranet_notifications.delivery_sender');
     return $instance;

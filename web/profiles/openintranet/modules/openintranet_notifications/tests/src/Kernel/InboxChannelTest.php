@@ -45,7 +45,7 @@ final class InboxChannelTest extends KernelTestBase {
   protected function setUp(): void {
     parent::setUp();
     $this->channel = $this->container
-      ->get('plugin.manager.notification_channel')
+      ->get('plugin.manager.openintranet_notification_channel')
       ->createInstance('inbox');
   }
 

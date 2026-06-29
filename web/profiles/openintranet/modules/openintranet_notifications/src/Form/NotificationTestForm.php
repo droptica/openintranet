@@ -41,7 +41,7 @@ final class NotificationTestForm extends FormBase {
       $container->get('openintranet_notifications.notification_factory'),
       $container->get('openintranet_notifications.notification_dispatcher'),
       $container->get('plugin.manager.notification_delivery_policy'),
-      $container->get('plugin.manager.notification_channel'),
+      $container->get('plugin.manager.openintranet_notification_channel'),
     );
   }
 
@@ -68,6 +68,17 @@ final class NotificationTestForm extends FormBase {
       '#description' => $this->t('The uid of the user to notify.'),
       '#min' => 1,
       '#required' => TRUE,
+    ];
+    $form['subject'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Subject'),
+      '#description' => $this->t('Optional. Sent verbatim; leave empty to render the type’s subject template.'),
+    ];
+    $form['body'] = [
+      '#type' => 'textarea',
+      '#title' => $this->t('Body'),
+      '#description' => $this->t('Optional. Sent verbatim; leave empty to render the type’s body template.'),
+      '#rows' => 3,
     ];
     $form['channel'] = [
       '#type' => 'select',
@@ -103,9 +114,11 @@ final class NotificationTestForm extends FormBase {
     $typeId = (string) $form_state->getValue('notification_type');
     $uid = (int) $form_state->getValue('uid');
     $channelOverride = (string) $form_state->getValue('channel');
+    $subject = trim((string) $form_state->getValue('subject'));
+    $body = trim((string) $form_state->getValue('body'));
 
     if ((bool) $form_state->getValue('dry_run')) {
-      $preview = $this->preview($typeId, $uid, $channelOverride);
+      $preview = $this->preview($typeId, $uid, $channelOverride, $subject, $body);
       $form_state->set('preview', $preview);
       $this->messenger()->addStatus($this->t('Dry run: %subject — channels: %channels (nothing was created or sent).', [
         '%subject' => $preview['subject'],
@@ -114,7 +127,13 @@ final class NotificationTestForm extends FormBase {
       return;
     }
 
-    $this->notificationDispatcher->dispatchRequest($typeId, [$uid], []);
+    // Unique dedupe_context so repeated manual test sends are not deduped.
+    $context = array_filter(
+      ['subject' => $subject, 'body' => $body],
+      static fn (string $value): bool => $value !== '',
+    );
+    $context['dedupe_context'] = 'test-form:' . uniqid('', TRUE);
+    $this->notificationDispatcher->dispatchRequest($typeId, [$uid], $context);
     $this->messenger()->addStatus($this->t('Dispatched a %type notification to user %uid.', [
       '%type' => $typeId,
       '%uid' => $uid,
@@ -130,20 +149,27 @@ final class NotificationTestForm extends FormBase {
    *   The recipient user id.
    * @param string $channelOverride
    *   A single channel id to preview, or '' to resolve via the policy.
+   * @param string $subject
+   *   An explicit subject, or '' to render the type's subject template.
+   * @param string $body
+   *   An explicit body, or '' to render the type's body template.
    *
    * @return array{subject: string, body: string, summary: string, channels: array<int, string>}
    *   The rendered message parts and the channel ids that would be used.
    */
-  private function preview(string $typeId, int $uid, string $channelOverride): array {
+  private function preview(string $typeId, int $uid, string $channelOverride, string $subject, string $body): array {
     /** @var \Drupal\user\UserInterface|null $account */
     $account = $this->entityTypeManager->getStorage('user')->load($uid);
 
-    // Render the message without saving: the factory renders the type's
-    // templates and exposes [user:*] tokens via recipient_account.
-    $notification = $this->notificationFactory->create($typeId, [
-      'uid' => $uid,
-      'recipient_account' => $account,
-    ]);
+    // Explicit subject/body is verbatim; else the type's templates render.
+    $values = ['uid' => $uid, 'recipient_account' => $account];
+    if ($subject !== '') {
+      $values['subject'] = $subject;
+    }
+    if ($body !== '') {
+      $values['body'] = $body;
+    }
+    $notification = $this->notificationFactory->create($typeId, $values);
 
     $channels = $channelOverride !== ''
       ? [$channelOverride]
@@ -209,7 +235,7 @@ final class NotificationTestForm extends FormBase {
    */
   private function channelOptions(): array {
     $options = [];
-    foreach ($this->channelManager->getDefinitions() as $id => $definition) {
+    foreach ($this->channelManager->getSelectableDefinitions() as $id => $definition) {
       $options[$id] = (string) ($definition['label'] ?? $id);
     }
     asort($options);

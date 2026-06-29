@@ -96,7 +96,9 @@ final class JsonPayloadRendererTest extends KernelTestBase {
     self::assertSame('99', (string) $payload['source_entity']['id']);
     self::assertSame('Title Headline', $payload['title']);
     self::assertSame('Body Headline', $payload['body']);
-    self::assertArrayHasKey('recipient', $payload);
+    // The renderer does not carry a recipient: the channel attaches it at send
+    // time from the recipient DTO (e.g. WebhookChannel::send()).
+    self::assertArrayNotHasKey('recipient', $payload);
     // Extra payload data from the token data is merged in.
     self::assertSame('value', $payload['custom']);
 

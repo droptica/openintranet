@@ -120,6 +120,13 @@ final class PushChannel extends NotificationChannelBase {
   /**
    * {@inheritdoc}
    */
+  public function isEscalationTier(): bool {
+    return TRUE;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function send(NotificationRecipient $recipient, NotificationMessage $message): DeliveryResult {
     if (!$recipient->isUser() || $recipient->account === NULL) {
       return DeliveryResult::permanentFailure('NO_USER', 'Push channel requires a user recipient.');

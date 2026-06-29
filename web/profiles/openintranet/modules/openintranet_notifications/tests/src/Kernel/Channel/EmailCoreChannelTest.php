@@ -52,7 +52,7 @@ final class EmailCoreChannelTest extends KernelTestBase {
    */
   private function channel(): NotificationChannelInterface {
     /** @var \Drupal\openintranet_notifications\Channel\ChannelPluginManager $manager */
-    $manager = $this->container->get('plugin.manager.notification_channel');
+    $manager = $this->container->get('plugin.manager.openintranet_notification_channel');
     $channel = $manager->createInstance('email_core');
     self::assertInstanceOf(NotificationChannelInterface::class, $channel);
     return $channel;

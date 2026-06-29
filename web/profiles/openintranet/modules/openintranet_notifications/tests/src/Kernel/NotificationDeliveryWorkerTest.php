@@ -158,6 +158,27 @@ final class NotificationDeliveryWorkerTest extends KernelTestBase {
   }
 
   /**
+   * A delivery whose notification was deleted is skipped, not fatal.
+   *
+   * Retention or an admin delete can remove a notification while its delivery
+   * is still queued; the worker must drop the orphan gracefully instead of
+   * crashing cron on a missing notification.
+   */
+  public function testDeletedNotificationIsSkippedNotFatal(): void {
+    $delivery = $this->createDelivery(['channel' => 'null', 'status' => 'pending']);
+
+    // Orphan the queued delivery by deleting its parent notification.
+    $storage = $this->container->get('entity_type.manager')
+      ->getStorage('openintranet_notification');
+    $storage->delete([$storage->load($delivery->get('notification_id')->target_id)]);
+
+    // Must not throw (previously an AssertionError crashed the whole cron run).
+    $this->worker->processItem(['delivery_id' => $delivery->id()]);
+
+    self::assertSame('skipped', $this->reload($delivery)->get('status')->value);
+  }
+
+  /**
    * A retryable failure bumps the attempt count and DELAYS the same item.
    *
    * The worker must NOT enqueue a zero-delay copy: it persists the bumped

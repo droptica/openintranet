@@ -55,6 +55,24 @@ use Drupal\views\EntityViewsData;
 final class NotificationDelivery extends ContentEntityBase implements NotificationDeliveryInterface {
 
   /**
+   * The delivery statuses, value => label.
+   *
+   * The single source for the status base field's allowed_values AND the
+   * dashboard filter / bulk-operations vocabulary, so they cannot drift.
+   *
+   * @var array<string, string>
+   */
+  public const STATUS_LABELS = [
+    'pending' => 'Pending',
+    'processing' => 'Processing',
+    'sent' => 'Sent',
+    'delivered' => 'Delivered',
+    'failed' => 'Failed',
+    'skipped' => 'Skipped',
+    'cancelled' => 'Cancelled',
+  ];
+
+  /**
    * Statuses past which no further send attempt is allowed.
    */
   private const TERMINAL_STATUSES = ['sent', 'delivered', 'cancelled'];
@@ -163,15 +181,7 @@ final class NotificationDelivery extends ContentEntityBase implements Notificati
     $fields['status'] = BaseFieldDefinition::create('list_string')
       ->setLabel(new TranslatableMarkup('Status'))
       ->setRequired(TRUE)
-      ->setSetting('allowed_values', [
-        'pending' => 'Pending',
-        'processing' => 'Processing',
-        'sent' => 'Sent',
-        'delivered' => 'Delivered',
-        'failed' => 'Failed',
-        'skipped' => 'Skipped',
-        'cancelled' => 'Cancelled',
-      ])
+      ->setSetting('allowed_values', self::STATUS_LABELS)
       ->setDefaultValue('pending');
 
     $fields['attempt_count'] = BaseFieldDefinition::create('integer')

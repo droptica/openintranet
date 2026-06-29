@@ -41,7 +41,6 @@ final class JsonPayload extends NotificationTemplateRendererBase {
       'notification_id' => $notification instanceof EntityInterface ? $notification->id() : NULL,
       'notification_type' => $type->id(),
       'source_entity' => $this->entityReference($source),
-      'recipient' => NULL,
       'channel' => $channelId,
       'title' => $title,
       'body' => $body,

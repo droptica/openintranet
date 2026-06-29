@@ -9,6 +9,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityListBuilder;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\openintranet_notifications\Entity\Notification;
 use Drupal\openintranet_notifications\Entity\NotificationInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -19,18 +20,6 @@ use Symfony\Component\HttpFoundation\RequestStack;
 final class NotificationListBuilder extends EntityListBuilder {
 
   use StatusFilterListBuilderTrait;
-
-  /**
-   * The notification statuses offered by the filter (mirrors the base field).
-   */
-  private const STATUSES = [
-    'created' => 'Created',
-    'queued' => 'Queued',
-    'delivered' => 'Delivered',
-    'partial' => 'Partial',
-    'failed' => 'Failed',
-    'cancelled' => 'Cancelled',
-  ];
 
   public function __construct(
     EntityTypeInterface $entity_type,
@@ -46,7 +35,7 @@ final class NotificationListBuilder extends EntityListBuilder {
    * {@inheritdoc}
    */
   protected function statusFilterOptions(): array {
-    return self::STATUSES;
+    return Notification::STATUS_LABELS;
   }
 
   /**

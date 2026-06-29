@@ -93,7 +93,7 @@ final class WebhookChannelTest extends KernelTestBase {
    */
   private function channel(): NotificationChannelInterface {
     /** @var \Drupal\openintranet_notifications\Channel\ChannelPluginManager $manager */
-    $manager = $this->container->get('plugin.manager.notification_channel');
+    $manager = $this->container->get('plugin.manager.openintranet_notification_channel');
     $channel = $manager->createInstance('webhook');
     self::assertInstanceOf(NotificationChannelInterface::class, $channel);
     return $channel;

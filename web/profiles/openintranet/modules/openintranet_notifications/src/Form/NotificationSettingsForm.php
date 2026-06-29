@@ -36,7 +36,7 @@ final class NotificationSettingsForm extends ConfigFormBase {
   public static function create(ContainerInterface $container): static {
     /** @var static $instance */
     $instance = parent::create($container);
-    $instance->channelManager = $container->get('plugin.manager.notification_channel');
+    $instance->channelManager = $container->get('plugin.manager.openintranet_notification_channel');
     $instance->entityTypeManager = $container->get('entity_type.manager');
     return $instance;
   }
@@ -128,7 +128,7 @@ final class NotificationSettingsForm extends ConfigFormBase {
    */
   private function channelOptions(): array {
     $options = [];
-    foreach ($this->channelManager->getDefinitions() as $id => $definition) {
+    foreach ($this->channelManager->getSelectableDefinitions() as $id => $definition) {
       $options[$id] = (string) ($definition['label'] ?? $id);
     }
     asort($options);

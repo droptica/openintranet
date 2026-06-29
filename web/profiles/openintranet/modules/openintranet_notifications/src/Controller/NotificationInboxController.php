@@ -11,6 +11,7 @@ use Drupal\Core\Session\AccountInterface;
 use Drupal\openintranet_notifications\Entity\NotificationInterface;
 use Drupal\openintranet_notifications\Event\NotificationEvents;
 use Drupal\openintranet_notifications\Event\NotificationSeenEvent;
+use Drupal\openintranet_notifications\Service\NotificationActorPresenter;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -28,14 +29,15 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 final class NotificationInboxController extends ControllerBase {
 
   /**
-   * Maximum number of notifications listed (and marked read) per request.
+   * Notifications listed (and marked read) per page.
    */
-  private const INBOX_LIMIT = 50;
+  private const INBOX_PAGE_SIZE = 25;
 
   public function __construct(
     private readonly AccountInterface $account,
     private readonly DateFormatterInterface $dateFormatter,
     private readonly EventDispatcherInterface $eventDispatcher,
+    private readonly NotificationActorPresenter $actorPresenter,
   ) {}
 
   /**
@@ -46,6 +48,7 @@ final class NotificationInboxController extends ControllerBase {
       $container->get('current_user'),
       $container->get('date.formatter'),
       $container->get('event_dispatcher'),
+      $container->get('openintranet_notifications.actor_presenter'),
     );
   }
 
@@ -66,7 +69,7 @@ final class NotificationInboxController extends ControllerBase {
       ->condition('uid', (int) $this->account->id())
       ->sort('created', 'DESC')
       ->sort('id', 'DESC')
-      ->range(0, self::INBOX_LIMIT)
+      ->pager(self::INBOX_PAGE_SIZE)
       ->execute();
     /** @var \Drupal\openintranet_notifications\Entity\NotificationInterface[] $notifications */
     $notifications = $storage->loadMultiple($ids);
@@ -74,30 +77,28 @@ final class NotificationInboxController extends ControllerBase {
     $items = [];
     foreach ($notifications as $notification) {
       $created = (int) $notification->get('created')->value;
+      $actor = $this->actorPresenter->present($notification);
       $items[] = [
-        '#wrapper_attributes' => [
-          'class' => [$notification->isRead() ? 'notification--read' : 'notification--unread'],
-        ],
-        'subject' => [
-          '#type' => 'link',
-          '#title' => $notification->get('subject')->value ?? $notification->label(),
-          '#url' => $notification->toUrl('canonical'),
-        ],
-        'created' => [
-          '#markup' => $created > 0
-            ? ' (' . $this->dateFormatter->format($created, 'short') . ')'
-            : '',
-        ],
+        'url' => $notification->toUrl('canonical'),
+        'subject' => $notification->get('subject')->value ?? $notification->label(),
+        'created_ago' => $this->dateFormatter->formatTimeDiffSince($created, ['granularity' => 1]),
+        'is_read' => $notification->isRead(),
+        'actor_name' => $actor['name'],
+        'actor_avatar' => $actor['avatar'],
       ];
     }
 
     $this->markRead($notifications);
 
     return [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['notifications-inbox']],
       'list' => [
-        '#theme' => 'item_list',
+        '#theme' => 'openintranet_notifications_inbox',
         '#items' => $items,
-        '#empty' => $this->t('You have no notifications.'),
+      ],
+      'pager' => [
+        '#type' => 'pager',
       ],
       // Rendering the inbox marks notifications read, so it must never be
       // served from cache.

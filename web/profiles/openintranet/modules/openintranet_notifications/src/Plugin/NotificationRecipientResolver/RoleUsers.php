@@ -19,6 +19,7 @@ use Drupal\openintranet_notifications\Resolver\NotificationRecipientResolverBase
   id: 'role_users',
   label: new TranslatableMarkup('Users with role'),
   description: new TranslatableMarkup('Resolves all active users that hold a given role.'),
+  broadcast: TRUE,
 )]
 final class RoleUsers extends NotificationRecipientResolverBase {
 

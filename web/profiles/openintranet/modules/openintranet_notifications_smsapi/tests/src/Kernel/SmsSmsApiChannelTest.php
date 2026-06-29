@@ -62,7 +62,7 @@ final class SmsSmsApiChannelTest extends KernelTestBase {
    */
   private function channel(array $configuration = []): NotificationChannelInterface {
     /** @var \Drupal\openintranet_notifications\Channel\ChannelPluginManager $manager */
-    $manager = $this->container->get('plugin.manager.notification_channel');
+    $manager = $this->container->get('plugin.manager.openintranet_notification_channel');
     $channel = $manager->createInstance('sms_smsapi', $configuration);
     self::assertInstanceOf(NotificationChannelInterface::class, $channel);
     return $channel;
@@ -174,7 +174,7 @@ final class SmsSmsApiChannelTest extends KernelTestBase {
    */
   public function testChannelIsDiscovered(): void {
     /** @var \Drupal\openintranet_notifications\Channel\ChannelPluginManager $manager */
-    $manager = $this->container->get('plugin.manager.notification_channel');
+    $manager = $this->container->get('plugin.manager.openintranet_notification_channel');
     self::assertTrue($manager->hasDefinition('sms_smsapi'));
   }
 

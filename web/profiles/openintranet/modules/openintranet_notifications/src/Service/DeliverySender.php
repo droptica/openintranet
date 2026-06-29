@@ -124,7 +124,12 @@ final class DeliverySender {
     $delivery->save();
 
     $recipient = $this->buildRecipient($delivery);
-    $message = $this->buildMessage($delivery, $channelId, $recipient);
+    $notification = $this->loadNotification($delivery);
+    if ($notification === NULL) {
+      // Notification deleted (retention/admin) since queueing; skip the orphan.
+      return $this->skip($delivery);
+    }
+    $message = $this->buildMessage($notification, $channelId, $recipient);
 
     $result = $channel->send($recipient, $message);
     $attemptCount = (int) $delivery->get('attempt_count')->value + 1;
@@ -274,8 +279,8 @@ final class DeliverySender {
    * template_map entry genuinely changes what that channel sends. A channel
    * with no map entry keeps the stored default.
    *
-   * @param \Drupal\openintranet_notifications\Entity\NotificationDeliveryInterface $delivery
-   *   The delivery being sent.
+   * @param \Drupal\openintranet_notifications\Entity\NotificationInterface $notification
+   *   The delivery's parent notification (already loaded by the caller).
    * @param string $channelId
    *   The target channel plugin id.
    * @param \Drupal\openintranet_notifications\Dto\NotificationRecipient $recipient
@@ -284,13 +289,7 @@ final class DeliverySender {
    * @return \Drupal\openintranet_notifications\Dto\NotificationMessage
    *   The message to send on the channel.
    */
-  private function buildMessage(NotificationDeliveryInterface $delivery, string $channelId, NotificationRecipient $recipient): NotificationMessage {
-    /** @var \Drupal\openintranet_notifications\Entity\NotificationInterface $notification */
-    $notification = $this->entityTypeManager
-      ->getStorage('openintranet_notification')
-      ->load($delivery->get('notification_id')->target_id);
-    \assert($notification instanceof NotificationInterface);
-
+  private function buildMessage(NotificationInterface $notification, string $channelId, NotificationRecipient $recipient): NotificationMessage {
     $payload = $notification->get('payload')->first()?->getValue() ?? [];
 
     // Per-channel template_map (§4.1): if the type maps this channel, render

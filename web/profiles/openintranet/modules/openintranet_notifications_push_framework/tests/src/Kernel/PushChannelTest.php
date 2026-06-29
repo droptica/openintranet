@@ -65,7 +65,7 @@ final class PushChannelTest extends KernelTestBase {
    * The plugin manager discovers the push channel from the submodule.
    */
   public function testChannelIsDiscovered(): void {
-    $manager = $this->container->get('plugin.manager.notification_channel');
+    $manager = $this->container->get('plugin.manager.openintranet_notification_channel');
     self::assertArrayHasKey('push', $manager->getDefinitions());
   }
 
@@ -178,7 +178,7 @@ final class PushChannelTest extends KernelTestBase {
    * Instantiates the push channel under test.
    */
   private function channel(): NotificationChannelInterface {
-    $manager = $this->container->get('plugin.manager.notification_channel');
+    $manager = $this->container->get('plugin.manager.openintranet_notification_channel');
     $channel = $manager->createInstance('push');
     self::assertInstanceOf(NotificationChannelInterface::class, $channel);
     return $channel;

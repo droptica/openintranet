@@ -200,6 +200,9 @@ final class NotificationDispatcher {
           'recipient_account' => $recipient->account,
           'source_entity' => $source,
           'actor' => $actor,
+          // Surface an explicit subject/body for the factory's verbatim path.
+          'subject' => $context['subject'] ?? NULL,
+          'body' => $context['body'] ?? NULL,
           'context' => $context,
           'dedupe_context' => $dedupeContext,
         ];
@@ -225,6 +228,9 @@ final class NotificationDispatcher {
         'recipient_account' => $recipientAccount,
         'source_entity' => $source,
         'actor' => $actor,
+        // Surface an explicit subject/body for the factory's verbatim path.
+        'subject' => $context['subject'] ?? NULL,
+        'body' => $context['body'] ?? NULL,
         'context' => $context,
         'dedupe_context' => $dedupeContext,
       ];
@@ -271,17 +277,36 @@ final class NotificationDispatcher {
     $type = $this->entityTypeManager
       ->getStorage('openintranet_notification_type')
       ->load($typeId);
-    if ($type === NULL) {
-      return [];
-    }
+    return $type === NULL ? [] : $this->resolveRecipientsFor($type->getRecipientResolvers(), $context);
+  }
 
+  /**
+   * Resolves a recipient set from explicit resolver definitions.
+   *
+   * The single resolution path: instantiate each resolver and union its user
+   * recipients, de-duplicated by uid. Both the type-driven dispatch above and
+   * the ResolveRecipients ECA action delegate here so the logic lives once.
+   *
+   * @param array<int, array{id: string, configuration?: array<string, mixed>}> $resolverDefinitions
+   *   The resolver definitions to run.
+   * @param array<string, mixed> $context
+   *   The dispatch context handed to each resolver.
+   *
+   * @return array<int, \Drupal\openintranet_notifications\Dto\NotificationRecipient>
+   *   The user recipients, de-duplicated by user id.
+   */
+  public function resolveRecipientsFor(array $resolverDefinitions, array $context): array {
     $resolved = [];
-    foreach ($type->getRecipientResolvers() as $definition) {
+    foreach ($resolverDefinitions as $definition) {
+      $id = (string) ($definition['id'] ?? '');
+      if ($id === '' || !$this->recipientResolverManager->hasDefinition($id)) {
+        continue;
+      }
       $resolver = $this->recipientResolverManager
-        ->createInstance($definition['id'], $definition['configuration'] ?? []);
+        ->createInstance($id, $definition['configuration'] ?? []);
       foreach ($resolver->resolve($context) as $recipient) {
         if ($recipient->id !== NULL) {
-          $resolved[$recipient->id] = $recipient;
+          $resolved[(int) $recipient->id] = $recipient;
         }
       }
     }

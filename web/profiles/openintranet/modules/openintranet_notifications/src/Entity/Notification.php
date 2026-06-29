@@ -52,6 +52,24 @@ use Drupal\views\EntityViewsData;
 final class Notification extends ContentEntityBase implements NotificationInterface {
 
   /**
+   * The notification statuses, value => label.
+   *
+   * The single source for the status base field's allowed_values AND the
+   * dashboard filter vocabulary, so the two cannot drift.
+   *
+   * @var array<string, string>
+   */
+  public const STATUS_LABELS = [
+    'created' => 'Created',
+    'resolving' => 'Resolving',
+    'queued' => 'Queued',
+    'delivered' => 'Delivered',
+    'partial' => 'Partial',
+    'failed' => 'Failed',
+    'cancelled' => 'Cancelled',
+  ];
+
+  /**
    * {@inheritdoc}
    */
   public function setRead(): void {
@@ -191,15 +209,7 @@ final class Notification extends ContentEntityBase implements NotificationInterf
     $fields['status'] = BaseFieldDefinition::create('list_string')
       ->setLabel(new TranslatableMarkup('Status'))
       ->setRequired(TRUE)
-      ->setSetting('allowed_values', [
-        'created' => 'Created',
-        'resolving' => 'Resolving',
-        'queued' => 'Queued',
-        'delivered' => 'Delivered',
-        'partial' => 'Partial',
-        'failed' => 'Failed',
-        'cancelled' => 'Cancelled',
-      ])
+      ->setSetting('allowed_values', self::STATUS_LABELS)
       ->setDefaultValue('created');
 
     return $fields;

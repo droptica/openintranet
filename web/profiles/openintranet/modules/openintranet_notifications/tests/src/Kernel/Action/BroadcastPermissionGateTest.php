@@ -70,6 +70,18 @@ final class BroadcastPermissionGateTest extends NotificationActionKernelTestBase
   }
 
   /**
+   * Broadcast classification is declared by the resolver, not hardcoded ids.
+   *
+   * The action reads each resolver's `broadcast` flag, so a new broad resolver
+   * is gated automatically without editing the action's id list.
+   */
+  public function testResolverDeclaresBroadcastFlag(): void {
+    $manager = $this->container->get('plugin.manager.notification_recipient_resolver');
+    self::assertTrue((bool) ($manager->getDefinition('role_users')['broadcast'] ?? FALSE), 'role_users is broadcast.');
+    self::assertFalse((bool) ($manager->getDefinition('entity_author')['broadcast'] ?? FALSE), 'entity_author is not broadcast.');
+  }
+
+  /**
    * Without the permission, a broadcast dispatch is denied and creates nothing.
    */
   public function testBroadcastDeniedWithoutPermission(): void {

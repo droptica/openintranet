@@ -13,6 +13,7 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\eca\Attribute\EcaAction;
 use Drupal\eca\Plugin\Action\ConfigurableActionBase;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
+use Drupal\openintranet_notifications\Resolver\RecipientResolverManager;
 use Drupal\openintranet_notifications\Service\NotificationDispatcher;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -37,19 +38,21 @@ final class CreateAndEnqueue extends ConfigurableActionBase {
   use NotificationActionTrait;
 
   /**
-   * Resolver ids that fan out to a whole role / all active users (§8).
-   *
-   * A dispatch through one of these (with no explicit recipients) is a
-   * broadcast and is gated on the 'notify all active users' permission.
-   */
-  private const BROAD_RESOLVER_IDS = ['role_users', 'all_active_users'];
-
-  /**
    * The notification dispatcher.
    *
    * @var \Drupal\openintranet_notifications\Service\NotificationDispatcher
    */
   protected NotificationDispatcher $dispatcher;
+
+  /**
+   * The recipient resolver plugin manager.
+   *
+   * Used to read each configured resolver's `broadcast` flag so the broadcast
+   * permission gate keys off the resolver definition, not a hardcoded id list.
+   *
+   * @var \Drupal\openintranet_notifications\Resolver\RecipientResolverManager
+   */
+  protected RecipientResolverManager $resolverManager;
 
   /**
    * The logger channel factory.
@@ -71,6 +74,7 @@ final class CreateAndEnqueue extends ConfigurableActionBase {
     $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
     $instance->dispatcher = $container->get('openintranet_notifications.notification_dispatcher');
     $instance->loggerFactory = $container->get('logger.factory');
+    $instance->resolverManager = $container->get('plugin.manager.notification_recipient_resolver');
     return $instance;
   }
 
@@ -254,9 +258,9 @@ final class CreateAndEnqueue extends ConfigurableActionBase {
    * Whether this dispatch fans out to a whole role / all active users (§8).
    *
    * A dispatch is a broadcast when the action carries NO explicit recipients
-   * (so the type's own resolvers fan it out) AND the type configures a broad
-   * resolver (role_users / all_active_users). An explicit recipients token or a
-   * per-author/per-field resolver set is never a broadcast.
+   * (so the type's own resolvers fan it out) AND the type configures a resolver
+   * the resolver plugin itself flags as broadcast. An explicit recipients token
+   * or a per-author/per-field resolver set is never a broadcast.
    *
    * @param string $typeId
    *   The resolved notification_type id.
@@ -282,7 +286,9 @@ final class CreateAndEnqueue extends ConfigurableActionBase {
     }
 
     foreach ($type->getRecipientResolvers() as $definition) {
-      if (in_array($definition['id'] ?? '', self::BROAD_RESOLVER_IDS, TRUE)) {
+      $id = (string) ($definition['id'] ?? '');
+      $plugin = $id !== '' ? $this->resolverManager->getDefinition($id, FALSE) : NULL;
+      if (is_array($plugin) && !empty($plugin['broadcast'])) {
         return TRUE;
       }
     }

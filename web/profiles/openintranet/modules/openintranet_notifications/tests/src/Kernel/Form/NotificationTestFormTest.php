@@ -69,7 +69,7 @@ final class NotificationTestFormTest extends KernelTestBase {
       'subject_template' => 'Hi [user:display-name]',
       'body_template' => 'You have a mention.',
       'delivery_policy' => 'user_preferences',
-      'dedupe_window' => 0,
+      'dedupe_window' => 600,
     ])->save();
 
     $this->config('openintranet_notifications.settings')
@@ -88,11 +88,15 @@ final class NotificationTestFormTest extends KernelTestBase {
    *   Whether to run in dry-run mode.
    * @param string $channel
    *   The channel override, or '' to resolve via the policy.
+   * @param string $subject
+   *   An explicit subject sent verbatim, or '' to render the template.
+   * @param string $body
+   *   An explicit body sent verbatim, or '' to render the template.
    *
    * @return \Drupal\Core\Form\FormState
    *   The submitted form state (carries the preview result via storage).
    */
-  private function submit(bool $dryRun, string $channel = ''): FormState {
+  private function submit(bool $dryRun, string $channel = '', string $subject = '', string $body = ''): FormState {
     $form_object = NotificationTestForm::create($this->container);
     $form_state = new FormState();
     // A checkbox with a TRUE #default_value cannot be un-checked by submitting
@@ -102,6 +106,8 @@ final class NotificationTestFormTest extends KernelTestBase {
     $form_state->setValues([
       'notification_type' => 'mention',
       'uid' => (int) $this->recipient->id(),
+      'subject' => $subject,
+      'body' => $body,
       'channel' => $channel,
       'dry_run' => $dryRun ? 1 : NULL,
     ]);
@@ -226,6 +232,45 @@ final class NotificationTestFormTest extends KernelTestBase {
     $notification = reset($notifications);
     self::assertSame((int) $this->recipient->id(), (int) $notification->get('uid')->target_id);
     self::assertSame('Hi alice', (string) $notification->get('subject')->value);
+  }
+
+  /**
+   * An explicit subject/body is sent verbatim, overriding the type template.
+   *
+   * Confirms the form forwards subject/body through the dispatcher to the
+   * factory's pass-through path, so a pass-through type can be sent with real
+   * content instead of an empty notification.
+   *
+   * @covers ::submitForm
+   */
+  public function testLiveSubmitWithExplicitSubjectUsesItVerbatim(): void {
+    $form_state = $this->submit(FALSE, '', 'Custom subject', 'Custom body.');
+
+    self::assertEmpty($form_state->getErrors(), implode("\n", array_map('strval', $form_state->getErrors())));
+    self::assertSame(1, $this->countEntities('openintranet_notification'));
+
+    $notifications = $this->container->get('entity_type.manager')
+      ->getStorage('openintranet_notification')
+      ->loadMultiple();
+    /** @var \Drupal\openintranet_notifications\Entity\NotificationInterface $notification */
+    $notification = reset($notifications);
+    self::assertSame('Custom subject', (string) $notification->get('subject')->value);
+    self::assertSame('Custom body.', (string) $notification->get('body')->value);
+  }
+
+  /**
+   * Repeated manual test sends each create a notification (dedupe bypassed).
+   *
+   * The form tags each send with a unique dedupe_context, so a type with a
+   * dedupe window (here 600s) does not suppress a second test send.
+   *
+   * @covers ::submitForm
+   */
+  public function testRepeatedLiveSubmitsAreNotDeduped(): void {
+    $this->submit(FALSE, '', 'First', 'Body one.');
+    $this->submit(FALSE, '', 'Second', 'Body two.');
+
+    self::assertSame(2, $this->countEntities('openintranet_notification'));
   }
 
 }

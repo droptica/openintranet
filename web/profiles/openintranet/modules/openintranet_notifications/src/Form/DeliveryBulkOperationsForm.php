@@ -21,19 +21,6 @@ use Symfony\Component\HttpFoundation\RequestStack;
  */
 final class DeliveryBulkOperationsForm extends FormBase {
 
-  /**
-   * The delivery statuses offered by the GET filter (mirrors the base field).
-   */
-  private const STATUSES = [
-    'pending' => 'Pending',
-    'processing' => 'Processing',
-    'sent' => 'Sent',
-    'delivered' => 'Delivered',
-    'failed' => 'Failed',
-    'skipped' => 'Skipped',
-    'cancelled' => 'Cancelled',
-  ];
-
   public function __construct(
     private readonly EntityTypeManagerInterface $entityTypeManager,
     private readonly DeliveryQueue $deliveryQueue,
@@ -69,12 +56,22 @@ final class DeliveryBulkOperationsForm extends FormBase {
       ->range(0, 200);
 
     $status = (string) $this->request->getCurrentRequest()?->query->get('status', '');
-    if ($status !== '' && isset(self::STATUSES[$status])) {
+    if ($status !== '' && isset(NotificationDelivery::STATUS_LABELS[$status])) {
       $query->condition('status', $status);
     }
     $ids = $query->execute();
 
-    $form['status_filter'] = $this->buildStatusFilter($status);
+    $form['filter'] = $this->buildStatusFilter($status);
+    $form['filter']['#weight'] = -10;
+
+    // Actions sit above the table (the list can be long); a select-all lives in
+    // the tableselect header, so the bulk pattern matches admin/content.
+    $form['help'] = [
+      '#type' => 'html_tag',
+      '#tag' => 'p',
+      '#value' => $this->t('Tick deliveries in the table below, then use a button. <strong>Retry selected</strong> re-queues only failed deliveries; <strong>Cancel selected</strong> cancels only pending or processing ones. Rows in any other status are left unchanged.'),
+      '#weight' => -8,
+    ];
 
     $options = [];
     /** @var \Drupal\openintranet_notifications\Entity\NotificationDeliveryInterface $delivery */
@@ -101,15 +98,15 @@ final class DeliveryBulkOperationsForm extends FormBase {
       '#empty' => $this->t('No deliveries found.'),
     ];
 
-    $form['actions'] = ['#type' => 'actions'];
+    $form['actions'] = ['#type' => 'actions', '#weight' => -6];
     $form['actions']['retry'] = [
       '#type' => 'submit',
-      '#value' => $this->t('Retry failed'),
+      '#value' => $this->t('Retry selected'),
       '#submit' => ['::retrySubmit'],
     ];
     $form['actions']['cancel'] = [
       '#type' => 'submit',
-      '#value' => $this->t('Cancel pending'),
+      '#value' => $this->t('Cancel selected'),
       '#submit' => ['::cancelSubmit'],
     ];
 
@@ -127,8 +124,13 @@ final class DeliveryBulkOperationsForm extends FormBase {
    * Re-enqueues each selected delivery whose status is failed.
    */
   public function retrySubmit(array &$form, FormStateInterface $form_state): void {
+    $selected = $this->loadSelected($form_state);
+    if ($selected === []) {
+      $this->messenger()->addWarning($this->t('No deliveries selected.'));
+      return;
+    }
     $retried = 0;
-    foreach ($this->loadSelected($form_state) as $delivery) {
+    foreach ($selected as $delivery) {
       if (\in_array($delivery->get('status')->value, NotificationDelivery::RETRYABLE_STATUSES, TRUE)) {
         $this->deliveryQueue->requeue($delivery);
         $retried++;
@@ -141,8 +143,13 @@ final class DeliveryBulkOperationsForm extends FormBase {
    * Cancels each selected delivery whose status is pending or processing.
    */
   public function cancelSubmit(array &$form, FormStateInterface $form_state): void {
+    $selected = $this->loadSelected($form_state);
+    if ($selected === []) {
+      $this->messenger()->addWarning($this->t('No deliveries selected.'));
+      return;
+    }
     $cancelled = 0;
-    foreach ($this->loadSelected($form_state) as $delivery) {
+    foreach ($selected as $delivery) {
       if (\in_array($delivery->get('status')->value, NotificationDelivery::CANCELLABLE_STATUSES, TRUE)) {
         $this->deliveryQueue->cancel($delivery);
         $cancelled++;
@@ -152,39 +159,47 @@ final class DeliveryBulkOperationsForm extends FormBase {
   }
 
   /**
-   * Builds the GET status filter widget shown above the tableselect.
+   * Redirects to this page with the chosen ?status= filter applied.
+   */
+  public function applyFilterSubmit(array &$form, FormStateInterface $form_state): void {
+    $status = (string) $form_state->getValue('status_filter');
+    $query = isset(NotificationDelivery::STATUS_LABELS[$status]) ? ['status' => $status] : [];
+    $form_state->setRedirect('openintranet_notifications.delivery_bulk', [], ['query' => $query]);
+  }
+
+  /**
+   * Builds the status filter shown above the tableselect.
    *
-   * A standalone method=get form (outside the POST bulk form) so picking a
-   * status reloads this page with ?status=, which the pre-filter branch reads.
+   * A real select + submit inside the bulk form (a nested method=get form is
+   * invalid HTML and gets dropped by the browser); applyFilterSubmit redirects
+   * to ?status=, which the buildForm pre-filter branch reads.
    *
    * @param string $current
-   *   The current ?status= value (validated against self::STATUSES).
+   *   The current ?status= value (validated against the delivery statuses).
    *
    * @return array<string, mixed>
-   *   A render array for the filter form.
+   *   A render array for the filter container.
    */
   private function buildStatusFilter(string $current): array {
     $options = ['' => $this->t('- Any status -')];
-    foreach (self::STATUSES as $value => $label) {
+    foreach (NotificationDelivery::STATUS_LABELS as $value => $label) {
       $options[$value] = $this->t('@label', ['@label' => $label]);
     }
 
     return [
-      '#type' => 'html_tag',
-      '#tag' => 'form',
-      '#attributes' => ['method' => 'get', 'class' => ['openintranet-notif-status-filter']],
-      'status' => [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['openintranet-notif-status-filter', 'form--inline', 'clearfix']],
+      'status_filter' => [
         '#type' => 'select',
-        '#name' => 'status',
         '#title' => $this->t('Status'),
         '#options' => $options,
-        '#value' => isset(self::STATUSES[$current]) ? $current : '',
+        '#default_value' => isset(NotificationDelivery::STATUS_LABELS[$current]) ? $current : '',
       ],
-      'submit' => [
-        '#type' => 'html_tag',
-        '#tag' => 'button',
-        '#value' => $this->t('Apply'),
-        '#attributes' => ['type' => 'submit'],
+      'apply' => [
+        '#type' => 'submit',
+        '#value' => $this->t('Apply filter'),
+        '#submit' => ['::applyFilterSubmit'],
+        '#limit_validation_errors' => [['status_filter']],
       ],
     ];
   }

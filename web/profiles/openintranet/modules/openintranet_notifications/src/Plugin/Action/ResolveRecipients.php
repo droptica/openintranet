@@ -10,7 +10,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\eca\Attribute\EcaAction;
 use Drupal\eca\Plugin\Action\ConfigurableActionBase;
-use Drupal\openintranet_notifications\Resolver\RecipientResolverManager;
+use Drupal\openintranet_notifications\Service\NotificationDispatcher;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -32,18 +32,18 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 final class ResolveRecipients extends ConfigurableActionBase {
 
   /**
-   * The recipient resolver plugin manager.
+   * The notification dispatcher (owns the shared recipient-resolution path).
    *
-   * @var \Drupal\openintranet_notifications\Resolver\RecipientResolverManager
+   * @var \Drupal\openintranet_notifications\Service\NotificationDispatcher
    */
-  protected RecipientResolverManager $resolverManager;
+  protected NotificationDispatcher $dispatcher;
 
   /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
     $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
-    $instance->resolverManager = $container->get('plugin.manager.notification_recipient_resolver');
+    $instance->dispatcher = $container->get('openintranet_notifications.notification_dispatcher');
     return $instance;
   }
 
@@ -62,18 +62,9 @@ final class ResolveRecipients extends ConfigurableActionBase {
       $context['source_entity'] = $object;
     }
 
-    $definitions = $this->resolverDefinitions();
     $uids = [];
-    foreach ($definitions as $definition) {
-      if (!$this->resolverManager->hasDefinition($definition['id'])) {
-        continue;
-      }
-      $resolver = $this->resolverManager->createInstance($definition['id'], $definition['configuration'] ?? []);
-      foreach ($resolver->resolve($context) as $recipient) {
-        if ($recipient->id !== NULL) {
-          $uids[(int) $recipient->id] = (int) $recipient->id;
-        }
-      }
+    foreach ($this->dispatcher->resolveRecipientsFor($this->resolverDefinitions(), $context) as $recipient) {
+      $uids[(int) $recipient->id] = (int) $recipient->id;
     }
 
     $this->tokenService->addTokenData($tokenName, array_values($uids));
