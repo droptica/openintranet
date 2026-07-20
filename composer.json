@@ -77,7 +77,7 @@
         "drupal/leaflet": "^10.3.8",
         "drupal/libraries": "^4.0",
         "drupal/masquerade": "^2.0",
-        "drupal/noreqnewpass": "^1.4",
+        "drupal/noreqnewpass": "^1.6",
         "drupal/openid_connect": "^3.0@alpha",
         "drupal/openintranet_access": "^1.0",
         "drupal/openintranet_documents": "^1.0",
@@ -171,9 +171,6 @@
                 "Check if rows exists": "patches/views/views_org_chart.patch",
                 "[3400522] Fix config export error by excluding time_diff.description from view config": "https://www.drupal.org/files/issues/2025-07-01/core-3400522-time_diff-missing-schema_0.patch",
                 "[3474018] Class is not added to MediaLibrary dialog": "https://www.drupal.org/files/issues/2024-12-17/3474018-regression-class-is.patch"
-            },
-            "drupal/noreqnewpass": {
-                "Fix undefined array key #validate warning": "patches/noreqnewpass/undefined-validate-array-key.patch"
             },
             "drupal/address": {
                 "[3460590] Module is not compatible with diff 2.0.x's": "https://www.drupal.org/files/issues/2024-07-10/diff-module-support-3460590-2.patch"
