@@ -20861,6 +20861,10 @@ form .table-responsive table tbody tr td:has(.btn, .flag-lesson-learned a, .path
   margin-top: 0;
 }
 
+.link-edit-summary {
+  color: var(--bs-secondary-color);
+}
+
 #user-form.block-primary {
   padding: 1.5rem 1.5rem 0.5rem !important;
   background: #fff !important;
