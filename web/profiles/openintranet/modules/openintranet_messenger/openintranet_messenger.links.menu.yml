@@ -1,0 +1,30 @@
+openintranet_messenger.dashboard:
+  title: 'Open Intranet - Messenger'
+  route_name: openintranet_messenger.dashboard
+  parent: system.admin_config_system
+  description: 'Multi-channel notification system for users and contacts.'
+  weight: 10
+
+openintranet_messenger.contacts:
+  title: 'Contacts'
+  route_name: entity.messenger_contact.collection
+  parent: openintranet_messenger.dashboard
+  weight: 0
+
+openintranet_messenger.send:
+  title: 'Send Notification'
+  route_name: openintranet_messenger.send
+  parent: openintranet_messenger.dashboard
+  weight: 10
+
+openintranet_messenger.log:
+  title: 'Notification Log'
+  route_name: openintranet_messenger.log
+  parent: openintranet_messenger.dashboard
+  weight: 20
+
+openintranet_messenger.settings:
+  title: 'Settings'
+  route_name: openintranet_messenger.settings
+  parent: openintranet_messenger.dashboard
+  weight: 30

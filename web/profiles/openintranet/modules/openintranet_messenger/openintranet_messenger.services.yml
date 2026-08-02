@@ -1,0 +1,24 @@
+services:
+  logger.channel.openintranet_messenger:
+    parent: logger.channel_base
+    arguments: ['openintranet_messenger']
+
+  openintranet_messenger.notification_service:
+    class: Drupal\openintranet_messenger\Service\NotificationService
+    arguments:
+      - '@logger.factory'
+      - '@entity_type.manager'
+      - '@plugin.manager.notification_channel'
+      - '@openintranet_messenger.recipient_resolver'
+      - '@current_user'
+      - '@queue'
+
+  openintranet_messenger.recipient_resolver:
+    class: Drupal\openintranet_messenger\Recipient\RecipientResolver
+    arguments:
+      - '@entity_type.manager'
+      - '@config.factory'
+
+  plugin.manager.notification_channel:
+    class: Drupal\openintranet_messenger\Channel\ChannelPluginManager
+    parent: default_plugin_manager

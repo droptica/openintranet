@@ -81,7 +81,6 @@
         "drupal/masquerade": "^2.0",
         "drupal/noreqnewpass": "^1.6",
         "drupal/openid_connect": "^3.0@alpha",
-        "drupal/openintranet_messenger": "^1.0",
         "drupal/other_view_filter": "dev-1.x",
         "drupal/page_manager": "^4.0@RC",
         "drupal/pathauto": "^1.13",

@@ -1,0 +1,35 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for Open Intranet Messenger module.
+ */
+
+declare(strict_types=1);
+
+use Drupal\Core\Entity\EntityInterface;
+
+/**
+ * Implements hook_mail().
+ */
+function openintranet_messenger_mail(string $key, array &$message, array $params): void {
+  switch ($key) {
+    case 'notification':
+      $message['subject'] = $params['subject'];
+      $message['body'][] = $params['body'];
+      if (!empty($params['recipient_name'])) {
+        $message['headers']['X-Recipient-Name'] = $params['recipient_name'];
+      }
+      break;
+  }
+}
+
+/**
+ * Implements hook_entity_operation_alter().
+ */
+function openintranet_messenger_entity_operation_alter(array &$operations, EntityInterface $entity): void {
+  // Remove clone operation for notification logs - logs are read-only.
+  if ($entity->getEntityTypeId() === 'notification_log') {
+    unset($operations['clone']);
+  }
+}

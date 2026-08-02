@@ -1,0 +1,8 @@
+name: 'Open Intranet Messenger'
+type: module
+description: 'Multi-channel notification system for Drupal users and external contacts (deskless workers). Supports email, SMS, and extensible channel plugins.'
+package: 'Open Intranet'
+core_version_requirement: ^10.2 || ^11
+dependencies:
+  - drupal:taxonomy
+  - queue_ui:queue_ui
