@@ -1,0 +1,190 @@
+{#
+/**
+ * @file
+ * Template for department engagement analysis.
+ *
+ * Variables:
+ * - departments: Array of department engagement data.
+ * - roles: Array of role engagement data.
+ * - segments: Segment definitions.
+ * - insights: Array of insights/recommendations.
+ * - days: Number of days for the report period.
+ * - has_departments: Whether department data is available.
+ */
+#}
+
+<div class="engagement-department-analysis">
+  <div class="report-header">
+    <div class="period-selector">
+      <label for="days-select">{{ 'Period:'|t }}</label>
+      <select id="days-select" onchange="window.location.href='?days=' + this.value">
+        <option value="7" {{ days == 7 ? 'selected' : '' }}>{{ 'Last 7 days'|t }}</option>
+        <option value="30" {{ days == 30 ? 'selected' : '' }}>{{ 'Last 30 days'|t }}</option>
+        <option value="90" {{ days == 90 ? 'selected' : '' }}>{{ 'Last 90 days'|t }}</option>
+      </select>
+    </div>
+  </div>
+
+  {% if insights %}
+  <div class="insights-section">
+    <h3>{{ 'Insights'|t }}</h3>
+    <div class="insights-list">
+      {% for insight in insights %}
+        <div class="insight insight--{{ insight.type }}">
+          {% if insight.type == 'success' %}
+            <span class="insight-icon">✓</span>
+          {% elseif insight.type == 'warning' %}
+            <span class="insight-icon">⚠</span>
+          {% elseif insight.type == 'danger' %}
+            <span class="insight-icon">!</span>
+          {% endif %}
+          <span class="insight-message">{{ insight.message }}</span>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  <div class="analysis-grid">
+    {# Department Analysis #}
+    <div class="analysis-card">
+      <h3>{{ 'Engagement by Department'|t }}</h3>
+      
+      {% if has_departments %}
+        <div class="table-responsive">
+          <table class="engagement-table">
+            <thead>
+              <tr>
+                <th>{{ 'Department'|t }}</th>
+                <th>{{ 'Users'|t }}</th>
+                <th>{{ 'Avg Score'|t }}</th>
+                <th>{{ 'Active'|t }}</th>
+                <th>{{ 'Champions'|t }}</th>
+                <th>{{ 'At Risk'|t }}</th>
+                <th>{{ 'Health'|t }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for dept in departments %}
+                <tr>
+                  <td class="dept-name">{{ dept.department }}</td>
+                  <td class="text-center">{{ dept.user_count }}</td>
+                  <td class="text-center">
+                    <span class="score-badge score-badge--{{ dept.avg_score >= 10 ? 'high' : (dept.avg_score >= 7 ? 'medium' : 'low') }}">
+                      {{ dept.avg_score }}
+                    </span>
+                  </td>
+                  <td class="text-center">{{ dept.active_users }}</td>
+                  <td class="text-center">
+                    {% if dept.champion_count > 0 %}
+                      <span class="badge badge--champion">{{ dept.champion_count }}</span>
+                    {% else %}
+                      <span class="text-muted">0</span>
+                    {% endif %}
+                  </td>
+                  <td class="text-center">
+                    {% if dept.at_risk_count + dept.dormant_count > 0 %}
+                      <span class="badge badge--at-risk">{{ dept.at_risk_count + dept.dormant_count }}</span>
+                    {% else %}
+                      <span class="text-muted">0</span>
+                    {% endif %}
+                  </td>
+                  <td class="text-center">
+                    <span class="health-indicator health-indicator--{{ dept.health }}">
+                      {{ dept.health_label }}
+                    </span>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+        {# Department Comparison Chart #}
+        <div class="chart-section">
+          <h4>{{ 'Average Score Comparison'|t }}</h4>
+          <div class="bar-chart">
+            {% set max_score = 15 %}
+            {% for dept in departments %}
+              <div class="bar-row">
+                <span class="bar-label">{{ dept.department|slice(0, 15) }}{% if dept.department|length > 15 %}...{% endif %}</span>
+                <div class="bar-container">
+                  <div class="bar bar--{{ dept.health }}" style="width: {{ (dept.avg_score / max_score) * 100 }}%"></div>
+                  <span class="bar-value">{{ dept.avg_score }}</span>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% else %}
+        <div class="no-data-message">
+          <p>{{ 'No department data available.'|t }}</p>
+          <p class="text-muted">
+            {{ 'To enable department analysis, add a department field (field_department, field_user_department, field_division, or field_team) to user accounts.'|t }}
+          </p>
+        </div>
+      {% endif %}
+    </div>
+
+    {# Role Analysis #}
+    <div class="analysis-card">
+      <h3>{{ 'Engagement by Role'|t }}</h3>
+      
+      {% if roles %}
+        <div class="table-responsive">
+          <table class="engagement-table">
+            <thead>
+              <tr>
+                <th>{{ 'Role'|t }}</th>
+                <th>{{ 'Users'|t }}</th>
+                <th>{{ 'Avg Score'|t }}</th>
+                <th>{{ 'Segment Distribution'|t }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for role in roles %}
+                <tr>
+                  <td class="role-name">{{ role.role_label }}</td>
+                  <td class="text-center">{{ role.user_count }}</td>
+                  <td class="text-center">
+                    <span class="score-badge score-badge--{{ role.avg_score >= 10 ? 'high' : (role.avg_score >= 7 ? 'medium' : 'low') }}">
+                      {{ role.avg_score }}
+                    </span>
+                  </td>
+                  <td>
+                    <div class="segment-mini-chart">
+                      {% for segment_key, count in role.segment_distribution %}
+                        {% if count > 0 %}
+                          <span class="segment-dot segment-dot--{{ segment_key }}" title="{{ segments[segment_key].label }}: {{ count }}">
+                            {{ count }}
+                          </span>
+                        {% endif %}
+                      {% endfor %}
+                    </div>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% else %}
+        <div class="no-data-message">
+          <p>{{ 'No role data available.'|t }}</p>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  {# Segment Legend #}
+  <div class="segment-legend">
+    <h4>{{ 'Segment Legend'|t }}</h4>
+    <div class="legend-items">
+      {% for key, segment in segments %}
+        <div class="legend-item">
+          <span class="legend-color legend-color--{{ key }}"></span>
+          <span class="legend-label">{{ segment.icon }} {{ segment.label }}</span>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>

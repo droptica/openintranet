@@ -1,0 +1,129 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for User Engagement Analytics module.
+ */
+
+declare(strict_types=1);
+
+/**
+ * Implements hook_help().
+ */
+function openintranet_engagement_help(string $route_name): string {
+  if ($route_name === 'help.page.openintranet_engagement') {
+    $output = '<h2>' . t('User Engagement Analytics') . '</h2>';
+    $output .= '<p>' . t('This module tracks and analyzes user engagement using the RFV (Recency, Frequency, Value) scoring model.') . '</p>';
+    $output .= '<h3>' . t('Features') . '</h3>';
+    $output .= '<ul>';
+    $output .= '<li>' . t('<strong>Automatic tracking</strong> - Monitors user activity across content types') . '</li>';
+    $output .= '<li>' . t('<strong>User segmentation</strong> - Categorizes users as Champions, Loyal, At Risk, Dormant, New, or Regular') . '</li>';
+    $output .= '<li>' . t('<strong>Executive reports</strong> - KPIs, adoption rates, and engagement metrics') . '</li>';
+    $output .= '<li>' . t('<strong>Department analysis</strong> - Compare engagement across organizational units') . '</li>';
+    $output .= '</ul>';
+    $output .= '<p>' . t('Visit <a href=":dashboard">the engagement dashboard</a> to view reports.', [
+      ':dashboard' => '/admin/reports/engagement',
+    ]) . '</p>';
+    return $output;
+  }
+  return '';
+}
+
+/**
+ * Implements hook_theme().
+ */
+function openintranet_engagement_theme(): array {
+  return [
+    'oi_engagement_dashboard' => [
+      'variables' => [
+        'segments' => [],
+        'trends' => [],
+        'top_events' => [],
+        'summary' => [],
+      ],
+    ],
+    'oi_engagement_user_list' => [
+      'variables' => [
+        'users' => [],
+        'pager' => NULL,
+        'filters' => [],
+      ],
+    ],
+    'oi_engagement_user_detail' => [
+      'variables' => [
+        'user' => NULL,
+        'score' => [],
+        'segment' => [],
+        'events' => [],
+        'breakdown' => [],
+      ],
+    ],
+    'oi_engagement_user_badge' => [
+      'variables' => [
+        'score' => [],
+        'segment' => [],
+      ],
+    ],
+    'oi_engagement_segment_chart' => [
+      'variables' => [
+        'segments' => [],
+        'total' => 0,
+      ],
+    ],
+    'oi_engagement_kpi_card' => [
+      'variables' => [
+        'title' => '',
+        'value' => '',
+        'change' => NULL,
+        'change_period' => '30d',
+        'icon' => NULL,
+        'status' => 'neutral',
+      ],
+    ],
+    'oi_engagement_executive_summary' => [
+      'variables' => [
+        'kpis' => [],
+        'segments' => [],
+        'trends' => [],
+        'top_content' => [],
+        'summary' => [],
+      ],
+    ],
+    'oi_engagement_content_performance' => [
+      'variables' => [
+        'most_viewed' => [],
+        'event_breakdown' => [],
+        'days' => 30,
+      ],
+    ],
+    'oi_engagement_top_contributors' => [
+      'variables' => [
+        'top_users' => [],
+        'champions' => [],
+        'rising_stars' => [],
+        'days' => 30,
+      ],
+    ],
+    'oi_engagement_activity_patterns' => [
+      'variables' => [
+        'trends' => [],
+        'hourly' => [],
+        'daily' => [],
+        'peak_hour' => 10,
+        'best_day' => 'Tuesday',
+        'days' => 30,
+        'day_names' => [],
+      ],
+    ],
+    'oi_engagement_department_analysis' => [
+      'variables' => [
+        'departments' => [],
+        'roles' => [],
+        'segments' => [],
+        'insights' => [],
+        'days' => 30,
+        'has_departments' => FALSE,
+      ],
+    ],
+  ];
+}

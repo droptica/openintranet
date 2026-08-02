@@ -1,0 +1,303 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for User Engagement Analytics.
+ */
+
+declare(strict_types=1);
+
+/**
+ * Implements hook_schema().
+ */
+function openintranet_engagement_schema(): array {
+  $schema = [];
+
+  // Event log table - stores all tracked user events.
+  $schema['oi_engagement_event'] = [
+    'description' => 'Stores user activity events for engagement analysis.',
+    'fields' => [
+      'id' => [
+        'type' => 'serial',
+        'size' => 'big',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'user_id' => [
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => 'The user ID.',
+      ],
+      'event_type' => [
+        'type' => 'varchar',
+        'length' => 64,
+        'not null' => TRUE,
+        'description' => 'Event type identifier (e.g., node_create, comment_post).',
+      ],
+      'event_value' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 1,
+        'description' => 'Point value of the event.',
+      ],
+      'entity_type' => [
+        'type' => 'varchar',
+        'length' => 64,
+        'not null' => FALSE,
+        'description' => 'Related entity type.',
+      ],
+      'entity_id' => [
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'description' => 'Related entity ID.',
+      ],
+      'context' => [
+        'type' => 'text',
+        'size' => 'normal',
+        'not null' => FALSE,
+        'description' => 'JSON context data.',
+      ],
+      'created' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'Event timestamp.',
+      ],
+    ],
+    'primary key' => ['id'],
+    'indexes' => [
+      'idx_user_id' => ['user_id'],
+      'idx_event_type' => ['event_type'],
+      'idx_created' => ['created'],
+      'idx_user_created' => ['user_id', 'created'],
+      'idx_user_event' => ['user_id', 'event_type'],
+      'idx_entity' => ['entity_type', 'entity_id'],
+    ],
+  ];
+
+  // Score cache table - stores calculated RFV scores per user.
+  $schema['oi_engagement_score'] = [
+    'description' => 'Cached engagement scores per user.',
+    'fields' => [
+      'user_id' => [
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => 'The user ID.',
+      ],
+      'last_activity' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'Timestamp of last activity.',
+      ],
+      'event_count' => [
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'Event count in scoring period.',
+      ],
+      'total_value' => [
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'Total value in scoring period.',
+      ],
+      'first_activity' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'Timestamp of first activity.',
+      ],
+      'recency_score' => [
+        'type' => 'int',
+        'size' => 'tiny',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 1,
+        'description' => 'Recency score (1-5).',
+      ],
+      'frequency_score' => [
+        'type' => 'int',
+        'size' => 'tiny',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 1,
+        'description' => 'Frequency score (1-5).',
+      ],
+      'value_score' => [
+        'type' => 'int',
+        'size' => 'tiny',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 1,
+        'description' => 'Value score (1-5).',
+      ],
+      'total_score' => [
+        'type' => 'int',
+        'size' => 'tiny',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 3,
+        'description' => 'Combined RFV score (3-15).',
+      ],
+      'segment' => [
+        'type' => 'varchar',
+        'length' => 32,
+        'not null' => TRUE,
+        'default' => 'new',
+        'description' => 'User segment (champion, loyal, at_risk, dormant, new, regular).',
+      ],
+      'calculated' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'Timestamp when score was last calculated.',
+      ],
+    ],
+    'primary key' => ['user_id'],
+    'indexes' => [
+      'idx_segment' => ['segment'],
+      'idx_total_score' => ['total_score'],
+      'idx_last_activity' => ['last_activity'],
+      'idx_calculated' => ['calculated'],
+    ],
+  ];
+
+  // Daily stats table - aggregated stats for efficient reporting.
+  $schema['oi_engagement_daily_stats'] = [
+    'description' => 'Aggregated daily statistics for reporting.',
+    'fields' => [
+      'id' => [
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'date' => [
+        'type' => 'varchar',
+        'mysql_type' => 'date',
+        'pgsql_type' => 'date',
+        'not null' => TRUE,
+        'description' => 'Date of aggregation.',
+      ],
+      'user_id' => [
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => 'The user ID.',
+      ],
+      'event_type' => [
+        'type' => 'varchar',
+        'length' => 64,
+        'not null' => TRUE,
+        'description' => 'Event type.',
+      ],
+      'event_count' => [
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'Number of events.',
+      ],
+      'total_value' => [
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'Sum of event values.',
+      ],
+    ],
+    'primary key' => ['id'],
+    'unique keys' => [
+      'uk_date_user_event' => ['date', 'user_id', 'event_type'],
+    ],
+    'indexes' => [
+      'idx_date' => ['date'],
+      'idx_user_id' => ['user_id'],
+      'idx_event_type' => ['event_type'],
+    ],
+  ];
+
+  return $schema;
+}
+
+/**
+ * Implements hook_install().
+ */
+function openintranet_engagement_install(): void {
+  // Auto-enable tracking for openintranet_documents entities if module is active.
+  if (\Drupal::moduleHandler()->moduleExists('openintranet_documents')) {
+    _openintranet_engagement_enable_document_entities();
+  }
+
+  \Drupal::messenger()->addStatus(t('User Engagement Analytics installed. Visit <a href=":url">the settings page</a> to configure tracking.', [
+    ':url' => '/admin/config/openintranet/engagement',
+  ]));
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function openintranet_engagement_uninstall(): void {
+  // Tables are dropped automatically via hook_schema().
+  // Clean up any remaining config.
+  \Drupal::configFactory()->getEditable('openintranet_engagement.settings')->delete();
+  \Drupal::configFactory()->getEditable('openintranet_engagement.entity_types')->delete();
+}
+
+/**
+ * Implements hook_modules_installed().
+ *
+ * Auto-enable tracking for openintranet_documents entities when that module
+ * is installed after this one.
+ */
+function openintranet_engagement_modules_installed(array $modules): void {
+  if (in_array('openintranet_documents', $modules, TRUE)) {
+    _openintranet_engagement_enable_document_entities();
+  }
+}
+
+/**
+ * Enables tracking for oi_document and oi_folder entity types.
+ */
+function _openintranet_engagement_enable_document_entities(): void {
+  $config = \Drupal::configFactory()->getEditable('openintranet_engagement.entity_types');
+  $entityTypes = $config->get('entity_types') ?? [];
+
+  // Check if not already added.
+  $existing = array_column($entityTypes, 'entity_type');
+
+  if (!in_array('oi_document', $existing, TRUE)) {
+    $entityTypes[] = [
+      'entity_type' => 'oi_document',
+      'enabled' => TRUE,
+      'operations' => [
+        'create' => 8,
+        'view' => 2,
+        'update' => 4,
+        'delete' => 1,
+      ],
+    ];
+  }
+
+  if (!in_array('oi_folder', $existing, TRUE)) {
+    $entityTypes[] = [
+      'entity_type' => 'oi_folder',
+      'enabled' => TRUE,
+      'operations' => [
+        'create' => 5,
+        'view' => 1,
+        'update' => 3,
+        'delete' => 1,
+      ],
+    ];
+  }
+
+  $config->set('entity_types', $entityTypes)->save();
+
+  \Drupal::messenger()->addStatus(t('Engagement tracking enabled for Documents and Folders.'));
+}

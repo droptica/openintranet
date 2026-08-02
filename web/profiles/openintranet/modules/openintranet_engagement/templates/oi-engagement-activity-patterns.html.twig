@@ -1,0 +1,93 @@
+{#
+/**
+ * @file
+ * Activity patterns report template.
+ *
+ * Variables:
+ * - trends: Activity trends data.
+ * - hourly: Hourly distribution (0-23 => count).
+ * - daily: Daily distribution (1=Mon to 7=Sun => count).
+ * - peak_hour: Best hour for engagement.
+ * - best_day: Best day name.
+ * - days: Period in days.
+ * - day_names: Day of week names.
+ */
+#}
+<div class="engagement-report engagement-patterns">
+  <div class="report-header">
+    <h2>{{ 'Activity Patterns'|t }}</h2>
+    <p class="report-period">{{ 'Last @days days'|t({'@days': days}) }}</p>
+  </div>
+
+  {# Key Insights #}
+  <div class="engagement-section">
+    <h3>{{ 'Key Insights'|t }}</h3>
+    <div class="insights-grid">
+      <div class="insight-card">
+        <div class="insight-icon">🕐</div>
+        <div class="insight-content">
+          <div class="insight-label">{{ 'Peak Hour'|t }}</div>
+          <div class="insight-value">{{ peak_hour }}:00</div>
+        </div>
+      </div>
+      <div class="insight-card">
+        <div class="insight-icon">📅</div>
+        <div class="insight-content">
+          <div class="insight-label">{{ 'Best Day'|t }}</div>
+          <div class="insight-value">{{ best_day }}</div>
+        </div>
+      </div>
+    </div>
+    <p class="insight">💡 {{ 'Best time for announcements: @day around @hour:00'|t({'@day': best_day, '@hour': peak_hour}) }}</p>
+  </div>
+
+  {# Daily Distribution #}
+  <div class="engagement-section">
+    <h3>{{ 'Activity by Day of Week'|t }}</h3>
+    <div class="chart-container">
+      {% set max_daily = max(daily) %}
+      {% for day, count in daily %}
+        {% set percentage = max_daily > 0 ? (count / max_daily * 100) : 0 %}
+        <div class="bar-row">
+          <span class="bar-label">{{ day_names[day] }}</span>
+          <div class="bar-container">
+            <div class="bar" style="width: {{ percentage }}%"></div>
+          </div>
+          <span class="bar-value">{{ count }}</span>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  {# Hourly Distribution #}
+  <div class="engagement-section">
+    <h3>{{ 'Activity by Hour'|t }}</h3>
+    <div class="hourly-chart">
+      {% set max_hourly = max(hourly) %}
+      <div class="hours-grid">
+        {% for hour, count in hourly %}
+          {% set percentage = max_hourly > 0 ? (count / max_hourly * 100) : 0 %}
+          {% set is_peak = hour == peak_hour %}
+          <div class="hour-bar {{ is_peak ? 'peak' : '' }}">
+            <div class="hour-fill" style="height: {{ percentage }}%"></div>
+            <span class="hour-label">{{ hour }}</span>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  {# Recommendations #}
+  <div class="engagement-section">
+    <h3>{{ 'Recommendations'|t }}</h3>
+    <ul class="recommendations-list">
+      <li>📢 {{ 'Publish important announcements on @day between @start:00-@end:00'|t({
+        '@day': best_day,
+        '@start': peak_hour,
+        '@end': peak_hour + 2
+      }) }}</li>
+      <li>📊 {{ 'Schedule reports and newsletters for peak engagement hours'|t }}</li>
+      <li>⚠️ {{ 'Avoid publishing on weekends if engagement is low'|t }}</li>
+    </ul>
+  </div>
+</div>

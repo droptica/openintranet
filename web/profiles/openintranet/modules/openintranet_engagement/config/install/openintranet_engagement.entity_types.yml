@@ -1,0 +1,17 @@
+entity_types:
+  - entity_type: node
+    enabled: true
+    operations:
+      create: 10
+      view: 1
+      update: 5
+      delete: 1
+  - entity_type: comment
+    enabled: true
+    operations:
+      create: 3
+      view: ~
+      update: 2
+      delete: 1
+# oi_document and oi_folder are added dynamically via hook_install()
+# when openintranet_documents module is active

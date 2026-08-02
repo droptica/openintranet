@@ -1,0 +1,114 @@
+# Dashboard routes
+openintranet_engagement.dashboard:
+  path: '/admin/reports/engagement'
+  defaults:
+    _controller: '\Drupal\openintranet_engagement\Controller\DashboardController::dashboard'
+    _title: 'User Engagement Analytics'
+  requirements:
+    _permission: 'view engagement dashboard'
+
+openintranet_engagement.users:
+  path: '/admin/reports/engagement/users'
+  defaults:
+    _controller: '\Drupal\openintranet_engagement\Controller\UserListController::listing'
+    _title: 'User Engagement Scores'
+  requirements:
+    _permission: 'view engagement scores'
+
+openintranet_engagement.user_detail:
+  path: '/admin/reports/engagement/users/{user}'
+  defaults:
+    _controller: '\Drupal\openintranet_engagement\Controller\UserDetailController::detail'
+    _title_callback: '\Drupal\openintranet_engagement\Controller\UserDetailController::title'
+  requirements:
+    _permission: 'view engagement scores'
+  options:
+    parameters:
+      user:
+        type: entity:user
+
+openintranet_engagement.executive:
+  path: '/admin/reports/engagement/executive'
+  defaults:
+    _controller: '\Drupal\openintranet_engagement\Controller\ExecutiveController::summary'
+    _title: 'Executive Summary'
+  requirements:
+    _permission: 'view engagement dashboard'
+
+# Export route
+openintranet_engagement.export:
+  path: '/admin/reports/engagement/export'
+  defaults:
+    _controller: '\Drupal\openintranet_engagement\Controller\ExportController::export'
+    _title: 'Export Engagement Data'
+  requirements:
+    _permission: 'export engagement data'
+
+openintranet_engagement.export_download:
+  path: '/admin/reports/engagement/export/download/{type}'
+  defaults:
+    _controller: '\Drupal\openintranet_engagement\Controller\ExportController::download'
+  requirements:
+    _permission: 'export engagement data'
+    type: 'csv|excel'
+
+# Settings routes
+openintranet_engagement.settings:
+  path: '/admin/config/openintranet/engagement'
+  defaults:
+    _form: '\Drupal\openintranet_engagement\Form\SettingsForm'
+    _title: 'Engagement Settings'
+  requirements:
+    _permission: 'administer openintranet engagement'
+
+openintranet_engagement.entity_types:
+  path: '/admin/config/openintranet/engagement/entity-types'
+  defaults:
+    _form: '\Drupal\openintranet_engagement\Form\EntityTypesForm'
+    _title: 'Entity Types'
+  requirements:
+    _permission: 'administer openintranet engagement'
+
+# Additional Executive Reports
+openintranet_engagement.content:
+  path: '/admin/reports/engagement/content'
+  defaults:
+    _controller: '\Drupal\openintranet_engagement\Controller\ContentController::performance'
+    _title: 'Content Performance'
+  requirements:
+    _permission: 'view engagement dashboard'
+
+openintranet_engagement.contributors:
+  path: '/admin/reports/engagement/contributors'
+  defaults:
+    _controller: '\Drupal\openintranet_engagement\Controller\ContributorsController::listing'
+    _title: 'Top Contributors'
+  requirements:
+    _permission: 'view engagement dashboard'
+
+openintranet_engagement.patterns:
+  path: '/admin/reports/engagement/patterns'
+  defaults:
+    _controller: '\Drupal\openintranet_engagement\Controller\PatternsController::patterns'
+    _title: 'Activity Patterns'
+  requirements:
+    _permission: 'view engagement dashboard'
+
+openintranet_engagement.departments:
+  path: '/admin/reports/engagement/departments'
+  defaults:
+    _controller: '\Drupal\openintranet_engagement\Controller\DepartmentController::analysis'
+    _title: 'Department Analysis'
+  requirements:
+    _permission: 'view engagement dashboard'
+
+# AJAX endpoint for charts
+openintranet_engagement.chart_data:
+  path: '/admin/reports/engagement/chart-data/{type}'
+  defaults:
+    _controller: '\Drupal\openintranet_engagement\Controller\DashboardController::chartData'
+  requirements:
+    _permission: 'view engagement dashboard'
+    type: 'segments|trends|events'
+  options:
+    no_cache: TRUE

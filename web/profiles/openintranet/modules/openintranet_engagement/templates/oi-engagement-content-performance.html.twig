@@ -1,0 +1,83 @@
+{#
+/**
+ * @file
+ * Content performance report template.
+ *
+ * Variables:
+ * - most_viewed: Most viewed content list.
+ * - event_breakdown: Content-related event breakdown.
+ * - days: Period in days.
+ */
+#}
+<div class="engagement-report engagement-content-performance">
+  <div class="report-header">
+    <h2>{{ 'Content Performance'|t }}</h2>
+    <p class="report-period">{{ 'Last @days days'|t({'@days': days}) }}</p>
+  </div>
+
+  {# Most Viewed Content #}
+  <div class="engagement-section">
+    <h3>{{ 'Most Viewed Content'|t }}</h3>
+    {% if most_viewed %}
+      <table class="engagement-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>{{ 'Title'|t }}</th>
+            <th>{{ 'Type'|t }}</th>
+            <th>{{ 'Views'|t }}</th>
+            <th>{{ 'Unique Viewers'|t }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for i, content in most_viewed %}
+            <tr>
+              <td>{{ i + 1 }}</td>
+              <td>
+                {% if content.url %}
+                  <a href="{{ content.url }}">{{ content.label }}</a>
+                {% else %}
+                  {{ content.label }}
+                {% endif %}
+              </td>
+              <td><span class="entity-type-badge">{{ content.entity_type }}</span></td>
+              <td>{{ content.view_count }}</td>
+              <td>{{ content.unique_viewers }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p class="empty-message">{{ 'No content views recorded in this period.'|t }}</p>
+    {% endif %}
+  </div>
+
+  {# Event Breakdown #}
+  <div class="engagement-section">
+    <h3>{{ 'Content Activity Breakdown'|t }}</h3>
+    {% if event_breakdown %}
+      <table class="engagement-table">
+        <thead>
+          <tr>
+            <th>{{ 'Activity'|t }}</th>
+            <th>{{ 'Count'|t }}</th>
+            <th>{{ 'Points'|t }}</th>
+            <th>{{ 'Users'|t }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for event in event_breakdown %}
+            <tr>
+              <td>{{ event.event_type }}</td>
+              <td>{{ event.count }}</td>
+              <td>{{ event.total_value }}</td>
+              <td>{{ event.unique_users }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p class="empty-message">{{ 'No content activity recorded in this period.'|t }}</p>
+    {% endif %}
+  </div>
+</div>

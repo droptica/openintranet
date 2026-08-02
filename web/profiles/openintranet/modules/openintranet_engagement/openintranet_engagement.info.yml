@@ -1,0 +1,6 @@
+name: 'User Engagement Analytics'
+type: module
+description: 'Tracks and analyzes user engagement using RFV (Recency, Frequency, Value) scoring model. Provides executive reports, user segmentation, and adoption metrics.'
+core_version_requirement: ^10.3 || ^11
+package: 'Statistics'
+lifecycle: experimental

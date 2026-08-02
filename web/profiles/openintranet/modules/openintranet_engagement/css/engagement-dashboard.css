@@ -1,0 +1,880 @@
+/**
+ * @file
+ * Engagement dashboard styles.
+ */
+
+/* Summary Cards */
+.engagement-summary-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.summary-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.summary-card .card-icon {
+  font-size: 2rem;
+}
+
+.summary-card .card-value {
+  font-size: 1.75rem;
+  font-weight: bold;
+}
+
+.summary-card .card-label {
+  color: #666;
+  font-size: 0.875rem;
+}
+
+/* Segment Distribution */
+.segment-distribution {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.segment-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  background: #f9f9f9;
+  border-left: 4px solid;
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+}
+
+.segment-icon {
+  font-size: 1.5rem;
+}
+
+.segment-info {
+  flex: 1;
+  z-index: 1;
+}
+
+.segment-label {
+  font-weight: 600;
+}
+
+.segment-count {
+  font-size: 0.875rem;
+  color: #666;
+}
+
+.segment-bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  opacity: 0.1;
+}
+
+/* Engagement Section */
+.engagement-section {
+  margin-bottom: 2rem;
+}
+
+.engagement-section h3 {
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #eee;
+}
+
+/* Engagement Table */
+.engagement-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.engagement-table th,
+.engagement-table td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.engagement-table th {
+  background: #f5f5f5;
+  font-weight: 600;
+}
+
+.engagement-table tbody tr:hover {
+  background: #fafafa;
+}
+
+/* User Score Card */
+.user-score-card {
+  background: #fff;
+  border: 2px solid;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.segment-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+.rfv-scores {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 1rem;
+}
+
+.rfv-score {
+  text-align: center;
+}
+
+.rfv-score .score-label {
+  font-size: 0.875rem;
+  color: #666;
+  margin-bottom: 0.25rem;
+}
+
+.rfv-score .score-value {
+  font-size: 2rem;
+  font-weight: bold;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #f0f0f0;
+}
+
+.rfv-score .score-1 { background: #ffcccc; }
+.rfv-score .score-2 { background: #ffe6cc; }
+.rfv-score .score-3 { background: #ffffcc; }
+.rfv-score .score-4 { background: #ccffcc; }
+.rfv-score .score-5 { background: #ccffcc; color: #28a745; }
+
+.rfv-score.total .score-value {
+  background: #333;
+  color: #fff;
+}
+
+.user-stats {
+  display: flex;
+  gap: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+}
+
+.stat .stat-label {
+  color: #666;
+}
+
+/* Engagement Badge */
+.engagement-badge {
+  display: inline-block;
+  background: #fff;
+  border: 1px solid;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+}
+
+.badge-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.badge-icon {
+  padding: 0.25rem;
+  border-radius: 4px;
+  color: #fff;
+}
+
+.badge-scores {
+  font-size: 0.875rem;
+  color: #666;
+}
+
+.badge-total {
+  font-weight: bold;
+  color: #333;
+}
+
+/* KPI Cards */
+.kpi-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.kpi-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.kpi-card.kpi-good {
+  border-color: #28a745;
+  background: #f8fff8;
+}
+
+.kpi-card.kpi-warning {
+  border-color: #ffc107;
+  background: #fffdf5;
+}
+
+.kpi-card.kpi-danger {
+  border-color: #dc3545;
+  background: #fff8f8;
+}
+
+.kpi-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.kpi-value {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+}
+
+.kpi-title {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.kpi-description {
+  font-size: 0.875rem;
+  color: #666;
+}
+
+/* Segment Health */
+.segment-health {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.health-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.health-bar-container {
+  height: 24px;
+  background: #f0f0f0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.health-bar {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.health-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.health-count {
+  color: #666;
+  margin-left: auto;
+}
+
+/* Insights */
+.insights {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.insight {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background: #f9f9f9;
+  border-radius: 4px;
+}
+
+.insight-icon {
+  font-size: 1.25rem;
+}
+
+.insight-text {
+  flex: 1;
+}
+
+/* Export Options */
+.export-options {
+  background: #f9f9f9;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+/* Filters */
+.engagement-filters {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background: #f5f5f5;
+  border-radius: 4px;
+}
+
+/* Report Header */
+.engagement-report .report-header {
+  margin-bottom: 2rem;
+}
+
+.engagement-report .report-period {
+  color: #666;
+  font-size: 0.875rem;
+}
+
+.empty-message {
+  color: #666;
+  font-style: italic;
+  padding: 1rem;
+  text-align: center;
+  background: #f9f9f9;
+  border-radius: 4px;
+}
+
+.section-description {
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+/* Entity Type Badge */
+.entity-type-badge {
+  display: inline-block;
+  padding: 0.125rem 0.5rem;
+  background: #e0e0e0;
+  border-radius: 3px;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}
+
+/* Contributors */
+.contributors-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.contributor-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 8px;
+}
+
+.contributor-card.rank-1 { border-color: gold; background: #fffdf5; }
+.contributor-card.rank-2 { border-color: silver; background: #fafafa; }
+.contributor-card.rank-3 { border-color: #cd7f32; background: #fdf8f5; }
+
+.contributor-rank {
+  font-size: 1.5rem;
+  font-weight: bold;
+  min-width: 2rem;
+  text-align: center;
+}
+
+.contributor-info {
+  flex: 1;
+}
+
+.contributor-name {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.contributor-segment {
+  font-size: 0.875rem;
+}
+
+.contributor-scores {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.score-badge {
+  padding: 0.25rem 0.5rem;
+  background: #f0f0f0;
+  border-radius: 3px;
+  font-size: 0.75rem;
+}
+
+.score-total {
+  font-size: 1.25rem;
+  font-weight: bold;
+  padding: 0.25rem 0.75rem;
+  background: #333;
+  color: #fff;
+  border-radius: 4px;
+}
+
+/* Insights Grid */
+.insights-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.insight-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.insight-card .insight-icon {
+  font-size: 2rem;
+}
+
+.insight-card .insight-label {
+  font-size: 0.875rem;
+  color: #666;
+}
+
+.insight-card .insight-value {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* Bar Chart */
+.chart-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.bar-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.bar-label {
+  min-width: 100px;
+  font-size: 0.875rem;
+}
+
+.bar-container {
+  flex: 1;
+  height: 24px;
+  background: #f0f0f0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.bar {
+  height: 100%;
+  background: linear-gradient(90deg, #007bff, #28a745);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.bar-value {
+  min-width: 60px;
+  text-align: right;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+/* Hourly Chart */
+.hourly-chart {
+  padding: 1rem 0;
+}
+
+.hours-grid {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 150px;
+}
+
+.hour-bar {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+
+.hour-fill {
+  width: 100%;
+  background: #007bff;
+  border-radius: 2px 2px 0 0;
+  margin-top: auto;
+  transition: height 0.3s ease;
+}
+
+.hour-bar.peak .hour-fill {
+  background: #28a745;
+}
+
+.hour-label {
+  font-size: 0.625rem;
+  color: #666;
+  margin-top: 0.25rem;
+}
+
+/* Recommendations */
+.recommendations-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.recommendations-list li {
+  padding: 0.75rem 1rem;
+  background: #f9f9f9;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+/* Department Analysis */
+.engagement-department-analysis .report-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.engagement-department-analysis .period-selector {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.engagement-department-analysis .period-selector select {
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.engagement-department-analysis .insights-section {
+  background: #f8f9fa;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+}
+
+.engagement-department-analysis .insights-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.engagement-department-analysis .insight {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  background: #fff;
+}
+
+.engagement-department-analysis .insight--success {
+  border-left: 4px solid #28a745;
+}
+
+.engagement-department-analysis .insight--warning {
+  border-left: 4px solid #ffc107;
+}
+
+.engagement-department-analysis .insight--danger {
+  border-left: 4px solid #dc3545;
+}
+
+.engagement-department-analysis .insight-icon {
+  font-size: 1.25rem;
+}
+
+.engagement-department-analysis .analysis-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.engagement-department-analysis .analysis-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.engagement-department-analysis .analysis-card h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #eee;
+}
+
+.engagement-department-analysis .table-responsive {
+  overflow-x: auto;
+}
+
+.engagement-department-analysis .text-center {
+  text-align: center;
+}
+
+.engagement-department-analysis .text-muted {
+  color: #6c757d;
+}
+
+.engagement-department-analysis .badge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 3px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.engagement-department-analysis .badge--champion {
+  background: #d4edda;
+  color: #155724;
+}
+
+.engagement-department-analysis .badge--at-risk {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.engagement-department-analysis .score-badge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 3px;
+  font-weight: 600;
+}
+
+.engagement-department-analysis .score-badge--high {
+  background: #d4edda;
+  color: #155724;
+}
+
+.engagement-department-analysis .score-badge--medium {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.engagement-department-analysis .score-badge--low {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.engagement-department-analysis .health-indicator {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 3px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.engagement-department-analysis .health-indicator--good {
+  background: #d4edda;
+  color: #155724;
+}
+
+.engagement-department-analysis .health-indicator--warning {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.engagement-department-analysis .health-indicator--critical {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.engagement-department-analysis .chart-section {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #eee;
+}
+
+.engagement-department-analysis .bar-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.engagement-department-analysis .bar-chart .bar-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.engagement-department-analysis .bar-chart .bar-label {
+  min-width: 100px;
+  font-size: 0.875rem;
+}
+
+.engagement-department-analysis .bar-chart .bar-container {
+  flex: 1;
+  height: 20px;
+  background: #f0f0f0;
+  border-radius: 4px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.engagement-department-analysis .bar-chart .bar {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.engagement-department-analysis .bar-chart .bar--good {
+  background: linear-gradient(90deg, #28a745, #5cb85c);
+}
+
+.engagement-department-analysis .bar-chart .bar--warning {
+  background: linear-gradient(90deg, #ffc107, #ffdb4d);
+}
+
+.engagement-department-analysis .bar-chart .bar--critical {
+  background: linear-gradient(90deg, #dc3545, #e67c85);
+}
+
+.engagement-department-analysis .bar-chart .bar-value {
+  margin-left: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.engagement-department-analysis .segment-mini-chart {
+  display: flex;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+}
+
+.engagement-department-analysis .segment-dot {
+  display: inline-block;
+  padding: 0.125rem 0.375rem;
+  border-radius: 3px;
+  font-size: 0.625rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.engagement-department-analysis .segment-dot--champion {
+  background: #28a745;
+}
+
+.engagement-department-analysis .segment-dot--loyal {
+  background: #007bff;
+}
+
+.engagement-department-analysis .segment-dot--regular {
+  background: #6c757d;
+}
+
+.engagement-department-analysis .segment-dot--new {
+  background: #17a2b8;
+}
+
+.engagement-department-analysis .segment-dot--at_risk {
+  background: #ffc107;
+  color: #333;
+}
+
+.engagement-department-analysis .segment-dot--dormant {
+  background: #dc3545;
+}
+
+.engagement-department-analysis .no-data-message {
+  padding: 2rem;
+  text-align: center;
+  color: #666;
+  background: #f9f9f9;
+  border-radius: 4px;
+}
+
+.engagement-department-analysis .segment-legend {
+  background: #f8f9fa;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.engagement-department-analysis .segment-legend h4 {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+}
+
+.engagement-department-analysis .legend-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.engagement-department-analysis .legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.engagement-department-analysis .legend-color {
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+}
+
+.engagement-department-analysis .legend-color--champion {
+  background: #28a745;
+}
+
+.engagement-department-analysis .legend-color--loyal {
+  background: #007bff;
+}
+
+.engagement-department-analysis .legend-color--regular {
+  background: #6c757d;
+}
+
+.engagement-department-analysis .legend-color--new {
+  background: #17a2b8;
+}
+
+.engagement-department-analysis .legend-color--at_risk {
+  background: #ffc107;
+}
+
+.engagement-department-analysis .legend-color--dormant {
+  background: #dc3545;
+}

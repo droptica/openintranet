@@ -1,0 +1,105 @@
+{#
+/**
+ * @file
+ * Executive summary template for engagement analytics.
+ *
+ * Variables:
+ * - kpis: Key Performance Indicator cards.
+ * - segments: Segment distribution data.
+ * - trends: Activity trends.
+ * - top_content: Most viewed content.
+ * - summary: Raw summary data.
+ */
+#}
+<div class="engagement-executive">
+  {# KPI Cards #}
+  <div class="kpi-cards">
+    {% for kpi in kpis %}
+      <div class="kpi-card kpi-{{ kpi.status }}">
+        <div class="kpi-icon">{{ kpi.icon }}</div>
+        <div class="kpi-value">{{ kpi.value }}</div>
+        <div class="kpi-title">{{ kpi.title }}</div>
+        <div class="kpi-description">{{ kpi.description }}</div>
+      </div>
+    {% endfor %}
+  </div>
+
+  {# Segment Health #}
+  <div class="engagement-section">
+    <h3>{{ 'Segment Health'|t }}</h3>
+    <div class="segment-health">
+      {% for key, seg in segments %}
+        <div class="health-item">
+          <div class="health-bar-container">
+            <div class="health-bar" style="width: {{ seg.percentage }}%; background-color: {{ seg.color }}"></div>
+          </div>
+          <div class="health-info">
+            <span class="health-icon">{{ seg.icon }}</span>
+            <span class="health-label">{{ seg.label }}</span>
+            <span class="health-count">{{ seg.count }} ({{ seg.percentage }}%)</span>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  {# Top Content #}
+  {% if top_content %}
+    <div class="engagement-section">
+      <h3>{{ 'Most Viewed Content (30 days)'|t }}</h3>
+      <table class="engagement-table">
+        <thead>
+          <tr>
+            <th>{{ 'Content'|t }}</th>
+            <th>{{ 'Views'|t }}</th>
+            <th>{{ 'Unique Viewers'|t }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for content in top_content %}
+            <tr>
+              <td>
+                <a href="{{ content.url }}">{{ content.label }}</a>
+                <small>({{ content.entity_type }})</small>
+              </td>
+              <td>{{ content.view_count }}</td>
+              <td>{{ content.unique_viewers }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% endif %}
+
+  {# Insights #}
+  <div class="engagement-section">
+    <h3>{{ 'Insights'|t }}</h3>
+    <div class="insights">
+      <div class="insight">
+        <span class="insight-icon">📈</span>
+        <span class="insight-text">
+          {{ 'Adoption rate is at @rate%. @status'|t({
+            '@rate': summary.adoption_rate,
+            '@status': summary.adoption_rate >= 70 ? 'Great job!' : (summary.adoption_rate >= 50 ? 'Room for improvement.' : 'Action needed!')
+          }) }}
+        </span>
+      </div>
+      <div class="insight">
+        <span class="insight-icon">⚠️</span>
+        <span class="insight-text">
+          {{ '@percent% of users are at risk or dormant. Consider a re-engagement campaign.'|t({
+            '@percent': summary.at_risk_percentage
+          }) }}
+        </span>
+      </div>
+      <div class="insight">
+        <span class="insight-icon">🏆</span>
+        <span class="insight-text">
+          {{ '@percent% of users are champions. These are your power users!'|t({
+            '@percent': summary.champion_percentage
+          }) }}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

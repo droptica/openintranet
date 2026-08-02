@@ -1,0 +1,105 @@
+services:
+  # ============================================
+  # Core Services
+  # ============================================
+
+  openintranet_engagement.config:
+    class: Drupal\openintranet_engagement\Service\OiEngagementConfig
+    arguments:
+      - '@config.factory'
+
+  openintranet_engagement.tracker:
+    class: Drupal\openintranet_engagement\Service\OiEngagementTracker
+    arguments:
+      - '@database'
+      - '@current_user'
+      - '@openintranet_engagement.config'
+      - '@datetime.time'
+
+  openintranet_engagement.calculator:
+    class: Drupal\openintranet_engagement\Service\OiEngagementCalculator
+    arguments:
+      - '@database'
+      - '@openintranet_engagement.segmenter'
+      - '@entity_type.manager'
+      - '@openintranet_engagement.config'
+      - '@datetime.time'
+
+  openintranet_engagement.segmenter:
+    class: Drupal\openintranet_engagement\Service\OiEngagementSegmenter
+
+  openintranet_engagement.reporter:
+    class: Drupal\openintranet_engagement\Service\OiEngagementReporter
+    arguments:
+      - '@database'
+      - '@entity_type.manager'
+      - '@openintranet_engagement.segmenter'
+      - '@datetime.time'
+
+  openintranet_engagement.entity_type_discovery:
+    class: Drupal\openintranet_engagement\Service\EntityTypeDiscovery
+    arguments:
+      - '@entity_type.manager'
+      - '@module_handler'
+
+  openintranet_engagement.daily_aggregator:
+    class: Drupal\openintranet_engagement\Service\OiEngagementDailyAggregator
+    arguments:
+      - '@database'
+      - '@datetime.time'
+
+  openintranet_engagement.cleaner:
+    class: Drupal\openintranet_engagement\Service\OiEngagementCleaner
+    arguments:
+      - '@database'
+      - '@openintranet_engagement.config'
+      - '@datetime.time'
+
+  # ============================================
+  # Hook Classes (Drupal 11+ #[Hook] attributes)
+  # ============================================
+
+  Drupal\openintranet_engagement\Hook\GenericEntityHooks:
+    arguments:
+      - '@openintranet_engagement.tracker'
+      - '@openintranet_engagement.config'
+      - '@current_user'
+      - '@cache.data'
+    tags:
+      - { name: hooks }
+
+  Drupal\openintranet_engagement\Hook\SpecialEventHooks:
+    arguments:
+      - '@openintranet_engagement.tracker'
+    tags:
+      - { name: hooks }
+
+  Drupal\openintranet_engagement\Hook\CronHooks:
+    arguments:
+      - '@openintranet_engagement.calculator'
+      - '@openintranet_engagement.daily_aggregator'
+      - '@openintranet_engagement.cleaner'
+    tags:
+      - { name: hooks }
+
+  Drupal\openintranet_engagement\Hook\UserHooks:
+    arguments:
+      - '@database'
+      - '@openintranet_engagement.calculator'
+      - '@openintranet_engagement.segmenter'
+      - '@current_user'
+    tags:
+      - { name: hooks }
+
+  # ============================================
+  # Event Subscribers
+  # ============================================
+
+  openintranet_engagement.entity_view_subscriber:
+    class: Drupal\openintranet_engagement\EventSubscriber\EntityViewSubscriber
+    arguments:
+      - '@openintranet_engagement.tracker'
+      - '@current_route_match'
+      - '@current_user'
+    tags:
+      - { name: event_subscriber }
