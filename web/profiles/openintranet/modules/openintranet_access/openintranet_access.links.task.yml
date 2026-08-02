@@ -1,0 +1,57 @@
+# Groups tab under /admin/people
+openintranet_access.groups:
+  title: 'Groups'
+  route_name: entity.oi_group.collection
+  base_route: entity.user.collection
+  weight: 15
+
+# Group tabs
+entity.oi_group.canonical:
+  title: 'View'
+  route_name: entity.oi_group.canonical
+  base_route: entity.oi_group.canonical
+
+entity.oi_group.edit_form:
+  title: 'Edit'
+  route_name: entity.oi_group.edit_form
+  base_route: entity.oi_group.canonical
+
+openintranet_access.group_members:
+  title: 'Members'
+  route_name: openintranet_access.group_members
+  base_route: entity.oi_group.canonical
+  weight: 5
+
+entity.oi_group.delete_form:
+  title: 'Delete'
+  route_name: entity.oi_group.delete_form
+  base_route: entity.oi_group.canonical
+  weight: 10
+
+# Node access tab
+openintranet_access.node_access_form:
+  route_name: openintranet_access.node_access_form
+  base_route: entity.node.canonical
+  title: 'Access'
+  weight: 50
+
+# Document access tab
+openintranet_access.document_access_form:
+  route_name: openintranet_access.document_access_form
+  base_route: entity.oi_document.canonical
+  title: 'Access'
+  weight: 50
+
+# Folder access tab
+openintranet_access.folder_access_form:
+  route_name: openintranet_access.folder_access_form
+  base_route: entity.oi_folder.canonical
+  title: 'Access'
+  weight: 50
+
+# User access tab
+openintranet_access.user_access:
+  route_name: openintranet_access.user_access
+  base_route: entity.user.canonical
+  title: 'Access'
+  weight: 50

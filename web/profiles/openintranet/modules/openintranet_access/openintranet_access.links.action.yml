@@ -1,0 +1,5 @@
+openintranet_access.group_add:
+  route_name: entity.oi_group.add_form
+  title: 'Add group'
+  appears_on:
+    - entity.oi_group.collection

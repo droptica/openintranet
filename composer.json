@@ -81,7 +81,6 @@
         "drupal/masquerade": "^2.0",
         "drupal/noreqnewpass": "^1.6",
         "drupal/openid_connect": "^3.0@alpha",
-        "drupal/openintranet_access": "^1.0",
         "drupal/openintranet_documents": "^1.0",
         "drupal/openintranet_engagement": "^1.0",
         "drupal/openintranet_messenger": "^1.0",
