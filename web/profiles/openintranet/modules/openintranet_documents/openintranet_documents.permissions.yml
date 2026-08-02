@@ -1,0 +1,45 @@
+# OI Folder permissions
+administer oi_folder:
+  title: 'Administer folders'
+  restrict access: true
+
+view oi_folder:
+  title: 'View folder'
+
+edit oi_folder:
+  title: 'Edit folder'
+
+delete oi_folder:
+  title: 'Delete folder'
+
+create oi_folder:
+  title: 'Create folder'
+
+# OI Document permissions
+administer oi_document:
+  title: 'Administer documents'
+  restrict access: true
+
+view oi_document:
+  title: 'View document'
+
+edit oi_document:
+  title: 'Edit document'
+
+delete oi_document:
+  title: 'Delete document'
+
+create oi_document:
+  title: 'Create document'
+
+download oi_document:
+  title: 'Download document'
+
+view oi_document revision:
+  title: 'View document revision'
+
+revert oi_document revision:
+  title: 'Revert document revision'
+
+delete oi_document revision:
+  title: 'Delete document revision'

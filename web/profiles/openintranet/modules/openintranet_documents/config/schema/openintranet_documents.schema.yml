@@ -1,0 +1,16 @@
+openintranet_documents.settings:
+  type: config_object
+  label: 'Document settings'
+  mapping:
+    enabled_sources:
+      type: sequence
+      label: 'Enabled document sources'
+      sequence:
+        type: string
+        label: 'Source plugin ID'
+    default_source:
+      type: string
+      label: 'Default document source'
+    max_file_size:
+      type: integer
+      label: 'Maximum file size in MB'

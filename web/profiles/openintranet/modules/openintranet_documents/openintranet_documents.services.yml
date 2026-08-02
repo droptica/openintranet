@@ -1,0 +1,28 @@
+services:
+  plugin.manager.document_source:
+    class: Drupal\openintranet_documents\DocumentSourceManager
+    arguments:
+      - '@container.namespaces'
+      - '@cache.discovery'
+      - '@module_handler'
+      - '@config.factory'
+
+  openintranet_documents.folder_manager:
+    class: Drupal\openintranet_documents\Service\OiFolderManager
+    arguments:
+      - '@entity_type.manager'
+      - '@database'
+
+  openintranet_documents.document_manager:
+    class: Drupal\openintranet_documents\Service\OiDocumentManager
+    arguments:
+      - '@entity_type.manager'
+      - '@file_system'
+      - '@database'
+
+  openintranet_documents.breadcrumb:
+    class: Drupal\openintranet_documents\Breadcrumb\OiDocumentBreadcrumbBuilder
+    arguments:
+      - '@openintranet_documents.folder_manager'
+    tags:
+      - { name: breadcrumb_builder, priority: 100 }
