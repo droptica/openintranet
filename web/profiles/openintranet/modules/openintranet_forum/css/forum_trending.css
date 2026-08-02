@@ -1,0 +1,387 @@
+/**
+ * @file
+ * Styles for the forum "Trending now" block.
+ *
+ * Colors align with Open Intranet design tokens where applicable.
+ */
+
+.block-views-blockforum-trending-block-1 > h2,
+.block-openintranet-theme-forum-trending > h2 {
+  margin: 0 0 1rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 2rem;
+  color: var(--forum-text);
+}
+
+.forum-trending-view__top {
+  padding: 0 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* --------------------------------------------------------------------------
+   Carousel wrapper
+   -------------------------------------------------------------------------- */
+
+.forum-trending__carousel {
+  position: relative;
+}
+
+.forum-trending__viewport {
+  overflow: hidden;
+}
+
+/* --------------------------------------------------------------------------
+   Responsive grid overrides: fill width, equal cards, no scrollbar
+   -------------------------------------------------------------------------- */
+
+.forum-trending-view .views-view-responsive-grid--horizontal,
+.view-id-forum_trending .views-view-responsive-grid--horizontal {
+  display: flex !important;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  gap: 1rem;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  grid-template-columns: none !important;
+}
+
+.forum-trending-view .views-view-responsive-grid--horizontal::-webkit-scrollbar,
+.view-id-forum_trending .views-view-responsive-grid--horizontal::-webkit-scrollbar {
+  display: none;
+}
+
+.forum-trending-view .views-view-responsive-grid--horizontal .views-view-responsive-grid__item,
+.view-id-forum_trending .views-view-responsive-grid--horizontal .views-view-responsive-grid__item {
+  flex: 0 0 calc((100% - 3rem) / 4);
+  min-width: 0;
+  scroll-snap-align: start;
+}
+
+.forum-trending-view .views-view-responsive-grid--horizontal .views-view-responsive-grid__item-inner,
+.view-id-forum_trending .views-view-responsive-grid--horizontal .views-view-responsive-grid__item-inner {
+  height: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   "Next" chevron button — overlays the right edge of the carousel
+   -------------------------------------------------------------------------- */
+
+.forum-trending__next,
+.forum-trending__prev {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.875rem;
+  height: 2.875rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(61, 80, 253, 0.25);
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.forum-trending__next { right: -1.5rem; }
+.forum-trending__prev { left: -1.5rem; }
+
+.forum-trending__prev img {
+  transform: scaleX(-1);
+}
+
+.forum-trending__next:hover,
+.forum-trending__next:focus-visible,
+.forum-trending__prev:hover,
+.forum-trending__prev:focus-visible {
+  background: rgba(61, 80, 253, 0.4);
+}
+
+.forum-trending__next[hidden],
+.forum-trending__prev[hidden] {
+  display: none;
+}
+
+/* --------------------------------------------------------------------------
+   Post card
+   -------------------------------------------------------------------------- */
+
+.forum-trending-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--forum-surface);
+  border-radius: var(--forum-radius);
+  overflow: hidden;
+  height: 23.375rem;
+}
+
+/* --------------------------------------------------------------------------
+   Card media / cover image area
+   -------------------------------------------------------------------------- */
+
+.forum-trending-card__media {
+  position: relative;
+  flex-shrink: 0;
+  height: 10rem;
+  overflow: hidden;
+  border-radius: var(--forum-radius) var(--forum-radius) 0 0;
+  background: var(--forum-border);
+}
+
+.forum-trending-card__media img,
+.forum-trending-card__media picture {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.forum-trending-card__media .field--name-field-forum-image {
+  margin: 0;
+  height: 100%;
+}
+
+.forum-trending-card__media .field--name-field-forum-image .field__item {
+  height: 100%;
+}
+
+.forum-trending-card__media .field--name-field-forum-image a {
+  display: block;
+  height: 100%;
+}
+
+.forum-trending-card__media--placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #c4caff;
+  color: rgba(61, 80, 253, 0.5);
+}
+
+/* --------------------------------------------------------------------------
+   Card content area
+   -------------------------------------------------------------------------- */
+
+.forum-trending-card__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.25rem;
+  flex: 1 1 auto;
+}
+
+/* --------------------------------------------------------------------------
+   Meta row: avatar + author name + date
+   -------------------------------------------------------------------------- */
+
+.forum-trending-card__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  min-height: 1.625rem;
+}
+
+.forum-trending-card__author {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.forum-trending-card__avatar .field,
+.forum-trending-card__avatar .field__item {
+  margin: 0;
+}
+
+.forum-trending-card__author-name {
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.125rem;
+  color: var(--forum-text);
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.forum-trending-card__author-name:hover {
+  color: var(--forum-blue);
+  text-decoration: underline;
+}
+
+.forum-trending-card__date {
+  flex-shrink: 0;
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 1rem;
+  color: var(--forum-text-soft);
+  white-space: nowrap;
+}
+
+/* --------------------------------------------------------------------------
+   Body: title + snippet grouped with 12px gap
+   -------------------------------------------------------------------------- */
+
+.forum-trending-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Title
+   -------------------------------------------------------------------------- */
+
+.forum-trending-card__title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.375rem;
+  min-height: 2.75rem;
+}
+
+.forum-trending-card__title a {
+  color: var(--forum-blue);
+  text-decoration: none;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.forum-trending-card__title a:hover {
+  text-decoration: underline;
+}
+
+.forum-trending-card__title a .field {
+  display: contents;
+}
+
+/* --------------------------------------------------------------------------
+   Excerpt / snippet
+   -------------------------------------------------------------------------- */
+
+.forum-trending-card__snippet {
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.125rem;
+  color: var(--forum-text);
+}
+
+.forum-trending-card__snippet .field,
+.forum-trending-card__snippet .field__item {
+  margin: 0;
+}
+
+.forum-trending-card__snippet .field__item {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.forum-trending-card__snippet p {
+  margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Card footer: stats + right-arrow link
+   -------------------------------------------------------------------------- */
+
+.forum-trending-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: auto;
+  min-height: 1.5rem;
+}
+
+.forum-trending-card__stats {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.forum-trending-card__stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  color: var(--forum-text-soft);
+  text-decoration: none;
+  font-size: 0.625rem;
+  line-height: 1;
+}
+
+.forum-trending-card__stat-icon-img {
+  flex-shrink: 0;
+  opacity: 0.85;
+}
+
+.forum-trending-card__stat-value {
+  font-size: 0.5rem;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.forum-trending-card__actions {
+  flex-shrink: 0;
+}
+
+.forum-trending-card__more-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.forum-trending-card__more-icon {
+  display: block;
+  opacity: 0.85;
+}
+
+/* --------------------------------------------------------------------------
+   Owner kebab inside the card footer
+   -------------------------------------------------------------------------- */
+
+.forum-trending-card__footer .forum-post-meta {
+  width: 100%;
+}
+
+/* Open upward so the card's overflow:hidden + the carousel scroll container don't clip the menu. */
+.forum-trending-card .forum-post-meta__menu {
+  top: auto;
+  bottom: calc(100% + 0.25rem);
+}
+
+/* --------------------------------------------------------------------------
+   Responsive
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 991.98px) {
+  .forum-trending-view .views-view-responsive-grid--horizontal .views-view-responsive-grid__item,
+  .view-id-forum_trending .views-view-responsive-grid--horizontal .views-view-responsive-grid__item {
+    flex: 0 0 min(100%, 20rem);
+    min-width: min(100%, 20rem);
+  }
+
+  .forum-trending__next {
+    right: -0.75rem;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .forum-trending-view .views-view-responsive-grid--horizontal .views-view-responsive-grid__item,
+  .view-id-forum_trending .views-view-responsive-grid--horizontal .views-view-responsive-grid__item {
+    flex: 0 0 min(100%, 18rem);
+    min-width: min(100%, 18rem);
+  }
+}

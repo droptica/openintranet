@@ -1,0 +1,385 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - node.type.forum_post
+    - search_api.index.forum_index
+    - taxonomy.vocabulary.department
+    - taxonomy.vocabulary.forum_tag
+    - taxonomy.vocabulary.office
+  module:
+    - node
+    - search_api
+    - user
+id: forum_search
+label: 'Forum search'
+module: views
+description: 'Filterable Search API results page for forum posts.'
+tag: ''
+base_table: search_api_index_forum_index
+base_field: search_api_id
+display:
+  default:
+    id: default
+    display_title: Default
+    display_plugin: default
+    position: 0
+    display_options:
+      title: 'Forum search results'
+      css_class: forum-search
+      access:
+        type: perm
+        options:
+          perm: 'access content'
+      cache:
+        type: search_api_tag
+        options: {  }
+      query:
+        type: search_api_query
+        options:
+          bypass_access: false
+          skip_access: false
+          preserve_facet_query_args: false
+      exposed_form:
+        type: basic
+        options:
+          submit_button: Apply
+          reset_button: true
+          reset_button_label: Reset
+          exposed_sorts_label: 'Sort by'
+          expose_sort_order: true
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+      pager:
+        type: full
+        options:
+          offset: 0
+          items_per_page: 20
+          total_pages: null
+          id: 0
+          tags:
+            next: 'Next ›'
+            previous: '‹ Previous'
+            first: '« First'
+            last: 'Last »'
+          expose:
+            items_per_page: false
+            items_per_page_label: 'Items per page'
+            items_per_page_options: '5, 10, 20, 40, 60'
+            items_per_page_options_all: false
+            items_per_page_options_all_label: '- All -'
+            offset: false
+            offset_label: Offset
+          quantity: 9
+      style:
+        type: default
+        options:
+          grouping: {  }
+          row_class: ''
+          default_row_class: true
+      row:
+        type: search_api
+        options:
+          view_modes:
+            'entity:node':
+              ':default': teaser
+              forum_post: teaser
+      sorts:
+        search_api_relevance:
+          id: search_api_relevance
+          table: search_api_index_forum_index
+          field: search_api_relevance
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: standard
+          order: DESC
+          expose:
+            label: ''
+            field_identifier: search_api_relevance
+          exposed: false
+        created:
+          id: created
+          table: search_api_index_forum_index
+          field: created
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: search_api
+          order: DESC
+          expose:
+            label: ''
+            field_identifier: created
+          exposed: false
+      filters:
+        search_api_fulltext:
+          id: search_api_fulltext
+          table: search_api_index_forum_index
+          field: search_api_fulltext
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: and
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: search_api_fulltext_op
+            label: Search
+            description: ''
+            use_operator: false
+            operator: search_api_fulltext_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: keys
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            placeholder: Search
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          parse_mode: terms
+          min_length: 3
+          fields:
+            - aggregated_field
+            - rendered_item
+          plugin_id: search_api_fulltext
+        field_forum_tags:
+          id: field_forum_tags
+          table: search_api_index_forum_index
+          field: field_forum_tags
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_forum_tags_op
+            label: Topic
+            description: ''
+            use_operator: false
+            operator: field_forum_tags_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: tag
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: anonymous
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          type: select
+          hierarchy: false
+          limit: true
+          vid: forum_tag
+          error_message: true
+          plugin_id: search_api_term
+        author_department:
+          id: author_department
+          table: search_api_index_forum_index
+          field: author_department
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: author_department_op
+            label: Department
+            description: ''
+            use_operator: false
+            operator: author_department_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: department
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: anonymous
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          type: select
+          hierarchy: false
+          limit: true
+          vid: department
+          error_message: true
+          plugin_id: search_api_term
+        author_office:
+          id: author_office
+          table: search_api_index_forum_index
+          field: author_office
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: author_office_op
+            label: Office
+            description: ''
+            use_operator: false
+            operator: author_office_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: office
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: anonymous
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          type: select
+          hierarchy: false
+          limit: true
+          vid: office
+          error_message: true
+          plugin_id: search_api_term
+        author:
+          id: author
+          table: search_api_index_forum_index
+          field: author
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: author_op
+            label: Person
+            description: ''
+            use_operator: false
+            operator: author_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: person
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: anonymous
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          plugin_id: search_api_user
+      empty:
+        area_text_custom:
+          id: area_text_custom
+          table: views
+          field: area_text_custom
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text_custom
+          empty: true
+          content: 'No posts match your filters. Try different keywords or clear filters.'
+          tokenize: false
+      header: {  }
+      footer: {  }
+      relationships: {  }
+      arguments: {  }
+      fields: {  }
+      display_extenders: {  }
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
+        - url.query_args
+        - 'user.node_grants:view'
+        - user.permissions
+      tags:
+        - 'config:search_api.index.forum_index'
+  page_1:
+    id: page_1
+    display_title: Page
+    display_plugin: page
+    position: 1
+    display_options:
+      exposed_block: true
+      display_extenders: {  }
+      path: forum/search
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
+        - url.query_args
+        - 'user.node_grants:view'
+        - user.permissions
+      tags:
+        - 'config:search_api.index.forum_index'

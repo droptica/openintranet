@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.trending_card
+label: 'Trending card'
+description: 'Horizontal forum card for trending blocks (Figma post-card).'
+targetEntityType: node
+cache: true

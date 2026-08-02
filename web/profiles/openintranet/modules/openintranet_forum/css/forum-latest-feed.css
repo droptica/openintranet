@@ -1,0 +1,76 @@
+/**
+ * @file
+ * Latest forum posts feed block component.
+ */
+
+.forum-latest-feed {
+  overflow: hidden;
+}
+
+.forum-latest-feed__header {
+  padding: 1.5rem 1.5rem 1.5rem;
+}
+
+.forum-latest-feed__rows {
+  padding: 0 1.5rem;
+}
+
+.forum-latest-feed__rows > .views-row {
+  padding-top: 1rem;
+  padding-bottom: 1.5rem;
+}
+
+.forum-latest-feed__rows > .views-row:first-child {
+  padding-top: 0;
+}
+
+.forum-latest-feed__rows > .views-row + .views-row {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  position: relative;
+}
+
+.forum-latest-feed__rows > .views-row + .views-row::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0.5rem;
+  right: 0.5rem;
+  height: 1px;
+  background: var(--forum-border);
+}
+
+.forum-latest-feed__empty {
+  padding: 2rem 1.5rem 1.5rem;
+}
+
+.forum-latest-feed__more {
+  padding: 1.5rem;
+}
+
+.forum-latest-feed__more a {
+  min-height: 3rem;
+}
+
+/* --------------------------------------------------------------------------
+   Responsive
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 575.98px) {
+  .forum-latest-feed__header,
+  .forum-latest-feed__rows,
+  .forum-latest-feed__empty,
+  .forum-latest-feed__more {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  .forum-latest-feed__rows {
+    padding-top: 1.5rem;
+  }
+
+  .forum-latest-feed__rows > .views-row + .views-row {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+  }
+}

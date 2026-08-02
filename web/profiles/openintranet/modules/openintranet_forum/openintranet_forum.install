@@ -1,0 +1,358 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the Open Intranet Forum module.
+ */
+
+declare(strict_types=1);
+
+use Drupal\block\Entity\Block;
+use Drupal\filter\Entity\FilterFormat;
+use Drupal\user\Entity\Role;
+use Drupal\votingapi\Entity\VoteType;
+
+/**
+ * Implements hook_install().
+ *
+ * The five default forum categories are NOT created here: they ship as
+ * default content in content/taxonomy_term/forum_category/ (imported by core
+ * on module install) so that they work on every install path. Creating them
+ * in hook_install() broke the recipe path — recipes install modules without
+ * their default config, so the forum_category vocabulary did not exist yet
+ * when this hook ran.
+ */
+function openintranet_forum_install(bool $is_syncing = FALSE): void {
+  // The "like" reaction is votingapi_reaction's vote type (created in its own
+  // hook_install, which runs first as a dependency). Relabel it here so it
+  // works on both install paths — runs before the $is_syncing guard because it
+  // touches an already-existing entity, not the module's own pending config.
+  _openintranet_forum_set_reaction_label();
+
+  if ($is_syncing) {
+    // Recipe / config-sync install: the module's config (vocabularies, the
+    // reaction field) is imported after this hook, so permissions referencing
+    // it cannot be granted yet. The forum recipe grants them instead.
+    return;
+  }
+
+  _openintranet_forum_grant_baseline_permissions();
+}
+
+/**
+ * Relabels the "like" reaction vote type to "like it!".
+ *
+ * The reaction option label is read from the vote type config entity at render
+ * time (VotingApiReactionManager reads $vote_type->label()), so setting the
+ * label here makes the forum reaction button read "like it!" on both the
+ * initial render and AJAX rebuilds without a form alter. Idempotent.
+ */
+function _openintranet_forum_set_reaction_label(): void {
+  $vote_type = VoteType::load('reaction_like');
+  if ($vote_type instanceof VoteType && $vote_type->label() !== 'like it!') {
+    $vote_type->set('label', 'like it!')->save();
+  }
+}
+
+/**
+ * Grants authenticated users the baseline forum permissions.
+ *
+ * Mirrors the grants of the forum recipe so that a plain module install
+ * (drush pm:enable) ends up with the same working forum as a recipe apply.
+ * The votingapi_reaction permissions are field-level and live on the
+ * authenticated role, which a module cannot ship as config, so they are
+ * granted programmatically.
+ */
+function _openintranet_forum_grant_baseline_permissions(): void {
+  $role = Role::load('authenticated');
+  if (!$role instanceof Role) {
+    return;
+  }
+
+  $permissions = [
+    'create forum_post content',
+    'edit own forum_post content',
+    'delete own forum_post content',
+    'post comments',
+    'skip comment approval',
+    'access comments',
+    'view reactions on node:forum_post:field_forum_post_reaction',
+    'create reaction on node:forum_post:field_forum_post_reaction',
+    'modify reaction on node:forum_post:field_forum_post_reaction',
+    'flag bookmark_forum_post',
+    'unflag bookmark_forum_post',
+  ];
+  // Only grant the text format permission if the format actually exists, so a
+  // standalone install without basic_html is not left referencing a missing
+  // format.
+  if (FilterFormat::load('basic_html') instanceof FilterFormat) {
+    $permissions[] = 'use text format basic_html';
+  }
+
+  $changed = FALSE;
+  foreach ($permissions as $permission) {
+    if (!$role->hasPermission($permission)) {
+      $role->grantPermission($permission);
+      $changed = TRUE;
+    }
+  }
+
+  if ($changed) {
+    $role->save();
+  }
+}
+
+/**
+ * Place the forum right-rail blocks (theme regions + optional block config).
+ */
+function openintranet_forum_update_110001(): void {
+  \Drupal::service('config.installer')->installOptionalConfig();
+
+  $block_ids = [
+    'openintranet_forum_add_post',
+    'openintranet_forum_categories',
+    'openintranet_forum_popular_categories',
+    'openintranet_forum_more_from_category',
+    'openintranet_forum_popular_tags',
+    'openintranet_theme_forum_filters',
+  ];
+
+  foreach ($block_ids as $block_id) {
+    $block = Block::load($block_id);
+    if (!$block instanceof Block) {
+      continue;
+    }
+
+    $changed = FALSE;
+
+    if (!$block->status() || $block->getRegion() !== 'forum_sidebar_second') {
+      $block->setRegion('forum_sidebar_second');
+      $block->setStatus(TRUE);
+      $changed = TRUE;
+    }
+
+    if ($block_id === 'openintranet_theme_forum_filters' && $block->getWeight() !== 10) {
+      $block->setWeight(10);
+      $changed = TRUE;
+    }
+
+    if ($changed) {
+      $block->save();
+    }
+  }
+}
+
+/**
+ * Add the keyword search filter to the forum search view.
+ */
+function openintranet_forum_update_110002(): void {
+  $config = \Drupal::configFactory()->getEditable('views.view.forum_search');
+
+  $filters = $config->get('display.default.display_options.filters') ?? [];
+  if (isset($filters['search_api_fulltext'])) {
+    return;
+  }
+
+  $config->set('display.default.display_options.filters.search_api_fulltext', [
+    'id' => 'search_api_fulltext',
+    'table' => 'search_api_index_forum_index',
+    'field' => 'search_api_fulltext',
+    'relationship' => 'none',
+    'group_type' => 'group',
+    'admin_label' => '',
+    'operator' => 'and',
+    'value' => '',
+    'group' => 1,
+    'exposed' => TRUE,
+    'expose' => [
+      'operator_id' => 'search_api_fulltext_op',
+      'label' => 'Search',
+      'description' => '',
+      'use_operator' => FALSE,
+      'operator' => 'search_api_fulltext_op',
+      'operator_limit_selection' => FALSE,
+      'operator_list' => [],
+      'identifier' => 'keys',
+      'required' => FALSE,
+      'remember' => FALSE,
+      'multiple' => FALSE,
+      'remember_roles' => [
+        'authenticated' => 'authenticated',
+      ],
+      'placeholder' => 'Search',
+    ],
+    'is_grouped' => FALSE,
+    'group_info' => [
+      'label' => '',
+      'description' => '',
+      'identifier' => '',
+      'optional' => TRUE,
+      'widget' => 'select',
+      'multiple' => FALSE,
+      'remember' => FALSE,
+      'default_group' => 'All',
+      'default_group_multiple' => [],
+      'group_items' => [],
+    ],
+    'parse_mode' => 'terms',
+    'min_length' => 3,
+    'fields' => [
+      'aggregated_field',
+      'rendered_item',
+    ],
+    'plugin_id' => 'search_api_fulltext',
+  ]);
+
+  if ($config->get('display.default.display_options.title') === 'Filtered forum posts') {
+    $config->set('display.default.display_options.title', 'Forum search results');
+  }
+
+  $config->save();
+}
+
+/**
+ * Switch the forum listing pagers to the view-more style.
+ */
+function openintranet_forum_update_110003(): void {
+  // Map of view id => the display path whose pager drives the listing page.
+  // Most listing pages inherit the pager from the default display; the latest
+  // posts and my-posts page displays override it on their own page_1 display.
+  $pager_paths = [
+    'forum_popular' => 'display.default.display_options.pager',
+    'forum_unanswered' => 'display.default.display_options.pager',
+    'forum_active' => 'display.default.display_options.pager',
+    'forum_category' => 'display.default.display_options.pager',
+    'forum_tag' => 'display.default.display_options.pager',
+    'forum_latest_posts' => 'display.page_1.display_options.pager',
+    'forum_my_posts' => 'display.page_1.display_options.pager',
+  ];
+
+  $config_factory = \Drupal::configFactory();
+  foreach ($pager_paths as $view_id => $pager_path) {
+    $config = $config_factory->getEditable('views.view.' . $view_id);
+    if ($config->isNew()) {
+      continue;
+    }
+
+    $pager = $config->get($pager_path);
+    if (!is_array($pager) || ($pager['type'] ?? NULL) === 'mini') {
+      continue;
+    }
+
+    $config->set($pager_path . '.type', 'mini');
+    $config->save();
+  }
+}
+
+/**
+ * Show the "Popular tags" title on the popular tags rail block.
+ */
+function openintranet_forum_update_110004(): void {
+  $block = Block::load('openintranet_forum_popular_tags');
+  if (!$block instanceof Block) {
+    return;
+  }
+
+  $settings = $block->get('settings');
+  $settings['label'] = 'Popular tags';
+  $settings['label_display'] = 'visible';
+  $block->set('settings', $settings);
+  $block->save();
+}
+
+/**
+ * Post-page rail per the design: drop add-post card, related posts first.
+ */
+function openintranet_forum_update_110005(): void {
+  $block = Block::load('openintranet_forum_add_post');
+  if ($block instanceof Block) {
+    $visibility = $block->getVisibility();
+    if (isset($visibility['request_path']['pages'])) {
+      $visibility['request_path']['pages'] = str_replace("\n/forum/post/*", '', $visibility['request_path']['pages']);
+      $block->setVisibilityConfig('request_path', $visibility['request_path']);
+      $block->save();
+    }
+  }
+
+  $block = Block::load('openintranet_forum_more_from_category');
+  if ($block instanceof Block) {
+    $block->setWeight(-21);
+    $block->save();
+  }
+}
+
+/**
+ * Relabel the "like" reaction to "like it!" (replaces the form-alter relabel).
+ */
+function openintranet_forum_update_110006(): void {
+  _openintranet_forum_set_reaction_label();
+}
+
+/**
+ * Render the "Your posts" listing with teaser cards (was compact).
+ */
+function openintranet_forum_update_110007(): void {
+  $config = \Drupal::configFactory()->getEditable('views.view.forum_my_posts');
+  if ($config->isNew()) {
+    return;
+  }
+
+  if ($config->get('display.default.display_options.row.options.view_mode') === 'compact') {
+    $config->set('display.default.display_options.row.options.view_mode', 'teaser');
+    $config->save();
+  }
+}
+
+/**
+ * Grant authenticated users forum bookmark flag permissions and basic_html.
+ */
+function openintranet_forum_update_110008(): void {
+  $role = Role::load('authenticated');
+  if (!$role instanceof Role) {
+    return;
+  }
+
+  $permissions = [
+    'flag bookmark_forum_post',
+    'unflag bookmark_forum_post',
+  ];
+  // Only grant the text format permission if the format actually exists, so a
+  // site without basic_html is not left referencing a missing format.
+  if (FilterFormat::load('basic_html') instanceof FilterFormat) {
+    $permissions[] = 'use text format basic_html';
+  }
+
+  $changed = FALSE;
+  foreach ($permissions as $permission) {
+    if (!$role->hasPermission($permission)) {
+      $role->grantPermission($permission);
+      $changed = TRUE;
+    }
+  }
+
+  if ($changed) {
+    $role->save();
+  }
+}
+
+/**
+ * Restrict the forum post body to the HTML formats so authors get CKEditor.
+ */
+function openintranet_forum_update_110009(): void {
+  $field = \Drupal::entityTypeManager()
+    ->getStorage('field_config')
+    ->load('node.forum_post.body');
+  if ($field === NULL || $field->getSetting('allowed_formats')) {
+    return;
+  }
+
+  $formats = array_values(array_filter(
+    ['basic_html', 'full_html'],
+    static fn (string $id): bool => FilterFormat::load($id) instanceof FilterFormat,
+  ));
+  if ($formats === []) {
+    return;
+  }
+
+  $field->setSetting('allowed_formats', $formats)->save();
+}

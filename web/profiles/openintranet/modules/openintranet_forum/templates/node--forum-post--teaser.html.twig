@@ -1,0 +1,84 @@
+{#
+/**
+ * @file
+ * Forum feed teaser card.
+ */
+#}
+{{ attach_library('openintranet_forum/forum.post') }}
+{{ attach_library('openintranet_forum/forum.activity-feed') }}
+{{ attach_library('openintranet_forum/forum.post-meta') }}
+<article{{ attributes.addClass('forum-post', 'forum-post--teaser') }}>
+  {% block post_media %}
+    {% if forum_post_has_image %}
+      <div class="forum-post__media">
+        {{ content.field_forum_image }}
+      </div>
+    {% endif %}
+  {% endblock %}
+
+  <div class="forum-post__content">
+    <div class="forum-post__main">
+      {% block post_meta %}
+        <div class="forum-post__meta">
+          <div class="forum-post__author">
+            <div class="forum-post__avatar">
+              {% if forum_post_has_author_picture %}
+                {{ forum_post_author_picture }}
+              {% else %}
+                <span class="forum-post__avatar-placeholder" aria-hidden="true"></span>
+              {% endif %}
+            </div>
+            <a href="{{ forum_post_author_profile_url }}" class="forum-post__author-name">{{ forum_post_author_name }}</a>
+          </div>
+          <time class="forum-post__date" datetime="{{ forum_post_datetime_attr }}">{{ forum_post_date }}</time>
+        </div>
+      {% endblock %}
+
+      {% block post_content %}
+        <div class="forum-post__copy">
+          {{ title_prefix }}
+          <h2 class="forum-post__title">
+            <a href="{{ forum_post_url }}" rel="bookmark">{{ label }}</a>
+          </h2>
+          {{ title_suffix }}
+
+          {% if forum_post_has_excerpt %}
+            <p class="forum-post__excerpt">{{ forum_post_excerpt }}</p>
+          {% endif %}
+        </div>
+      {% endblock %}
+
+      {% block post_footer %}
+        <div class="forum-post__footer">
+          {{ include('openintranet_forum:post-meta', {
+            nid: node.id(),
+            post_url: forum_post_url,
+            absolute_url: forum_post_absolute_url,
+            icon_base: forum_post_icon_base,
+            like_count: forum_post_like_count,
+            reply_count: forum_post_reply_count,
+            share_count: forum_post_share_count,
+            liked: forum_post_user_liked,
+            show_share: true,
+            size: 'md',
+            actions: forum_post_actions,
+            bookmark: forum_post_bookmark,
+          }) }}
+        </div>
+      {% endblock %}
+    </div>
+
+    {% block post_tags %}
+      {% if forum_post_categories or forum_post_tags %}
+        <div class="forum-post__tags">
+          {% for category in forum_post_categories %}
+            <a href="{{ category.url }}" class="forum-post__tag">{{ category.title }}</a>
+          {% endfor %}
+          {% for tag in forum_post_tags %}
+            <a href="{{ tag.url }}" class="forum-post__tag">{{ tag.title }}</a>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endblock %}
+  </div>
+</article>

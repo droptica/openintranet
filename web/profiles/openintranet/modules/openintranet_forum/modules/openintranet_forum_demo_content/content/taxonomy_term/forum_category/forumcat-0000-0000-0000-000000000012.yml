@@ -1,0 +1,39 @@
+_meta:
+  version: '1.0'
+  entity_type: taxonomy_term
+  uuid: forumcat-0000-0000-0000-000000000012
+  bundle: forum_category
+  default_langcode: en
+  depends:
+    forumcat-0000-0000-0000-000000000002: taxonomy_term
+default:
+  status:
+    -
+      value: true
+  name:
+    -
+      value: 'Bug Reports'
+  description:
+    -
+      value: '<p>Report bugs you''ve found in internal tools.</p>'
+      format: full_html
+  weight:
+    -
+      value: 0
+  parent:
+    -
+      entity: forumcat-0000-0000-0000-000000000002
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /forum/category/bug-reports
+      langcode: en
+      pathauto: 1
+  field_category_icon:
+    -
+      value: 'mdi:bug'
+      classes: ''
+      decorative: true
+      arialabel: ''

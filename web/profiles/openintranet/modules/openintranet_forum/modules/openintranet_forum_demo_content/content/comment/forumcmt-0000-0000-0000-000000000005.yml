@@ -1,0 +1,38 @@
+_meta:
+  version: '1.0'
+  entity_type: comment
+  uuid: forumcmt-0000-0000-0000-000000000005
+  bundle: forum_reply
+  default_langcode: en
+  depends:
+    forumusr-0000-0000-0000-000000000002: user
+    forumpst-0000-0000-0000-000000000005: node
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      entity: forumusr-0000-0000-0000-000000000002
+  entity_id:
+    -
+      entity: forumpst-0000-0000-0000-000000000005
+  subject:
+    -
+      value: 'Re: Proposal: dark mode toggle'
+  created:
+    -
+      value: 1732406400
+  thread:
+    -
+      value: 01/
+  entity_type:
+    -
+      value: node
+  field_name:
+    -
+      value: comment_forum
+  comment_body:
+    -
+      value: '+1 — would love a system-level preference sync too.'
+      format: plain_text

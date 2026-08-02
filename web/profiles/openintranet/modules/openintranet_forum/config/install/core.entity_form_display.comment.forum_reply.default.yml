@@ -1,0 +1,40 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - comment.type.forum_reply
+    - field.field.comment.forum_reply.comment_body
+    - field.field.comment.forum_reply.field_forum_reply_images
+    - filter.format.basic_html
+  module:
+    - image
+    - text
+id: comment.forum_reply.default
+targetEntityType: comment
+bundle: forum_reply
+mode: default
+content:
+  author:
+    weight: -2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  comment_body:
+    type: text_textarea
+    weight: 0
+    region: content
+    settings:
+      rows: 5
+      placeholder: 'Add comment here'
+    third_party_settings: {  }
+  field_forum_reply_images:
+    type: image_image
+    weight: 1
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+hidden:
+  langcode: true
+  subject: true

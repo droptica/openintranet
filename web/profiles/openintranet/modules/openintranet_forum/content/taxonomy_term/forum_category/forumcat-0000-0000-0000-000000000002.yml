@@ -1,0 +1,37 @@
+_meta:
+  version: '1.0'
+  entity_type: taxonomy_term
+  uuid: forumcat-0000-0000-0000-000000000002
+  bundle: forum_category
+  default_langcode: en
+default:
+  status:
+    -
+      value: true
+  name:
+    -
+      value: 'Help & Support'
+  description:
+    -
+      value: '<p>Ask the community for help with tools, access, or processes.</p>'
+      format: full_html
+  weight:
+    -
+      value: 1
+  parent:
+    -
+      target_id: 0
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /forum/category/help-support
+      langcode: en
+      pathauto: 1
+  field_category_icon:
+    -
+      value: 'mdi:help-circle'
+      classes: ''
+      decorative: true
+      arialabel: ''

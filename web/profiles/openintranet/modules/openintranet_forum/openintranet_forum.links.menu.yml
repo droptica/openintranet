@@ -1,0 +1,6 @@
+openintranet_forum.settings:
+  title: 'Forum'
+  description: 'Configure forum settings'
+  route_name: openintranet_forum.settings
+  parent: system.admin_config_openintranet
+  weight: 50

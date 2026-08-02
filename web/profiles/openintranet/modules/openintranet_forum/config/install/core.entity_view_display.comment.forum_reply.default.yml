@@ -1,0 +1,39 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - comment.type.forum_reply
+    - field.field.comment.forum_reply.comment_body
+    - field.field.comment.forum_reply.field_forum_reply_images
+  module:
+    - image
+    - text
+id: comment.forum_reply.default
+targetEntityType: comment
+bundle: forum_reply
+mode: default
+content:
+  comment_body:
+    type: text_default
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+    label: hidden
+  field_forum_reply_images:
+    type: openintranet_forum_gallery
+    weight: 1
+    region: content
+    settings:
+      layout: grid
+      hero_image_style: forum_gallery_thumb
+      thumb_image_style: forum_gallery_thumb
+      grid_visible_max: 3
+    third_party_settings: {  }
+    label: hidden
+  links:
+    weight: 100
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

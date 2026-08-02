@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - comment.type.forum_reply
+    - field.storage.comment.field_forum_reply_soft_deleted
+id: comment.forum_reply.field_forum_reply_soft_deleted
+field_name: field_forum_reply_soft_deleted
+entity_type: comment
+bundle: forum_reply
+label: 'Soft deleted'
+description: 'When true, the comment is rendered as a tombstone so its replies stay intact.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: 'No'
+field_type: boolean

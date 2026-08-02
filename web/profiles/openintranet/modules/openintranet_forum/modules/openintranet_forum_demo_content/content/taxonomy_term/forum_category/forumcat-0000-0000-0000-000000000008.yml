@@ -1,0 +1,37 @@
+_meta:
+  version: '1.0'
+  entity_type: taxonomy_term
+  uuid: forumcat-0000-0000-0000-000000000008
+  bundle: forum_category
+  default_langcode: en
+default:
+  status:
+    -
+      value: true
+  name:
+    -
+      value: Events
+  description:
+    -
+      value: '<p>Upcoming meetups, offsites, and company-wide events.</p>'
+      format: full_html
+  weight:
+    -
+      value: 7
+  parent:
+    -
+      target_id: 0
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /forum/category/events
+      langcode: en
+      pathauto: 1
+  field_category_icon:
+    -
+      value: 'mdi:calendar-star'
+      classes: ''
+      decorative: true
+      arialabel: ''

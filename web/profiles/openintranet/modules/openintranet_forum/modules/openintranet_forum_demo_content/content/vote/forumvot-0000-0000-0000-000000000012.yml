@@ -1,0 +1,31 @@
+_meta:
+  version: '1.0'
+  entity_type: vote
+  uuid: forumvot-0000-0000-0000-000000000012
+  bundle: reaction_like
+  default_langcode: en
+  depends:
+    forumusr-0000-0000-0000-000000000002: user
+    forumcmt-0000-0000-0000-000000000001: comment
+default:
+  entity_type:
+    -
+      value: comment
+  entity_id:
+    -
+      entity: forumcmt-0000-0000-0000-000000000001
+  value:
+    -
+      value: 1
+  value_type:
+    -
+      value: option
+  user_id:
+    -
+      entity: forumusr-0000-0000-0000-000000000002
+  timestamp:
+    -
+      value: 1732970000
+  field_name:
+    -
+      value: field_forum_post_reaction

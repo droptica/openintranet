@@ -1,0 +1,248 @@
+# Base design tokens and page-level resets.
+forum.base:
+  version: VERSION
+  css:
+    theme:
+      css/forum-base.css: {}
+  dependencies:
+    - core/drupal
+
+# Shared visual primitives (buttons, accordion, avatar, pill, card, meta, empty).
+# Loads after forum.base; every component library depends on this.
+forum.components:
+  version: VERSION
+  css:
+    theme:
+      css/forum-components.css: {}
+  dependencies:
+    - openintranet_forum/forum.base
+
+# Page layout system: containers, hero, panels, rails, tabs, rows.
+forum.page:
+  version: VERSION
+  css:
+    theme:
+      css/forum-page.css: {}
+  dependencies:
+    - openintranet_forum/forum.components
+
+# Breadcrumb navigation component.
+forum.breadcrumb:
+  version: VERSION
+  css:
+    theme:
+      css/forum-breadcrumb.css: {}
+  dependencies:
+    - openintranet_forum/forum.components
+
+# Category browser page (accordion tree with post listings).
+forum.category-browser:
+  version: VERSION
+  css:
+    theme:
+      css/forum-category-browser.css: {}
+  dependencies:
+    - openintranet_forum/forum.components
+
+# Latest posts feed block.
+forum.latest-feed:
+  version: VERSION
+  css:
+    theme:
+      css/forum-latest-feed.css: {}
+  dependencies:
+    - openintranet_forum/forum.components
+
+# "Add post" button and feed filter panels.
+forum.add-post:
+  version: VERSION
+  css:
+    theme:
+      css/forum-add-post.css: {}
+  dependencies:
+    - openintranet_forum/forum.components
+
+# Activity feed sidebar and tag/category pill lists.
+forum.activity-feed:
+  version: VERSION
+  css:
+    theme:
+      css/forum-activity-feed.css: {}
+  dependencies:
+    - openintranet_forum/forum.components
+
+# Forum post node component (base, teaser, compact, full).
+forum.post:
+  version: VERSION
+  css:
+    theme:
+      css/forum-post.css: {}
+  dependencies:
+    - openintranet_forum/forum.components
+
+# Comments list and comment form.
+forum.comments:
+  version: VERSION
+  css:
+    theme:
+      css/forum-comments.css: {}
+  dependencies:
+    - openintranet_forum/forum.components
+
+# Shared CSRF token helper used by forum AJAX endpoints (comment-vote, share).
+forum.csrf:
+  version: VERSION
+  js:
+    js/forum-csrf.js: {}
+  dependencies:
+    - core/drupal
+
+# Like / dislike voting behaviour for forum comments.
+forum.comment-vote:
+  version: VERSION
+  js:
+    js/forum-comment-vote.js: {}
+  dependencies:
+    - core/drupal
+    - core/once
+    - openintranet_forum/forum.csrf
+
+# Inline reply form behaviour (intercepts Reply links on comment items).
+forum.reply:
+  version: VERSION
+  js:
+    js/forum-reply.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupal.ajax
+    - core/once
+
+# Inline edit form behaviour (intercepts Edit links on comment items).
+forum.edit:
+  version: VERSION
+  js:
+    js/forum-edit.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupal.ajax
+    - core/once
+
+# Collapsible reply threads on forum comments.
+forum.collapse:
+  version: VERSION
+  js:
+    js/forum-collapse.js: {}
+  dependencies:
+    - core/drupal
+    - core/once
+
+# Client-side comment search filter + "See all comments" cap.
+forum.comment-search:
+  version: VERSION
+  js:
+    js/forum-comment-search.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupal.debounce
+    - core/once
+    - openintranet_forum/forum.comments
+
+# Full categories accordion sidebar block — browser and single post pages.
+forum.categories:
+  version: VERSION
+  css:
+    theme:
+      css/forum-categories.css: {}
+  dependencies:
+    - openintranet_forum/forum.components
+
+# Popular tags sidebar block (forum_popular_tags view) — tag pill list.
+forum.popular-tags:
+  version: VERSION
+  css:
+    theme:
+      css/forum-popular-tags.css: {}
+  dependencies:
+    - openintranet_forum/forum.components
+
+# Popular categories accordion sidebar block — forum listing/feed pages.
+forum.popular-categories:
+  version: VERSION
+  css:
+    theme:
+      css/forum-popular-categories.css: {}
+  dependencies:
+    - openintranet_forum/forum.components
+
+# "More from category" sidebar block on post pages.
+forum.more-from-category:
+  version: VERSION
+  css:
+    theme:
+      css/forum-more-from-category.css: {}
+  dependencies:
+    - openintranet_forum/forum.components
+
+# Gallery lightbox — Bootstrap 5 Modal + vanilla JS (no extra dependencies).
+forum.gallery:
+  version: VERSION
+  js:
+    js/forum-gallery.js: {}
+  dependencies:
+    - core/drupal
+    - core/once
+
+# Share button: copies URL to clipboard and increments share count.
+forum.share:
+  version: VERSION
+  js:
+    js/forum-share.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupal.announce
+    - core/once
+    - openintranet_forum/forum.csrf
+
+# Per-user label on the forum post reaction widget ("like it!" / "liked!").
+forum.reaction-label:
+  version: VERSION
+  js:
+    js/forum-reaction-label.js: {}
+  dependencies:
+    - core/drupal
+    - core/once
+
+# Unified post-meta component (stat row + owner kebab menu).
+forum.post-meta:
+  version: VERSION
+  js:
+    js/forum-post-menu.js: {}
+  dependencies:
+    - core/drupal
+    - core/once
+    - openintranet_forum/forum.components
+    - openintranet_forum/forum.share
+
+# Featured image widget spacing on the forum post add/edit form.
+# No dependencies: forum.components/forum.base carry page-level overrides that
+# must not fire on node forms.
+forum.post_form:
+  version: VERSION
+  css:
+    theme:
+      css/forum-post-form.css: {}
+
+# Trending posts carousel block (separate JS + CSS).
+forum_trending:
+  version: VERSION
+  css:
+    theme:
+      css/forum_trending.css: {}
+  js:
+    js/forum_trending.js: {}
+  dependencies:
+    - core/drupal
+    - openintranet_forum/forum.components
+    - core/once

@@ -1,0 +1,19 @@
+{#
+/**
+ * @file
+ * "Add new post" forum call-to-action button.
+ *
+ * Available variables:
+ * - url: Destination URL (node.add for forum_post).
+ * - label: Visible button label (already translated).
+ */
+#}
+<a href="{{ url }}" class="forum-page__create-button">
+  <span class="forum-page__create-button-inner">
+    <svg class="forum-page__create-button-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false">
+      <path d="M10 4.16699V15.8337" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+      <path d="M4.16699 10H15.8337" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+    </svg>
+    <span class="forum-page__create-button-label">{{ label }}</span>
+  </span>
+</a>

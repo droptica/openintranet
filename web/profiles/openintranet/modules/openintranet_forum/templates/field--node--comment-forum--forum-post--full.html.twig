@@ -1,0 +1,82 @@
+{#
+/**
+ * @file
+ * Forum post comments field wrapper for the full post page.
+ *
+ * Mirrors the standard Open Intranet comment field structure so the shared
+ * comment styling applies without theme overrides.
+ */
+#}
+{{ attach_library('openintranet_forum/forum.comments') }}
+{{ attach_library('openintranet_forum/forum.reply') }}
+{{ attach_library('openintranet_forum/forum.edit') }}
+{{ attach_library('openintranet_forum/forum.collapse') }}
+{{ attach_library('openintranet_forum/forum.gallery') }}
+{{ attach_library('openintranet_forum/forum.comment-vote') }}
+{{ attach_library('openintranet_forum/forum.comment-search') }}
+{{ attach_library('openintranet_forum/forum.share') }}
+{%
+  set classes = [
+    'field',
+    'field--name-comment',
+    'field--name-' ~ field_name|clean_class,
+    'field--type-' ~ field_type|clean_class,
+    'field--label-' ~ label_display,
+    'comment-wrapper',
+    'forum-comments',
+  ]
+%}
+<section{{ attributes.addClass(classes) }}>
+  {% block comments_header %}
+    <div class="forum-comments__header">
+      <span class="forum-comments__title">
+        {%- if forum_comment_count is defined and forum_comment_count > 0 -%}
+          {{- 'Comments (@count)'|t({'@count': forum_comment_count}) -}}
+        {%- else -%}
+          {{- 'Comments'|t -}}
+        {%- endif -%}
+      </span>
+    </div>
+  {% endblock %}
+
+  {% block comments_form %}
+    {% if comment_form %}
+      <div class="forum-comments__add-comment">
+        <h2 class="forum-comments__add-comment-title">{{ 'Add your comment'|t }}</h2>
+        {{ comment_form }}
+      </div>
+    {% endif %}
+  {% endblock %}
+
+  {% block comments_search %}
+    {% if comments %}
+      <div class="forum-comments__search js-forum-comment-search" data-cap="5">
+        <div class="forum-comments__search-field">
+          <label for="forum-comments-search-input" class="visually-hidden">{{ 'Search comments'|t }}</label>
+          <input type="search"
+                 id="forum-comments-search-input"
+                 class="forum-comments__search-input js-forum-comment-search-input"
+                 placeholder="{{ 'Search comments'|t }}"
+                 autocomplete="off" />
+          <span class="forum-comments__search-icon" aria-hidden="true"></span>
+        </div>
+        <span class="forum-comments__search-count js-forum-comment-search-count">
+          {%- set comment_count = forum_comment_count|default(0) -%}
+          {% trans %}{{ comment_count }} comment{% plural comment_count %}{{ comment_count }} comments{% endtrans %}
+        </span>
+      </div>
+    {% endif %}
+  {% endblock %}
+
+  {% block comments_list %}
+    {% if comments %}
+      <div class="forum-comments__list js-forum-comment-thread">
+        {{ comments }}
+        <p class="forum-comments__no-results js-forum-comment-search-empty" hidden>{{ 'No comments match your search.'|t }}</p>
+      </div>
+      <div class="forum-comments__more js-forum-comment-more" hidden>
+        <button type="button" class="forum-more-from-category__more-btn js-forum-comment-see-all">{{ 'See all comments'|t }}</button>
+      </div>
+    {% endif %}
+  {% endblock %}
+</section>

@@ -1,0 +1,68 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: forumpst-0000-0000-0000-000000000007
+  bundle: forum_post
+  default_langcode: en
+  depends:
+    forumusr-0000-0000-0000-000000000002: user
+    forumcat-0000-0000-0000-000000000005: taxonomy_term
+    forumtag-0000-0000-0000-000000000006: taxonomy_term
+    forumtag-0000-0000-0000-000000000007: taxonomy_term
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      entity: forumusr-0000-0000-0000-000000000002
+  title:
+    -
+      value: 'Remote-first tips thread'
+  created:
+    -
+      value: 1731628800
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  path:
+    -
+      alias: /forum/remote-first-tips-thread
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: "<p>Since we went remote-first I have been collecting small habits that make async work less painful — short daily notes, shorter meetings, and writing decisions down instead of deciding in chat.</p><p>Curious what others have landed on. Share your favorite remote-first tip and why it works for you.</p>"
+      format: full_html
+      summary: ''
+  comment_forum:
+    -
+      status: 2
+      cid: 0
+      last_comment_timestamp: 0
+      last_comment_name: ''
+      last_comment_uid: 0
+      comment_count: 0
+  field_forum_category:
+    -
+      entity: forumcat-0000-0000-0000-000000000005
+  field_forum_tags:
+    -
+      entity: forumtag-0000-0000-0000-000000000006
+    -
+      entity: forumtag-0000-0000-0000-000000000007
+  field_forum_reply_count:
+    -
+      value: 0
+  field_forum_share_count:
+    -
+      value: 1
+  field_forum_views:
+    -
+      value: 33

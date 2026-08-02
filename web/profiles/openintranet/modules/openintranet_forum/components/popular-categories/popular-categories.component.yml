@@ -1,0 +1,34 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Forum popular categories
+status: experimental
+props:
+  type: object
+  required:
+    - panel_title
+  properties:
+    panel_title:
+      type:
+        - string
+        - object
+      title: Panel title
+      description: "Translated block heading."
+    categories:
+      type: array
+      title: Categories
+      description: "Array of top-level category items sorted by popularity, with optional child topics."
+    categories_browser_url:
+      type: string
+      title: Categories browser URL
+      description: "URL to the full category browser page."
+slots:
+  popular_categories_header:
+    title: Header
+    description: "Header row (panel title, etc.) — override point for theming."
+  popular_categories_list:
+    title: List
+    description: "Main category list body."
+  popular_categories_footer:
+    title: Footer
+    description: "Footer row (e.g. 'view all' link)."
+libraryDependencies:
+  - openintranet_forum/forum.popular-categories

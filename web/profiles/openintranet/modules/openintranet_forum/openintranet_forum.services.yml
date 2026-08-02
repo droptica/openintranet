@@ -1,0 +1,93 @@
+services:
+  openintranet_forum.statistics:
+    class: Drupal\openintranet_forum\Service\ForumStatistics
+    autowire: true
+
+  Drupal\openintranet_forum\Service\ForumStatisticsInterface: '@openintranet_forum.statistics'
+
+  openintranet_forum.notifications:
+    class: Drupal\openintranet_forum\Service\ForumNotifications
+    autowire: true
+    arguments:
+      $flagService: '@flag'
+
+  Drupal\openintranet_forum\Service\ForumNotificationsInterface: '@openintranet_forum.notifications'
+
+  openintranet_forum.reaction_subscriber:
+    class: Drupal\openintranet_forum\EventSubscriber\ForumReactionSubscriber
+    autowire: true
+    arguments:
+      $engagementTracker: '@?openintranet_engagement.tracker'
+    tags:
+      - { name: event_subscriber }
+
+  openintranet_forum.category_tree:
+    class: Drupal\openintranet_forum\Service\ForumCategoryTreeService
+    autowire: true
+
+  Drupal\openintranet_forum\Service\ForumCategoryTreeServiceInterface: '@openintranet_forum.category_tree'
+
+  openintranet_forum.trending_scorer:
+    class: Drupal\openintranet_forum\Service\ForumTrendingScorer
+    autowire: true
+
+  Drupal\openintranet_forum\Service\ForumTrendingScorerInterface: '@openintranet_forum.trending_scorer'
+
+  openintranet_forum.trending_embed:
+    class: Drupal\openintranet_forum\Service\ForumTrendingEmbed
+    autowire: true
+
+  Drupal\openintranet_forum\Service\ForumTrendingEmbedInterface: '@openintranet_forum.trending_embed'
+
+  openintranet_forum.activity_feed:
+    class: Drupal\openintranet_forum\Service\ForumActivityFeed
+    autowire: true
+
+  Drupal\openintranet_forum\Service\ForumActivityFeedInterface: '@openintranet_forum.activity_feed'
+
+  # ForumPostRenderer keeps an explicit argument list because its constructor
+  # injects the service container itself (ContainerInterface), which has no
+  # core-level alias and therefore cannot be autowired by type-hint.
+  openintranet_forum.post_renderer:
+    class: Drupal\openintranet_forum\Service\ForumPostRenderer
+    arguments:
+      - '@entity_type.manager'
+      - '@date.formatter'
+      - '@extension.list.module'
+      - '@module_handler'
+      - '@current_user'
+      - '@datetime.time'
+      - '@openintranet_forum.statistics'
+      - '@service_container'
+
+  Drupal\openintranet_forum\Service\ForumPostRendererInterface: '@openintranet_forum.post_renderer'
+
+  openintranet_forum.page_context:
+    class: Drupal\openintranet_forum\Service\ForumPageContext
+    autowire: true
+
+  Drupal\openintranet_forum\Service\ForumPageContextInterface: '@openintranet_forum.page_context'
+
+  openintranet_forum.browser_data_builder:
+    class: Drupal\openintranet_forum\Service\ForumBrowserDataBuilder
+    autowire: true
+
+  Drupal\openintranet_forum\Service\ForumBrowserDataBuilderInterface: '@openintranet_forum.browser_data_builder'
+
+  openintranet_forum.filter_options_builder:
+    class: Drupal\openintranet_forum\Service\ForumFilterOptionsBuilder
+    autowire: true
+
+  Drupal\openintranet_forum\Service\ForumFilterOptionsBuilderInterface: '@openintranet_forum.filter_options_builder'
+
+  # Hook classes.
+  #
+  # ForumThemeHooks and ForumTrendingHooks are auto-discovered by Drupal 11's
+  # HookCollectorPass and autowired from the interface aliases above.
+  # ForumEntityHooks is registered explicitly so that the optional
+  # openintranet_engagement.tracker service can be injected with '@?' syntax,
+  # which autowiring cannot express.
+  Drupal\openintranet_forum\Hook\ForumEntityHooks:
+    autowire: true
+    arguments:
+      $engagementTracker: '@?openintranet_engagement.tracker'

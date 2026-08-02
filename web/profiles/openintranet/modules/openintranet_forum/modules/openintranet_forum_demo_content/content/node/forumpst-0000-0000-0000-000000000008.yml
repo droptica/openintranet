@@ -1,0 +1,61 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: forumpst-0000-0000-0000-000000000008
+  bundle: forum_post
+  default_langcode: en
+  depends:
+    forumusr-0000-0000-0000-000000000003: user
+    forumcat-0000-0000-0000-000000000010: taxonomy_term
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      entity: forumusr-0000-0000-0000-000000000003
+  title:
+    -
+      value: 'Coffee machine on floor 3 is broken'
+  created:
+    -
+      value: 1731110400
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  path:
+    -
+      alias: /forum/coffee-machine-on-floor-3-is-broken
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: "<p>The espresso machine on the third floor has been showing a descaling error since yesterday morning and nothing I try will clear it.</p><p>I left a note on it so nobody else fights with it. Has facilities been pinged already, or should I open a ticket?</p>"
+      format: full_html
+      summary: ''
+  comment_forum:
+    -
+      status: 2
+      cid: 0
+      last_comment_timestamp: 0
+      last_comment_name: ''
+      last_comment_uid: 0
+      comment_count: 0
+  field_forum_category:
+    -
+      entity: forumcat-0000-0000-0000-000000000010
+  field_forum_reply_count:
+    -
+      value: 0
+  field_forum_share_count:
+    -
+      value: 0
+  field_forum_views:
+    -
+      value: 15

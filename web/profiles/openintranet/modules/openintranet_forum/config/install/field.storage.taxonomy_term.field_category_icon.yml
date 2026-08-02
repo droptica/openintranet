@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - iconify_field
+    - taxonomy
+id: taxonomy_term.field_category_icon
+field_name: field_category_icon
+entity_type: taxonomy_term
+type: iconify_field_icon
+settings: {  }
+module: iconify_field
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,11 @@
+posts_per_page: 20
+trending_days: 7
+trending_limit: 6
+allow_anonymous_view: false
+require_category: true
+enable_post_images: true
+enable_threading: true
+threading_depth: 1
+default_sort: 'last_activity'
+notify_on_reply: true
+notify_on_mention: true

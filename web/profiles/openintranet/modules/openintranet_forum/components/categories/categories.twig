@@ -1,0 +1,81 @@
+{#
+/**
+ * @file
+ * Full categories accordion block for the category browser and forum post
+ * pages.
+ *
+ * Available variables:
+ * - panel_title: Translated block heading.
+ * - categories: Array of top-level category items. Each item:
+ *   - term_id: Taxonomy term ID (0 for the "All" entry).
+ *   - title: Category label.
+ *   - icon: Render array or empty string.
+ *   - is_open: Boolean — open the accordion row by default.
+ *   - is_active: Boolean — the current filter matches this term.
+ *   - url: URL to browse this category.
+ *   - count: Integer — number of published posts in this category.
+ *   - children: Array of child items, each with term_id, title, icon,
+ *     is_active, url, count.
+ * - categories_browser_url: URL to the full category browser page.
+ */
+#}
+{{ attach_library('openintranet_forum/forum.categories') }}
+<div class="forum-categories">
+
+  {% block categories_header %}
+    <div class="forum-categories__header">
+      <h3 class="forum-categories__title">{{ panel_title }}</h3>
+    </div>
+  {% endblock %}
+
+  {% block categories_list %}
+    <ul class="forum-categories__list" role="list">
+      {% for category in categories %}
+        <li class="forum-categories__item">
+          {% if category.children %}
+            <details class="forum-categories__details"{% if category.is_open %} open{% endif %}>
+              <summary class="forum-categories__summary{% if category.is_open or category.is_active %} forum-categories__summary--open{% endif %}">
+                <span class="forum-categories__name">{{ category.title }}</span>
+                {% if category.count is defined %}
+                  <span class="forum-categories__count{% if category.is_active %} forum-categories__count--active{% endif %}" aria-label="{{ category.count }} posts">{{ category.count }}</span>
+                {% endif %}
+                <span class="forum-categories__chevron" aria-hidden="true"></span>
+              </summary>
+              <ul class="forum-categories__children" role="list">
+                {% for child in category.children %}
+                  <li class="forum-categories__child">
+                    <a href="{{ child.url }}" class="forum-categories__child-link{% if child.is_active %} forum-categories__child-link--active{% endif %}">
+                      {% if child.icon %}
+                        <span class="forum-categories__child-icon" aria-hidden="true">{{ child.icon }}</span>
+                      {% endif %}
+                      <span class="forum-categories__name">{{ child.title }}</span>
+                      {% if child.count is defined %}
+                        <span class="forum-categories__count{% if child.is_active %} forum-categories__count--active{% endif %}" aria-label="{{ child.count }} posts">{{ child.count }}</span>
+                      {% endif %}
+                    </a>
+                  </li>
+                {% endfor %}
+              </ul>
+            </details>
+          {% else %}
+            <a href="{{ category.url }}" class="forum-categories__link{% if category.is_active %} forum-categories__link--active{% endif %}">
+              <span class="forum-categories__name">{{ category.title }}</span>
+              {% if category.count is defined %}
+                <span class="forum-categories__count{% if category.is_active %} forum-categories__count--active{% endif %}" aria-label="{{ category.count }} posts">{{ category.count }}</span>
+              {% endif %}
+            </a>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endblock %}
+
+  {% block categories_footer %}
+    {% if categories_browser_url %}
+      <div class="forum-categories__footer">
+        <a href="{{ categories_browser_url }}" class="forum-categories__all-link">{{ 'view all categories'|t }}</a>
+      </div>
+    {% endif %}
+  {% endblock %}
+
+</div>

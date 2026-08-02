@@ -1,0 +1,20 @@
+name: 'Open Intranet Forum'
+type: module
+description: 'Modern forum/discussion board with social feed features, reactions, categories, and search.'
+core_version_requirement: ^10.3 || ^11
+package: 'Open Intranet'
+lifecycle: experimental
+dependencies:
+  - drupal:block
+  - drupal:node
+  - drupal:taxonomy
+  - drupal:comment
+  - drupal:user
+  - drupal:views
+  - drupal:image
+  - votingapi:votingapi
+  - votingapi_reaction:votingapi_reaction
+  - flag:flag
+  - search_api:search_api
+  - statistics:statistics
+  - iconify_field:iconify_field

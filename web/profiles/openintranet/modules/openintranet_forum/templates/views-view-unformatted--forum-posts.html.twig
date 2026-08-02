@@ -1,0 +1,15 @@
+{#
+/**
+ * @file
+ * Forum posts unformatted rows with a real <hr> divider between each post.
+ * Used by all forum listing views and the feed page center rail block.
+ */
+#}
+{% for row in rows %}
+  {% if not loop.first %}
+    <hr class="forum-posts-divider" aria-hidden="true">
+  {% endif %}
+  <div{{ row.attributes.addClass('views-row') }}>
+    {{ row.content }}
+  </div>
+{% endfor %}

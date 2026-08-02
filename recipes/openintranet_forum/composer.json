@@ -1,0 +1,9 @@
+{
+    "name": "openintranet/openintranet_forum",
+    "description": "Open Intranet Forum Recipe - Discussion board with categories, reactions, bookmarks and Search API integration.",
+    "type": "drupal-recipe",
+    "license": "GPL-2.0-or-later",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "version": "1.0-beta1"
+}

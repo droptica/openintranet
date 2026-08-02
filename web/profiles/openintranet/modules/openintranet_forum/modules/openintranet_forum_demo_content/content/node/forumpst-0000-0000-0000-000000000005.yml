@@ -1,0 +1,61 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: forumpst-0000-0000-0000-000000000005
+  bundle: forum_post
+  default_langcode: en
+  depends:
+    forumusr-0000-0000-0000-000000000003: user
+    forumcat-0000-0000-0000-000000000011: taxonomy_term
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      entity: forumusr-0000-0000-0000-000000000003
+  title:
+    -
+      value: 'Proposal: dark mode toggle'
+  created:
+    -
+      value: 1732320000
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  path:
+    -
+      alias: /forum/proposal-dark-mode-toggle
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: "<p>I spend a lot of evenings in the intranet reading announcements and knowledge base articles, and the white background is pretty rough on the eyes.</p><p>Would it be possible to add a dark mode toggle in the user menu? Ideally one that remembers the preference per user and respects the OS-level setting by default.</p><p>Happy to help test a prototype if anyone from the platform team picks it up.</p>"
+      format: full_html
+      summary: ''
+  comment_forum:
+    -
+      status: 2
+      cid: 0
+      last_comment_timestamp: 1732406400
+      last_comment_name: ''
+      last_comment_uid: 0
+      comment_count: 1
+  field_forum_category:
+    -
+      entity: forumcat-0000-0000-0000-000000000011
+  field_forum_reply_count:
+    -
+      value: 1
+  field_forum_share_count:
+    -
+      value: 1
+  field_forum_views:
+    -
+      value: 38

@@ -1,0 +1,33 @@
+name: 'Open Intranet Forum'
+description: 'Sets up the Open Intranet Forum module: enables the module and its runtime dependencies, imports forum content type, vocabularies, views, Search API index, flag, and grants baseline permissions. Ships no demo content.'
+type: 'Open Intranet'
+
+install:
+  - openintranet_forum
+  - votingapi
+  - votingapi_reaction
+  - flag
+  - search_api
+  - search_api_db
+  - statistics
+  - iconify_field
+
+config:
+  strict: false
+  import:
+    openintranet_forum: '*'
+  actions:
+    user.role.authenticated:
+      grantPermissions:
+        - 'create forum_post content'
+        - 'edit own forum_post content'
+        - 'delete own forum_post content'
+        - 'post comments'
+        - 'skip comment approval'
+        - 'access comments'
+        - 'view reactions on node:forum_post:field_forum_post_reaction'
+        - 'create reaction on node:forum_post:field_forum_post_reaction'
+        - 'modify reaction on node:forum_post:field_forum_post_reaction'
+        - 'flag bookmark_forum_post'
+        - 'unflag bookmark_forum_post'
+        - 'use text format basic_html'

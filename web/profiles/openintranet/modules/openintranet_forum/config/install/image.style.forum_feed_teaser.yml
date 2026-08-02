@@ -1,0 +1,15 @@
+uuid: 4e8d49c2-ee5c-42a4-bab3-6d3966c20dd2
+langcode: en
+status: true
+dependencies: {  }
+name: forum_feed_teaser
+label: 'Forum feed teaser (960×506)'
+effects:
+  9c32233c-d08c-44ec-adb5-63d92a32aa02:
+    uuid: 9c32233c-d08c-44ec-adb5-63d92a32aa02
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 960
+      height: 506
+      anchor: center-center

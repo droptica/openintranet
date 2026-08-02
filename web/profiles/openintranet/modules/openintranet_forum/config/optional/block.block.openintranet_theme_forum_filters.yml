@@ -1,0 +1,27 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.forum_search
+  module:
+    - system
+    - views
+  theme:
+    - openintranet_theme
+id: openintranet_theme_forum_filters
+theme: openintranet_theme
+region: forum_sidebar_second
+weight: 10
+provider: null
+plugin: 'views_exposed_filter_block:forum_search-page_1'
+settings:
+  id: 'views_exposed_filter_block:forum_search-page_1'
+  label: 'Filter forum posts'
+  label_display: '0'
+  provider: views
+  views_label: ''
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: "/forum\n/forum/feed\n/forum/latest\n/forum/popular\n/forum/active\n/forum/unanswered\n/forum/my-posts\n/forum/your-posts\n/forum/category\n/forum/category/*\n/forum/tag/*\n/forum/search\n/node/*"

@@ -1,0 +1,50 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Forum activity feed
+status: experimental
+props:
+  type: object
+  required:
+    - variant
+    - icon_base
+  properties:
+    items:
+      type: array
+      title: Activity items
+      description: "Array of activity item records."
+    empty_message:
+      type:
+        - string
+        - object
+        - "null"
+      title: Empty message
+      description: "Fallback shown when there are no items."
+    icon_base:
+      type: string
+      title: Icon base path
+      description: "Base path to icon images."
+    more_url:
+      type:
+        - string
+        - "null"
+      title: More URL
+      description: "URL for the 'view more' link."
+    show_more:
+      type: boolean
+      title: Show more toggle
+      description: "Whether to show the 'view more' link."
+    variant:
+      type: string
+      title: Variant
+      description: "'sidebar' or 'page'."
+slots:
+  activity_header:
+    title: Header
+    description: "Header row."
+  activity_items:
+    title: Items
+    description: "Main activity list body."
+  activity_more:
+    title: More link
+    description: "Footer 'view more' link."
+libraryDependencies:
+  - openintranet_forum/forum.activity-feed

@@ -1,0 +1,110 @@
+{#
+/**
+ * @file
+ * Forum reply comment display on forum posts.
+ */
+#}
+{{ attach_library('bootstrap_barrio/comments') }}
+{%
+  set classes = [
+    'comment',
+    'forum-comment',
+    'js-comment',
+    status != 'published' ? 'comment--' ~ status,
+    comment.owner.anonymous ? 'by-anonymous',
+    author_id and author_id == commented_entity.getOwnerId() ? 'by-' ~ commented_entity.getEntityTypeId() ~ '-author',
+    forum_comment_is_reply ? 'forum-comment--reply',
+    forum_comment_soft_deleted ? 'forum-comment--deleted',
+    'clearfix',
+  ]
+%}
+
+{% set comment_date = comment.getCreatedTime() %}
+{% set one_week_ago = 'now'|date('U') - (7 * 24 * 60 * 60) %}
+{% set diff = 'now'|date('U') - comment_date %}
+
+<article role="article"{{ attributes.addClass(classes)|without('role') }}>
+  {% block comment_meta %}
+    <div class="forum-comment__meta">
+      <div class="forum-comment__author-block">
+        <div class="forum-comment__avatar">
+          {% if not forum_comment_soft_deleted %}{{ user_picture }}{% endif %}
+        </div>
+        <div class="forum-comment__author-wrap">
+          <span class="forum-comment__author">
+            {%- if forum_comment_soft_deleted -%}{{ '[deleted]'|t }}{%- else -%}{{ author }}{%- endif -%}
+          </span>
+        </div>
+      </div>
+      <span class="forum-comment__time">
+        {% if comment_date > one_week_ago %}
+          {% if diff < 3600 %}
+            {{ (diff / 60)|round }} {{ 'minutes ago'|t }}
+          {% elseif diff < 86400 %}
+            {{ (diff / 3600)|round }} {{ 'hours ago'|t }}
+          {% else %}
+            {{ (diff / 86400)|round }} {{ 'days ago'|t }}
+          {% endif %}
+        {% else %}
+          {{ comment_date|date('d/m/Y') }}
+        {% endif %}
+      </span>
+      {% if parent %}
+        <p class="visually-hidden">{{ parent }}</p>
+      {% endif %}
+    </div>
+  {% endblock %}
+
+  {% block comment_body %}
+    <div class="forum-comment__main">
+      <div class="forum-comment__body{% if forum_comment_soft_deleted %} forum-comment__body--deleted{% endif %}">
+        {% if forum_comment_soft_deleted %}
+          <em>{{ 'This comment was deleted.'|t }}</em>
+        {% else %}
+          {{ content|without('links', 'field_forum_reply_images') }}
+        {% endif %}
+      </div>
+
+      {% if not forum_comment_soft_deleted %}
+        {{ content.field_forum_reply_images }}
+      {% endif %}
+
+      {% block comment_footer %}
+        <div class="forum-comment__footer">
+          <div class="forum-comment__stats" aria-label="{{ 'Comment reactions'|t }}">
+            <button type="button"
+                    class="forum-comment__stat forum-comment__stat--like js-forum-comment-vote{% if forum_comment_user_vote == 'up' %} forum-comment__stat--active{% endif %}"
+                    data-comment-id="{{ comment.id() }}"
+                    data-direction="up"
+                    aria-pressed="{{ forum_comment_user_vote == 'up' ? 'true' : 'false' }}"
+                    title="{{ 'Like'|t }}">
+              <span class="visually-hidden">{{ 'Like'|t }}</span>
+              <span class="forum-comment__stat-count">{{ forum_comment_like_count }}</span>
+            </button>
+            <button type="button"
+                    class="forum-comment__stat forum-comment__stat--dislike js-forum-comment-vote{% if forum_comment_user_vote == 'down' %} forum-comment__stat--active{% endif %}"
+                    data-comment-id="{{ comment.id() }}"
+                    data-direction="down"
+                    aria-pressed="{{ forum_comment_user_vote == 'down' ? 'true' : 'false' }}"
+                    title="{{ 'Dislike'|t }}">
+              <span class="visually-hidden">{{ 'Dislike'|t }}</span>
+              <span class="forum-comment__stat-count">{{ forum_comment_dislike_count }}</span>
+            </button>
+          </div>
+
+          <span class="forum-comment__divider" aria-hidden="true"></span>
+
+          <div class="forum-comment__actions">
+            {% for action in forum_comment_actions %}
+              {% if action.name == 'share' %}
+                <button type="button" class="forum-comment__action forum-comment__action--share js-forum-share" data-url="{{ action.url }}">{{ action.title }}</button>
+              {% else %}
+                <a href="{{ action.url }}" class="forum-comment__action forum-comment__action--{{ action.name }}">{{ action.title }}</a>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      {% endblock %}
+    </div>
+  {% endblock %}
+</article>

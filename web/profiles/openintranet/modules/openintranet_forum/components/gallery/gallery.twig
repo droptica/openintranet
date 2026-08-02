@@ -1,0 +1,69 @@
+{#
+/**
+ * @file
+ * Default theme for the Forum gallery formatter.
+ *
+ * Produces two alternative layouts in a single .js-forum-gallery container so
+ * the shared lightbox JS (openintranet_forum/forum.gallery) can attach to it.
+ * URLs are emitted as a JSON payload inside a .js-gallery-data script element,
+ * which matches how js/forum-gallery.js reads the data.
+ *
+ * Available variables:
+ * - layout: 'hero' or 'grid'.
+ * - items: Render arrays for each styled image (delta 0 hero for hero layout).
+ * - urls: Absolute URLs to the original files for the lightbox.
+ * - grid_visible_max: Max tiles rendered before collapsing to "+N more".
+ */
+#}
+{% if items %}
+  {% if layout == 'hero' %}
+    <div class="forum-post__gallery js-forum-gallery">
+      <script type="application/json" class="js-gallery-data">{{ urls|json_encode|raw }}</script>
+
+      <div class="forum-post__gallery-hero">
+        {{ items[0] }}
+        <button class="forum-post__gallery-trigger js-gallery-open" type="button"
+                data-gallery-index="0"
+                aria-label="{{ 'Open image 1'|t }}">
+        </button>
+      </div>
+
+      {% if items|length > 1 %}
+        {% set thumb_items = items|slice(1, 4) %}
+        <div class="forum-post__gallery-thumbs">
+          {% for thumb in thumb_items %}
+            {% set item_index = loop.index %}
+            <div class="forum-post__gallery-thumb">
+              {{ thumb }}
+              <button class="forum-post__gallery-trigger js-gallery-open" type="button"
+                      data-gallery-index="{{ item_index }}"
+                      aria-label="{{ 'Open image @num'|t({'@num': item_index + 1}) }}">
+              </button>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  {% else %}
+    {% set visible_items = items|slice(0, grid_visible_max) %}
+    {% set hidden_count = items|length - grid_visible_max %}
+    <div class="forum-comment__media js-forum-gallery">
+      <script type="application/json" class="js-gallery-data">{{ urls|json_encode|raw }}</script>
+      <div class="field__items">
+        {% for image in visible_items %}
+          {% set show_more_overlay = loop.last and hidden_count > 0 %}
+          <div class="field__item">
+            {{ image }}
+            {% if show_more_overlay %}
+              <span class="forum-comment__media-more" aria-hidden="true">+{{ hidden_count }}</span>
+            {% endif %}
+            <button type="button"
+                    class="forum-comment__media-trigger js-gallery-open"
+                    data-gallery-index="{{ loop.index0 }}"
+                    aria-label="{{ 'Open image @num'|t({'@num': loop.index}) }}"></button>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+{% endif %}

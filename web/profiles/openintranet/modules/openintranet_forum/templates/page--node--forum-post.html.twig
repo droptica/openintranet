@@ -1,0 +1,66 @@
+{#
+/**
+ * @file
+ * Page template for forum post nodes with 2-rail layout.
+ *
+ * Extends the base page.html.twig so the site header, navigation, and footer
+ * are preserved. Only the main content block is overridden.
+ *
+ * Available variables (set by ForumThemeHooks::preprocessPage()):
+ * - forum_post_page: TRUE when on a forum post page.
+ * - forum_post_summary_title: "{Site} Forum" heading for the summary card.
+ * - forum_post_breadcrumb: Custom forum breadcrumb render array.
+ * - forum_post_featured: Featured/trending region render array.
+ * - forum_post_has_featured: Boolean.
+ * - forum_post_sidebar: Right sidebar region render array.
+ * - forum_post_has_sidebar: Boolean.
+ * - page: Standard Drupal page render array.
+ */
+#}
+{% extends "page.html.twig" %}
+
+{% block content %}
+{% if forum_post_page %}
+{{ attach_library('openintranet_forum/forum.base') }}
+{{ attach_library('openintranet_forum/forum.page') }}
+<div id="main" class="{{ container }}">
+  <div class="forum-page forum-page--post">
+    {% block post_page_featured %}
+      {% if forum_post_has_featured %}
+        <section class="forum-page__section forum-page__featured">
+          {{ forum_post_featured }}
+        </section>
+      {% endif %}
+    {% endblock %}
+
+    {% block post_page_summary %}
+      {% if forum_post_summary_title %}
+        {{ include('openintranet_forum:summary-card', {
+          title: forum_post_summary_title,
+          variant: 'post',
+          breadcrumb: forum_post_breadcrumb,
+        }) }}
+      {% endif %}
+    {% endblock %}
+
+    {% block post_page_workspace %}
+      <section class="forum-page__section forum-page__section--workspace">
+        <div class="forum-page__workspace forum-page__workspace--two-rail">
+          <div class="forum-page__main">
+            {{ page.content }}
+          </div>
+
+          {% if forum_post_has_sidebar %}
+            <aside class="forum-page__rail forum-page__rail--right">
+              {{ forum_post_sidebar }}
+            </aside>
+          {% endif %}
+        </div>
+      </section>
+    {% endblock %}
+  </div>
+</div>
+{% else %}
+  {{ parent() }}
+{% endif %}
+{% endblock %}

@@ -1,0 +1,55 @@
+openintranet_forum.category_browser:
+  path: '/forum/category'
+  defaults:
+    _controller: '\Drupal\openintranet_forum\Controller\ForumCategoryBrowserController::build'
+    _title: 'Forum categories'
+  requirements:
+    _permission: 'access content'
+
+openintranet_forum.settings:
+  path: '/admin/config/openintranet/forum'
+  defaults:
+    _form: '\Drupal\openintranet_forum\Form\ForumSettingsForm'
+    _title: 'Forum Settings'
+  requirements:
+    _permission: 'administer site configuration'
+
+openintranet_forum.comment_vote:
+  path: '/forum/comment/{comment}/vote'
+  defaults:
+    _controller: '\Drupal\openintranet_forum\Controller\ForumCommentVoteController::vote'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+    _csrf_request_header_token: 'TRUE'
+  methods: [POST]
+
+openintranet_forum.post_share:
+  path: '/forum/post/{node}/share'
+  defaults:
+    _controller: '\Drupal\openintranet_forum\Controller\ForumShareController::share'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+    _csrf_request_header_token: 'TRUE'
+    node: \d+
+  methods: [POST]
+
+openintranet_forum.feed:
+  path: '/forum/feed'
+  defaults:
+    _controller: '\Drupal\openintranet_forum\Controller\ForumFeedController::build'
+    _title: 'Forum Feed'
+  requirements:
+    _permission: 'access content'
+
+openintranet_forum.comment_soft_delete:
+  path: '/forum/comment/{comment}/delete'
+  defaults:
+    _form: '\Drupal\openintranet_forum\Form\CommentSoftDeleteConfirmForm'
+    _title: 'Delete comment'
+  requirements:
+    _entity_access: 'comment.delete'
+    comment: \d+
+  options:
+    parameters:
+      comment:
+        type: entity:comment

@@ -1,0 +1,40 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.forum_post.body
+    - field.field.node.forum_post.field_forum_image
+    - image.style.forum_trending_card
+    - node.type.forum_post
+  module:
+    - image
+    - text
+    - user
+id: node.forum_post.trending_card
+targetEntityType: node
+bundle: forum_post
+mode: trending_card
+content:
+  body:
+    type: text_summary_or_trimmed
+    weight: 1
+    region: content
+    settings:
+      trim_length: 140
+    third_party_settings: {  }
+    label: hidden
+  field_forum_image:
+    type: image
+    weight: 0
+    region: content
+    settings:
+      image_link: content
+      image_style: forum_trending_card
+    third_party_settings: {  }
+    label: hidden
+hidden:
+  field_forum_category: true
+  field_forum_reply_count: true
+  field_forum_tags: true
+  field_forum_views: true
+  links: true

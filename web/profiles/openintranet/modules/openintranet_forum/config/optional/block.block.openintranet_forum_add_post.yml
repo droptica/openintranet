@@ -1,0 +1,25 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - openintranet_forum
+    - system
+  theme:
+    - openintranet_theme
+id: openintranet_forum_add_post
+theme: openintranet_theme
+region: forum_sidebar_second
+weight: -20
+provider: null
+plugin: openintranet_forum_add_post_block
+settings:
+  id: openintranet_forum_add_post_block
+  label: 'Forum: add post'
+  label_display: '0'
+  provider: openintranet_forum
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: "/forum/feed\n/forum/latest\n/forum/popular\n/forum/active\n/forum/unanswered\n/forum/your-posts\n/forum/category\n/forum/category/*\n/forum/tag/*\n/forum/search"
+    context_mapping: {  }

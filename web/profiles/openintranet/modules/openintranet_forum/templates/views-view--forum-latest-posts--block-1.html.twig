@@ -1,0 +1,44 @@
+{#
+/**
+ * @file
+ * Latest forum posts feed block.
+ */
+#}
+{{ attach_library('openintranet_forum/forum.latest-feed') }}
+{%
+  set classes = [
+    'view',
+    'forum-latest-feed',
+    'view-' ~ id|clean_class,
+    'view-id-' ~ id,
+    'view-display-id-' ~ display_id,
+    dom_id ? 'js-view-dom-id-' ~ dom_id,
+  ]
+%}
+<div{{ attributes.addClass(classes) }}>
+  {% block feed_header %}
+    <div class="forum-latest-feed__header forum-panel__header forum-panel__header--plain">
+      <h2 class="forum-panel__title">{{ title ?: 'Latest forum posts'|t }}</h2>
+    </div>
+  {% endblock %}
+
+  {% block feed_rows %}
+    {% if rows %}
+      <div class="forum-latest-feed__rows">
+        {{ rows }}
+      </div>
+    {% elseif empty %}
+      <div class="forum-latest-feed__empty">
+        {{ empty }}
+      </div>
+    {% endif %}
+  {% endblock %}
+
+  {% block feed_more %}
+    {% if more %}
+      <div class="forum-latest-feed__more">
+        {{ more }}
+      </div>
+    {% endif %}
+  {% endblock %}
+</div>

@@ -1,0 +1,20 @@
+{#
+/**
+ * @file
+ * Forum listing "view more" pager.
+ *
+ * Replaces the views mini-pager on the forum listing pages with a single
+ * centered button (styled like the other forum "view more" buttons) that
+ * links to the next page. Hidden when there is no next page.
+ *
+ * Available variables:
+ * - items: List of pager items (items.next.href is the next-page URL).
+ *
+ * @see template_preprocess_views_mini_pager()
+ */
+#}
+{% if items.next %}
+  <div class="forum-page__more">
+    <a href="{{ items.next.href }}" class="forum-more-from-category__more-btn" rel="next"{{ items.next.attributes|without('href', 'title', 'rel') }}>{{ 'view more'|t }}</a>
+  </div>
+{% endif %}

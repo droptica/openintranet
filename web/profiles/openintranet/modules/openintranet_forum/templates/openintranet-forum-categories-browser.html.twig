@@ -1,0 +1,142 @@
+{#
+/**
+ * @file
+ * Forum category browser page.
+ */
+#}
+{{ attach_library('openintranet_forum/forum.base') }}
+{{ attach_library('openintranet_forum/forum.page') }}
+{{ attach_library('openintranet_forum/forum.category-browser') }}
+{{ attach_library('openintranet_forum/forum.add-post') }}
+<div class="forum-page forum-category-browser">
+  {% block browser_header %}
+    <section class="forum-page__header-card">
+      <div class="forum-page__header-row">
+        <h1 class="forum-page__header-title">{{ header_title }}</h1>
+        {{ include('openintranet_forum:breadcrumb', {
+          items: [
+            { title: 'Forum'|t, url: path('openintranet_forum.feed') },
+            { title: breadcrumb_title, url: null },
+          ],
+        }) }}
+      </div>
+    </section>
+  {% endblock %}
+
+  {% block browser_featured %}
+    {% if forum_page_has_featured %}
+      <section class="forum-page__section forum-page__featured">
+        {{ forum_page_featured }}
+      </section>
+    {% endif %}
+  {% endblock %}
+
+  {% block browser_workspace %}
+    {% if forum_page_has_sidebar_first %}
+      {% set workspace_classes = ['forum-page__workspace', 'forum-page__workspace--three-rail'] %}
+    {% else %}
+      {% set workspace_classes = ['forum-page__workspace', 'forum-page__workspace--two-rail'] %}
+    {% endif %}
+
+    <section class="forum-page__section forum-page__section--workspace forum-page__section--taxonomy">
+      <div class="{{ workspace_classes|join(' ') }}">
+        {% if forum_page_has_sidebar_first %}
+          <aside class="forum-page__rail forum-page__rail--left forum-page__region forum-page__region--left">
+            {{ forum_page_sidebar_first }}
+          </aside>
+        {% endif %}
+
+        <div class="forum-page__main">
+          <section id="forum-category-browser-main" class="forum-page__taxonomy-panel">
+            <div class="forum-panel__header">
+              <h2 class="forum-panel__title">{{ page_title }}</h2>
+            </div>
+
+            {% block browser_search %}
+              <form action="{{ categories_browser_url }}" method="get" class="forum-category-browser__search-form">
+                {% for name, value in main_search_hidden %}
+                  <input type="hidden" name="{{ name }}" value="{{ value }}">
+                {% endfor %}
+                <div class="forum-category-browser__search-bar">
+                  <input
+                    type="search"
+                    name="q"
+                    value="{{ filters.q }}"
+                    class="form-text"
+                    placeholder="{{ 'Search'|t }}"
+                    aria-label="{{ 'Search categories and posts'|t }}"
+                  >
+                  <button type="submit" class="forum-category-browser__search-submit">
+                    <span class="forum-category-browser__search-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">{{ 'Search'|t }}</span>
+                  </button>
+                </div>
+              </form>
+            {% endblock %}
+
+            {% block browser_groups %}
+              <div class="forum-category-browser__groups">
+                {% if groups %}
+                  {% for group in groups %}
+                    <details class="forum-category-browser__group"{{ group.is_open ? ' open' : '' }}>
+                      <summary class="forum-category-browser__group-summary">
+                        <span class="forum-category-browser__group-label">
+                          {% if group.icon %}
+                            <span class="forum-category-browser__term-icon">{{ group.icon }}</span>
+                          {% endif %}
+                          <span class="forum-category-browser__group-title">{{ group.title }}</span>
+                          <span class="forum-category-browser__group-count">{{ group.count }}</span>
+                        </span>
+                        <span class="forum-category-browser__chevron" aria-hidden="true"></span>
+                      </summary>
+
+                      <div class="forum-category-browser__group-body">
+                        {% if group.children %}
+                          {% for child in group.children %}
+                            <details class="forum-category-browser__child"{{ child.is_open ? ' open' : '' }}>
+                              <summary class="forum-category-browser__child-summary">
+                                <span class="forum-category-browser__child-label">
+                                  {% if child.icon %}
+                                    <span class="forum-category-browser__term-icon">{{ child.icon }}</span>
+                                  {% endif %}
+                                  <span class="forum-category-browser__child-title">{{ child.title }}</span>
+                                </span>
+                                <span class="forum-category-browser__chevron forum-category-browser__chevron--dark" aria-hidden="true"></span>
+                              </summary>
+
+                              {% if child.posts %}
+                                <div class="forum-category-browser__post-list">
+                                  {% for post in child.posts %}
+                                    {{ post }}
+                                  {% endfor %}
+                                </div>
+                              {% endif %}
+                            </details>
+                          {% endfor %}
+                        {% elseif group.posts %}
+                          <div class="forum-category-browser__post-list">
+                            {% for post in group.posts %}
+                              {{ post }}
+                            {% endfor %}
+                          </div>
+                        {% endif %}
+                      </div>
+                    </details>
+                  {% endfor %}
+                {% else %}
+                  <div class="forum-page__empty">{{ 'No matching categories found.'|t }}</div>
+                {% endif %}
+              </div>
+            {% endblock %}
+          </section>
+        </div>
+
+        <aside class="forum-page__rail forum-page__rail--right forum-page__region forum-page__region--right">
+          {% if forum_page_has_sidebar_second %}
+            {{ forum_page_sidebar_second }}
+          {% endif %}
+        </aside>
+      </div>
+    </section>
+  {% endblock %}
+</div>

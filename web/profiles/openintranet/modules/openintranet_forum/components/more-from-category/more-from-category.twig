@@ -1,0 +1,90 @@
+{#
+/**
+ * @file
+ * "More from category" sidebar block for forum post pages.
+ *
+ * Available variables:
+ * - category_name: The category name string.
+ * - category_url: URL to the category listing page.
+ * - items: Array of post items. Each item has:
+ *   - url: Post URL.
+ *   - title: Post title.
+ *   - has_author_picture: Boolean.
+ *   - author_picture: Render array for user picture.
+ *   - author_name: Author display name.
+ *   - author_profile_url: URL to author profile.
+ *   - date: Formatted date string.
+ *   - datetime_attr: ISO datetime for <time> datetime.
+ *   - like_count: Integer like count.
+ *   - reply_count: Integer reply count.
+ *   - share_count: Integer share count.
+ * - icon_base: Base path to icon images.
+ * - more_url: URL for "view more" link.
+ * - empty_message: Fallback when there are no items.
+ */
+#}
+{{ attach_library('openintranet_forum/forum.more-from-category') }}
+<div class="forum-more-from-category">
+  {% block more_header %}
+    <div class="forum-more-from-category__header">
+      <h3 class="forum-more-from-category__title">{{ 'More from "@category"'|t({'@category': category_name}) }}</h3>
+    </div>
+  {% endblock %}
+
+  {% block more_items %}
+    {% if items %}
+      <div class="forum-more-from-category__list">
+        {% for item in items %}
+          <article class="forum-more-from-category__item">
+            <div class="forum-more-from-category__meta">
+              <div class="forum-more-from-category__author">
+                <div class="forum-more-from-category__avatar">
+                  {% if item.has_author_picture %}
+                    {{ item.author_picture }}
+                  {% else %}
+                    <span class="forum-more-from-category__avatar-placeholder" aria-hidden="true"></span>
+                  {% endif %}
+                </div>
+                {% if item.author_profile_url %}
+                  <a href="{{ item.author_profile_url }}" class="forum-more-from-category__author-name">{{ item.author_name }}</a>
+                {% else %}
+                  <span class="forum-more-from-category__author-name">{{ item.author_name }}</span>
+                {% endif %}
+              </div>
+              <time class="forum-more-from-category__date" datetime="{{ item.datetime_attr }}">{{ item.date }}</time>
+            </div>
+
+            <h4 class="forum-more-from-category__post-title">
+              <a href="{{ item.url }}">{{ item.title }}</a>
+            </h4>
+
+            <div class="forum-more-from-category__stats">
+              <span class="forum-more-from-category__stat">
+                <img src="{{ icon_base }}/thumbs-up.svg" width="14" height="14" alt="" loading="lazy">
+                <span>{{ item.like_count }}</span>
+              </span>
+              <span class="forum-more-from-category__stat">
+                <img src="{{ icon_base }}/message-circle.svg" width="14" height="14" alt="" loading="lazy">
+                <span>{{ item.reply_count }}</span>
+              </span>
+              <span class="forum-more-from-category__stat">
+                <img src="{{ icon_base }}/share-nodes.svg" width="13" height="13" alt="" loading="lazy">
+                <span>{{ item.share_count }}</span>
+              </span>
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="forum-more-from-category__empty">{{ empty_message }}</div>
+    {% endif %}
+  {% endblock %}
+
+  {% block more_footer %}
+    {% if more_url and items %}
+      <div class="forum-more-from-category__more">
+        <a href="{{ more_url }}" class="forum-more-from-category__more-btn">{{ 'view more'|t }}</a>
+      </div>
+    {% endif %}
+  {% endblock %}
+</div>

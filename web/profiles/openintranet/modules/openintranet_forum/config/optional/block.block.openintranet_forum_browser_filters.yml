@@ -1,0 +1,27 @@
+uuid: f3ae4550-2002-44f9-8ae5-b177d15bdd7a
+langcode: en
+status: true
+dependencies:
+  module:
+    - openintranet_forum
+    - system
+  theme:
+    - openintranet_theme
+id: openintranet_forum_browser_filters
+theme: openintranet_theme
+region: forum_sidebar_second
+weight: 11
+provider: null
+plugin: openintranet_forum_browser_filters_block
+settings:
+  id: openintranet_forum_browser_filters_block
+  label: 'Forum browser: filtering'
+  label_display: '0'
+  provider: openintranet_forum
+  panel: filters
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: '/forum/category'
+    context_mapping: {  }

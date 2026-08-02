@@ -1,0 +1,38 @@
+_meta:
+  version: '1.0'
+  entity_type: comment
+  uuid: forumcmt-0000-0000-0000-000000000006
+  bundle: forum_reply
+  default_langcode: en
+  depends:
+    forumusr-0000-0000-0000-000000000003: user
+    forumpst-0000-0000-0000-000000000006: node
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      entity: forumusr-0000-0000-0000-000000000003
+  entity_id:
+    -
+      entity: forumpst-0000-0000-0000-000000000006
+  subject:
+    -
+      value: 'Re: Login fails on Safari 17'
+  created:
+    -
+      value: 1732233600
+  thread:
+    -
+      value: 01/
+  entity_type:
+    -
+      value: node
+  field_name:
+    -
+      value: comment_forum
+  comment_body:
+    -
+      value: 'Reproduced on Safari 17.1 with a fresh profile; opened BUG-1423.'
+      format: plain_text

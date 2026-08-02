@@ -1,0 +1,74 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: forumpst-0000-0000-0000-000000000003
+  bundle: forum_post
+  default_langcode: en
+  depends:
+    forumusr-0000-0000-0000-000000000002: user
+    forumcat-0000-0000-0000-000000000006: taxonomy_term
+    forumtag-0000-0000-0000-000000000007: taxonomy_term
+    forumtag-0000-0000-0000-000000000008: taxonomy_term
+    forumfil-0000-0000-0000-000000000003: file
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      entity: forumusr-0000-0000-0000-000000000002
+  title:
+    -
+      value: 'Best VSCode extensions you use?'
+  created:
+    -
+      value: 1732492800
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  path:
+    -
+      alias: /forum/best-vscode-extensions-you-use
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: "<p>I am rebuilding my dev setup on a new laptop and would love to hear what VSCode extensions are non-negotiable for the rest of you.</p><p>I already have Prettier, ESLint, and GitLens. Looking for recommendations beyond the usual suspects — especially anything that has saved you real time on reviews or debugging.</p>"
+      format: full_html
+      summary: ''
+  comment_forum:
+    -
+      status: 2
+      cid: 0
+      last_comment_timestamp: 1732579200
+      last_comment_name: ''
+      last_comment_uid: 0
+      comment_count: 1
+  field_forum_category:
+    -
+      entity: forumcat-0000-0000-0000-000000000006
+  field_forum_tags:
+    -
+      entity: forumtag-0000-0000-0000-000000000007
+    -
+      entity: forumtag-0000-0000-0000-000000000008
+  field_forum_reply_count:
+    -
+      value: 1
+  field_forum_share_count:
+    -
+      value: 2
+  field_forum_views:
+    -
+      value: 62
+  field_forum_image:
+    -
+      entity: forumfil-0000-0000-0000-000000000003
+      alt: 'Team event in the old town'
+      title: ''

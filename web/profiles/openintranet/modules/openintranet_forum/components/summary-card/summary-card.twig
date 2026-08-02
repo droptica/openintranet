@@ -1,0 +1,17 @@
+{#
+/**
+ * @file
+ * Forum summary card — title plus breadcrumb beneath, in a styled box.
+ *
+ * Available props:
+ * - title: Heading text or TranslatableMarkup.
+ * - variant: 'listing' or 'post' (sets .forum-page__summary-card--{variant}).
+ * - breadcrumb: Optional breadcrumb render array.
+ */
+#}
+<div class="forum-page__summary-card forum-page__summary-card--{{ variant }}">
+  <h2 class="forum-page__summary-title">{{ title }}</h2>
+  {% if breadcrumb %}
+    {{ breadcrumb }}
+  {% endif %}
+</div>

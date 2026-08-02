@@ -1,0 +1,425 @@
+/**
+ * @file
+ * Forum shared component primitives.
+ */
+
+/* --------------------------------------------------------------------------
+   Soft button: full-width "more" / CTA button on an accent surface.
+   -------------------------------------------------------------------------- */
+
+.forum-page__create-button,
+.forum-feed-filters__actions .form-submit,
+.forum-latest-feed__more a,
+.view-id-forum_latest_posts .more-link a,
+.forum-more-from-category__more-btn,
+.forum-activity__more-btn,
+.forum-categories__all-link,
+.forum-popular-categories__all-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 0;
+  border-radius: var(--forum-radius);
+  background: var(--forum-accent-surface);
+  color: var(--forum-blue-dark);
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.375rem;
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
+
+.forum-page__create-button:hover,
+.forum-page__create-button:focus-visible,
+.forum-feed-filters__actions .form-submit:hover,
+.forum-feed-filters__actions .form-submit:focus-visible,
+.forum-latest-feed__more a:hover,
+.forum-latest-feed__more a:focus-visible,
+.view-id-forum_latest_posts .more-link a:hover,
+.view-id-forum_latest_posts .more-link a:focus-visible,
+.forum-more-from-category__more-btn:hover,
+.forum-activity__more-btn:hover,
+.forum-categories__all-link:hover,
+.forum-popular-categories__all-link:hover {
+  background: var(--forum-accent-border);
+}
+
+/* --------------------------------------------------------------------------
+   Empty state: muted placeholder message.
+   -------------------------------------------------------------------------- */
+
+.forum-latest-feed__empty,
+.forum-more-from-category__empty,
+.forum-activity__empty {
+  color: var(--forum-text-soft);
+  font-size: 0.875rem;
+  line-height: 1.375rem;
+}
+
+/* --------------------------------------------------------------------------
+   Accordion: <details>/<summary> sidebar category lists.
+   -------------------------------------------------------------------------- */
+
+.forum-categories__details > summary,
+.forum-popular-categories__details > summary {
+  list-style: none;
+}
+
+.forum-categories__details > summary::-webkit-details-marker,
+.forum-popular-categories__details > summary::-webkit-details-marker {
+  display: none;
+}
+
+.forum-categories__summary,
+.forum-popular-categories__summary {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.5rem;
+  color: var(--forum-text);
+  font-size: 0.875rem;
+  line-height: 1.375rem;
+  font-weight: 400;
+  cursor: pointer;
+  user-select: none;
+  background: transparent;
+  border-radius: var(--forum-radius);
+  transition: background 0.15s;
+}
+
+.forum-categories__summary:hover,
+.forum-popular-categories__summary:hover {
+  background: var(--forum-surface-soft);
+}
+
+.forum-categories__summary--open,
+.forum-categories__details[open] > .forum-categories__summary,
+.forum-popular-categories__summary--open,
+.forum-popular-categories__details[open] > .forum-popular-categories__summary {
+  font-weight: 600;
+}
+
+.forum-categories__name,
+.forum-popular-categories__name {
+  flex: 1;
+  min-width: 0;
+}
+
+.forum-categories__chevron,
+.forum-popular-categories__chevron {
+  flex-shrink: 0;
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  background-color: var(--forum-blue);
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M4 6L8 10L12 6' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M4 6L8 10L12 6' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+  transition: transform 0.2s;
+}
+
+.forum-categories__details[open] > .forum-categories__summary .forum-categories__chevron,
+.forum-popular-categories__details[open] > .forum-popular-categories__summary .forum-popular-categories__chevron {
+  transform: rotate(180deg);
+}
+
+/* --------------------------------------------------------------------------
+   Avatar: round wrapper + gradient placeholder.
+   -------------------------------------------------------------------------- */
+
+.forum-post__avatar,
+.forum-trending-card__avatar,
+.forum-more-from-category__avatar {
+  width: 1.625rem;
+  height: 1.625rem;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.forum-post__avatar img,
+.forum-trending-card__avatar img,
+.forum-more-from-category__avatar img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.forum-post__avatar-placeholder,
+.forum-trending-card__avatar-placeholder,
+.forum-more-from-category__avatar-placeholder {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--forum-accent-border) 0%, var(--forum-avatar-placeholder-end) 100%);
+}
+
+/* --------------------------------------------------------------------------
+   Tag pill: rounded accent chip for taxonomy term links.
+   -------------------------------------------------------------------------- */
+
+.forum-tags-list__pill a,
+.forum-post__tag,
+.view-id-forum_popular_tags .views-field-name a {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.25rem;
+  background: var(--forum-accent-surface);
+  color: var(--forum-blue);
+  font-size: 0.875rem;
+  line-height: 1.375rem;
+  text-decoration: none;
+}
+
+.forum-tags-list__pill a:hover,
+.forum-post__tag:hover,
+.view-id-forum_popular_tags .views-field-name a:hover {
+  background: var(--forum-accent-border);
+  text-decoration: none;
+}
+
+/* --------------------------------------------------------------------------
+   Card surface shell: white surface, rounded corners, soft drop shadow.
+   -------------------------------------------------------------------------- */
+
+.forum-page__header-card,
+.forum-page__hero,
+.forum-page__summary-card,
+.forum-panel,
+.node--view-mode-full.node--type-forum-post,
+.forum-page__taxonomy-panel,
+.forum-page__rail--right > .block,
+.forum-page__featured > .block,
+.forum-page__posts-panel,
+.forum-latest-feed,
+.forum-activity--sidebar,
+.forum-more-from-category {
+  background: var(--forum-surface);
+  border-radius: var(--forum-radius);
+  box-shadow: var(--forum-shadow);
+}
+
+/* --------------------------------------------------------------------------
+   Heading underline bar: short rounded accent rule under a panel heading.
+   -------------------------------------------------------------------------- */
+
+.forum-panel__title::after,
+.forum-page__rail--right > .block > h2::after,
+.forum-page__featured > .block > h2::after {
+  content: "";
+  width: 2rem;
+  height: 0.125rem;
+  border-radius: 999px;
+  background: var(--forum-accent-border);
+}
+
+.forum-categories__title::after,
+.forum-popular-categories__title::after,
+.forum-more-from-category__title::after {
+  content: "";
+  display: block;
+  margin-top: 0.5rem;
+  width: 2rem;
+  height: 0.125rem;
+  border-radius: 999px;
+  background: var(--forum-accent-border);
+}
+
+/* --------------------------------------------------------------------------
+   Post meta: stat row + owner kebab menu.
+   -------------------------------------------------------------------------- */
+
+.forum-post-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.forum-post-meta__stats {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.forum-post-meta__stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  color: var(--forum-text-soft);
+  font-size: 0.75rem;
+  line-height: 1rem;
+  text-decoration: none;
+}
+
+.forum-post-meta__stat img {
+  flex-shrink: 0;
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+/* Share is a <button>; strip the UA chrome (grey border + #efefef face) so it
+   reads as a plain stat. Lives here, not in forum-post.css, because the
+   post-meta component is used standalone (category browser) where forum.post
+   is not attached. */
+.forum-post__share-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  /* Reset only the button's UA font family/weight, NOT its size — the size
+     must come from the .forum-post-meta__stat rule so the share count matches
+     the sibling like/comment stats (was inheriting 16px via `font: inherit`). */
+  font-family: inherit;
+  font-weight: inherit;
+}
+
+.forum-post__share-btn:hover {
+  color: var(--forum-blue);
+}
+
+/* Copied confirmation, on both post and comment share buttons. */
+.forum-post__share-btn--copied,
+.forum-post__share-btn--copied:hover {
+  color: var(--forum-success);
+}
+
+.forum-share-copied {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.0625rem 0.375rem;
+  border-radius: var(--forum-radius);
+  background: var(--forum-success-surface);
+  color: var(--forum-success);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.forum-post-meta__stat--labelled {
+  white-space: nowrap;
+}
+
+.forum-post-meta__stat-label {
+  white-space: nowrap;
+}
+
+.forum-post-meta__actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.forum-post-meta__menu-wrap {
+  position: relative;
+  display: inline-flex;
+  /* Reset the theme's global `details` chrome (border + 1rem margins + bold). */
+  border: 0;
+  margin: 0;
+  font-weight: 400;
+}
+
+.forum-post-meta__menu-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem;
+  border: 0;
+  background: none;
+  color: var(--forum-text-soft);
+  cursor: pointer;
+  border-radius: var(--forum-radius);
+  transition: background 0.15s ease;
+  list-style: none;
+}
+
+.forum-post-meta__menu-toggle::-webkit-details-marker {
+  display: none;
+}
+
+.forum-post-meta__menu {
+  position: absolute;
+  top: calc(100% + 0.25rem);
+  right: 0;
+  z-index: 20;
+  min-width: 9rem;
+  margin: 0;
+  padding: 0.25rem;
+  list-style: none;
+  background: var(--forum-surface);
+  border: 1px solid var(--forum-border);
+  border-radius: var(--forum-radius);
+  box-shadow: var(--forum-shadow);
+}
+
+.forum-post-meta__menu-item {
+  margin: 0;
+}
+
+.forum-post-meta__menu-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.625rem;
+  border-radius: calc(var(--forum-radius) - 0.125rem);
+  color: var(--forum-text);
+  font-size: 0.8125rem;
+  line-height: 1.25rem;
+  text-decoration: none;
+}
+
+.forum-post-meta__menu-link:hover,
+.forum-post-meta__menu-link:focus-visible {
+  background: var(--forum-surface-soft);
+}
+
+.forum-post-meta__menu-link img {
+  flex-shrink: 0;
+  width: 1rem;
+  height: 1rem;
+}
+
+.forum-post-meta__menu-item--bookmark .flag a::before {
+  content: "";
+  flex-shrink: 0;
+  width: 1rem;
+  height: 1rem;
+  background: url(../images/icons/bookmark.svg) no-repeat center / contain;
+}
+
+.forum-post-meta__menu-item--bookmark .flag a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.625rem;
+  border-radius: calc(var(--forum-radius) - 0.125rem);
+  color: var(--forum-text);
+  font-size: 0.8125rem;
+  line-height: 1.25rem;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.forum-post-meta__menu-item--bookmark .flag a:hover,
+.forum-post-meta__menu-item--bookmark .flag a:focus-visible {
+  background: var(--forum-surface-soft);
+}
+
+.forum-post-meta--sm .forum-post-meta__stats {
+  gap: 0.5rem;
+}
+
+.forum-post-meta--sm .forum-post-meta__stat {
+  font-size: 0.6875rem;
+}
+
+.forum-post-meta--sm .forum-post-meta__stat img {
+  width: 1rem;
+  height: 1rem;
+}

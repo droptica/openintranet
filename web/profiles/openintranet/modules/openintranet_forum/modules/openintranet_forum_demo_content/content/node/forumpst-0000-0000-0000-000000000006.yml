@@ -1,0 +1,65 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: forumpst-0000-0000-0000-000000000006
+  bundle: forum_post
+  default_langcode: en
+  depends:
+    forumusr-0000-0000-0000-000000000002: user
+    forumcat-0000-0000-0000-000000000012: taxonomy_term
+    forumtag-0000-0000-0000-000000000004: taxonomy_term
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      entity: forumusr-0000-0000-0000-000000000002
+  title:
+    -
+      value: 'Login fails on Safari 17'
+  created:
+    -
+      value: 1732147200
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  path:
+    -
+      alias: /forum/login-fails-on-safari-17
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: "<p>Since upgrading to Safari 17.1 I can no longer sign in to the intranet — the page just reloads after I submit my credentials and the URL bar flashes the SSO callback for a split second.</p><p>Chrome and Firefox work normally on the same machine. I have already tried clearing cookies and disabling extensions.</p><p>Anyone else seeing this? I will open a ticket but wanted to check here first.</p>"
+      format: full_html
+      summary: ''
+  comment_forum:
+    -
+      status: 2
+      cid: 0
+      last_comment_timestamp: 1732233600
+      last_comment_name: ''
+      last_comment_uid: 0
+      comment_count: 1
+  field_forum_category:
+    -
+      entity: forumcat-0000-0000-0000-000000000012
+  field_forum_tags:
+    -
+      entity: forumtag-0000-0000-0000-000000000004
+  field_forum_reply_count:
+    -
+      value: 1
+  field_forum_share_count:
+    -
+      value: 0
+  field_forum_views:
+    -
+      value: 22

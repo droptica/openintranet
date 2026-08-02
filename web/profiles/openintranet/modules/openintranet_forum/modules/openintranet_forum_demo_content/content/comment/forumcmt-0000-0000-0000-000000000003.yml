@@ -1,0 +1,42 @@
+_meta:
+  version: '1.0'
+  entity_type: comment
+  uuid: forumcmt-0000-0000-0000-000000000003
+  bundle: forum_reply
+  default_langcode: en
+  depends:
+    forumusr-0000-0000-0000-000000000003: user
+    forumpst-0000-0000-0000-000000000002: node
+    forumcmt-0000-0000-0000-000000000002: comment
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      entity: forumusr-0000-0000-0000-000000000003
+  entity_id:
+    -
+      entity: forumpst-0000-0000-0000-000000000002
+  pid:
+    -
+      entity: forumcmt-0000-0000-0000-000000000002
+  subject:
+    -
+      value: 'Re: How do I request time off?'
+  created:
+    -
+      value: 1732882800
+  thread:
+    -
+      value: 01.00/
+  entity_type:
+    -
+      value: node
+  field_name:
+    -
+      value: comment_forum
+  comment_body:
+    -
+      value: "Got it, thanks — the portal link wasn't obvious from the handbook."
+      format: plain_text

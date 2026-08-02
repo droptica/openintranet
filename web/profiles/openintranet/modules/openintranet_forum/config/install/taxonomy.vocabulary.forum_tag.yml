@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+name: 'Forum Tag'
+vid: forum_tag
+description: 'Flexible tags for forum posts (user-created, autocomplete)'
+weight: 0

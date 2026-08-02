@@ -1,0 +1,24 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_forum_views
+    - node.type.forum_post
+id: node.forum_post.field_forum_views
+field_name: field_forum_views
+entity_type: node
+bundle: forum_post
+label: 'View Count'
+description: 'Number of times this post has been viewed'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  min: 0
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

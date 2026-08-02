@@ -1,0 +1,65 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: forumpst-0000-0000-0000-000000000004
+  bundle: forum_post
+  default_langcode: en
+  depends:
+    forumusr-0000-0000-0000-000000000002: user
+    forumcat-0000-0000-0000-000000000007: taxonomy_term
+    forumtag-0000-0000-0000-000000000001: taxonomy_term
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      entity: forumusr-0000-0000-0000-000000000002
+  title:
+    -
+      value: 'Q3 all-hands recap'
+  created:
+    -
+      value: 1730419200
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  path:
+    -
+      alias: /forum/q3-all-hands-recap
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: "<p>For anyone who could not attend the Q3 all-hands live, here is a short recap of the big announcements and the roadmap for next quarter.</p><p>Full recording and slides are on the intranet landing page under Company → Town halls. Drop any follow-up questions below and we will route them to the right owners.</p>"
+      format: full_html
+      summary: ''
+  comment_forum:
+    -
+      status: 2
+      cid: 0
+      last_comment_timestamp: 0
+      last_comment_name: ''
+      last_comment_uid: 0
+      comment_count: 0
+  field_forum_category:
+    -
+      entity: forumcat-0000-0000-0000-000000000007
+  field_forum_tags:
+    -
+      entity: forumtag-0000-0000-0000-000000000001
+  field_forum_reply_count:
+    -
+      value: 0
+  field_forum_share_count:
+    -
+      value: 2
+  field_forum_views:
+    -
+      value: 41

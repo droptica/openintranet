@@ -1,0 +1,149 @@
+{#
+/**
+ * @file
+ * Full forum post page.
+ *
+ * Available variables (set by ForumThemeHooks::preprocessNode()):
+ * - forum_post_icon_base: Path to icon directory.
+ * - forum_post_url: URL to this post.
+ * - forum_post_like_count: Integer like count.
+ * - forum_post_reply_count: Integer reply count.
+ * - forum_post_share_count: Integer share count.
+ * - forum_post_author_name: Author display name.
+ * - forum_post_author_profile_url: URL to author profile.
+ * - forum_post_author_picture: Render array for user picture.
+ * - forum_post_has_author_picture: Boolean.
+ * - forum_post_date: Formatted date string.
+ * - forum_post_datetime_attr: ISO datetime for <time> datetime.
+ * - forum_post_has_image: Boolean.
+ * - forum_post_categories: Array of category link objects.
+ * - forum_post_tags: Array of tag link objects.
+ */
+#}
+{{ attach_library('openintranet_forum/forum.post') }}
+{{ attach_library('openintranet_forum/forum.activity-feed') }}
+{{ attach_library('openintranet_forum/forum.share') }}
+{{ attach_library('openintranet_forum/forum.post-meta') }}
+{{ attach_library('openintranet_forum/forum.gallery') }}
+{{ attach_library('openintranet_forum/forum.reaction-label') }}
+<article{{ attributes.addClass('forum-post', 'forum-post--full') }}>
+  {% block post_media %}
+    {% if forum_post_has_image %}
+      <div class="forum-post__media forum-post__media--full">
+        {{ content.field_forum_image }}
+      </div>
+    {% endif %}
+  {% endblock %}
+
+  {% block post_meta %}
+    <div class="forum-post__meta forum-post__meta--full">
+      <div class="forum-post__meta-left">
+        <div class="forum-post__date-label">
+          <span class="forum-post__date-prefix">{{ 'Added:'|t }}</span>
+          <time class="forum-post__date" datetime="{{ forum_post_datetime_attr }}">{{ forum_post_date }}</time>
+          <span class="forum-post__date-by">{{ 'by'|t }}</span>
+        </div>
+        <div class="forum-post__author">
+          <div class="forum-post__avatar">
+            {% if forum_post_has_author_picture %}
+              {{ forum_post_author_picture }}
+            {% else %}
+              <span class="forum-post__avatar-placeholder" aria-hidden="true"></span>
+            {% endif %}
+          </div>
+          <a href="{{ forum_post_author_profile_url }}" class="forum-post__author-name forum-post__author-name--full">{{ forum_post_author_name }}</a>
+        </div>
+      </div>
+      <div class="forum-post__meta-stats">
+        {{ include('openintranet_forum:post-meta', {
+          nid: node.id(),
+          post_url: forum_post_url,
+          absolute_url: forum_post_absolute_url,
+          icon_base: forum_post_icon_base,
+          like_count: forum_post_like_count,
+          reply_count: forum_post_reply_count,
+          share_count: forum_post_share_count,
+          liked: forum_post_user_liked,
+          show_share: true,
+          size: 'md',
+          labelled: true,
+          actions: forum_post_actions,
+        }) }}
+      </div>
+    </div>
+  {% endblock %}
+
+  {% block post_title %}
+    {{ title_prefix }}
+    <h1 class="forum-post__title forum-post__title--full">{{ label }}</h1>
+    {{ title_suffix }}
+  {% endblock %}
+
+  {% block post_tags %}
+    {% if forum_post_categories or forum_post_tags %}
+      <div class="forum-post__tags">
+        {% for category in forum_post_categories %}
+          <a href="{{ category.url }}" class="forum-post__tag">{{ category.title }}</a>
+        {% endfor %}
+        {% for tag in forum_post_tags %}
+          <a href="{{ tag.url }}" class="forum-post__tag">{{ tag.title }}</a>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endblock %}
+
+  {% block post_body %}
+    <div class="forum-post__body">
+      {{ content.body }}
+    </div>
+  {% endblock %}
+
+  {% block post_gallery %}
+    {% if content.field_forum_gallery|render|trim is not empty %}
+      <h2 class="forum-post__gallery-label">{{ 'Gallery'|t }}</h2>
+      {{ content.field_forum_gallery }}
+    {% endif %}
+  {% endblock %}
+
+  <div class="modal fade forum-gallery-modal" id="forumGalleryModal" tabindex="-1" role="dialog"
+       aria-label="{{ 'Gallery'|t }}">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+      <div class="modal-content forum-gallery-modal__content">
+        <button type="button" class="forum-gallery-modal__close btn-close btn-close-white"
+                data-bs-dismiss="modal"
+                aria-label="{{ 'Close gallery'|t }}"></button>
+        <div class="forum-gallery-modal__body">
+          <button type="button" class="forum-gallery-modal__nav forum-gallery-modal__nav--prev js-gallery-prev"
+                  aria-label="{{ 'Previous image'|t }}">&#8249;</button>
+          <img class="forum-gallery-modal__img js-gallery-img" src="" alt="">
+          <button type="button" class="forum-gallery-modal__nav forum-gallery-modal__nav--next js-gallery-next"
+                  aria-label="{{ 'Next image'|t }}">&#8250;</button>
+        </div>
+        <div class="forum-gallery-modal__counter js-gallery-counter" aria-live="polite"></div>
+      </div>
+    </div>
+  </div>
+
+  {% block post_article_footer %}
+    <div class="forum-post__article-footer">
+      <hr class="forum-post__article-divider">
+      <div class="forum-post__article-footer-row">
+        {{ content.field_forum_post_reaction }}
+        <div class="forum-post__article-stats">
+          <span class="forum-post__stat{% if forum_post_user_liked %} forum-post__stat--liked{% endif %}">
+            <img src="{{ forum_post_icon_base }}/thumbs-up.svg" width="18" height="18" alt="" loading="lazy">
+            <span class="forum-post__like-count">{{ forum_post_like_count }}</span>
+          </span>
+          <button type="button" class="forum-post__stat forum-post__share-btn js-forum-share" data-nid="{{ node.id() }}" data-url="{{ forum_post_absolute_url }}" aria-label="{{ 'Share this post'|t }}">
+            <img src="{{ forum_post_icon_base }}/share-nodes.svg" width="16" height="16" alt="" loading="lazy">
+            <span class="forum-post__share-count">{{ forum_post_share_count }}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  {% endblock %}
+
+  {% block post_comments %}
+    {{ content.comment_forum }}
+  {% endblock %}
+</article>

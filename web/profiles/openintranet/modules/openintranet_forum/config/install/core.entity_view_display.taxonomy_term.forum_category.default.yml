@@ -1,0 +1,29 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.forum_category.field_category_icon
+    - taxonomy.vocabulary.forum_category
+  module:
+    - iconify_field
+    - text
+id: taxonomy_term.forum_category.default
+targetEntityType: taxonomy_term
+bundle: forum_category
+mode: default
+content:
+  description:
+    type: text_default
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+    label: hidden
+  field_category_icon:
+    type: iconify_field_icon_formatter
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+    label: hidden
+hidden: {  }
