@@ -1,0 +1,106 @@
+@import "../mixins/text";
+
+// /notifications inbox list skin (avatar + actor + subject + time rows).
+.notifications-inbox {
+  max-width: 720px;
+  margin-inline: auto;
+
+  &__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__item {
+    border-bottom: 1px solid $navy-gray-40;
+
+    &:last-child {
+      border-bottom: 0;
+    }
+  }
+
+  &__link {
+    display: flex;
+    align-items: flex-start;
+    gap: .75rem;
+    padding: .875rem 1rem;
+    color: $body-color;
+    text-decoration: none;
+
+    &:hover {
+      background: $navy-gray-25;
+      text-decoration: none;
+    }
+  }
+
+  &__avatar {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    aspect-ratio: 1;
+
+    &--empty {
+      background: $navy-gray-50;
+    }
+  }
+
+  // Actor + subject, clamped to two lines (fixed-height rows, ellipsis overflow).
+  &__text {
+    @include body-400;
+
+    flex: 1;
+    min-width: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  &__actor {
+    font-weight: 600;
+  }
+
+  &__time {
+    flex-shrink: 0;
+    margin-left: .75rem;
+    font-size: .75rem;
+    color: $dark-navy-600;
+    white-space: nowrap;
+  }
+
+  &__item--unread {
+    position: relative;
+    background: $blue-50;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: .4375rem;
+      width: .5rem;
+      height: .5rem;
+      transform: translateY(-50%);
+      border-radius: 50%;
+      background: $blue-600;
+    }
+
+    .notifications-inbox__link {
+      padding-left: 1.5rem;
+    }
+  }
+
+  &__empty {
+    @include body-400;
+
+    padding: 1.5rem 1rem;
+    color: $dark-navy-600;
+    text-align: center;
+  }
+
+  // Theme already skins .pager.
+  .pager {
+    margin-top: 1rem;
+  }
+}

@@ -1,0 +1,17 @@
+#!/bin/bash
+## Description: Run PHPUnit (kernel/unit) for custom code on in-memory SQLite
+## Usage: phpunit [path ...]
+## Example: "ddev phpunit web/profiles/openintranet/modules/openintranet_notifications/tests"
+cd /var/www/html || exit 1
+
+export SIMPLETEST_DB="sqlite://localhost/:memory:"
+export SIMPLETEST_BASE_URL="https://openintranet-1780650162.ddev.site"
+export BROWSERTEST_OUTPUT_DIRECTORY="/var/www/html/web/sites/simpletest/browser_output"
+export SYMFONY_DEPRECATIONS_HELPER="disabled"
+mkdir -p "$BROWSERTEST_OUTPUT_DIRECTORY"
+
+if [ "$#" -gt 0 ]; then
+  php -d memory_limit=-1 vendor/bin/phpunit -c web/core/phpunit.xml.dist "$@"
+else
+  php -d memory_limit=-1 vendor/bin/phpunit -c web/core/phpunit.xml.dist web/profiles/openintranet/modules/openintranet_notifications/tests
+fi

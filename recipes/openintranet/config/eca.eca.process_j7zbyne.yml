@@ -6,32 +6,25 @@ dependencies:
     - field.field.node.article.field_notify_all_users_about_new
     - field.storage.node.field_notify_all_users_about_new
     - node.type.article
-    - views.view.user_admin_people
   module:
-    - eca_base
     - eca_content
-    - eca_views
     - modeler_api
+    - openintranet_notifications
+# Blob-free, hand-authored model: ECA executes from the arrays below. The
+# modeler_api stanza carries only label/version with storage:none (no "data"
+# hash) so it cannot desync in BPMN.iO.
 third_party_settings:
   modeler_api:
     modeler_id: bpmn_io
-    data: 'hash:5277e031e640f7a7819f434040097cd3'
+    storage: none
     label: 'Notify users about new article'
     version: '1.0'
 _core:
   default_config_hash: fI66L1ewwMtFRj5tlqNmMs7YdkPqHaRBHKzPHah16FA
 id: process_j7zbyne
 weight: 0
+template: false
 events:
-  content_entity__custom_1:
-    plugin: 'content_entity:custom'
-    label: 'ECA custom event (entity-aware)'
-    configuration:
-      event_id: users_notify
-    successors:
-      -
-        id: action_send_email_action_0doakyp
-        condition: ''
   content_entity__insert_1:
     plugin: 'content_entity:insert'
     label: 'Insert content entity'
@@ -75,29 +68,6 @@ conditions:
       entity: ''
 gateways: {  }
 actions:
-  action_send_email_action_0doakyp:
-    label: 'Send email'
-    plugin: action_send_email_action
-    configuration:
-      recipient: '[entity:mail]'
-      subject: '[Open Intranet] [node:content-type:name]: [node:title]'
-      message: |-
-        Wello [entity:name],
-
-        New content has been published on Open Intranet:
-
-        Type: [node:content-type:name]
-        Title: [node:title]
-        Author: [node:author]
-        Published: [node:changed]
-
-        Read full content: [node:url]
-
-        ---
-        Best regards,
-        Droptica - Open Intranet System
-      replace_tokens: true
-    successors: {  }
   eca_set_field_value_1cbwxlg:
     label: 'Entity: set field value'
     plugin: eca_set_field_value
@@ -111,37 +81,18 @@ actions:
       object: ''
     successors:
       -
-        id: eca_views_query_0yxy1zc
+        id: action_notify_article_audience
         condition: ''
-  eca_views_query_0yxy1zc:
-    label: 'Views: Execute query'
-    plugin: eca_views_query
+  # The article node is the event object, passed to the dispatcher as
+  # entity/source_entity automatically. Empty recipients let the new_article
+  # type's view_result_users resolver produce the audience; the dispatcher fans
+  # out one notification per recipient, replacing the old per-user custom-event
+  # loop and the action_send_email_action node.
+  action_notify_article_audience:
+    label: 'Notify the article audience'
+    plugin: openintranet_notifications_create_and_enqueue
     configuration:
-      token_name: users
-      view_id: user_admin_people
-      display_id: attachment_1
-      arguments: ''
-    successors:
-      -
-        id: eca_token_set_value_1dbspy2
-        condition: ''
-  eca_trigger_content_entity_custom_event_0zpdk6r:
-    label: 'Trigger a custom event (entity-aware)'
-    plugin: eca_trigger_content_entity_custom_event
-    configuration:
-      event_id: users_notify
-      tokens: node
-      object: users
+      notification_type: new_article
+      recipients: ''
+      context: {  }
     successors: {  }
-  eca_token_set_value_1dbspy2:
-    label: 'Token: set value'
-    plugin: eca_token_set_value
-    configuration:
-      token_name: node
-      token_value: '[entity]'
-      use_yaml: false
-      validate_yaml: false
-    successors:
-      -
-        id: eca_trigger_content_entity_custom_event_0zpdk6r
-        condition: ''

@@ -1,0 +1,11 @@
+entity.openintranet_notification_type.add_form:
+  route_name: entity.openintranet_notification_type.add_form
+  title: 'Add notification type'
+  appears_on:
+    - entity.openintranet_notification_type.collection
+
+openintranet_notifications.delivery_bulk:
+  route_name: openintranet_notifications.delivery_bulk
+  title: 'Bulk operations'
+  appears_on:
+    - entity.openintranet_notif_delivery.collection

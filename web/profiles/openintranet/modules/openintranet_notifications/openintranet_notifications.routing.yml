@@ -1,0 +1,68 @@
+openintranet_notifications.channel_status:
+  path: '/admin/config/openintranet/notifications/channels'
+  defaults:
+    _controller: '\Drupal\openintranet_notifications\Controller\ChannelStatusController::overview'
+    _title: 'Notification channels'
+  requirements:
+    _permission: 'administer notification channels'
+
+openintranet_notifications.delivery_bulk:
+  path: '/admin/openintranet/notifications/deliveries/bulk'
+  defaults:
+    _form: '\Drupal\openintranet_notifications\Form\DeliveryBulkOperationsForm'
+    _title: 'Bulk delivery operations'
+  requirements:
+    _permission: 'retry notification deliveries'
+
+openintranet_notifications.test:
+  path: '/admin/config/openintranet/notifications/test'
+  defaults:
+    _form: '\Drupal\openintranet_notifications\Form\NotificationTestForm'
+    _title: 'Test notification'
+  requirements:
+    _permission: 'administer notification types'
+
+openintranet_notifications.settings:
+  path: '/admin/config/openintranet/notifications'
+  defaults:
+    _form: '\Drupal\openintranet_notifications\Form\NotificationSettingsForm'
+    _title: 'Notification settings'
+  requirements:
+    _permission: 'administer notification channels'
+
+openintranet_notifications.inbox:
+  path: '/notifications'
+  defaults:
+    _controller: '\Drupal\openintranet_notifications\Controller\NotificationInboxController::inbox'
+    _title: 'Notifications'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+
+# Defined statically so it pre-empts the AdminHtmlRouteProvider-generated
+# canonical route (EntityRouteProviderSubscriber never overrides an existing
+# route name): this user-facing view marks the notification read, unlike the
+# provider's default entity view. Access is the entity handler's own 'view'
+# op (owner-or-"view notification logs"), so the rule lives in one place.
+entity.openintranet_notification.canonical:
+  path: '/notifications/{openintranet_notification}'
+  defaults:
+    _controller: '\Drupal\openintranet_notifications\Controller\NotificationInboxController::view'
+    _title: 'Notification'
+  requirements:
+    _entity_access: 'openintranet_notification.view'
+  options:
+    parameters:
+      openintranet_notification:
+        type: 'entity:openintranet_notification'
+
+openintranet_notifications.user_preferences:
+  path: '/user/{user}/notifications'
+  defaults:
+    _form: '\Drupal\openintranet_notifications\Form\UserNotificationPreferencesForm'
+    _title: 'Notification preferences'
+  requirements:
+    _custom_access: '\Drupal\openintranet_notifications\Access\NotificationPreferencesAccess::access'
+  options:
+    parameters:
+      user:
+        type: 'entity:user'

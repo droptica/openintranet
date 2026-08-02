@@ -9,9 +9,13 @@
 ]
 %}
 
-<a href="/pages/notifications" {{ attributes.addClass(classes) }}>
-  <i class="icon--notification"></i>
-  <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle">
-  <span class="visually-hidden">New alerts</span>
-</span>
-</a>
+<div {{ attributes.addClass(classes) }}>
+  {% if content %}
+    {{ content }}
+  {% else %}
+    <a href="/notifications">
+      <i class="icon--notification" aria-hidden="true"></i>
+      <span class="visually-hidden">{{ 'Notifications'|t }}</span>
+    </a>
+  {% endif %}
+</div>

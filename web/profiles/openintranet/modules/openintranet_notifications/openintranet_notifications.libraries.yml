@@ -1,0 +1,10 @@
+notification_bell:
+  version: VERSION
+  css:
+    component:
+      css/notification-bell.css: {}
+  js:
+    js/notification-bell.js: {}
+  dependencies:
+    - core/drupal
+    - core/once

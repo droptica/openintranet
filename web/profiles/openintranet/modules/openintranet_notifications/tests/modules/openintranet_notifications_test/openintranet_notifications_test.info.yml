@@ -1,0 +1,8 @@
+name: 'Open Intranet Notifications test'
+type: module
+description: 'Test-only channels and helpers for openintranet_notifications kernel tests.'
+package: 'Testing'
+core_version_requirement: ^11
+hidden: true
+dependencies:
+  - openintranet_notifications:openintranet_notifications

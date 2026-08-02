@@ -1,0 +1,25 @@
+<?php
+
+/**
+ * @file
+ * Test-only hooks for openintranet_notifications kernel tests.
+ */
+
+declare(strict_types=1);
+
+use Drupal\openintranet_notifications\Entity\NotificationInterface;
+
+/**
+ * Implements hook_ENTITY_TYPE_presave() for openintranet_notification.
+ *
+ * Records every status a notification passes through into state so a test can
+ * assert a transient status (e.g. 'resolving') was reachable, not only the
+ * final persisted one.
+ */
+function openintranet_notifications_test_openintranet_notification_presave(NotificationInterface $entity): void {
+  $key = 'openintranet_notifications_test.observed_statuses';
+  $state = \Drupal::state();
+  $seen = $state->get($key, []);
+  $seen[] = (string) $entity->get('status')->value;
+  $state->set($key, $seen);
+}

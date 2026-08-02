@@ -1,0 +1,23 @@
+// Preference matrix: clear on/off switch contrast (the theme primary is a pale
+// blue, so the default Bootstrap on/off states barely differ).
+.notifications-preferences {
+  .form-switch .form-check-input {
+    background-color: $navy-gray-50;
+    // !important beats the theme's broad `form :not(.is-invalid)` border rule.
+    border-color: $navy-gray-300 !important;
+
+    &:checked {
+      background-color: $blue-600;
+      border-color: $blue-600 !important;
+    }
+
+    &:focus {
+      border-color: $blue-400 !important;
+      box-shadow: 0 0 0 .2rem rgba($blue-600, .25);
+    }
+
+    &:disabled {
+      opacity: .6;
+    }
+  }
+}

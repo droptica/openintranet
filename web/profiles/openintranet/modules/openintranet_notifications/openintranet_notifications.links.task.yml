@@ -1,0 +1,4 @@
+openintranet_notifications.user_preferences:
+  title: 'Notifications'
+  route_name: openintranet_notifications.user_preferences
+  base_route: entity.user.canonical

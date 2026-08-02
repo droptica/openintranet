@@ -1,0 +1,8 @@
+name: 'Open Intranet Notifications: Push Framework'
+type: module
+description: 'Adds a push notification channel that delegates to Push Framework''s registered channel plugins.'
+package: 'Open Intranet'
+core_version_requirement: ^11
+dependencies:
+  - openintranet_notifications
+  - push_framework:push_framework
