@@ -53,6 +53,10 @@ final class NotificationStorageSchemaTest extends KernelTestBase {
     ));
     self::assertTrue($schema->indexExists(
       'openintranet_notification',
+      'openintranet_notification__uid_read_at',
+    ));
+    self::assertTrue($schema->indexExists(
+      'openintranet_notification',
       'openintranet_notification__status_created',
     ));
     self::assertTrue($schema->indexExists(

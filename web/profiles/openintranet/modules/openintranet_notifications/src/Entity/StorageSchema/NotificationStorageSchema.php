@@ -27,6 +27,10 @@ final class NotificationStorageSchema extends SqlContentEntityStorageSchema {
         'uid',
         'created',
       ],
+      $this->getEntityIndexName($entity_type, 'uid_read_at') => [
+        'uid',
+        'read_at',
+      ],
       $this->getEntityIndexName($entity_type, 'status_created') => [
         'status',
         'created',

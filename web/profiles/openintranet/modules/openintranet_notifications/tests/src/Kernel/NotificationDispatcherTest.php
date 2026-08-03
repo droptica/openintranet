@@ -324,7 +324,7 @@ final class NotificationDispatcherTest extends KernelTestBase {
   }
 
   /**
-   * A digest_only dispatch persists, is not cancelled, fires CREATED, digests.
+   * A digest dispatch persists, retains dedupe, fires CREATED, and digests.
    *
    * The digest_only policy legitimately selects no immediate channel; the empty
    * set is the policy's INTENDED outcome, so the notification must persist
@@ -344,7 +344,7 @@ final class NotificationDispatcherTest extends KernelTestBase {
       'id' => 'digest',
       'label' => 'Digest',
       'delivery_policy' => 'digest_only',
-      'dedupe_window' => 0,
+      'dedupe_window' => 600,
     ])->save();
 
     $n = $this->factory->create('digest', ['uid' => 42, 'subject' => 'Hi', 'body' => 'B']);
@@ -355,6 +355,12 @@ final class NotificationDispatcherTest extends KernelTestBase {
     self::assertCount(0, $this->loadDeliveriesFor((int) $n->id()));
     self::assertSame(1, $created);
 
+    // An accepted digest has no queue rows, but still owns its dedupe claim.
+    $duplicate = $this->factory->create('digest', ['uid' => 42, 'subject' => 'Hi', 'body' => 'B']);
+    $this->dispatcher->enqueue($duplicate);
+    self::assertTrue($duplicate->isNew());
+    self::assertCount(1, $this->loadAllNotifications());
+
     // The DigestBuilder still finds it (not digested, not cancelled-out).
     $dispatched = $this->container->get('openintranet_notifications.digest_builder')->buildAndDispatch();
     self::assertSame(1, $dispatched);
@@ -362,7 +368,7 @@ final class NotificationDispatcherTest extends KernelTestBase {
   }
 
   /**
-   * A silent_audit_only dispatch persists, is not cancelled and fires CREATED.
+   * A silent audit persists, retains dedupe, and fires CREATED.
    *
    * The silent_audit_only policy records an audit entry with no channel; it is
    * not a cancellation. The notification persists, the CREATED event fires,
@@ -382,7 +388,7 @@ final class NotificationDispatcherTest extends KernelTestBase {
       'id' => 'audit',
       'label' => 'Audit',
       'delivery_policy' => 'silent_audit_only',
-      'dedupe_window' => 0,
+      'dedupe_window' => 600,
     ])->save();
 
     $n = $this->factory->create('audit', ['uid' => 42, 'subject' => 'Hi', 'body' => 'B']);
@@ -392,6 +398,12 @@ final class NotificationDispatcherTest extends KernelTestBase {
     self::assertSame('delivered', $this->reload((int) $n->id())->get('status')->value);
     self::assertCount(0, $this->loadDeliveriesFor((int) $n->id()));
     self::assertSame(1, $created);
+
+    // Audit-only acceptance also retains the claim without queue rows.
+    $duplicate = $this->factory->create('audit', ['uid' => 42, 'subject' => 'Hi', 'body' => 'B']);
+    $this->dispatcher->enqueue($duplicate);
+    self::assertTrue($duplicate->isNew());
+    self::assertCount(1, $this->loadAllNotifications());
   }
 
   /**

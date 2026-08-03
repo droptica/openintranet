@@ -88,10 +88,10 @@ final class NotificationDispatcher {
       $dedupeClaimed = TRUE;
     }
 
-    // Retain the dedupe claim only after deliveries were successfully
-    // enqueued. Every abandon/cancel/exception path before that releases it so
-    // a later legitimate dispatch is not suppressed.
-    $enqueued = FALSE;
+    // Retain the dedupe claim once the policy accepts the notification. A
+    // policy may intentionally create no immediate deliveries (digest/audit),
+    // so acceptance cannot be inferred solely from queue rows.
+    $accepted = FALSE;
     try {
       // Per-(user, type) rate limit on the reserved ALL_CHANNELS sentinel: this
       // counts notifications per (uid, type) regardless of channel, a SEPARATE
@@ -143,14 +143,20 @@ final class NotificationDispatcher {
         // Intentional empty set: persist and fire CREATED. Defer (digest_only)
         // stays 'queued' so the DigestBuilder picks it up (digested IS NULL);
         // Audit (silent_audit_only) reaches terminal 'delivered' (recorded,
-        // nothing to send). These paths did not enqueue, so finally releases
-        // the provisional dedupe claim.
+        // nothing to send). Both outcomes are accepted notifications and must
+        // retain their dedupe claims even though they enqueue no deliveries.
         $n->set('status', $disposition === EmptySelectionDisposition::Audit ? 'delivered' : 'queued');
         $n->save();
+        $accepted = TRUE;
         $this->eventDispatcher->dispatch(new NotificationCreatedEvent($n), NotificationEvents::CREATED);
         return;
       }
 
+      // A non-empty channel selection accepts the notification before delivery
+      // materialization. Retain dedupe even if an event listener or queue
+      // backend fails after this point, because the notification already
+      // exists and partial delivery rows may have been created.
+      $accepted = TRUE;
       $this->eventDispatcher->dispatch(new NotificationCreatedEvent($n), NotificationEvents::CREATED);
 
       // Timed escalation (00-synteza §3.2): the policy may hold an escalation
@@ -158,7 +164,6 @@ final class NotificationDispatcher {
       // next_attempt so the worker staggers it. Immediate channels send now.
       $delays = $policy->channelDelays($type, $recipient, $context);
       $this->deliveryQueue->createAndEnqueue($n, $recipient, $channels, $delays);
-      $enqueued = TRUE;
 
       // Per-(user, channel, type) usage tick for §8's per-channel dimension:
       // one per channel actually delivered on, so below_rate_limit reflects
@@ -174,7 +179,7 @@ final class NotificationDispatcher {
       $this->eventDispatcher->dispatch(new NotificationQueuedEvent($n), NotificationEvents::QUEUED);
     }
     finally {
-      if ($dedupeClaimed && !$enqueued) {
+      if ($dedupeClaimed && !$accepted) {
         $this->deduplicator->release($dedupeKey);
       }
     }
