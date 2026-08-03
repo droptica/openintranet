@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace Drupal\openintranet_notifications\Service;
 
 use Drupal\Component\Datetime\TimeInterface;
+use Drupal\Component\Utility\Crypt;
 use Drupal\Core\KeyValueStore\KeyValueExpirableFactoryInterface;
 use Drupal\Core\KeyValueStore\KeyValueStoreExpirableInterface;
+use Drupal\Core\Lock\LockBackendInterface;
 
 /**
  * Notification-level deduplicator.
@@ -22,9 +24,22 @@ final class Deduplicator {
    */
   private const COLLECTION = 'openintranet_notifications.dedupe';
 
+  /**
+   * Prefix for locks serializing a dedupe claim.
+   */
+  private const LOCK_PREFIX = 'openintranet_notifications.dedupe.';
+
+  /**
+   * Claim tokens owned by this service instance, keyed by dedupe key.
+   *
+   * @var array<string, string>
+   */
+  private array $ownedClaims = [];
+
   public function __construct(
     private readonly KeyValueExpirableFactoryInterface $keyValueExpirableFactory,
     private readonly TimeInterface $time,
+    private readonly LockBackendInterface $lock,
   ) {}
 
   /**
@@ -60,6 +75,78 @@ final class Deduplicator {
   }
 
   /**
+   * Claims a dedupe key if no unexpired claim exists.
+   *
+   * The database expirable key-value backend implements
+   * setWithExpireIfNotExists() as a separate has()/set() pair. Serialize that
+   * check and write with Drupal's lock backend so overlapping requests cannot
+   * both win the same key.
+   *
+   * @param string $key
+   *   The dedupe key.
+   * @param int $windowSec
+   *   The time-to-live in seconds for the claim.
+   *
+   * @return bool
+   *   TRUE when this request claimed the key, FALSE when it was already
+   *   claimed or the claim lock could not be acquired.
+   */
+  public function claim(string $key, int $windowSec): bool {
+    $lockName = self::LOCK_PREFIX . $key;
+    if (!$this->acquireLock($lockName)) {
+      return FALSE;
+    }
+
+    try {
+      $store = $this->store();
+      if ($store->has($key)) {
+        return FALSE;
+      }
+
+      $token = Crypt::randomBytesBase64();
+      $store->setWithExpire($key, $token, $windowSec);
+      $this->ownedClaims[$key] = $token;
+      return TRUE;
+    }
+    finally {
+      $this->lock->release($lockName);
+    }
+  }
+
+  /**
+   * Releases a claim made by this service instance.
+   *
+   * The stored ownership token prevents a delayed abandon path from deleting a
+   * newer request's claim after the original claim has expired.
+   *
+   * @param string $key
+   *   The dedupe key to release.
+   */
+  public function release(string $key): void {
+    if (!isset($this->ownedClaims[$key])) {
+      return;
+    }
+
+    $lockName = self::LOCK_PREFIX . $key;
+    if (!$this->acquireLock($lockName)) {
+      return;
+    }
+
+    try {
+      $token = $this->ownedClaims[$key];
+      $store = $this->store();
+      $storedToken = $store->get($key);
+      if (is_string($storedToken) && hash_equals($token, $storedToken)) {
+        $store->delete($key);
+      }
+      unset($this->ownedClaims[$key]);
+    }
+    finally {
+      $this->lock->release($lockName);
+    }
+  }
+
+  /**
    * Records a notification key so later identical sends are suppressed.
    *
    * @param string $key
@@ -69,6 +156,18 @@ final class Deduplicator {
    */
   public function record(string $key, int $windowSec): void {
     $this->store()->setWithExpire($key, $this->time->getRequestTime(), $windowSec);
+  }
+
+  /**
+   * Acquires a short-lived claim lock, waiting once for a competing claimant.
+   */
+  private function acquireLock(string $lockName): bool {
+    if ($this->lock->acquire($lockName)) {
+      return TRUE;
+    }
+
+    $this->lock->wait($lockName, 1);
+    return $this->lock->acquire($lockName);
   }
 
   /**

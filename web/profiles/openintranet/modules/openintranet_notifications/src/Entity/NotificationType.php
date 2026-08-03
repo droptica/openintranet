@@ -29,7 +29,7 @@ use Drupal\openintranet_notifications\Form\NotificationTypeForm;
   entity_keys: [
     'id' => 'id',
     'label' => 'label',
-    'status' => 'enabled',
+    'status' => 'status',
   ],
   admin_permission: 'administer notification types',
   handlers: [
@@ -73,7 +73,7 @@ use Drupal\openintranet_notifications\Form\NotificationTypeForm;
     'rate_limit_window',
     'user_can_override',
     'audit_retention_days',
-    'enabled',
+    'status',
   ],
 )]
 final class NotificationType extends ConfigEntityBase implements NotificationTypeInterface {
@@ -185,11 +185,6 @@ final class NotificationType extends ConfigEntityBase implements NotificationTyp
    * How many days delivery audit records are retained.
    */
   protected int $audit_retention_days = 0;
-
-  /**
-   * Whether this notification type is enabled.
-   */
-  protected bool $enabled = TRUE;
 
   /**
    * {@inheritdoc}
@@ -308,13 +303,6 @@ final class NotificationType extends ConfigEntityBase implements NotificationTyp
    */
   public function getAuditRetentionDays(): int {
     return $this->audit_retention_days;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function isEnabled(): bool {
-    return $this->enabled;
   }
 
 }

@@ -4,6 +4,7 @@ enabled_channels:
   - log_only
 enabled_types:
   - default
+  - new_comment
 # Per-type channel defaults a user starts with (overridable in the matrix). Every
 # shipped type needs a row here or a default user (with no saved preference) has
 # no preferred channel and the user_preferences policy selects nothing — so an

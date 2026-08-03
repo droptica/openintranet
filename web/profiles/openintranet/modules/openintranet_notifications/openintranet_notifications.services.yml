@@ -30,6 +30,7 @@ services:
     arguments:
       - '@keyvalue.expirable'
       - '@datetime.time'
+      - '@lock'
 
   openintranet_notifications.rate_limiter:
     class: Drupal\openintranet_notifications\Service\RateLimiter

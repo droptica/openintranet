@@ -8,6 +8,7 @@ use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\KeyValueStore\KeyValueExpirableFactoryInterface;
 use Drupal\openintranet_notifications\Channel\ChannelPluginManager;
+use Drupal\openintranet_notifications\Dto\DeliveryResult;
 use Drupal\openintranet_notifications\Dto\NotificationMessage;
 use Drupal\openintranet_notifications\Dto\NotificationRecipient;
 use Drupal\openintranet_notifications\Entity\NotificationDeliveryInterface;
@@ -62,6 +63,11 @@ final class DeliverySender {
    * The key-value collection holding in-flight send claims.
    */
   private const CLAIM_COLLECTION = 'openintranet_notifications.delivery_claim';
+
+  /**
+   * Error code used when channel preparation or sending throws.
+   */
+  private const UNEXPECTED_CHANNEL_ERROR = 'E_CHANNEL_THROWABLE';
 
   public function __construct(
     private readonly EntityTypeManagerInterface $entityTypeManager,
@@ -123,15 +129,29 @@ final class DeliverySender {
     $delivery->set('status', 'processing');
     $delivery->save();
 
-    $recipient = $this->buildRecipient($delivery);
-    $notification = $this->loadNotification($delivery);
-    if ($notification === NULL) {
-      // Notification deleted (retention/admin) since queueing; skip the orphan.
-      return $this->skip($delivery);
+    $notification = NULL;
+    try {
+      $recipient = $this->buildRecipient($delivery);
+      $notification = $this->loadNotification($delivery);
+      if ($notification === NULL) {
+        // Notification deleted since queueing; skip the orphan.
+        return $this->skip($delivery);
+      }
+      $message = $this->buildMessage($notification, $channelId, $recipient);
+      $result = $channel->send($recipient, $message);
     }
-    $message = $this->buildMessage($notification, $channelId, $recipient);
+    catch (\Throwable $throwable) {
+      // Rendering and channel integrations are extension points and may throw
+      // Errors as well as Exceptions. Classify either as retryable so the
+      // normal attempt accounting, backoff, audit and lifecycle events run,
+      // and the row never remains stranded in 'processing'.
+      $errorMessage = $throwable->getMessage();
+      $result = DeliveryResult::retryableFailure(
+        self::UNEXPECTED_CHANNEL_ERROR,
+        mb_substr($errorMessage !== '' ? $errorMessage : $throwable::class, 0, 255),
+      );
+    }
 
-    $result = $channel->send($recipient, $message);
     $attemptCount = (int) $delivery->get('attempt_count')->value + 1;
     $delivery->set('attempt_count', $attemptCount);
 

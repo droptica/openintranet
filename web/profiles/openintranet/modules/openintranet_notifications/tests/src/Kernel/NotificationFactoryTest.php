@@ -129,6 +129,16 @@ final class NotificationFactoryTest extends KernelTestBase {
   }
 
   /**
+   * An unknown type raises a catchable domain input exception.
+   */
+  public function testCreateRejectsUnknownType(): void {
+    $this->expectException(\InvalidArgumentException::class);
+    $this->expectExceptionMessage('Notification type "missing" does not exist.');
+
+    $this->factory->create('missing', ['uid' => 1]);
+  }
+
+  /**
    * With no explicit subject/body, the type's templates are rendered.
    *
    * The source node is exposed under its entity-type key ([node:title]) so the

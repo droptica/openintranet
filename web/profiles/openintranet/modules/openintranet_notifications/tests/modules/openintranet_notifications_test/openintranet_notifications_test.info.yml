@@ -5,4 +5,4 @@ package: 'Testing'
 core_version_requirement: ^11
 hidden: true
 dependencies:
-  - openintranet_notifications:openintranet_notifications
+  - openintranet_notifications

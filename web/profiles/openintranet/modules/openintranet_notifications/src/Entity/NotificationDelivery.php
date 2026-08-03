@@ -13,6 +13,7 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\openintranet_notifications\Dto\DeliveryResult;
 use Drupal\openintranet_notifications\Entity\Handler\NotificationDeliveryAccessControlHandler;
 use Drupal\openintranet_notifications\Entity\Handler\NotificationDeliveryListBuilder;
+use Drupal\openintranet_notifications\Entity\StorageSchema\NotificationDeliveryStorageSchema;
 use Drupal\views\EntityViewsData;
 
 /**
@@ -37,6 +38,7 @@ use Drupal\views\EntityViewsData;
   handlers: [
     'access' => NotificationDeliveryAccessControlHandler::class,
     'list_builder' => NotificationDeliveryListBuilder::class,
+    'storage_schema' => NotificationDeliveryStorageSchema::class,
     'route_provider' => [
       'html' => AdminHtmlRouteProvider::class,
     ],

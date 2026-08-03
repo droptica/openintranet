@@ -208,6 +208,42 @@ final class NotificationDeliveryWorkerTest extends KernelTestBase {
   }
 
   /**
+   * A Throwable from a channel follows the normal retryable-failure path.
+   */
+  public function testThrowingChannelSchedulesRetryAndDoesNotRemainProcessing(): void {
+    $failed = 0;
+    $permanently = 0;
+    $dispatcher = $this->container->get('event_dispatcher');
+    $dispatcher->addListener(NotificationEvents::FAILED, function () use (&$failed): void {
+      $failed++;
+    });
+    $dispatcher->addListener(NotificationEvents::PERMANENTLY_FAILED, function () use (&$permanently): void {
+      $permanently++;
+    });
+
+    $delivery = $this->createDelivery(['channel' => 'throwing', 'status' => 'pending']);
+    $requestTime = \Drupal::time()->getRequestTime();
+
+    $thrown = NULL;
+    try {
+      $this->worker->processItem(['delivery_id' => $delivery->id()]);
+    }
+    catch (DelayedRequeueException $e) {
+      $thrown = $e;
+    }
+
+    self::assertInstanceOf(DelayedRequeueException::class, $thrown);
+    self::assertSame(self::FIRST_BACKOFF, $thrown->getDelay());
+
+    $reloaded = $this->reload($delivery);
+    self::assertSame('pending', $reloaded->get('status')->value);
+    self::assertSame(1, (int) $reloaded->get('attempt_count')->value);
+    self::assertSame($requestTime + self::FIRST_BACKOFF, (int) $reloaded->get('next_attempt')->value);
+    self::assertSame(1, $failed);
+    self::assertSame(0, $permanently);
+  }
+
+  /**
    * An early-defer (next_attempt in the future) delays without sending.
    *
    * FIX #16: the worker throws DelayedRequeueException and the channel is never

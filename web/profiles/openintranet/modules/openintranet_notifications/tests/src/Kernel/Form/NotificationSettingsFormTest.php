@@ -105,7 +105,7 @@ final class NotificationSettingsFormTest extends KernelTestBase {
       ['inbox', 'email_core', 'log_only'],
       array_values($form['enabled_channels']['#default_value']),
     );
-    self::assertSame(['default'], array_values($form['enabled_types']['#default_value']));
+    self::assertSame(['default', 'new_comment'], array_values($form['enabled_types']['#default_value']));
     self::assertSame(90, $form['retention_default_days']['#default_value']);
   }
 

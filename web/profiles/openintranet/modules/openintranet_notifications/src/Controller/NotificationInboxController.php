@@ -6,7 +6,7 @@ namespace Drupal\openintranet_notifications\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Datetime\DateFormatterInterface;
-use Drupal\Core\Routing\TrustedRedirectResponse;
+use Drupal\Core\Routing\LocalRedirectResponse;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\openintranet_notifications\Entity\NotificationInterface;
 use Drupal\openintranet_notifications\Event\NotificationEvents;
@@ -116,8 +116,8 @@ final class NotificationInboxController extends ControllerBase {
    *   The notification (upcast route parameter).
    *
    * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
-   *   A redirect to the notification's target URL when set, otherwise a render
-   *   array showing the subject and body.
+   *   A redirect to a safe local target when set, an inbox redirect for a
+   *   disallowed external target, or a render array showing the notification.
    */
   public function view(NotificationInterface $openintranet_notification): array|RedirectResponse {
     if (!$openintranet_notification->isRead()) {
@@ -127,9 +127,15 @@ final class NotificationInboxController extends ControllerBase {
 
     $url = $openintranet_notification->get('url')->value;
     if ($url !== NULL && $url !== '') {
-      // The URL is operator/dispatcher-provided, not request input; redirect to
-      // it (it may be an external target).
-      return new TrustedRedirectResponse($url);
+      // Stored targets are not trusted. LocalRedirectResponse allows internal
+      // paths and same-site absolute URLs, while rejecting other origins.
+      try {
+        return new LocalRedirectResponse($url);
+      }
+      catch (\InvalidArgumentException) {
+        // Keep the user on this site when a stored target is unsafe.
+        return $this->redirect('openintranet_notifications.inbox');
+      }
     }
 
     return [
@@ -138,7 +144,10 @@ final class NotificationInboxController extends ControllerBase {
         '#tag' => 'h2',
         '#value' => $openintranet_notification->get('subject')->value ?? $openintranet_notification->label(),
       ],
-      'body' => $openintranet_notification->get('body')->view('full'),
+      'body' => $openintranet_notification->get('body')->view([
+        'label' => 'hidden',
+        'type' => 'text_default',
+      ]),
       '#cache' => [
         'max-age' => 0,
         'contexts' => ['user'],

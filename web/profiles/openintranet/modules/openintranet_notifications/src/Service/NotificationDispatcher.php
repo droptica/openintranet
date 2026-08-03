@@ -65,109 +65,119 @@ final class NotificationDispatcher {
       return;
     }
 
-    // Disabled-type gate (FIX 3): the entity `enabled` flag is the dispatch
-    // gate, so disabling a type takes effect — nothing is persisted, no
-    // deliveries are created and no queue item is enqueued. The
-    // `enabled_types` settings list is an advisory admin allow-list, not a hard
-    // dispatch gate, so it never silently disables a shipped/migrated type.
-    if (!$type->isEnabled()) {
+    // The config entity's core status is the dispatch gate. The enabled_types
+    // settings list remains an advisory admin selection, not a second runtime
+    // switch that could drift from the entity status.
+    if (!$type->status()) {
       $this->abandon($n);
       return;
     }
 
-    $window = $type->getDedupeWindow();
+    $dedupeWindow = $type->getDedupeWindow();
     $dedupeKey = (string) $n->get('dedupe_key')->value;
 
-    // Dedupe guard first: a duplicate must not persist or create deliveries.
-    // A non-positive window disables dedupe entirely (FIX #3): recording with a
-    // zero TTL would store a born-expired entry that never matches.
-    if ($window > 0 && $this->deduplicator->isDuplicate($dedupeKey)) {
-      $this->abandon($n);
-      return;
-    }
-
-    // Per-(user, type) rate limit on the reserved ALL_CHANNELS sentinel: this
-    // counts notifications per (uid, type) regardless of channel, a SEPARATE
-    // counter from the per-channel BelowRateLimit ECA condition (see
-    // RateLimiter). The cap is per user, per type, per window. A non-positive
-    // type rate_limit disables the guard, so shipped types (which never set it)
-    // are unaffected; the per-channel dimension is left to the ECA condition.
-    $limit = $type->getRateLimit();
-    if ($limit > 0) {
-      $window = $type->getRateLimitWindow();
-      if (!$this->rateLimiter->allow($uid, RateLimiter::ALL_CHANNELS, $type->id(), $limit, $window)) {
-        $this->logger->info('Rate limit reached for type @type and user @uid (limit @limit per @window s); dispatch skipped.', [
-          '@type' => $type->id(),
-          '@uid' => $uid,
-          '@limit' => $limit,
-          '@window' => $window,
-        ]);
+    // Claim dedupe before persisting. Deduplicator serializes the claim's
+    // check/write operation, so overlapping dispatchers cannot both pass the
+    // guard. A non-positive window disables dedupe entirely.
+    $dedupeClaimed = FALSE;
+    if ($dedupeWindow > 0) {
+      if (!$this->deduplicator->claim($dedupeKey, $dedupeWindow)) {
         $this->abandon($n);
         return;
       }
+      $dedupeClaimed = TRUE;
     }
 
-    $n->save();
+    // Retain the dedupe claim only after deliveries were successfully
+    // enqueued. Every abandon/cancel/exception path before that releases it so
+    // a later legitimate dispatch is not suppressed.
+    $enqueued = FALSE;
+    try {
+      // Per-(user, type) rate limit on the reserved ALL_CHANNELS sentinel: this
+      // counts notifications per (uid, type) regardless of channel, a SEPARATE
+      // counter from the per-channel BelowRateLimit ECA condition (see
+      // RateLimiter). The cap is per user, per type, per window. A non-positive
+      // type rate_limit disables the guard, so shipped types (which never set
+      // it) are unaffected; the per-channel dimension is left to the ECA
+      // condition.
+      $limit = $type->getRateLimit();
+      if ($limit > 0) {
+        $rateLimitWindow = $type->getRateLimitWindow();
+        if (!$this->rateLimiter->allow($uid, RateLimiter::ALL_CHANNELS, $type->id(), $limit, $rateLimitWindow)) {
+          $this->logger->info('Rate limit reached for type @type and user @uid (limit @limit per @window s); dispatch skipped.', [
+            '@type' => $type->id(),
+            '@uid' => $uid,
+            '@limit' => $limit,
+            '@window' => $rateLimitWindow,
+          ]);
+          $this->abandon($n);
+          return;
+        }
+      }
 
-    $policyId = $type->getDeliveryPolicy() ?: 'user_preferences';
-    $policy = $this->policyManager->createInstance($policyId);
-    // Thread the per-notification priority so the policy tiers per message, not
-    // per type (00-synteza §3.2): selectChannels() and channelDelays() both
-    // read $context['priority'], falling back to the type default when absent.
-    $context = ['priority' => (string) $n->get('priority')->value];
-    $channels = $policy->selectChannels($type, $recipient, $context);
+      $n->save();
 
-    // An empty channel set is ambiguous: a true drop (blocked/filtered
-    // recipient) must be cancelled, but digest_only/silent_audit_only return []
-    // BY DESIGN and must persist + fire CREATED. The policy disambiguates.
-    if (empty($channels)) {
-      $disposition = $policy->emptySelectionDisposition();
-      if ($disposition === EmptySelectionDisposition::Drop) {
-        // A true drop must not linger as 'queued' or record dedupe; mark it
-        // cancelled so a future legit send for the same key is not suppressed
-        // (FIX #4). No lifecycle event fires here.
-        $n->set('status', 'cancelled');
+      $policyId = $type->getDeliveryPolicy() ?: 'user_preferences';
+      $policy = $this->policyManager->createInstance($policyId);
+      // Thread the per-notification priority so the policy tiers per message,
+      // not per type (00-synteza §3.2): selectChannels() and channelDelays()
+      // both read $context['priority'], falling back to the type default when
+      // absent.
+      $context = ['priority' => (string) $n->get('priority')->value];
+      $channels = $policy->selectChannels($type, $recipient, $context);
+
+      // An empty channel set is ambiguous: a true drop (blocked/filtered
+      // recipient) must be cancelled, but digest_only/silent_audit_only return
+      // [] BY DESIGN and must persist + fire CREATED. The policy disambiguates.
+      if (empty($channels)) {
+        $disposition = $policy->emptySelectionDisposition();
+        if ($disposition === EmptySelectionDisposition::Drop) {
+          // A true drop must not linger as 'queued' or retain dedupe; mark it
+          // cancelled so a future legitimate send for the same key is not
+          // suppressed. No lifecycle event fires here.
+          $n->set('status', 'cancelled');
+          $n->save();
+          return;
+        }
+
+        // Intentional empty set: persist and fire CREATED. Defer (digest_only)
+        // stays 'queued' so the DigestBuilder picks it up (digested IS NULL);
+        // Audit (silent_audit_only) reaches terminal 'delivered' (recorded,
+        // nothing to send). These paths did not enqueue, so finally releases
+        // the provisional dedupe claim.
+        $n->set('status', $disposition === EmptySelectionDisposition::Audit ? 'delivered' : 'queued');
         $n->save();
+        $this->eventDispatcher->dispatch(new NotificationCreatedEvent($n), NotificationEvents::CREATED);
         return;
       }
 
-      // Intentional empty set: persist and fire CREATED. Defer (digest_only)
-      // stays 'queued' so the DigestBuilder picks it up (digested IS NULL);
-      // Audit (silent_audit_only) reaches the terminal 'delivered' audit state
-      // (recorded, nothing to send).
-      $n->set('status', $disposition === EmptySelectionDisposition::Audit ? 'delivered' : 'queued');
-      $n->save();
       $this->eventDispatcher->dispatch(new NotificationCreatedEvent($n), NotificationEvents::CREATED);
-      return;
+
+      // Timed escalation (00-synteza §3.2): the policy may hold an escalation
+      // tier (e.g. SMS) behind a delay; createAndEnqueue stamps each row's
+      // next_attempt so the worker staggers it. Immediate channels send now.
+      $delays = $policy->channelDelays($type, $recipient, $context);
+      $this->deliveryQueue->createAndEnqueue($n, $recipient, $channels, $delays);
+      $enqueued = TRUE;
+
+      // Per-(user, channel, type) usage tick for §8's per-channel dimension:
+      // one per channel actually delivered on, so below_rate_limit reflects
+      // real usage. This counter never gates this dispatch.
+      $rateWindow = $type->getRateLimitWindow();
+      foreach ($channels as $channelId) {
+        $this->rateLimiter->record($uid, (string) $channelId, $type->id(), $rateWindow);
+      }
+
+      $n->set('status', 'queued');
+      $n->save();
+
+      $this->eventDispatcher->dispatch(new NotificationQueuedEvent($n), NotificationEvents::QUEUED);
     }
-
-    $this->eventDispatcher->dispatch(new NotificationCreatedEvent($n), NotificationEvents::CREATED);
-
-    // Timed escalation (00-synteza §3.2): the policy may hold an escalation
-    // tier (e.g. SMS) behind a delay; createAndEnqueue stamps each row's
-    // next_attempt so the worker staggers it. Immediate channels send now.
-    $delays = $policy->channelDelays($type, $recipient, $context);
-    $this->deliveryQueue->createAndEnqueue($n, $recipient, $channels, $delays);
-
-    // Per-(user, channel, type) usage tick for §8's per-channel dimension: one
-    // per channel actually delivered on, so the below_rate_limit ECA
-    // condition's peek reflects real per-channel usage and can throttle. This
-    // is a pure counter — record() never refuses — so it cannot gate this
-    // dispatch; the per-(user, type) gate above (allow on ALL_CHANNELS) is the
-    // real limiter.
-    $rateWindow = $type->getRateLimitWindow();
-    foreach ($channels as $channelId) {
-      $this->rateLimiter->record($uid, (string) $channelId, $type->id(), $rateWindow);
+    finally {
+      if ($dedupeClaimed && !$enqueued) {
+        $this->deduplicator->release($dedupeKey);
+      }
     }
-
-    if ($window > 0) {
-      $this->deduplicator->record($dedupeKey, $window);
-    }
-
-    $n->set('status', 'queued');
-    $n->save();
-
-    $this->eventDispatcher->dispatch(new NotificationQueuedEvent($n), NotificationEvents::QUEUED);
   }
 
   /**
@@ -179,8 +189,16 @@ final class NotificationDispatcher {
    *   The recipient user ids.
    * @param array<string, mixed> $context
    *   Extra build values merged into each notification (subject, body, etc.).
+   *
+   * @throws \InvalidArgumentException
+   *   Thrown when the requested notification type does not exist.
    */
   public function dispatchRequest(string $typeId, array $recipients, array $context = []): void {
+    $type = $this->loadTypeById($typeId);
+    if ($type === NULL) {
+      throw new \InvalidArgumentException(sprintf('Notification type "%s" does not exist.', $typeId));
+    }
+
     // The source entity is the dispatch entity/source_entity context key; the
     // actor is the acting account. The whole keyed context is nested under
     // 'context' so the factory can expose every entity-valued entry to the
@@ -194,7 +212,7 @@ final class NotificationDispatcher {
     $dedupeContext = is_string($context['dedupe_context'] ?? NULL) ? $context['dedupe_context'] : '';
 
     if ($recipients === []) {
-      foreach ($this->resolveRecipients($typeId, $context) as $recipient) {
+      foreach ($this->resolveRecipientsFor($type->getRecipientResolvers(), $context) as $recipient) {
         $values = [
           'uid' => $recipient->id,
           'recipient_account' => $recipient->account,
@@ -262,25 +280,6 @@ final class NotificationDispatcher {
   }
 
   /**
-   * Resolves the recipient set from a type's recipient_resolvers.
-   *
-   * @param string $typeId
-   *   The notification_type id.
-   * @param array<string, mixed> $context
-   *   The dispatch context handed to each resolver.
-   *
-   * @return array<int, \Drupal\openintranet_notifications\Dto\NotificationRecipient>
-   *   The user recipients, de-duplicated by user id.
-   */
-  private function resolveRecipients(string $typeId, array $context): array {
-    /** @var \Drupal\openintranet_notifications\Entity\NotificationTypeInterface|null $type */
-    $type = $this->entityTypeManager
-      ->getStorage('openintranet_notification_type')
-      ->load($typeId);
-    return $type === NULL ? [] : $this->resolveRecipientsFor($type->getRecipientResolvers(), $context);
-  }
-
-  /**
    * Resolves a recipient set from explicit resolver definitions.
    *
    * The single resolution path: instantiate each resolver and union its user
@@ -317,7 +316,13 @@ final class NotificationDispatcher {
    * Loads the notification's type config entity.
    */
   private function loadType(NotificationInterface $n): ?NotificationTypeInterface {
-    $typeId = (string) $n->get('type')->value;
+    return $this->loadTypeById((string) $n->get('type')->value);
+  }
+
+  /**
+   * Loads a notification type config entity by id.
+   */
+  private function loadTypeById(string $typeId): ?NotificationTypeInterface {
     /** @var \Drupal\openintranet_notifications\Entity\NotificationTypeInterface|null $type */
     $type = $this->entityTypeManager
       ->getStorage('openintranet_notification_type')

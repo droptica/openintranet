@@ -51,7 +51,8 @@ final class DigestBuilder {
       ->accessCheck(FALSE)
       ->condition('type', $digestTypeIds, 'IN')
       ->notExists('digested')
-      ->sort('created', 'ASC');
+      ->sort('created', 'ASC')
+      ->sort('id', 'ASC');
     if ($limit !== NULL) {
       $query->range(0, $limit);
     }

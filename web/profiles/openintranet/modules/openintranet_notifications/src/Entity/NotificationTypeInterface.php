@@ -117,9 +117,4 @@ interface NotificationTypeInterface extends ConfigEntityInterface {
    */
   public function getAuditRetentionDays(): int;
 
-  /**
-   * Whether this notification type is enabled.
-   */
-  public function isEnabled(): bool;
-
 }

@@ -61,7 +61,7 @@ final class UserNotificationPreferencesFormTest extends KernelTestBase {
       'default_channels' => ['inbox', 'log_only'],
       'forced_channels' => ['inbox'],
       'user_can_override' => TRUE,
-      'enabled' => TRUE,
+      'status' => TRUE,
     ])->save();
 
     // A non-overridable type: it must NOT appear as a row.
@@ -71,7 +71,7 @@ final class UserNotificationPreferencesFormTest extends KernelTestBase {
       'default_channels' => ['inbox'],
       'forced_channels' => ['inbox'],
       'user_can_override' => FALSE,
-      'enabled' => TRUE,
+      'status' => TRUE,
     ])->save();
 
     $this->account = User::create([

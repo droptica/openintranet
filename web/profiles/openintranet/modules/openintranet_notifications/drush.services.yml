@@ -1,9 +1,0 @@
-services:
-  openintranet_notifications.commands:
-    class: Drupal\openintranet_notifications\Drush\Commands\NotificationCommands
-    arguments:
-      - '@entity_type.manager'
-      - '@openintranet_notifications.delivery_queue'
-      - '@openintranet_notifications.retention_purger'
-    tags:
-      - { name: drush.command }

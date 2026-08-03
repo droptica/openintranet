@@ -37,6 +37,7 @@ body_template: "You have been added as a reviewer of \"[node:title]\".\n\nDeadli
 summary_template: 'Review assigned: [node:title]'
 delivery_policy: user_preferences
 dedupe_window: 600
+rate_limit: 0
+rate_limit_window: 3600
 user_can_override: true
 audit_retention_days: 90
-enabled: true

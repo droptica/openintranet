@@ -12,6 +12,7 @@ use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\openintranet_notifications\Entity\Handler\NotificationAccessControlHandler;
 use Drupal\openintranet_notifications\Entity\Handler\NotificationListBuilder;
+use Drupal\openintranet_notifications\Entity\StorageSchema\NotificationStorageSchema;
 use Drupal\views\EntityViewsData;
 
 /**
@@ -32,6 +33,7 @@ use Drupal\views\EntityViewsData;
   handlers: [
     'access' => NotificationAccessControlHandler::class,
     'list_builder' => NotificationListBuilder::class,
+    'storage_schema' => NotificationStorageSchema::class,
     'route_provider' => [
       'html' => AdminHtmlRouteProvider::class,
     ],

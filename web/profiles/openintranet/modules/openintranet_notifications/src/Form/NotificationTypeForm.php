@@ -21,9 +21,9 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 final class NotificationTypeForm extends EntityForm {
 
   public function __construct(
-    private readonly ChannelPluginManager $channelManager,
-    private readonly DeliveryPolicyManager $policyManager,
-    private readonly TemplateRendererManager $rendererManager,
+    protected ChannelPluginManager $channelManager,
+    protected DeliveryPolicyManager $policyManager,
+    protected TemplateRendererManager $rendererManager,
   ) {}
 
   /**
@@ -171,10 +171,10 @@ final class NotificationTypeForm extends EntityForm {
       '#min' => 0,
       '#default_value' => $type->getAuditRetentionDays(),
     ];
-    $form['enabled'] = [
+    $form['status'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Enabled'),
-      '#default_value' => $type->isEnabled(),
+      '#default_value' => $type->status(),
     ];
 
     return $form;
@@ -221,11 +221,17 @@ final class NotificationTypeForm extends EntityForm {
     // assign the raw checkbox/textarea shapes onto the typed entity properties,
     // and read the resolver value before this copy normalizes it.
     $values = $form_state->getValues();
-    unset($values['default_channels'], $values['forced_channels'], $values['recipient_resolvers']);
+    unset(
+      $values['default_channels'],
+      $values['forced_channels'],
+      $values['recipient_resolvers'],
+      $values['status'],
+    );
     foreach ($values as $key => $value) {
       $entity->set($key, $value);
     }
 
+    $entity->setStatus((bool) $form_state->getValue('status'));
     $entity->set('default_channels', array_values(array_filter((array) $form_state->getValue('default_channels'))));
     $entity->set('forced_channels', array_values(array_filter((array) $form_state->getValue('forced_channels'))));
     $resolvers = $this->parseResolvers($form_state->getValue('recipient_resolvers'));

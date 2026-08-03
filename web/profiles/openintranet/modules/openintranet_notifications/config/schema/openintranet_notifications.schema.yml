@@ -78,10 +78,6 @@ openintranet_notifications.openintranet_notification_type.*:
     audit_retention_days:
       type: integer
       label: 'Audit retention (days)'
-    enabled:
-      type: boolean
-      label: 'Enabled'
-
 action.configuration.openintranet_notifications_create_and_enqueue:
   type: mapping
   label: 'Notification: create and enqueue'

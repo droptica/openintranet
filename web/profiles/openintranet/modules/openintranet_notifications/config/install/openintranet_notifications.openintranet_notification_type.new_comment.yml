@@ -23,6 +23,7 @@ body_template: "[comment:author:name] commented on \"[node:title]\".\n\n[node:ur
 summary_template: 'New comment on "[node:title]"'
 delivery_policy: user_preferences
 dedupe_window: 600
+rate_limit: 0
+rate_limit_window: 3600
 user_can_override: true
 audit_retention_days: 90
-enabled: true

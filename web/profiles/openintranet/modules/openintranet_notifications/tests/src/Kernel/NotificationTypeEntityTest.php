@@ -6,6 +6,7 @@ namespace Drupal\Tests\openintranet_notifications\Kernel;
 
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\openintranet_notifications\Entity\NotificationType;
+use Drupal\openintranet_notifications\Entity\NotificationTypeInterface;
 
 /**
  * Tests CRUD and getters of the notification_type config entity.
@@ -64,10 +65,16 @@ final class NotificationTypeEntityTest extends KernelTestBase {
     self::assertSame(600, $reloaded->getDedupeWindow());
     // Defaults applied for keys not set on creation.
     self::assertSame('normal', $reloaded->getDefaultPriority());
-    self::assertTrue($reloaded->isEnabled());
+    self::assertTrue($reloaded->status());
     self::assertTrue($reloaded->userCanOverride());
     self::assertSame([], $reloaded->getRecipientResolvers());
     self::assertSame([], $reloaded->getTemplateMap());
+
+    $reloaded->disable()->save();
+    $storage->resetCache();
+    $disabled = $storage->load('default');
+    self::assertInstanceOf(NotificationTypeInterface::class, $disabled);
+    self::assertFalse($disabled->status());
   }
 
 }

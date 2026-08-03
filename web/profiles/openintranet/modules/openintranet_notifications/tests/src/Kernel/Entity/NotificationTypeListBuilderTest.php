@@ -49,7 +49,7 @@ final class NotificationTypeListBuilderTest extends KernelTestBase {
       'default_priority' => 'high',
       'default_channels' => ['inbox', 'email_core'],
       'delivery_policy' => 'user_preferences',
-      'enabled' => TRUE,
+      'status' => TRUE,
     ])->save();
     NotificationType::create([
       'id' => 'digest',
@@ -58,7 +58,7 @@ final class NotificationTypeListBuilderTest extends KernelTestBase {
       'default_priority' => 'low',
       'default_channels' => ['email_core'],
       'delivery_policy' => 'user_preferences',
-      'enabled' => FALSE,
+      'status' => FALSE,
     ])->save();
 
     $list_builder = $this->container->get('entity_type.manager')
@@ -72,7 +72,7 @@ final class NotificationTypeListBuilderTest extends KernelTestBase {
     self::assertArrayHasKey('default_priority', $header);
     self::assertArrayHasKey('default_channels', $header);
     self::assertArrayHasKey('delivery_policy', $header);
-    self::assertArrayHasKey('enabled', $header);
+    self::assertArrayHasKey('status', $header);
 
     $mention = NotificationType::load('mention');
     $row = $list_builder->buildRow($mention);
@@ -82,11 +82,11 @@ final class NotificationTypeListBuilderTest extends KernelTestBase {
     self::assertSame('high', (string) $row['default_priority']);
     self::assertSame('inbox, email_core', (string) $row['default_channels']);
     self::assertSame('user_preferences', (string) $row['delivery_policy']);
-    self::assertSame('Yes', (string) $row['enabled']);
+    self::assertSame('Yes', (string) $row['status']);
 
     $digest = NotificationType::load('digest');
     $digest_row = $list_builder->buildRow($digest);
-    self::assertSame('No', (string) $digest_row['enabled']);
+    self::assertSame('No', (string) $digest_row['status']);
 
     // The render() listing contains a row per type.
     $build = $list_builder->render();

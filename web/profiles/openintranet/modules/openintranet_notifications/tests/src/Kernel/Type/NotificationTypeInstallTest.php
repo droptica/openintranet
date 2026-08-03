@@ -68,9 +68,11 @@ final class NotificationTypeInstallTest extends KernelTestBase {
     self::assertSame('user_preferences', $type->getDeliveryPolicy());
     self::assertSame('token_text', $type->getTemplateRenderer());
     self::assertSame(600, $type->getDedupeWindow());
+    self::assertSame(0, $type->getRateLimit());
+    self::assertSame(3600, $type->getRateLimitWindow());
     self::assertTrue($type->userCanOverride());
     self::assertSame(90, $type->getAuditRetentionDays());
-    self::assertTrue($type->isEnabled());
+    self::assertTrue($type->status());
   }
 
   /**
@@ -85,6 +87,9 @@ final class NotificationTypeInstallTest extends KernelTestBase {
     self::assertSame('user_preferences', $type->getDeliveryPolicy());
     self::assertSame('token_text', $type->getTemplateRenderer());
     self::assertSame(600, $type->getDedupeWindow());
+    self::assertSame(0, $type->getRateLimit());
+    self::assertSame(3600, $type->getRateLimitWindow());
+    self::assertTrue($type->status());
     self::assertSame(
       [
         [
@@ -111,6 +116,9 @@ final class NotificationTypeInstallTest extends KernelTestBase {
     self::assertSame('user_preferences', $type->getDeliveryPolicy());
     self::assertSame('token_text', $type->getTemplateRenderer());
     self::assertSame(600, $type->getDedupeWindow());
+    self::assertSame(0, $type->getRateLimit());
+    self::assertSame(3600, $type->getRateLimitWindow());
+    self::assertTrue($type->status());
     self::assertSame(
       [
         [
@@ -141,6 +149,9 @@ final class NotificationTypeInstallTest extends KernelTestBase {
     self::assertSame('user_preferences', $type->getDeliveryPolicy());
     self::assertSame('token_text', $type->getTemplateRenderer());
     self::assertSame(600, $type->getDedupeWindow());
+    self::assertSame(0, $type->getRateLimit());
+    self::assertSame(3600, $type->getRateLimitWindow());
+    self::assertTrue($type->status());
     self::assertSame(
       [
         ['id' => 'entity_author', 'configuration' => []],

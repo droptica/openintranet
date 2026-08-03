@@ -4,5 +4,5 @@ description: 'Adds an Easy Email notification channel that delivers via configur
 package: 'Open Intranet'
 core_version_requirement: ^11
 dependencies:
-  - openintranet:openintranet_notifications
+  - openintranet_notifications
   - easy_email:easy_email

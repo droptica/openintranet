@@ -6,6 +6,7 @@ namespace Drupal\Tests\openintranet_notifications\Kernel\Service;
 
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\openintranet_notifications\Entity\NotificationType;
+use Drupal\openintranet_notifications\Service\Deduplicator;
 use Drupal\openintranet_notifications\Service\NotificationDispatcher;
 use Drupal\openintranet_notifications\Service\NotificationFactory;
 use Drupal\openintranet_notifications\Service\RateLimiter;
@@ -236,6 +237,86 @@ final class RateLimitDispatchTest extends KernelTestBase {
 
     // One from each type reaches queued (the 2nd capped_a is over its limit).
     self::assertSame(2, $this->queuedCountFor(42));
+  }
+
+  /**
+   * Rate-limit configuration never replaces the dedupe claim's TTL.
+   */
+  public function testRateLimitWindowDoesNotOverwriteDedupeWindow(): void {
+    NotificationType::create([
+      'id' => 'combined',
+      'label' => 'Combined',
+      'default_channels' => ['inbox', 'log_only'],
+      'forced_channels' => ['inbox', 'log_only'],
+      'delivery_policy' => 'user_preferences',
+      'dedupe_window' => 600,
+      'rate_limit' => 5,
+      'rate_limit_window' => 60,
+    ])->save();
+
+    $notification = $this->factory->create('combined', [
+      'uid' => 42,
+      'subject' => 'Hi',
+      'body' => 'B',
+    ]);
+    $notification->save();
+    $this->dispatcher->enqueue($notification);
+
+    $expire = $this->container->get('database')
+      ->select('key_value_expire', 'kv')
+      ->fields('kv', ['expire'])
+      ->condition('collection', 'openintranet_notifications.dedupe')
+      ->condition('name', (string) $notification->get('dedupe_key')->value)
+      ->execute()
+      ->fetchField();
+
+    self::assertSame(
+      \Drupal::time()->getRequestTime() + 600,
+      (int) $expire,
+      'The dedupe TTL uses dedupe_window, not rate_limit_window.',
+    );
+  }
+
+  /**
+   * A rate-limited dispatch releases its provisional dedupe claim.
+   */
+  public function testRateLimitedDispatchReleasesDedupeClaim(): void {
+    NotificationType::create([
+      'id' => 'claim_release',
+      'label' => 'Claim release',
+      'default_channels' => ['inbox', 'log_only'],
+      'forced_channels' => ['inbox', 'log_only'],
+      'delivery_policy' => 'user_preferences',
+      'dedupe_window' => 600,
+      'rate_limit' => 1,
+      'rate_limit_window' => 3600,
+    ])->save();
+
+    $first = $this->factory->create('claim_release', [
+      'uid' => 42,
+      'subject' => 'Hi',
+      'body' => 'B',
+      'dedupe_context' => 'first',
+    ]);
+    $first->save();
+    $this->dispatcher->enqueue($first);
+
+    $rateLimited = $this->factory->create('claim_release', [
+      'uid' => 42,
+      'subject' => 'Hi',
+      'body' => 'B',
+      'dedupe_context' => 'rate-limited',
+    ]);
+    $rateLimited->save();
+    $this->dispatcher->enqueue($rateLimited);
+
+    self::assertSame('cancelled', $rateLimited->get('status')->value);
+    $deduplicator = $this->container->get('openintranet_notifications.deduplicator');
+    \assert($deduplicator instanceof Deduplicator);
+    self::assertFalse(
+      $deduplicator->isDuplicate((string) $rateLimited->get('dedupe_key')->value),
+      'A rate-limit rejection must not suppress a later legitimate dispatch.',
+    );
   }
 
 }

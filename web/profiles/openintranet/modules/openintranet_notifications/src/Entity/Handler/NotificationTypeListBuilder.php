@@ -24,7 +24,7 @@ final class NotificationTypeListBuilder extends ConfigEntityListBuilder {
       'default_priority' => $this->t('Priority'),
       'default_channels' => $this->t('Default channels'),
       'delivery_policy' => $this->t('Delivery policy'),
-      'enabled' => $this->t('Enabled'),
+      'status' => $this->t('Enabled'),
     ];
     return $header + parent::buildHeader();
   }
@@ -41,7 +41,7 @@ final class NotificationTypeListBuilder extends ConfigEntityListBuilder {
       'default_priority' => $entity->getDefaultPriority(),
       'default_channels' => implode(', ', $entity->getDefaultChannels()),
       'delivery_policy' => $entity->getDeliveryPolicy(),
-      'enabled' => $entity->isEnabled() ? $this->t('Yes') : $this->t('No'),
+      'status' => $entity->status() ? $this->t('Yes') : $this->t('No'),
     ];
     return $row + parent::buildRow($entity);
   }

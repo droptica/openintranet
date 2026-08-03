@@ -53,7 +53,7 @@ final class SettingsDefaultsTest extends KernelTestBase {
     // email_core is shipped enabled: it is the core mail channel the real types
     // advertise, so an out-of-box install must be able to deliver on it.
     self::assertSame(['inbox', 'email_core', 'log_only'], $settings->get('enabled_channels'));
-    self::assertSame(['default'], $settings->get('enabled_types'));
+    self::assertSame(['default', 'new_comment'], $settings->get('enabled_types'));
     // Every type the module ships has a default-preferences row, so a default
     // user with no saved preference still receives on inbox + email_core.
     self::assertSame(

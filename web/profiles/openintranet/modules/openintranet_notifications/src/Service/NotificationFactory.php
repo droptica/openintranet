@@ -42,12 +42,18 @@ final class NotificationFactory {
    *
    * @return \Drupal\openintranet_notifications\Entity\NotificationInterface
    *   The unsaved notification.
+   *
+   * @throws \InvalidArgumentException
+   *   Thrown when the requested notification type does not exist.
    */
   public function create(string $typeId, array $values): NotificationInterface {
-    /** @var \Drupal\openintranet_notifications\Entity\NotificationTypeInterface $type */
+    /** @var \Drupal\openintranet_notifications\Entity\NotificationTypeInterface|null $type */
     $type = $this->entityTypeManager
       ->getStorage('openintranet_notification_type')
       ->load($typeId);
+    if (!$type instanceof NotificationTypeInterface) {
+      throw new \InvalidArgumentException(sprintf('Notification type "%s" does not exist.', $typeId));
+    }
 
     $uid = (int) ($values['uid'] ?? 0);
     $build = [

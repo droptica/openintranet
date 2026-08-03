@@ -215,4 +215,20 @@ final class CreateAndEnqueueActionTest extends NotificationActionKernelTestBase 
     self::assertTrue($action->access(NULL));
   }
 
+  /**
+   * A missing configured type produces a catchable configuration error.
+   */
+  public function testUnknownTypeRaisesInputException(): void {
+    $action = $this->actionManager->createInstance('openintranet_notifications_create_and_enqueue', [
+      'notification_type' => 'missing',
+      'recipients' => '[recipients]',
+    ]);
+    $this->tokenServices->addTokenData('recipients', [41]);
+
+    $this->expectException(\InvalidArgumentException::class);
+    $this->expectExceptionMessage('Notification type "missing" does not exist.');
+
+    $action->execute(NULL);
+  }
+
 }

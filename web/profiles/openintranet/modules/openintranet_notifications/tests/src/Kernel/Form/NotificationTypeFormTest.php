@@ -71,9 +71,11 @@ final class NotificationTypeFormTest extends KernelTestBase {
       'summary_template' => 'New mention',
       'delivery_policy' => 'user_preferences',
       'dedupe_window' => 600,
+      'rate_limit' => 25,
+      'rate_limit_window' => 900,
       'user_can_override' => 1,
       'audit_retention_days' => 30,
-      'enabled' => 1,
+      'status' => 1,
     ]);
     // Mirror pressing the primary action: a programmatic submit has no
     // triggering element, so wire the entity-form submit handlers explicitly.
@@ -102,9 +104,11 @@ final class NotificationTypeFormTest extends KernelTestBase {
     self::assertSame('[user:name] mentioned you.', $saved->getBodyTemplate());
     self::assertSame('New mention', $saved->getSummaryTemplate());
     self::assertSame(600, $saved->getDedupeWindow());
+    self::assertSame(25, $saved->getRateLimit());
+    self::assertSame(900, $saved->getRateLimitWindow());
     self::assertSame(30, $saved->getAuditRetentionDays());
     self::assertTrue($saved->userCanOverride());
-    self::assertTrue($saved->isEnabled());
+    self::assertTrue($saved->status());
     self::assertSame(
       [['id' => 'entity_author', 'configuration' => ['entity_key' => 'commented_entity']]],
       $saved->getRecipientResolvers(),

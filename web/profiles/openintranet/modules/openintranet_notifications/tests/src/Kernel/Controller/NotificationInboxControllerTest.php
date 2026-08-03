@@ -4,14 +4,16 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\openintranet_notifications\Kernel\Controller;
 
-use Drupal\Core\Routing\TrustedRedirectResponse;
+use Drupal\Core\Routing\LocalRedirectResponse;
 use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\Url;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\openintranet_notifications\Controller\NotificationInboxController;
 use Drupal\openintranet_notifications\Entity\Notification;
 use Drupal\openintranet_notifications\Entity\NotificationInterface;
 use Drupal\user\Entity\Role;
 use Drupal\user\Entity\User;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
  * Tests the user-facing /notifications inbox + single view (Chunk 5C).
@@ -60,6 +62,8 @@ final class NotificationInboxControllerTest extends KernelTestBase {
     $this->installConfig(['system']);
     // User 1 is the superuser; create it so later uids are real accounts.
     User::create(['name' => 'root', 'uid' => 1, 'status' => 1])->save();
+    $this->container->get('router.request_context')
+      ->setCompleteBaseUrl('https://intranet.example');
     $this->controller = NotificationInboxController::create($this->container);
   }
 
@@ -224,21 +228,62 @@ final class NotificationInboxControllerTest extends KernelTestBase {
   }
 
   /**
-   * A notification carrying a target URL redirects there on view.
+   * A notification carrying an internal target redirects there on view.
    *
    * @covers ::view
    */
-  public function testViewRedirectsToTargetUrl(): void {
+  public function testViewRedirectsToInternalTargetUrl(): void {
     $userA = $this->makeUser('a');
-    $notification = $this->makeNotification($userA, 'Go elsewhere');
-    $notification->set('url', 'https://example.com/target');
+    $notification = $this->makeNotification($userA, 'Go inside');
+    $notification->set('url', '/inside/target');
     $notification->save();
     $this->setCurrentUser($userA);
 
     $response = $this->controller->view($notification);
 
-    self::assertInstanceOf(TrustedRedirectResponse::class, $response);
-    self::assertSame('https://example.com/target', $response->getTargetUrl());
+    self::assertInstanceOf(LocalRedirectResponse::class, $response);
+    self::assertSame('/inside/target', $response->getTargetUrl());
+  }
+
+  /**
+   * A same-site absolute target remains an allowed redirect.
+   *
+   * @covers ::view
+   */
+  public function testViewRedirectsToSameSiteAbsoluteTargetUrl(): void {
+    $userA = $this->makeUser('a');
+    $notification = $this->makeNotification($userA, 'Go same-site');
+    $notification->set('url', 'https://intranet.example/inside/target');
+    $notification->save();
+    $this->setCurrentUser($userA);
+
+    $response = $this->controller->view($notification);
+
+    self::assertInstanceOf(LocalRedirectResponse::class, $response);
+    self::assertSame('https://intranet.example/inside/target', $response->getTargetUrl());
+  }
+
+  /**
+   * A stored external target falls back to the notification inbox.
+   *
+   * @covers ::view
+   */
+  public function testViewRejectsExternalTargetUrl(): void {
+    $userA = $this->makeUser('a');
+    $notification = $this->makeNotification($userA, 'Do not leave');
+    $notification->set('url', 'https://evil.example/phishing');
+    $notification->save();
+    $this->setCurrentUser($userA);
+
+    $response = $this->controller->view($notification);
+    $inboxUrl = Url::fromRoute(
+      'openintranet_notifications.inbox',
+      [],
+      ['absolute' => TRUE],
+    )->toString();
+
+    self::assertInstanceOf(RedirectResponse::class, $response);
+    self::assertSame($inboxUrl, $response->getTargetUrl());
   }
 
   /**

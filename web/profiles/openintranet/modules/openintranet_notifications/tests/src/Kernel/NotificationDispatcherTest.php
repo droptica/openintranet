@@ -145,6 +145,16 @@ final class NotificationDispatcherTest extends KernelTestBase {
   }
 
   /**
+   * Dispatch rejects an unknown type even when no recipients were supplied.
+   */
+  public function testDispatchRequestRejectsUnknownTypeBeforeResolving(): void {
+    $this->expectException(\InvalidArgumentException::class);
+    $this->expectExceptionMessage('Notification type "missing" does not exist.');
+
+    $this->dispatcher->dispatchRequest('missing', []);
+  }
+
+  /**
    * A second identical dispatch within the window is deduplicated.
    *
    * The dedupe must suppress deliveries and queue items too, not merely the
@@ -387,8 +397,8 @@ final class NotificationDispatcherTest extends KernelTestBase {
   /**
    * A disabled type produces no notification, no deliveries and no queue items.
    *
-   * The entity `enabled` flag is the dispatch gate: a disabled type bails
-   * before anything dispatches, so disabling a type takes effect (FIX 3).
+   * The config entity status is the dispatch gate, so disabling a type takes
+   * effect before anything dispatches.
    */
   public function testDisabledTypeProducesNothing(): void {
     NotificationType::create([
@@ -398,7 +408,7 @@ final class NotificationDispatcherTest extends KernelTestBase {
       'forced_channels' => ['inbox', 'log_only'],
       'delivery_policy' => 'user_preferences',
       'dedupe_window' => 0,
-      'enabled' => FALSE,
+      'status' => FALSE,
     ])->save();
 
     $n = $this->factory->create('off', ['uid' => 42, 'subject' => 'Hi', 'body' => 'B']);
