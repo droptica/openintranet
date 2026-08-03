@@ -255,6 +255,27 @@ final class NotificationFactoryTest extends KernelTestBase {
   }
 
   /**
+   * Installer-generated targets omit the temporary installer front controller.
+   */
+  public function testCanonicalUrlOmitsInstallerFrontController(): void {
+    $node = Node::create(['type' => 'article', 'title' => 'Installed']);
+    $node->save();
+
+    $requestContext = $this->container->get('router.request_context');
+    $requestContext->setBaseUrl('/intranet/core/install.php');
+
+    $notification = $this->factory->create('default', [
+      'uid' => 1,
+      'source_entity' => $node,
+    ]);
+
+    self::assertSame(
+      '/intranet/node/' . $node->id(),
+      $notification->get('url')->value,
+    );
+  }
+
+  /**
    * An explicit url overrides the source-entity default.
    */
   public function testExplicitUrlOverridesSourceEntity(): void {

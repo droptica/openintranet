@@ -79,7 +79,8 @@ final class NotificationFactory {
       $sourceRef = $source->getEntityTypeId() . ':' . $source->id();
       // Default the click target to the source entity (the article/comment).
       if ($build['url'] === '' && $source->hasLinkTemplate('canonical')) {
-        $build['url'] = $source->toUrl('canonical')->toString(TRUE)->getGeneratedUrl();
+        $generatedUrl = $source->toUrl('canonical')->toString(TRUE)->getGeneratedUrl();
+        $build['url'] = $this->normalizeCanonicalUrl($generatedUrl);
       }
     }
 
@@ -126,6 +127,23 @@ final class NotificationFactory {
     }
 
     return $notification;
+  }
+
+  /**
+   * Removes the temporary installer front controller from a canonical URL.
+   *
+   * Demo entities may trigger notifications while Drupal is running through
+   * core/install.php. The router then prefixes otherwise valid canonical paths
+   * with that temporary front controller. It is unavailable after installation
+   * and must never be persisted as a notification target.
+   */
+  private function normalizeCanonicalUrl(string $url): string {
+    return preg_replace(
+      '~\/core\/install\.php(?=\/|$|\?|#)~',
+      '',
+      $url,
+      1,
+    ) ?? $url;
   }
 
   /**

@@ -80,6 +80,9 @@ final class NotificationInboxControllerTest extends KernelTestBase {
     $a1 = $this->makeNotification($userA, 'A first');
     $a2 = $this->makeNotification($userA, 'A second');
     $b1 = $this->makeNotification($userB, 'B only');
+    $cancelled = $this->makeNotification($userA, 'Cancelled audit row');
+    $cancelled->set('status', 'cancelled');
+    $cancelled->save();
 
     self::assertNull($a1->get('seen_at')->value, 'Notification starts unseen.');
 
@@ -90,6 +93,7 @@ final class NotificationInboxControllerTest extends KernelTestBase {
     $html = (string) $this->container->get('renderer')->renderRoot($build);
     self::assertStringContainsString('A first', $html);
     self::assertStringContainsString('A second', $html);
+    self::assertStringNotContainsString('Cancelled audit row', $html);
     self::assertStringNotContainsString('B only', $html, 'User B notifications must not leak.');
 
     // The page is uncacheable because rendering it has the mark-seen side
@@ -100,6 +104,7 @@ final class NotificationInboxControllerTest extends KernelTestBase {
     // while user B's untouched notification stays unseen.
     self::assertNotNull($this->reload($a1)->get('seen_at')->value, 'A1 is seen.');
     self::assertNotNull($this->reload($a2)->get('seen_at')->value, 'A2 is seen.');
+    self::assertNull($this->reload($cancelled)->get('seen_at')->value, 'Cancelled rows stay hidden and unseen.');
     self::assertNull($this->reload($b1)->get('seen_at')->value, 'B1 stays unseen.');
   }
 

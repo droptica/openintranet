@@ -60,6 +60,7 @@ final class NotificationBellBlockTest extends KernelTestBase {
     $this->createNotification($this->account->id(), 'First unread', FALSE);
     $this->createNotification($this->account->id(), 'Second unread', FALSE);
     $this->createNotification($this->account->id(), 'Already read', TRUE);
+    $this->createNotification($this->account->id(), 'Cancelled audit row', FALSE, 'cancelled');
 
     // A notification belonging to ANOTHER user (must never leak).
     $this->createNotification($other->id(), 'Other user secret', FALSE);
@@ -80,14 +81,14 @@ final class NotificationBellBlockTest extends KernelTestBase {
   /**
    * Creates and saves a notification for a recipient.
    */
-  private function createNotification(int|string $uid, string $subject, bool $read): void {
+  private function createNotification(int|string $uid, string $subject, bool $read, string $status = 'delivered'): void {
     $notification = Notification::create([
       'type' => 'mention',
       'uid' => $uid,
       'subject' => $subject,
       'url' => 'internal:/node/1',
       'priority' => 'normal',
-      'status' => 'delivered',
+      'status' => $status,
     ]);
     if ($read) {
       $notification->setRead();
@@ -124,6 +125,7 @@ final class NotificationBellBlockTest extends KernelTestBase {
     self::assertContains('First unread', $subjects);
     self::assertContains('Second unread', $subjects);
     self::assertContains('Already read', $subjects);
+    self::assertNotContains('Cancelled audit row', $subjects);
     self::assertNotContains('Other user secret', $subjects);
     self::assertCount(3, $build['#items']);
     // Each item carries the expected keys.

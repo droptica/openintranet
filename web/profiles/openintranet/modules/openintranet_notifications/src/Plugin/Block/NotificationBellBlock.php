@@ -91,6 +91,7 @@ final class NotificationBellBlock extends BlockBase implements ContainerFactoryP
     $count = (int) $storage->getQuery()
       ->accessCheck(FALSE)
       ->condition('uid', $uid)
+      ->condition('status', 'cancelled', '<>')
       ->notExists('read_at')
       ->count()
       ->execute();
@@ -98,6 +99,7 @@ final class NotificationBellBlock extends BlockBase implements ContainerFactoryP
     $recent_ids = $storage->getQuery()
       ->accessCheck(FALSE)
       ->condition('uid', $uid)
+      ->condition('status', 'cancelled', '<>')
       ->sort('created', 'DESC')
       ->sort('id', 'DESC')
       ->range(0, self::RECENT_LIMIT)

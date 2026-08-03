@@ -67,6 +67,7 @@ final class NotificationInboxController extends ControllerBase {
     $ids = $storage->getQuery()
       ->accessCheck(FALSE)
       ->condition('uid', (int) $this->account->id())
+      ->condition('status', 'cancelled', '<>')
       ->sort('created', 'DESC')
       ->sort('id', 'DESC')
       ->pager(self::INBOX_PAGE_SIZE)
