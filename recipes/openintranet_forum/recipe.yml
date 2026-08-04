@@ -17,6 +17,11 @@ config:
   import:
     openintranet_forum: '*'
   actions:
+    field.field.node.forum_post.body:
+      setSettings:
+        allowed_formats:
+          - basic_html
+          - full_html
     user.role.authenticated:
       grantPermissions:
         - 'create forum_post content'

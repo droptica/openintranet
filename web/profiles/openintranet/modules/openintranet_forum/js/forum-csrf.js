@@ -26,8 +26,17 @@
         tokenPromise = fetch(Drupal.url('session/token'), {
           credentials: 'same-origin',
         })
-          .then((res) => res.text())
-          .then((token) => token.trim());
+          .then((res) => {
+            if (!res.ok) {
+              throw new Error('Unable to load the CSRF token.');
+            }
+            return res.text();
+          })
+          .then((token) => token.trim())
+          .catch((error) => {
+            tokenPromise = null;
+            throw error;
+          });
       }
       return tokenPromise;
     },

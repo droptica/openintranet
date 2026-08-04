@@ -44,9 +44,8 @@ Modern forum/discussion board for Open Intranet with social feed features, react
 ### Option 1: Using Recipe (Recommended)
 
 ```bash
-# Apply the forum recipe
-cd web
-php core/scripts/drupal recipe recipes/forum
+# From the Open Intranet project root, apply the forum recipe.
+php web/core/scripts/drupal recipe recipes/openintranet_forum
 drush cr
 ```
 
@@ -58,10 +57,11 @@ drush en openintranet_forum -y
 
 # Clear cache
 drush cr
-
-# Import default configuration
-drush cim -y
 ```
+
+The module installs its default configuration and creates the five base forum
+categories required to create posts. Recipe installations import those
+categories through Drupal core's native recipe content support.
 
 ## Configuration
 

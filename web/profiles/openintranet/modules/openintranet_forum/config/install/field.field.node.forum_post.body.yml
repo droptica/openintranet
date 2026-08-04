@@ -2,8 +2,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - filter.format.basic_html
-    - filter.format.full_html
     - node.type.forum_post
   module:
     - text
@@ -20,11 +18,7 @@ default_value_callback: ''
 settings:
   display_summary: true
   required_summary: false
-  # Keep plain_text out of the forum body. The distro weights plain_text above
-  # basic_html, so filter_default_format() would hand regular authors a raw
-  # textarea; with these two, a user who only has basic_html gets exactly one
-  # option, so core hides the format select and CKEditor loads straight away.
-  allowed_formats:
-    - basic_html
-    - full_html
+  # A standalone install accepts any text format available to the user. The
+  # Open Intranet recipe narrows this to its rich-text formats.
+  allowed_formats: {  }
 field_type: text_with_summary

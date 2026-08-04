@@ -12,6 +12,9 @@ dependencies:
   - drupal:user
   - drupal:views
   - drupal:image
+  - drupal:filter
+  - drupal:menu_ui
+  - drupal:path
   - votingapi:votingapi
   - votingapi_reaction:votingapi_reaction
   - flag:flag

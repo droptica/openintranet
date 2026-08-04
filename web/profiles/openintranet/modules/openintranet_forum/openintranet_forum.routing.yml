@@ -21,6 +21,12 @@ openintranet_forum.comment_vote:
   requirements:
     _user_is_logged_in: 'TRUE'
     _csrf_request_header_token: 'TRUE'
+    _entity_access: 'comment.view'
+    comment: \d+
+  options:
+    parameters:
+      comment:
+        type: entity:comment
   methods: [POST]
 
 openintranet_forum.post_share:
@@ -30,7 +36,12 @@ openintranet_forum.post_share:
   requirements:
     _user_is_logged_in: 'TRUE'
     _csrf_request_header_token: 'TRUE'
+    _entity_access: 'node.view'
     node: \d+
+  options:
+    parameters:
+      node:
+        type: entity:node
   methods: [POST]
 
 openintranet_forum.feed:

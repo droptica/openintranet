@@ -87,12 +87,11 @@
 
           // Only forum posts carry a nid and increment the share counter.
           const nid = btn.dataset.nid;
-          if (!nid || btn.dataset.inFlight) {
+          const endpoint = btn.dataset.shareUrl;
+          if (!nid || !endpoint || btn.dataset.inFlight) {
             return;
           }
           btn.dataset.inFlight = '1';
-
-          const endpoint = Drupal.url('forum/post/' + nid + '/share');
 
           Drupal.openintranetForumCsrf.getToken()
             .then((token) =>

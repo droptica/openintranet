@@ -76,6 +76,7 @@
                     class="forum-comment__stat forum-comment__stat--like js-forum-comment-vote{% if forum_comment_user_vote == 'up' %} forum-comment__stat--active{% endif %}"
                     data-comment-id="{{ comment.id() }}"
                     data-direction="up"
+                    data-vote-url="{{ forum_comment_vote_url }}"
                     aria-pressed="{{ forum_comment_user_vote == 'up' ? 'true' : 'false' }}"
                     title="{{ 'Like'|t }}">
               <span class="visually-hidden">{{ 'Like'|t }}</span>
@@ -85,6 +86,7 @@
                     class="forum-comment__stat forum-comment__stat--dislike js-forum-comment-vote{% if forum_comment_user_vote == 'down' %} forum-comment__stat--active{% endif %}"
                     data-comment-id="{{ comment.id() }}"
                     data-direction="down"
+                    data-vote-url="{{ forum_comment_vote_url }}"
                     aria-pressed="{{ forum_comment_user_vote == 'down' ? 'true' : 'false' }}"
                     title="{{ 'Dislike'|t }}">
               <span class="visually-hidden">{{ 'Dislike'|t }}</span>

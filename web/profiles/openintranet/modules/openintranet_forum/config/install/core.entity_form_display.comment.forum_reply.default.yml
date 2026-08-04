@@ -5,7 +5,6 @@ dependencies:
     - comment.type.forum_reply
     - field.field.comment.forum_reply.comment_body
     - field.field.comment.forum_reply.field_forum_reply_images
-    - filter.format.basic_html
   module:
     - image
     - text

@@ -59,6 +59,7 @@
           nid: node.id(),
           post_url: forum_post_url,
           absolute_url: forum_post_absolute_url,
+          share_url: forum_post_share_url,
           icon_base: forum_post_icon_base,
           like_count: forum_post_like_count,
           reply_count: forum_post_reply_count,
@@ -134,7 +135,7 @@
             <img src="{{ forum_post_icon_base }}/thumbs-up.svg" width="18" height="18" alt="" loading="lazy">
             <span class="forum-post__like-count">{{ forum_post_like_count }}</span>
           </span>
-          <button type="button" class="forum-post__stat forum-post__share-btn js-forum-share" data-nid="{{ node.id() }}" data-url="{{ forum_post_absolute_url }}" aria-label="{{ 'Share this post'|t }}">
+          <button type="button" class="forum-post__stat forum-post__share-btn js-forum-share" data-nid="{{ node.id() }}" data-url="{{ forum_post_absolute_url }}" data-share-url="{{ forum_post_share_url }}" aria-label="{{ 'Share this post'|t }}">
             <img src="{{ forum_post_icon_base }}/share-nodes.svg" width="16" height="16" alt="" loading="lazy">
             <span class="forum-post__share-count">{{ forum_post_share_count }}</span>
           </button>

@@ -7,6 +7,7 @@ props:
   required:
     - nid
     - post_url
+    - share_url
     - icon_base
   properties:
     nid:
@@ -23,6 +24,10 @@ props:
       type: string
       title: Absolute URL
       description: "Absolute URL to the post, used as the share button data-url."
+    share_url:
+      type: string
+      title: Share endpoint URL
+      description: "Route URL used to increment the post share counter."
     icon_base:
       type: string
       title: Icon base path

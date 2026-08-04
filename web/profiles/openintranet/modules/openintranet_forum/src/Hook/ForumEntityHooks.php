@@ -341,14 +341,58 @@ final class ForumEntityHooks {
   /**
    * Implements hook_form_FORM_ID_alter() for the forum post add/edit forms.
    *
-   * Scopes the featured image widget spacing fix to the forum post form; the
-   * theme's global image-widget flex rule ships no gap.
+   * Gives regular authors a focused single-column form while preserving the
+   * full revision interface for content administrators.
    */
   #[Hook('form_node_forum_post_form_alter')]
   #[Hook('form_node_forum_post_edit_form_alter')]
   public function formNodeForumPostFormAlter(array &$form): void {
     $form['#attributes']['class'][] = 'forum-post-form';
     $form['#attached']['library'][] = 'openintranet_forum/forum.post_form';
+
+    if (!$this->currentUser->hasPermission('administer nodes')) {
+      $is_edit = ($form['#form_id'] ?? '') === 'node_forum_post_edit_form';
+      $form['#attributes']['class'][] = 'forum-post-form--single-column';
+      $form['forum_post_form_header'] = [
+        '#type' => 'container',
+        '#weight' => -100,
+        '#attributes' => [
+          'class' => ['forum-post-form__header', 'mb-4'],
+        ],
+        'title' => [
+          '#type' => 'html_tag',
+          '#tag' => 'h1',
+          '#value' => $is_edit
+            ? $this->t('Edit forum post')
+            : $this->t('Create a forum post'),
+          '#attributes' => [
+            'class' => ['fs-2', 'fw-bold', 'mb-2'],
+          ],
+        ],
+        'description' => [
+          '#type' => 'html_tag',
+          '#tag' => 'p',
+          '#value' => $is_edit
+            ? $this->t('Update the discussion details below.')
+            : $this->t('Share a question, idea, or update with your colleagues.'),
+          '#attributes' => [
+            'class' => ['text-muted', 'mb-0'],
+          ],
+        ],
+      ];
+
+      if (isset($form['revision_information'])) {
+        $form['revision_information']['#access'] = FALSE;
+      }
+      if (isset($form['actions']['submit'])) {
+        $form['actions']['submit']['#value'] = $is_edit
+          ? $this->t('Save changes')
+          : $this->t('Publish post');
+      }
+      if (isset($form['actions']['preview'])) {
+        $form['actions']['preview']['#attributes']['class'][] = 'btn-outline-secondary';
+      }
+    }
   }
 
 }

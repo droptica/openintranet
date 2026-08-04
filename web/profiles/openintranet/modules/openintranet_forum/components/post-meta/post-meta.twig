@@ -7,6 +7,7 @@
  * - nid: Node ID (int).
  * - post_url: Relative post URL (string).
  * - absolute_url: Absolute post URL for sharing (string).
+ * - share_url: Endpoint URL for incrementing the share counter (string).
  * - icon_base: Base path to icon directory (string, no trailing slash).
  * - like_count, reply_count, share_count: Stat integers.
  * - liked: Whether the current user liked the post (bool).
@@ -44,7 +45,7 @@
       {% endif %}
     </a>
     {% if show_share %}
-      <button type="button" class="forum-post-meta__stat forum-post__stat forum-post__share-btn js-forum-share{{ labelled ? ' forum-post-meta__stat--labelled' : '' }}" data-nid="{{ nid }}" data-url="{{ absolute_url }}" aria-label="{{ 'Share this post'|t }}">
+      <button type="button" class="forum-post-meta__stat forum-post__stat forum-post__share-btn js-forum-share{{ labelled ? ' forum-post-meta__stat--labelled' : '' }}" data-nid="{{ nid }}" data-url="{{ absolute_url }}" data-share-url="{{ share_url }}" aria-label="{{ 'Share this post'|t }}">
         <img src="{{ icon_base }}/share-nodes.svg" width="16" height="16" alt="" loading="lazy">
         {% if labelled %}
           <span class="forum-post-meta__stat-label">{{ 'Share'|t }} (<span class="forum-post__share-count">{{ share_count|default(0) }}</span>)</span>

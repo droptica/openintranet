@@ -55,6 +55,9 @@ final class ForumPostRenderer implements ForumPostRendererInterface {
     $variables['forum_post_icon_base'] = $icon_base;
     $variables['forum_post_url'] = $node->toUrl()->toString();
     $variables['forum_post_absolute_url'] = $node->toUrl()->setAbsolute(TRUE)->toString();
+    $variables['forum_post_share_url'] = Url::fromRoute('openintranet_forum.post_share', [
+      'node' => $node->id(),
+    ])->toString();
     $variables['forum_post_view_mode'] = $viewMode;
     $nid = (int) $node->id();
     $account = $this->currentUser;
@@ -87,6 +90,7 @@ final class ForumPostRenderer implements ForumPostRendererInterface {
       $variables['forum_trending_reply_count'] = $variables['forum_post_reply_count'];
       $variables['forum_trending_share_count'] = $variables['forum_post_share_count'];
       $variables['forum_trending_absolute_url'] = $variables['forum_post_absolute_url'];
+      $variables['forum_trending_share_url'] = $variables['forum_post_share_url'];
       $variables['forum_trending_author_name'] = $variables['forum_post_author_name'];
       $variables['forum_trending_author_profile_url'] = $variables['forum_post_author_profile_url'];
       $variables['forum_trending_author_picture'] = $variables['forum_post_author_picture'];

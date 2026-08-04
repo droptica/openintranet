@@ -8,8 +8,10 @@ use Drupal\Core\Database\Connection;
 use Drupal\Core\Database\Query\SelectInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
+use Drupal\Core\Lock\LockBackendInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Session\AccountProxyInterface;
+use Drupal\node\NodeInterface;
 
 /**
  * Service for forum statistics operations.
@@ -29,6 +31,8 @@ final class ForumStatistics implements ForumStatisticsInterface {
    *   The module handler.
    * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $loggerFactory
    *   The logger channel factory.
+   * @param \Drupal\Core\Lock\LockBackendInterface $lock
+   *   The lock backend.
    */
   public function __construct(
     private readonly EntityTypeManagerInterface $entityTypeManager,
@@ -36,6 +40,7 @@ final class ForumStatistics implements ForumStatisticsInterface {
     private readonly AccountProxyInterface $currentUser,
     private readonly ModuleHandlerInterface $moduleHandler,
     private readonly LoggerChannelFactoryInterface $loggerFactory,
+    private readonly LockBackendInterface $lock,
   ) {}
 
   /**
@@ -146,6 +151,54 @@ final class ForumStatistics implements ForumStatisticsInterface {
   /**
    * {@inheritdoc}
    */
+  public function incrementShareCount(int $nid): int {
+    if ($nid < 1) {
+      return 0;
+    }
+
+    $lock_name = 'openintranet_forum.share_count.' . $nid;
+    if (!$this->lock->acquire($lock_name, 5.0)) {
+      $this->lock->wait($lock_name, 1);
+      if (!$this->lock->acquire($lock_name, 5.0)) {
+        return $this->getShareCount($nid);
+      }
+    }
+
+    try {
+      $node = $this->entityTypeManager
+        ->getStorage('node')
+        ->loadUnchanged($nid);
+      if (!$node instanceof NodeInterface
+        || $node->bundle() !== 'forum_post'
+        || !$node->hasField('field_forum_share_count')) {
+        return 0;
+      }
+
+      $field_values = $node->get('field_forum_share_count')->getValue();
+      $count = (int) ($field_values[0]['value'] ?? 0) + 1;
+      $changed = $node->getChangedTime();
+      $node->set('field_forum_share_count', $count);
+      $node->setNewRevision(FALSE);
+      $node->setChangedTime($changed);
+      $node->save();
+
+      return $count;
+    }
+    catch (\Exception $e) {
+      $this->loggerFactory->get('openintranet_forum')->error('Failed to increment share count for node @nid: @message', [
+        '@nid' => $nid,
+        '@message' => $e->getMessage(),
+      ]);
+      return $this->getShareCount($nid);
+    }
+    finally {
+      $this->lock->release($lock_name);
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getShareCount(int $nid): int {
     if ($nid < 1) {
       return 0;
@@ -154,8 +207,10 @@ final class ForumStatistics implements ForumStatisticsInterface {
     $result = $this->database
       ->select('node__field_forum_share_count', 'f')
       ->fields('f', ['field_forum_share_count_value'])
-      ->condition('entity_id', $nid)
-      ->condition('bundle', 'forum_post')
+      ->condition('f.entity_id', $nid)
+      ->condition('f.bundle', 'forum_post')
+      ->condition('f.deleted', 0)
+      ->condition('f.delta', 0)
       ->execute()
       ->fetchField();
 

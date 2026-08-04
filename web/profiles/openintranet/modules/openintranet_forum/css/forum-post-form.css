@@ -1,3 +1,19 @@
+.forum-post-form--single-column .layout-region-node-main,
+.forum-post-form--single-column .layout-region-node-footer {
+  flex: 0 0 100%;
+  width: 100%;
+  max-width: 60rem;
+  margin-inline: auto;
+}
+
+.forum-post-form--single-column .layout-region-node-secondary {
+  display: none;
+}
+
+.forum-post-form--single-column .field--name-field-forum-category {
+  max-width: 24rem;
+}
+
 .forum-post-form .field--name-field-forum-image .image-widget {
   align-items: flex-start;
   gap: 1rem;

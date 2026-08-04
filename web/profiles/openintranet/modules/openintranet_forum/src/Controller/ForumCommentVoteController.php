@@ -46,12 +46,23 @@ final class ForumCommentVoteController extends ControllerBase {
       return new JsonResponse(['error' => 'Not found'], Response::HTTP_NOT_FOUND);
     }
 
+    if ($comment->hasField('field_forum_reply_soft_deleted')) {
+      $soft_deleted = $comment->get('field_forum_reply_soft_deleted')->getValue();
+      if ((bool) ($soft_deleted[0]['value'] ?? FALSE)) {
+        return new JsonResponse(['error' => 'Not found'], Response::HTTP_NOT_FOUND);
+      }
+    }
+
     $account = $this->currentUser();
     if ($account->isAnonymous()) {
       return new JsonResponse(['error' => 'Login required'], Response::HTTP_FORBIDDEN);
     }
 
-    $data = json_decode($request->getContent(), TRUE);
+    $content = $request->getContent();
+    $data = $content === '' ? [] : json_decode($content, TRUE);
+    if (!is_array($data)) {
+      return new JsonResponse(['error' => 'Invalid JSON'], Response::HTTP_BAD_REQUEST);
+    }
     $direction = $data['direction'] ?? $request->request->get('direction');
 
     if ($direction !== 'up' && $direction !== 'down') {

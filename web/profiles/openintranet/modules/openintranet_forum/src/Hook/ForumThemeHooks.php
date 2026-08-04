@@ -493,6 +493,9 @@ final class ForumThemeHooks implements TrustedCallbackInterface {
     $variables['forum_comment_like_count'] = $reaction_counts['up'];
     $variables['forum_comment_dislike_count'] = $reaction_counts['down'];
     $variables['forum_comment_user_vote'] = $this->statistics->getCommentUserVote((int) $comment->id());
+    $variables['forum_comment_vote_url'] = Url::fromRoute('openintranet_forum.comment_vote', [
+      'comment' => $comment->id(),
+    ])->toString();
     $share_url = Url::fromUri('internal:/comment/' . (int) $comment->id())->setAbsolute()->toString();
     $variables['forum_comment_soft_deleted'] = $is_soft_deleted;
     $variables['forum_comment_actions'] = [];

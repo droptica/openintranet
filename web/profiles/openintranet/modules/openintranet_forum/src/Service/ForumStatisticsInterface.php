@@ -66,6 +66,17 @@ interface ForumStatisticsInterface {
   public function getVoteSumTotal(int $nid): int;
 
   /**
+   * Atomically increments the stored share count for a forum post.
+   *
+   * @param int $nid
+   *   The forum post node ID.
+   *
+   * @return int
+   *   The updated share count, or the current count when it cannot be changed.
+   */
+  public function incrementShareCount(int $nid): int;
+
+  /**
    * Gets the share count for a forum post from the dedicated field table.
    *
    * @param int $nid

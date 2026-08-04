@@ -9,18 +9,16 @@ declare(strict_types=1);
 
 use Drupal\block\Entity\Block;
 use Drupal\filter\Entity\FilterFormat;
+use Drupal\taxonomy\Entity\Term;
 use Drupal\user\Entity\Role;
 use Drupal\votingapi\Entity\VoteType;
 
 /**
  * Implements hook_install().
  *
- * The five default forum categories are NOT created here: they ship as
- * default content in content/taxonomy_term/forum_category/ (imported by core
- * on module install) so that they work on every install path. Creating them
- * in hook_install() broke the recipe path — recipes install modules without
- * their default config, so the forum_category vocabulary did not exist yet
- * when this hook ran.
+ * A regular module install creates the five required forum categories after
+ * default config has been installed. During recipe/config-sync installs the
+ * recipe imports the same categories with Drupal core's native content import.
  */
 function openintranet_forum_install(bool $is_syncing = FALSE): void {
   // The "like" reaction is votingapi_reaction's vote type (created in its own
@@ -37,6 +35,7 @@ function openintranet_forum_install(bool $is_syncing = FALSE): void {
   }
 
   _openintranet_forum_grant_baseline_permissions();
+  _openintranet_forum_create_base_categories();
 }
 
 /**
@@ -99,6 +98,103 @@ function _openintranet_forum_grant_baseline_permissions(): void {
 
   if ($changed) {
     $role->save();
+  }
+}
+
+/**
+ * Creates any missing base forum categories.
+ */
+function _openintranet_forum_create_base_categories(): void {
+  $categories = [
+    [
+      'uuid' => 'forumcat-0000-0000-0000-000000000001',
+      'name' => 'General Discussion',
+      'description' => 'Everyday conversations and topics that don\'t fit elsewhere.',
+      'weight' => 0,
+      'icon' => 'mdi:forum',
+      'alias' => '/forum/category/general-discussion',
+    ],
+    [
+      'uuid' => 'forumcat-0000-0000-0000-000000000002',
+      'name' => 'Help & Support',
+      'description' => 'Ask the community for help with tools, access, or processes.',
+      'weight' => 1,
+      'icon' => 'mdi:help-circle',
+      'alias' => '/forum/category/help-support',
+    ],
+    [
+      'uuid' => 'forumcat-0000-0000-0000-000000000003',
+      'name' => 'Announcements',
+      'description' => 'Official announcements and updates from the company.',
+      'weight' => 2,
+      'icon' => 'mdi:bullhorn',
+      'alias' => '/forum/category/announcements',
+    ],
+    [
+      'uuid' => 'forumcat-0000-0000-0000-000000000004',
+      'name' => 'Ideas & Feedback',
+      'description' => 'Share ideas, product feedback, and suggestions.',
+      'weight' => 3,
+      'icon' => 'mdi:lightbulb-on',
+      'alias' => '/forum/category/ideas-feedback',
+    ],
+    [
+      'uuid' => 'forumcat-0000-0000-0000-000000000005',
+      'name' => 'Off-Topic',
+      'description' => 'Casual conversations unrelated to work.',
+      'weight' => 4,
+      'icon' => 'mdi:coffee',
+      'alias' => '/forum/category/off-topic',
+    ],
+  ];
+
+  $term_storage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
+  $format = FilterFormat::load('full_html') instanceof FilterFormat
+    ? 'full_html'
+    : 'plain_text';
+
+  foreach ($categories as $category) {
+    $existing = $term_storage->getQuery()
+      ->accessCheck(FALSE)
+      ->condition('vid', 'forum_category')
+      ->condition('name', $category['name'])
+      ->range(0, 1)
+      ->execute();
+    if ($existing !== []) {
+      continue;
+    }
+
+    $term = Term::create([
+      'vid' => 'forum_category',
+      'uuid' => $category['uuid'],
+      'name' => $category['name'],
+      'description' => [
+        'value' => $format === 'full_html'
+          ? '<p>' . $category['description'] . '</p>'
+          : $category['description'],
+        'format' => $format,
+      ],
+      'weight' => $category['weight'],
+      'parent' => 0,
+      'status' => TRUE,
+    ]);
+
+    if ($term->hasField('field_category_icon')) {
+      $term->set('field_category_icon', [
+        'value' => $category['icon'],
+        'classes' => '',
+        'decorative' => TRUE,
+        'arialabel' => '',
+      ]);
+    }
+    if ($term->hasField('path')) {
+      $term->set('path', [
+        'alias' => $category['alias'],
+        'langcode' => 'en',
+      ]);
+    }
+
+    $term->save();
   }
 }
 
@@ -355,4 +451,22 @@ function openintranet_forum_update_110009(): void {
   }
 
   $field->setSetting('allowed_formats', $formats)->save();
+}
+
+/**
+ * Install newly available optional config and restore missing base categories.
+ */
+function openintranet_forum_update_110010(): void {
+  \Drupal::service('config.installer')->installOptionalConfig();
+
+  $term_storage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
+  $term_ids = $term_storage->getQuery()
+    ->accessCheck(FALSE)
+    ->condition('vid', 'forum_category')
+    ->range(0, 1)
+    ->execute();
+
+  if ($term_ids === []) {
+    _openintranet_forum_create_base_categories();
+  }
 }

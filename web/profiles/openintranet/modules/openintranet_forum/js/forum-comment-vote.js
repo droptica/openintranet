@@ -24,7 +24,8 @@
 
             const commentId = btn.dataset.commentId;
             const direction = btn.dataset.direction;
-            if (!commentId || (direction !== 'up' && direction !== 'down')) {
+            const url = btn.dataset.voteUrl;
+            if (!commentId || !url || (direction !== 'up' && direction !== 'down')) {
               return;
             }
 
@@ -63,8 +64,6 @@
 
             btn.dataset.inFlight = '1';
 
-            const url = Drupal.url('forum/comment/' + commentId + '/vote');
-
             Drupal.openintranetForumCsrf.getToken()
               .then((token) =>
                 fetch(url, {
@@ -77,7 +76,12 @@
                   body: JSON.stringify({ direction }),
                 }),
               )
-              .then((res) => res.json())
+              .then((res) => {
+                if (!res.ok) {
+                  throw new Error('Unable to save the vote.');
+                }
+                return res.json();
+              })
               .then((data) => {
                 if (typeof data.likes === 'undefined') {
                   return;

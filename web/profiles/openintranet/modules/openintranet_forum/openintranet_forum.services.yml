@@ -2,6 +2,8 @@ services:
   openintranet_forum.statistics:
     class: Drupal\openintranet_forum\Service\ForumStatistics
     autowire: true
+    arguments:
+      $lock: '@lock'
 
   Drupal\openintranet_forum\Service\ForumStatisticsInterface: '@openintranet_forum.statistics'
 
@@ -13,13 +15,10 @@ services:
 
   Drupal\openintranet_forum\Service\ForumNotificationsInterface: '@openintranet_forum.notifications'
 
-  openintranet_forum.reaction_subscriber:
-    class: Drupal\openintranet_forum\EventSubscriber\ForumReactionSubscriber
+  Drupal\openintranet_forum\Hook\ForumVoteHooks:
     autowire: true
     arguments:
       $engagementTracker: '@?openintranet_engagement.tracker'
-    tags:
-      - { name: event_subscriber }
 
   openintranet_forum.category_tree:
     class: Drupal\openintranet_forum\Service\ForumCategoryTreeService
@@ -84,9 +83,8 @@ services:
   #
   # ForumThemeHooks and ForumTrendingHooks are auto-discovered by Drupal 11's
   # HookCollectorPass and autowired from the interface aliases above.
-  # ForumEntityHooks is registered explicitly so that the optional
-  # openintranet_engagement.tracker service can be injected with '@?' syntax,
-  # which autowiring cannot express.
+  # Hook classes with an optional engagement tracker are registered explicitly
+  # because autowiring cannot express the '@?' service syntax.
   Drupal\openintranet_forum\Hook\ForumEntityHooks:
     autowire: true
     arguments:
