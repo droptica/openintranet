@@ -89,10 +89,22 @@ final class NotificationInboxControllerTest extends KernelTestBase {
     $this->setCurrentUser($userA);
     $build = $this->controller->inbox();
 
+    self::assertSame(2, $build['list']['#new_count']);
+    self::assertNull($build['list']['#preferences_url']);
+    self::assertSame('pager', $build['list']['#pager']['#type']);
+    self::assertTrue($build['list']['#items'][0]['is_read']);
+    self::assertNotEmpty($build['list']['#items'][0]['created_iso']);
+    self::assertNotEmpty($build['list']['#items'][0]['created_full']);
+    self::assertNotEmpty($build['list']['#items'][0]['date_key']);
+    self::assertNotEmpty($build['list']['#items'][0]['date_label']);
+
     // The rendered markup lists only user A's subjects, never user B's.
     $html = (string) $this->container->get('renderer')->renderRoot($build);
     self::assertStringContainsString('A first', $html);
     self::assertStringContainsString('A second', $html);
+    self::assertStringContainsString('You are caught up on 2 new notifications.', $html);
+    self::assertStringContainsString('<time', $html);
+    self::assertStringContainsString('datetime=', $html);
     self::assertStringNotContainsString('Cancelled audit row', $html);
     self::assertStringNotContainsString('B only', $html, 'User B notifications must not leak.');
 
@@ -106,6 +118,27 @@ final class NotificationInboxControllerTest extends KernelTestBase {
     self::assertNotNull($this->reload($a2)->get('seen_at')->value, 'A2 is seen.');
     self::assertNull($this->reload($cancelled)->get('seen_at')->value, 'Cancelled rows stay hidden and unseen.');
     self::assertNull($this->reload($b1)->get('seen_at')->value, 'B1 stays unseen.');
+  }
+
+  /**
+   * The inbox links to preferences only when the user can access them.
+   *
+   * @covers ::inbox
+   */
+  public function testInboxProvidesAccessiblePreferencesUrl(): void {
+    $user = $this->makeUser('preferences', [
+      'administer own notification preferences',
+    ]);
+    $this->setCurrentUser($user);
+
+    $preferences_url = $this->controller->inbox()['list']['#preferences_url'];
+
+    self::assertInstanceOf(Url::class, $preferences_url);
+    self::assertSame(
+      'openintranet_notifications.user_preferences',
+      $preferences_url->getRouteName(),
+    );
+    self::assertSame(['user' => $user->id()], $preferences_url->getRouteParameters());
   }
 
   /**

@@ -26,6 +26,9 @@ function openintranet_notifications_theme(): array {
       'template' => 'notifications-inbox',
       'variables' => [
         'items' => [],
+        'new_count' => 0,
+        'preferences_url' => NULL,
+        'pager' => NULL,
       ],
     ],
   ];

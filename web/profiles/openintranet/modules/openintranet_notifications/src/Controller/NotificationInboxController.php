@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace Drupal\openintranet_notifications\Controller;
 
+use Drupal\Component\Datetime\TimeInterface;
+use Drupal\Core\Access\AccessManagerInterface;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Datetime\DateFormatterInterface;
 use Drupal\Core\Routing\LocalRedirectResponse;
 use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\Url;
 use Drupal\openintranet_notifications\Entity\NotificationInterface;
 use Drupal\openintranet_notifications\Event\NotificationEvents;
 use Drupal\openintranet_notifications\Event\NotificationSeenEvent;
@@ -38,6 +41,8 @@ final class NotificationInboxController extends ControllerBase {
     private readonly DateFormatterInterface $dateFormatter,
     private readonly EventDispatcherInterface $eventDispatcher,
     private readonly NotificationActorPresenter $actorPresenter,
+    private readonly TimeInterface $time,
+    private readonly AccessManagerInterface $accessManager,
   ) {}
 
   /**
@@ -49,6 +54,8 @@ final class NotificationInboxController extends ControllerBase {
       $container->get('date.formatter'),
       $container->get('event_dispatcher'),
       $container->get('openintranet_notifications.actor_presenter'),
+      $container->get('datetime.time'),
+      $container->get('access_manager'),
     );
   }
 
@@ -75,21 +82,45 @@ final class NotificationInboxController extends ControllerBase {
     /** @var \Drupal\openintranet_notifications\Entity\NotificationInterface[] $notifications */
     $notifications = $storage->loadMultiple($ids);
 
+    $new_count = count(array_filter(
+      $notifications,
+      static fn (NotificationInterface $notification): bool => !$notification->isRead(),
+    ));
+    $this->markRead($notifications);
+
     $items = [];
     foreach ($notifications as $notification) {
       $created = (int) $notification->get('created')->value;
       $actor = $this->actorPresenter->present($notification);
+      $date_group = $this->getDateGroup($created);
       $items[] = [
         'url' => $notification->toUrl('canonical'),
         'subject' => $notification->get('subject')->value ?? $notification->label(),
-        'created_ago' => $this->dateFormatter->formatTimeDiffSince($created, ['granularity' => 1]),
+        'created_ago' => $this->t('@time ago', [
+          '@time' => $this->dateFormatter->formatTimeDiffSince($created, ['granularity' => 1]),
+        ]),
+        'created_iso' => gmdate(DATE_ATOM, $created),
+        'created_full' => $this->dateFormatter->format($created, 'custom', 'F j, Y, g:i a'),
+        'date_key' => $date_group['key'],
+        'date_label' => $date_group['label'],
         'is_read' => $notification->isRead(),
         'actor_name' => $actor['name'],
         'actor_avatar' => $actor['avatar'],
       ];
     }
 
-    $this->markRead($notifications);
+    $preferences_route_parameters = ['user' => $this->account->id()];
+    $preferences_url = NULL;
+    if ($this->accessManager->checkNamedRoute(
+      'openintranet_notifications.user_preferences',
+      $preferences_route_parameters,
+      $this->account,
+    )) {
+      $preferences_url = Url::fromRoute(
+        'openintranet_notifications.user_preferences',
+        $preferences_route_parameters,
+      );
+    }
 
     return [
       '#type' => 'container',
@@ -97,9 +128,11 @@ final class NotificationInboxController extends ControllerBase {
       'list' => [
         '#theme' => 'openintranet_notifications_inbox',
         '#items' => $items,
-      ],
-      'pager' => [
-        '#type' => 'pager',
+        '#new_count' => $new_count,
+        '#preferences_url' => $preferences_url,
+        '#pager' => [
+          '#type' => 'pager',
+        ],
       ],
       // Rendering the inbox marks notifications read, so it must never be
       // served from cache.
@@ -107,6 +140,41 @@ final class NotificationInboxController extends ControllerBase {
         'max-age' => 0,
         'contexts' => ['user'],
       ],
+    ];
+  }
+
+  /**
+   * Builds a calendar group for a notification timestamp.
+   *
+   * @return array{key: string, label: \Drupal\Core\StringTranslation\TranslatableMarkup|string}
+   *   A stable date key and a user-facing label.
+   */
+  private function getDateGroup(int $created): array {
+    $date_key = $this->dateFormatter->format($created, 'custom', 'Y-m-d');
+    $today_key = $this->dateFormatter->format(
+      $this->time->getRequestTime(),
+      'custom',
+      'Y-m-d',
+    );
+    $yesterday_key = $this->dateFormatter->format(
+      $this->time->getRequestTime() - 86400,
+      'custom',
+      'Y-m-d',
+    );
+
+    if ($date_key === $today_key) {
+      $label = $this->t('Today');
+    }
+    elseif ($date_key === $yesterday_key) {
+      $label = $this->t('Yesterday');
+    }
+    else {
+      $label = $this->dateFormatter->format($created, 'custom', 'F j, Y');
+    }
+
+    return [
+      'key' => $date_key,
+      'label' => $label,
     ];
   }
 

@@ -1,9 +1,110 @@
 @import "../mixins/text";
 
-// /notifications inbox list skin (avatar + actor + subject + time rows).
+// /notifications page shell.
+.path-notifications {
+  #block-openintranet-theme-page-title,
+  #block-openintranet-theme-content {
+    max-width: 960px;
+    margin-inline: auto;
+  }
+
+  #block-openintranet-theme-page-title {
+    padding: 0;
+    background: transparent;
+  }
+
+  #block-openintranet-theme-content {
+    padding: 0;
+    background: transparent;
+
+    > .content {
+      margin-top: 0;
+    }
+  }
+}
+
+// Focused activity panel with grouped notification rows.
 .notifications-inbox {
-  max-width: 720px;
+  max-width: 960px;
   margin-inline: auto;
+
+  &__panel {
+    overflow: hidden;
+    background: $white;
+    border: 1px solid $navy-gray-50;
+    border-radius: $border-radius;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1.5rem 1.75rem;
+    border-bottom: 1px solid $navy-gray-40;
+  }
+
+  &__heading {
+    min-width: 0;
+  }
+
+  &__title {
+    @include heading-5;
+
+    margin: 0;
+    color: $dark-navy-900;
+  }
+
+  &__summary {
+    @include body-400;
+
+    margin: .25rem 0 0;
+    color: $dark-navy-600;
+  }
+
+  &__preferences {
+    @include body-400-bold;
+
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: .625rem .875rem;
+    color: $primary-shade;
+    text-decoration: none;
+    white-space: nowrap;
+    background: $white;
+    border: 1px solid $navy-gray-100;
+    border-radius: $border-radius;
+
+    &:hover {
+      color: $primary-shade;
+      text-decoration: none;
+      background: $blue-50;
+      border-color: $blue-100;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $primary-shade;
+      outline-offset: 2px;
+    }
+  }
+
+  &__group + &__group {
+    border-top: 1px solid $navy-gray-40;
+  }
+
+  &__date {
+    @include body-300-bold;
+
+    margin: 0;
+    padding: .625rem 1.75rem;
+    color: $dark-navy-600;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    background: $navy-gray-25;
+  }
 
   &__list {
     margin: 0;
@@ -21,22 +122,31 @@
 
   &__link {
     display: flex;
-    align-items: flex-start;
-    gap: .75rem;
-    padding: .875rem 1rem;
+    align-items: center;
+    gap: 1rem;
+    min-height: 76px;
+    padding: .875rem 1.75rem;
     color: $body-color;
     text-decoration: none;
+    transition: background-color .15s ease;
 
     &:hover {
       background: $navy-gray-25;
       text-decoration: none;
     }
+
+    &:focus-visible {
+      position: relative;
+      z-index: 1;
+      outline: 2px solid $primary-shade;
+      outline-offset: -2px;
+    }
   }
 
   &__avatar {
     flex-shrink: 0;
-    width: 48px;
-    height: 48px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
     object-fit: cover;
     aspect-ratio: 1;
@@ -46,61 +156,135 @@
     }
   }
 
-  // Actor + subject, clamped to two lines (fixed-height rows, ellipsis overflow).
-  &__text {
-    @include body-400;
-
+  &__content {
+    display: flex;
     flex: 1;
+    flex-direction: column;
+    gap: .125rem;
     min-width: 0;
+  }
+
+  &__subject {
+    @include body-500-bold;
+
     display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
     overflow: hidden;
+    color: $dark-navy-900;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  &__meta {
+    @include body-300;
+
+    display: flex;
+    align-items: center;
+    gap: .375rem;
+    color: $dark-navy-600;
   }
 
   &__actor {
-    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__separator {
+    flex-shrink: 0;
   }
 
   &__time {
     flex-shrink: 0;
-    margin-left: .75rem;
-    font-size: .75rem;
-    color: $dark-navy-600;
     white-space: nowrap;
   }
 
   &__item--unread {
-    position: relative;
     background: $blue-50;
-
-    &::before {
-      content: "";
-      position: absolute;
-      top: 50%;
-      left: .4375rem;
-      width: .5rem;
-      height: .5rem;
-      transform: translateY(-50%);
-      border-radius: 50%;
-      background: $blue-600;
-    }
-
-    .notifications-inbox__link {
-      padding-left: 1.5rem;
-    }
+    box-shadow: inset 3px 0 0 $blue-600;
   }
 
   &__empty {
-    @include body-400;
-
-    padding: 1.5rem 1rem;
-    color: $dark-navy-600;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 4rem 1.5rem;
     text-align: center;
   }
 
-  // Theme already skins .pager.
-  .pager {
-    margin-top: 1rem;
+  &__empty-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    margin-bottom: 1rem;
+    color: $primary-shade;
+    background: $blue-50;
+    border-radius: 50%;
+  }
+
+  &__empty-title {
+    @include heading-5;
+
+    margin: 0;
+    color: $dark-navy-900;
+  }
+
+  &__empty-text {
+    @include body-400;
+
+    max-width: 360px;
+    margin: .375rem 0 0;
+    color: $dark-navy-600;
+  }
+
+  &__pager {
+    border-top: 1px solid $navy-gray-40;
+
+    &:not(:has(.pagination)) {
+      display: none;
+    }
+
+    .pagination {
+      padding: .75rem 1rem;
+      border-radius: 0;
+    }
+  }
+
+  @include media-breakpoint-down(md) {
+    &__header {
+      align-items: stretch;
+      flex-direction: column;
+      gap: 1rem;
+      padding: 1.25rem;
+    }
+
+    &__preferences {
+      width: 100%;
+    }
+
+    &__date {
+      padding-inline: 1.25rem;
+    }
+
+    &__link {
+      align-items: flex-start;
+      gap: .75rem;
+      min-height: 72px;
+      padding: .875rem 1.25rem;
+    }
+
+    &__avatar {
+      width: 40px;
+      height: 40px;
+    }
+
+    &__meta {
+      flex-wrap: wrap;
+    }
+
+    &__empty {
+      padding: 3rem 1.25rem;
+    }
   }
 }

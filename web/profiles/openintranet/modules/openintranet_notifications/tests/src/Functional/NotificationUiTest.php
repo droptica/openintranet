@@ -86,7 +86,9 @@ final class NotificationUiTest extends BrowserTestBase {
    * Tests inbox rendering and its mark-read side effect.
    */
   private function assertInboxRenderingMarksOwnNotificationsRead(): void {
-    $owner = $this->drupalCreateUser();
+    $owner = $this->drupalCreateUser([
+      'administer own notification preferences',
+    ]);
     $other = $this->drupalCreateUser();
     $actor = $this->drupalCreateUser();
 
@@ -103,9 +105,12 @@ final class NotificationUiTest extends BrowserTestBase {
     $assert->pageTextContains('First own notification');
     $assert->pageTextContains('Second own notification');
     $assert->pageTextContains($actor->getDisplayName());
+    $assert->pageTextContains('You are caught up on 2 new notifications.');
     $assert->pageTextNotContains('Other user secret');
     $assert->elementsCount('css', '.notifications-inbox__item', 2);
-    $assert->elementsCount('css', '.notifications-inbox__item--unread', 2);
+    $assert->elementsCount('css', '.notifications-inbox__item--unread', 0);
+    $assert->elementsCount('css', '.notifications-inbox__time[datetime]', 2);
+    $assert->elementExists('css', '.notifications-inbox__preferences');
 
     self::assertTrue($this->reloadNotification($first)->isRead());
     self::assertTrue($this->reloadNotification($first)->isSeen());
@@ -115,6 +120,7 @@ final class NotificationUiTest extends BrowserTestBase {
     // The next request renders the persisted read state.
     $this->drupalGet('notifications');
     $assert->elementsCount('css', '.notifications-inbox__item--unread', 0);
+    $assert->pageTextContains('You are all caught up.');
   }
 
   /**
