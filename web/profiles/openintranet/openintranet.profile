@@ -10,7 +10,6 @@ declare(strict_types=1);
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Recipe\Recipe;
 use Drupal\Core\Recipe\RecipeRunner;
-use Drupal\user\Entity\User;
 use Drupal\openintranet\Form\RecipesForm;
 use Drupal\Core\Form\FormStateInterface;
 use Symfony\Component\Process\Process;
@@ -104,8 +103,13 @@ function openintranet_install_tasks_alter(array &$tasks, array $install_state): 
 
     // Get our tasks.
     $our_tasks = openintranet_install_tasks($install_state);
+    $finalize_task = $our_tasks['openintranet_install_finished'];
+    unset($our_tasks['openintranet_install_finished']);
 
     $tasks = $tasks_before + $our_tasks + $tasks_after;
+    unset($tasks['openintranet_install_finished']);
+    // Run final theme setup after core has completed its own finish task.
+    $tasks['openintranet_install_finished'] = $finalize_task;
   }
 
   // Set the language code to English.
@@ -372,30 +376,55 @@ function openintranet_form_install_configure_form_alter(&$form, FormStateInterfa
 }
 
 /**
- * Finish callback for the installer.
+ * Builds the final installation batch.
  */
-function openintranet_install_finished(&$install_state) {
-  \Drupal::messenger()->deleteAll();
+function openintranet_install_finished(&$install_state): array {
+  return [
+    'operations' => [
+      ['openintranet_enable_gin_toolbar', []],
+      ['openintranet_activate_site_themes', []],
+    ],
+    'title' => t('Finishing Open Intranet installation'),
+    'progress_message' => t('Finishing Open Intranet installation... @current out of @total steps.'),
+    'error_message' => t('Open Intranet installation could not be finalized.'),
+  ];
+}
 
-  try {
-    // Switch to openintranet.
-    \Drupal::service('theme_installer')->install(['openintranet_theme']);
-    \Drupal::service('theme_installer')->install(['gin']);
-    \Drupal::configFactory()
-      ->getEditable('system.theme')
-      ->set('default', 'openintranet_theme')
-      ->set('admin', 'gin')
-      ->save();
-  }
-  catch (\Exception $e) {
-    error_log($e->getMessage());
+/**
+ * Activates the default and administration themes after installer pages.
+ */
+function openintranet_activate_site_themes(array &$context): void {
+  \Drupal::service('theme_installer')->install([
+    'openintranet_theme',
+    'gin',
+  ]);
+  \Drupal::configFactory()
+    ->getEditable('system.theme')
+    ->set('default', 'openintranet_theme')
+    ->set('admin', 'gin')
+    ->save();
+
+  $context['message'] = t('Activated the Open Intranet themes.');
+}
+
+/**
+ * Enables Gin Toolbar after the installer has rendered its final page.
+ */
+function openintranet_enable_gin_toolbar(array &$context): void {
+  $theme_handler = \Drupal::service('theme_handler');
+  $theme_handler->refreshInfo();
+  if (!$theme_handler->themeExists('gin')) {
+    throw new \RuntimeException('Gin theme must be installed before enabling Gin Toolbar.');
   }
 
-  // Load user 1 and log them in.
-  $user = User::load(1);
-  if ($user) {
-    user_login_finalize($user);
+  \Drupal::configFactory()->reset('core.extension');
+  \Drupal::service('module_installer')->install(['gin_toolbar']);
+  \Drupal::configFactory()->reset('core.extension');
+  if (\Drupal::config('core.extension')->get('module.gin_toolbar') === NULL) {
+    throw new \RuntimeException('Gin Toolbar could not be enabled.');
   }
+
+  $context['message'] = t('Enabled Gin Toolbar.');
 }
 
 /**
