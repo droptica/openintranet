@@ -418,6 +418,7 @@ config:
             - media
             - openintranet_documents
             - openintranet_engagement
+            - openintranet_notifications
             - pfdp
             - system
             - votingapi_reaction
@@ -425,6 +426,7 @@ config:
           - 'access comments'
           - 'access content'
           - 'access user profiles'
+          - 'administer own notification preferences'
           - 'bypass pfdp'
           - 'bypass pfdp for temporary files'
           - 'create reaction on node:article:field_news_article_reaction'

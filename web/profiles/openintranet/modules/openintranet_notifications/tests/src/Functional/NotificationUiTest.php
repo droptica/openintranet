@@ -57,11 +57,10 @@ final class NotificationUiTest extends BrowserTestBase {
    * Tests anonymous denial and own-only preference access.
    */
   private function assertRouteAccess(): void {
-    $owner = $this->drupalCreateUser([
-      'administer own notification preferences',
-    ]);
-    $other = $this->drupalCreateUser([
-      'administer own notification preferences',
+    $owner = $this->drupalCreateUser();
+    $other = $this->drupalCreateUser();
+    $admin = $this->drupalCreateUser([
+      'administer users',
     ]);
 
     $this->drupalGet('notifications');
@@ -80,15 +79,18 @@ final class NotificationUiTest extends BrowserTestBase {
 
     $this->drupalGet('user/' . $other->id() . '/notifications');
     $this->assertSession()->statusCodeEquals(403);
+
+    $this->drupalLogout();
+    $this->drupalLogin($admin);
+    $this->drupalGet('user/' . $owner->id() . '/notifications');
+    $this->assertSession()->statusCodeEquals(200);
   }
 
   /**
    * Tests inbox rendering and its mark-read side effect.
    */
   private function assertInboxRenderingMarksOwnNotificationsRead(): void {
-    $owner = $this->drupalCreateUser([
-      'administer own notification preferences',
-    ]);
+    $owner = $this->drupalCreateUser();
     $other = $this->drupalCreateUser();
     $actor = $this->drupalCreateUser();
 
@@ -184,9 +186,7 @@ final class NotificationUiTest extends BrowserTestBase {
    * Tests the rendered preference matrix and saved user preferences.
    */
   private function assertUserPreferencesFormSavesSettings(): void {
-    $owner = $this->drupalCreateUser([
-      'administer own notification preferences',
-    ]);
+    $owner = $this->drupalCreateUser();
     $this->drupalLogin($owner);
     $this->drupalGet('user/' . $owner->id() . '/notifications');
 
