@@ -1,0 +1,44 @@
+{#
+/**
+ * @file
+ * Forum post row for the category browser accordion.
+ */
+#}
+{{ attach_library('openintranet_forum/forum.category-browser') }}
+{{ attach_library('openintranet_forum/forum.post-meta') }}
+<article{{ attributes.addClass('forum-category-browser__post-row') }}>
+  <h3 class="forum-category-browser__post-title">
+    <a href="{{ forum_post_url }}" rel="bookmark">{{ label }}</a>
+  </h3>
+
+  <div class="forum-category-browser__post-meta">
+    <div class="forum-category-browser__post-author">
+      <div class="forum-category-browser__post-avatar">
+        {% if forum_post_has_author_picture %}
+          {{ forum_post_author_picture }}
+        {% else %}
+          <span class="forum-category-browser__post-avatar-placeholder" aria-hidden="true"></span>
+        {% endif %}
+      </div>
+      <a href="{{ forum_post_author_profile_url }}" class="forum-category-browser__post-author-name">{{ forum_post_author_name }}</a>
+    </div>
+
+    <time class="forum-category-browser__post-date" datetime="{{ forum_post_datetime_attr }}">{{ forum_post_date }}</time>
+
+    <div class="forum-category-browser__post-stats">
+      {{ include('openintranet_forum:post-meta', {
+        nid: node.id(),
+        post_url: forum_post_url,
+        absolute_url: forum_post_absolute_url,
+        icon_base: forum_post_icon_base,
+        like_count: forum_post_like_count,
+        reply_count: forum_post_reply_count,
+        share_count: forum_post_share_count,
+        liked: forum_post_user_liked,
+        show_share: true,
+        size: 'sm',
+        actions: forum_post_actions,
+      }) }}
+    </div>
+  </div>
+</article>

@@ -1,0 +1,109 @@
+{#
+/**
+ * @file
+ * Top contributors report template.
+ *
+ * Variables:
+ * - top_users: Top users by total score.
+ * - champions: Champion segment users.
+ * - rising_stars: New users with high engagement.
+ * - days: Period in days.
+ */
+#}
+<div class="engagement-report engagement-contributors">
+  <div class="report-header">
+    <h2>{{ 'Top Contributors'|t }}</h2>
+    <p class="report-period">{{ 'Last @days days'|t({'@days': days}) }}</p>
+  </div>
+
+  {# Top 10 Overall #}
+  <div class="engagement-section">
+    <h3>{{ 'Top 10 Most Engaged Users'|t }}</h3>
+    {% if top_users %}
+      <div class="contributors-list">
+        {% for i, user in top_users %}
+          <div class="contributor-card rank-{{ i + 1 }}">
+            <div class="contributor-rank">
+              {% if i == 0 %}🥇{% elseif i == 1 %}🥈{% elseif i == 2 %}🥉{% else %}{{ i + 1 }}{% endif %}
+            </div>
+            <div class="contributor-info">
+              <div class="contributor-name">{{ user.name }}</div>
+              <div class="contributor-segment" style="color: {{ user.segment_info.color }}">
+                {{ user.segment_info.icon }} {{ user.segment_info.label }}
+              </div>
+            </div>
+            <div class="contributor-scores">
+              <span class="score-badge" title="{{ 'Recency'|t }}">R:{{ user.recency_score }}</span>
+              <span class="score-badge" title="{{ 'Frequency'|t }}">F:{{ user.frequency_score }}</span>
+              <span class="score-badge" title="{{ 'Value'|t }}">V:{{ user.value_score }}</span>
+              <span class="score-total">{{ user.total_score }}</span>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="empty-message">{{ 'No engagement data available.'|t }}</p>
+    {% endif %}
+  </div>
+
+  {# Champions #}
+  <div class="engagement-section">
+    <h3>🏆 {{ 'Champions'|t }}</h3>
+    <p class="section-description">{{ 'Power users with highest engagement across all dimensions.'|t }}</p>
+    {% if champions %}
+      <table class="engagement-table">
+        <thead>
+          <tr>
+            <th>{{ 'User'|t }}</th>
+            <th>{{ 'Score'|t }}</th>
+            <th>{{ 'Events'|t }}</th>
+            <th>{{ 'Last Active'|t }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for user in champions %}
+            <tr>
+              <td>{{ user.name }}</td>
+              <td>{{ user.total_score }}</td>
+              <td>{{ user.event_count }}</td>
+              <td>{{ user.last_activity ? user.last_activity|date('Y-m-d') : '-' }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p class="empty-message">{{ 'No champions yet.'|t }}</p>
+    {% endif %}
+  </div>
+
+  {# Rising Stars #}
+  <div class="engagement-section">
+    <h3>🆕 {{ 'Rising Stars'|t }}</h3>
+    <p class="section-description">{{ 'New users showing strong early engagement.'|t }}</p>
+    {% if rising_stars %}
+      <table class="engagement-table">
+        <thead>
+          <tr>
+            <th>{{ 'User'|t }}</th>
+            <th>{{ 'Score'|t }}</th>
+            <th>{{ 'Events'|t }}</th>
+            <th>{{ 'Last Active'|t }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for user in rising_stars %}
+            <tr>
+              <td>{{ user.name }}</td>
+              <td>{{ user.total_score }}</td>
+              <td>{{ user.event_count }}</td>
+              <td>{{ user.last_activity ? user.last_activity|date('Y-m-d') : '-' }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <p class="insight">💡 {{ 'Consider recognizing these new employees for quick adoption!'|t }}</p>
+    {% else %}
+      <p class="empty-message">{{ 'No new users with high engagement yet.'|t }}</p>
+    {% endif %}
+  </div>
+</div>

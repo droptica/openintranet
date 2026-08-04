@@ -1,0 +1,43 @@
+{#
+/**
+ * @file
+ * Exposed filters for the forum search view (right-rail block).
+ */
+#}
+{{ attach_library('openintranet_forum/forum.add-post') }}
+{{ attach_library('openintranet_forum/forum.category-browser') }}
+<div{{ attributes.addClass('forum-feed-filters') }}>
+  {% block search_field %}
+    <section class="forum-panel forum-panel--soft forum-feed-filters__panel forum-feed-filters__panel--search">
+      <div class="forum-panel__header">
+        <h2 class="forum-panel__title">{{ 'Search'|t }}</h2>
+      </div>
+      <div class="forum-feed-filters__search forum-category-browser__search-bar">
+        {{ form.keys }}
+        <button type="submit" class="forum-category-browser__search-submit">
+          <span class="forum-category-browser__search-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">{{ 'Search'|t }}</span>
+        </button>
+      </div>
+    </section>
+  {% endblock %}
+
+  {% block filter_fields %}
+    <section class="forum-panel forum-panel--soft forum-feed-filters__panel forum-feed-filters__panel--filters">
+      <div class="forum-panel__header">
+        <h2 class="forum-panel__title">{{ 'Filtering'|t }}</h2>
+      </div>
+      <div class="forum-feed-filters__fields">
+        {{ form.department }}
+        {{ form.office }}
+        {{ form.person }}
+        {{ form.tag }}
+      </div>
+      <div class="forum-feed-filters__actions">
+        {{ form.actions }}
+      </div>
+    </section>
+  {% endblock %}
+
+  {{ form|without('keys', 'department', 'office', 'person', 'tag', 'actions') }}
+</div>

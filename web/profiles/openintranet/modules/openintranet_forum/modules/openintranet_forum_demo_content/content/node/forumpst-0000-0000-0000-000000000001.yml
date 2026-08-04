@@ -1,0 +1,74 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: forumpst-0000-0000-0000-000000000001
+  bundle: forum_post
+  default_langcode: en
+  depends:
+    forumusr-0000-0000-0000-000000000002: user
+    forumcat-0000-0000-0000-000000000003: taxonomy_term
+    forumtag-0000-0000-0000-000000000001: taxonomy_term
+    forumtag-0000-0000-0000-000000000005: taxonomy_term
+    forumfil-0000-0000-0000-000000000001: file
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      entity: forumusr-0000-0000-0000-000000000002
+  title:
+    -
+      value: 'Welcome to the company forum'
+  created:
+    -
+      value: 1732924800
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  path:
+    -
+      alias: /forum/welcome-to-the-company-forum
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: "<p>Hi everyone, and welcome to our brand new company forum! This is the place to ask questions, share ideas, and get to know colleagues across teams and offices.</p><p>Please take a minute to introduce yourself in the replies below — team, role, and one thing you are working on this week.</p><p>A few house rules: keep it respectful, use categories and tags so posts are easy to find, and prefer the forum over DMs for topics that others might benefit from.</p><p>Looking forward to seeing the discussions that come out of this.</p>"
+      format: full_html
+      summary: ''
+  comment_forum:
+    -
+      status: 2
+      cid: 0
+      last_comment_timestamp: 1732968000
+      last_comment_name: ''
+      last_comment_uid: 0
+      comment_count: 1
+  field_forum_category:
+    -
+      entity: forumcat-0000-0000-0000-000000000003
+  field_forum_tags:
+    -
+      entity: forumtag-0000-0000-0000-000000000001
+    -
+      entity: forumtag-0000-0000-0000-000000000005
+  field_forum_reply_count:
+    -
+      value: 1
+  field_forum_share_count:
+    -
+      value: 3
+  field_forum_views:
+    -
+      value: 76
+  field_forum_image:
+    -
+      entity: forumfil-0000-0000-0000-000000000001
+      alt: 'Colleagues gathered at a company meet-up'
+      title: ''

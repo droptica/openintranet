@@ -1,0 +1,119 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - user
+id: test_notification_recipients
+label: 'Test notification recipients'
+module: views
+description: 'Lists active users by uid for recipient resolver kernel tests.'
+tag: ''
+base_table: users_field_data
+base_field: uid
+display:
+  default:
+    display_plugin: default
+    id: default
+    display_title: Default
+    position: 0
+    display_options:
+      access:
+        type: none
+        options: {  }
+      cache:
+        type: none
+        options: {  }
+      query:
+        type: views_query
+        options:
+          disable_sql_rewrite: false
+          distinct: false
+          replica: false
+          query_comment: ''
+          query_tags: {  }
+      pager:
+        type: none
+        options:
+          offset: 0
+      style:
+        type: default
+      row:
+        type: fields
+      fields:
+        uid:
+          id: uid
+          table: users_field_data
+          field: uid
+          entity_type: user
+          entity_field: uid
+          plugin_id: field
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: ''
+          exclude: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: number_unformatted
+          settings: {  }
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+      filters:
+        status:
+          value: '1'
+          table: users_field_data
+          field: status
+          plugin_id: boolean
+          entity_type: user
+          entity_field: status
+          id: status
+          expose:
+            operator: ''
+          group: 1
+      sorts:
+        uid:
+          id: uid
+          table: users_field_data
+          field: uid
+          entity_type: user
+          entity_field: uid
+          plugin_id: standard
+          relationship: none
+          group_type: group
+          admin_label: ''
+          order: ASC
+          expose:
+            label: ''
+          exposed: false
+      title: 'Test notification recipients'
+      header: {  }
+      footer: {  }
+      empty: {  }
+      relationships: {  }
+      arguments: {  }
+      display_extenders: {  }
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+      tags: {  }

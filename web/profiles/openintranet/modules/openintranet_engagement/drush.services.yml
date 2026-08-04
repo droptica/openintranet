@@ -1,0 +1,11 @@
+services:
+  openintranet_engagement.commands:
+    class: Drupal\openintranet_engagement\Commands\EngagementCommands
+    arguments:
+      - '@openintranet_engagement.calculator'
+      - '@openintranet_engagement.reporter'
+      - '@openintranet_engagement.segmenter'
+      - '@openintranet_engagement.cleaner'
+      - '@openintranet_engagement.daily_aggregator'
+    tags:
+      - { name: drush.command }

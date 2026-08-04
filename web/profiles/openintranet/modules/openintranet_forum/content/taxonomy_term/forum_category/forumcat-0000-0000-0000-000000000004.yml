@@ -1,0 +1,37 @@
+_meta:
+  version: '1.0'
+  entity_type: taxonomy_term
+  uuid: forumcat-0000-0000-0000-000000000004
+  bundle: forum_category
+  default_langcode: en
+default:
+  status:
+    -
+      value: true
+  name:
+    -
+      value: 'Ideas & Feedback'
+  description:
+    -
+      value: '<p>Share ideas, product feedback, and suggestions.</p>'
+      format: full_html
+  weight:
+    -
+      value: 3
+  parent:
+    -
+      target_id: 0
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /forum/category/ideas-feedback
+      langcode: en
+      pathauto: 1
+  field_category_icon:
+    -
+      value: 'mdi:lightbulb-on'
+      classes: ''
+      decorative: true
+      arialabel: ''

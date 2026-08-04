@@ -1,0 +1,28 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_forum_category
+    - node.type.forum_post
+    - taxonomy.vocabulary.forum_category
+id: node.forum_post.field_forum_category
+field_name: field_forum_category
+entity_type: node
+bundle: forum_post
+label: Category
+description: 'Select the forum category for this post'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: default
+  handler_settings:
+    target_bundles:
+      forum_category: forum_category
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

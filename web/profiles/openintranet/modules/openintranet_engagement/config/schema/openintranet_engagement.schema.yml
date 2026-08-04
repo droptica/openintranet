@@ -1,0 +1,75 @@
+openintranet_engagement.settings:
+  type: config_object
+  label: 'Engagement Settings'
+  mapping:
+    enabled:
+      type: boolean
+      label: 'Enable tracking'
+    track_anonymous:
+      type: boolean
+      label: 'Track anonymous users'
+    event_log_retention:
+      type: integer
+      label: 'Event log retention (days)'
+    recalculation_frequency:
+      type: string
+      label: 'Score recalculation frequency'
+    thresholds:
+      type: mapping
+      label: 'Scoring thresholds'
+      mapping:
+        recency:
+          type: sequence
+          label: 'Recency thresholds (days)'
+          sequence:
+            type: integer
+        frequency:
+          type: sequence
+          label: 'Frequency thresholds (events/30d)'
+          sequence:
+            type: integer
+        value:
+          type: sequence
+          label: 'Value thresholds (value/30d)'
+          sequence:
+            type: integer
+    new_user_threshold:
+      type: integer
+      label: 'New user threshold (days)'
+
+openintranet_engagement.entity_types:
+  type: config_object
+  label: 'Engagement Entity Types Configuration'
+  mapping:
+    entity_types:
+      type: sequence
+      label: 'Tracked entity types'
+      sequence:
+        type: mapping
+        mapping:
+          entity_type:
+            type: string
+            label: 'Entity type ID'
+          enabled:
+            type: boolean
+            label: 'Tracking enabled'
+          operations:
+            type: mapping
+            label: 'Operation values'
+            mapping:
+              create:
+                type: integer
+                label: 'Create value'
+                nullable: true
+              view:
+                type: integer
+                label: 'View value'
+                nullable: true
+              update:
+                type: integer
+                label: 'Update value'
+                nullable: true
+              delete:
+                type: integer
+                label: 'Delete value'
+                nullable: true

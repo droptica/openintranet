@@ -1,0 +1,9 @@
+{
+  "name": "openintranet/openintranet_notifications",
+  "description": "Open Intranet Notifications Recipe - ECA-orchestrated multi-channel notification framework (notification types, deliveries, channels, delivery policies, user preferences).",
+  "type": "drupal-recipe",
+  "license": "GPL-2.0-or-later",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "version": "1.0-beta1"
+}

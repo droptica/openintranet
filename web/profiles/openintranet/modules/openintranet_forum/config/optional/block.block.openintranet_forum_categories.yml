@@ -1,0 +1,25 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - openintranet_forum
+    - system
+  theme:
+    - openintranet_theme
+id: openintranet_forum_categories
+theme: openintranet_theme
+region: forum_sidebar_second
+weight: -19
+provider: null
+plugin: openintranet_forum_categories_block
+settings:
+  id: openintranet_forum_categories_block
+  label: 'Forum: categories'
+  label_display: '0'
+  provider: openintranet_forum
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: "/forum/post/*\n/forum/category\n/forum/category/*"
+    context_mapping: {  }

@@ -1,0 +1,27 @@
+uuid: 9e6f2c41-7a8b-4d3e-bc15-2f9a0d6e4b73
+langcode: en
+status: true
+dependencies:
+  module:
+    - openintranet_forum
+    - system
+  theme:
+    - openintranet_theme
+id: openintranet_forum_browser_search
+theme: openintranet_theme
+region: forum_sidebar_second
+weight: 10
+provider: null
+plugin: openintranet_forum_browser_filters_block
+settings:
+  id: openintranet_forum_browser_filters_block
+  label: 'Forum browser: search'
+  label_display: '0'
+  provider: openintranet_forum
+  panel: search
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: '/forum/category'
+    context_mapping: {  }

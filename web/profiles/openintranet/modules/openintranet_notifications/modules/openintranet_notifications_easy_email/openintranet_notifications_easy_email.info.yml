@@ -1,0 +1,8 @@
+name: 'Open Intranet Notifications: Easy Email'
+type: module
+description: 'Adds an Easy Email notification channel that delivers via configured Easy Email templates.'
+package: 'Open Intranet'
+core_version_requirement: ^11
+dependencies:
+  - openintranet_notifications
+  - easy_email:easy_email

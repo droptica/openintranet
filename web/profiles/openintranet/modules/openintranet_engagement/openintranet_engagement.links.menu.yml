@@ -1,0 +1,13 @@
+openintranet_engagement.dashboard:
+  title: 'User Engagement'
+  description: 'View user engagement analytics and reports.'
+  route_name: openintranet_engagement.dashboard
+  parent: system.admin_reports
+  weight: 10
+
+openintranet_engagement.settings:
+  title: 'Engagement Settings'
+  description: 'Configure engagement tracking and scoring.'
+  route_name: openintranet_engagement.settings
+  parent: system.admin_config_system
+  weight: 50

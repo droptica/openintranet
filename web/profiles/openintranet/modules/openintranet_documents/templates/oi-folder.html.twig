@@ -1,0 +1,22 @@
+{#
+/**
+ * @file
+ * Default template for OI Folder entity.
+ *
+ * Available variables:
+ * - content: Rendered content fields.
+ * - attributes: HTML attributes for the container.
+ * - view_mode: The view mode.
+ */
+#}
+<article{{ attributes.addClass('oi-folder') }}>
+  {% if view_mode != 'full' %}
+    {{ title_prefix }}
+    {{ title_suffix }}
+  {% endif %}
+  {% if content %}
+    <div class="oi-folder__content">
+      {{- content -}}
+    </div>
+  {% endif %}
+</article>

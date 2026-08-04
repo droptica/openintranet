@@ -1,0 +1,22 @@
+administer openintranet engagement:
+  title: 'Administer engagement settings'
+  description: 'Configure engagement scoring thresholds and tracked entity types.'
+  restrict access: true
+
+view engagement dashboard:
+  title: 'View engagement dashboard'
+  description: 'Access the engagement analytics dashboard and executive reports.'
+  restrict access: true
+
+view engagement scores:
+  title: 'View user engagement scores'
+  description: 'View engagement scores for all users.'
+
+view own engagement score:
+  title: 'View own engagement score'
+  description: 'View your own engagement score on your profile.'
+
+export engagement data:
+  title: 'Export engagement data'
+  description: 'Export engagement data to CSV or Excel.'
+  restrict access: true

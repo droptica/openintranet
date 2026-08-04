@@ -1,0 +1,77 @@
+{#
+/**
+ * @file
+ * Trending forum block: horizontal cards + scroll control.
+ */
+#}
+{%
+  set classes = [
+  'view',
+  'views-element-container',
+  'forum-trending-view',
+  'view-' ~ id|clean_class,
+  'view-id-' ~ id,
+  'view-display-id-' ~ display_id,
+  dom_id ? 'js-view-dom-id-' ~ dom_id,
+]
+%}
+<div{{ attributes.addClass(classes) }}>
+  <div class="forum-trending-view__top">
+    <h2 class="forum-page__section-title">{{ 'Trending now'|t }}</h2>
+    {% if exposed %}
+      <div class="view-filters">
+        {{ exposed }}
+      </div>
+    {% endif %}
+    {% if header %}
+      <div class="view-header">
+        {{ header }}
+      </div>
+    {% endif %}
+  </div>
+  {% if attachment_before %}
+    <div class="attachment attachment-before">
+      {{ attachment_before }}
+    </div>
+  {% endif %}
+
+  {% if rows %}
+    <div class="forum-trending__carousel">
+      <button type="button" class="forum-trending__prev" hidden aria-label="{{ 'Scroll to previous posts'|t }}">
+        <img src="{{ forum_trending_arrow_src }}" width="18" height="18" alt="" loading="lazy">
+      </button>
+      <div class="forum-trending__viewport">
+        {{ rows }}
+      </div>
+      <button type="button" class="forum-trending__next" aria-label="{{ 'Scroll to next posts'|t }}">
+        <img src="{{ forum_trending_arrow_src }}" width="18" height="18" alt="" loading="lazy">
+      </button>
+    </div>
+  {% elseif empty %}
+    <div class="view-empty">
+      {{ empty }}
+    </div>
+  {% endif %}
+
+  {% if pager %}
+    {{ pager }}
+  {% endif %}
+  {% if attachment_after %}
+    <div class="attachment attachment-after">
+      {{ attachment_after }}
+    </div>
+  {% endif %}
+  {% if more %}
+    {{ more }}
+  {% endif %}
+  {% if footer %}
+    <div class="view-footer">
+      {{ footer }}
+    </div>
+  {% endif %}
+  {% if feed_icons %}
+    <div class="feed-icons">
+      {{ feed_icons }}
+    </div>
+  {% endif %}
+</div>

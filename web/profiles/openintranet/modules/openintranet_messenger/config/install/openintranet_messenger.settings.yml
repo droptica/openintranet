@@ -1,0 +1,14 @@
+# Default taxonomy vocabulary for grouping contacts.
+# Each company can configure this to their preferred vocabulary
+# (e.g., departments, offices, teams, locations).
+taxonomy_vocabulary: ''
+
+# Default notification channel.
+default_channel: 'email'
+
+# Enabled channels.
+enabled_channels:
+  - 'email'
+
+# User phone field machine name.
+user_phone_field: 'field_phone'

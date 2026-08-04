@@ -1,0 +1,75 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Forum post meta
+status: experimental
+description: "Unified like / reply / share stat row plus an optional owner kebab menu (Edit/Delete) and bookmark slot. Shared by every forum post view mode."
+props:
+  type: object
+  required:
+    - nid
+    - post_url
+    - icon_base
+  properties:
+    nid:
+      type:
+        - integer
+        - string
+      title: Node ID
+      description: "Node ID, used for the share button data-nid attribute."
+    post_url:
+      type: string
+      title: Post URL
+      description: "Relative URL to the post (replies link / comments anchor)."
+    absolute_url:
+      type: string
+      title: Absolute URL
+      description: "Absolute URL to the post, used as the share button data-url."
+    icon_base:
+      type: string
+      title: Icon base path
+      description: "Base path to the module icon directory (no trailing slash)."
+    like_count:
+      type: integer
+      title: Like count
+      default: 0
+    reply_count:
+      type: integer
+      title: Reply count
+      default: 0
+    share_count:
+      type: integer
+      title: Share count
+      default: 0
+    liked:
+      type: boolean
+      title: Liked by current user
+      default: false
+    show_share:
+      type: boolean
+      title: Show share button
+      default: true
+    size:
+      type: string
+      title: Size variant
+      enum:
+        - sm
+        - md
+      default: md
+      description: "'sm' renders the compact .forum-post-meta--sm variant."
+    labelled:
+      type: boolean
+      title: Labelled counters
+      default: false
+      description: "When true, renders text labels next to the reply/share counts ('Comments (N)' / 'Share (N)') instead of bare numbers. Like stays icon + number."
+    actions:
+      type: array
+      title: Owner actions
+      description: "Owner action links for the kebab menu. Each item: {title, url, icon}. The kebab is rendered only when this is non-empty."
+    bookmark:
+      type:
+        - array
+        - object
+        - "null"
+      title: Bookmark
+      description: "Optional bookmark flag link render array, rendered as the first kebab menu item."
+libraryDependencies:
+  - openintranet_forum/forum.post-meta

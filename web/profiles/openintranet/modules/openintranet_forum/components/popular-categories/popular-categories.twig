@@ -1,0 +1,70 @@
+{#
+/**
+ * @file
+ * Popular categories accordion block shown on forum listing pages.
+ *
+ * Available variables:
+ * - panel_title: Translated block heading.
+ * - categories: Array of top-level category items sorted by popularity:
+ *   - term_id: Taxonomy term ID.
+ *   - title: Category label.
+ *   - icon: Render array or empty string.
+ *   - is_open: Boolean — open the accordion row by default.
+ *   - is_active: Boolean — the current filter matches this term.
+ *   - url: URL to browse this category.
+ *   - children: Array of topic items, each with term_id, title, icon,
+ *     is_active, url.
+ * - categories_browser_url: URL to the full category browser page.
+ */
+#}
+{{ attach_library('openintranet_forum/forum.popular-categories') }}
+<div class="forum-popular-categories">
+
+  {% block popular_categories_header %}
+    <div class="forum-popular-categories__header">
+      <h3 class="forum-popular-categories__title">{{ panel_title }}</h3>
+    </div>
+  {% endblock %}
+
+  {% block popular_categories_list %}
+    <ul class="forum-popular-categories__list" role="list">
+      {% for category in categories %}
+        <li class="forum-popular-categories__item">
+          {% if category.children %}
+            <details class="forum-popular-categories__details"{% if category.is_open %} open{% endif %}>
+              <summary class="forum-popular-categories__summary{% if category.is_open or category.is_active %} forum-popular-categories__summary--open{% endif %}">
+                <span class="forum-popular-categories__name">{{ category.title }}</span>
+                <span class="forum-popular-categories__chevron" aria-hidden="true"></span>
+              </summary>
+              <ul class="forum-popular-categories__topics" role="list">
+                {% for topic in category.children %}
+                  <li class="forum-popular-categories__topic">
+                    <a href="{{ topic.url }}" class="forum-popular-categories__topic-link{% if topic.is_active %} forum-popular-categories__topic-link--active{% endif %}">
+                      {% if topic.icon %}
+                        <span class="forum-popular-categories__topic-icon" aria-hidden="true">{{ topic.icon }}</span>
+                      {% endif %}
+                      <span class="forum-popular-categories__topic-name">{{ topic.title }}</span>
+                    </a>
+                  </li>
+                {% endfor %}
+              </ul>
+            </details>
+          {% else %}
+            <a href="{{ category.url }}" class="forum-popular-categories__link{% if category.is_active %} forum-popular-categories__link--active{% endif %}">
+              <span class="forum-popular-categories__name">{{ category.title }}</span>
+            </a>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endblock %}
+
+  {% block popular_categories_footer %}
+    {% if categories_browser_url %}
+      <div class="forum-popular-categories__footer">
+        <a href="{{ categories_browser_url }}" class="forum-popular-categories__all-link">{{ 'view all categories'|t }}</a>
+      </div>
+    {% endif %}
+  {% endblock %}
+
+</div>

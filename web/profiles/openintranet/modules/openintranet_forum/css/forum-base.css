@@ -1,0 +1,42 @@
+/**
+ * @file
+ * Forum base: CSS custom properties and page-level overrides.
+ *
+ * Every other forum component depends on this file.
+ */
+
+body[class*="path-forum"] .block-page-title-block,
+.page-node-type-forum-post .block-page-title-block {
+  display: none;
+}
+
+body[class*="path-forum"] #main.container,
+.page-node-type-forum-post #main.container {
+  max-width: none;
+}
+
+body[class*="path-forum"] #main .main-content > .section > .container,
+.page-node-type-forum-post #main .main-content > .section > .container {
+  max-width: none;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.forum-page,
+.node--type-forum-post {
+  --forum-surface: #fff;
+  --forum-surface-soft: #f5f7fa;
+  --forum-accent-surface: #eff1fc;
+  --forum-accent-border: #dee1fc;
+  --forum-accent-strong: #949ffc;
+  --forum-blue: #3d50fd;
+  --forum-blue-dark: #313eb8;
+  --forum-text: #090b14;
+  --forum-text-soft: #4f515c;
+  --forum-border: #e4e7ed;
+  --forum-success: #1a7f4b;
+  --forum-success-surface: #e6f4ec;
+  --forum-shadow: 0 23px 64px rgba(9, 16, 136, 0.04);
+  --forum-radius: 0.5rem;
+  --forum-avatar-placeholder-end: #cacfdb;
+}

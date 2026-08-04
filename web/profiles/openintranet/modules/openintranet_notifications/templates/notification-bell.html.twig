@@ -1,0 +1,50 @@
+{#
+/**
+ * @file
+ * Notification bell: unread count badge + recent dropdown.
+ *
+ * Available variables:
+ * - count: Number of unread notifications.
+ * - items: Recent notifications, each with 'subject', 'url' (Url), 'created_ago',
+ *   'is_read' (bool), 'actor_name' (string|null), 'actor_avatar' (string|null).
+ * - see_all_url: Url to the full notifications inbox.
+ */
+#}
+<div class="notification-bell">
+  <button type="button" class="notification-bell__toggle" aria-label="{{ 'Notifications'|t }}" aria-haspopup="true" aria-expanded="false">
+    <i class="icon--notification" aria-hidden="true"></i>
+    <span class="notification-bell__badge{% if count == 0 %} notification-bell__badge--empty{% endif %}">
+      {{ count }}
+      <span class="visually-hidden">{{ '@count unread notifications'|t({'@count': count}) }}</span>
+    </span>
+  </button>
+
+  <div class="notification-bell__dropdown">
+    {% if items is not empty %}
+      <ul class="notification-bell__list">
+        {% for item in items %}
+          <li class="notification-bell__item{{ item.is_read ? '' : ' notification-bell__item--unread' }}">
+            <a class="notification-bell__link" href="{{ item.url }}">
+              {% if item.actor_avatar %}
+                <img class="notification-bell__avatar" src="{{ item.actor_avatar }}" alt="" />
+              {% else %}
+                <span class="notification-bell__avatar notification-bell__avatar--empty" aria-hidden="true"></span>
+              {% endif %}
+              <span class="notification-bell__text">
+                {%- if item.actor_name %}<span class="notification-bell__actor">{{ item.actor_name }}</span> {% endif -%}
+                {{ item.subject }}
+              </span>
+              <span class="notification-bell__time">{{ item.created_ago }}</span>
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="notification-bell__empty">{{ 'No notifications.'|t }}</p>
+    {% endif %}
+
+    {% if see_all_url %}
+      <a class="notification-bell__see-all" href="{{ see_all_url }}">{{ 'See all'|t }}</a>
+    {% endif %}
+  </div>
+</div>

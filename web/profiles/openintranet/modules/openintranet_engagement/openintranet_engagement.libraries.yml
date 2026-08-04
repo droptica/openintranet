@@ -1,0 +1,7 @@
+dashboard:
+  version: 1.0
+  css:
+    theme:
+      css/engagement-dashboard.css: {}
+  dependencies:
+    - core/drupal

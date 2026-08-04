@@ -1,0 +1,29 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Forum gallery
+status: experimental
+props:
+  type: object
+  required:
+    - layout
+  properties:
+    layout:
+      type: string
+      title: Layout
+      enum:
+        - hero
+        - grid
+      description: "'hero' (hero + thumbnails) or 'grid' (uniform grid with +N overlay)."
+    items:
+      type: array
+      title: Image render arrays
+      description: "Render arrays for each styled image (delta 0 hero for hero layout)."
+    urls:
+      type: array
+      title: Original image URLs
+      description: "Absolute URLs to the original files for the lightbox."
+    grid_visible_max:
+      type: integer
+      title: Grid visible max
+      description: "Max tiles rendered before collapsing to +N more."
+libraryDependencies:
+  - openintranet_forum/forum.gallery

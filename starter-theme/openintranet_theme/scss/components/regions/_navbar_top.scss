@@ -40,7 +40,8 @@
       }
     }
 
-    img {
+    // Logo sizing; exclude the bell avatar (its own cover/size applies).
+    img:not(.notification-bell__avatar) {
       margin-bottom: 0;
       max-height: 56px;
       object-fit: contain;
@@ -49,8 +50,7 @@
 
     #block-openintranet-theme-account-menu,
     #block-openintranet-theme-exposedformsearch-contentblock-1,
-    #block-openintranet-theme-dropdownlanguage,
-    #block-openintranet-theme-usernotifications {
+    #block-openintranet-theme-dropdownlanguage {
       display: none;
 
       @include media-breakpoint-up(lg) {
@@ -61,6 +61,11 @@
           border: none;
         }
       }
+    }
+
+    // Bell stays visible below lg (the other actions collapse into the menu).
+    #block-openintranet-theme-usernotifications {
+      display: flex;
     }
   }
 }

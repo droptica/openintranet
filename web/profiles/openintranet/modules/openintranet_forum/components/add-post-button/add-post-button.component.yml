@@ -1,0 +1,19 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Forum add post button
+status: experimental
+props:
+  type: object
+  required:
+    - url
+    - label
+  properties:
+    url:
+      type: string
+      title: Destination URL
+      description: "Destination URL (node.add for forum_post)."
+    label:
+      type: string
+      title: Label
+      description: "Visible button label (already translated)."
+libraryDependencies:
+  - openintranet_forum/forum.add-post

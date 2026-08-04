@@ -1,0 +1,49 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.compact
+    - field.field.node.forum_post.body
+    - field.field.node.forum_post.comment_forum
+    - field.field.node.forum_post.field_forum_category
+    - field.field.node.forum_post.field_forum_image
+    - field.field.node.forum_post.field_forum_reply_count
+    - field.field.node.forum_post.field_forum_tags
+    - field.field.node.forum_post.field_forum_views
+    - node.type.forum_post
+  module:
+    - user
+id: node.forum_post.compact
+targetEntityType: node
+bundle: forum_post
+mode: compact
+content:
+  field_forum_reply_count:
+    type: number_integer
+    weight: 1
+    region: content
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    label: inline
+  field_forum_views:
+    type: number_integer
+    weight: 2
+    region: content
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    label: inline
+  links:
+    weight: 100
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  body: true
+  comment_forum: true
+  field_forum_category: true
+  field_forum_image: true
+  field_forum_tags: true

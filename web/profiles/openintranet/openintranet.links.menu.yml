@@ -1,0 +1,7 @@
+openintranet.admin:
+  title: 'Open Intranet'
+  description: 'Manage Open Intranet features and settings.'
+  route_name: openintranet.admin
+  parent: system.admin
+  menu_name: admin
+  weight: 2

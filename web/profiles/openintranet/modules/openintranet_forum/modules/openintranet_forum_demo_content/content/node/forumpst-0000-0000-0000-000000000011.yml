@@ -1,0 +1,68 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: forumpst-0000-0000-0000-000000000011
+  bundle: forum_post
+  default_langcode: en
+  depends:
+    forumusr-0000-0000-0000-000000000002: user
+    forumcat-0000-0000-0000-000000000001: taxonomy_term
+    forumtag-0000-0000-0000-000000000007: taxonomy_term
+    forumtag-0000-0000-0000-000000000008: taxonomy_term
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      entity: forumusr-0000-0000-0000-000000000002
+  title:
+    -
+      value: "What's your productivity stack?"
+  created:
+    -
+      value: 1730592000
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  path:
+    -
+      alias: /forum/whats-your-productivity-stack
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: "<p>Always curious how other people actually get things done — what does your current daily stack look like?</p><p>Mine is embarrassingly simple: a text file for the day's top 3, a calendar with hard blocks for deep work, and a read-later app I actually read. No fancy tools.</p><p>Drop yours below, bonus points if you include what you tried and dropped.</p>"
+      format: full_html
+      summary: ''
+  comment_forum:
+    -
+      status: 2
+      cid: 0
+      last_comment_timestamp: 0
+      last_comment_name: ''
+      last_comment_uid: 0
+      comment_count: 0
+  field_forum_category:
+    -
+      entity: forumcat-0000-0000-0000-000000000001
+  field_forum_tags:
+    -
+      entity: forumtag-0000-0000-0000-000000000007
+    -
+      entity: forumtag-0000-0000-0000-000000000008
+  field_forum_reply_count:
+    -
+      value: 0
+  field_forum_share_count:
+    -
+      value: 0
+  field_forum_views:
+    -
+      value: 19

@@ -1,0 +1,176 @@
+{#
+/**
+ * @file
+ * Template for document search results.
+ *
+ * Available variables:
+ * - query: The search query string.
+ * - results: Array of search results (mixed folders and documents).
+ * - total: Total number of results.
+ * - folder_count: Number of folders found.
+ * - document_count: Number of documents found.
+ * - pager: Pager render array.
+ */
+#}
+<div class="oi-documents-search">
+  {# Breadcrumbs #}
+  <nav aria-label="{{ 'Breadcrumb'|t }}" class="oi-breadcrumb-nav mb-4">
+    <ol class="breadcrumb mb-0">
+      <li class="breadcrumb-item">
+        <a href="{{ path('openintranet_documents.browser') }}" class="text-decoration-none">
+          <i class="bi bi-folder2 me-1"></i>{{ 'Documents'|t }}
+        </a>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">
+        <i class="bi bi-search me-1"></i>{{ 'Search'|t }}
+      </li>
+    </ol>
+  </nav>
+
+  {# Search form #}
+  <form action="{{ path('openintranet_documents.search') }}" method="get" class="mb-4">
+    <div class="input-group" style="max-width: 500px;">
+      <input type="text"
+             name="q"
+             class="form-control"
+             placeholder="{{ 'Search documents and folders...'|t }}"
+             value="{{ query }}"
+             aria-label="{{ 'Search'|t }}">
+      <button type="submit" class="btn btn-primary">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </form>
+
+  {# Results header #}
+  {% if query %}
+    <div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom">
+      {% if total > 0 %}
+        <div>
+          <h5 class="mb-0">
+            {{ 'Found %total results for "%query"'|t({'%total': total, '%query': query}) }}
+          </h5>
+          <small class="text-muted">
+            {{ '%folders folders, %docs documents'|t({'%folders': folder_count, '%docs': document_count}) }}
+          </small>
+        </div>
+      {% else %}
+        <h5 class="mb-0">
+          {{ 'No results found for "%query"'|t({'%query': query}) }}
+        </h5>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {# Results list #}
+  {% if results|length > 0 %}
+    <div class="list-group list-group-flush">
+      {% for item in results %}
+        {% if item.type == 'folder' %}
+          {# Folder result - entire row clickable #}
+          {% set folder_url = path('openintranet_documents.folder.view', {'oi_folder': item.entity.id()}) %}
+          <a href="{{ folder_url }}" class="list-group-item list-group-item-action py-3 oi-search-result text-decoration-none">
+            <div class="d-flex align-items-center">
+              <div class="oi-search-icon me-3 flex-shrink-0">
+                <span style="font-size: 2rem;">📁</span>
+              </div>
+              <div class="flex-grow-1 min-width-0">
+                <h6 class="mb-1 text-dark">{{ item.entity.getName() }}</h6>
+                {% if item.entity.getDescription() %}
+                  <p class="mb-1 text-muted small">
+                    {{ item.entity.getDescription()|slice(0, 100) }}{% if item.entity.getDescription()|length > 100 %}...{% endif %}
+                  </p>
+                {% endif %}
+                <div class="d-flex flex-wrap gap-3 text-muted small">
+                  <span><i class="bi bi-clock me-1"></i>{{ item.updated|date('Y-m-d H:i') }}</span>
+                  {% set parent = item.entity.getParent() %}
+                  {% if parent %}
+                    <span><i class="bi bi-folder2 me-1"></i>{{ 'in'|t }} {{ parent.getName() }}</span>
+                  {% else %}
+                    <span><i class="bi bi-folder2 me-1"></i>{{ 'Root'|t }}</span>
+                  {% endif %}
+                </div>
+              </div>
+              <div class="ms-3 flex-shrink-0 text-end">
+                <span class="badge bg-warning text-dark">{{ 'Folder'|t }}</span>
+              </div>
+            </div>
+          </a>
+        {% else %}
+          {# Document result - entire row clickable #}
+          {% set file = item.entity.getFile() %}
+          {% set ext = '' %}
+          {% if file %}
+            {% set ext = file.getFilename()|split('.')|last|lower %}
+          {% endif %}
+          {% set doc_url = path('entity.oi_document.canonical', {'oi_document': item.entity.id()}) %}
+          <a href="{{ doc_url }}" class="list-group-item list-group-item-action py-3 oi-search-result text-decoration-none">
+            <div class="d-flex align-items-center">
+              <div class="oi-search-icon me-3 flex-shrink-0">
+                {% if ext == 'pdf' %}
+                  <i class="bi bi-file-earmark-pdf text-danger" style="font-size: 2rem;"></i>
+                {% elseif ext in ['doc', 'docx'] %}
+                  <i class="bi bi-file-earmark-word text-primary" style="font-size: 2rem;"></i>
+                {% elseif ext in ['xls', 'xlsx'] %}
+                  <i class="bi bi-file-earmark-excel text-success" style="font-size: 2rem;"></i>
+                {% elseif ext in ['ppt', 'pptx'] %}
+                  <i class="bi bi-file-earmark-ppt text-warning" style="font-size: 2rem;"></i>
+                {% elseif ext in ['jpg', 'jpeg', 'png', 'gif'] %}
+                  <i class="bi bi-file-earmark-image text-info" style="font-size: 2rem;"></i>
+                {% else %}
+                  <i class="bi bi-file-earmark text-secondary" style="font-size: 2rem;"></i>
+                {% endif %}
+              </div>
+              <div class="flex-grow-1 min-width-0">
+                <h6 class="mb-1 text-dark">{{ item.entity.getTitle() }}</h6>
+                {% if item.entity.getDescription() %}
+                  <p class="mb-1 text-muted small">
+                    {{ item.entity.getDescription()|slice(0, 100) }}{% if item.entity.getDescription()|length > 100 %}...{% endif %}
+                  </p>
+                {% endif %}
+                <div class="d-flex flex-wrap gap-3 text-muted small">
+                  {% if file %}
+                    <span><i class="bi bi-file-earmark me-1"></i>{{ file.getFilename() }}</span>
+                  {% endif %}
+                  <span><i class="bi bi-clock me-1"></i>{{ item.updated|date('Y-m-d H:i') }}</span>
+                  {% set folder = item.entity.getFolder() %}
+                  {% if folder %}
+                    <span><i class="bi bi-folder2 me-1"></i>{{ 'in'|t }} {{ folder.getName() }}</span>
+                  {% else %}
+                    <span><i class="bi bi-folder2 me-1"></i>{{ 'Root'|t }}</span>
+                  {% endif %}
+                </div>
+              </div>
+              <div class="ms-3 flex-shrink-0 text-end">
+                {% if ext %}
+                  <span class="badge bg-secondary text-white">{{ ext|upper }}</span>
+                {% endif %}
+              </div>
+            </div>
+          </a>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    {# Pager #}
+    <div class="mt-4">
+      {{ pager }}
+    </div>
+  {% elseif query %}
+    <div class="alert alert-info d-flex align-items-center">
+      <i class="bi bi-info-circle fs-4 me-3"></i>
+      <div>
+        <strong>{{ 'No results found'|t }}</strong>
+        <p class="mb-0 mt-1">{{ 'Try different keywords or check spelling.'|t }}</p>
+      </div>
+    </div>
+  {% else %}
+    <div class="alert alert-secondary d-flex align-items-center">
+      <i class="bi bi-search fs-4 me-3"></i>
+      <div>
+        <strong>{{ 'Search documents'|t }}</strong>
+        <p class="mb-0 mt-1">{{ 'Enter a search term to find documents and folders.'|t }}</p>
+      </div>
+    </div>
+  {% endif %}
+</div>

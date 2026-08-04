@@ -1,0 +1,55 @@
+_meta:
+  version: '1.0'
+  entity_type: user
+  uuid: forumusr-0000-0000-0000-000000000003
+  default_langcode: en
+default:
+  preferred_langcode:
+    -
+      value: en
+  preferred_admin_langcode:
+    -
+      value: en
+  name:
+    -
+      value: msmith
+  pass:
+    -
+      value: $2y$10$GHvfwJvmmTqKBfEM5FaN6Oqg52.jwJFU48fD4trWaVdjfl0dTXS8a
+      existing: ''
+      pre_hashed: false
+  mail:
+    -
+      value: msmith@example.com
+  timezone:
+    -
+      value: Europe/Amsterdam
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1730100000
+  access:
+    -
+      value: 0
+  login:
+    -
+      value: 0
+  init:
+    -
+      value: msmith@example.com
+  path:
+    -
+      alias: /users/msmith
+      langcode: en
+      pathauto: 1
+  field_first_name:
+    -
+      value: Mark
+  field_last_name:
+    -
+      value: Smith
+  field_name:
+    -
+      value: 'Mark Smith'

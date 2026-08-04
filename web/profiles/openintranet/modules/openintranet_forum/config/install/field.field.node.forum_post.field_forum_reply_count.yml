@@ -1,0 +1,24 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_forum_reply_count
+    - node.type.forum_post
+id: node.forum_post.field_forum_reply_count
+field_name: field_forum_reply_count
+entity_type: node
+bundle: forum_post
+label: 'Reply Count'
+description: 'Number of replies to this post'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  min: 0
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

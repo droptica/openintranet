@@ -1,0 +1,9 @@
+name: 'Open Intranet Forum Demo Content'
+type: module
+description: 'Provides demo content (categories, tags, posts, replies, reactions) for the Open Intranet Forum module. Optional — enable when you want sample forum data.'
+core_version_requirement: ^10.3 || ^11
+package: 'Open Intranet'
+lifecycle: experimental
+dependencies:
+  - openintranet_forum:openintranet_forum
+  - default_content:default_content

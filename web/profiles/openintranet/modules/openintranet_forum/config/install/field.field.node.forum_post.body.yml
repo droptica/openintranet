@@ -1,0 +1,30 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.basic_html
+    - filter.format.full_html
+    - node.type.forum_post
+  module:
+    - text
+id: node.forum_post.body
+field_name: body
+entity_type: node
+bundle: forum_post
+label: Body
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+  required_summary: false
+  # Keep plain_text out of the forum body. The distro weights plain_text above
+  # basic_html, so filter_default_format() would hand regular authors a raw
+  # textarea; with these two, a user who only has basic_html gets exactly one
+  # option, so core hides the format select and CKEditor loads straight away.
+  allowed_formats:
+    - basic_html
+    - full_html
+field_type: text_with_summary

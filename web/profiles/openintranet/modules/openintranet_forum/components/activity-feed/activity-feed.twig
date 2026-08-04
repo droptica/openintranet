@@ -1,0 +1,115 @@
+{#
+/**
+ * @file
+ * Activity feed for the forum "Your posts" sidebar block.
+ *
+ * Available variables:
+ * - variant: 'sidebar' or 'page'
+ * - items: Array of activity items. Each item has:
+ *   - kind: Activity type string (reply, reaction, etc.)
+ *   - label: Short description label.
+ *   - has_actor_picture: Boolean.
+ *   - actor_picture: Render array for user picture.
+ *   - actor_name: Name of the person who acted.
+ *   - actor_profile_url: URL to actor's profile.
+ *   - timestamp: Formatted timestamp string.
+ *   - timestamp_attr: ISO timestamp for <time> datetime.
+ *   - post_url: URL to the post.
+ *   - post_title: Title of the post.
+ *   - like_count, reply_count, share_count: Stat integers.
+ *   - preview_text: Optional quoted reply text.
+ *   - action_url, action_text: Optional reply link.
+ * - empty_message: Fallback when there are no items.
+ * - icon_base: Base path to icon images.
+ * - more_url: URL for "view more" link.
+ * - show_more: Boolean, whether to show "view more".
+ */
+#}
+{{ attach_library('openintranet_forum/forum.activity-feed') }}
+{%
+  set classes = [
+    'forum-activity',
+    'forum-activity--' ~ variant|clean_class,
+  ]
+%}
+<div class="{{ classes|join(' ') }}">
+
+  {% block activity_header %}
+    {% if variant == 'sidebar' %}
+      <div class="forum-activity__header">
+        <h3 class="forum-activity__heading">{{ 'Your posts'|t }}</h3>
+      </div>
+    {% endif %}
+  {% endblock %}
+
+  <div class="forum-activity__body">
+    {% block activity_items %}
+      {% if items %}
+        <div class="forum-activity__items">
+          {% for item in items %}
+            <article class="forum-activity__item forum-activity__item--{{ item.kind }}">
+              <p class="forum-activity__label">{{ item.label }}</p>
+
+              <div class="forum-activity__meta">
+                <div class="forum-activity__author">
+                  <div class="forum-activity__avatar">
+                    {% if item.has_actor_picture %}
+                      {{ item.actor_picture }}
+                    {% else %}
+                      <span class="forum-activity__avatar-placeholder" aria-hidden="true"></span>
+                    {% endif %}
+                  </div>
+                  {% if item.actor_profile_url %}
+                    <a href="{{ item.actor_profile_url }}" class="forum-activity__author-name">{{ item.actor_name }}</a>
+                  {% else %}
+                    <span class="forum-activity__author-name">{{ item.actor_name }}</span>
+                  {% endif %}
+                </div>
+                <time class="forum-activity__time" datetime="{{ item.timestamp_attr }}">{{ item.timestamp }}</time>
+              </div>
+
+              <h4 class="forum-activity__post-title">
+                <a href="{{ item.post_url }}">{{ item.post_title }}</a>
+              </h4>
+
+              <div class="forum-activity__stats">
+                <span class="forum-activity__stat">
+                  <img src="{{ icon_base }}/thumbs-up.svg" width="14" height="14" alt="" loading="lazy">
+                  <span>{{ item.like_count }}</span>
+                </span>
+                <span class="forum-activity__stat">
+                  <img src="{{ icon_base }}/message-circle.svg" width="14" height="14" alt="" loading="lazy">
+                  <span>{{ item.reply_count }}</span>
+                </span>
+                <span class="forum-activity__stat">
+                  <img src="{{ icon_base }}/share-nodes.svg" width="13" height="13" alt="" loading="lazy">
+                  <span>{{ item.share_count }}</span>
+                </span>
+              </div>
+
+              {% if item.preview_text %}
+                <div class="forum-activity__response">
+                  <div class="forum-activity__preview">{{ item.preview_text }}</div>
+                  {% if item.action_url %}
+                    <a href="{{ item.action_url }}" class="forum-activity__action">{{ item.action_text }}</a>
+                  {% endif %}
+                </div>
+              {% endif %}
+            </article>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="forum-activity__empty">{{ empty_message }}</div>
+      {% endif %}
+    {% endblock %}
+
+    {% block activity_more %}
+      {% if show_more and more_url and items %}
+        <div class="forum-activity__more">
+          <a href="{{ more_url }}" class="forum-activity__more-btn">{{ 'view more'|t }}</a>
+        </div>
+      {% endif %}
+    {% endblock %}
+  </div>
+
+</div>

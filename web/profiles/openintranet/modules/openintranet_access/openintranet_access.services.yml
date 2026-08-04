@@ -1,0 +1,57 @@
+services:
+  # Logger channel for audit trail
+  logger.channel.openintranet_access:
+    parent: logger.channel_base
+    arguments: ['openintranet_access']
+
+  # Audit logger for access-related operations
+  openintranet_access.audit_logger:
+    class: Drupal\openintranet_access\Service\OiAuditLogger
+    arguments:
+      - '@logger.channel.openintranet_access'
+      - '@current_user'
+      - '@entity_type.manager'
+
+  # Group management
+  openintranet_access.group_manager:
+    class: Drupal\openintranet_access\Service\OiGroupManager
+    arguments:
+      - '@entity_type.manager'
+      - '@database'
+      - '@openintranet_access.audit_logger'
+
+  # Access checking
+  openintranet_access.checker:
+    class: Drupal\openintranet_access\Service\OiAccessChecker
+    arguments:
+      - '@openintranet_access.group_manager'
+      - '@database'
+      - '@config.factory'
+
+  # Access management (setting restrictions)
+  openintranet_access.access_manager:
+    class: Drupal\openintranet_access\Service\OiAccessManager
+    arguments:
+      - '@database'
+      - '@cache_tags.invalidator'
+      - '@openintranet_access.audit_logger'
+
+  # Access check for entity access form
+  openintranet_access.entity_access_check:
+    class: Drupal\openintranet_access\Access\EntityAccessCheck
+    arguments:
+      - '@config.factory'
+
+  # Plugin manager for entity type plugins
+  plugin.manager.oi_access_entity:
+    class: Drupal\openintranet_access\Plugin\OiAccessEntity\OiAccessEntityPluginManager
+    parent: default_plugin_manager
+
+  # Cache context for user groups
+  cache_context.user.oi_groups:
+    class: Drupal\openintranet_access\Cache\Context\UserOiGroupsCacheContext
+    arguments:
+      - '@current_user'
+      - '@openintranet_access.group_manager'
+    tags:
+      - { name: cache.context }

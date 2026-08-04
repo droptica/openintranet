@@ -1,0 +1,273 @@
+{#
+/**
+ * @file
+ * Template for document view page.
+ *
+ * Available variables:
+ * - document: The OiDocument entity.
+ * - breadcrumbs: Array of breadcrumb links.
+ * - file_info: File information (name, size, mime, extension, url, download_url).
+ * - file_icon: Bootstrap icon class for file type.
+ * - folder_info: Folder information (name, url).
+ * - author_info: Author information (name, url).
+ * - source_info: Source plugin information (type, label, icon, source).
+ * - preview: Render array for document preview.
+ * - referencing_content: Array of content referencing this document (title, url, type).
+ * - created: Formatted creation date.
+ * - changed: Formatted last change date.
+ */
+#}
+
+<div class="oi-document-view">
+  {# Breadcrumbs #}
+  <nav aria-label="{{ 'Breadcrumb'|t }}" class="oi-breadcrumb-nav mb-4">
+    <ol class="breadcrumb mb-0">
+      {% for item in breadcrumbs %}
+        <li class="breadcrumb-item">
+          <a href="{{ item.url }}" class="text-decoration-none">
+            <i class="bi bi-folder2 me-1"></i>{{ item.title }}
+          </a>
+        </li>
+      {% endfor %}
+      <li class="breadcrumb-item active" aria-current="page">
+        <i class="bi bi-file-earmark me-1"></i>{{ document.title.value }}
+      </li>
+    </ol>
+  </nav>
+
+  <div class="row">
+    {# Main content area #}
+    <div class="col-lg-8">
+      {# Document header card #}
+      <div class="card shadow-sm border-0 mb-4">
+        <div class="card-body p-4">
+          {# File icon and title #}
+          <div class="d-flex align-items-start mb-4">
+            <div class="flex-shrink-0 me-4">
+              <div class="document-icon-large bg-light rounded-3 d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                <i class="bi {{ file_icon }}" style="font-size: 2.5rem;"></i>
+              </div>
+            </div>
+            <div class="flex-grow-1">
+              <h1 class="h3 mb-2">{{ document.title.value }}</h1>
+              <div class="d-flex flex-wrap gap-3 text-muted small">
+                {% if file_info and file_info.extension %}
+                  <span>
+                    <i class="bi bi-file-earmark me-1"></i>
+                    {{ file_info.extension|upper }}
+                  </span>
+                {% endif %}
+                {% if file_info and file_info.size %}
+                  <span>
+                    <i class="bi bi-hdd me-1"></i>
+                    {{ file_info.size }}
+                  </span>
+                {% endif %}
+                <span>
+                  <i class="bi bi-calendar3 me-1"></i>
+                  {{ created }}
+                </span>
+                {% if source_info and source_info.type != 'local_file' %}
+                  <span>
+                    <i class="bi {{ source_info.icon }} me-1"></i>
+                    {{ source_info.source }}
+                  </span>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+
+          {# Action buttons #}
+          <div class="d-flex flex-wrap gap-2 mb-4">
+            {% if file_info.download_url %}
+              <a href="{{ file_info.download_url }}" class="btn btn-primary btn-lg"{% if source_info and source_info.type != 'local_file' %} target="_blank"{% endif %}>
+                <i class="bi bi-download me-2"></i>{{ 'Download'|t }}
+              </a>
+            {% endif %}
+            {% if file_info and file_info.url %}
+              <a href="{{ file_info.url }}" class="btn btn-outline-secondary btn-lg" target="_blank">
+                <i class="bi bi-eye me-2"></i>{{ 'Open'|t }}
+              </a>
+            {% endif %}
+            <a href="{{ path('entity.oi_document.edit_form', {'oi_document': document_id}) }}" class="btn btn-outline-secondary">
+              <i class="bi bi-pencil me-2"></i>{{ 'Edit'|t }}
+            </a>
+          </div>
+
+          {# Description #}
+          {% if document.description.value %}
+            <div class="border-top pt-4">
+              <h5 class="h6 text-uppercase text-muted fw-bold mb-3">
+                <i class="bi bi-text-paragraph me-2"></i>{{ 'Description'|t }}
+              </h5>
+              <div class="document-description lead text-body">
+                {{ document.description.value|nl2br }}
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+
+      {# Document preview (rendered by plugin) #}
+      {% if preview %}
+        <div class="card shadow-sm border-0 mb-4">
+          <div class="card-header bg-white border-0 py-3">
+            <h5 class="h6 mb-0 text-uppercase text-muted fw-bold">
+              <i class="bi bi-eye me-2"></i>{{ 'Preview'|t }}
+            </h5>
+          </div>
+          <div class="card-body p-0">
+            {{ preview }}
+          </div>
+        </div>
+      {% endif %}
+    </div>
+
+    {# Sidebar #}
+    <div class="col-lg-4">
+      {# Document details card #}
+      <div class="card shadow-sm border-0 mb-4">
+        <div class="card-header bg-white border-0 py-3">
+          <h5 class="h6 mb-0 text-uppercase text-muted fw-bold">
+            <i class="bi bi-info-circle me-2"></i>{{ 'Details'|t }}
+          </h5>
+        </div>
+        <div class="card-body">
+          <dl class="row mb-0">
+            {# Source type #}
+            {% if source_info %}
+              <dt class="col-sm-4 text-muted small">{{ 'Source'|t }}</dt>
+              <dd class="col-sm-8">
+                <i class="bi {{ source_info.icon }} me-1"></i>
+                {{ source_info.label }}
+              </dd>
+            {% endif %}
+
+            {# File name #}
+            {% if file_info and file_info.name %}
+              <dt class="col-sm-4 text-muted small">{{ 'File'|t }}</dt>
+              <dd class="col-sm-8">
+                <span class="text-break">{{ file_info.name }}</span>
+              </dd>
+
+              {% if file_info.size %}
+                <dt class="col-sm-4 text-muted small">{{ 'Size'|t }}</dt>
+                <dd class="col-sm-8">{{ file_info.size }}</dd>
+              {% endif %}
+
+              {% if file_info.extension %}
+                <dt class="col-sm-4 text-muted small">{{ 'Type'|t }}</dt>
+                <dd class="col-sm-8">
+                  <span class="badge bg-light text-dark">{{ file_info.extension|upper }}</span>
+                </dd>
+              {% endif %}
+            {% endif %}
+
+            {# External URL for cloud sources #}
+            {% if source_info and source_info.type != 'local_file' and document.getSourceUrl() %}
+              <dt class="col-sm-4 text-muted small">{{ 'URL'|t }}</dt>
+              <dd class="col-sm-8">
+                <a href="{{ document.getSourceUrl() }}" target="_blank" class="text-break text-decoration-none small">
+                  <i class="bi bi-box-arrow-up-right me-1"></i>{{ 'Open in new tab'|t }}
+                </a>
+              </dd>
+            {% endif %}
+
+            {# Location #}
+            {% if folder_info %}
+              <dt class="col-sm-4 text-muted small">{{ 'Location'|t }}</dt>
+              <dd class="col-sm-8">
+                <a href="{{ folder_info.url }}" class="text-decoration-none">
+                  <i class="bi bi-folder2 me-1"></i>{{ folder_info.name }}
+                </a>
+              </dd>
+            {% else %}
+              <dt class="col-sm-4 text-muted small">{{ 'Location'|t }}</dt>
+              <dd class="col-sm-8">
+                <a href="{{ path('openintranet_documents.browser') }}" class="text-decoration-none">
+                  <i class="bi bi-folder2 me-1"></i>{{ 'Root'|t }}
+                </a>
+              </dd>
+            {% endif %}
+
+            {# Author #}
+            <dt class="col-sm-4 text-muted small">{{ 'Author'|t }}</dt>
+            <dd class="col-sm-8">
+              <a href="{{ author_info.url }}" class="text-decoration-none">
+                <i class="bi bi-person me-1"></i>{{ author_info.name }}
+              </a>
+            </dd>
+
+            {# Dates #}
+            <dt class="col-sm-4 text-muted small">{{ 'Created'|t }}</dt>
+            <dd class="col-sm-8 small">{{ created }}</dd>
+
+            <dt class="col-sm-4 text-muted small">{{ 'Updated'|t }}</dt>
+            <dd class="col-sm-8 small">{{ changed }}</dd>
+          </dl>
+        </div>
+      </div>
+
+      {# Referenced content card #}
+      {% if referencing_content|length > 0 %}
+        <div class="card shadow-sm border-0 mb-4">
+          <div class="card-header bg-white border-0 py-3">
+            <h5 class="h6 mb-0 text-uppercase text-muted fw-bold">
+              <i class="bi bi-link-45deg me-2"></i>{{ 'Referenced by'|t }}
+            </h5>
+          </div>
+          <div class="card-body p-0">
+            <div class="list-group list-group-flush">
+              {% for item in referencing_content %}
+                <a href="{{ item.url }}" class="list-group-item list-group-item-action d-flex align-items-center">
+                  <i class="bi bi-file-text me-3 text-primary"></i>
+                  <div>
+                    <div class="fw-medium">{{ item.title }}</div>
+                    <small class="text-muted">{{ item.type }}</small>
+                  </div>
+                </a>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      {% endif %}
+
+      {# Quick actions card #}
+      <div class="card shadow-sm border-0">
+        <div class="card-header bg-white border-0 py-3">
+          <h5 class="h6 mb-0 text-uppercase text-muted fw-bold">
+            <i class="bi bi-lightning me-2"></i>{{ 'Quick Actions'|t }}
+          </h5>
+        </div>
+        <div class="card-body p-0">
+          <div class="list-group list-group-flush">
+            {% if file_info.download_url %}
+              <a href="{{ file_info.download_url }}" class="list-group-item list-group-item-action d-flex align-items-center"{% if source_info and source_info.type != 'local_file' %} target="_blank"{% endif %}>
+                <i class="bi bi-download me-3 text-primary"></i>
+                <span>{{ 'Download file'|t }}</span>
+              </a>
+            {% endif %}
+            <a href="{{ path('entity.oi_document.edit_form', {'oi_document': document_id}) }}" class="list-group-item list-group-item-action d-flex align-items-center">
+              <i class="bi bi-pencil me-3 text-warning"></i>
+              <span>{{ 'Edit document'|t }}</span>
+            </a>
+            {% if access_url %}
+              <a href="{{ access_url }}" class="list-group-item list-group-item-action d-flex align-items-center">
+                <i class="bi bi-shield-lock me-3 text-secondary"></i>
+                <span>{{ 'Manage access'|t }}</span>
+              </a>
+            {% endif %}
+            <a href="{{ path('entity.oi_document.version_history', {'oi_document': document_id}) }}" class="list-group-item list-group-item-action d-flex align-items-center">
+              <i class="bi bi-clock-history me-3 text-info"></i>
+              <span>{{ 'View history'|t }}</span>
+            </a>
+            <a href="{{ path('entity.oi_document.delete_form', {'oi_document': document_id}) }}" class="list-group-item list-group-item-action d-flex align-items-center text-danger">
+              <i class="bi bi-trash me-3"></i>
+              <span>{{ 'Delete document'|t }}</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: forum_reply
+label: 'Forum Reply'
+target_entity_type_id: node
+description: 'Replies to forum posts'

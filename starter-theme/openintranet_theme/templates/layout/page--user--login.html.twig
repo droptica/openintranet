@@ -89,19 +89,28 @@
                 <div class="container">
                   <div class="row justify-content-center">
                     <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5 col-xxl-4">
-                      <div class="card block-background border border-light-subtle rounded-3 shadow-sm">
-                        <div class="card-body p-4">
-                          <div class="text-center mb-3">
+                      <div class="card bg-white border border-light-subtle rounded-3 shadow-sm">
+                        <div class="card-body p-0">
+                          <div class="text-center pt-4 mb-4">
                             {% if page.top_header_logo %}
-                              <div class="px-5 mb-5">
+                              <div class="px-5">
                                 {{ page.top_header_logo }}
                               </div>
                             {% endif %}
                           </div>
                           <a href="#main-content" id="main-content" tabindex="-1"></a>
+                          <h1 class="visually-hidden">{{ 'Log in'|t }}</h1>
                           {{ page.content }}
                         </div>
                       </div>
+                      <aside class="mt-4 p-3 text-center bg-white border border-light-subtle rounded-3 shadow-sm">
+                        <p class="mb-2 small text-body-secondary">
+                          {{ 'Open Intranet is created and developed by'|t }}
+                        </p>
+                        <a href="https://www.droptica.com?utm_source=open_intranet&amp;utm_medium=referral&amp;utm_campaign=login_footer" target="_blank" rel="noopener noreferrer">
+                          <img src="{{ base_path ~ directory }}/images/logo-droptica.svg" width="118" height="30" alt="Droptica" loading="lazy">
+                        </a>
+                      </aside>
                     </div>
                   </div>
                 </div>

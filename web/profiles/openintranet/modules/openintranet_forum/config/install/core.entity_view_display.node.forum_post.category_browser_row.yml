@@ -1,0 +1,27 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.category_browser_row
+    - field.field.node.forum_post.body
+    - field.field.node.forum_post.comment_forum
+    - field.field.node.forum_post.field_forum_category
+    - field.field.node.forum_post.field_forum_image
+    - field.field.node.forum_post.field_forum_reply_count
+    - field.field.node.forum_post.field_forum_tags
+    - field.field.node.forum_post.field_forum_views
+    - node.type.forum_post
+id: node.forum_post.category_browser_row
+targetEntityType: node
+bundle: forum_post
+mode: category_browser_row
+content: {  }
+hidden:
+  body: true
+  comment_forum: true
+  field_forum_category: true
+  field_forum_image: true
+  field_forum_reply_count: true
+  field_forum_tags: true
+  field_forum_views: true
+  links: true

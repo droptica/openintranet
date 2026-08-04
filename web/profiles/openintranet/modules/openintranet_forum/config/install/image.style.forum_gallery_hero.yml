@@ -1,0 +1,15 @@
+uuid: 25a61413-cb30-44c1-be56-370462873c44
+langcode: en
+status: true
+dependencies: {}
+name: forum_gallery_hero
+label: 'Forum gallery hero (1200×463)'
+effects:
+  cc2b9016-7790-4378-ba52-aadc09e1ff4d:
+    uuid: cc2b9016-7790-4378-ba52-aadc09e1ff4d
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 1200
+      height: 463
+      anchor: center-center

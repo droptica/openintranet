@@ -1,5 +1,19 @@
 # Schema for the configuration files of the Bootstrap Barrio Subtheme.
 
+openintranet_theme.settings:
+  type: bootstrap_barrio.settings
+  label: 'Open Intranet theme settings'
+  mapping:
+    bootstrap_barrio_radio:
+      type: string
+      label: 'Radio widget style'
+    bootstrap_barrio_select:
+      type: string
+      label: 'Select widget style'
+    bootstrap_barrio_file:
+      type: string
+      label: 'File widget style'
+
 bootstrap_barrio_sass.settings:
   type: theme_settings
   label: 'Bootstrap Barrio settings'

@@ -1,0 +1,11 @@
+entity.oi_folder.add_form:
+  route_name: entity.oi_folder.add_form
+  title: 'Add folder'
+  appears_on:
+    - entity.oi_folder.collection
+
+entity.oi_document.add_form:
+  route_name: entity.oi_document.add_form
+  title: 'Upload document'
+  appears_on:
+    - entity.oi_document.collection

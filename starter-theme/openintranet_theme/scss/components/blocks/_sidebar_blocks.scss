@@ -44,7 +44,6 @@
 }
 
 .block-background:not(:has(.block-background)):not(:has(.block-primary)):not(:has(article.node--view-mode-full)):not(:has(.views-element-container)),
-.path-user .block-background,
 .path-employee-directory .block-background .block-background {
   background-color: $white;
   border: none;
@@ -64,10 +63,6 @@
   .views-row {
     padding: 0 12px;
   }
-}
-
-.path-user .block-background .block-background {
-  padding: 0 !important;
 }
 
 .sidebar .block {

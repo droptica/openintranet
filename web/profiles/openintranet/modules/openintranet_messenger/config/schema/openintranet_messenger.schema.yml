@@ -1,0 +1,19 @@
+openintranet_messenger.settings:
+  type: config_object
+  label: 'Open Intranet Messenger settings'
+  mapping:
+    taxonomy_vocabulary:
+      type: string
+      label: 'Taxonomy vocabulary for grouping contacts'
+    default_channel:
+      type: string
+      label: 'Default notification channel'
+    enabled_channels:
+      type: sequence
+      label: 'Enabled channels'
+      sequence:
+        type: string
+        label: 'Channel ID'
+    user_phone_field:
+      type: string
+      label: 'User phone field machine name'

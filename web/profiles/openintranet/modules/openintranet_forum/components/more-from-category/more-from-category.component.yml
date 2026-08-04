@@ -1,0 +1,51 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Forum more from category
+status: experimental
+props:
+  type: object
+  required:
+    - category_name
+    - category_url
+    - icon_base
+  properties:
+    category_name:
+      type: string
+      title: Category name
+      description: "The category name string."
+    category_url:
+      type: string
+      title: Category URL
+      description: "URL to the category listing page."
+    items:
+      type: array
+      title: Post items
+      description: "Array of related post items."
+    icon_base:
+      type: string
+      title: Icon base path
+      description: "Base path to icon images."
+    more_url:
+      type:
+        - string
+        - "null"
+      title: More URL
+      description: "URL for the 'view more' link."
+    empty_message:
+      type:
+        - string
+        - object
+        - "null"
+      title: Empty message
+      description: "Fallback shown when there are no items."
+slots:
+  more_header:
+    title: Header
+    description: "Header row with category name and link."
+  more_items:
+    title: Items
+    description: "Main related-posts list body."
+  more_footer:
+    title: Footer
+    description: "Footer row."
+libraryDependencies:
+  - openintranet_forum/forum.more-from-category

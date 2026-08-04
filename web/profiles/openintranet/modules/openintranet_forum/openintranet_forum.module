@@ -1,0 +1,37 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for Open Intranet Forum module.
+ *
+ * All entity, form, and theme hook implementations live in OOP hook classes
+ * under src/Hook/ using the #[Hook(...)] attribute. The sole exception is the
+ * form #element_validate callback below, which Drupal's form API resolves by
+ * string function name only — it cannot call an array [ServiceId, 'method']
+ * callback registered from YAML, so it must remain procedural.
+ *
+ * @see \Drupal\openintranet_forum\Hook\ForumThemeHooks
+ * @see \Drupal\openintranet_forum\Hook\ForumEntityHooks
+ * @see \Drupal\openintranet_forum\Hook\ForumTrendingHooks
+ */
+
+declare(strict_types=1);
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Reshapes the Person select value into the array the Name filter expects.
+ *
+ * The SearchApiUser filter (extends user Name filter) iterates over the
+ * submitted value expecting an array of [['target_id' => UID], ...] entries.
+ * A plain <select> submits a scalar UID, so we wrap it here.
+ */
+function openintranet_forum_person_filter_validate(array &$element, FormStateInterface $form_state, array &$complete_form): void {
+  $value = $form_state->getValue('person');
+  if (is_scalar($value) && (string) $value !== '') {
+    $form_state->setValue('person', [['target_id' => (int) $value]]);
+  }
+  else {
+    $form_state->setValue('person', []);
+  }
+}

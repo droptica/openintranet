@@ -1,0 +1,15 @@
+uuid: f8c4a1b2-3d4e-5f60-a7b8-c9d0e1f2a3b4
+langcode: en
+status: true
+dependencies: {  }
+name: forum_trending_card
+label: 'Forum trending card (400×160)'
+effects:
+  a1b2c3d4-e5f6-7890-abcd-ef1234567891:
+    uuid: a1b2c3d4-e5f6-7890-abcd-ef1234567891
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 400
+      height: 160
+      anchor: center-center

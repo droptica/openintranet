@@ -1,0 +1,79 @@
+{#
+/**
+ * @file
+ * Personalized forum feed page with hero banner and 3-rail layout.
+ *
+ * Available variables:
+ * - hero_title: The hero banner heading.
+ * - hero_text: The hero banner description text.
+ * - hero_image: URL of the hero background image.
+ * - featured: Render array for the featured/trending region.
+ * - has_featured: Boolean, whether the featured region has blocks.
+ * - left_rail: Render array for the left sidebar (activity feed).
+ * - has_left_rail: Boolean, whether left rail has content.
+ * - center_rail: Render array for the center content (view embed).
+ * - right_rail: Render array for the right sidebar blocks.
+ * - has_right_rail: Boolean, whether right rail has blocks.
+ * - tabs: Ordered list of {title, url, is_active} tab items.
+ */
+#}
+{{ attach_library('openintranet_forum/forum.base') }}
+{{ attach_library('openintranet_forum/forum.page') }}
+<div class="forum-page forum-page--feed">
+  {% block feed_hero %}
+    <section class="forum-page__hero" style="background-image: linear-gradient(to right, rgba(11, 21, 48, 0.9) 12.5%, rgba(8, 52, 174, 0.36) 100%), url('{{ hero_image }}');">
+      <div class="forum-page__hero-content">
+        <h1 class="forum-page__hero-title">{{ hero_title }}</h1>
+        <p class="forum-page__hero-text">{{ hero_text }}</p>
+      </div>
+    </section>
+  {% endblock %}
+
+  {% block feed_featured %}
+    {% if has_featured %}
+      <section class="forum-page__section forum-page__featured">
+        {{ featured }}
+      </section>
+    {% else %}
+      {# Renders nothing, but bubbles the empty embed's cache metadata. #}
+      {{ featured }}
+    {% endif %}
+  {% endblock %}
+
+  {% block feed_workspace %}
+    <section class="forum-page__section forum-page__section--workspace">
+      <div class="forum-page__section-header">
+        <h2 class="forum-page__section-title">{{ 'For you'|t }}</h2>
+      </div>
+
+      <div class="forum-page__workspace forum-page__workspace--three-rail">
+        {% if has_left_rail %}
+          <aside class="forum-page__rail forum-page__rail--left">
+            {{ left_rail }}
+          </aside>
+        {% endif %}
+
+        <div class="forum-page__main">
+          <div class="forum-page__posts-shell">
+            <nav class="tabs" role="navigation" aria-label="{{ 'Tabs'|t }}">
+              <ul class="nav nav-tabs">
+                {% for tab in tabs %}
+                  <li class="nav-item">
+                    <a href="{{ tab.url }}" class="nav-link{{ tab.is_active ? ' active' : '' }}">{{ tab.title }}</a>
+                  </li>
+                {% endfor %}
+              </ul>
+            </nav>
+            {{ center_rail }}
+          </div>
+        </div>
+
+        {% if has_right_rail %}
+          <aside class="forum-page__rail forum-page__rail--right">
+            {{ right_rail }}
+          </aside>
+        {% endif %}
+      </div>
+    </section>
+  {% endblock %}
+</div>

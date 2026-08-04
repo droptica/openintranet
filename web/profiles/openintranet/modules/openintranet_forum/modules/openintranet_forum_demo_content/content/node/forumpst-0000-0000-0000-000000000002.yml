@@ -1,0 +1,74 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: forumpst-0000-0000-0000-000000000002
+  bundle: forum_post
+  default_langcode: en
+  depends:
+    forumusr-0000-0000-0000-000000000003: user
+    forumcat-0000-0000-0000-000000000002: taxonomy_term
+    forumtag-0000-0000-0000-000000000002: taxonomy_term
+    forumtag-0000-0000-0000-000000000003: taxonomy_term
+    forumfil-0000-0000-0000-000000000002: file
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      entity: forumusr-0000-0000-0000-000000000003
+  title:
+    -
+      value: 'How do I request time off?'
+  created:
+    -
+      value: 1732752000
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  path:
+    -
+      alias: /forum/how-do-i-request-time-off
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: "<p>I know this is probably basic, but the handbook is a little vague — what is the actual process for requesting PTO now that we moved off the old HR system?</p><p>Do I ping my manager first, or is approval automatic once I file it in the portal?</p><p>Any tips appreciated, especially if there is a cutoff for requests that overlap a public holiday.</p>"
+      format: full_html
+      summary: ''
+  comment_forum:
+    -
+      status: 2
+      cid: 0
+      last_comment_timestamp: 1732882800
+      last_comment_name: ''
+      last_comment_uid: 0
+      comment_count: 2
+  field_forum_category:
+    -
+      entity: forumcat-0000-0000-0000-000000000002
+  field_forum_tags:
+    -
+      entity: forumtag-0000-0000-0000-000000000002
+    -
+      entity: forumtag-0000-0000-0000-000000000003
+  field_forum_reply_count:
+    -
+      value: 2
+  field_forum_share_count:
+    -
+      value: 1
+  field_forum_views:
+    -
+      value: 54
+  field_forum_image:
+    -
+      entity: forumfil-0000-0000-0000-000000000002
+      alt: 'Open-plan office workspace'
+      title: ''

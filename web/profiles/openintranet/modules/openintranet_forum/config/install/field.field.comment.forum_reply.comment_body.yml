@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - comment.type.forum_reply
+    - field.storage.comment.comment_body
+    - filter.format.plain_text
+  module:
+    - text
+id: comment.forum_reply.comment_body
+field_name: comment_body
+entity_type: comment
+bundle: forum_reply
+label: Comment
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats:
+    - plain_text
+field_type: text_long

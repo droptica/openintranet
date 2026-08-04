@@ -1,0 +1,83 @@
+{#
+/**
+ * @file
+ * Unified forum post meta row: like / reply / share stats + owner kebab.
+ *
+ * Props:
+ * - nid: Node ID (int).
+ * - post_url: Relative post URL (string).
+ * - absolute_url: Absolute post URL for sharing (string).
+ * - icon_base: Base path to icon directory (string, no trailing slash).
+ * - like_count, reply_count, share_count: Stat integers.
+ * - liked: Whether the current user liked the post (bool).
+ * - show_share: Whether to render the share button (bool, default true).
+ * - size: 'sm' or 'md' (default 'md').
+ * - actions: Owner action links [{title, url, icon}]. Kebab only when non-empty.
+ * - bookmark: Optional bookmark flag link render array, rendered as the first
+ *   item inside the kebab menu (the design shows no inline bookmark link).
+ * - labelled: When true, render text labels ('Comments (N)' / 'Share (N)')
+ *   next to the reply/share counts instead of bare numbers (bool, default false).
+ */
+#}
+{% set size = size|default('md') %}
+{% set show_share = show_share is defined ? show_share : true %}
+{% set labelled = labelled is defined ? labelled : false %}
+{%
+  set wrapper_classes = [
+    'forum-post-meta',
+    size == 'sm' ? 'forum-post-meta--sm',
+  ]
+%}
+<div{{ create_attribute().addClass(wrapper_classes) }}>
+  <div class="forum-post-meta__stats">
+    <span class="forum-post-meta__stat forum-post__stat{{ liked ? ' forum-post__stat--liked' : '' }}">
+      <img src="{{ icon_base }}/thumbs-up.svg" width="18" height="18" alt="" loading="lazy">
+      <span class="forum-post__like-count">{{ like_count|default(0) }}</span>
+    </span>
+    <a href="{{ post_url }}" class="forum-post-meta__stat forum-post__stat{{ labelled ? ' forum-post-meta__stat--labelled' : '' }}">
+      <img src="{{ icon_base }}/message-circle.svg" width="18" height="18" alt="" loading="lazy">
+      {% if labelled %}
+        <span class="forum-post-meta__stat-label">{{ 'Comments (@count)'|t({'@count': reply_count|default(0)}) }}</span>
+      {% else %}
+        <span>{{ reply_count|default(0) }}</span>
+        <span class="visually-hidden">{{ 'Open replies'|t }}</span>
+      {% endif %}
+    </a>
+    {% if show_share %}
+      <button type="button" class="forum-post-meta__stat forum-post__stat forum-post__share-btn js-forum-share{{ labelled ? ' forum-post-meta__stat--labelled' : '' }}" data-nid="{{ nid }}" data-url="{{ absolute_url }}" aria-label="{{ 'Share this post'|t }}">
+        <img src="{{ icon_base }}/share-nodes.svg" width="16" height="16" alt="" loading="lazy">
+        {% if labelled %}
+          <span class="forum-post-meta__stat-label">{{ 'Share'|t }} (<span class="forum-post__share-count">{{ share_count|default(0) }}</span>)</span>
+        {% else %}
+          <span class="forum-post__share-count">{{ share_count|default(0) }}</span>
+        {% endif %}
+      </button>
+    {% endif %}
+  </div>
+
+  {% set has_bookmark = bookmark is defined and bookmark is not empty %}
+  {% if has_bookmark or actions is not empty %}
+    <div class="forum-post-meta__actions">
+      <details class="forum-post-meta__menu-wrap">
+        <summary class="forum-post-meta__menu-toggle" aria-label="{{ 'Post actions'|t }}">
+          <img src="{{ icon_base }}/more-horizontal.svg" width="18" height="18" alt="" loading="lazy">
+        </summary>
+        <ul class="forum-post-meta__menu">
+          {% if has_bookmark %}
+            <li class="forum-post-meta__menu-item forum-post-meta__menu-item--bookmark">{{ bookmark }}</li>
+          {% endif %}
+          {% for action in actions %}
+            <li class="forum-post-meta__menu-item">
+              <a href="{{ action.url }}" class="forum-post-meta__menu-link">
+                {% if action.icon %}
+                  <img src="{{ icon_base }}/{{ action.icon }}" width="16" height="16" alt="" loading="lazy">
+                {% endif %}
+                <span>{{ action.title }}</span>
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </details>
+    </div>
+  {% endif %}
+</div>

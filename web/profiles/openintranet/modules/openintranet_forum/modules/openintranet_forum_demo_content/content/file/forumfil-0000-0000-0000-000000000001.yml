@@ -1,0 +1,27 @@
+_meta:
+  version: '1.0'
+  entity_type: file
+  uuid: forumfil-0000-0000-0000-000000000001
+  default_langcode: en
+default:
+  uid:
+    -
+      target_id: 1
+  filename:
+    -
+      value: forum-welcome.jpg
+  uri:
+    -
+      value: 'public://forum-demo/forum-welcome.jpg'
+  filemime:
+    -
+      value: image/jpeg
+  filesize:
+    -
+      value: 2241594
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1732924800

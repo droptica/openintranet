@@ -1,0 +1,65 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: forumpst-0000-0000-0000-000000000010
+  bundle: forum_post
+  default_langcode: en
+  depends:
+    forumusr-0000-0000-0000-000000000002: user
+    forumcat-0000-0000-0000-000000000008: taxonomy_term
+    forumtag-0000-0000-0000-000000000001: taxonomy_term
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      entity: forumusr-0000-0000-0000-000000000002
+  title:
+    -
+      value: 'Team offsite Nov 14-16'
+  created:
+    -
+      value: 1730851200
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  path:
+    -
+      alias: /forum/team-offsite-nov-14-16
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: "<p>Save the dates: the full-company offsite is confirmed for November 14 through 16 at the lake venue we visited last year.</p><p>Agenda is still being finalized, but expect a mix of strategy sessions, cross-team workshops, and plenty of unstructured time. Travel and lodging details will go out next week.</p><p>If you have session ideas, reply here or DM me directly.</p>"
+      format: full_html
+      summary: ''
+  comment_forum:
+    -
+      status: 2
+      cid: 0
+      last_comment_timestamp: 0
+      last_comment_name: ''
+      last_comment_uid: 0
+      comment_count: 0
+  field_forum_category:
+    -
+      entity: forumcat-0000-0000-0000-000000000008
+  field_forum_tags:
+    -
+      entity: forumtag-0000-0000-0000-000000000001
+  field_forum_reply_count:
+    -
+      value: 0
+  field_forum_share_count:
+    -
+      value: 2
+  field_forum_views:
+    -
+      value: 28

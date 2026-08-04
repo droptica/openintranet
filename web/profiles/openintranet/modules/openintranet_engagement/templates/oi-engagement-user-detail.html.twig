@@ -1,0 +1,114 @@
+{#
+/**
+ * @file
+ * User engagement detail template.
+ *
+ * Variables:
+ * - user: The user entity.
+ * - score: RFV score data.
+ * - segment: Segment definition.
+ * - events: Recent events.
+ * - breakdown: Event breakdown.
+ */
+#}
+<div class="engagement-user-detail">
+  {# Score Card #}
+  <div class="user-score-card" style="border-color: {{ segment.color }}">
+    <div class="segment-badge" style="background-color: {{ segment.color }}">
+      <span class="segment-icon">{{ segment.icon }}</span>
+      <span class="segment-label">{{ segment.label }}</span>
+    </div>
+
+    <div class="rfv-scores">
+      <div class="rfv-score">
+        <div class="score-label">{{ 'Recency'|t }}</div>
+        <div class="score-value score-{{ score.recency_score }}">{{ score.recency_score }}</div>
+      </div>
+      <div class="rfv-score">
+        <div class="score-label">{{ 'Frequency'|t }}</div>
+        <div class="score-value score-{{ score.frequency_score }}">{{ score.frequency_score }}</div>
+      </div>
+      <div class="rfv-score">
+        <div class="score-label">{{ 'Value'|t }}</div>
+        <div class="score-value score-{{ score.value_score }}">{{ score.value_score }}</div>
+      </div>
+      <div class="rfv-score total">
+        <div class="score-label">{{ 'Total'|t }}</div>
+        <div class="score-value">{{ score.total_score }}</div>
+      </div>
+    </div>
+
+    <div class="user-stats">
+      <div class="stat">
+        <span class="stat-label">{{ 'Last Active'|t }}:</span>
+        <span class="stat-value">{{ score.last_activity|date('Y-m-d H:i') }}</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">{{ 'Events (30d)'|t }}:</span>
+        <span class="stat-value">{{ score.event_count }}</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">{{ 'Total Points'|t }}:</span>
+        <span class="stat-value">{{ score.total_value }}</span>
+      </div>
+    </div>
+  </div>
+
+  {# Activity Breakdown #}
+  <div class="engagement-section">
+    <h3>{{ 'Activity Breakdown (30 days)'|t }}</h3>
+    {% if breakdown %}
+      <table class="engagement-table">
+        <thead>
+          <tr>
+            <th>{{ 'Activity'|t }}</th>
+            <th>{{ 'Count'|t }}</th>
+            <th>{{ 'Points'|t }}</th>
+            <th>{{ '%'|t }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in breakdown %}
+            <tr>
+              <td>{{ item.event_type }}</td>
+              <td>{{ item.count }}</td>
+              <td>{{ item.value }}</td>
+              <td>{{ item.percentage }}%</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>{{ 'No activity in the last 30 days.'|t }}</p>
+    {% endif %}
+  </div>
+
+  {# Recent Events #}
+  <div class="engagement-section">
+    <h3>{{ 'Recent Events'|t }}</h3>
+    {% if events %}
+      <table class="engagement-table">
+        <thead>
+          <tr>
+            <th>{{ 'Event'|t }}</th>
+            <th>{{ 'Points'|t }}</th>
+            <th>{{ 'Entity'|t }}</th>
+            <th>{{ 'Time'|t }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for event in events %}
+            <tr>
+              <td>{{ event.event_type }}</td>
+              <td>{{ event.value }}</td>
+              <td>{{ event.entity_type ? event.entity_type ~ '#' ~ event.entity_id : '-' }}</td>
+              <td>{{ event.created|date('Y-m-d H:i') }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>{{ 'No events recorded.'|t }}</p>
+    {% endif %}
+  </div>
+</div>

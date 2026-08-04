@@ -1,0 +1,276 @@
+openintranet_notifications.openintranet_notification_type.*:
+  type: config_entity
+  label: 'Notification type'
+  mapping:
+    id:
+      type: machine_name
+      label: 'Machine name'
+    label:
+      type: required_label
+      label: 'Label'
+    description:
+      type: string
+      label: 'Description'
+    category:
+      type: string
+      label: 'Category'
+    default_priority:
+      type: string
+      label: 'Default priority'
+    default_channels:
+      type: sequence
+      label: 'Default channels'
+      sequence:
+        type: string
+        label: 'Channel id'
+    forced_channels:
+      type: sequence
+      label: 'Forced channels'
+      sequence:
+        type: string
+        label: 'Channel id'
+    recipient_resolvers:
+      type: sequence
+      label: 'Recipient resolvers'
+      sequence:
+        type: mapping
+        label: 'Recipient resolver'
+        mapping:
+          id:
+            type: string
+            label: 'Resolver plugin id'
+          configuration:
+            type: ignore
+            label: 'Resolver configuration'
+    template_map:
+      type: sequence
+      label: 'Template map'
+      sequence:
+        type: string
+        label: 'Template name'
+    template_renderer:
+      type: string
+      label: 'Template renderer plugin id'
+    subject_template:
+      type: string
+      label: 'Subject template'
+    body_template:
+      type: text
+      label: 'Body template'
+    summary_template:
+      type: string
+      label: 'Summary template'
+    delivery_policy:
+      type: string
+      label: 'Delivery policy plugin id'
+    dedupe_window:
+      type: integer
+      label: 'Dedupe window (seconds)'
+    rate_limit:
+      type: integer
+      label: 'Rate limit (per user per window; 0 = unlimited)'
+    rate_limit_window:
+      type: integer
+      label: 'Rate-limit window (seconds)'
+    user_can_override:
+      type: boolean
+      label: 'User can override channels'
+    audit_retention_days:
+      type: integer
+      label: 'Audit retention (days)'
+action.configuration.openintranet_notifications_create_and_enqueue:
+  type: mapping
+  label: 'Notification: create and enqueue'
+  mapping:
+    notification_type:
+      type: string
+      label: 'Notification type'
+    recipients:
+      type: string
+      label: 'Recipients'
+    context:
+      type: sequence
+      label: 'Context tokens'
+      sequence:
+        type: string
+        label: 'Token expression'
+    dedupe_context:
+      type: string
+      label: 'Dedupe context'
+
+action.configuration.openintranet_notifications_create:
+  type: mapping
+  label: 'Notification: create'
+  mapping:
+    notification_type:
+      type: string
+      label: 'Notification type'
+    uid:
+      type: string
+      label: 'Recipient user id'
+    subject:
+      type: string
+      label: 'Subject'
+    body:
+      type: string
+      label: 'Body'
+    token_name:
+      type: string
+      label: 'Output token name'
+
+action.configuration.openintranet_notifications_resolve_recipients:
+  type: mapping
+  label: 'Notification: resolve recipients'
+  mapping:
+    resolver_id:
+      type: string
+      label: 'Resolver id'
+    configuration:
+      type: ignore
+      label: 'Resolver configuration'
+    notification_type:
+      type: string
+      label: 'Notification type'
+    token_name:
+      type: string
+      label: 'Output token name'
+
+action.configuration.openintranet_notifications_enqueue_delivery:
+  type: mapping
+  label: 'Notification: enqueue delivery'
+  mapping:
+    notification:
+      type: string
+      label: 'Notification'
+
+action.configuration.openintranet_notifications_send_now:
+  type: mapping
+  label: 'Notification: send now (synchronous)'
+  mapping:
+    notification:
+      type: string
+      label: 'Notification'
+    channel:
+      type: string
+      label: 'Channel'
+
+action.configuration.openintranet_notifications_cancel:
+  type: mapping
+  label: 'Notification: cancel'
+  mapping:
+    notification:
+      type: string
+      label: 'Notification'
+
+action.configuration.openintranet_notifications_mark_seen_read:
+  type: mapping
+  label: 'Notification: mark seen/read'
+  mapping:
+    notification:
+      type: string
+      label: 'Notification'
+    mode:
+      type: string
+      label: 'Mode'
+
+eca.condition.plugin.openintranet_notifications_user_channel_enabled:
+  type: eca.condition.plugin
+  label: 'Notification: user channel enabled'
+  mapping:
+    uid:
+      type: string
+      label: 'Recipient user id'
+    notification_type:
+      type: string
+      label: 'Notification type'
+    channel:
+      type: string
+      label: 'Channel'
+
+eca.condition.plugin.openintranet_notifications_not_recently_sent:
+  type: eca.condition.plugin
+  label: 'Notification: not recently sent'
+  mapping:
+    dedupe_key:
+      type: string
+      label: 'Dedupe key'
+
+eca.condition.plugin.openintranet_notifications_below_rate_limit:
+  type: eca.condition.plugin
+  label: 'Notification: below rate limit'
+  mapping:
+    uid:
+      type: string
+      label: 'Recipient user id'
+    channel:
+      type: string
+      label: 'Channel'
+    notification_type:
+      type: string
+      label: 'Notification type'
+    limit:
+      type: string
+      label: 'Limit'
+
+openintranet_notifications.settings:
+  type: config_object
+  label: 'Open Intranet Notifications settings'
+  mapping:
+    enabled_channels:
+      type: sequence
+      label: 'Globally enabled channels'
+      sequence:
+        type: string
+        label: 'Channel id'
+    enabled_types:
+      type: sequence
+      label: 'Globally enabled notification types'
+      sequence:
+        type: string
+        label: 'Notification type id'
+    default_user_preferences:
+      type: sequence
+      label: 'Default user preferences'
+      sequence:
+        type: sequence
+        label: 'Per-type channel defaults'
+        sequence:
+          type: boolean
+          label: 'Channel enabled by default'
+    queue:
+      type: mapping
+      label: 'Delivery queue'
+      mapping:
+        id:
+          type: string
+          label: 'Queue id'
+    retention:
+      type: mapping
+      label: 'Audit retention'
+      mapping:
+        default_days:
+          type: integer
+          label: 'Default retention (days)'
+    kill_switch:
+      type: sequence
+      label: 'Per-channel kill switch'
+      sequence:
+        type: boolean
+        label: 'Channel killed'
+
+openintranet_notifications.channel.webhook:
+  type: config_object
+  label: 'Webhook channel settings'
+  mapping:
+    url:
+      type: string
+      label: 'Endpoint URL'
+    key_id:
+      type: string
+      label: 'HMAC key id (Key module)'
+    timeout:
+      type: integer
+      label: 'Request timeout (seconds)'
+    signature_header:
+      type: string
+      label: 'Signature header name'

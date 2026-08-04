@@ -1,0 +1,19 @@
+/**
+ * @file
+ * Minimal show/hide for the notification bell dropdown.
+ *
+ * The dropdown is hidden by default and revealed when the JS behavior adds the
+ * is-open class to the wrapper. Positioning/skinning is left to the theme.
+ */
+.notification-bell {
+  position: relative;
+}
+
+.notification-bell__dropdown {
+  display: none;
+}
+
+.notification-bell.is-open .notification-bell__dropdown {
+  display: flex;
+  flex-direction: column;
+}

@@ -57,6 +57,7 @@ install:
   - eca_content
   - eca_ui
   - eca_views
+  - modeler_api
   - field
   - field_group
   - field_ui
@@ -97,6 +98,7 @@ install:
   - noreqnewpass
   - openintranet_messenger
   - openintranet_documents
+  - openintranet_notifications
   - options
   - other_view_filter
   - package_manager
@@ -205,6 +207,9 @@ config:
     openintranet_engagement: '*'
     openintranet_messenger: '*'
     openintranet_documents: '*'
+    openintranet_notifications: '*'
+    eca:
+      - eca.eca.process_j7zbyne
     pathauto: '*'
     pathologic: '*'
     pfdp: '*'
@@ -341,6 +346,18 @@ config:
       - core.entity_view_mode.user.user_profile
 
   actions:
+    # Ship the default per-user channel preferences for the recipe's notification
+    # types, merged into the settings the module installs (it already ships rows
+    # for "default" and "new_comment"). Without a row a default user has no
+    # preferred channel and the user_preferences policy selects nothing, so the
+    # type would deliver nothing out of the box. A dotted key sets only this
+    # nested row and leaves the module's rows intact.
+    openintranet_notifications.settings:
+      simpleConfigUpdate:
+        default_user_preferences.new_article:
+          inbox: true
+          email_core: true
+
     system.site:
       simpleConfigUpdate:
         page:
@@ -401,6 +418,7 @@ config:
             - media
             - openintranet_documents
             - openintranet_engagement
+            - openintranet_notifications
             - pfdp
             - system
             - votingapi_reaction
@@ -408,6 +426,7 @@ config:
           - 'access comments'
           - 'access content'
           - 'access user profiles'
+          - 'administer own notification preferences'
           - 'bypass pfdp'
           - 'bypass pfdp for temporary files'
           - 'create reaction on node:article:field_news_article_reaction'

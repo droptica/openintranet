@@ -1,0 +1,38 @@
+_meta:
+  version: '1.0'
+  entity_type: comment
+  uuid: forumcmt-0000-0000-0000-000000000004
+  bundle: forum_reply
+  default_langcode: en
+  depends:
+    forumusr-0000-0000-0000-000000000003: user
+    forumpst-0000-0000-0000-000000000003: node
+default:
+  status:
+    -
+      value: true
+  uid:
+    -
+      entity: forumusr-0000-0000-0000-000000000003
+  entity_id:
+    -
+      entity: forumpst-0000-0000-0000-000000000003
+  subject:
+    -
+      value: 'Re: Best VSCode extensions you use?'
+  created:
+    -
+      value: 1732579200
+  thread:
+    -
+      value: 01/
+  entity_type:
+    -
+      value: node
+  field_name:
+    -
+      value: comment_forum
+  comment_body:
+    -
+      value: 'GitLens is essential, and Error Lens for inline linting feedback.'
+      format: plain_text

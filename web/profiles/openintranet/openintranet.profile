@@ -8,6 +8,7 @@
 declare(strict_types=1);
 
 use Drupal\Core\Datetime\DrupalDateTime;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Recipe\Recipe;
 use Drupal\Core\Recipe\RecipeRunner;
 use Drupal\user\Entity\User;
@@ -372,9 +373,174 @@ function openintranet_form_install_configure_form_alter(&$form, FormStateInterfa
 }
 
 /**
+ * Implements hook_menu_links_discovered_alter().
+ */
+function openintranet_menu_links_discovered_alter(array &$links): void {
+  $groups = [
+    'access' => [
+      'title' => new TranslatableMarkup('Access'),
+      'description' => new TranslatableMarkup('Manage groups and access control.'),
+      'weight' => 0,
+      'links' => [
+        'openintranet_access.groups' => [
+          'title' => new TranslatableMarkup('Groups'),
+          'weight' => 0,
+        ],
+        'openintranet_access.settings' => [
+          'title' => new TranslatableMarkup('Settings'),
+          'weight' => 10,
+        ],
+      ],
+    ],
+    'documents' => [
+      'title' => new TranslatableMarkup('Documents'),
+      'description' => new TranslatableMarkup('Manage documents, folders, and document settings.'),
+      'weight' => 10,
+      'links' => [
+        'entity.oi_document.collection' => [
+          'title' => new TranslatableMarkup('Documents'),
+          'weight' => 0,
+        ],
+        'entity.oi_folder.collection' => [
+          'title' => new TranslatableMarkup('Folders'),
+          'weight' => 10,
+        ],
+        'openintranet_documents.settings' => [
+          'title' => new TranslatableMarkup('Settings'),
+          'weight' => 20,
+        ],
+      ],
+    ],
+    'engagement' => [
+      'title' => new TranslatableMarkup('Engagement'),
+      'description' => new TranslatableMarkup('View engagement analytics and configure tracking.'),
+      'weight' => 20,
+      'links' => [
+        'openintranet_engagement.dashboard' => [
+          'title' => new TranslatableMarkup('Overview'),
+          'weight' => 0,
+        ],
+        'openintranet_engagement.settings' => [
+          'title' => new TranslatableMarkup('Settings'),
+          'weight' => 10,
+        ],
+      ],
+    ],
+    'forum' => [
+      'title' => new TranslatableMarkup('Forum'),
+      'description' => new TranslatableMarkup('Configure the Open Intranet forum.'),
+      'weight' => 30,
+      'links' => [
+        'openintranet_forum.settings' => [
+          'title' => new TranslatableMarkup('Settings'),
+          'weight' => 0,
+        ],
+      ],
+    ],
+    'messenger' => [
+      'title' => new TranslatableMarkup('Messenger'),
+      'description' => new TranslatableMarkup('Manage contacts and multi-channel messages.'),
+      'weight' => 40,
+      'links' => [
+        'openintranet_messenger.dashboard' => [
+          'title' => new TranslatableMarkup('Overview'),
+          'weight' => 0,
+        ],
+        'openintranet_messenger.contacts' => [
+          'title' => new TranslatableMarkup('Contacts'),
+          'weight' => 10,
+        ],
+        'openintranet_messenger.send' => [
+          'title' => new TranslatableMarkup('Send notification'),
+          'weight' => 20,
+        ],
+        'openintranet_messenger.log' => [
+          'title' => new TranslatableMarkup('Notification log'),
+          'weight' => 30,
+        ],
+        'openintranet_messenger.settings' => [
+          'title' => new TranslatableMarkup('Settings'),
+          'weight' => 40,
+        ],
+      ],
+    ],
+    'notifications' => [
+      'title' => new TranslatableMarkup('Notifications'),
+      'description' => new TranslatableMarkup('Manage notification channels, records, and deliveries.'),
+      'weight' => 50,
+      'links' => [
+        'openintranet_notifications.channel_status' => [
+          'title' => new TranslatableMarkup('Channels'),
+          'weight' => 0,
+        ],
+        'openintranet_notifications.notification_type.collection' => [
+          'title' => new TranslatableMarkup('Types'),
+          'weight' => 10,
+        ],
+        'openintranet_notifications.notification.collection' => [
+          'title' => new TranslatableMarkup('Records'),
+          'weight' => 20,
+        ],
+        'openintranet_notifications.notif_delivery.collection' => [
+          'title' => new TranslatableMarkup('Deliveries'),
+          'weight' => 30,
+        ],
+        'openintranet_notifications.delivery_bulk' => [
+          'title' => new TranslatableMarkup('Bulk operations'),
+          'weight' => 40,
+        ],
+        'openintranet_notifications.test' => [
+          'title' => new TranslatableMarkup('Test notification'),
+          'weight' => 50,
+        ],
+        'openintranet_notifications.settings' => [
+          'title' => new TranslatableMarkup('Settings'),
+          'weight' => 60,
+        ],
+      ],
+    ],
+  ];
+
+  foreach ($groups as $group_id => $group) {
+    $available_links = array_intersect_key($group['links'], $links);
+    if (!$available_links) {
+      continue;
+    }
+
+    $menu_group_id = 'openintranet.admin.' . $group_id;
+    $links[$menu_group_id] = [
+      'title' => $group['title'],
+      'description' => $group['description'],
+      'route_name' => '<nolink>',
+      'parent' => 'openintranet.admin',
+      'menu_name' => 'admin',
+      'weight' => $group['weight'],
+      'provider' => 'openintranet',
+    ];
+
+    foreach ($available_links as $link_id => $link_settings) {
+      $links[$link_id]['title'] = $link_settings['title'];
+      $links[$link_id]['parent'] = $menu_group_id;
+      $links[$link_id]['menu_name'] = 'admin';
+      $links[$link_id]['weight'] = $link_settings['weight'];
+    }
+  }
+}
+
+/**
+ * Rebuilds node access grants when required by installed modules.
+ */
+function openintranet_rebuild_node_access(): void {
+  if (function_exists('node_access_needs_rebuild') && node_access_needs_rebuild()) {
+    node_access_rebuild();
+  }
+}
+
+/**
  * Finish callback for the installer.
  */
 function openintranet_install_finished(&$install_state) {
+  openintranet_rebuild_node_access();
   \Drupal::messenger()->deleteAll();
 
   try {

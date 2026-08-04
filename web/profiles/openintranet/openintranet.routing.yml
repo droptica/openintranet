@@ -1,0 +1,10 @@
+openintranet.admin:
+  path: '/admin/openintranet'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::overview'
+    _title: 'Open Intranet'
+    link_id: openintranet.admin
+  requirements:
+    _permission: 'access administration pages'
+  options:
+    _admin_route: true

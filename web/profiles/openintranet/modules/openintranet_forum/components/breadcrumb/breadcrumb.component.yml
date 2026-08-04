@@ -1,0 +1,14 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Forum breadcrumb
+status: experimental
+props:
+  type: object
+  required:
+    - items
+  properties:
+    items:
+      type: array
+      title: Breadcrumb items
+      description: "List of {title, url|NULL}. Last item is current (no url)."
+libraryDependencies:
+  - openintranet_forum/forum.breadcrumb

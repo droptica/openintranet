@@ -1,0 +1,28 @@
+administer notification types:
+  title: 'Administer notification types'
+  description: 'Create and configure notification types (routing profiles and templates).'
+  restrict access: true
+
+administer notification channels:
+  title: 'Administer notification channels'
+  description: 'Enable, disable and configure notification channels, including the per-channel kill switch.'
+  restrict access: true
+
+view notification logs:
+  title: 'View notification logs'
+  description: 'View notification and delivery records (may contain personal data).'
+  restrict access: true
+
+retry notification deliveries:
+  title: 'Retry notification deliveries'
+  description: 'Re-queue failed deliveries and cancel pending ones.'
+  restrict access: true
+
+notify all active users:
+  title: 'Send notifications to all active users'
+  description: 'Allow dispatching a notification to every active user. Grant with care.'
+  restrict access: true
+
+administer own notification preferences:
+  title: 'Administer own notification preferences'
+  description: 'Manage the per-channel notification preference matrix on the own user profile.'

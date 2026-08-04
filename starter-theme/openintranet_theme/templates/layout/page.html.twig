@@ -147,34 +147,46 @@
     {% endif %}
     <div id="main-wrapper" class="layout-main-wrapper clearfix">
       {% block content %}
-        <div id="main" class="{{ container }}">
-          {{ page.breadcrumb }}
-          <div class="row row-offcanvas row-offcanvas-left clearfix">
-              <main{{ content_attributes }}>
-                <section class="section">
-                  <a href="#main-content" id="main-content" tabindex="-1"></a>
-                  {% if content_local_tasks %}
-                    <nav class="content-local-tasks" aria-label="{{ 'Local tasks'|t }}">{{ content_local_tasks }}</nav>
-                  {% endif %}
-                  {{ page.content }}
-                </section>
-              </main>
-            {% if sidebar_first_exists %}
-              <div{{ sidebar_first_attributes.addClass('col-lg-3').removeClass('col-md-3') }}>
-                <aside class="section" role="complementary">
-                  {{ page.sidebar_first }}
-                </aside>
-              </div>
-            {% endif %}
-            {% if sidebar_second_exists %}
-              <div{{ sidebar_second_attributes }}>
-                <aside class="section" role="complementary">
-                  {{ page.sidebar_second }}
-                </aside>
-              </div>
-            {% endif %}
+        {% if account_page %}
+          {% include '@openintranet_theme/includes/account-page-shell.html.twig' with {
+            account_page: account_page,
+            container: container,
+            page: page,
+            content_attributes: content_attributes,
+            content_local_tasks: content_local_tasks,
+            sidebar_first_exists: sidebar_first_exists,
+            sidebar_first_attributes: sidebar_first_attributes,
+          } only %}
+        {% else %}
+          <div id="main" class="{{ container }}">
+            {{ page.breadcrumb }}
+            <div class="row row-offcanvas row-offcanvas-left clearfix">
+                <main{{ content_attributes }}>
+                  <section class="section">
+                    <a href="#main-content" id="main-content" tabindex="-1"></a>
+                    {% if content_local_tasks %}
+                      <nav class="content-local-tasks" aria-label="{{ 'Local tasks'|t }}">{{ content_local_tasks }}</nav>
+                    {% endif %}
+                    {{ page.content }}
+                  </section>
+                </main>
+              {% if sidebar_first_exists %}
+                <div{{ sidebar_first_attributes.addClass('col-lg-3').removeClass('col-md-3') }}>
+                  <aside class="section" role="complementary">
+                    {{ page.sidebar_first }}
+                  </aside>
+                </div>
+              {% endif %}
+              {% if sidebar_second_exists %}
+                <div{{ sidebar_second_attributes }}>
+                  <aside class="section" role="complementary">
+                    {{ page.sidebar_second }}
+                  </aside>
+                </div>
+              {% endif %}
+            </div>
           </div>
-        </div>
+        {% endif %}
       {% endblock %}
     </div>
     {% if page.featured_bottom_first or page.featured_bottom_second or page.featured_bottom_third %}

@@ -1,0 +1,26 @@
+enabled_channels:
+  - inbox
+  - email_core
+  - log_only
+enabled_types:
+  - default
+  - new_comment
+# Per-type channel defaults a user starts with (overridable in the matrix). Every
+# shipped type needs a row here or a default user (with no saved preference) has
+# no preferred channel and the user_preferences policy selects nothing — so an
+# out-of-box install would deliver nothing for the real types. The recipe types
+# (new_article, consultation_review_assigned) ship their own rows alongside the
+# type config in their recipes.
+default_user_preferences:
+  default:
+    inbox: true
+    email_core: true
+    log_only: false
+  new_comment:
+    inbox: true
+    email_core: true
+queue:
+  id: openintranet_notification_delivery
+retention:
+  default_days: 90
+kill_switch: {  }

@@ -1,0 +1,18 @@
+entity.messenger_contact.add_form:
+  route_name: entity.messenger_contact.add_form
+  title: 'Add contact'
+  appears_on:
+    - entity.messenger_contact.collection
+
+openintranet_messenger.contacts.import:
+  route_name: openintranet_messenger.contacts.import
+  title: 'Import from CSV'
+  appears_on:
+    - entity.messenger_contact.collection
+
+openintranet_messenger.send:
+  route_name: openintranet_messenger.send
+  title: 'Send notification'
+  appears_on:
+    - openintranet_messenger.dashboard
+    - entity.messenger_contact.collection

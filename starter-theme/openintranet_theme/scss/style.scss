@@ -7,6 +7,7 @@ Description: Bootstrap 4 with Sass
 @import "import";
 
 @import "components/layout";
+@import "components/account_pages";
 @import "components/regions/navbar_top";
 @import "components/regions/navbar_main";
 @import "components/icons";
@@ -24,6 +25,9 @@ Description: Bootstrap 4 with Sass
 @import "components/blocks/node_preview";
 @import "components/blocks/knowledge_navigation";
 @import "components/blocks/highlighted_links";
+@import "components/blocks/notification_bell";
+@import "components/notifications_inbox";
+@import "components/notifications_preferences";
 @import "components/views/views_news";
 @import "components/views/views";
 @import "components/comments";

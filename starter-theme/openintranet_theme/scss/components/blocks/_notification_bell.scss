@@ -1,0 +1,188 @@
+@import "../../mixins/text";
+
+// Notification bell skin: toggle, unread badge, dropdown popup.
+.notification-bell {
+  position: relative;
+
+  &__toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: .375rem;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: $body-color;
+    cursor: pointer;
+    appearance: none;
+    transition: background-color .15s ease;
+
+    &:hover {
+      background: $navy-gray-25;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $primary-shade;
+      outline-offset: 2px;
+    }
+  }
+
+  &.is-open &__toggle {
+    background: $navy-gray-25;
+  }
+
+  &__badge {
+    position: absolute;
+    top: .125rem;
+    right: .125rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.125rem;
+    height: 1.125rem;
+    padding: 0 .25rem;
+    border-radius: 1rem;
+    background: $red-500;
+    color: $white;
+    font-size: .6875rem;
+    font-weight: 600;
+    line-height: 1;
+    pointer-events: none;
+
+    &--empty {
+      background: $dark-navy-300;
+    }
+  }
+
+  &__dropdown {
+    position: absolute;
+    top: calc(100% + .5rem);
+    right: 0;
+    z-index: 1000;
+    width: 380px;
+    max-width: calc(100vw - 2rem);
+    max-height: 24rem;
+    overflow: hidden;
+    background: $white;
+    border: 1px solid $navy-gray-50;
+    border-radius: $border-radius;
+    box-shadow: 0 .5rem 1.5rem rgba($dark-navy-900, .15);
+
+    // Cap width on mobile: the bell sits near the right edge.
+    @include media-breakpoint-down(lg) {
+      max-width: calc(100vw - 10rem);
+    }
+  }
+
+  &__list {
+    flex: 1 1 auto;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    overflow-y: auto;
+    list-style: none;
+  }
+
+  &__item {
+    border-bottom: 1px solid $navy-gray-40;
+
+    &:last-child {
+      border-bottom: 0;
+    }
+  }
+
+  &__link {
+    display: flex;
+    align-items: flex-start;
+    gap: .625rem;
+    padding: .875rem;
+    color: $body-color;
+    text-decoration: none;
+
+    &:hover {
+      background: $navy-gray-25;
+      text-decoration: none;
+    }
+  }
+
+  &__avatar {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+    aspect-ratio: 1;
+
+    &--empty {
+      background: $navy-gray-50;
+    }
+  }
+
+  // Clamp to two lines so every row is a uniform height (ellipsis overflow).
+  &__text {
+    @include body-400;
+
+    flex: 1;
+    min-width: 0;
+    min-height: 2.75rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  &__actor {
+    font-weight: 600;
+  }
+
+  &__time {
+    flex-shrink: 0;
+    margin-left: .5rem;
+    font-size: .75rem;
+    color: $dark-navy-600;
+    white-space: nowrap;
+  }
+
+  &__item--unread {
+    position: relative;
+    background: $blue-50;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: .375rem;
+      width: .4375rem;
+      height: .4375rem;
+      transform: translateY(-50%);
+      border-radius: 50%;
+      background: $blue-600;
+    }
+
+    .notification-bell__link {
+      padding-left: 1.25rem;
+    }
+  }
+
+  &__empty {
+    @include body-400;
+
+    margin: 0;
+    padding: 1rem .875rem;
+    color: $dark-navy-600;
+  }
+
+  &__see-all {
+    display: block;
+    flex-shrink: 0;
+    padding: .625rem .875rem;
+    color: $primary-shade;
+    font-weight: 600;
+    text-align: center;
+
+    &:hover {
+      background: $navy-gray-25;
+      text-decoration: none;
+    }
+  }
+}

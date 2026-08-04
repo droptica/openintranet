@@ -1,0 +1,116 @@
+/**
+ * @file
+ * "Add post" button and feed filter panels.
+ */
+
+/* --------------------------------------------------------------------------
+   Add post (create) button
+   -------------------------------------------------------------------------- */
+
+.forum-page__create-button {
+  padding: 0.75rem;
+}
+
+.forum-page__create-button-inner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+.forum-page__create-button-icon {
+  flex-shrink: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.forum-page__create-button-label {
+  font-size: 0.875rem;
+  line-height: 1.375rem;
+  font-weight: 400;
+}
+
+.forum-page__create-button:focus-visible {
+  outline: 2px solid var(--forum-blue);
+  outline-offset: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   Feed filters panel
+   -------------------------------------------------------------------------- */
+
+.forum-feed-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.forum-feed-filters .js-form-item {
+  margin-bottom: 0;
+}
+
+.forum-feed-filters label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: var(--forum-text-soft);
+}
+
+.forum-feed-filters input.form-text,
+.forum-feed-filters select.form-select,
+.forum-feed-filters select,
+.forum-feed-filters .form-text {
+  width: 100%;
+  min-height: 3rem;
+  padding: 0.75rem 0.5rem 0.75rem 1rem;
+  border: 1px solid var(--forum-accent-strong);
+  border-radius: 0.375rem;
+  background-color: var(--forum-surface);
+  color: var(--forum-text);
+  font-size: 0.875rem;
+  line-height: 1.375rem;
+  box-shadow: none;
+}
+
+.forum-feed-filters select,
+.forum-feed-filters select.form-select {
+  padding-right: 2.25rem;
+  background-position: right 0.75rem center;
+  background-repeat: no-repeat;
+  background-size: 16px 12px;
+}
+
+.forum-feed-filters__search input.form-text {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  background-color: var(--forum-accent-surface);
+  border: none;
+}
+
+.forum-feed-filters__fields {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.forum-feed-filters__actions {
+  margin-top: 1rem;
+}
+
+.forum-feed-filters__actions .form-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin: 0;
+}
+
+.forum-feed-filters__actions .button,
+.forum-feed-filters__actions .form-submit {
+  width: 100%;
+  margin: 0;
+}
+
+.forum-feed-filters__actions .form-submit {
+  padding: 0.75rem;
+}

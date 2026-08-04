@@ -1,0 +1,32 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Forum summary card
+status: experimental
+description: "Title-with-breadcrumb header card. Used on forum listing pages and single post pages with a variant modifier."
+props:
+  type: object
+  required:
+    - title
+    - variant
+  properties:
+    title:
+      type:
+        - string
+        - object
+      title: Title
+      description: "Heading text or TranslatableMarkup."
+    variant:
+      type: string
+      title: Variant
+      enum:
+        - listing
+        - post
+      description: "Modifier suffix appended to .forum-page__summary-card--{variant}."
+    breadcrumb:
+      type:
+        - array
+        - object
+        - "null"
+      title: Breadcrumb render array
+      description: "Optional breadcrumb render array (typically the openintranet_forum:breadcrumb component)."
+libraryDependencies:
+  - openintranet_forum/forum.page

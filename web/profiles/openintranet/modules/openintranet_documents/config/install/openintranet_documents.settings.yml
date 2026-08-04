@@ -1,0 +1,4 @@
+enabled_sources:
+  - local_file
+default_source: local_file
+max_file_size: 50

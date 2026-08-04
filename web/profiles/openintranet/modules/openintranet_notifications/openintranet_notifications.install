@@ -1,0 +1,63 @@
+<?php
+
+/**
+ * @file
+ * Install and update functions for the Open Intranet Notifications module.
+ */
+
+declare(strict_types=1);
+
+use Drupal\user\Entity\Role;
+
+/**
+ * Implements hook_install().
+ */
+function openintranet_notifications_install(bool $is_syncing = FALSE): void {
+  _openintranet_notifications_grant_baseline_permissions();
+}
+
+/**
+ * Grants authenticated users access to their own notification preferences.
+ *
+ * The Open Intranet recipe grants the same permission for recipe installs.
+ * This helper keeps standalone module installs and existing sites consistent.
+ */
+function _openintranet_notifications_grant_baseline_permissions(): void {
+  $role = Role::load('authenticated');
+  if (!$role instanceof Role
+    || $role->hasPermission('administer own notification preferences')) {
+    return;
+  }
+
+  $role
+    ->grantPermission('administer own notification preferences')
+    ->save();
+}
+
+/**
+ * Grants authenticated users access to their own notification preferences.
+ */
+function openintranet_notifications_update_110001(): void {
+  _openintranet_notifications_grant_baseline_permissions();
+}
+
+/**
+ * Replaces technical fallback notification copy with user-facing language.
+ */
+function openintranet_notifications_update_110002(): void {
+  $config = \Drupal::configFactory()->getEditable(
+    'openintranet_notifications.openintranet_notification_type.default',
+  );
+
+  if ($config->get('label') === 'Default') {
+    $config->set('label', 'General updates');
+  }
+  if ($config->get('description') === 'Generic fallback notification type. The source sets the subject and body directly; the templates are an ad-hoc token pass-through.') {
+    $config->set(
+      'description',
+      'Other important updates that do not fit a more specific notification type.',
+    );
+  }
+
+  $config->save();
+}

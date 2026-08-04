@@ -1,0 +1,276 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Drupal\Tests\openintranet_notifications\Kernel\Form;
+
+use Drupal\Core\Form\FormState;
+use Drupal\KernelTests\KernelTestBase;
+use Drupal\openintranet_notifications\Entity\NotificationType;
+use Drupal\openintranet_notifications\Form\NotificationTestForm;
+use Drupal\user\Entity\User;
+
+/**
+ * Tests the test/preview/dry-run send form (Chunk 4D).
+ *
+ * @group openintranet_notifications
+ *
+ * @coversDefaultClass \Drupal\openintranet_notifications\Form\NotificationTestForm
+ */
+final class NotificationTestFormTest extends KernelTestBase {
+
+  /**
+   * {@inheritdoc}
+   */
+  protected static $modules = [
+    'system',
+    'user',
+    'field',
+    'text',
+    'options',
+    'dynamic_entity_reference',
+    'token',
+    'modeler_api',
+    'eca',
+    'eca_base',
+    'eca_content',
+    'openintranet_notifications',
+  ];
+
+  /**
+   * The target recipient user.
+   */
+  private User $recipient;
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function setUp(): void {
+    parent::setUp();
+    $this->installEntitySchema('user');
+    $this->installEntitySchema('user_notification_settings');
+    $this->installEntitySchema('openintranet_notification');
+    $this->installEntitySchema('openintranet_notif_delivery');
+    $this->installSchema('system', ['sequences']);
+    $this->installConfig(['openintranet_notifications']);
+
+    // Replace the shipped type with a fixture whose subject_template uses a
+    // user token so the dry-run preview asserts real rendering, delivering on
+    // inbox/log_only so no real send happens on a live submit.
+    $typeStorage = $this->container->get('entity_type.manager')
+      ->getStorage('openintranet_notification_type');
+    $typeStorage->delete($typeStorage->loadMultiple());
+    NotificationType::create([
+      'id' => 'mention',
+      'label' => 'Mention',
+      'default_channels' => ['inbox', 'log_only'],
+      'forced_channels' => ['inbox', 'log_only'],
+      'template_renderer' => 'token_text',
+      'subject_template' => 'Hi [user:display-name]',
+      'body_template' => 'You have a mention.',
+      'delivery_policy' => 'user_preferences',
+      'dedupe_window' => 600,
+    ])->save();
+
+    $this->config('openintranet_notifications.settings')
+      ->set('enabled_channels', ['inbox', 'log_only'])
+      ->save();
+
+    User::create(['uid' => 1, 'name' => 'admin', 'status' => 1])->save();
+    $this->recipient = User::create(['name' => 'alice', 'status' => 1]);
+    $this->recipient->save();
+  }
+
+  /**
+   * Submits the form programmatically.
+   *
+   * @param bool $dryRun
+   *   Whether to run in dry-run mode.
+   * @param string $channel
+   *   The channel override, or '' to resolve via the policy.
+   * @param string $subject
+   *   An explicit subject sent verbatim, or '' to render the template.
+   * @param string $body
+   *   An explicit body sent verbatim, or '' to render the template.
+   *
+   * @return \Drupal\Core\Form\FormState
+   *   The submitted form state (carries the preview result via storage).
+   */
+  private function submit(bool $dryRun, string $channel = '', string $subject = '', string $body = ''): FormState {
+    $form_object = NotificationTestForm::create($this->container);
+    $form_state = new FormState();
+    // A checkbox with a TRUE #default_value cannot be un-checked by submitting
+    // FALSE (the value callback would fall back to the default). A programmatic
+    // submit must instead pass an explicit NULL to represent an unchecked box
+    // (see FormBuilder::handleInputElement + Checkbox::valueCallback).
+    $form_state->setValues([
+      'notification_type' => 'mention',
+      'uid' => (int) $this->recipient->id(),
+      'subject' => $subject,
+      'body' => $body,
+      'channel' => $channel,
+      'dry_run' => $dryRun ? 1 : NULL,
+    ]);
+    $this->container->get('form_builder')->submitForm($form_object, $form_state);
+    return $form_state;
+  }
+
+  /**
+   * Counts the rows of an entity type.
+   */
+  private function countEntities(string $entityTypeId): int {
+    return (int) $this->container->get('entity_type.manager')
+      ->getStorage($entityTypeId)
+      ->getQuery()
+      ->accessCheck(FALSE)
+      ->count()
+      ->execute();
+  }
+
+  /**
+   * The channel override is wired preview-only via #states and its description.
+   *
+   * @covers ::buildForm
+   */
+  public function testChannelOverrideIsPreviewOnly(): void {
+    $form_object = NotificationTestForm::create($this->container);
+    $form_state = new FormState();
+    $form = $this->container->get('form_builder')
+      ->buildForm($form_object, $form_state);
+
+    self::assertSame(
+      [':input[name="dry_run"]' => ['checked' => TRUE]],
+      $form['channel']['#states']['enabled'],
+    );
+    self::assertStringContainsString('preview', (string) $form['channel']['#description']);
+  }
+
+  /**
+   * Dry-run renders a preview and persists nothing.
+   *
+   * @covers ::submitForm
+   */
+  public function testDryRunCreatesNothingAndPreviewsRenderedSubject(): void {
+    $form_state = $this->submit(TRUE);
+
+    self::assertEmpty($form_state->getErrors(), implode("\n", array_map('strval', $form_state->getErrors())));
+
+    // Nothing is persisted and nothing is enqueued.
+    self::assertSame(0, $this->countEntities('openintranet_notification'));
+    self::assertSame(0, $this->countEntities('openintranet_notif_delivery'));
+    self::assertSame(0, \Drupal::queue('openintranet_notification_delivery')->numberOfItems());
+
+    // The preview carries the rendered subject (token resolved against the
+    // recipient) and the channels the policy would select.
+    $preview = $form_state->get('preview');
+    self::assertIsArray($preview);
+    self::assertSame('Hi alice', $preview['subject']);
+    self::assertContains('inbox', $preview['channels']);
+    self::assertContains('log_only', $preview['channels']);
+  }
+
+  /**
+   * A dry-run channel override previews exactly that channel (policy bypassed).
+   *
+   * @covers ::submitForm
+   */
+  public function testDryRunChannelOverridePreviewsOnlyThatChannel(): void {
+    $form_state = $this->submit(TRUE, 'log_only');
+
+    self::assertEmpty($form_state->getErrors(), implode("\n", array_map('strval', $form_state->getErrors())));
+
+    // Nothing is persisted: this is a display-only preview.
+    self::assertSame(0, $this->countEntities('openintranet_notification'));
+    self::assertSame(0, $this->countEntities('openintranet_notif_delivery'));
+
+    $preview = $form_state->get('preview');
+    self::assertIsArray($preview);
+    // The override wins over the policy's resolved set (inbox + log_only).
+    self::assertSame(['log_only'], $preview['channels']);
+  }
+
+  /**
+   * A dry-run whose resolved channel set is empty shows the 'none' branch.
+   *
+   * @covers ::submitForm
+   */
+  public function testDryRunEmptyChannelsPreviewsNoneBranch(): void {
+    // No globally enabled channels: every candidate (incl. forced) is dropped,
+    // so the policy resolves an empty set.
+    $this->config('openintranet_notifications.settings')
+      ->set('enabled_channels', [])
+      ->save();
+
+    $form_state = $this->submit(TRUE);
+
+    self::assertEmpty($form_state->getErrors(), implode("\n", array_map('strval', $form_state->getErrors())));
+    self::assertSame(0, $this->countEntities('openintranet_notification'));
+
+    $preview = $form_state->get('preview');
+    self::assertIsArray($preview);
+    self::assertSame([], $preview['channels']);
+  }
+
+  /**
+   * A live submit creates a notification and its deliveries for the user.
+   *
+   * @covers ::submitForm
+   */
+  public function testLiveSubmitCreatesNotificationAndDeliveries(): void {
+    $form_state = $this->submit(FALSE);
+
+    self::assertEmpty($form_state->getErrors(), implode("\n", array_map('strval', $form_state->getErrors())));
+
+    self::assertSame(1, $this->countEntities('openintranet_notification'));
+    // One delivery per selected channel (inbox + log_only).
+    self::assertSame(2, $this->countEntities('openintranet_notif_delivery'));
+
+    $notifications = $this->container->get('entity_type.manager')
+      ->getStorage('openintranet_notification')
+      ->loadMultiple();
+    /** @var \Drupal\openintranet_notifications\Entity\NotificationInterface $notification */
+    $notification = reset($notifications);
+    self::assertSame((int) $this->recipient->id(), (int) $notification->get('uid')->target_id);
+    self::assertSame('Hi alice', (string) $notification->get('subject')->value);
+  }
+
+  /**
+   * An explicit subject/body is sent verbatim, overriding the type template.
+   *
+   * Confirms the form forwards subject/body through the dispatcher to the
+   * factory's pass-through path, so a pass-through type can be sent with real
+   * content instead of an empty notification.
+   *
+   * @covers ::submitForm
+   */
+  public function testLiveSubmitWithExplicitSubjectUsesItVerbatim(): void {
+    $form_state = $this->submit(FALSE, '', 'Custom subject', 'Custom body.');
+
+    self::assertEmpty($form_state->getErrors(), implode("\n", array_map('strval', $form_state->getErrors())));
+    self::assertSame(1, $this->countEntities('openintranet_notification'));
+
+    $notifications = $this->container->get('entity_type.manager')
+      ->getStorage('openintranet_notification')
+      ->loadMultiple();
+    /** @var \Drupal\openintranet_notifications\Entity\NotificationInterface $notification */
+    $notification = reset($notifications);
+    self::assertSame('Custom subject', (string) $notification->get('subject')->value);
+    self::assertSame('Custom body.', (string) $notification->get('body')->value);
+  }
+
+  /**
+   * Repeated manual test sends each create a notification (dedupe bypassed).
+   *
+   * The form tags each send with a unique dedupe_context, so a type with a
+   * dedupe window (here 600s) does not suppress a second test send.
+   *
+   * @covers ::submitForm
+   */
+  public function testRepeatedLiveSubmitsAreNotDeduped(): void {
+    $this->submit(FALSE, '', 'First', 'Body one.');
+    $this->submit(FALSE, '', 'Second', 'Body two.');
+
+    self::assertSame(2, $this->countEntities('openintranet_notification'));
+  }
+
+}

@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.category_browser_row
+label: 'Category browser row'
+targetEntityType: node
+cache: true

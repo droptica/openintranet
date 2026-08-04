@@ -1,0 +1,15 @@
+uuid: a9726422-8c2b-4819-a76e-60acc2459d89
+langcode: en
+status: true
+dependencies: {}
+name: forum_gallery_thumb
+label: 'Forum gallery thumbnail (300×135)'
+effects:
+  a8e150e1-945a-4c19-aba0-873fea515c10:
+    uuid: a8e150e1-945a-4c19-aba0-873fea515c10
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 300
+      height: 135
+      anchor: center-center

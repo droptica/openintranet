@@ -96,3 +96,12 @@ $btn-color: $blue-600;
 
 $table-cell-padding-y: 16px;
 $table-cell-padding-x: 24px;
+
+:root {
+  --oi-body-color: #{$body-color};
+  --oi-body-tertiary-color: #{$body-tertiary-color};
+  --oi-surface-background: #{$white};
+  --oi-surface-border: #{$navy-gray-50};
+  --oi-surface-divider: #{$navy-gray-40};
+  --oi-border-radius: #{$border-radius};
+}

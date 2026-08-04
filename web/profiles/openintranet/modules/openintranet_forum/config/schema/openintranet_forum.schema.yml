@@ -1,0 +1,62 @@
+openintranet_forum.settings:
+  type: config_object
+  label: 'Forum settings'
+  mapping:
+    posts_per_page:
+      type: integer
+      label: 'Posts per page'
+    trending_days:
+      type: integer
+      label: 'Trending posts timeframe (days)'
+    trending_limit:
+      type: integer
+      label: 'Trending posts limit'
+    allow_anonymous_view:
+      type: boolean
+      label: 'Allow anonymous viewing'
+    require_category:
+      type: boolean
+      label: 'Require category selection'
+    enable_post_images:
+      type: boolean
+      label: 'Enable post images'
+    enable_threading:
+      type: boolean
+      label: 'Enable reply threading'
+    threading_depth:
+      type: integer
+      label: 'Threading depth'
+    default_sort:
+      type: string
+      label: 'Default sort order'
+    notify_on_reply:
+      type: boolean
+      label: 'Notify users on reply'
+    notify_on_mention:
+      type: boolean
+      label: 'Notify users on mention'
+
+block.settings.openintranet_forum_browser_filters_block:
+  type: block_settings
+  label: 'Forum browser filters block settings'
+  mapping:
+    panel:
+      type: string
+      label: 'Panel to render (filters or search)'
+
+field.formatter.settings.openintranet_forum_gallery:
+  type: mapping
+  label: 'Forum gallery formatter settings'
+  mapping:
+    layout:
+      type: string
+      label: 'Gallery layout'
+    hero_image_style:
+      type: string
+      label: 'Hero image style'
+    thumb_image_style:
+      type: string
+      label: 'Thumbnail image style'
+    grid_visible_max:
+      type: integer
+      label: 'Maximum visible grid items'

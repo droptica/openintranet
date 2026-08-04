@@ -1,0 +1,60 @@
+{#
+/**
+ * @file
+ * Shared surface for focused account and notification content.
+ *
+ * Props:
+ * - attributes: Attributes for the panel wrapper.
+ * - variant: One of default, flush, form, or stack.
+ * - has_header: Whether the custom header slot is rendered.
+ * - has_footer: Whether the custom footer slot is rendered.
+ * - title: Optional panel heading.
+ * - summary: Optional supporting text.
+ * - action_url: Optional header action URL.
+ * - action_label: Optional header action label.
+ *
+ * Slots:
+ * - header: Custom header content.
+ * - content: Main panel content.
+ * - footer: Optional footer content.
+ */
+#}
+{% set variant = variant|default('default') %}
+{% set classes = [
+  'account-panel',
+  'account-panel--' ~ variant,
+] %}
+{% set show_header = title or summary or action_url or has_header|default(false) %}
+{% set show_footer = has_footer|default(false) %}
+
+<div{{ attributes.addClass(classes) }}>
+  {% if show_header %}
+    <header class="account-panel__header">
+      {% block header %}
+        <div class="account-panel__heading">
+          {% if title %}
+            <h2 class="account-panel__title">{{ title }}</h2>
+          {% endif %}
+          {% if summary %}
+            <p class="account-panel__summary">{{ summary }}</p>
+          {% endif %}
+        </div>
+        {% if action_url and action_label %}
+          <a class="account-panel__action btn btn-outline-secondary" href="{{ action_url }}">
+            {{ action_label }}
+          </a>
+        {% endif %}
+      {% endblock %}
+    </header>
+  {% endif %}
+
+  <div class="account-panel__body">
+    {% block content %}{% endblock %}
+  </div>
+
+  {% if show_footer %}
+    <footer class="account-panel__footer">
+      {% block footer %}{% endblock %}
+    </footer>
+  {% endif %}
+</div>

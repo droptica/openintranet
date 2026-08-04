@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+name: 'Forum Category'
+vid: forum_category
+description: 'Top-level forum categories (e.g., General, Help, Announcements)'
+weight: 0

@@ -1,0 +1,20 @@
+administer messenger:
+  title: 'Administer Messenger'
+  description: 'Full access to Messenger configuration and settings.'
+  restrict access: true
+
+manage messenger contacts:
+  title: 'Manage Messenger contacts'
+  description: 'Create, edit, and delete external contacts.'
+
+view messenger contacts:
+  title: 'View Messenger contacts'
+  description: 'View list of external contacts.'
+
+send messenger notifications:
+  title: 'Send notifications'
+  description: 'Send notifications to users and contacts.'
+
+view messenger log:
+  title: 'View notification log'
+  description: 'View history of sent notifications.'

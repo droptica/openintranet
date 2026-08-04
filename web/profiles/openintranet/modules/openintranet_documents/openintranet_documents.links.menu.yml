@@ -1,0 +1,24 @@
+openintranet_documents.browser:
+  title: 'Documents'
+  route_name: openintranet_documents.browser
+  menu_name: main
+  weight: 10
+
+entity.oi_folder.collection:
+  title: 'Folders'
+  route_name: entity.oi_folder.collection
+  parent: system.admin_content
+  weight: 20
+
+entity.oi_document.collection:
+  title: 'Documents'
+  route_name: entity.oi_document.collection
+  parent: system.admin_content
+  weight: 21
+
+openintranet_documents.settings:
+  title: 'Open Intranet - Documents'
+  description: 'Configure document sources and module settings.'
+  route_name: openintranet_documents.settings
+  parent: system.admin_config_content
+  weight: 10

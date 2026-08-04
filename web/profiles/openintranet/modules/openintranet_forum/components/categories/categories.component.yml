@@ -1,0 +1,34 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Forum categories
+status: experimental
+props:
+  type: object
+  required:
+    - panel_title
+  properties:
+    panel_title:
+      type:
+        - string
+        - object
+      title: Panel title
+      description: "Translated block heading."
+    categories:
+      type: array
+      title: Categories
+      description: "Array of top-level category items with optional children."
+    categories_browser_url:
+      type: string
+      title: Categories browser URL
+      description: "URL to the full category browser page."
+slots:
+  categories_header:
+    title: Header
+    description: "Header row (panel title, etc.) — override point for theming."
+  categories_list:
+    title: List
+    description: "Main category list body."
+  categories_footer:
+    title: Footer
+    description: "Footer row."
+libraryDependencies:
+  - openintranet_forum/forum.categories

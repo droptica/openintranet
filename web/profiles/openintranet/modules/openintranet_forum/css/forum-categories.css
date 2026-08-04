@@ -1,0 +1,147 @@
+/* --------------------------------------------------------------------------
+   Header with blue underline accent
+   -------------------------------------------------------------------------- */
+.forum-categories__title {
+  margin: 0 0 0.5rem;
+  font-size: 1.25rem;
+  line-height: 1.5rem;
+  font-weight: 600;
+  color: var(--forum-text);
+}
+
+/* --------------------------------------------------------------------------
+   List
+   -------------------------------------------------------------------------- */
+
+.forum-categories__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  list-style: none;
+  padding: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Leaf row (no children) — plain link
+   -------------------------------------------------------------------------- */
+
+.forum-categories__link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.75rem 0.5rem;
+  color: var(--forum-text);
+  font-size: 0.875rem;
+  line-height: 1.375rem;
+  font-weight: 400;
+  text-decoration: none;
+  background: transparent;
+  border-radius: var(--forum-radius);
+  transition: background 0.15s;
+}
+
+.forum-categories__link:hover {
+  background: var(--forum-surface-soft);
+  color: var(--forum-blue);
+  text-decoration: none;
+}
+
+.forum-categories__summary:hover,
+.forum-categories__summary:hover .forum-categories__name,
+.forum-categories__child-link:hover {
+  color: var(--forum-blue);
+}
+
+.forum-categories__link--active {
+  background: transparent;
+  color: var(--forum-text);
+  font-weight: 600;
+}
+
+/* --------------------------------------------------------------------------
+   Accordion row — <details> / <summary>
+   -------------------------------------------------------------------------- */
+
+.forum-categories__summary {
+  padding: 0.75rem 0.5rem;
+}
+
+/* --------------------------------------------------------------------------
+   Count badge
+   -------------------------------------------------------------------------- */
+
+.forum-categories__count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.625rem;
+  padding: 0.125rem 0.625rem;
+  border-radius: 999px;
+  background: var(--forum-accent-border);
+  color: var(--forum-blue);
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 700;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.forum-categories__count--active {
+  background: var(--forum-blue);
+  color: #fff;
+}
+
+/* --------------------------------------------------------------------------
+   Icon (emoji/svg field)
+   -------------------------------------------------------------------------- */
+
+.forum-categories__icon,
+.forum-categories__child-icon {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+/* --------------------------------------------------------------------------
+   Children list
+   -------------------------------------------------------------------------- */
+
+.forum-categories__children {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0.5rem;
+}
+
+.forum-categories__child {
+  margin: 0;
+}
+
+.forum-categories__child-link {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.5rem 0.5rem 0.5rem 2rem;
+  color: var(--forum-text);
+  font-size: 0.875rem;
+  line-height: 1.375rem;
+  text-decoration: none;
+  border-radius: var(--forum-radius);
+  transition: background 0.15s;
+}
+
+.forum-categories__child-link:hover {
+  background: var(--forum-surface-soft);
+  text-decoration: none;
+}
+
+.forum-categories__child-link--active {
+  font-weight: 600;
+  color: var(--forum-blue);
+}
+
+.forum-categories__all-link {
+  padding: 0.625rem 1rem;
+}

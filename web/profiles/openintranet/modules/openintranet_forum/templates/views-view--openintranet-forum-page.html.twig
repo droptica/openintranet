@@ -1,0 +1,129 @@
+{#
+/**
+ * @file
+ * Forum listing pages with 2-rail layout (no hero, no left rail).
+ *
+ * Available variables (set by ForumThemeHooks::preprocessViewsView()):
+ * - forum_page_breadcrumb: Custom forum breadcrumb render array.
+ * - forum_page_tabs: List of {title, url, is_active} tab items.
+ * - forum_page_featured: Featured/trending region render array.
+ * - forum_page_has_featured: Boolean.
+ * - forum_page_section_title: Section heading string.
+ * - forum_page_sidebar_second: Right rail region render array.
+ * - forum_page_has_sidebar_second: Boolean.
+ * - rows: View result rows.
+ * - empty: Empty result content.
+ * - pager: Pager render array.
+ */
+#}
+{{ attach_library('openintranet_forum/forum.base') }}
+{{ attach_library('openintranet_forum/forum.page') }}
+{%
+  set classes = [
+  'view',
+  'forum-page',
+  'forum-page--listing',
+  'view-' ~ id|clean_class,
+  'view-id-' ~ id,
+  'view-display-id-' ~ display_id,
+  dom_id ? 'js-view-dom-id-' ~ dom_id,
+]
+%}
+<div{{ attributes.addClass(classes) }}>
+  {% block listing_featured %}
+    {% if forum_page_has_featured %}
+      <section class="forum-page__section forum-page__featured">
+        {{ forum_page_featured }}
+      </section>
+    {% else %}
+      {# Renders nothing, but bubbles the empty embed's cache metadata. #}
+      {{ forum_page_featured }}
+    {% endif %}
+  {% endblock %}
+
+  {% block listing_summary %}
+    {% if forum_page_summary_title %}
+      {{ include('openintranet_forum:summary-card', {
+        title: forum_page_summary_title,
+        variant: 'listing',
+        breadcrumb: forum_page_breadcrumb,
+      }) }}
+    {% endif %}
+  {% endblock %}
+
+  {% block listing_workspace %}
+    <section class="forum-page__section forum-page__section--workspace">
+      <div class="forum-page__workspace forum-page__workspace--two-rail">
+        <div class="forum-page__main">
+          <div class="forum-page__posts-shell">
+            <nav class="tabs" role="navigation" aria-label="{{ 'Tabs'|t }}">
+              <ul class="nav nav-tabs">
+                {% for tab in forum_page_tabs %}
+                  <li class="nav-item">
+                    <a href="{{ tab.url }}" class="nav-link{{ tab.is_active ? ' active' : '' }}">{{ tab.title }}</a>
+                  </li>
+                {% endfor %}
+              </ul>
+            </nav>
+            <section class="forum-page__posts-panel">
+              <div class="forum-panel__header">
+                <h2 class="forum-panel__title">{{ forum_page_section_title }}</h2>
+              </div>
+
+              {% if attachment_before %}
+                <div class="attachment attachment-before">
+                  {{ attachment_before }}
+                </div>
+              {% endif %}
+
+              {% block listing_rows %}
+                {% if rows %}
+                  <div class="forum-page__rows">
+                    {{ rows }}
+                  </div>
+                {% elseif empty %}
+                  <div class="forum-page__empty">
+                    {{ empty }}
+                  </div>
+                {% endif %}
+              {% endblock %}
+
+              {% if pager %}
+                <div class="forum-page__pager">
+                  {{ pager }}
+                </div>
+              {% endif %}
+
+              {% if attachment_after %}
+                <div class="attachment attachment-after">
+                  {{ attachment_after }}
+                </div>
+              {% endif %}
+              {% if more %}
+                <div class="forum-page__more">
+                  {{ more }}
+                </div>
+              {% endif %}
+              {% if footer %}
+                <div class="view-footer">
+                  {{ footer }}
+                </div>
+              {% endif %}
+              {% if feed_icons %}
+                <div class="feed-icons">
+                  {{ feed_icons }}
+                </div>
+              {% endif %}
+            </section>
+          </div>
+        </div>
+
+        {% if forum_page_has_sidebar_second %}
+          <aside class="forum-page__rail forum-page__rail--right">
+            {{ forum_page_sidebar_second }}
+          </aside>
+        {% endif %}
+      </div>
+    </section>
+  {% endblock %}
+</div>

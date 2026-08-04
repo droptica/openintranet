@@ -1,0 +1,39 @@
+_meta:
+  version: '1.0'
+  entity_type: taxonomy_term
+  uuid: forumcat-0000-0000-0000-000000000010
+  bundle: forum_category
+  default_langcode: en
+  depends:
+    forumcat-0000-0000-0000-000000000005: taxonomy_term
+default:
+  status:
+    -
+      value: true
+  name:
+    -
+      value: 'Coffee Breaks'
+  description:
+    -
+      value: '<p>Watercooler chat — coffee, snacks, and shared spaces.</p>'
+      format: full_html
+  weight:
+    -
+      value: 0
+  parent:
+    -
+      entity: forumcat-0000-0000-0000-000000000005
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /forum/category/coffee-breaks
+      langcode: en
+      pathauto: 1
+  field_category_icon:
+    -
+      value: 'mdi:coffee-outline'
+      classes: ''
+      decorative: true
+      arialabel: ''

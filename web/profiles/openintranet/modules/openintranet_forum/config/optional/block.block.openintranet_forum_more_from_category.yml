@@ -1,0 +1,29 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - openintranet_forum
+  theme:
+    - openintranet_theme
+id: openintranet_forum_more_from_category
+theme: openintranet_theme
+region: forum_sidebar_second
+weight: -21
+provider: null
+plugin: openintranet_forum_more_from_category_block
+settings:
+  id: openintranet_forum_more_from_category_block
+  label: 'Forum: more from category'
+  label_display: '0'
+  provider: openintranet_forum
+  context_mapping:
+    node: '@node.node_route_context:node'
+visibility:
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+    bundles:
+      forum_post: forum_post

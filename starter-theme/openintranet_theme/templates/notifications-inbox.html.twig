@@ -1,0 +1,111 @@
+{#
+/**
+ * @file
+ * Open Intranet theme override for the notifications inbox.
+ */
+#}
+{% if items is empty %}
+  {% set summary_text = 'Updates from across your intranet will appear here.'|t %}
+{% elseif new_count == 1 %}
+  {% set summary_text = 'You are caught up on 1 new notification.'|t %}
+{% elseif new_count > 1 %}
+  {% set summary_text = 'You are caught up on @count new notifications.'|t({'@count': new_count}) %}
+{% else %}
+  {% set summary_text = 'You are all caught up.'|t %}
+{% endif %}
+
+{% embed 'openintranet_theme:account-panel' with {
+  attributes: create_attribute({'class': ['notifications-inbox__panel']}),
+  variant: 'flush',
+  has_header: true,
+  summary_text: summary_text,
+  preferences_url: preferences_url,
+  items: items,
+  pager: pager,
+} only %}
+  {% block header %}
+    <div class="notifications-inbox__heading">
+      <h2 class="notifications-inbox__title">{{ 'Recent activity'|t }}</h2>
+      <p class="notifications-inbox__summary">{{ summary_text }}</p>
+    </div>
+
+    {% if preferences_url %}
+      <a class="notifications-inbox__preferences account-panel__action btn btn-outline-secondary" href="{{ preferences_url }}">
+        {{ 'Notification preferences'|t }}
+      </a>
+    {% endif %}
+  {% endblock %}
+
+  {% block content %}
+    {% if items is not empty %}
+      {% set current_date = null %}
+      {% for item in items %}
+        {% set item_date = item.date_key|default('recent') %}
+        {% if item_date != current_date %}
+          {% if not loop.first %}
+              </ul>
+            </section>
+          {% endif %}
+          <section class="notifications-inbox__group">
+            <h3 class="notifications-inbox__date">
+              {{ item.date_label|default('Recent'|t) }}
+            </h3>
+            <ul class="notifications-inbox__list">
+          {% set current_date = item_date %}
+        {% endif %}
+
+              <li class="notifications-inbox__item{{ item.is_read ? '' : ' notifications-inbox__item--unread' }}">
+                <a class="notifications-inbox__link" href="{{ item.url }}">
+                  {% if item.actor_avatar %}
+                    <img class="notifications-inbox__avatar" src="{{ item.actor_avatar }}" alt="" />
+                  {% else %}
+                    <span class="notifications-inbox__avatar notifications-inbox__avatar--empty" aria-hidden="true"></span>
+                  {% endif %}
+
+                  <span class="notifications-inbox__content">
+                    <span class="notifications-inbox__subject">{{ item.subject }}</span>
+                    <span class="notifications-inbox__meta">
+                      {% if item.actor_name %}
+                        <span class="notifications-inbox__actor">
+                          {{ 'From @actor'|t({'@actor': item.actor_name}) }}
+                        </span>
+                        <span class="notifications-inbox__separator" aria-hidden="true">·</span>
+                      {% endif %}
+                      <time
+                        class="notifications-inbox__time"
+                        {% if item.created_iso %}datetime="{{ item.created_iso }}"{% endif %}
+                        {% if item.created_full %}title="{{ item.created_full }}"{% endif %}
+                      >{{ item.created_ago }}</time>
+                    </span>
+                  </span>
+
+                  {% if not item.is_read %}
+                    <span class="visually-hidden">{{ 'Unread'|t }}</span>
+                  {% endif %}
+                </a>
+              </li>
+
+        {% if loop.last %}
+            </ul>
+          </section>
+        {% endif %}
+      {% endfor %}
+    {% else %}
+      <div class="notifications-inbox__empty">
+        <span class="notifications-inbox__empty-icon" aria-hidden="true">
+          <i class="icon--notification"></i>
+        </span>
+        <h3 class="notifications-inbox__empty-title">{{ 'No notifications yet'|t }}</h3>
+        <p class="notifications-inbox__empty-text">
+          {{ 'When something needs your attention, it will appear here.'|t }}
+        </p>
+      </div>
+    {% endif %}
+
+    {% if pager %}
+      <div class="notifications-inbox__pager">
+        {{ pager }}
+      </div>
+    {% endif %}
+  {% endblock %}
+{% endembed %}

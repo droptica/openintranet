@@ -6,4 +6,7 @@ version: 'dev-1.x'
 distribution:
   name: Open Intranet
   install:
+    theme: claro
     finish_url: '/welcome'
+themes:
+  - claro

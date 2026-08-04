@@ -1,0 +1,97 @@
+{#
+/**
+ * @file
+ * Forum category browser search or filter sidebar panel.
+ *
+ * Available variables:
+ * - panel: Which panel to render ('search' or 'filters').
+ * - url: Form action URL (the category browser page).
+ * - filters: Current filter values (q, category, tag, author, sort).
+ * - filter_options: Select options (category, tag, author, sort).
+ * - search_hidden: Hidden fields preserving other filters on the search form.
+ * - filter_hidden: Hidden fields preserving other filters on the filter form.
+ */
+#}
+{{ attach_library('openintranet_forum/forum.add-post') }}
+{{ attach_library('openintranet_forum/forum.category-browser') }}
+<div class="forum-feed-filters">
+  {% if panel == 'search' %}
+    <section class="forum-panel forum-panel--soft forum-feed-filters__panel forum-feed-filters__panel--search">
+      <div class="forum-panel__header">
+        <h2 class="forum-panel__title">{{ 'Search'|t }}</h2>
+      </div>
+      <form action="{{ url }}" method="get" class="forum-category-browser__sidebar-form">
+        {% for name, value in search_hidden %}
+          <input type="hidden" name="{{ name }}" value="{{ value }}">
+        {% endfor %}
+        <div class="forum-feed-filters__search forum-category-browser__search-bar forum-category-browser__search-bar--sidebar">
+          <input
+            type="search"
+            name="q"
+            value="{{ filters.q }}"
+            class="form-text"
+            placeholder="{{ 'Search'|t }}"
+            aria-label="{{ 'Search categories and posts'|t }}"
+          >
+          <button type="submit" class="forum-category-browser__search-submit">
+            <span class="forum-category-browser__search-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">{{ 'Search'|t }}</span>
+          </button>
+        </div>
+      </form>
+    </section>
+  {% else %}
+    <section class="forum-panel forum-panel--soft forum-feed-filters__panel forum-feed-filters__panel--filters">
+      <div class="forum-panel__header">
+        <h2 class="forum-panel__title">{{ 'Filtering'|t }}</h2>
+      </div>
+      <form action="{{ url }}" method="get" class="forum-category-browser__sidebar-form">
+        {% for name, value in filter_hidden %}
+          <input type="hidden" name="{{ name }}" value="{{ value }}">
+        {% endfor %}
+        <div class="forum-feed-filters__fields">
+          <div class="js-form-item">
+            <label for="forum-category-browser-category">{{ 'Category'|t }}</label>
+            <select id="forum-category-browser-category" name="category" class="form-select">
+              {% for value, label in filter_options.category %}
+                <option value="{{ value }}"{% if value == filters.category %} selected{% endif %}>{{ label }}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="js-form-item">
+            <label for="forum-category-browser-tag">{{ 'Tag'|t }}</label>
+            <select id="forum-category-browser-tag" name="tag" class="form-select">
+              {% for value, label in filter_options.tag %}
+                <option value="{{ value }}"{% if value == filters.tag %} selected{% endif %}>{{ label }}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="js-form-item">
+            <label for="forum-category-browser-author">{{ 'Author'|t }}</label>
+            <select id="forum-category-browser-author" name="author" class="form-select">
+              {% for value, label in filter_options.author %}
+                <option value="{{ value }}"{% if value == filters.author %} selected{% endif %}>{{ label }}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="js-form-item">
+            <label for="forum-category-browser-sort">{{ 'Sort'|t }}</label>
+            <select id="forum-category-browser-sort" name="sort" class="form-select">
+              {% for value, label in filter_options.sort %}
+                <option value="{{ value }}"{% if value == filters.sort %} selected{% endif %}>{{ label }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+        <div class="forum-feed-filters__actions">
+          <div class="form-actions">
+            <button type="submit" class="form-submit">{{ 'filter results'|t }}</button>
+          </div>
+        </div>
+      </form>
+    </section>
+  {% endif %}
+</div>

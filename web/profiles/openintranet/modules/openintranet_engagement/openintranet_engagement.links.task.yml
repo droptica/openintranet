@@ -1,0 +1,59 @@
+# Settings tabs
+openintranet_engagement.settings:
+  route_name: openintranet_engagement.settings
+  title: 'General'
+  base_route: openintranet_engagement.settings
+
+openintranet_engagement.entity_types:
+  route_name: openintranet_engagement.entity_types
+  title: 'Entity Types'
+  base_route: openintranet_engagement.settings
+  weight: 10
+
+# Dashboard tabs
+openintranet_engagement.dashboard_tab:
+  route_name: openintranet_engagement.dashboard
+  title: 'Overview'
+  base_route: openintranet_engagement.dashboard
+
+openintranet_engagement.executive_tab:
+  route_name: openintranet_engagement.executive
+  title: 'Executive Summary'
+  base_route: openintranet_engagement.dashboard
+  weight: 5
+
+openintranet_engagement.users_tab:
+  route_name: openintranet_engagement.users
+  title: 'Users'
+  base_route: openintranet_engagement.dashboard
+  weight: 10
+
+openintranet_engagement.content_tab:
+  route_name: openintranet_engagement.content
+  title: 'Content'
+  base_route: openintranet_engagement.dashboard
+  weight: 15
+
+openintranet_engagement.contributors_tab:
+  route_name: openintranet_engagement.contributors
+  title: 'Contributors'
+  base_route: openintranet_engagement.dashboard
+  weight: 20
+
+openintranet_engagement.patterns_tab:
+  route_name: openintranet_engagement.patterns
+  title: 'Patterns'
+  base_route: openintranet_engagement.dashboard
+  weight: 25
+
+openintranet_engagement.departments_tab:
+  route_name: openintranet_engagement.departments
+  title: 'Departments'
+  base_route: openintranet_engagement.dashboard
+  weight: 27
+
+openintranet_engagement.export_tab:
+  route_name: openintranet_engagement.export
+  title: 'Export'
+  base_route: openintranet_engagement.dashboard
+  weight: 30

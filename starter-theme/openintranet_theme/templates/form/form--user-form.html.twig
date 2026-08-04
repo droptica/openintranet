@@ -11,6 +11,14 @@
  */
 #}
 {{ attach_library('bootstrap_barrio/form') }}
-<form{{ attributes.addClass('block', 'block-primary') }}>
-  {{ children }}
+<form{{ attributes.addClass('user-edit-form') }}>
+  {% embed 'openintranet_theme:account-panel' with {
+    attributes: create_attribute({'class': ['user-edit-form__panel']}),
+    variant: 'form',
+    form_children: children,
+  } only %}
+    {% block content %}
+      {{ form_children }}
+    {% endblock %}
+  {% endembed %}
 </form>

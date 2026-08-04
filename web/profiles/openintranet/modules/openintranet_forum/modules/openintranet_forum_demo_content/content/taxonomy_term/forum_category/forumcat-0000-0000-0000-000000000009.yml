@@ -1,0 +1,39 @@
+_meta:
+  version: '1.0'
+  entity_type: taxonomy_term
+  uuid: forumcat-0000-0000-0000-000000000009
+  bundle: forum_category
+  default_langcode: en
+  depends:
+    forumcat-0000-0000-0000-000000000001: taxonomy_term
+default:
+  status:
+    -
+      value: true
+  name:
+    -
+      value: 'New Hires'
+  description:
+    -
+      value: '<p>Welcome threads and introductions for new joiners.</p>'
+      format: full_html
+  weight:
+    -
+      value: 0
+  parent:
+    -
+      entity: forumcat-0000-0000-0000-000000000001
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /forum/category/new-hires
+      langcode: en
+      pathauto: 1
+  field_category_icon:
+    -
+      value: 'mdi:account-plus'
+      classes: ''
+      decorative: true
+      arialabel: ''

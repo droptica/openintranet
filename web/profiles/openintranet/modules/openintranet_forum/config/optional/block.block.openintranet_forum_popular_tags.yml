@@ -1,0 +1,29 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.forum_popular_tags
+  module:
+    - views
+  theme:
+    - openintranet_theme
+id: openintranet_forum_popular_tags
+theme: openintranet_theme
+region: forum_sidebar_second
+weight: 0
+provider: null
+plugin: 'views_block:forum_popular_tags-block_1'
+settings:
+  id: 'views_block:forum_popular_tags-block_1'
+  label: 'Popular tags'
+  label_display: visible
+  provider: views
+  context_mapping: {  }
+  views_label: ''
+  items_per_page: null
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: "/forum/feed\n/forum/latest\n/forum/popular\n/forum/active\n/forum/unanswered\n/forum/your-posts\n/forum/category\n/forum/category/*\n/forum/tag/*\n/forum/search\n/forum/post/*"
+    context_mapping: {  }

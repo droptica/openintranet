@@ -1,0 +1,68 @@
+{#
+/**
+ * @file
+ * Forum post card for the "Trending now" views block (forum_trending).
+ */
+#}
+{{ attach_library('openintranet_forum/forum.post-meta') }}
+<article{{ attributes.addClass('forum-trending-card') }}>
+  {% if forum_trending_has_image %}
+    <div class="forum-trending-card__media">
+      {{ content.field_forum_image }}
+    </div>
+  {% else %}
+    <div class="forum-trending-card__media forum-trending-card__media--placeholder" aria-hidden="true">
+      <span class="forum-trending-card__placeholder-icon">
+        <svg width="51" height="50" viewBox="0 0 51 50" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+          <path d="M8.5 41.667h34V16.667l-8.5-8.333H17L8.5 16.667v25z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M17 16.667V8.333h17v8.334" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="19.833" cy="25" r="3.125" fill="currentColor"/>
+          <path d="M8.5 35.417l7.083-7.084 7.083 7.084L34 27.083l8.5 8.334" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+    </div>
+  {% endif %}
+
+  <div class="forum-trending-card__inner">
+    <div class="forum-trending-card__meta">
+      <div class="forum-trending-card__author">
+        <div class="forum-trending-card__avatar">
+          {% if forum_trending_has_author_picture %}
+            {{ forum_trending_author_picture }}
+          {% else %}
+            <span class="forum-trending-card__avatar-placeholder" aria-hidden="true"></span>
+          {% endif %}
+        </div>
+        <a href="{{ forum_trending_author_profile_url }}" class="forum-trending-card__author-name">{{ forum_trending_author_name }}</a>
+      </div>
+      <time class="forum-trending-card__date" datetime="{{ forum_trending_datetime_attr }}">{{ forum_trending_date }}</time>
+    </div>
+
+    <div class="forum-trending-card__body">
+      <h3 class="forum-trending-card__title">
+        <a href="{{ url }}" rel="bookmark">{{ label }}</a>
+      </h3>
+
+      <div class="forum-trending-card__snippet">
+        {{ content.body }}
+      </div>
+    </div>
+
+    <div class="forum-trending-card__footer">
+      {{ include('openintranet_forum:post-meta', {
+        nid: node.id(),
+        post_url: forum_post_url,
+        absolute_url: forum_trending_absolute_url,
+        icon_base: forum_trending_icon_base,
+        like_count: forum_trending_like_count,
+        reply_count: forum_trending_reply_count,
+        share_count: forum_trending_share_count,
+        liked: forum_post_user_liked,
+        show_share: true,
+        size: 'sm',
+        actions: forum_trending_actions,
+        bookmark: forum_trending_bookmark,
+      }) }}
+    </div>
+  </div>
+</article>

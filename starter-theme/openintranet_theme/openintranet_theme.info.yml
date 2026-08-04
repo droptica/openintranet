@@ -24,6 +24,9 @@ regions:
   page_bottom: 'Page bottom'
   highlighted: Highlighted
   featured_top: 'Featured top'
+  forum_featured_top: 'Forum: featured top'
+  forum_sidebar_first: 'Forum: sidebar first'
+  forum_sidebar_second: 'Forum: sidebar second'
   breadcrumb: Breadcrumb
   content: Content
   sidebar_first: 'Sidebar first'

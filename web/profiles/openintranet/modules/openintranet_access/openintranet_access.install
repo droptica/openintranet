@@ -1,0 +1,124 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * @file
+ * Install, update and uninstall functions for openintranet_access.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function openintranet_access_schema(): array {
+  $schema = [];
+
+  $schema['oi_group_membership'] = [
+    'description' => 'Stores user membership in OI groups.',
+    'fields' => [
+      'id' => [
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'group_id' => [
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => 'The OI group ID.',
+      ],
+      'user_id' => [
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => 'The user ID.',
+      ],
+      'created' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'Timestamp when membership was created.',
+      ],
+    ],
+    'primary key' => ['id'],
+    'unique keys' => [
+      'group_user' => ['group_id', 'user_id'],
+    ],
+    'indexes' => [
+      'user_id' => ['user_id'],
+      'group_id' => ['group_id'],
+    ],
+  ];
+
+  $schema['oi_access_record'] = [
+    'description' => 'Stores access restrictions for entities.',
+    'fields' => [
+      'id' => [
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'entity_type' => [
+        'type' => 'varchar',
+        'length' => 64,
+        'not null' => TRUE,
+        'description' => 'Entity type ID (node, oi_document, etc).',
+      ],
+      'entity_id' => [
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => 'Entity ID.',
+      ],
+      'grant_type' => [
+        'type' => 'varchar',
+        'length' => 16,
+        'not null' => TRUE,
+        'description' => 'Type of grant: group or user.',
+      ],
+      'target_id' => [
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => 'Group ID or User ID depending on grant_type.',
+      ],
+      'created' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'Timestamp when record was created.',
+      ],
+    ],
+    'primary key' => ['id'],
+    'unique keys' => [
+      'entity_grant' => ['entity_type', 'entity_id', 'grant_type', 'target_id'],
+    ],
+    'indexes' => [
+      'entity' => ['entity_type', 'entity_id'],
+      'grant' => ['grant_type', 'target_id'],
+    ],
+  ];
+
+  return $schema;
+}
+
+/**
+ * Implements hook_install().
+ */
+function openintranet_access_install(): void {
+  // Module installed successfully.
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function openintranet_access_uninstall(): void {
+  // Delete all OI groups.
+  $storage = \Drupal::entityTypeManager()->getStorage('oi_group');
+  $groups = $storage->loadMultiple();
+  if (!empty($groups)) {
+    $storage->delete($groups);
+  }
+
+  // Tables are dropped automatically via hook_schema().
+}

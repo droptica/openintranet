@@ -1,0 +1,28 @@
+{#
+/**
+ * @file
+ * Forum-specific breadcrumb renderer.
+ *
+ * Available variables:
+ * - items: list of {title, url|NULL}. Last item is current (no url).
+ */
+#}
+{{ attach_library('openintranet_forum/forum.breadcrumb') }}
+{% if items is not empty %}
+  <nav class="forum-breadcrumb" aria-label="{{ 'Breadcrumb'|t }}">
+    <ol class="forum-breadcrumb__list">
+      {% for item in items %}
+        <li class="forum-breadcrumb__item{{ loop.last ? ' forum-breadcrumb__item--current' : '' }}">
+          {% if item.url %}
+            <a href="{{ item.url }}" class="forum-breadcrumb__link">{{ item.title }}</a>
+          {% else %}
+            <span class="forum-breadcrumb__current" aria-current="page">{{ item.title }}</span>
+          {% endif %}
+          {% if not loop.last %}
+            <span class="forum-breadcrumb__separator" aria-hidden="true">/</span>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ol>
+  </nav>
+{% endif %}

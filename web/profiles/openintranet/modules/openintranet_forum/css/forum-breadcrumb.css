@@ -1,0 +1,54 @@
+/**
+ * @file
+ * Forum breadcrumb navigation component.
+ */
+
+.forum-breadcrumb__list {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.forum-breadcrumb__item {
+  display: flex;
+  align-items: center;
+}
+
+.forum-breadcrumb__link {
+  font-size: 1rem;
+  line-height: 1.375rem;
+  font-weight: 500;
+  color: rgba(61, 80, 253, 0.75);
+  text-decoration: none;
+}
+
+.forum-breadcrumb__link:hover {
+  color: var(--forum-blue);
+  text-decoration: underline;
+}
+
+.forum-breadcrumb__separator {
+  font-size: 1.125rem;
+  line-height: 1.375rem;
+  font-weight: 500;
+  color: rgba(61, 80, 253, 0.75);
+  padding: 0 0.75rem;
+}
+
+.forum-breadcrumb__current {
+  font-size: 1rem;
+  line-height: 1.375rem;
+  font-weight: 600;
+  color: var(--forum-blue);
+}
+
+@media (max-width: 575.98px) {
+  .forum-breadcrumb__list {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

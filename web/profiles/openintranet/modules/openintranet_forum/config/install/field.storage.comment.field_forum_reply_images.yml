@@ -1,0 +1,29 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - comment
+    - file
+    - image
+id: comment.field_forum_reply_images
+field_name: field_forum_reply_images
+entity_type: comment
+type: image
+settings:
+  target_type: file
+  display_field: false
+  display_default: false
+  uri_scheme: public
+  default_image:
+    uuid: null
+    alt: ''
+    title: ''
+    width: null
+    height: null
+module: image
+locked: false
+cardinality: 6
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

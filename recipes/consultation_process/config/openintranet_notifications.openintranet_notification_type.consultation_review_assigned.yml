@@ -1,0 +1,43 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.consultation.field_consultation_deadline
+    - field.field.node.consultation_review.field_consultation_review_ref
+    - node.type.consultation_review
+id: consultation_review_assigned
+label: 'Consultation review assigned'
+description: 'Notifies a user that they have been assigned as a reviewer of a consultation.'
+category: consultation
+default_priority: normal
+# 00-synteza §12: "email default, SMS only urgent" for consultation reviews.
+# The "email default" half ships here: default_channels is inbox + email_core
+# (no SMS) under the user_preferences policy, so SMS is NEVER sent by default —
+# the safe half holds out of the box. The "SMS only urgent" half is a per-
+# deployment opt-in, not core behaviour, because it depends on an optional
+# submodule: to enable it (1) turn on openintranet_notifications_smsapi, (2) add
+# sms_smsapi to default_channels below, and (3) switch delivery_policy to
+# urgent_escalation. urgent_escalation leaves normal/low priority identical to
+# user_preferences and only escalates urgent/high to every usable channel
+# (incl. SMS once steps 1-2 are done), so non-urgent reviews stay email+inbox.
+default_channels:
+  - inbox
+  - email_core
+forced_channels: {  }
+# Targets the author (owner) of the review entity passed in context.
+recipient_resolvers:
+  - id: entity_author
+    configuration: {  }
+template_map: {  }
+template_renderer: token_text
+subject_template: 'You have been added as reviewer of "[node:title]"'
+# The deadline chains from the review's parent consultation reference, so no
+# custom [consultation] token (and no model load step) is needed.
+body_template: "You have been added as a reviewer of \"[node:title]\".\n\nDeadline: [node:field_consultation_review_ref:entity:field_consultation_deadline]\n\n[node:url]"
+summary_template: 'Review assigned: [node:title]'
+delivery_policy: user_preferences
+dedupe_window: 600
+rate_limit: 0
+rate_limit_window: 3600
+user_can_override: true
+audit_retention_days: 90

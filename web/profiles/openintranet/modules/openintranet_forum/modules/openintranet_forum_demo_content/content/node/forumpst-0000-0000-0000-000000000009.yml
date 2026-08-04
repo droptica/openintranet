@@ -1,0 +1,65 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: forumpst-0000-0000-0000-000000000009
+  bundle: forum_post
+  default_langcode: en
+  depends:
+    forumusr-0000-0000-0000-000000000002: user
+    forumcat-0000-0000-0000-000000000009: taxonomy_term
+    forumtag-0000-0000-0000-000000000005: taxonomy_term
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      entity: forumusr-0000-0000-0000-000000000002
+  title:
+    -
+      value: 'New hire: Sarah joins the design team'
+  created:
+    -
+      value: 1731369600
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  path:
+    -
+      alias: /forum/new-hire-sarah-joins-the-design-team
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: "<p>Please join me in welcoming Sarah to the design team — she starts on Monday and will be focusing on the intranet refresh and the new forum visual language.</p><p>Sarah is joining us from a product studio where she led design systems work, so expect strong opinions about spacing and typography (in a good way).</p><p>Say hi when you see her around.</p>"
+      format: full_html
+      summary: ''
+  comment_forum:
+    -
+      status: 2
+      cid: 0
+      last_comment_timestamp: 0
+      last_comment_name: ''
+      last_comment_uid: 0
+      comment_count: 0
+  field_forum_category:
+    -
+      entity: forumcat-0000-0000-0000-000000000009
+  field_forum_tags:
+    -
+      entity: forumtag-0000-0000-0000-000000000005
+  field_forum_reply_count:
+    -
+      value: 0
+  field_forum_share_count:
+    -
+      value: 1
+  field_forum_views:
+    -
+      value: 47

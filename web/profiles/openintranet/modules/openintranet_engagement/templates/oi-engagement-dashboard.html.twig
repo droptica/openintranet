@@ -1,0 +1,87 @@
+{#
+/**
+ * @file
+ * Dashboard template for engagement analytics.
+ *
+ * Variables:
+ * - segments: Array of segment data with counts and colors.
+ * - trends: Activity trends data.
+ * - top_events: Most common event types.
+ * - summary: Executive summary metrics.
+ */
+#}
+<div class="engagement-dashboard">
+  {# Summary Cards #}
+  <div class="engagement-summary-cards">
+    <div class="summary-card">
+      <div class="card-icon">👥</div>
+      <div class="card-content">
+        <div class="card-value">{{ summary.active_users_30d }}</div>
+        <div class="card-label">{{ 'Active Users (30d)'|t }}</div>
+      </div>
+    </div>
+    <div class="summary-card">
+      <div class="card-icon">📊</div>
+      <div class="card-content">
+        <div class="card-value">{{ summary.total_events_30d }}</div>
+        <div class="card-label">{{ 'Events (30d)'|t }}</div>
+      </div>
+    </div>
+    <div class="summary-card">
+      <div class="card-icon">📈</div>
+      <div class="card-content">
+        <div class="card-value">{{ summary.adoption_rate }}%</div>
+        <div class="card-label">{{ 'Adoption Rate'|t }}</div>
+      </div>
+    </div>
+    <div class="summary-card">
+      <div class="card-icon">⭐</div>
+      <div class="card-content">
+        <div class="card-value">{{ summary.avg_score }}</div>
+        <div class="card-label">{{ 'Avg Score'|t }}</div>
+      </div>
+    </div>
+  </div>
+
+  {# Segment Distribution #}
+  <div class="engagement-section">
+    <h3>{{ 'User Segments'|t }}</h3>
+    <div class="segment-distribution">
+      {% for segment in segments %}
+        <div class="segment-item" style="border-left-color: {{ segment.color }}">
+          <div class="segment-icon">{{ segment.icon }}</div>
+          <div class="segment-info">
+            <div class="segment-label">{{ segment.label }}</div>
+            <div class="segment-count">{{ segment.count }} {{ 'users'|t }} ({{ segment.percentage }}%)</div>
+          </div>
+          <div class="segment-bar" style="width: {{ segment.percentage }}%; background-color: {{ segment.color }}"></div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  {# Top Event Types #}
+  <div class="engagement-section">
+    <h3>{{ 'Top Activities (30 days)'|t }}</h3>
+    <table class="engagement-table">
+      <thead>
+        <tr>
+          <th>{{ 'Event Type'|t }}</th>
+          <th>{{ 'Count'|t }}</th>
+          <th>{{ 'Users'|t }}</th>
+          <th>{{ 'Value'|t }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for event in top_events %}
+          <tr>
+            <td>{{ event.event_type }}</td>
+            <td>{{ event.count }}</td>
+            <td>{{ event.unique_users }}</td>
+            <td>{{ event.total_value }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>

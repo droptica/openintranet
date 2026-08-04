@@ -1,0 +1,65 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: forumpst-0000-0000-0000-000000000012
+  bundle: forum_post
+  default_langcode: en
+  depends:
+    forumusr-0000-0000-0000-000000000003: user
+    forumcat-0000-0000-0000-000000000004: taxonomy_term
+    forumtag-0000-0000-0000-000000000003: taxonomy_term
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      entity: forumusr-0000-0000-0000-000000000003
+  title:
+    -
+      value: 'Ideas for improving onboarding'
+  created:
+    -
+      value: 1731888000
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  path:
+    -
+      alias: /forum/ideas-for-improving-onboarding
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: "<p>I just wrapped my first month and wanted to jot down what would have made the first two weeks smoother, while it is still fresh in my head.</p><p>Things like a single checklist with every account I need, a who-to-ask map per topic, and a short video tour of the intranet would have saved a lot of DMs.</p><p>If HR or People Ops is reading — happy to help shape a better onboarding handbook.</p>"
+      format: full_html
+      summary: ''
+  comment_forum:
+    -
+      status: 2
+      cid: 0
+      last_comment_timestamp: 0
+      last_comment_name: ''
+      last_comment_uid: 0
+      comment_count: 0
+  field_forum_category:
+    -
+      entity: forumcat-0000-0000-0000-000000000004
+  field_forum_tags:
+    -
+      entity: forumtag-0000-0000-0000-000000000003
+  field_forum_reply_count:
+    -
+      value: 0
+  field_forum_share_count:
+    -
+      value: 1
+  field_forum_views:
+    -
+      value: 24

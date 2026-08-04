@@ -1,0 +1,36 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * @file
+ * Install, update and uninstall functions for openintranet_documents.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function openintranet_documents_install(): void {
+  // Module installed successfully.
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function openintranet_documents_uninstall(): void {
+  // Cleanup: remove all entities before uninstalling.
+  // Note: This may take time with large amounts of documents.
+  $entity_type_manager = \Drupal::entityTypeManager();
+
+  // Delete documents first (they reference folders).
+  $documents = $entity_type_manager->getStorage('oi_document')->loadMultiple();
+  if (!empty($documents)) {
+    $entity_type_manager->getStorage('oi_document')->delete($documents);
+  }
+
+  // Delete folders.
+  $folders = $entity_type_manager->getStorage('oi_folder')->loadMultiple();
+  if (!empty($folders)) {
+    $entity_type_manager->getStorage('oi_folder')->delete($folders);
+  }
+}

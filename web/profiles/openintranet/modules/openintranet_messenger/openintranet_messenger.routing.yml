@@ -1,0 +1,53 @@
+# Dashboard
+openintranet_messenger.dashboard:
+  path: '/admin/openintranet/messenger'
+  defaults:
+    _controller: '\Drupal\openintranet_messenger\Controller\MessengerController::dashboard'
+    _title: 'Open Intranet - Messenger'
+  requirements:
+    _permission: 'view messenger contacts+send messenger notifications+view messenger log'
+
+# Send notification form
+openintranet_messenger.send:
+  path: '/admin/openintranet/messenger/send'
+  defaults:
+    _form: '\Drupal\openintranet_messenger\Form\SendNotificationForm'
+    _title: 'Open Intranet - Messenger - Send Notification'
+  requirements:
+    _permission: 'send messenger notifications'
+
+# Notification log
+openintranet_messenger.log:
+  path: '/admin/openintranet/messenger/log'
+  defaults:
+    _controller: '\Drupal\openintranet_messenger\Controller\MessengerController::log'
+    _title: 'Open Intranet - Messenger - Notification Log'
+  requirements:
+    _permission: 'view messenger log'
+
+# Settings
+openintranet_messenger.settings:
+  path: '/admin/openintranet/messenger/settings'
+  defaults:
+    _form: '\Drupal\openintranet_messenger\Form\SettingsForm'
+    _title: 'Open Intranet - Messenger - Settings'
+  requirements:
+    _permission: 'administer messenger'
+
+# Import contacts from CSV
+openintranet_messenger.contacts.import:
+  path: '/admin/openintranet/messenger/contacts/import'
+  defaults:
+    _form: '\Drupal\openintranet_messenger\Form\ImportContactsForm'
+    _title: 'Open Intranet - Messenger - Import Contacts'
+  requirements:
+    _permission: 'manage messenger contacts'
+
+# MessengerContact entity settings (for Field UI)
+entity.messenger_contact.settings:
+  path: '/admin/openintranet/messenger/contacts/settings'
+  defaults:
+    _form: '\Drupal\openintranet_messenger\Form\MessengerContactSettingsForm'
+    _title: 'Open Intranet - Messenger - Contact Settings'
+  requirements:
+    _permission: 'administer messenger'

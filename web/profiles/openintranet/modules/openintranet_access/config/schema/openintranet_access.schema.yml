@@ -1,0 +1,39 @@
+openintranet_access.settings:
+  type: config_object
+  label: 'Open Intranet Access settings'
+  mapping:
+    enabled_entity_types:
+      type: mapping
+      label: 'Enabled entity types'
+      mapping:
+        node:
+          type: sequence
+          label: 'Node bundles'
+          sequence:
+            type: string
+        oi_document:
+          type: boolean
+          label: 'Enable for documents'
+        oi_folder:
+          type: boolean
+          label: 'Enable for folders'
+    ui:
+      type: mapping
+      label: 'UI settings'
+      mapping:
+        show_access_summary:
+          type: boolean
+          label: 'Show access summary'
+        show_inherited_access:
+          type: boolean
+          label: 'Show inherited access'
+    behavior:
+      type: mapping
+      label: 'Behavior settings'
+      mapping:
+        owner_always_has_access:
+          type: boolean
+          label: 'Owner always has access'
+        inherit_folder_access:
+          type: boolean
+          label: 'Documents inherit folder access'

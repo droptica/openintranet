@@ -1,0 +1,22 @@
+{#
+/**
+ * @file
+ * User engagement badge for profile display.
+ *
+ * Variables:
+ * - score: RFV score data.
+ * - segment: Segment definition.
+ */
+#}
+<div class="engagement-badge" style="border-color: {{ segment.color }}">
+  <div class="badge-header">
+    <span class="badge-icon" style="background-color: {{ segment.color }}">{{ segment.icon }}</span>
+    <span class="badge-segment">{{ segment.label }}</span>
+  </div>
+  <div class="badge-scores">
+    <span class="badge-score" title="{{ 'Recency'|t }}">R:{{ score.recency_score }}</span>
+    <span class="badge-score" title="{{ 'Frequency'|t }}">F:{{ score.frequency_score }}</span>
+    <span class="badge-score" title="{{ 'Value'|t }}">V:{{ score.value_score }}</span>
+    <span class="badge-total">={{ score.total_score }}</span>
+  </div>
+</div>
