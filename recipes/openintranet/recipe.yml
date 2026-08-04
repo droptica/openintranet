@@ -70,6 +70,7 @@ install:
   - flag
   - geofield
   - gin
+  - gin_toolbar
   - gtm
   - help
   - history
@@ -188,6 +189,7 @@ config:
       - block.block.gin_messages
       - block.block.gin_page_title
       - block.block.gin_primary_local_tasks
+    gin_toolbar: '*'
     image: '*'
     imagemagick: '*'
     imce: '*'
@@ -361,6 +363,11 @@ config:
         page:
           front: '/news-homepage'
           403: '/user/login'
+
+    system.theme:
+      simpleConfigUpdate:
+        admin: gin
+        default: openintranet_theme
 
     system.theme.global:
       simpleConfigUpdate:
