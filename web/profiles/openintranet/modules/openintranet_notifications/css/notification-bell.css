@@ -14,5 +14,6 @@
 }
 
 .notification-bell.is-open .notification-bell__dropdown {
-  display: block;
+  display: flex;
+  flex-direction: column;
 }

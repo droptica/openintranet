@@ -62,7 +62,7 @@
     width: 380px;
     max-width: calc(100vw - 2rem);
     max-height: 24rem;
-    overflow-y: auto;
+    overflow: hidden;
     background: $white;
     border: 1px solid $navy-gray-50;
     border-radius: $border-radius;
@@ -75,8 +75,11 @@
   }
 
   &__list {
+    flex: 1 1 auto;
+    min-height: 0;
     margin: 0;
     padding: 0;
+    overflow-y: auto;
     list-style: none;
   }
 
@@ -171,6 +174,7 @@
 
   &__see-all {
     display: block;
+    flex-shrink: 0;
     padding: .625rem .875rem;
     color: $primary-shade;
     font-weight: 600;
