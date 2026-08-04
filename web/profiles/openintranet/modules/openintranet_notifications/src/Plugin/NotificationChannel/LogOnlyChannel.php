@@ -20,6 +20,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
   id: 'log_only',
   label: new TranslatableMarkup('Log only'),
   description: new TranslatableMarkup('Accepts every recipient and logs the message subject instead of sending.'),
+  user_configurable: FALSE,
 )]
 final class LogOnlyChannel extends NotificationChannelBase {
 

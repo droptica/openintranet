@@ -24,8 +24,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 #[NotificationChannel(
   id: 'email_core',
-  label: new TranslatableMarkup('Email (core)'),
-  description: new TranslatableMarkup('Sends the message as an email via Drupal core mail.'),
+  label: new TranslatableMarkup('Email'),
+  description: new TranslatableMarkup('Sends notifications to the email address on the recipient account.'),
 )]
 final class EmailCoreChannel extends NotificationChannelBase {
 

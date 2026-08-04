@@ -53,6 +53,9 @@ final class ChannelPluginManagerTest extends KernelTestBase {
     self::assertArrayHasKey('inbox', $selectable);
     self::assertArrayHasKey('email_core', $selectable);
     self::assertArrayHasKey('log_only', $selectable);
+    self::assertSame('In-app', (string) $selectable['inbox']['label']);
+    self::assertSame('Email', (string) $selectable['email_core']['label']);
+    self::assertFalse($selectable['log_only']['user_configurable']);
     // Still discoverable for the read-only status page / runtime delivery.
     self::assertArrayHasKey('null', $manager->getDefinitions());
   }

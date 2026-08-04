@@ -192,17 +192,36 @@ final class NotificationUiTest extends BrowserTestBase {
 
     $assert = $this->assertSession();
     $assert->statusCodeEquals(200);
-    $assert->pageTextContains('Default');
+    $assert->pageTextContains('General updates');
     $assert->pageTextContains('New comment');
+    $assert->pageTextContains('Delivery methods');
+    $assert->pageTextContains('Required');
+    $assert->pageTextNotContains('Log only');
+    $assert->linkByHrefExists('/notifications');
     $assert->checkboxChecked('pref[default][inbox]');
     $assert->elementAttributeExists('css', '#edit-pref-default-inbox', 'disabled');
+    $assert->elementTextContains(
+      'css',
+      'label[for="edit-pref-default-email-core"]',
+      'General updates via Email',
+    );
 
     $this->submitForm([
       'pref[default][email_core]' => FALSE,
-      'pref[default][log_only]' => TRUE,
       'pref[new_comment][inbox]' => TRUE,
       'pref[new_comment][email_core]' => FALSE,
-      'pref[new_comment][log_only]' => FALSE,
+      'quiet_hours_enabled' => TRUE,
+      'quiet_hours_start' => '22:00',
+      'quiet_hours_end' => '',
+      'quiet_hours_tz' => 'Europe/Warsaw',
+    ], 'Save preferences');
+    $assert->pageTextContains('Enter both a start and end time.');
+
+    $this->submitForm([
+      'pref[default][email_core]' => FALSE,
+      'pref[new_comment][inbox]' => TRUE,
+      'pref[new_comment][email_core]' => FALSE,
+      'quiet_hours_enabled' => TRUE,
       'quiet_hours_start' => '22:00',
       'quiet_hours_end' => '06:30',
       'quiet_hours_tz' => 'Europe/Warsaw',
@@ -220,7 +239,7 @@ final class NotificationUiTest extends BrowserTestBase {
     $preferences = $settings->getPreferences();
     self::assertTrue($preferences['default']['inbox']);
     self::assertFalse($preferences['default']['email_core']);
-    self::assertTrue($preferences['default']['log_only']);
+    self::assertArrayNotHasKey('log_only', $preferences['default']);
     self::assertTrue($preferences['new_comment']['inbox']);
 
     self::assertSame([
@@ -228,18 +247,35 @@ final class NotificationUiTest extends BrowserTestBase {
       'end' => '06:30',
       'tz' => 'Europe/Warsaw',
     ], $settings->getQuietHours());
+
+    $assert->pageTextContains('External deliveries are paused daily from 22:00 to 06:30 (Europe/Warsaw).');
+
+    $this->submitForm([
+      'pref[default][email_core]' => FALSE,
+      'pref[new_comment][inbox]' => TRUE,
+      'pref[new_comment][email_core]' => FALSE,
+      'quiet_hours_enabled' => FALSE,
+    ], 'Save preferences');
+
+    $storage->resetCache();
+    $matches = $storage->loadByProperties(['uid' => $owner->id()]);
+    $settings = reset($matches);
+    self::assertInstanceOf(UserNotificationSettingsInterface::class, $settings);
+    self::assertNull($settings->getQuietHours());
+    $assert->checkboxNotChecked('quiet_hours_enabled');
+    $assert->pageTextNotContains('External deliveries are paused daily');
   }
 
   /**
    * Tests global settings access, rendering, and persistence.
    */
   private function assertNotificationSettingsFormSavesConfiguration(): void {
-    $this->drupalGet('admin/config/openintranet/notifications');
+    $this->drupalGet('admin/openintranet/notifications/settings');
     $this->assertSession()->statusCodeEquals(403);
 
     $regular = $this->drupalCreateUser();
     $this->drupalLogin($regular);
-    $this->drupalGet('admin/config/openintranet/notifications');
+    $this->drupalGet('admin/openintranet/notifications/settings');
     $this->assertSession()->statusCodeEquals(403);
 
     $admin = $this->drupalCreateUser([
@@ -247,7 +283,7 @@ final class NotificationUiTest extends BrowserTestBase {
     ]);
     $this->drupalLogout();
     $this->drupalLogin($admin);
-    $this->drupalGet('admin/config/openintranet/notifications');
+    $this->drupalGet('admin/openintranet/notifications/settings');
 
     $assert = $this->assertSession();
     $assert->statusCodeEquals(200);

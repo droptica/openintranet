@@ -151,7 +151,11 @@
           <div id="main-wrapper" class="layout-main-wrapper clearfix">
             <div id="block-openintranet-theme-page-title" class="contextual-region block block-primary block-core block-page-title-block mb-3 row">
               <div class="content">
-                <h1 class="title">User profile</h1>
+                {% if user_profile_context_is_heading %}
+                  <h1 class="title">{{ 'User profile'|t }}</h1>
+                {% else %}
+                  <p class="title user-profile-context">{{ 'User profile'|t }}</p>
+                {% endif %}
               </div>
             </div>
             {% if content_local_tasks %}

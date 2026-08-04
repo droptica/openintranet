@@ -40,3 +40,24 @@ function _openintranet_notifications_grant_baseline_permissions(): void {
 function openintranet_notifications_update_110001(): void {
   _openintranet_notifications_grant_baseline_permissions();
 }
+
+/**
+ * Replaces technical fallback notification copy with user-facing language.
+ */
+function openintranet_notifications_update_110002(): void {
+  $config = \Drupal::configFactory()->getEditable(
+    'openintranet_notifications.openintranet_notification_type.default',
+  );
+
+  if ($config->get('label') === 'Default') {
+    $config->set('label', 'General updates');
+  }
+  if ($config->get('description') === 'Generic fallback notification type. The source sets the subject and body directly; the templates are an ad-hoc token pass-through.') {
+    $config->set(
+      'description',
+      'Other important updates that do not fit a more specific notification type.',
+    );
+  }
+
+  $config->save();
+}

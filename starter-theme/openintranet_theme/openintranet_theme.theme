@@ -200,6 +200,8 @@ function openintranet_theme_preprocess_page(array &$variables) {
   $route_match = \Drupal::routeMatch();
   $is_node_page = $route_match->getParameter('node') !== NULL;
   $is_user_page = $route_match->getParameter('user') !== NULL;
+  $variables['user_profile_context_is_heading'] = $is_user_page
+    && $route_match->getRouteName() === 'entity.user.canonical';
 
   if ($is_node_page || $is_user_page) {
     $build = \Drupal::service('plugin.manager.block')

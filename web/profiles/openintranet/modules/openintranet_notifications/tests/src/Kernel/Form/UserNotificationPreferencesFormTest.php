@@ -54,11 +54,12 @@ final class UserNotificationPreferencesFormTest extends KernelTestBase {
     $this->installConfig(['openintranet_notifications']);
 
     // An overridable type with one forced channel (inbox) and one optional
-    // channel (log_only).
+    // user-facing channel (email_core).
     NotificationType::create([
       'id' => 'mention',
       'label' => 'Mention',
-      'default_channels' => ['inbox', 'log_only'],
+      'description' => 'Notifies you when someone mentions you.',
+      'default_channels' => ['inbox', 'email_core'],
       'forced_channels' => ['inbox'],
       'user_can_override' => TRUE,
       'status' => TRUE,
@@ -130,12 +131,23 @@ final class UserNotificationPreferencesFormTest extends KernelTestBase {
 
     // The overridable "Mention" type is a matrix row; the non-overridable
     // "System alert" type is not.
-    self::assertArrayHasKey('mention', $form['pref']);
-    self::assertArrayNotHasKey('system_alert', $form['pref']);
+    self::assertArrayHasKey('mention', $form['delivery']['pref']);
+    self::assertArrayNotHasKey('system_alert', $form['delivery']['pref']);
+    self::assertArrayHasKey('inbox', $form['delivery']['pref']['mention']);
+    self::assertArrayHasKey('email_core', $form['delivery']['pref']['mention']);
+    self::assertArrayNotHasKey('log_only', $form['delivery']['pref']['mention']);
 
     $rendered = (string) $this->container->get('renderer')->renderRoot($form);
     self::assertStringContainsString('Mention', $rendered);
+    self::assertStringContainsString('Notifies you when someone mentions you.', $rendered);
+    self::assertStringContainsString('Mention via In-app', $rendered);
+    self::assertStringContainsString('Mention via Email', $rendered);
+    self::assertStringContainsString('Required', $rendered);
+    self::assertStringContainsString('placeholder="10:00"', $rendered);
+    self::assertStringContainsString('placeholder="13:00"', $rendered);
+    self::assertStringContainsString('Use 24-hour time (HH:MM).', $rendered);
     self::assertStringNotContainsString('System alert', $rendered);
+    self::assertStringNotContainsString('Log only', $rendered);
   }
 
   /**
@@ -148,9 +160,10 @@ final class UserNotificationPreferencesFormTest extends KernelTestBase {
       'pref' => [
         'mention' => [
           'inbox' => 1,
-          'log_only' => 1,
+          'email_core' => 1,
         ],
       ],
+      'quiet_hours_enabled' => FALSE,
       'quiet_hours_start' => '',
       'quiet_hours_end' => '',
       'quiet_hours_tz' => '',
@@ -158,7 +171,7 @@ final class UserNotificationPreferencesFormTest extends KernelTestBase {
     self::assertEmpty($form_state->getErrors(), implode("\n", array_map('strval', $form_state->getErrors())));
 
     $preferences = $this->loadSettings()->getPreferences();
-    self::assertTrue((bool) ($preferences['mention']['log_only'] ?? FALSE), 'The opted-in optional channel is stored TRUE.');
+    self::assertTrue((bool) ($preferences['mention']['email_core'] ?? FALSE), 'The opted-in optional channel is stored TRUE.');
   }
 
   /**
@@ -173,9 +186,10 @@ final class UserNotificationPreferencesFormTest extends KernelTestBase {
           // The forced inbox cell is submitted as unchecked (0): it must be
           // forced back on regardless.
           'inbox' => 0,
-          'log_only' => 0,
+          'email_core' => 0,
         ],
       ],
+      'quiet_hours_enabled' => FALSE,
       'quiet_hours_start' => '',
       'quiet_hours_end' => '',
       'quiet_hours_tz' => '',
@@ -183,7 +197,7 @@ final class UserNotificationPreferencesFormTest extends KernelTestBase {
 
     $preferences = $this->loadSettings()->getPreferences();
     self::assertTrue((bool) ($preferences['mention']['inbox'] ?? FALSE), 'The forced channel cannot be opted out of.');
-    self::assertFalse((bool) ($preferences['mention']['log_only'] ?? TRUE), 'The optional channel respects the unchecked value.');
+    self::assertFalse((bool) ($preferences['mention']['email_core'] ?? TRUE), 'The optional channel respects the unchecked value.');
   }
 
   /**
@@ -196,9 +210,10 @@ final class UserNotificationPreferencesFormTest extends KernelTestBase {
       'pref' => [
         'mention' => [
           'inbox' => 1,
-          'log_only' => 0,
+          'email_core' => 0,
         ],
       ],
+      'quiet_hours_enabled' => TRUE,
       'quiet_hours_start' => '22:00',
       'quiet_hours_end' => '07:00',
       'quiet_hours_tz' => 'Europe/Warsaw',
@@ -220,9 +235,10 @@ final class UserNotificationPreferencesFormTest extends KernelTestBase {
       'pref' => [
         'mention' => [
           'inbox' => 1,
-          'log_only' => 0,
+          'email_core' => 0,
         ],
       ],
+      'quiet_hours_enabled' => TRUE,
       'quiet_hours_start' => '25:99',
       'quiet_hours_end' => '',
       'quiet_hours_tz' => '',
@@ -248,9 +264,10 @@ final class UserNotificationPreferencesFormTest extends KernelTestBase {
       'pref' => [
         'mention' => [
           'inbox' => 1,
-          'log_only' => 0,
+          'email_core' => 0,
         ],
       ],
+      'quiet_hours_enabled' => TRUE,
       'quiet_hours_start' => '09:30',
       'quiet_hours_end' => '17:45',
       'quiet_hours_tz' => '',
@@ -260,6 +277,116 @@ final class UserNotificationPreferencesFormTest extends KernelTestBase {
     $quiet = $this->loadSettings()->getQuietHours();
     self::assertSame('09:30', $quiet['start']);
     self::assertSame('17:45', $quiet['end']);
+  }
+
+  /**
+   * Both bounds are required when quiet hours are enabled.
+   *
+   * @covers ::validateForm
+   */
+  public function testQuietHoursRequireBothTimes(): void {
+    $form_state = $this->submit([
+      'pref' => [
+        'mention' => [
+          'inbox' => 1,
+          'email_core' => 0,
+        ],
+      ],
+      'quiet_hours_enabled' => TRUE,
+      'quiet_hours_start' => '22:00',
+      'quiet_hours_end' => '',
+      'quiet_hours_tz' => '',
+    ]);
+
+    self::assertArrayHasKey('quiet_hours_end', $form_state->getErrors());
+  }
+
+  /**
+   * Equal quiet-hours bounds are rejected as an inactive window.
+   *
+   * @covers ::validateForm
+   */
+  public function testQuietHoursRequireDifferentTimes(): void {
+    $form_state = $this->submit([
+      'pref' => [
+        'mention' => [
+          'inbox' => 1,
+          'email_core' => 0,
+        ],
+      ],
+      'quiet_hours_enabled' => TRUE,
+      'quiet_hours_start' => '22:00',
+      'quiet_hours_end' => '22:00',
+      'quiet_hours_tz' => '',
+    ]);
+
+    self::assertArrayHasKey('quiet_hours_end', $form_state->getErrors());
+  }
+
+  /**
+   * Disabling quiet hours clears the complete persisted window.
+   *
+   * @covers ::submitForm
+   */
+  public function testDisablingQuietHoursClearsWindow(): void {
+    $values = [
+      'pref' => [
+        'mention' => [
+          'inbox' => 1,
+          'email_core' => 0,
+        ],
+      ],
+      'quiet_hours_enabled' => TRUE,
+      'quiet_hours_start' => '22:00',
+      'quiet_hours_end' => '07:00',
+      'quiet_hours_tz' => 'Europe/Warsaw',
+    ];
+    $this->submit($values);
+
+    $values['quiet_hours_enabled'] = FALSE;
+    $form = [];
+    $form_state = (new FormState())
+      ->set('uid', (int) $this->account->id())
+      ->setValues($values);
+    UserNotificationPreferencesForm::create($this->container)
+      ->submitForm($form, $form_state);
+
+    self::assertNull($this->loadSettings()->getQuietHours());
+  }
+
+  /**
+   * Preferences for diagnostic channels remain untouched when hidden.
+   *
+   * @covers ::submitForm
+   */
+  public function testHiddenChannelPreferenceIsPreserved(): void {
+    $settings = $this->container
+      ->get('openintranet_notifications.preference_resolver')
+      ->loadOrCreateFor((int) $this->account->id());
+    $settings->set('preferences', [
+      'mention' => [
+        'inbox' => TRUE,
+        'email_core' => TRUE,
+        'log_only' => TRUE,
+      ],
+    ])->save();
+
+    $this->submit([
+      'pref' => [
+        'mention' => [
+          'inbox' => 1,
+          'email_core' => 0,
+        ],
+      ],
+      'quiet_hours_enabled' => FALSE,
+      'quiet_hours_start' => '',
+      'quiet_hours_end' => '',
+      'quiet_hours_tz' => '',
+    ]);
+
+    $preferences = $this->loadSettings()->getPreferences();
+    self::assertTrue($preferences['mention']['log_only']);
+    self::assertFalse($preferences['mention']['email_core']);
   }
 
 }

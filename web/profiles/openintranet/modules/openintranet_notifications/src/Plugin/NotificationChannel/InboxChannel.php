@@ -21,8 +21,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 #[NotificationChannel(
   id: 'inbox',
-  label: new TranslatableMarkup('Inbox'),
-  description: new TranslatableMarkup('In-app inbox; the notification entity is the record, so sending is a no-op.'),
+  label: new TranslatableMarkup('In-app'),
+  description: new TranslatableMarkup('Shows notifications in the Open Intranet notification center.'),
 )]
 final class InboxChannel extends NotificationChannelBase {
 

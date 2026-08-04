@@ -24,12 +24,15 @@ final class NotificationChannel extends Plugin {
    *   The channel description.
    * @param class-string|null $deriver
    *   The deriver class.
+   * @param bool $user_configurable
+   *   Whether end users may configure this channel in their preferences.
    */
   public function __construct(
     public readonly string $id,
     public readonly string|TranslatableMarkup|null $label = NULL,
     public readonly string|TranslatableMarkup|null $description = NULL,
     public readonly ?string $deriver = NULL,
+    public readonly bool $user_configurable = TRUE,
   ) {}
 
 }
