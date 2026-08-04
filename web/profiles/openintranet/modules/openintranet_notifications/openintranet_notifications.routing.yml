@@ -1,5 +1,5 @@
 openintranet_notifications.channel_status:
-  path: '/admin/config/openintranet/notifications/channels'
+  path: '/admin/openintranet/notifications/channels'
   defaults:
     _controller: '\Drupal\openintranet_notifications\Controller\ChannelStatusController::overview'
     _title: 'Notification channels'
@@ -15,7 +15,7 @@ openintranet_notifications.delivery_bulk:
     _permission: 'retry notification deliveries'
 
 openintranet_notifications.test:
-  path: '/admin/config/openintranet/notifications/test'
+  path: '/admin/openintranet/notifications/test'
   defaults:
     _form: '\Drupal\openintranet_notifications\Form\NotificationTestForm'
     _title: 'Test notification'
@@ -23,7 +23,7 @@ openintranet_notifications.test:
     _permission: 'administer notification types'
 
 openintranet_notifications.settings:
-  path: '/admin/config/openintranet/notifications'
+  path: '/admin/openintranet/notifications/settings'
   defaults:
     _form: '\Drupal\openintranet_notifications\Form\NotificationSettingsForm'
     _title: 'Notification settings'

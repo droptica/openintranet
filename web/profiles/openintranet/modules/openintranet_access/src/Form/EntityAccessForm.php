@@ -9,6 +9,7 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Url;
 use Drupal\openintranet_access\Service\OiAccessCheckerInterface;
 use Drupal\openintranet_access\Service\OiAccessManagerInterface;
 use Drupal\openintranet_access\Service\OiGroupManagerInterface;
@@ -103,7 +104,7 @@ final class EntityAccessForm extends FormBase {
     if (empty($group_options)) {
       $form['groups']['no_groups'] = [
         '#markup' => '<p>' . $this->t('No groups available. <a href="@url">Create a group</a> first.', [
-          '@url' => '/admin/people/oi-groups/add',
+          '@url' => Url::fromRoute('entity.oi_group.add_form')->toString(),
         ]) . '</p>',
       ];
     }

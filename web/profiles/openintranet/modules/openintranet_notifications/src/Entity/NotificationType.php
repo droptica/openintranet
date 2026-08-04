@@ -44,10 +44,10 @@ use Drupal\openintranet_notifications\Form\NotificationTypeForm;
     ],
   ],
   links: [
-    'collection' => '/admin/config/openintranet/notifications/types',
-    'add-form' => '/admin/config/openintranet/notifications/types/add',
-    'edit-form' => '/admin/config/openintranet/notifications/types/{openintranet_notification_type}',
-    'delete-form' => '/admin/config/openintranet/notifications/types/{openintranet_notification_type}/delete',
+    'collection' => '/admin/openintranet/notifications/types',
+    'add-form' => '/admin/openintranet/notifications/types/add',
+    'edit-form' => '/admin/openintranet/notifications/types/{openintranet_notification_type}',
+    'delete-form' => '/admin/openintranet/notifications/types/{openintranet_notification_type}/delete',
   ],
   label_count: [
     'singular' => '@count notification type',

@@ -1,6 +1,6 @@
 # Document settings
 openintranet_documents.settings:
-  path: '/admin/config/content/documents'
+  path: '/admin/openintranet/documents/settings'
   defaults:
     _form: '\Drupal\openintranet_documents\Form\DocumentSettingsForm'
     _title: 'Open Intranet - Documents'

@@ -7,7 +7,7 @@ openintranet_forum.category_browser:
     _permission: 'access content'
 
 openintranet_forum.settings:
-  path: '/admin/config/openintranet/forum'
+  path: '/admin/openintranet/forum/settings'
   defaults:
     _form: '\Drupal\openintranet_forum\Form\ForumSettingsForm'
     _title: 'Forum Settings'
