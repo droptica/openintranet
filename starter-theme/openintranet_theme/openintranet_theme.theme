@@ -42,6 +42,15 @@ function openintranet_theme_form_alter(array &$form) {
 }
 
 /**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function openintranet_theme_form_user_login_form_alter(array &$form) {
+  $form['actions']['#attributes']['class'][] = 'd-flex';
+  $form['actions']['#attributes']['class'][] = 'justify-content-center';
+  $form['actions']['submit']['#attributes']['class'][] = 'px-5';
+}
+
+/**
  * Implements hook_theme_suggestions_HOOK_alter().
  */
 function openintranet_theme_theme_suggestions_views_view_alter(array &$suggestions, array $variables) {
