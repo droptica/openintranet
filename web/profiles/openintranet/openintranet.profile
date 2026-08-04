@@ -372,9 +372,19 @@ function openintranet_form_install_configure_form_alter(&$form, FormStateInterfa
 }
 
 /**
+ * Rebuilds node access grants when required by installed modules.
+ */
+function openintranet_rebuild_node_access(): void {
+  if (function_exists('node_access_needs_rebuild') && node_access_needs_rebuild()) {
+    node_access_rebuild();
+  }
+}
+
+/**
  * Finish callback for the installer.
  */
 function openintranet_install_finished(&$install_state) {
+  openintranet_rebuild_node_access();
   \Drupal::messenger()->deleteAll();
 
   try {
