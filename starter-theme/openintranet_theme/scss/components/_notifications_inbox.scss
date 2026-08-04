@@ -1,49 +1,7 @@
 @import "../mixins/text";
 
-// /notifications page shell.
-.path-notifications {
-  #block-openintranet-theme-page-title,
-  #block-openintranet-theme-content {
-    max-width: 960px;
-    margin-inline: auto;
-  }
-
-  #block-openintranet-theme-page-title {
-    padding: 0;
-    background: transparent;
-  }
-
-  #block-openintranet-theme-content {
-    padding: 0;
-    background: transparent;
-
-    > .content {
-      margin-top: 0;
-    }
-  }
-}
-
 // Focused activity panel with grouped notification rows.
 .notifications-inbox {
-  max-width: 960px;
-  margin-inline: auto;
-
-  &__panel {
-    overflow: hidden;
-    background: $white;
-    border: 1px solid $navy-gray-50;
-    border-radius: $border-radius;
-  }
-
-  &__header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1.5rem;
-    padding: 1.5rem 1.75rem;
-    border-bottom: 1px solid $navy-gray-40;
-  }
-
   &__heading {
     min-width: 0;
   }
@@ -252,13 +210,6 @@
   }
 
   @include media-breakpoint-down(md) {
-    &__header {
-      align-items: stretch;
-      flex-direction: column;
-      gap: 1rem;
-      padding: 1.25rem;
-    }
-
     &__preferences {
       width: 100%;
     }

@@ -1,0 +1,80 @@
+@import "../mixins/text";
+
+.account-page {
+  width: 100%;
+  margin-inline: auto;
+
+  &__header {
+    margin-bottom: 1rem;
+  }
+
+  &__context {
+    @include subtitle-300;
+
+    margin: 0 0 .25rem;
+    color: $dark-navy-600;
+  }
+
+  &__title {
+    @include heading-3;
+
+    margin: 0;
+    color: $dark-navy-900;
+  }
+
+  &__tabs {
+    width: 100%;
+    margin-bottom: 1.25rem;
+  }
+
+  &__body {
+    --bs-gutter-x: 1rem;
+    --bs-gutter-y: .5rem;
+
+    align-items: flex-start;
+  }
+
+  &__main,
+  &__sidebar {
+    min-width: 0;
+  }
+
+  &__main > .section {
+    padding: 0;
+  }
+
+  #block-openintranet-theme-content {
+    padding: 0;
+    background: transparent;
+
+    > .content {
+      margin-top: 0;
+    }
+  }
+
+  &--profile {
+    .account-page__sidebar {
+      order: -1;
+    }
+
+    #block-openintranet-theme-content {
+      border: 0;
+    }
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .account-page {
+    &__header {
+      margin-bottom: .75rem;
+    }
+
+    &__tabs {
+      margin-bottom: 1rem;
+    }
+
+    &__body {
+      --bs-gutter-y: .5rem;
+    }
+  }
+}

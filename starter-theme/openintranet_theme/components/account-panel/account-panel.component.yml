@@ -1,0 +1,51 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+
+name: Account panel
+description: Shared surface for focused account forms and notification lists.
+status: stable
+props:
+  type: object
+  properties:
+    attributes:
+      type: Drupal\Core\Template\Attribute
+      title: Attributes
+      description: Attributes for the panel wrapper.
+    variant:
+      type: string
+      title: Panel variant
+      enum:
+        - default
+        - flush
+        - form
+        - stack
+      default: default
+    has_header:
+      type: boolean
+      title: Whether the custom header slot is rendered
+      default: false
+    has_footer:
+      type: boolean
+      title: Whether the custom footer slot is rendered
+      default: false
+    title:
+      type: string
+      title: Panel title
+    summary:
+      type: string
+      title: Panel summary
+    action_url:
+      type: string
+      title: Header action URL
+    action_label:
+      type: string
+      title: Header action label
+slots:
+  header:
+    title: Custom header content
+    required: false
+  content:
+    title: Main panel content
+    required: true
+  footer:
+    title: Panel footer
+    required: false

@@ -146,7 +146,20 @@
         </div>
       {% endblock %}
     {% endif %}
-      {% block content %}
+    {% block content %}
+      {% if account_page %}
+        <div id="main-wrapper" class="layout-main-wrapper clearfix">
+          {% include '@openintranet_theme/includes/account-page-shell.html.twig' with {
+            account_page: account_page,
+            container: container,
+            page: page,
+            content_attributes: content_attributes,
+            content_local_tasks: content_local_tasks,
+            sidebar_first_exists: sidebar_first_exists,
+            sidebar_first_attributes: sidebar_first_attributes,
+          } only %}
+        </div>
+      {% else %}
         <div id="main" class="{{ container }}">
           <div id="main-wrapper" class="layout-main-wrapper clearfix">
             <div id="block-openintranet-theme-page-title" class="contextual-region block block-primary block-core block-page-title-block mb-3 row">
@@ -184,7 +197,8 @@
             </div>
           </div>
         </div>
-      {% endblock %}
+      {% endif %}
+    {% endblock %}
     {% if page.featured_bottom_first or page.featured_bottom_second or page.featured_bottom_third %}
       <div class="featured-bottom">
         <aside class="{{ container }} clearfix" role="complementary">

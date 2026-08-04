@@ -13,6 +13,7 @@ use Drupal\image\Entity\ImageStyle;
 use Drupal\media\Entity\Media;
 use Drupal\media\MediaInterface;
 use Drupal\node\NodeInterface;
+use Drupal\user\UserInterface;
 use Drupal\views\ViewExecutable;
 
 /**
@@ -196,12 +197,58 @@ function openintranet_theme_preprocess_node(array &$variables) {
  */
 function openintranet_theme_preprocess_page(array &$variables) {
   $variables['content_local_tasks'] = NULL;
+  $variables['account_page'] = NULL;
 
   $route_match = \Drupal::routeMatch();
+  $route_name = $route_match->getRouteName();
   $is_node_page = $route_match->getParameter('node') !== NULL;
   $is_user_page = $route_match->getParameter('user') !== NULL;
-  $variables['user_profile_context_is_heading'] = $is_user_page
-    && $route_match->getRouteName() === 'entity.user.canonical';
+
+  $account_pages = [
+    'openintranet_notifications.inbox' => [
+      'layout' => 'focused',
+      'variant' => 'inbox',
+      'title' => t('Notifications'),
+      'context' => NULL,
+    ],
+    'openintranet_notifications.user_preferences' => [
+      'layout' => 'focused',
+      'variant' => 'preferences',
+      'title' => t('Notification preferences'),
+      'context' => t('User profile'),
+    ],
+    'entity.user.edit_form' => [
+      'layout' => 'focused',
+      'variant' => 'edit',
+      'title' => t('Edit profile'),
+      'context' => t('User profile'),
+    ],
+    'entity.user.canonical' => [
+      'layout' => 'profile',
+      'variant' => 'overview',
+      'title' => t('User profile'),
+      'context' => t('User profile'),
+    ],
+  ];
+
+  if (isset($account_pages[$route_name])) {
+    $variables['account_page'] = $account_pages[$route_name];
+
+    if ($route_name === 'entity.user.canonical') {
+      $user = $route_match->getParameter('user');
+      if ($user instanceof UserInterface) {
+        $name_parts = [];
+        foreach (['field_first_name', 'field_last_name'] as $field_name) {
+          if ($user->hasField($field_name) && !$user->get($field_name)->isEmpty()) {
+            $name_parts[] = trim((string) $user->get($field_name)->value);
+          }
+        }
+        $variables['account_page']['title'] = $name_parts
+          ? implode(' ', $name_parts)
+          : $user->getDisplayName();
+      }
+    }
+  }
 
   if ($is_node_page || $is_user_page) {
     $build = \Drupal::service('plugin.manager.block')

@@ -22,26 +22,38 @@
   'user--profile',
 ]
 %}
-{% set user = content.field_first_name["#object"] %}
-{% set email = user.mail.0.value|default(null) %}
+{% set profile_user = content.field_first_name["#object"]|default(user) %}
+{% set first_name = content.field_first_name.0["#context"].value|default('') %}
+{% set last_name = content.field_last_name.0["#context"].value|default('') %}
+{% set display_name = (first_name ~ ' ' ~ last_name)|trim %}
+{% if display_name is empty %}
+  {% set display_name = profile_user.getDisplayName() %}
+{% endif %}
+{% set initials = ((first_name|slice(0, 1)) ~ (last_name|slice(0, 1)))|upper %}
+{% if initials is empty %}
+  {% set initials = display_name|slice(0, 1)|upper %}
+{% endif %}
+{% set email = profile_user.mail.0.value|default(null) %}
+{% set has_picture = profile_user
+  and profile_user.hasField('user_picture')
+  and not profile_user.get('user_picture').isEmpty()
+%}
 <div{{ attributes.addClass(classes) }}>
   <div class="user--profile__profile-image">
-    {% if content.user_picture["#title"] %}
+    {% if has_picture %}
       {{- content.user_picture -}}
     {% else %}
-      <div class="field field--name-user-picture field--type-image field--label-hidden field__item">
-        {#        TODO: change to local placeholder#}
-        <img loading="lazy" src="https://cdn.vectorstock.com/i/500p/08/19/gray-photo-placeholder-icon-design-ui-vector-35850819.jpg" width="150" height="150" alt="Profile picture for user marek.nowak" class="image-style-user-profile">
+      <div
+        class="user--profile__avatar-fallback"
+        role="img"
+        aria-label="{{ 'Profile picture for @name'|t({'@name': display_name}) }}"
+      >
+        <span aria-hidden="true">{{ initials }}</span>
       </div>
     {% endif %}
   </div>
   <div class="user--profile__full-name">
-    {% if content.field_first_name["#title"] %}
-      {{- content.field_first_name.0["#context"].value -}}
-    {% endif %}
-    {% if content.field_last_name["#title"] %}
-      {{- content.field_last_name.0["#context"].value -}}
-    {% endif %}
+    {{- display_name -}}
   </div>
   <div class="user--profile__name">
     {% if content.field_name["#title"] %}

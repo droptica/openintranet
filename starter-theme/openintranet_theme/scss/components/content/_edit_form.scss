@@ -136,15 +136,6 @@ form {
 }
 
 #user-form {
-  // Frame the whole form as a clean card. The global `form` reset above strips
-  // padding/background/border with !important, so re-apply them scoped here.
-  &.block-primary {
-    padding: 1.5rem 1.5rem .5rem !important;
-    background: $white !important;
-    border: 1px solid $blue-100 !important;
-    border-radius: $border-radius !important;
-  }
-
   // Clean underline tabs (replaces the filled active box + stray bottom border
   // that made the inactive tabs look struck-through).
   .field-group-tabs-wrapper .horizontal-tabs {
@@ -239,33 +230,24 @@ form {
   }
 }
 
-@include media-breakpoint-down(lg) {
-  #user-form.block-primary {
-    padding: 1rem 1rem .25rem !important;
-  }
-}
-
 @include media-breakpoint-up(lg) {
   #user-form {
-    // Place the first/last name field wrappers side by side. They are
-    // separate block wrappers (.field--name-…), so float the wrappers and
-    // clear the field that follows them so the rest of the form stacks.
-    // Assumes both name fields render (they are required) and that `field_name`
-    // stays the next field in this form display. If that order changes or a name
-    // field is hidden, revisit — a flex wrapper would be more robust but needs a
-    // field_group container (a config change beyond this CSS-only task).
-    .field--name-field-first-name,
-    .field--name-field-last-name {
-      float: left;
-      width: calc(50% - 1rem);
+    .required-fields > .details-wrapper {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: 1rem;
+
+      > * {
+        grid-column: 1 / -1;
+      }
+
+      > .field--name-field-first-name {
+        grid-column: 1;
     }
 
-    .field--name-field-first-name {
-      margin-right: 1rem;
-    }
-
-    .field--name-field-name {
-      clear: both;
+      > .field--name-field-last-name {
+        grid-column: 2;
+      }
     }
   }
 }

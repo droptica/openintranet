@@ -89,16 +89,17 @@
                 <div class="container">
                   <div class="row justify-content-center">
                     <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5 col-xxl-4">
-                      <div class="card block-background border border-light-subtle rounded-3 shadow-sm">
-                        <div class="card-body p-4">
-                          <div class="text-center mb-3">
+                      <div class="card bg-white border border-light-subtle rounded-3 shadow-sm">
+                        <div class="card-body p-0">
+                          <div class="text-center pt-4 mb-4">
                             {% if page.top_header_logo %}
-                              <div class="px-5 mb-5">
+                              <div class="px-5">
                                 {{ page.top_header_logo }}
                               </div>
                             {% endif %}
                           </div>
                           <a href="#main-content" id="main-content" tabindex="-1"></a>
+                          <h1 class="visually-hidden">{{ 'Log in'|t }}</h1>
                           {{ page.content }}
                         </div>
                       </div>

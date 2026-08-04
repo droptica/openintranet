@@ -1,6 +1,6 @@
 @import "../../mixins/text";
 
-body.path-user .user--profile {
+.account-page--profile .user--profile {
   &__profile-image {
     img {
       border: 2px solid $blue-500;
@@ -27,17 +27,8 @@ body.page-view-employee-directory-view {
   }
 }
 
-body.path-user {
-  .sidebar_first {
-    padding-right: 0;
-  }
-
-  .main-content {
-    padding-left: 0;
-  }
-}
-
-body.path-user .user--profile, body.page-view-employee-directory-view .user--profile {
+.account-page--profile .user--profile,
+body.page-view-employee-directory-view .user--profile {
   height: 100%;
 
   &__profile-image {
@@ -48,6 +39,20 @@ body.path-user .user--profile, body.page-view-employee-directory-view .user--pro
       border-radius: 50%;
       border: 2px solid transparent;
     }
+  }
+
+  &__avatar-fallback {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
+    height: 150px;
+    color: $blue-600;
+    background: $blue-50;
+    border: 2px solid $blue-100;
+    border-radius: 50%;
+
+    @include heading-2;
   }
 
   &__full-name {
@@ -83,14 +88,17 @@ body.path-user .user--profile, body.page-view-employee-directory-view .user--pro
   &__data {
     .field {
       &__label {
-        color: $body-secondary-color;
+        color: $body-color !important;
       }
 
-      &__item {
-        padding: 0;
-        border-radius: unset;
-        background: white;
-        min-width: unset;
+      &__item,
+      &__item > * {
+        padding: 0 !important;
+        background: transparent !important;
+        border: 0;
+        border-radius: 0 !important;
+        min-width: 0 !important;
+        max-width: 100%;
         margin: .25rem 0;
       }
     }
@@ -158,11 +166,30 @@ body.path-user .user--profile, body.page-view-employee-directory-view .user--pro
   }
 }
 
+@include media-breakpoint-down(sm) {
+  .account-page--profile .user--profile,
+  body.page-view-employee-directory-view .user--profile {
+    &__phone,
+    &__email,
+    .field--name-field-department,
+    .field--name-field-office,
+    .field--name-field-manager {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: .25rem;
+
+      .field__label,
+      .field__item,
+      .field__item > *,
+      & > a {
+        width: 100%;
+      }
+    }
+  }
+}
+
 .block-views-blockuser-profile-block-about-me, .block-views-blocklatest-user-comments-block-1 {
   color: $body-tertiary-color;
-  @include media-breakpoint-up(lg) {
-    padding-left: 0;
-  }
 
   @include body-500;
 
@@ -170,18 +197,26 @@ body.path-user .user--profile, body.page-view-employee-directory-view .user--pro
     @include heading-4;
   }
 
-  .view-id-user_profile, .view-id-latest_user_comments {
-    padding: 0;
+  > .content {
+    margin-top: 0;
   }
-}
 
-#block-user-profile-block {
-  .view-user-profile {
-    @include media-breakpoint-up(lg) {
-      border-right: 1px solid $dark-navy-100;
-      border-top-right-radius: 0;
-      border-bottom-right-radius: 0;
-    }
+  .view-id-user_profile, .view-id-latest_user_comments {
+    padding: 0 !important;
+    background: transparent;
+    border-radius: 0;
+  }
+
+  .view-content.row {
+    --bs-gutter-x: 0;
+
+    margin-inline: 0;
+  }
+
+  .views-row {
+    width: 100%;
+    max-width: 100%;
+    padding: 0 !important;
   }
 }
 
