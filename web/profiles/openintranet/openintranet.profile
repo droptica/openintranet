@@ -7,6 +7,7 @@
 
 declare(strict_types=1);
 
+use Drupal\Core\Cache\Cache;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Recipe\Recipe;
@@ -556,6 +557,16 @@ function openintranet_install_finished(&$install_state) {
   catch (\Exception $e) {
     error_log($e->getMessage());
   }
+
+  // Block plugin definitions are cached without cache tags, so the derivatives
+  // for content blocks imported by a recipe are missing from the cached list
+  // that was built earlier, while the recipe was importing block configuration.
+  // Nothing invalidates that list on block content save, so rebuild it here, in
+  // the last install task, after every recipe batch has finished. Markup that
+  // was already built from the incomplete list has to go as well, otherwise the
+  // "broken or missing" placeholder survives in the render cache.
+  \Drupal::service('plugin.manager.block')->clearCachedDefinitions();
+  Cache::invalidateTags(['rendered']);
 
   // Load user 1 and log them in.
   $user = User::load(1);
