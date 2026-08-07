@@ -1,5 +1,3 @@
-
-
 {#
 /**
  * @file
@@ -40,23 +38,22 @@
       %}
       {%
         set classes = [
-        'accordion-item',
-        in_active_trail ? 'active-trail',
-      ]
+          'accordion-item',
+          in_active_trail ? 'active-trail',
+          item.is_active ? 'is-active',
+          menu_level == 0 ? 'book-tree__root',
+        ]
       %}
-      <div {{ item.attributes.addClass(classes) }}>
-        <h2 class="accordion-header d-flex align-items-center justify-content-between" id="heading-{{ item_id }}">
-          <a href="{{ item.url.toString() }}" class="nav-link flex-grow-1 {% if item.is_active %}active{% endif %}">{{ item.title }}</a>
+      <div{{ item.attributes.addClass(classes) }}>
+        <div class="accordion-header d-flex align-items-center justify-content-between" id="heading-{{ item_id }}">
+          <a href="{{ item.url.toString() }}" class="nav-link flex-grow-1{% if item.is_active %} active{% endif %}"{% if item.is_active %} aria-current="page"{% endif %}>{{ item.title }}</a>
           {% if item.below %}
-            <button class="accordion-button {% if in_active_trail %}show{% else %}collapsed{% endif %}" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{{ item_id }}" aria-expanded="{% if item.in_active_trail %}true{% else %}false{% endif %}" aria-controls="collapse-{{ item_id }}">
+            <button class="accordion-button{% if in_active_trail %} show{% else %} collapsed{% endif %}" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{{ item_id }}" aria-expanded="{{ in_active_trail ? 'true' : 'false' }}" aria-controls="collapse-{{ item_id }}" aria-label="{{ 'Toggle @title'|t({'@title': item.title}) }}">
             </button>
           {% endif %}
-        </h2>
-        {% if item.is_active %}
-          <div class="accordion-item-navigation" id="accordionItemNavigation"></div>
-        {% endif %}
+        </div>
         {% if item.below %}
-          <div id="collapse-{{ item_id }}" class="accordion-collapse collapse {% if in_active_trail %}show{% endif %}" aria-labelledby="heading-{{ item_id }}" data-bs-parent="#{{ parent_id }}">
+          <div id="collapse-{{ item_id }}" class="accordion-collapse collapse{% if in_active_trail %} show{% endif %}" aria-labelledby="heading-{{ item_id }}" data-bs-parent="#{{ parent_id }}">
             <div class="accordion-body">
               {{ book_tree.book_links(item.below, attributes, item_id, menu_level + 1) }}
             </div>

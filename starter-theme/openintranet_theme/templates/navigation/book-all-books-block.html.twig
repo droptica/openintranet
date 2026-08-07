@@ -15,10 +15,18 @@
  * @see template_preprocess_book_all_books_block()
  */
 #}
-<input placeholder="Search" type="text" id="search-book-menu" class="form-control form-search">
+<div class="book-menu-search">
+  <label class="visually-hidden" for="search-book-menu">{{ 'Search knowledge base'|t }}</label>
+  <input
+    placeholder="{{ 'Search pages…'|t }}"
+    type="search"
+    id="search-book-menu"
+    class="form-control form-search"
+    autocomplete="off"
+  >
+</div>
 {% for book in book_menus %}
   <nav id="book-block-menu-{{ book.id }}" class="book-block-menu" role="navigation" aria-label="{% trans %}Book outline for {{ book.title }}{% endtrans %}">
-    <h3>{{ book.title }}</h3>
     {{ book.menu }}
   </nav>
 {% endfor %}

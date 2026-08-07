@@ -27,11 +27,10 @@ search-results:
     - core/once
 
 search-book:
-    js:
-        js/search-book.js: {}
-        js/navigation-book.js: {}
-    dependencies:
-        - core/drupal
-        - core/jquery
-        - core/jquery.once
-        - core/once
+  js:
+    js/search-book.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupal.debounce
+    - core/jquery
+    - core/once
