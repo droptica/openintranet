@@ -135,6 +135,14 @@ form {
   }
 }
 
+// Core's "Edit/Hide summary" toggle (`.link-edit-summary`) inherits
+// `--bs-link-color`, which is near-invisible on the light form surface
+// (#EFF1FC on #F0F3FA, ~1.05:1). Re-point just this control to the readable
+// secondary token; do NOT touch the global `--bs-link-color`.
+.link-edit-summary {
+  color: var(--bs-secondary-color);
+}
+
 #user-form {
   // Clean underline tabs (replaces the filled active box + stray bottom border
   // that made the inactive tabs look struck-through).

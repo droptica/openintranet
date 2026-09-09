@@ -1,0 +1,45 @@
+// Autosave (autosave_form) resume/discard dialog. jQuery UI positions it
+// absolutely at open-time scroll and the front theme ships no jQuery UI
+// dialog skin, so the box floated transparent over the page. Pin it and
+// give it a card look; inline styles from jQuery UI force the !importants.
+.ui-dialog.autosave-dialog {
+  position: fixed !important;
+  top: 6rem !important;
+  left: 50% !important;
+  transform: translateX(-50%);
+  width: min(90vw, 40rem) !important;
+  height: auto !important;
+  /* !important: Gin (via frontend_editing) paints ui-dialogs with an
+     undefined --gin-bg-layer var here, which computes to transparent. */
+  background: $white !important;
+  border-radius: $border-radius;
+  box-shadow: 0 12px 32px rgba(14, 25, 48, 0.2);
+  padding: 24px;
+  z-index: 1300;
+
+  .ui-dialog-content {
+    padding: 0;
+  }
+
+  .ui-dialog-buttonpane {
+    margin-top: 16px;
+  }
+
+  .ui-dialog-buttonset {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+
+  .ui-button {
+    padding: 8px 16px !important;
+    border: 1px solid $blue-100 !important;
+    border-radius: $border-radius !important;
+    background: $white !important;
+    color: $btn-color !important;
+
+    &:hover {
+      background: $blue-100 !important;
+    }
+  }
+}
