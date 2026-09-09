@@ -707,8 +707,7 @@ function openintranet_import_book_structure(array &$context): void {
  * Implements hook_views_data_alter().
  */
 function openintranet_views_data_alter(array &$data): void {
-  // Flag 5.x dropped the "user flagged content" relationship the must-read
-  // report relies on; provide a user -> flagging join per flag instead.
+  // Flag 5.x has no user -> flagging Views relationship; the report needs one.
   if (!\Drupal::hasService('flag')) {
     return;
   }
