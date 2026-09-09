@@ -702,3 +702,31 @@ function openintranet_import_book_structure(array &$context): void {
     ['@i' => $result['imported'], '@s' => $result['skipped']],
   );
 }
+
+/**
+ * Implements hook_views_data_alter().
+ */
+function openintranet_views_data_alter(array &$data): void {
+  // Flag 5.x dropped the "user flagged content" relationship the must-read
+  // report relies on; provide a user -> flagging join per flag instead.
+  if (!\Drupal::hasService('flag')) {
+    return;
+  }
+  foreach (\Drupal::service('flag')->getAllFlags() as $flag) {
+    $data['users_field_data']['flagging_' . $flag->id()] = [
+      'title' => t('Flaggings: @flag', ['@flag' => $flag->label()]),
+      'help' => t('Flaggings this user created with the @flag flag.', ['@flag' => $flag->label()]),
+      'relationship' => [
+        'group' => t('Flag'),
+        'label' => $flag->label(),
+        'base' => 'flagging',
+        'base field' => 'uid',
+        'relationship field' => 'uid',
+        'id' => 'standard',
+        'extra' => [
+          ['field' => 'flag_id', 'value' => $flag->id()],
+        ],
+      ],
+    ];
+  }
+}

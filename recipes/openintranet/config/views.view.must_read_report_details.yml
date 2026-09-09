@@ -1113,15 +1113,14 @@ display:
       relationships:
         flag_user_content_rel:
           id: flag_user_content_rel
-          table: users
-          field: flag_user_content_rel
+          table: users_field_data
+          field: flagging_read
           relationship: none
           group_type: group
           admin_label: 'User flagged content'
           entity_type: user
-          plugin_id: flag_user_content_relationship
+          plugin_id: standard
           required: false
-          flag: read
       display_description: ''
       header:
         area_text_custom:
@@ -1872,15 +1871,14 @@ display:
       relationships:
         flag_user_content_rel:
           id: flag_user_content_rel
-          table: users
-          field: flag_user_content_rel
+          table: users_field_data
+          field: flagging_read
           relationship: none
           group_type: group
           admin_label: 'User flagged content'
           entity_type: user
-          plugin_id: flag_user_content_relationship
+          plugin_id: standard
           required: false
-          flag: read
       display_description: ''
       header: {  }
       footer:

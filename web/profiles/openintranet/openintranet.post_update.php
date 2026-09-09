@@ -27,3 +27,27 @@ function openintranet_post_update_remove_dashboard_admin_alias(): void {
     $storage->delete($storage->loadMultiple($alias_ids));
   }
 }
+
+/**
+ * Repoints the must-read report on the user -> flagging relationship.
+ */
+function openintranet_post_update_fix_must_read_report_relationship(): void {
+  $view = \Drupal::configFactory()->getEditable('views.view.must_read_report_details');
+  if ($view->isNew()) {
+    return;
+  }
+  foreach (['page_1', 'page_4'] as $display) {
+    $key = "display.$display.display_options.relationships.flag_user_content_rel";
+    $rel = $view->get($key);
+    if (!$rel) {
+      continue;
+    }
+    unset($rel['flag']);
+    $view->set($key, [
+      'table' => 'users_field_data',
+      'field' => 'flagging_read',
+      'plugin_id' => 'standard',
+    ] + $rel);
+  }
+  $view->save();
+}
