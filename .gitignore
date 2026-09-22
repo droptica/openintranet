@@ -53,6 +53,9 @@ Thumbs.db
 # Ignore theme copied from starter-theme during installation (DEVELOPMENT MODE)
 /web/themes/custom/
 
+# Ignore modules copied from starter-modules during installation (DEVELOPMENT MODE)
+/web/modules/openintranet_custom_modules/
+
 # Ignore libraries managed by Composer
 /web/libraries/
 

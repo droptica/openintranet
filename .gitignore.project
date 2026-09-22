@@ -52,6 +52,12 @@ Thumbs.db
 # Custom theme is tracked in new projects (PROJECT MODE)
 # /web/themes/custom/ - commented out to track custom theme modifications
 
+# Starter modules are tracked in new projects (PROJECT MODE): they are this
+# site's code, generated from Open Intranet with no upstream update path.
+# They live in web/modules/openintranet_custom_modules/ so web/modules/custom
+# stays free for this site's own modules.
+# /web/modules/openintranet_custom_modules/ - commented out to track the starter modules
+
 # Ignore libraries managed by Composer
 /web/libraries/
 

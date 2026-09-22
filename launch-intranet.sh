@@ -55,6 +55,21 @@ cp -r ddev_commands/* .ddev/commands/
 mkdir -p web/themes/custom
 cp -R starter-theme/openintranet_theme web/themes/custom/
 
+# Copy the starter modules to the project. Like the starter theme, the copies
+# become the site owner's code: Open Intranet ships them as a starting point
+# with no upgrade path (new releases apply to new installations only). They
+# live in their own directory (Drupal discovers any web/modules subdirectory)
+# so web/modules/custom stays free for the site's own modules.
+mkdir -p web/modules/openintranet_custom_modules
+cp -R starter-modules/openintranet_core web/modules/openintranet_custom_modules/
+
+# Stamp every copied extension with its Open Intranet source version so a
+# site's vintage can always be identified and diffed against the right tag.
+OI_VERSION=$(sed -n "s/^version: '\{0,1\}\([^']*\)'\{0,1\}$/\1/p" web/profiles/openintranet/openintranet.info.yml | head -1)
+find web/modules/openintranet_custom_modules/openintranet_core web/themes/custom/openintranet_theme -maxdepth 3 -name "*.info.yml" | while read -r info; do
+  printf "\n# Starter code generated from Open Intranet %s - owned by this site,\n# not updated by Open Intranet releases.\nstarter_source: 'openintranet:%s'\n" "$OI_VERSION" "$OI_VERSION" >> "$info"
+done
+
 # Set up the private file system BEFORE any drush run. The install profile
 # patches settings.php too, but editing the file mid-install does not affect
 # the already-running `drush site-install` process (single bootstrap), so the
@@ -87,11 +102,12 @@ ask_yes_no() {
 # Ask about removing installation files (skip if -y flag, keep files for development)
 if [ "$AUTO_YES" = true ]; then
     echo "Keeping installation files for open source development (auto mode)."
-elif ask_yes_no "Would you like to remove installation files and directories (.git, ddev_commands, starter-theme)?"; then
+elif ask_yes_no "Would you like to remove installation files and directories (.git, ddev_commands, starter-theme, starter-modules)?"; then
     echo "Removing installation files..."
     rm -rf .git
     rm -rf ddev_commands
     rm -rf starter-theme
+    rm -rf starter-modules
 
     # Use project .gitignore template for new projects
     if [ -f .gitignore.project ]; then
