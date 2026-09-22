@@ -50,8 +50,8 @@ fi
 if [ -f .ddev/config.yaml ]; then
   echo "==> DDEV already configured, reusing .ddev/config.yaml"
 else
-  echo "==> Configuring DDEV project \"$NAME\" (Drupal, PHP 8.3, docroot: web)"
-  ddev config --project-type=drupal10 --docroot=web --php-version=8.3 --ddev-version-constraint=">=1.24.0" --project-name="$NAME"
+  echo "==> Configuring DDEV project \"$NAME\" (Drupal 11, PHP 8.5, docroot: web)"
+  ddev config --project-type=drupal11 --docroot=web --php-version=8.5 --ddev-version-constraint=">=1.24.0" --project-name="$NAME"
 fi
 
 # Prepare all project files BEFORE `ddev start`: with Mutagen (the default on
