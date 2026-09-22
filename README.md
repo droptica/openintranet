@@ -117,6 +117,31 @@ cd openintranet
 - Browser: `ddev launch`
 - CLI: `ddev drush site-install openintranet`
 
+## Open Intranet is a starter — you own the code
+
+Open Intranet gives you a complete, working intranet as a **starting
+point**. During installation its custom modules and theme are copied into
+your project (`web/modules/openintranet_custom_modules/`,
+`web/themes/custom/`) and from that moment they are **your code**:
+
+- **Updated by you via Composer**: Drupal core and all contributed modules —
+  they carry the vast majority of the security surface and keep receiving
+  updates the normal way.
+- **Owned by you, frozen at install**: the Open Intranet modules and theme.
+  Change them freely — there is **no upgrade path** and new Open Intranet
+  releases apply to new installations only. Every copied module and theme is
+  stamped with its source version (`starter_source` in the info.yml), so you
+  can always diff your code against the release it came from.
+- **Security notices**: if a security issue is found in the starter code, an
+  advisory with a patch against each affected release will be published on
+  the project page — apply it to your copy.
+- Put your own modules in `web/modules/custom/` — it stays untouched, so
+  your code and the starter code never mix.
+
+This model is deliberate: after years of maintaining distributions we know
+an upgrade promise across heavily customized sites cannot be kept honestly.
+A starter contract can.
+
 ## Prerequisites
 
 - [DDEV](https://ddev.com)
