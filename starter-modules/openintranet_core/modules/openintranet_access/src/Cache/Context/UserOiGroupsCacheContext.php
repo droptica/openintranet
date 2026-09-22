@@ -26,8 +26,13 @@ final class UserOiGroupsCacheContext implements CacheContextInterface {
 
   /**
    * {@inheritdoc}
+   *
+   * No native return type on purpose: t() returns a TranslatableMarkup and
+   * under strict_types a declared ": string" would make this a runtime
+   * TypeError. Core's CacheContextInterface::getLabel() is untyped for the
+   * same reason.
    */
-  public static function getLabel(): string {
+  public static function getLabel() {
     return t("User's OI group memberships");
   }
 
