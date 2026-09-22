@@ -1,0 +1,28 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - openintranet_notifications
+  theme:
+    - openintranet_theme
+# Reuses the legacy machine name so the theme template suggestion
+# block--top-header-user-actions--openintranet-theme-usernotifications still
+# matches and the bell renders via the template's {{ content }}. This overrides
+# the default_content placeholder placement of the same id (a static
+# block_content showing "1"); that orphaned block_content (021f1b42-...) is left
+# in place, harmless.
+# @todo Drop the default_content block.block.openintranet_theme_usernotifications
+#   placeholder + its block_content 021f1b42-827b-4bdb-ae56-30c1356f0fde in a
+#   follow-up so this is the only placement.
+id: openintranet_theme_usernotifications
+theme: openintranet_theme
+region: top_header_user_actions
+weight: -14
+provider: null
+plugin: openintranet_notification_bell
+settings:
+  id: openintranet_notification_bell
+  label: 'User Notifications'
+  label_display: '0'
+  provider: openintranet_notifications
+visibility: {  }

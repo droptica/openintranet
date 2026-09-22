@@ -96,6 +96,7 @@ install:
   - navigation
   - node
   - noreqnewpass
+  - openintranet_core
   - openintranet_messenger
   - openintranet_documents
   - openintranet_notifications

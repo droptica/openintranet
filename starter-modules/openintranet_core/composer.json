@@ -1,0 +1,18 @@
+{
+    "name": "drupal/openintranet_core",
+    "description": "Core module for Open Intranet: admin menu structure, shared Views integration, book structure import and the Open Intranet feature submodules.",
+    "type": "drupal-module",
+    "license": "GPL-2.0-or-later",
+    "homepage": "https://www.drupal.org/project/openintranet",
+    "support": {
+        "issues": "https://www.drupal.org/project/issues/openintranet"
+    },
+    "require": {
+        "php": ">=8.3"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-1.x": "1.x-dev"
+        }
+    }
+}

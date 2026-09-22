@@ -1,0 +1,5 @@
+name: Open Intranet Core
+type: module
+description: 'Core module for Open Intranet: admin menu structure, shared Views integration and book structure import.'
+package: Open Intranet
+core_version_requirement: ^11
