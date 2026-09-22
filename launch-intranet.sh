@@ -23,8 +23,13 @@ while [[ "$#" -gt 0 ]]; do
 done
 
 echo ""
-echo "Open Intranet launcher"
-echo "======================"
+echo "Open Intranet launcher (DDEV)"
+echo "============================="
+echo "This installer runs Open Intranet on DDEV. To install without DDEV -"
+echo "on plain Docker or directly on PHP - use the universal installer instead:"
+echo ""
+echo "  curl -sL https://install.open-intranet.com/install.sh | bash"
+echo ""
 
 if ! command -v ddev >/dev/null; then
   echo "DDEV needs to be installed. Visit https://ddev.com/get-started for instructions."
