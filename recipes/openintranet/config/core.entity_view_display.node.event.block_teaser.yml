@@ -12,7 +12,6 @@ dependencies:
     - field.field.node.event.field_event_online_text
     - field.field.node.event.field_hide_location
     - field.field.node.event.field_map_location
-    - field.field.node.event.field_mark_as_must_read
     - image.style.news_teaser
     - node.type.event
   module:
@@ -47,7 +46,6 @@ hidden:
   field_event_online_text: true
   field_hide_location: true
   field_map_location: true
-  field_mark_as_must_read: true
   flag_bookmark: true
   flag_read: true
   langcode: true
