@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\openintranet_notifications\Service;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Entity\EntityStorageException;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\openintranet_notifications\Entity\UserNotificationSettingsInterface;
 
@@ -54,7 +55,15 @@ final class PreferenceResolver implements PreferenceResolverInterface {
     $storage = $this->entityTypeManager->getStorage('user_notification_settings');
     /** @var \Drupal\openintranet_notifications\Entity\UserNotificationSettingsInterface $settings */
     $settings = $storage->create(['uid' => $uid]);
-    $settings->save();
+    try {
+      $settings->save();
+    }
+    catch (EntityStorageException $exception) {
+      // A concurrent request created the row first and the unique key on uid
+      // rejected ours. Use the row that won.
+      $storage->resetCache();
+      return $this->load($uid) ?? throw $exception;
+    }
     return $settings;
   }
 

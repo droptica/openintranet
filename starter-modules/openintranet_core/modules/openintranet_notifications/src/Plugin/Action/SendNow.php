@@ -89,9 +89,17 @@ final class SendNow extends ConfigurableActionBase {
     // formula), persist it, then hand it to the shared sender so the same
     // claim, terminal and channel-availability guards run as in the worker — no
     // double-send, no divergent logic. SendNow does not re-queue a retryable
-    // failure; the sender records it once and the row is left as-is.
+    // failure; the sender records it once and the row is left as-is. A row that
+    // already exists for this key is reused: the sender's terminal guard then
+    // stops a second send, and the unique key forbids a duplicate row.
     $delivery = $this->deliveryQueue->createDeliveryRow($notification, $recipient, $channelId);
-    $delivery->save();
+    $existing = $this->deliveryQueue->loadByIdempotencyKey((string) $delivery->get('idempotency_key')->value);
+    if ($existing !== NULL) {
+      $delivery = $existing;
+    }
+    else {
+      $delivery->save();
+    }
     $this->deliverySender->send($delivery);
   }
 

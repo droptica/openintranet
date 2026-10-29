@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\openintranet_notifications\Kernel\Entity;
 
+use Drupal\Core\Entity\EntityStorageException;
 use Drupal\KernelTests\KernelTestBase;
 
 /**
- * Tests indexes declared by the notification storage schema handlers.
+ * Tests indexes and unique keys declared by the notification storage schemas.
  *
  * @group openintranet_notifications
  */
@@ -39,6 +40,7 @@ final class NotificationStorageSchemaTest extends KernelTestBase {
     $this->installEntitySchema('user');
     $this->installEntitySchema('openintranet_notification');
     $this->installEntitySchema('openintranet_notif_delivery');
+    $this->installEntitySchema('user_notification_settings');
   }
 
   /**
@@ -79,6 +81,40 @@ final class NotificationStorageSchemaTest extends KernelTestBase {
       'openintranet_notif_delivery',
       'openintranet_notif_delivery__status_id',
     ));
+  }
+
+  /**
+   * Two deliveries cannot share an idempotency key; rows without one can.
+   */
+  public function testDeliveryIdempotencyKeyIsUnique(): void {
+    $storage = $this->container->get('entity_type.manager')
+      ->getStorage('openintranet_notif_delivery');
+    $values = [
+      'notification_id' => 1,
+      'channel' => 'inbox',
+      'status' => 'pending',
+      'address' => 'inbox:1',
+    ];
+
+    // Keyless rows are not constrained.
+    $storage->create($values)->save();
+    $storage->create($values)->save();
+
+    $storage->create($values + ['idempotency_key' => 'same-key'])->save();
+    $this->expectException(EntityStorageException::class);
+    $storage->create($values + ['idempotency_key' => 'same-key'])->save();
+  }
+
+  /**
+   * A user has at most one notification settings row.
+   */
+  public function testUserSettingsAreUniquePerUser(): void {
+    $storage = $this->container->get('entity_type.manager')
+      ->getStorage('user_notification_settings');
+
+    $storage->create(['uid' => 7])->save();
+    $this->expectException(EntityStorageException::class);
+    $storage->create(['uid' => 7])->save();
   }
 
 }

@@ -56,7 +56,8 @@ final class DeliveryQueue {
    *   holds the later tier back until it is due, with no extra queue backend.
    *
    * @return array<int, int|string>
-   *   The created delivery entity ids.
+   *   The created delivery entity ids. A channel that already has a delivery
+   *   row for this notification and recipient is skipped, not duplicated.
    */
   public function createAndEnqueue(NotificationInterface $notification, NotificationRecipient $recipient, array $channelIds, array $delays = []): array {
     $queueId = $this->configFactory->get('openintranet_notifications.settings')->get('queue.id');
@@ -66,6 +67,9 @@ final class DeliveryQueue {
     $ids = [];
     foreach ($channelIds as $channelId) {
       $delivery = $this->createDeliveryRow($notification, $recipient, $channelId);
+      if ($this->loadByIdempotencyKey((string) $delivery->get('idempotency_key')->value) !== NULL) {
+        continue;
+      }
       $delay = max(0, (int) ($delays[$channelId] ?? 0));
       if ($delay > 0) {
         $delivery->set('next_attempt', $now + $delay);
@@ -110,6 +114,22 @@ final class DeliveryQueue {
       'idempotency_key' => hash('sha256', $notification->id() . ':' . $recipientRef . ':' . $channelId),
     ]);
     return $delivery;
+  }
+
+  /**
+   * Loads the delivery row that owns an idempotency key, if one exists.
+   *
+   * @param string $idempotencyKey
+   *   The idempotency key built by createDeliveryRow().
+   *
+   * @return \Drupal\openintranet_notifications\Entity\NotificationDeliveryInterface|null
+   *   The existing delivery, or NULL when the key is not used yet.
+   */
+  public function loadByIdempotencyKey(string $idempotencyKey): ?NotificationDeliveryInterface {
+    $matches = $this->entityTypeManager->getStorage('openintranet_notif_delivery')
+      ->loadByProperties(['idempotency_key' => $idempotencyKey]);
+    $delivery = reset($matches);
+    return $delivery instanceof NotificationDeliveryInterface ? $delivery : NULL;
   }
 
   /**

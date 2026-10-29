@@ -97,6 +97,12 @@ final class DeliveryQueueTest extends KernelTestBase {
     self::assertCount(2, array_unique($keys));
 
     self::assertSame(2, \Drupal::queue('openintranet_notification_delivery')->numberOfItems());
+
+    // Enqueuing the same notification, recipient and channels again is a
+    // no-op: the rows already exist, so nothing is duplicated or re-queued.
+    self::assertSame([], $this->deliveryQueue->createAndEnqueue($notification, $recipient, ['inbox', 'log_only']));
+    self::assertCount(2, $storage->loadMultiple());
+    self::assertSame(2, \Drupal::queue('openintranet_notification_delivery')->numberOfItems());
   }
 
   /**

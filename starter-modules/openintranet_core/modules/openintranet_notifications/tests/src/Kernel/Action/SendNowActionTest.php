@@ -112,7 +112,7 @@ final class SendNowActionTest extends NotificationActionKernelTestBase {
   /**
    * SendNow on an already-sent delivery does NOT re-send (idempotency).
    *
-   * The first call sends and makes the row terminal; a second call rebuilds the
+   * The first call sends and makes the row terminal; a second call finds the
    * SAME idempotency-keyed row, and the shared sender's terminal/claim guards
    * stop it from sending again.
    */
@@ -130,9 +130,11 @@ final class SendNowActionTest extends NotificationActionKernelTestBase {
     $action->execute(NULL);
     self::assertSame(1, $this->countingSends());
 
-    // A second SendNow for the same notification/channel must not send again.
+    // A second SendNow for the same notification/channel must not send again,
+    // and reuses the existing row instead of creating a duplicate.
     $action->execute(NULL);
     self::assertSame(1, $this->countingSends());
+    self::assertCount(1, $this->loadDeliveriesFor((int) $notification->id()));
   }
 
   /**

@@ -10,6 +10,7 @@ use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\openintranet_notifications\Entity\Handler\UserNotificationSettingsAccessControlHandler;
+use Drupal\openintranet_notifications\Entity\StorageSchema\UserNotificationSettingsStorageSchema;
 
 /**
  * Defines the user_notification_settings content entity.
@@ -29,6 +30,7 @@ use Drupal\openintranet_notifications\Entity\Handler\UserNotificationSettingsAcc
   ],
   handlers: [
     'access' => UserNotificationSettingsAccessControlHandler::class,
+    'storage_schema' => UserNotificationSettingsStorageSchema::class,
   ],
   base_table: 'user_notification_settings',
   admin_permission: 'administer own notification preferences',
