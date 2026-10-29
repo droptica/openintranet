@@ -398,6 +398,7 @@ config:
         additional_trusted_composer_plugins:
           - cweagans/composer-patches
           - oomphinc/composer-installers-extender
+          - tbachert/spi
           - wikimedia/composer-merge-plugin
           - zaporylie/composer-drupal-optimizations
     project_browser.admin_settings:
