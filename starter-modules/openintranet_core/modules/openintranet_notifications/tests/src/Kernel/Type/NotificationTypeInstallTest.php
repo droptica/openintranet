@@ -59,7 +59,7 @@ final class NotificationTypeInstallTest extends KernelTestBase {
   public function testDefaultTypeInstalled(): void {
     $type = $this->loadType('default');
 
-    self::assertSame('Default', $type->label());
+    self::assertSame('General updates', $type->label());
     self::assertSame('general', $type->getCategory());
     self::assertSame('normal', $type->getDefaultPriority());
     self::assertSame(['inbox', 'email_core'], $type->getDefaultChannels());
@@ -139,7 +139,7 @@ final class NotificationTypeInstallTest extends KernelTestBase {
    */
   public function testConsultationReviewAssignedTypeFromRecipe(): void {
     $type = $this->importRecipeType(
-      'recipes/consultation_process/config',
+      'recipe_config',
       'consultation_review_assigned',
     );
 
