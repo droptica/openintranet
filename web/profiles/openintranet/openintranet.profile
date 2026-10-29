@@ -115,55 +115,25 @@ function openintranet_install_tasks_alter(array &$tasks, array $install_state): 
 }
 
 /**
- * Wrapper for recipe operations that handles non-critical errors.
- */
-function openintranet_recipe_operation(array $operation, array &$context): void {
-  try {
-    [$class, $method] = $operation[0];
-    $args = $operation[1];
-    $class::$method(...$args);
-  }
-  catch (\Exception $e) {
-    error_log($e->getMessage());
-  }
-}
-
-/**
  * Applies the core Open Intranet recipe.
  */
 function openintranet_apply_core_recipe(array &$install_state): array {
   $recipe_dir = DRUPAL_ROOT . '/../recipes/openintranet';
   if (!is_dir($recipe_dir)) {
-    error_log("Open Intranet recipe directory not found at: $recipe_dir");
-    return [];
+    throw new \RuntimeException("Open Intranet recipe directory not found at: $recipe_dir");
   }
 
-  try {
-    $recipe = Recipe::createFromDirectory($recipe_dir);
-    $recipe_operations = RecipeRunner::toBatchOperations($recipe);
+  $recipe = Recipe::createFromDirectory($recipe_dir);
+  $operations = RecipeRunner::toBatchOperations($recipe);
+  $operations[] = ['openintranet_download_webform_libraries', []];
 
-    // Wrap each operation with our error handler.
-    $operations = [];
-    foreach ($recipe_operations as $operation) {
-      $operations[] = [
-        'openintranet_recipe_operation',
-        [$operation],
-      ];
-    }
-
-    $operations[] = ['openintranet_download_webform_libraries', []];
-
-    return [
-      'operations' => $operations,
-      'title' => t('Installing Open Intranet'),
-      'progress_message' => t('Installing Open Intranet... @current out of @total steps.'),
-      'finished' => 'openintranet_recipe_finished',
-    ];
-  }
-  catch (\Exception $e) {
-    error_log("Error applying Open Intranet recipe: " . $e->getMessage());
-    return [];
-  }
+  return [
+    'operations' => $operations,
+    'title' => t('Installing Open Intranet'),
+    'progress_message' => t('Installing Open Intranet... @current out of @total steps.'),
+    'error_message' => t('Open Intranet installation failed.'),
+    'finished' => 'openintranet_recipe_finished',
+  ];
 }
 
 /**
@@ -178,49 +148,42 @@ function openintranet_apply_content_recipe(array &$install_state): array {
 
   $recipe_dir = DRUPAL_ROOT . '/../recipes/default_content';
   if (!is_dir($recipe_dir)) {
-    return [];
+    throw new \RuntimeException("Open Intranet default content recipe directory not found at: $recipe_dir");
   }
 
-  try {
-    $recipe = Recipe::createFromDirectory($recipe_dir);
-    $operations = RecipeRunner::toBatchOperations($recipe);
+  $recipe = Recipe::createFromDirectory($recipe_dir);
+  $operations = RecipeRunner::toBatchOperations($recipe);
 
-    $operations[] = ['openintranet_import_book_structure', []];
-    $operations[] = ['openintranet_index_content', []];
-    $operations[] = ['openintranet_index_site_map', []];
-    $operations[] = ['openintranet_post_install_clean_up', []];
+  $operations[] = ['openintranet_import_book_structure', []];
+  $operations[] = ['openintranet_index_content', []];
+  $operations[] = ['openintranet_index_site_map', []];
+  $operations[] = ['openintranet_post_install_clean_up', []];
 
-    // Directories to delete.
-    $dirs = [
-      DRUPAL_ROOT . '/private:',
-      DRUPAL_ROOT . '/public:',
-    ];
+  // Directories to delete.
+  $dirs = [
+    DRUPAL_ROOT . '/private:',
+    DRUPAL_ROOT . '/public:',
+  ];
 
-    /** @var \Drupal\Core\File\FileSystemInterface $file_system */
-    $file_system = \Drupal::service('file_system');
+  /** @var \Drupal\Core\File\FileSystemInterface $file_system */
+  $file_system = \Drupal::service('file_system');
 
-    foreach ($dirs as $dir) {
-      if (!is_dir($dir)) {
-        continue;
-      }
-
-      $file_system->deleteRecursive($dir);
+  foreach ($dirs as $dir) {
+    if (!is_dir($dir)) {
+      continue;
     }
 
-    // Return batch array.
-    return [
-      'operations' => $operations,
-      'title' => t('Installing demo content'),
-      'init_message' => t('Starting demo content installation...'),
-      'progress_message' => t('Installing demo content... @current out of @total steps.'),
-      'error_message' => t('An error occurred. The installation will continue.'),
-      'finished' => 'openintranet_content_recipe_finished',
-    ];
+    $file_system->deleteRecursive($dir);
   }
-  catch (\Exception $e) {
-    error_log($e->getMessage());
-    return [];
-  }
+
+  return [
+    'operations' => $operations,
+    'title' => t('Installing demo content'),
+    'init_message' => t('Starting demo content installation...'),
+    'progress_message' => t('Installing demo content... @current out of @total steps.'),
+    'error_message' => t('Demo content installation failed.'),
+    'finished' => 'openintranet_content_recipe_finished',
+  ];
 }
 
 /**
@@ -388,19 +351,15 @@ function openintranet_install_finished(&$install_state) {
   openintranet_rebuild_node_access();
   \Drupal::messenger()->deleteAll();
 
-  try {
-    // Switch to openintranet.
-    \Drupal::service('theme_installer')->install(['openintranet_theme']);
-    \Drupal::service('theme_installer')->install(['gin']);
-    \Drupal::configFactory()
-      ->getEditable('system.theme')
-      ->set('default', 'openintranet_theme')
-      ->set('admin', 'gin')
-      ->save();
-  }
-  catch (\Exception $e) {
-    error_log($e->getMessage());
-  }
+  // Switch to the Open Intranet themes. A failure here must abort installation
+  // instead of leaving a partially installed site that appears successful.
+  \Drupal::service('theme_installer')->install(['openintranet_theme']);
+  \Drupal::service('theme_installer')->install(['gin']);
+  \Drupal::configFactory()
+    ->getEditable('system.theme')
+    ->set('default', 'openintranet_theme')
+    ->set('admin', 'gin')
+    ->save();
 
   // Block plugin definitions are cached without cache tags, so the derivatives
   // for content blocks imported by a recipe are missing from the cached list
