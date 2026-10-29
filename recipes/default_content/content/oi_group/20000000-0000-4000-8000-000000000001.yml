@@ -1,9 +1,9 @@
 _meta:
   version: '1.0'
   entity_type: oi_group
-  uuid: 20000000-0000-0000-0000-000000000001
+  uuid: 20000000-0000-4000-8000-000000000001
   depends:
-    10000000-0000-0000-0000-000000000001: oi_group
+    10000000-0000-4000-8000-000000000001: oi_group
 default:
   uid:
     -
@@ -16,7 +16,7 @@ default:
       value: 'Main office in Warsaw, Poland.'
   parent:
     -
-      entity: 10000000-0000-0000-0000-000000000001
+      entity: 10000000-0000-4000-8000-000000000001
   status:
     -
       value: true

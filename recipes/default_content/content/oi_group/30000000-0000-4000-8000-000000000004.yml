@@ -1,9 +1,9 @@
 _meta:
   version: '1.0'
   entity_type: oi_group
-  uuid: 30000000-0000-0000-0000-000000000004
+  uuid: 30000000-0000-4000-8000-000000000004
   depends:
-    20000000-0000-0000-0000-000000000002: oi_group
+    20000000-0000-4000-8000-000000000002: oi_group
 default:
   uid:
     -
@@ -16,7 +16,7 @@ default:
       value: 'Marketing team in Berlin office.'
   parent:
     -
-      entity: 20000000-0000-0000-0000-000000000002
+      entity: 20000000-0000-4000-8000-000000000002
   status:
     -
       value: true
