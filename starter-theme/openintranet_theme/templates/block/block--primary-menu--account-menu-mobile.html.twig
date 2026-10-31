@@ -42,7 +42,7 @@
             {{ current_user['#user'].field_full_name.value ?: user.displayName }}
           </span>
         </a>
-        <a href="/user/logout" class="logout-link">Log out</a>
+        <a href="{{ path('user.logout') }}" class="logout-link">{{ 'Log out'|t }}</a>
       </div>
     {% endblock %}
   </nav>

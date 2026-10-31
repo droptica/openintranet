@@ -38,7 +38,7 @@
   'block-' ~ plugin_id|clean_class,
 ]
 %}
-{% set ctaText = content.field_quick_action.0['#title']|default("See more") %}
+{% set ctaText = content.field_quick_action.0['#title']|default('See more'|t) %}
 
 <div{{ attributes.addClass(classes) }}>
   {% if content.field_quick_action is not null and content.field_quick_action is not empty %}

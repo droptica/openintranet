@@ -5,7 +5,7 @@
   'block-' ~ plugin_id|clean_class,
 ]
 %}
-{% set ctaText = content.field_banner_cta.0['#title']|default("See more") %}
+{% set ctaText = content.field_banner_cta.0['#title']|default('See more'|t) %}
 
 <div{{ attributes.addClass(classes) }}>
   {% block content %}
