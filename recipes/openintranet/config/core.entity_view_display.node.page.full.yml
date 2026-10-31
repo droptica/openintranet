@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.page.field_background_image
     - field.field.node.page.field_basic_page_reaction
     - field.field.node.page.field_oi_document_ref
+    - image.style.node_background
     - node.type.page
   module:
     - comment
@@ -70,9 +71,9 @@ content:
     label: hidden
     settings:
       image_link: ''
-      image_style: ''
+      image_style: node_background
       image_loading:
-        attribute: lazy
+        attribute: eager
     third_party_settings: {  }
     weight: 4
     region: content

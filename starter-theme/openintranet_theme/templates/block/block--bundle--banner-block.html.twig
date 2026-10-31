@@ -1,3 +1,13 @@
+{#
+/**
+ * @file
+ * Banner block.
+ *
+ * Two shapes: with a title, text or CTA the image is darkened behind the
+ * text; with the image alone it is shown as is. Every part is optional and
+ * comes from the fields as configured in Manage display.
+ */
+#}
 {%
   set classes = [
   'block',
@@ -5,23 +15,29 @@
   'block-' ~ plugin_id|clean_class,
 ]
 %}
-{% set ctaText = content.field_banner_cta.0['#title']|default("See more") %}
+{% set show_cta = banner_cta and content.field_banner_cta.0 is defined %}
+{% set has_text = content.field_banner_title.0 is defined or content.body.0 is defined or show_cta %}
 
 <div{{ attributes.addClass(classes) }}>
   {% block content %}
-    <div{{ content_attributes.addClass('content p-3 py-4 p-md-4 p-lg-5') }}
-      style="background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url({{ background_image }})"
-    >
-      <h2>
-        {{ content.field_banner_title }}
-      </h2>
-      {% if content.body %}
-        <p>
-          {{ content.body }}
-        </p>
+    <div{{ content_attributes.addClass('content', 'banner-block', has_text ? 'banner-block--with-text' : 'banner-block--image-only', 'p-3 py-4 p-md-4 p-lg-5') }}>
+      {% if content.field_background_media.0 is defined %}
+        <div class="banner-block__media">
+          {{ content.field_background_media }}
+        </div>
       {% endif %}
-      {% if content.field_banner_cta is not null and content.field_banner_cta is not empty %}
-        <a class="btn btn-primary mt-4" href="{{ content.field_banner_cta.0['#url'] }}" target="_blank">{{ ctaText }}</a>
+      {% if has_text %}
+        <div class="banner-block__body">
+          {% if content.field_banner_title.0 is defined %}
+            <h2>{{ content.field_banner_title }}</h2>
+          {% endif %}
+          {% if content.body.0 is defined %}
+            <div class="banner-block__text">{{ content.body }}</div>
+          {% endif %}
+          {% if show_cta %}
+            <a class="btn btn-primary mt-4" href="{{ banner_cta.url }}">{{ banner_cta.title }}</a>
+          {% endif %}
+        </div>
       {% endif %}
     </div>
   {% endblock %}

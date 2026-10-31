@@ -9,10 +9,43 @@
 
     header {
       &[data-has-background] {
+        position: relative;
+        overflow: hidden;
         margin: -1.5rem;
         padding: 1.5rem;
         margin-bottom: 1rem;
         min-height: 500px;
+
+        // The background image field, rendered behind the title.
+        .node__header-media {
+          position: absolute;
+          inset: 0;
+          z-index: 0;
+
+          // Fill the layer whatever wrappers the formatter adds, like
+          // background-size: cover did.
+          img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+
+        // Darkening overlay, so the white title stays readable.
+        &::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          z-index: 1;
+          background: rgba(0, 0, 0, .7);
+        }
+
+        > :not(.node__header-media) {
+          position: relative;
+          z-index: 2;
+        }
 
         border-top-left-radius: 8px;
         border-top-right-radius: 8px;
@@ -24,10 +57,6 @@
         flex-direction: column;
         justify-content: flex-end;
         gap: .5rem;
-
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
 
         h1 {
           margin-top: 0;
@@ -91,7 +120,7 @@
 
           .field--name-field-classification, .field--name-field-access, .field--name-field-data-classification {
             &, * a {
-              background: $blue-500;
+              background: $brand-500;
               color: $white;
               padding: 2px 6px;
               border-radius: .5 * $border-radius;
@@ -199,8 +228,8 @@
                   padding: 0;
 
                   a {
-                    background: $blue-100;
-                    color: $blue-500;
+                    background: $brand-100;
+                    color: $brand-500;
                     padding: 4px 12px;
                     border-radius: .5 * $border-radius;
 
@@ -239,12 +268,12 @@
               --bs-accordion-color: #{$dark-navy-900};
               --bs-accordion-bg: #{$white};
               --bs-accordion-active-color: #{$white};
-              --bs-accordion-active-bg: #{$blue-600};
+              --bs-accordion-active-bg: #{$brand-600};
               --bs-accordion-border-width: 0;
               --bs-accordion-btn-padding-x: 2.5rem;
               --bs-accordion-btn-padding-y: 1rem;
               --bs-accordion-btn-color: #{$white};
-              --bs-accordion-btn-bg: #{$blue-600};
+              --bs-accordion-btn-bg: #{$brand-600};
               --bs-accordion-body-padding-x: 0;
               --bs-accordion-body-padding-y: 0;
 
@@ -305,7 +334,7 @@
         display: inline-flex;
         align-items: center;
         gap: 0.5rem;
-        color: $blue-500;
+        color: $brand-500;
 
         &:hover {
           color: $body-color;

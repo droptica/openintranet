@@ -74,23 +74,24 @@
 ]
 %}
 
-{% set hasHeaderBackground = false %}
-{% if content.field_background_image and background_image %}
-  {% set hasHeaderBackground = true %}
-{% endif %}
+{# The background image is the field as configured in Manage display; the
+   darkening overlay is CSS. #}
+{% set has_header_background = content.field_background_image.0 is defined %}
 
 <article{{ attributes.addClass(classes) }}>
-  <header {% if hasHeaderBackground %}data-has-background  style="background-image: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7) ), url('{{ background_image }}')"{% endif %}>
+  <header{% if has_header_background %} data-has-background{% endif %}>
+    {% if has_header_background %}
+      <div class="node__header-media">
+        {{ content.field_background_image }}
+      </div>
+    {% endif %}
     {% if display_submitted %}
       <div class="node__meta">
+        {# Each classification field shows as configured in Manage display. #}
         {% block clasification %}
-          {% if content.field_data_classification %}
-            {{ content.field_data_classification }}
-          {% elseif content.field_classification %}
-            {{ content.field_classification }}
-          {% elseif content.field_access %}
-            {{ content.field_access }}
-          {% endif %}
+          {{ content.field_data_classification }}
+          {{ content.field_classification }}
+          {{ content.field_access }}
         {% endblock %}
         {% block submitted %}
           <em{{ author_attributes }}>

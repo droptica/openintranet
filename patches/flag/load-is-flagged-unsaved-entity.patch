@@ -1,0 +1,25 @@
+--- a/src/Entity/Storage/FlaggingStorage.php	2026-10-31 17:44:28.217783589 +0100
++++ b/src/Entity/Storage/FlaggingStorage.php	2026-10-31 17:44:28.251372571 +0100
+@@ -42,6 +42,11 @@
+       throw new \LogicException('Anonymous users must be identified by session_id');
+     }
+ 
++    // An unsaved entity, such as a node preview, cannot be flagged yet.
++    if ($entity->id() === NULL) {
++      return [];
++    }
++
+     $flag_ids = $this->loadIsFlaggedMultiple([$entity], $account, $session_id);
+     return $flag_ids[$entity->id()];
+   }
+@@ -74,6 +79,10 @@
+     // Loop over all requested entities, if they are already in the loaded list,
+     // get then from there, merge the global and per-user flags together.
+     foreach ($entities as $entity) {
++      // Unsaved entities cannot be flagged and have no ID to key them by.
++      if ($entity->id() === NULL) {
++        continue;
++      }
+       if (isset($this->flagIdsByEntity[$account->id()][$session_id][$entity_type_id][$entity->id()])) {
+         $flag_ids_by_entity[$entity->id()] = array_merge($this->flagIdsByEntity[$account->id()][$session_id][$entity_type_id][$entity->id()], $this->globalFlagIdsByEntity[$entity_type_id][$entity->id()]);
+       }

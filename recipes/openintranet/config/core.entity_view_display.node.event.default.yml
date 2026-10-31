@@ -34,7 +34,7 @@ content:
     type: daterange_default
     label: above
     settings:
-      timezone_override: Europe/Amsterdam
+      timezone_override: ''
       format_type: event_medium
       from_to: both
       separator: '-'

@@ -82,13 +82,22 @@ cp -R starter-modules/openintranet_core web/modules/openintranet_custom_modules/
 
 # Stamp every copied extension with its Open Intranet source version so a
 # site's vintage can always be identified and diffed against the right tag.
+#
+# The stamp also links the copies to the "openintranet" project on
+# localize.drupal.org: without a project key the locale module skips them, so
+# Open Intranet's interface translations were never downloaded. A development
+# version ("dev-1.x") maps to the branch file ("openintranet-1.x.pl.po"),
+# which the translation server provides.
 OI_VERSION=$(sed -n "s/^version: '\{0,1\}\([^']*\)'\{0,1\}$/\1/p" web/profiles/openintranet/openintranet.info.yml | head -1)
+OI_TRANSLATION_VERSION="${OI_VERSION#dev-}"
 echo "==> Stamping copied starter code with source version: openintranet:$OI_VERSION"
 STAMPED=0
 while read -r info; do
-  printf "\n# Starter code generated from Open Intranet %s - owned by this site,\n# not updated by Open Intranet releases.\nstarter_source: 'openintranet:%s'\n" "$OI_VERSION" "$OI_VERSION" >> "$info"
+  # Drop any version of the extension's own so the stamped one is the only key.
+  grep -v '^version:' "$info" > "$info.tmp" && mv "$info.tmp" "$info"
+  printf "\n# Starter code generated from Open Intranet %s - owned by this site,\n# not updated by Open Intranet releases.\nstarter_source: 'openintranet:%s'\n# Interface translations come from the openintranet project on\n# localize.drupal.org.\ninterface translation project: openintranet\nversion: '%s'\n" "$OI_VERSION" "$OI_VERSION" "$OI_TRANSLATION_VERSION" >> "$info"
   STAMPED=$((STAMPED + 1))
-done < <(find web/modules/openintranet_custom_modules/openintranet_core web/themes/custom/openintranet_theme -maxdepth 3 -name "*.info.yml")
+done < <(find web/modules/openintranet_custom_modules/openintranet_core web/themes/custom/openintranet_theme -name "*.info.yml" -not -path "*/tests/*" -not -path "*/node_modules/*")
 echo "    Stamped $STAMPED extension(s). The copies are this site's code from now on."
 
 # Start your engines.

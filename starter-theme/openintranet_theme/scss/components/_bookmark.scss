@@ -18,4 +18,12 @@
   &.action-unflag svg {
     fill: currentColor;
   }
+
+  // Table cells (the bookmarks list) make links block-level and drop their
+  // side padding; keep the button's own size and the room for the icon.
+  a.btn {
+    display: inline-block;
+    padding-left: 36px;
+    padding-right: $btn-padding-x;
+  }
 }

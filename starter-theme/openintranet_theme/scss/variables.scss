@@ -40,22 +40,28 @@ $dark-navy-300: $navy-gray-300;
 $dark-navy-600: #4B5466;
 $dark-navy-900: #0E1930;
 
-$blue-50: #EFF1FC;
-$blue-100: #DEE1FC;
-$blue-400: #949FFC;
-$blue-500: #3D50FD;
-$blue-600: #313EB8;
+// Brand colour scale, from the lightest tint (50) to the darkest shade (600).
+// Named after the role, not the hue, so a rebrand changes the values only.
+// Bootstrap's own $blue-* palette stays untouched.
+$brand-50: #EFF1FC;
+$brand-100: #DEE1FC;
+$brand-400: #949FFC;
+$brand-500: #3D50FD;
+$brand-600: #313EB8;
 
 $gray-300: #E4E7ED;
 
-$primary-shade: $blue-600;
+$primary-shade: $brand-600;
 $primary-light: tint-color($primary-shade, 37%);
 $primary-dark: shade-color($primary-shade, 12%);
-$accent-shade: $blue-50;
+$accent-shade: $brand-50;
 $accent-light: tint-color($accent-shade, 37%);
 $accent-dark: shade-color($accent-shade, 12%);
 
-$primary:       $accent-shade;
+// Bootstrap derives links, focus rings, checked inputs, active items and the
+// .text/.bg/.border-primary utilities from $primary, so it is the brand colour.
+// The light .btn-primary look is set in components/_buttons.scss.
+$primary:       $brand-500;
 $secondary:     $primary-shade;
 $success:       $green;
 $info:          $cyan;
@@ -69,7 +75,7 @@ $brand-inverse: $primary-shade;
 
 $body-bg: #F0F3FA;
 $body-color: $dark-navy-900;
-$body-secondary-color: $blue-600;
+$body-secondary-color: $brand-600;
 $body-tertiary-color: $dark-navy-600;
 $inverse-bg: $primary-shade;
 $inverse-color: $white;
@@ -90,23 +96,35 @@ $enable-shadows: false;
 $enable-gradients: false;
 $enable-caret: true;
 
-$footer_bg: $blue-500;
+$footer_bg: $brand-500;
 $footer_color: $navy-gray-25;
 
 $banner_img_bg: rgba(0, 0, 0, 0.8);
 
 $btn-padding-y: .75rem;
 $btn-padding-x: .75rem;
-$btn-color: $blue-600;
+$btn-color: $brand-600;
 
 $table-cell-padding-y: 16px;
 $table-cell-padding-x: 24px;
 
 :root {
+  --oi-brand-50: #{$brand-50};
+  --oi-brand-100: #{$brand-100};
+  --oi-brand-500: #{$brand-500};
+  --oi-brand-600: #{$brand-600};
   --oi-body-color: #{$body-color};
   --oi-body-tertiary-color: #{$body-tertiary-color};
   --oi-surface-background: #{$white};
+  --oi-surface-soft: #{$gray-25};
   --oi-surface-border: #{$navy-gray-50};
   --oi-surface-divider: #{$navy-gray-40};
+  --oi-text-faint: #{$navy-gray-300};
+  --oi-success: #{$green-500};
+  --oi-success-surface: #{$green-50};
+  --oi-warning: #{$orange-500};
+  --oi-warning-surface: #{$orange-50};
+  --oi-danger: #{$red-500};
+  --oi-danger-surface: #{$red-50};
   --oi-border-radius: #{$border-radius};
 }

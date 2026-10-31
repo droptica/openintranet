@@ -11,7 +11,7 @@ id: node.event.field_map_location
 field_name: field_map_location
 entity_type: node
 bundle: event
-label: 'Location Map'
+label: 'Location map'
 description: ''
 required: false
 translatable: false

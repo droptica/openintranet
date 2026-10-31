@@ -12,7 +12,7 @@
     gap: .25rem;
     margin: 0;
     padding: 0;
-    border-bottom: 1px solid $blue-100;
+    border-bottom: 1px solid $brand-100;
   }
 
   .nav-item {
@@ -33,7 +33,7 @@
     &:focus-visible {
       color: $body-secondary-color;
       background: none;
-      border-bottom-color: $blue-100;
+      border-bottom-color: $brand-100;
     }
 
     &.active {

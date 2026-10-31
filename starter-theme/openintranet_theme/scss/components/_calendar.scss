@@ -32,26 +32,26 @@
      tr {
        &.odd {
          td {
-           border-top: 1px solid $blue-100;
-           border-left: 1px solid $blue-100;
+           border-top: 1px solid $brand-100;
+           border-left: 1px solid $brand-100;
 
            &:last-child {
-             border-right: 1px solid $blue-100;
+             border-right: 1px solid $brand-100;
            }
          }
 
          &:last-child td {
-           border-bottom: 1px solid $blue-100;
+           border-bottom: 1px solid $brand-100;
          }
        }
 
        &.even {
          td {
-           border-top: 1px solid $blue-100;
-           border-left: 1px solid $blue-100;
+           border-top: 1px solid $brand-100;
+           border-left: 1px solid $brand-100;
 
            &:last-child {
-             border-right: 1px solid $blue-100;
+             border-right: 1px solid $brand-100;
            }
          }
        }
@@ -79,7 +79,7 @@
        &.is-today {
          .calendar-view-day__number {
            background-color: $body-secondary-color;
-           color: $blue-50;
+           color: $brand-50;
          }
        }
      }
@@ -89,7 +89,7 @@
          font-size: 14px;
          border-radius: 2px;
          color: $body-secondary-color;
-         background-color: $blue-50;
+         background-color: $brand-50;
          padding: 8px;
          width: 32px;
          height: 32px;

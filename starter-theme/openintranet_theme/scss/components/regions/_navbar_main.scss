@@ -39,7 +39,7 @@
 
   @include media-breakpoint-up(lg) {
     // Menu-bar border/shadow only on desktop (below lg this is just the toggle).
-    border-top: 1px solid $blue-100;
+    border-top: 1px solid $brand-100;
     box-shadow: 0 23px 64px 0 #2020200F;
     background-color: $white;
     padding-top: 1.5rem;

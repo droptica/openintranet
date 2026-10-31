@@ -1,19 +1,19 @@
 @import "../mixins/text";
 
 .pagination {
-  --bs-pagination-color: $body-tertiary-color;
-  --bs-pagination-bg: $white;
+  --bs-pagination-color: #{$body-tertiary-color};
+  --bs-pagination-bg: #{$white};
   --bs-pagination-border-width: 0;
-  --bs-pagination-border-color: none;
-  --bs-pagination-hover-color: $blue-500;
-  --bs-pagination-hover-bg: $blue;
-  --bs-pagination-hover-border-color: none;
-  --bs-pagination-focus-color: $blue-500;
-  --bs-pagination-focus-bg: $blue;
+  --bs-pagination-border-color: transparent;
+  --bs-pagination-hover-color: #{$brand-500};
+  --bs-pagination-hover-bg: #{$brand-50};
+  --bs-pagination-hover-border-color: transparent;
+  --bs-pagination-focus-color: #{$brand-500};
+  --bs-pagination-focus-bg: #{$brand-50};
   --bs-pagination-focus-box-shadow: none;
-  --bs-pagination-active-color: $blue-500;
-  --bs-pagination-active-bg: $blue-50;
-  --bs-pagination-active-border-color: none;
+  --bs-pagination-active-color: #{$brand-500};
+  --bs-pagination-active-bg: #{$brand-50};
+  --bs-pagination-active-border-color: transparent;
 
   background-color: $white;
   padding: 1rem 0;
@@ -31,8 +31,8 @@
 
     &.active {
       .page-link {
-        color: $blue-500;
-        background: $blue-100;
+        color: $brand-500;
+        background: $brand-100;
         aspect-ratio: 1 / 1;
       }
     }

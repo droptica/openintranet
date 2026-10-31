@@ -1,7 +1,11 @@
 {#
 /**
  * @file
- * Custom template for event date field.
+ * Event date field: a one-day event shows its date once.
+ *
+ * item.single_day (date, start, end and their datetime attributes) comes from
+ * openintranet_theme_preprocess_field() and is set for one-day events only.
+ * Events spanning several days print the formatter output.
  */
 #}
 {%
@@ -25,17 +29,11 @@
   {% endif %}
   <div{{ content_attributes.addClass('field__items') }}>
     {% for item in items %}
-      {% set start_date = item.content.start_date['#attributes'].datetime|date('U') %}
-      {% set end_date = item.content.end_date['#attributes'].datetime|date('U') %}
-      {% set start_day = item.content.start_date['#attributes'].datetime|date('Y-m-d') %}
-      {% set end_day = item.content.end_date['#attributes'].datetime|date('Y-m-d') %}
-      
       <div{{ item.attributes.addClass('field__item') }}>
-        {% if start_day == end_day %}
-          {# Single day event #}
-          {{ start_date|date('d F Y') }}: {{ start_date|date('Hi')|slice(0, 2) }}.{{ start_date|date('Hi')|slice(2, 2) }} – {{ end_date|date('Hi')|slice(0, 2) }}.{{ end_date|date('Hi')|slice(2, 2) }}
+        {% if item.single_day %}
+          {# One-day event: the date once, then the start and end times. #}
+          {{ item.single_day.date }}: <time datetime="{{ item.single_day.start_datetime }}">{{ item.single_day.start }}</time> – <time datetime="{{ item.single_day.end_datetime }}">{{ item.single_day.end }}</time>
         {% else %}
-          {# Multi-day event #}
           {{ item.content }}
         {% endif %}
       </div>

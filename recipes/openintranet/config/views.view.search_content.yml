@@ -579,6 +579,15 @@ display:
       sorts: {  }
       arguments: {  }
       filters:
+        language_with_fallback:
+          id: language_with_fallback
+          table: search_api_index_db_index_content
+          field: language_with_fallback
+          plugin_id: search_api_language
+          operator: in
+          value:
+            '***LANGUAGE_language_content***': '***LANGUAGE_language_content***'
+          group: 1
         search_api_fulltext:
           id: search_api_fulltext
           table: search_api_index_db_index_content
@@ -1344,6 +1353,15 @@ display:
           quantity: 9
       sorts: {  }
       filters:
+        language_with_fallback:
+          id: language_with_fallback
+          table: search_api_index_db_index_content
+          field: language_with_fallback
+          plugin_id: search_api_language
+          operator: in
+          value:
+            '***LANGUAGE_language_content***': '***LANGUAGE_language_content***'
+          group: 1
         type:
           id: type
           table: search_api_index_db_index_content

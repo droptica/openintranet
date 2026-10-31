@@ -12,44 +12,49 @@ dependencies:
     - field.field.node.event.field_event_online_text
     - field.field.node.event.field_hide_location
     - field.field.node.event.field_map_location
-    - image.style.all_news_teaser
+    - image.style.medium
     - node.type.event
   module:
+    - address
+    - datetime_range
     - media
-    - text
     - user
 id: node.event.teaser
 targetEntityType: node
 bundle: event
 mode: teaser
 content:
-  body:
-    type: text_summary_or_trimmed
-    label: hidden
-    settings:
-      trim_length: 600
-    third_party_settings: {  }
-    weight: 2
-    region: content
   field_background_image:
     type: media_thumbnail
     label: hidden
     settings:
       image_link: content
-      image_style: all_news_teaser
+      image_style: medium
       image_loading:
         attribute: lazy
     third_party_settings: {  }
+    weight: 2
+    region: content
+  field_event_date:
+    type: daterange_default
+    label: hidden
+    settings:
+      timezone_override: ''
+      format_type: event_medium
+      from_to: both
+      separator: '-'
+    third_party_settings: {  }
     weight: 0
     region: content
-  links:
+  field_event_location:
+    type: address_plain
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     weight: 1
     region: content
 hidden:
-  field_event_date: true
-  field_event_location: true
+  body: true
   field_event_online: true
   field_event_online_text: true
   field_hide_location: true
@@ -57,4 +62,5 @@ hidden:
   flag_bookmark: true
   flag_read: true
   langcode: true
+  links: true
   search_api_excerpt: true

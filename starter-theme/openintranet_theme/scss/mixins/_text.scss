@@ -143,6 +143,7 @@
   word-wrap: break-word;
 }
 
+// Hover changes colours only: a font-weight change would reflow the text.
 @mixin link-hover {
   display: block;
   padding-left: 8px;
@@ -153,9 +154,8 @@
   &:hover {
     text-decoration: none;
     background-color: $navy-gray-25;
-    color: $blue-500;
+    color: $brand-500;
     border-radius: 8px;
-    font-weight: 500;
   }
 }
 

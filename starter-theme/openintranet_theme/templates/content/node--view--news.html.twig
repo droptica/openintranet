@@ -61,16 +61,8 @@
 #}
 {{ attach_library('bootstrap_barrio/node') }}
 
-{# set fields conditionally based on the node type #}
-{% set comment_count = 0 %}
-{% set reaction_field = '' %}
-{% if node.bundle == 'page' %}
-  {% set comment_count = node.comment_node_page.0.comment_count %}
-  {% set reaction_field = content.field_basic_page_reaction %}
-{% elseif node.bundle == 'article' %}
-  {% set comment_count = node.comment_node_article.0.comment_count %}
-  {% set reaction_field = content.field_news_article_reaction %}
-{% endif %}
+{# comment_count: see openintranet_theme_preprocess_node(). #}
+{% set reaction_field = content.field_news_article_reaction ?? content.field_basic_page_reaction %}
 {%
   set classes = [
   'node',
@@ -112,11 +104,13 @@
   </div>
   <div{{ content_attributes.addClass('node__content', 'clearfix', 'd-flex', 'flex-column', 'h-100', 'justify-content-end') }}>
     <div class="d-flex align-items-center justify-content-end news-teaser-links">
-      <div class="news-teaser-comments">
-        <span class="comment-count field--name-comment-count">
-          {{ comment_count }}
-        </span>
-      </div>
+      {% if comment_count is not null %}
+        <div class="news-teaser-comments">
+          <span class="comment-count field--name-comment-count">
+            {{ comment_count }}
+          </span>
+        </div>
+      {% endif %}
       {{ reaction_field }}
       <a class="btn btn-primary field--name-read-more" href="{{ url }}">{{ 'read more'|t }}</a>
     </div>

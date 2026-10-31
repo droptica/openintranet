@@ -14,3 +14,16 @@ services:
       - '@entity.repository'
       - '@logger.channel.openintranet_core'
       - '%app.root%'
+  openintranet_core.directory_term_redirect_subscriber:
+    class: Drupal\openintranet_core\EventSubscriber\DirectoryTermRedirectSubscriber
+    arguments: ['@current_route_match']
+    tags:
+      - { name: event_subscriber }
+  openintranet_core.reaction_lazy_builder:
+    class: Drupal\openintranet_core\ReactionLazyBuilder
+    arguments: ['@entity_type.manager']
+  openintranet_core.recently_read_subscriber:
+    class: Drupal\openintranet_core\EventSubscriber\RecentlyReadSubscriber
+    arguments: ['@current_route_match', '@entity_type.manager', '@?recently_read']
+    tags:
+      - { name: event_subscriber }

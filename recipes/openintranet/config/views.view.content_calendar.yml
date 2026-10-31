@@ -19,6 +19,7 @@ display:
     display_plugin: default
     position: 0
     display_options:
+      rendering_language: '***LANGUAGE_language_content***'
       title: Content
       fields:
         node_bulk_form:
@@ -278,6 +279,16 @@ display:
       sorts: {  }
       arguments: {  }
       filters:
+        default_langcode:
+          id: default_langcode
+          table: node_field_data
+          field: default_langcode
+          entity_type: node
+          entity_field: default_langcode
+          plugin_id: boolean
+          operator: '='
+          value: '1'
+          group: 1
         created:
           id: created
           table: node_field_revision
@@ -541,7 +552,6 @@ display:
     cache_metadata:
       max-age: 0
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
         - url
         - user
@@ -554,6 +564,7 @@ display:
     display_plugin: page
     position: 1
     display_options:
+      rendering_language: '***LANGUAGE_language_content***'
       display_extenders: {  }
       path: admin/content/calendar
       menu:
@@ -573,7 +584,6 @@ display:
     cache_metadata:
       max-age: 0
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
         - url
         - user

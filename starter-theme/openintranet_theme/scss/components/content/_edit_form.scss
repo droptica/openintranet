@@ -6,7 +6,7 @@ form {
   border: none !important;
 
   *:not(.is-invalid) {
-    border-color: $blue-100  !important;
+    border-color: $brand-100  !important;
   }
 
   input {
@@ -68,7 +68,7 @@ form {
 
   button {
     border: none;
-    background-color: $blue-50;
+    background-color: $brand-50;
     background-image: none;
     color: $body-secondary-color;
     cursor: pointer;
@@ -195,7 +195,7 @@ form {
       width: 72px;
       height: 72px;
       border-radius: 50%;
-      border: 1px solid $blue-100;
+      border: 1px solid $brand-100;
       object-fit: cover;
     }
   }
@@ -233,7 +233,7 @@ form {
   input:focus-visible,
   select:focus-visible,
   textarea:focus-visible {
-    outline: 2px solid $blue-500;
+    outline: 2px solid $brand-500;
     outline-offset: 2px;
   }
 }

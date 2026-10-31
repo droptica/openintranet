@@ -1,0 +1,12 @@
+--- a/src/Hook/VotingApiViewsHooks.php	2026-10-31 17:44:28.213731571 +0100
++++ b/src/Hook/VotingApiViewsHooks.php	2026-10-31 17:44:28.251163695 +0100
+@@ -33,7 +33,8 @@
+     }
+     $va_fields = [];
+     foreach ($query->fields as $f_name => &$f_data) {
+-      if (isset($vr_aliases[$f_data['table']]) && $f_data['field'] == 'value') {
++      // Formula fields added with addField(NULL, ...) have no table.
++      if (isset($f_data['table'], $vr_aliases[$f_data['table']]) && $f_data['field'] == 'value') {
+         $va_fields[$f_name] = $f_data;
+       }
+     }

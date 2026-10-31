@@ -3,6 +3,51 @@
  * Engagement dashboard styles.
  */
 
+/*
+ * Colours. Each one follows the matching --oi-* property of the
+ * Open Intranet theme and falls back to the previous value elsewhere, so
+ * a theme can restyle the engagement dashboard by overriding these
+ * properties.
+ *
+ * The RFV score scale, the medal and some chart colours have no theme
+ * counterpart.
+ */
+:root {
+  --oi-eng-accent: var(--oi-brand-500, #007bff);
+  --oi-eng-surface: var(--oi-surface-background, #fff);
+  --oi-eng-surface-soft: var(--oi-surface-soft, #f9f9f9);
+  --oi-eng-track: var(--oi-surface-divider, #f0f0f0);
+  --oi-eng-border: var(--oi-surface-border, #ddd);
+  --oi-eng-divider: var(--oi-surface-divider, #eee);
+  --oi-eng-text: var(--oi-body-color, #333);
+  --oi-eng-text-muted: var(--oi-body-tertiary-color, #666);
+  --oi-eng-strong: var(--oi-body-color, #333);
+  --oi-eng-on-strong: #fff;
+  --oi-eng-neutral: var(--oi-body-tertiary-color, #6c757d);
+  --oi-eng-success: var(--oi-success, #28a745);
+  --oi-eng-success-light: #5cb85c;
+  --oi-eng-success-surface: var(--oi-success-surface, #d4edda);
+  --oi-eng-success-surface-soft: #f8fff8;
+  --oi-eng-success-text: var(--oi-success, #155724);
+  --oi-eng-warning: var(--oi-warning, #ffc107);
+  --oi-eng-warning-light: #ffdb4d;
+  --oi-eng-warning-surface: var(--oi-warning-surface, #fff3cd);
+  --oi-eng-warning-surface-soft: #fffdf5;
+  --oi-eng-warning-text: #856404;
+  --oi-eng-danger: var(--oi-danger, #dc3545);
+  --oi-eng-danger-light: #e67c85;
+  --oi-eng-danger-surface: var(--oi-danger-surface, #f8d7da);
+  --oi-eng-danger-surface-soft: #fff8f8;
+  --oi-eng-danger-text: var(--oi-danger, #721c24);
+  --oi-eng-info: #17a2b8;
+  --oi-eng-score-1: #ffcccc;
+  --oi-eng-score-2: #ffe6cc;
+  --oi-eng-score-3: #ffffcc;
+  --oi-eng-score-4: #ccffcc;
+  --oi-eng-bronze: #cd7f32;
+  --oi-eng-bronze-surface: #fdf8f5;
+}
+
 /* Summary Cards */
 .engagement-summary-cards {
   display: grid;
@@ -12,8 +57,8 @@
 }
 
 .summary-card {
-  background: #fff;
-  border: 1px solid #ddd;
+  background: var(--oi-eng-surface);
+  border: 1px solid var(--oi-eng-border);
   border-radius: 8px;
   padding: 1.5rem;
   display: flex;
@@ -31,7 +76,7 @@
 }
 
 .summary-card .card-label {
-  color: #666;
+  color: var(--oi-eng-text-muted);
   font-size: 0.875rem;
 }
 
@@ -47,7 +92,7 @@
   align-items: center;
   gap: 1rem;
   padding: 0.75rem 1rem;
-  background: #f9f9f9;
+  background: var(--oi-eng-surface-soft);
   border-left: 4px solid;
   border-radius: 4px;
   position: relative;
@@ -69,7 +114,7 @@
 
 .segment-count {
   font-size: 0.875rem;
-  color: #666;
+  color: var(--oi-eng-text-muted);
 }
 
 .segment-bar {
@@ -88,7 +133,7 @@
 .engagement-section h3 {
   margin-bottom: 1rem;
   padding-bottom: 0.5rem;
-  border-bottom: 2px solid #eee;
+  border-bottom: 2px solid var(--oi-eng-divider);
 }
 
 /* Engagement Table */
@@ -101,21 +146,21 @@
 .engagement-table td {
   padding: 0.75rem;
   text-align: left;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--oi-eng-divider);
 }
 
 .engagement-table th {
-  background: #f5f5f5;
+  background: var(--oi-eng-surface-soft);
   font-weight: 600;
 }
 
 .engagement-table tbody tr:hover {
-  background: #fafafa;
+  background: var(--oi-eng-surface-soft);
 }
 
 /* User Score Card */
 .user-score-card {
-  background: #fff;
+  background: var(--oi-eng-surface);
   border: 2px solid;
   border-radius: 8px;
   padding: 1.5rem;
@@ -128,7 +173,7 @@
   gap: 0.5rem;
   padding: 0.5rem 1rem;
   border-radius: 20px;
-  color: #fff;
+  color: var(--oi-eng-on-strong);
   margin-bottom: 1rem;
 }
 
@@ -144,7 +189,7 @@
 
 .rfv-score .score-label {
   font-size: 0.875rem;
-  color: #666;
+  color: var(--oi-eng-text-muted);
   margin-bottom: 0.25rem;
 }
 
@@ -157,35 +202,35 @@
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: #f0f0f0;
+  background: var(--oi-eng-track);
 }
 
-.rfv-score .score-1 { background: #ffcccc; }
-.rfv-score .score-2 { background: #ffe6cc; }
-.rfv-score .score-3 { background: #ffffcc; }
-.rfv-score .score-4 { background: #ccffcc; }
-.rfv-score .score-5 { background: #ccffcc; color: #28a745; }
+.rfv-score .score-1 { background: var(--oi-eng-score-1); }
+.rfv-score .score-2 { background: var(--oi-eng-score-2); }
+.rfv-score .score-3 { background: var(--oi-eng-score-3); }
+.rfv-score .score-4 { background: var(--oi-eng-score-4); }
+.rfv-score .score-5 { background: var(--oi-eng-score-4); color: var(--oi-eng-success); }
 
 .rfv-score.total .score-value {
-  background: #333;
-  color: #fff;
+  background: var(--oi-eng-strong);
+  color: var(--oi-eng-on-strong);
 }
 
 .user-stats {
   display: flex;
   gap: 2rem;
   padding-top: 1rem;
-  border-top: 1px solid #eee;
+  border-top: 1px solid var(--oi-eng-divider);
 }
 
 .stat .stat-label {
-  color: #666;
+  color: var(--oi-eng-text-muted);
 }
 
 /* Engagement Badge */
 .engagement-badge {
   display: inline-block;
-  background: #fff;
+  background: var(--oi-eng-surface);
   border: 1px solid;
   border-radius: 8px;
   padding: 0.5rem 1rem;
@@ -201,17 +246,17 @@
 .badge-icon {
   padding: 0.25rem;
   border-radius: 4px;
-  color: #fff;
+  color: var(--oi-eng-on-strong);
 }
 
 .badge-scores {
   font-size: 0.875rem;
-  color: #666;
+  color: var(--oi-eng-text-muted);
 }
 
 .badge-total {
   font-weight: bold;
-  color: #333;
+  color: var(--oi-eng-text);
 }
 
 /* KPI Cards */
@@ -223,26 +268,26 @@
 }
 
 .kpi-card {
-  background: #fff;
-  border: 1px solid #ddd;
+  background: var(--oi-eng-surface);
+  border: 1px solid var(--oi-eng-border);
   border-radius: 8px;
   padding: 1.5rem;
   text-align: center;
 }
 
 .kpi-card.kpi-good {
-  border-color: #28a745;
-  background: #f8fff8;
+  border-color: var(--oi-eng-success);
+  background: var(--oi-eng-success-surface-soft);
 }
 
 .kpi-card.kpi-warning {
-  border-color: #ffc107;
-  background: #fffdf5;
+  border-color: var(--oi-eng-warning);
+  background: var(--oi-eng-warning-surface-soft);
 }
 
 .kpi-card.kpi-danger {
-  border-color: #dc3545;
-  background: #fff8f8;
+  border-color: var(--oi-eng-danger);
+  background: var(--oi-eng-danger-surface-soft);
 }
 
 .kpi-icon {
@@ -263,7 +308,7 @@
 
 .kpi-description {
   font-size: 0.875rem;
-  color: #666;
+  color: var(--oi-eng-text-muted);
 }
 
 /* Segment Health */
@@ -281,7 +326,7 @@
 
 .health-bar-container {
   height: 24px;
-  background: #f0f0f0;
+  background: var(--oi-eng-track);
   border-radius: 4px;
   overflow: hidden;
 }
@@ -300,7 +345,7 @@
 }
 
 .health-count {
-  color: #666;
+  color: var(--oi-eng-text-muted);
   margin-left: auto;
 }
 
@@ -316,7 +361,7 @@
   align-items: flex-start;
   gap: 0.75rem;
   padding: 0.75rem;
-  background: #f9f9f9;
+  background: var(--oi-eng-surface-soft);
   border-radius: 4px;
 }
 
@@ -330,7 +375,7 @@
 
 /* Export Options */
 .export-options {
-  background: #f9f9f9;
+  background: var(--oi-eng-surface-soft);
   padding: 1.5rem;
   border-radius: 8px;
   margin-bottom: 1rem;
@@ -342,7 +387,7 @@
   gap: 1rem;
   margin-bottom: 1rem;
   padding: 1rem;
-  background: #f5f5f5;
+  background: var(--oi-eng-surface-soft);
   border-radius: 4px;
 }
 
@@ -352,21 +397,21 @@
 }
 
 .engagement-report .report-period {
-  color: #666;
+  color: var(--oi-eng-text-muted);
   font-size: 0.875rem;
 }
 
 .empty-message {
-  color: #666;
+  color: var(--oi-eng-text-muted);
   font-style: italic;
   padding: 1rem;
   text-align: center;
-  background: #f9f9f9;
+  background: var(--oi-eng-surface-soft);
   border-radius: 4px;
 }
 
 .section-description {
-  color: #666;
+  color: var(--oi-eng-text-muted);
   margin-bottom: 1rem;
 }
 
@@ -374,7 +419,7 @@
 .entity-type-badge {
   display: inline-block;
   padding: 0.125rem 0.5rem;
-  background: #e0e0e0;
+  background: var(--oi-eng-track);
   border-radius: 3px;
   font-size: 0.75rem;
   text-transform: uppercase;
@@ -392,14 +437,14 @@
   align-items: center;
   gap: 1rem;
   padding: 1rem;
-  background: #fff;
-  border: 1px solid #eee;
+  background: var(--oi-eng-surface);
+  border: 1px solid var(--oi-eng-divider);
   border-radius: 8px;
 }
 
-.contributor-card.rank-1 { border-color: gold; background: #fffdf5; }
-.contributor-card.rank-2 { border-color: silver; background: #fafafa; }
-.contributor-card.rank-3 { border-color: #cd7f32; background: #fdf8f5; }
+.contributor-card.rank-1 { border-color: gold; background: var(--oi-eng-warning-surface-soft); }
+.contributor-card.rank-2 { border-color: silver; background: var(--oi-eng-surface-soft); }
+.contributor-card.rank-3 { border-color: var(--oi-eng-bronze); background: var(--oi-eng-bronze-surface); }
 
 .contributor-rank {
   font-size: 1.5rem;
@@ -429,7 +474,7 @@
 
 .score-badge {
   padding: 0.25rem 0.5rem;
-  background: #f0f0f0;
+  background: var(--oi-eng-track);
   border-radius: 3px;
   font-size: 0.75rem;
 }
@@ -438,8 +483,8 @@
   font-size: 1.25rem;
   font-weight: bold;
   padding: 0.25rem 0.75rem;
-  background: #333;
-  color: #fff;
+  background: var(--oi-eng-strong);
+  color: var(--oi-eng-on-strong);
   border-radius: 4px;
 }
 
@@ -456,8 +501,8 @@
   align-items: center;
   gap: 1rem;
   padding: 1.5rem;
-  background: #fff;
-  border: 1px solid #ddd;
+  background: var(--oi-eng-surface);
+  border: 1px solid var(--oi-eng-border);
   border-radius: 8px;
 }
 
@@ -467,7 +512,7 @@
 
 .insight-card .insight-label {
   font-size: 0.875rem;
-  color: #666;
+  color: var(--oi-eng-text-muted);
 }
 
 .insight-card .insight-value {
@@ -496,14 +541,14 @@
 .bar-container {
   flex: 1;
   height: 24px;
-  background: #f0f0f0;
+  background: var(--oi-eng-track);
   border-radius: 4px;
   overflow: hidden;
 }
 
 .bar {
   height: 100%;
-  background: linear-gradient(90deg, #007bff, #28a745);
+  background: linear-gradient(90deg, var(--oi-eng-accent), var(--oi-eng-success));
   border-radius: 4px;
   transition: width 0.3s ease;
 }
@@ -537,19 +582,19 @@
 
 .hour-fill {
   width: 100%;
-  background: #007bff;
+  background: var(--oi-eng-accent);
   border-radius: 2px 2px 0 0;
   margin-top: auto;
   transition: height 0.3s ease;
 }
 
 .hour-bar.peak .hour-fill {
-  background: #28a745;
+  background: var(--oi-eng-success);
 }
 
 .hour-label {
   font-size: 0.625rem;
-  color: #666;
+  color: var(--oi-eng-text-muted);
   margin-top: 0.25rem;
 }
 
@@ -562,7 +607,7 @@
 
 .recommendations-list li {
   padding: 0.75rem 1rem;
-  background: #f9f9f9;
+  background: var(--oi-eng-surface-soft);
   border-radius: 4px;
   margin-bottom: 0.5rem;
 }
@@ -583,12 +628,12 @@
 
 .engagement-department-analysis .period-selector select {
   padding: 0.5rem;
-  border: 1px solid #ddd;
+  border: 1px solid var(--oi-eng-border);
   border-radius: 4px;
 }
 
 .engagement-department-analysis .insights-section {
-  background: #f8f9fa;
+  background: var(--oi-eng-surface-soft);
   padding: 1rem;
   border-radius: 8px;
   margin-bottom: 1.5rem;
@@ -606,19 +651,19 @@
   gap: 0.75rem;
   padding: 0.75rem 1rem;
   border-radius: 4px;
-  background: #fff;
+  background: var(--oi-eng-surface);
 }
 
 .engagement-department-analysis .insight--success {
-  border-left: 4px solid #28a745;
+  border-left: 4px solid var(--oi-eng-success);
 }
 
 .engagement-department-analysis .insight--warning {
-  border-left: 4px solid #ffc107;
+  border-left: 4px solid var(--oi-eng-warning);
 }
 
 .engagement-department-analysis .insight--danger {
-  border-left: 4px solid #dc3545;
+  border-left: 4px solid var(--oi-eng-danger);
 }
 
 .engagement-department-analysis .insight-icon {
@@ -633,8 +678,8 @@
 }
 
 .engagement-department-analysis .analysis-card {
-  background: #fff;
-  border: 1px solid #ddd;
+  background: var(--oi-eng-surface);
+  border: 1px solid var(--oi-eng-border);
   border-radius: 8px;
   padding: 1.5rem;
 }
@@ -643,7 +688,7 @@
   margin-top: 0;
   margin-bottom: 1rem;
   padding-bottom: 0.5rem;
-  border-bottom: 2px solid #eee;
+  border-bottom: 2px solid var(--oi-eng-divider);
 }
 
 .engagement-department-analysis .table-responsive {
@@ -655,7 +700,7 @@
 }
 
 .engagement-department-analysis .text-muted {
-  color: #6c757d;
+  color: var(--oi-eng-text-muted);
 }
 
 .engagement-department-analysis .badge {
@@ -667,13 +712,13 @@
 }
 
 .engagement-department-analysis .badge--champion {
-  background: #d4edda;
-  color: #155724;
+  background: var(--oi-eng-success-surface);
+  color: var(--oi-eng-success-text);
 }
 
 .engagement-department-analysis .badge--at-risk {
-  background: #f8d7da;
-  color: #721c24;
+  background: var(--oi-eng-danger-surface);
+  color: var(--oi-eng-danger-text);
 }
 
 .engagement-department-analysis .score-badge {
@@ -684,18 +729,18 @@
 }
 
 .engagement-department-analysis .score-badge--high {
-  background: #d4edda;
-  color: #155724;
+  background: var(--oi-eng-success-surface);
+  color: var(--oi-eng-success-text);
 }
 
 .engagement-department-analysis .score-badge--medium {
-  background: #fff3cd;
-  color: #856404;
+  background: var(--oi-eng-warning-surface);
+  color: var(--oi-eng-warning-text);
 }
 
 .engagement-department-analysis .score-badge--low {
-  background: #f8d7da;
-  color: #721c24;
+  background: var(--oi-eng-danger-surface);
+  color: var(--oi-eng-danger-text);
 }
 
 .engagement-department-analysis .health-indicator {
@@ -707,24 +752,24 @@
 }
 
 .engagement-department-analysis .health-indicator--good {
-  background: #d4edda;
-  color: #155724;
+  background: var(--oi-eng-success-surface);
+  color: var(--oi-eng-success-text);
 }
 
 .engagement-department-analysis .health-indicator--warning {
-  background: #fff3cd;
-  color: #856404;
+  background: var(--oi-eng-warning-surface);
+  color: var(--oi-eng-warning-text);
 }
 
 .engagement-department-analysis .health-indicator--critical {
-  background: #f8d7da;
-  color: #721c24;
+  background: var(--oi-eng-danger-surface);
+  color: var(--oi-eng-danger-text);
 }
 
 .engagement-department-analysis .chart-section {
   margin-top: 1.5rem;
   padding-top: 1.5rem;
-  border-top: 1px solid #eee;
+  border-top: 1px solid var(--oi-eng-divider);
 }
 
 .engagement-department-analysis .bar-chart {
@@ -747,7 +792,7 @@
 .engagement-department-analysis .bar-chart .bar-container {
   flex: 1;
   height: 20px;
-  background: #f0f0f0;
+  background: var(--oi-eng-track);
   border-radius: 4px;
   position: relative;
   display: flex;
@@ -761,15 +806,15 @@
 }
 
 .engagement-department-analysis .bar-chart .bar--good {
-  background: linear-gradient(90deg, #28a745, #5cb85c);
+  background: linear-gradient(90deg, var(--oi-eng-success), var(--oi-eng-success-light));
 }
 
 .engagement-department-analysis .bar-chart .bar--warning {
-  background: linear-gradient(90deg, #ffc107, #ffdb4d);
+  background: linear-gradient(90deg, var(--oi-eng-warning), var(--oi-eng-warning-light));
 }
 
 .engagement-department-analysis .bar-chart .bar--critical {
-  background: linear-gradient(90deg, #dc3545, #e67c85);
+  background: linear-gradient(90deg, var(--oi-eng-danger), var(--oi-eng-danger-light));
 }
 
 .engagement-department-analysis .bar-chart .bar-value {
@@ -790,44 +835,44 @@
   border-radius: 3px;
   font-size: 0.625rem;
   font-weight: 600;
-  color: #fff;
+  color: var(--oi-eng-on-strong);
 }
 
 .engagement-department-analysis .segment-dot--champion {
-  background: #28a745;
+  background: var(--oi-eng-success);
 }
 
 .engagement-department-analysis .segment-dot--loyal {
-  background: #007bff;
+  background: var(--oi-eng-accent);
 }
 
 .engagement-department-analysis .segment-dot--regular {
-  background: #6c757d;
+  background: var(--oi-eng-neutral);
 }
 
 .engagement-department-analysis .segment-dot--new {
-  background: #17a2b8;
+  background: var(--oi-eng-info);
 }
 
 .engagement-department-analysis .segment-dot--at_risk {
-  background: #ffc107;
-  color: #333;
+  background: var(--oi-eng-warning);
+  color: var(--oi-eng-text);
 }
 
 .engagement-department-analysis .segment-dot--dormant {
-  background: #dc3545;
+  background: var(--oi-eng-danger);
 }
 
 .engagement-department-analysis .no-data-message {
   padding: 2rem;
   text-align: center;
-  color: #666;
-  background: #f9f9f9;
+  color: var(--oi-eng-text-muted);
+  background: var(--oi-eng-surface-soft);
   border-radius: 4px;
 }
 
 .engagement-department-analysis .segment-legend {
-  background: #f8f9fa;
+  background: var(--oi-eng-surface-soft);
   padding: 1rem;
   border-radius: 8px;
 }
@@ -856,25 +901,25 @@
 }
 
 .engagement-department-analysis .legend-color--champion {
-  background: #28a745;
+  background: var(--oi-eng-success);
 }
 
 .engagement-department-analysis .legend-color--loyal {
-  background: #007bff;
+  background: var(--oi-eng-accent);
 }
 
 .engagement-department-analysis .legend-color--regular {
-  background: #6c757d;
+  background: var(--oi-eng-neutral);
 }
 
 .engagement-department-analysis .legend-color--new {
-  background: #17a2b8;
+  background: var(--oi-eng-info);
 }
 
 .engagement-department-analysis .legend-color--at_risk {
-  background: #ffc107;
+  background: var(--oi-eng-warning);
 }
 
 .engagement-department-analysis .legend-color--dormant {
-  background: #dc3545;
+  background: var(--oi-eng-danger);
 }

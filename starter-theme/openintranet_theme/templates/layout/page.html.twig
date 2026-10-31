@@ -67,8 +67,9 @@
  * @see html.html.twig
  */
 #}
-{% set sidebar_first_exists = page.sidebar_first is not empty %}
-{% set sidebar_second_exists = page.sidebar_second is not empty %}
+{# Route templates that extend this one may set these first. #}
+{% set sidebar_first_exists = sidebar_first_exists ?? (page.sidebar_first is not empty) %}
+{% set sidebar_second_exists = sidebar_second_exists ?? (page.sidebar_second is not empty) %}
 
 <div id="page-wrapper">
   <div id="page">

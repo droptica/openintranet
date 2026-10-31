@@ -1,0 +1,44 @@
+{#
+/**
+ * @file
+ * Event card in the event lists (Events page, events block).
+ *
+ * The date parts and the location line come from
+ * _openintranet_theme_event_card() in openintranet_theme.theme and are empty
+ * when the date or location field is hidden in the view mode's Manage display.
+ * The image is the view mode's field_background_image field.
+ *
+ * Available variables, on top of the node.html.twig ones:
+ * - event_date: month, day, time and datetime (ISO 8601) of the start date.
+ * - event_location: "Location: City, Country", or the online event text.
+ */
+#}
+<article{{ attributes.addClass('event-item') }}>
+  <div class="left-side">
+    {% if event_date %}
+      <div class="event-main-date">
+        <div class="month">{{ event_date.month }}</div>
+        <div class="day">{{ event_date.day }}</div>
+      </div>
+    {% endif %}
+  </div>
+  <div class="right-side">
+    {% if event_date %}
+      <time class="time" datetime="{{ event_date.datetime }}">{{ event_date.time }}</time>
+    {% endif %}
+    {{ title_prefix }}
+    <div{{ title_attributes.addClass('title') }}>
+      <a href="{{ url }}" rel="bookmark">{{ label }}</a>
+    </div>
+    {{ title_suffix }}
+    {% if event_location %}
+      <div class="location">{{ event_location }}</div>
+    {% endif %}
+    {{ content|without('field_event_date', 'field_event_location', 'field_background_image', 'links') }}
+  </div>
+  {% if content.field_background_image.0 is defined %}
+    <div class="event-image">
+      {{ content.field_background_image }}
+    </div>
+  {% endif %}
+</article>
