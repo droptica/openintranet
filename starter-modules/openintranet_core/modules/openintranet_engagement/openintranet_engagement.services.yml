@@ -64,7 +64,6 @@ services:
       - '@openintranet_engagement.tracker'
       - '@openintranet_engagement.config'
       - '@current_user'
-      - '@cache.data'
     tags:
       - { name: hooks }
 
@@ -101,5 +100,7 @@ services:
       - '@openintranet_engagement.tracker'
       - '@current_route_match'
       - '@current_user'
+      - '@openintranet_engagement.config'
+      - '@cache.data'
     tags:
       - { name: event_subscriber }
