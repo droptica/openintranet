@@ -10,8 +10,6 @@ global-styling:
   css:
     component:
       css/style.min.css: {}
-    theme:
-      css/style.css: {}
   dependencies:
     - core/jquery
     - core/drupal
@@ -22,8 +20,6 @@ search-results:
     js/search-results.js: {}
   dependencies:
     - core/drupal
-    - core/jquery
-    - core/jquery.once
     - core/once
 
 search-book:
