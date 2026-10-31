@@ -115,13 +115,7 @@ Open Intranet is built on Drupal 11, so you can drop in any of the **40 000+ con
 
 ## Quick Start
 
-The fastest path — DDEV one-liner that handles everything:
-
-```bash
-curl -sL https://install.open-intranet.com/install.sh | bash
-```
-
-Or install manually:
+Requires [DDEV](https://ddev.com):
 
 ```bash
 git clone https://git.drupalcode.org/project/openintranet.git
@@ -136,7 +130,7 @@ ddev drush site-install openintranet install_configure_form.enable_demo_content=
 ```
 
 > [!NOTE]
-> Open Intranet is a Drupal **distribution**, not a Composer package. Use `git clone` or the DDEV one-liner above — there is no `composer create-project drupal/openintranet`.
+> Open Intranet is a Drupal **distribution**, not a Composer package. Use `git clone` — there is no `composer create-project drupal/openintranet`.
 
 Full installation guide: [open-intranet.com/docs/getting-started/installation](https://open-intranet.com/docs/getting-started/installation)
 

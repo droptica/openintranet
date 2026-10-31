@@ -87,16 +87,6 @@ You can also watch a [2-minute video demo on YouTube](https://www.youtube.com/wa
 
 ## Or install it yourself
 
-### Quick install (recommended)
-
-Requires [DDEV](https://ddev.com) installed on your machine.
-
-```
-curl -sL https://install.open-intranet.com/install.sh | bash
-```
-
-### Manual install
-
 **Step 1**: Install [DDEV](https://ddev.com).
 
 **Step 2**: Clone the repository:

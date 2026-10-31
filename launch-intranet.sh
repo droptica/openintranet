@@ -25,10 +25,7 @@ done
 echo ""
 echo "Open Intranet launcher (DDEV)"
 echo "============================="
-echo "This installer runs Open Intranet on DDEV. To install without DDEV -"
-echo "on plain Docker or directly on PHP - use the universal installer instead:"
-echo ""
-echo "  curl -sL https://install.open-intranet.com/install.sh | bash"
+echo "This installer runs Open Intranet on DDEV."
 echo ""
 
 if ! command -v ddev >/dev/null; then
