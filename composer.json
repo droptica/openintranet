@@ -78,6 +78,7 @@
         "drupal/layout_custom_section_classes": "^2.0.0",
         "drupal/leaflet": "^10.3.8",
         "drupal/libraries": "^4.0",
+        "drupal/linkit": "^7.0.17",
         "drupal/masquerade": "^2.0",
         "drupal/noreqnewpass": "^1.6",
         "drupal/openid_connect": "^3.0@alpha",

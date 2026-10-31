@@ -87,6 +87,7 @@ install:
   - leaflet_markercluster
   - leaflet_views
   - link
+  - linkit
   - locale
   - masquerade
   - media

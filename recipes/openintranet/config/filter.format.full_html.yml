@@ -6,6 +6,7 @@ dependencies:
     - ckeditor5_allowed_html
     - ckeditor_media_resize
     - editor
+    - linkit
     - media
     - pathologic
 _core:
@@ -104,6 +105,14 @@ filters:
     weight: -46
     settings:
       filter_url_length: 72
+  linkit:
+    id: linkit
+    provider: linkit
+    status: true
+    weight: -51
+    settings:
+      title: true
+      media_substitution: metadata
   media_embed:
     id: media_embed
     provider: media
