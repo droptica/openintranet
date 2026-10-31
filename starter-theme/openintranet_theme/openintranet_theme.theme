@@ -86,6 +86,19 @@ function openintranet_theme_preprocess_block(array &$variables) {
     $variables['#cache']['contexts'][] = 'user';
     if ($variables['current_user']) {
       $renderer->addCacheableDependency($variables, $variables['current_user']);
+      // Plain strings for the template: on the user edit page the field values
+      // of the shared user object are not usable from Twig while the form is
+      // built, which left the name empty, and that variant then got cached.
+      $account = $variables['current_user'];
+      $name_parts = [];
+      foreach (['field_first_name', 'field_last_name'] as $field_name) {
+        $value = $account->hasField($field_name) ? trim((string) $account->get($field_name)->value) : '';
+        if ($value !== '') {
+          $name_parts[] = $value;
+        }
+      }
+      $variables['current_user_display_name'] = $name_parts ? implode(' ', $name_parts) : $account->getDisplayName();
+      $variables['current_user_has_picture'] = $account->hasField('user_picture') && !$account->get('user_picture')->isEmpty();
     }
   }
 

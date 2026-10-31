@@ -28,7 +28,7 @@
       <div class="dropdown">
         <button class="btn dropdown-toggle d-flex align-items-center gap-2" type="button" data-bs-toggle="dropdown"
                 aria-expanded="false">
-          {% if current_user.user_picture.value %}
+          {% if current_user_has_picture %}
             <div class="user-avatar rounded-circle">
               {{ drupal_field('user_picture', 'user', current_user.id, {
                 type: 'image',
@@ -39,16 +39,7 @@
               }) }}
             </div>
           {% endif %}
-          <span class="user-name">
-            {% if current_user.field_first_name.value %}
-              {{ current_user.field_first_name.value }}
-              {% if current_user.field_last_name.value %}
-                {{ current_user.field_last_name.value }}
-              {% endif %}
-            {% else %}
-              {{ current_user.name.value }}
-            {% endif %}
-          </span>
+          <span class="user-name">{{ current_user_display_name }}</span>
         </button>
         <div class="dropdown-menu dropdown-menu-end">
           {{ content }}
