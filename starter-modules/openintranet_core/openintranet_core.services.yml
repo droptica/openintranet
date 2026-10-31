@@ -19,3 +19,6 @@ services:
     arguments: ['@current_route_match']
     tags:
       - { name: event_subscriber }
+  openintranet_core.reaction_lazy_builder:
+    class: Drupal\openintranet_core\ReactionLazyBuilder
+    arguments: ['@entity_type.manager']
