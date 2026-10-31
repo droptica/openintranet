@@ -38,15 +38,13 @@
   'block-' ~ plugin_id|clean_class,
 ]
 %}
-{% set ctaText = content.field_quick_action.0['#title']|default('See more'|t) %}
-
 <div{{ attributes.addClass(classes) }}>
-  {% if content.field_quick_action is not null and content.field_quick_action is not empty %}
-    <a class="btn btn-primary me-2 d-flex align-items-center gap-2" href="{{ content.field_quick_action.0['#url'] }}">
-      {% if content.field_quick_action_icon %}
-          {{ content.field_quick_action_icon }}
+  {% if quick_action and content.field_quick_action.0 is defined %}
+    <a class="btn btn-primary me-2 d-flex align-items-center gap-2" href="{{ quick_action.url }}">
+      {% if content.field_quick_action_icon.0 is defined %}
+        {{ content.field_quick_action_icon }}
       {% endif %}
-      {{ ctaText }}
+      {{ quick_action.title }}
     </a>
   {% endif %}
 </div>

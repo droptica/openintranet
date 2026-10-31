@@ -12,6 +12,7 @@ dependencies:
     - field.field.node.event.field_event_online_text
     - field.field.node.event.field_hide_location
     - field.field.node.event.field_map_location
+    - image.style.node_background
     - node.type.event
   module:
     - address
@@ -66,9 +67,9 @@ content:
     label: hidden
     settings:
       image_link: ''
-      image_style: ''
+      image_style: node_background
       image_loading:
-        attribute: lazy
+        attribute: eager
     third_party_settings: {  }
     weight: 5
     region: content

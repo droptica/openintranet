@@ -5,12 +5,9 @@
  * Functions to support theming in the SASS Starterkit subtheme.
  */
 
+use Drupal\block_content\BlockContentInterface;
 use Drupal\Core\Cache\Cache;
-use Drupal\Core\Form\FormStateInterface;
-use Drupal\file\Entity\File;
-use Drupal\image\Entity\ImageStyle;
-use Drupal\media\Entity\Media;
-use Drupal\media\MediaInterface;
+use Drupal\link\LinkItemInterface;
 use Drupal\node\NodeInterface;
 use Drupal\user\UserInterface;
 use Drupal\views\ViewExecutable;
@@ -106,33 +103,27 @@ function openintranet_theme_preprocess_block(array &$variables) {
     $variables['#attached']['library'][] = 'openintranet_theme/search-book';
   }
 
-  if (!empty($variables['content']['field_background_media'])) {
-    if ($variables['base_plugin_id'] === 'block_content') {
-      $renderer->addCacheableDependency($variables, $variables['content']['#block_content']);
-    }
-
-    $block_content = $variables['content']['#block_content'];
-    $media_id = $block_content->hasField('field_background_media') && !$variables["content"]["#block_content"]->get('field_background_media')->isEmpty()
-      ? $block_content->get('field_background_media')->target_id
-      : NULL;
-
-    if (!empty($media_id)) {
-      $media = Media::load($media_id);
-      $file_id = $media instanceof MediaInterface && $media->hasField('field_media_image') && !$media->get('field_media_image')->isEmpty()
-        ? $media->get('field_media_image')->target_id
-        : NULL;
-
-      if (!empty($file_id)) {
-        $file = File::load($file_id);
-
-        if ($file) {
-          $image_style = ImageStyle::load('node_background');
-          $variables['background_image'] = $image_style ? $image_style->buildUrl($file->getFileUri()) : $file->createFileUrl();
-        }
+  // Banner CTA and quick action: give the templates the link URL and title
+  // from the field values instead of digging them out of the render array.
+  $block_content = $variables['content']['#block_content'] ?? NULL;
+  if ($block_content instanceof BlockContentInterface) {
+    $renderer->addCacheableDependency($variables, $block_content);
+    foreach (['field_banner_cta' => 'banner_cta', 'field_quick_action' => 'quick_action'] as $field_name => $variable) {
+      if (!$block_content->hasField($field_name) || $block_content->get($field_name)->isEmpty()) {
+        continue;
       }
+      $link = $block_content->get($field_name)->first();
+      if (!$link instanceof LinkItemInterface) {
+        continue;
+      }
+      $url = $link->getUrl()->toString(TRUE);
+      $renderer->addCacheableDependency($variables, $url);
+      $variables[$variable] = [
+        'url' => $url->getGeneratedUrl(),
+        'title' => $link->get('title')->getString() ?: t('See more'),
+      ];
     }
   }
-
 }
 
 /**
@@ -147,32 +138,13 @@ function openintranet_theme_preprocess_views_view(array &$vars) {
  */
 function openintranet_theme_preprocess_node(array &$variables) {
   $entity_type_manager = \Drupal::service('entity_type.manager');
-  $renderer = \Drupal::service('renderer');
   $database = \Drupal::service('database');
 
-  if (($node = $variables['node']) instanceof NodeInterface && $node->hasField('field_background_image')) {
-    $media_id = !$node->get('field_background_image')->isEmpty()
-      ? $node->get('field_background_image')->target_id
-      : NULL;
+  $node = $variables['node'];
 
-    if (!empty($media_id)) {
-      $media = Media::load($media_id);
-      $file_id = $media instanceof MediaInterface && $media->hasField('field_media_image') && !$media->get('field_media_image')->isEmpty()
-        ? $media->get('field_media_image')->target_id
-        : NULL;
-
-      if (!empty($file_id)) {
-        $file = File::load($file_id);
-
-        if ($file) {
-          $image_style = ImageStyle::load('node_background');
-          $variables['background_image'] = $image_style ? $image_style->buildUrl($file->getFileUri()) : $file->createFileUrl();
-        }
-      }
-    }
-  }
-
-  if ($node instanceof NodeInterface) {
+  // node.html.twig lists the revision authors with the submitted information
+  // only; skip the query for teasers and other displays without it.
+  if ($node instanceof NodeInterface && !empty($variables['display_submitted'])) {
     $uids = $database->select('node_revision', 'nr')
       ->fields('nr', ['revision_uid'])
       ->condition('nr.nid', $node->id())
@@ -180,19 +152,22 @@ function openintranet_theme_preprocess_node(array &$variables) {
       ->execute()
       ->fetchCol();
 
+    // Render arrays, not rendered strings: their cache metadata (the author
+    // user entities) then bubbles up with the node instead of being lost.
     $variables['revision_authors'] = [];
     if (!empty($uids)) {
       $users = $entity_type_manager->getStorage('user')->loadMultiple($uids);
       $view_builder = $entity_type_manager->getViewBuilder('user');
       foreach ($users as $user) {
-        $view = $view_builder->view($user, 'compact');
-        $variables['revision_authors'][] = $renderer->render($view);
+        $variables['revision_authors'][] = $view_builder->view($user, 'compact');
       }
     }
+  }
 
+  if ($node instanceof NodeInterface) {
     $marked_as_must_read = $node->hasField('field_mark_as_must_read')
       && !$node->get('field_mark_as_must_read')->isEmpty()
-      && (bool)$node->get('field_mark_as_must_read')->getString();
+      && (bool) $node->get('field_mark_as_must_read')->getString();
 
     if (!$marked_as_must_read && isset($variables['content']['flag_read'])) {
       $variables['content']['flag_read']['#access'] = FALSE;

@@ -13,6 +13,7 @@ dependencies:
     - field.field.node.article.field_news_article_reaction
     - field.field.node.article.field_oi_document_ref
     - field.field.node.article.field_tags
+    - image.style.node_background
     - node.type.article
   module:
     - comment
@@ -74,9 +75,9 @@ content:
     label: hidden
     settings:
       image_link: ''
-      image_style: ''
+      image_style: node_background
       image_loading:
-        attribute: lazy
+        attribute: eager
     third_party_settings: {  }
     weight: 6
     region: content

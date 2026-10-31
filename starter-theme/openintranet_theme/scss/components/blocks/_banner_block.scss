@@ -9,10 +9,64 @@
   }
 
   .content {
-    background-repeat: no-repeat;
-    background-size: cover;
+    position: relative;
+    overflow: hidden;
     border-radius: $border-radius;
     color: $white;
+
+    // The background media field, rendered behind the text.
+    .banner-block__media {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+
+      // Fill the layer whatever wrappers the media display adds, like
+      // background-size: cover did.
+      img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .banner-block__body {
+      position: relative;
+      z-index: 2;
+    }
+
+    // With text, darken the image so the white text stays readable.
+    &.banner-block--with-text::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: rgba(0, 0, 0, .8);
+    }
+
+    // The image alone keeps its proportions instead of a text-sized box.
+    &.banner-block--image-only {
+      padding: 0 !important;
+
+      .banner-block__media {
+        position: static;
+
+        img {
+          position: static;
+          height: auto;
+        }
+      }
+    }
+
+    .banner-block__text {
+      max-width: 100%;
+
+      @include subtitle-400;
+      @include media-breakpoint-up(lg) {
+        max-width: 50%;
+      }
+    }
 
     h2 {
       @include heading-2;
