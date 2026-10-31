@@ -118,6 +118,7 @@ install:
   - recently_read
   - recipe_tracker
   - redirect
+  - role_delegation
   - search
   - search_api
   - search_api_db
@@ -139,6 +140,7 @@ install:
   - twig_tweak
   - twigsuggest
   - user
+  - userprotect
   - views
   - views_aggregator
   - views_conditional
@@ -399,6 +401,19 @@ config:
     # the alias and redirect's auto_redirect (on by default) adds a 301 from
     # the old one. The route normalizer is turned off so that this is the only
     # behaviour redirect adds; canonical /node/N URLs keep answering as before.
+    # Role delegation permissions only exist once the delegated role exists,
+    # so they are granted here, after every role of the recipe is imported.
+    # The accounts manager can hand out the editor roles but neither
+    # Administrator nor its own role.
+    user.role.user_accounts_manager:
+      grantPermissions:
+        - 'assign content_editor role'
+        - 'assign content_editor_basic_page role'
+        - 'assign content_editor_event role'
+        - 'assign content_editor_knowledge_base role'
+        - 'assign content_editor_news_article role'
+        - 'assign content_editor_oi_document role'
+        - 'assign content_editor_webform role'
     redirect.settings:
       simpleConfigUpdate:
         route_normalizer_enabled: false
@@ -432,6 +447,7 @@ config:
             - openintranet_notifications
             - pfdp
             - system
+            - userprotect
             - votingapi_reaction
         permissions:
           - 'access comments'
@@ -446,6 +462,9 @@ config:
           - 'edit own comments'
           - 'flag read'
           - 'unflag read'
+          - 'userprotect.account.edit'
+          - 'userprotect.mail.edit'
+          - 'userprotect.pass.edit'
           - 'flag bookmark'
           - 'unflag bookmark'
           - 'modify reaction on node:article:field_news_article_reaction'
