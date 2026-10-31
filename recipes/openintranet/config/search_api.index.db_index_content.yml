@@ -60,7 +60,6 @@ field_settings:
         - 'entity:node/field_intro'
         - 'entity:node/field_paragraphs'
         - 'entity:node/title'
-        - 'entity:node/uid'
   created:
     label: 'Authored on'
     datasource_id: 'entity:node'
@@ -131,6 +130,7 @@ field_settings:
       view_mode:
         'entity:node':
           article: search_result
+          knowledge_base_page: search_result
           page: search_result
   status:
     label: Boolean
@@ -174,7 +174,7 @@ datasource_settings:
       default: false
       selected:
         - article
-        - document
+        - knowledge_base_page
         - page
     languages:
       default: true
@@ -196,7 +196,6 @@ processor_settings:
     excerpt_always: false
     excerpt_length: 256
     exclude_fields:
-      - aggregated_field
       - rendered_item
     highlight: always
     highlight_partial: true
