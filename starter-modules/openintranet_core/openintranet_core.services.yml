@@ -14,3 +14,8 @@ services:
       - '@entity.repository'
       - '@logger.channel.openintranet_core'
       - '%app.root%'
+  openintranet_core.directory_term_redirect_subscriber:
+    class: Drupal\openintranet_core\EventSubscriber\DirectoryTermRedirectSubscriber
+    arguments: ['@current_route_match']
+    tags:
+      - { name: event_subscriber }
