@@ -133,7 +133,14 @@ mkdir -p web/sites/private_files
 
 ask_yes_no() {
     while true; do
-        read -p "$1 [y/n]: " yn
+        # End of input counts as "no". With piped or closed input (ddev and
+        # composer may have read the piped answers already), read fails on
+        # every call and the question would repeat forever.
+        if ! read -p "$1 [y/n]: " yn; then
+            echo ""
+            echo "No answer (end of input), assuming no."
+            return 1
+        fi
         case $yn in
             [Yy]* ) return 0;;
             [Nn]* ) return 1;;
