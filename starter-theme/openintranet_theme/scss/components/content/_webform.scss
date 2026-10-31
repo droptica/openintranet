@@ -31,7 +31,7 @@
             label, .fieldset-legend {
               
               @include body-500;
-              color: $blue-600;
+              color: $brand-600;
               font-size: 1.125rem;
             }
 
@@ -56,10 +56,10 @@
             input {
               position: relative;
               top: 2px;
-              background-color: $blue-500;
+              background-color: $brand-500;
 
               &:not(:checked) {
-                background-color: $blue-100;
+                background-color: $brand-100;
               }
             }
             label {
@@ -132,12 +132,12 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                border-color: $blue-400 !important;
+                border-color: $brand-400 !important;
                 border-width: 2px;
               }
 
               input:checked + label {
-                background-color: $blue-500;
+                background-color: $brand-500;
                 color: $white;
                 box-shadow: none;
               }
@@ -151,13 +151,13 @@
 
             button {
               border-radius: $border-radius;
-              background: $blue-50;
-              color: $blue-500;
+              background: $brand-50;
+              color: $brand-500;
               padding: .5rem .75rem;
               border: none;
 
               &:hover {
-                background: $blue-100;
+                background: $brand-100;
               }
             }
           }

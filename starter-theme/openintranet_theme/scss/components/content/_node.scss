@@ -120,7 +120,7 @@
 
           .field--name-field-classification, .field--name-field-access, .field--name-field-data-classification {
             &, * a {
-              background: $blue-500;
+              background: $brand-500;
               color: $white;
               padding: 2px 6px;
               border-radius: .5 * $border-radius;
@@ -228,8 +228,8 @@
                   padding: 0;
 
                   a {
-                    background: $blue-100;
-                    color: $blue-500;
+                    background: $brand-100;
+                    color: $brand-500;
                     padding: 4px 12px;
                     border-radius: .5 * $border-radius;
 
@@ -268,12 +268,12 @@
               --bs-accordion-color: #{$dark-navy-900};
               --bs-accordion-bg: #{$white};
               --bs-accordion-active-color: #{$white};
-              --bs-accordion-active-bg: #{$blue-600};
+              --bs-accordion-active-bg: #{$brand-600};
               --bs-accordion-border-width: 0;
               --bs-accordion-btn-padding-x: 2.5rem;
               --bs-accordion-btn-padding-y: 1rem;
               --bs-accordion-btn-color: #{$white};
-              --bs-accordion-btn-bg: #{$blue-600};
+              --bs-accordion-btn-bg: #{$brand-600};
               --bs-accordion-body-padding-x: 0;
               --bs-accordion-body-padding-y: 0;
 
@@ -334,7 +334,7 @@
         display: inline-flex;
         align-items: center;
         gap: 0.5rem;
-        color: $blue-500;
+        color: $brand-500;
 
         &:hover {
           color: $body-color;

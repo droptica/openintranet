@@ -145,7 +145,7 @@
 
   &__item--unread {
     position: relative;
-    background: $blue-50;
+    background: $brand-50;
 
     &::before {
       content: "";
@@ -156,7 +156,7 @@
       height: .4375rem;
       transform: translateY(-50%);
       border-radius: 50%;
-      background: $blue-600;
+      background: $brand-600;
     }
 
     .notification-bell__link {

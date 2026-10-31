@@ -39,8 +39,8 @@
     &:hover {
       color: $primary-shade;
       text-decoration: none;
-      background: $blue-50;
-      border-color: $blue-100;
+      background: $brand-50;
+      border-color: $brand-100;
     }
 
     &:focus-visible {
@@ -157,8 +157,8 @@
   }
 
   &__item--unread {
-    background: $blue-50;
-    box-shadow: inset 3px 0 0 $blue-600;
+    background: $brand-50;
+    box-shadow: inset 3px 0 0 $brand-600;
   }
 
   &__empty {
@@ -177,7 +177,7 @@
     height: 56px;
     margin-bottom: 1rem;
     color: $primary-shade;
-    background: $blue-50;
+    background: $brand-50;
     border-radius: 50%;
   }
 

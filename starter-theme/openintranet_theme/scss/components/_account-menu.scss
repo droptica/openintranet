@@ -14,7 +14,7 @@
       height: 48px;
       object-fit: cover;
       border-radius: 50%;
-      border: 2px solid $blue-500;
+      border: 2px solid $brand-500;
     }
   }
 
@@ -78,12 +78,12 @@
       height: 32px;
       object-fit: cover;
       border-radius: 50%;
-      border: 2px solid $blue-500;
+      border: 2px solid $brand-500;
     }
   }
 
   .logout-link {
-    color: $blue-500;
+    color: $brand-500;
     font-weight: 500;
     text-decoration: none;
 

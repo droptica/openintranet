@@ -39,8 +39,8 @@
 
       &:focus {
         background-color: $white;
-        border-color: $blue-400;
-        box-shadow: 0 0 0 0.2rem rgba($blue-500, 0.15);
+        border-color: $brand-400;
+        box-shadow: 0 0 0 0.2rem rgba($brand-500, 0.15);
       }
     }
   }
@@ -129,8 +129,8 @@
       }
 
       &:has(a.active) {
-        background: $blue-50;
-        box-shadow: inset 3px 0 0 $blue-500;
+        background: $brand-50;
+        box-shadow: inset 3px 0 0 $brand-500;
       }
     }
   }

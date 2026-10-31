@@ -5,7 +5,7 @@
 .view-events-listing,
 .view-events-calendar {
   .events-nav-tabs.nav-tabs {
-    border-bottom: 1px solid $blue-100;
+    border-bottom: 1px solid $brand-100;
     margin-bottom: 24px;
     padding-left: 0;
 
@@ -19,13 +19,13 @@
       padding: 8px 20px 16px 20px;
 
       &:hover {
-        color: $blue-500;
+        color: $brand-500;
       }
 
       &.active {
         color: $blue-800;
         background: none;
-        border-bottom: 2px solid $blue-500;
+        border-bottom: 2px solid $brand-500;
       }
     }
 
@@ -56,7 +56,7 @@
     gap: 16px;
     padding: 16px 12px;
     margin: 0 -12px;
-    border-bottom: 1px solid $blue-50;
+    border-bottom: 1px solid $brand-50;
     border-radius: 8px;
     color: $body-tertiary-color;
     position: relative;
@@ -64,7 +64,7 @@
     transition: background-color 0.15s ease;
 
     &:hover {
-      background-color: $blue-50;
+      background-color: $brand-50;
     }
 
     .left-side {
@@ -105,7 +105,7 @@
 
       .title {
         a {
-          color: $blue-500 !important;
+          color: $brand-500 !important;
           padding: 0 !important;
 
           @include link-base;

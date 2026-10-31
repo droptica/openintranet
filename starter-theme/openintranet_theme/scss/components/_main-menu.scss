@@ -64,7 +64,7 @@ $mega-menu-viewport-offset: 15rem;
         & > a.show {
           border-radius: $border-radius;
           font-weight: 600;
-          background: $blue-50;
+          background: $brand-50;
 
           &::after {
             transform: translateY(-45%) rotate(45deg);
@@ -177,7 +177,7 @@ $mega-menu-viewport-offset: 15rem;
             &:hover {
               color: $body-color;
               font-weight: 600;
-              background: $blue-50;
+              background: $brand-50;
             }
           }
 
@@ -321,7 +321,7 @@ $mega-menu-viewport-offset: 15rem;
       &.active {
         > .menu-item-wrapper {
           .menu-item-link {
-            background-color: $blue-50;
+            background-color: $brand-50;
             font-weight: 600;
             border-radius: $border-radius;
           }
@@ -338,7 +338,7 @@ $mega-menu-viewport-offset: 15rem;
         &:hover {
           color: $body-color;
           font-weight: 600;
-          background: $blue-50;
+          background: $brand-50;
         }
       }
     }

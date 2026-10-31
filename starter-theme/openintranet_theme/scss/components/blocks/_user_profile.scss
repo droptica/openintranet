@@ -3,14 +3,14 @@
 .account-page--profile .user--profile {
   &__profile-image {
     img {
-      border: 2px solid $blue-500;
+      border: 2px solid $brand-500;
     }
   }
 }
 
 body.page-view-employee-directory-view {
   .user--profile {
-    border: 1px solid $blue-100;
+    border: 1px solid $brand-100;
   }
 
   .views-row {
@@ -47,9 +47,9 @@ body.page-view-employee-directory-view .user--profile {
     justify-content: center;
     width: 150px;
     height: 150px;
-    color: $blue-600;
-    background: $blue-50;
-    border: 2px solid $blue-100;
+    color: $brand-600;
+    background: $brand-50;
+    border: 2px solid $brand-100;
     border-radius: 50%;
 
     @include heading-2;

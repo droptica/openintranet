@@ -7,8 +7,8 @@ section.field--name-comment-node-page,
   margin-top: 2rem;
 
   & > .title:first-of-type {
-    color: $blue-500;
-    background-color: $blue-50;
+    color: $brand-500;
+    background-color: $brand-50;
     padding: 1.5rem .5rem;
     border-radius: $border-radius;
 
@@ -39,7 +39,7 @@ section.field--name-comment-node-page,
     }
 
     .btn-primary {
-      background-color: $blue-50 !important;
+      background-color: $brand-50 !important;
       color: $body-secondary-color !important;
     }
   }
@@ -140,7 +140,7 @@ section.field--name-comment-node-page,
 
     .form-actions {
       .form-submit {
-        background-color: $blue-500;
+        background-color: $brand-500;
         border: none;
 
         &:after {

@@ -33,13 +33,13 @@
 
   .ui-button {
     padding: 8px 16px !important;
-    border: 1px solid $blue-100 !important;
+    border: 1px solid $brand-100 !important;
     border-radius: $border-radius !important;
     background: $white !important;
     color: $btn-color !important;
 
     &:hover {
-      background: $blue-100 !important;
+      background: $brand-100 !important;
     }
   }
 }
