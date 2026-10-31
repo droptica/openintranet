@@ -20,36 +20,20 @@ We call a macro which calls itself to render the full tree.
           {% endfor %}
         </ul>
       </div>
-      {# Desktop version - three columns #}
+      {# Desktop version - three columns, filled top to bottom so that an
+         ordered list reads down each column. #}
+      {% set per_column = (items|length / 3)|round(0, 'ceil') %}
       <div class="mega-menu-wrapper d-none d-lg-block">
         <div class="mega-menu-columns">
-          <div class="mega-menu-column column-1">
-            <ul class="dropdown-menu">
-              {% for item in items %}
-                {% if loop.index % 3 == 1 %}
+          {% for column in 0..2 %}
+            <div class="mega-menu-column column-{{ column + 1 }}">
+              <ul class="dropdown-menu">
+                {% for item in items|slice(column * per_column, per_column) %}
                   {{ menus.menu_item(item, menu_level) }}
-                {% endif %}
-              {% endfor %}
-            </ul>
-          </div>
-          <div class="mega-menu-column column-2">
-            <ul class="dropdown-menu">
-              {% for item in items %}
-                {% if loop.index % 3 == 2 %}
-                  {{ menus.menu_item(item, menu_level) }}
-                {% endif %}
-              {% endfor %}
-            </ul>
-          </div>
-          <div class="mega-menu-column column-3">
-            <ul class="dropdown-menu">
-              {% for item in items %}
-                {% if loop.index % 3 == 0 %}
-                  {{ menus.menu_item(item, menu_level) }}
-                {% endif %}
-              {% endfor %}
-            </ul>
-          </div>
+                {% endfor %}
+              </ul>
+            </div>
+          {% endfor %}
         </div>
       </div>
     {% else %}
@@ -93,8 +77,10 @@ We call a macro which calls itself to render the full tree.
     %}
 
     {% if item.below and menu_level == 0 %}
-      {# Only add Bootstrap dropdown attributes for top-level items #}
-      {{ link(item.title, item.url, {'class': link_classes, 'data-bs-toggle': 'dropdown', 'aria-expanded': 'false', 'aria-haspopup': 'true' }) }}
+      {# The link stays a link: the panel opens on hover and focus on desktop
+         (CSS) and via multi-level-menu.js on mobile. A Bootstrap dropdown
+         toggle here would swallow the click. #}
+      {{ link(item.title, item.url, {'class': link_classes}) }}
       {{ menus.menu_links(item.below, attributes, menu_level + 1) }}
     {% elseif item.below and menu_level >= 1 %}
       {# For level 2+ items with children, add split button #}

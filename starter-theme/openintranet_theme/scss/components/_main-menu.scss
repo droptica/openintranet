@@ -1,3 +1,7 @@
+// Space above and below the open mega menu panel: header, top bar, panel
+// offset and padding.
+$mega-menu-viewport-offset: 15rem;
+
 @import "../mixins/text";
 
 .navbar-nav {
@@ -125,7 +129,8 @@
           color: $body-secondary-color;
         }
 
-        > .dropdown-menu {
+        > .dropdown-menu,
+        > .mega-menu-wrapper > .dropdown-menu {
           display: block;
         }
       }
@@ -239,11 +244,17 @@
         }
 
         .mega-menu-columns {
-          display: flex;
+          // Grid rather than flex: the row grows to the longest column, so the
+          // column dividers run the full height when the panel scrolls.
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
           gap: 0;
           width: 100%;
           margin: 0 auto;
           background: $white;
+          // Keep a long section inside the viewport; the columns scroll.
+          max-height: calc(100vh - #{$mega-menu-viewport-offset});
+          overflow-y: auto;
         }
 
         .mega-menu-column {
@@ -287,7 +298,8 @@
         }
       }
 
-      &:hover {
+      &:hover,
+      &:focus-within {
         .mega-menu-wrapper.d-none.d-lg-block {
           display: block !important;
         }
