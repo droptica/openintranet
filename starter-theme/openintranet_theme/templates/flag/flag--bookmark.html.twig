@@ -1,7 +1,11 @@
 {#
 /**
  * @file
- * Default theme implementation for flag links.
+ * Bookmark flag link, styled like the book and view-count buttons next to it.
+ *
+ * Named after the flag only: the flag module renders the link through a lazy
+ * builder and AJAX callback that always pass the "default" view mode, so a
+ * view mode suggestion such as flag--bookmark--full never applies.
  *
  * Available functions:
  * - flagcount(flag, flaggable) gets the number of flaggings for the given flag and flaggable.
