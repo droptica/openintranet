@@ -1,0 +1,17 @@
+uuid: 0a99e8da-484b-405e-9113-fedb675c39c8
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.quick_action
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+id: block_content.quick_action
+target_entity_type_id: block_content
+target_bundle: quick_action
+default_langcode: site_default
+language_alterable: true
+

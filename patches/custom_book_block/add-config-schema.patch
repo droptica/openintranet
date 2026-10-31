@@ -1,0 +1,22 @@
+diff --git a/config/schema/custom_book_block.schema.yml b/config/schema/custom_book_block.schema.yml
+new file mode 100644
+index 0000000..61fd67c
+--- /dev/null
++++ b/config/schema/custom_book_block.schema.yml
+@@ -0,0 +1,16 @@
++block.settings.custom_book_navigation:
++  type: block.settings.book_navigation
++  label: 'Custom book navigation block'
++  mapping:
++    target_book:
++      type: string
++      label: 'Book to display'
++    start_level:
++      type: integer
++      label: 'Starting level'
++    max_levels:
++      type: string
++      label: 'Maximum number of levels'
++    always_expand:
++      type: boolean
++      label: 'Expand all menu links'

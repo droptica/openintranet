@@ -15,6 +15,7 @@ dependencies:
     - taxonomy.vocabulary.tags
   module:
     - ai_ckeditor
+    - book
     - comment
     - content_translation
     - contextual
@@ -48,6 +49,9 @@ permissions:
   - 'access navigation'
   - 'access taxonomy overview'
   - 'access toolbar'
+  - 'add content to books'
+  - 'administer book outlines'
+  - 'administer node published status'
   - 'bypass pfdp'
   - 'bypass pfdp for temporary files'
   - 'clone audio media entities'

@@ -3,7 +3,7 @@ documents:
   css:
     theme:
       css/oi-documents.css: {}
-      https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css: { type: external, minified: true }
+      css/vendor/bootstrap-icons/bootstrap-icons.min.css: { minified: true }
   js:
     js/oi-documents.js: { attributes: { alpinejs: true } }
   dependencies:
@@ -16,4 +16,4 @@ forms:
   css:
     theme:
       css/oi-documents.css: {}
-      https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css: { type: external, minified: true }
+      css/vendor/bootstrap-icons/bootstrap-icons.min.css: { minified: true }

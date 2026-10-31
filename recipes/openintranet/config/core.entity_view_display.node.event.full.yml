@@ -103,7 +103,7 @@ content:
     label: hidden
     settings:
       multiple_map: false
-      leaflet_map: 'OSM Mapnik'
+      leaflet_map: openstreetmap
       height: 400
       height_unit: px
       hide_empty_map: true

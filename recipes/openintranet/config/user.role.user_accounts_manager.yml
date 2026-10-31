@@ -18,7 +18,6 @@ permissions:
   - 'access navigation'
   - 'access toolbar'
   - 'access user profiles'
-  - 'administer permissions'
   - 'administer users'
   - 'cancel account'
   - 'change own username'

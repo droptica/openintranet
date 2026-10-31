@@ -52,6 +52,7 @@ permissions:
   - 'access webform help'
   - 'access webform overview'
   - 'access webform submission user'
+  - 'administer node published status'
   - 'bypass pfdp'
   - 'bypass pfdp for temporary files'
   - 'clone audio media entities'

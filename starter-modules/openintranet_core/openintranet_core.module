@@ -7,6 +7,11 @@
 
 declare(strict_types=1);
 
+use Drupal\Core\Access\AccessResult;
+use Drupal\Core\Access\AccessResultInterface;
+use Drupal\Core\Field\FieldDefinitionInterface;
+use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 
 /**
@@ -189,4 +194,16 @@ function openintranet_core_views_data_alter(array &$data): void {
       ],
     ];
   }
+}
+
+/**
+ * Implements hook_entity_field_access().
+ */
+function openintranet_core_entity_field_access(string $operation, FieldDefinitionInterface $field_definition, AccountInterface $account, ?FieldItemListInterface $items = NULL): AccessResultInterface {
+  // Only user administrators decide who is left out of the employee
+  // directory; employees must not be able to hide their own profile.
+  if ($operation === 'edit' && $field_definition->getTargetEntityTypeId() === 'user' && $field_definition->getName() === 'field_hide_in_directory') {
+    return AccessResult::forbiddenIf(!$account->hasPermission('administer users'))->cachePerPermissions();
+  }
+  return AccessResult::neutral();
 }

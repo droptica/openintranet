@@ -1,5 +1,10 @@
 /* VARIABLES */
 
+// Barrio's default assumes the subtheme lives in themes/contrib/. This theme
+// is installed in themes/custom/, so point back up to themes/contrib/ from
+// the compiled css/ directory (required.svg, file type icons).
+$barrio_path_images: "../../../contrib/bootstrap_barrio/images/";
+
 // colors
 $red: #dc3545;
 $orange: #ed7b22;

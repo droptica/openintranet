@@ -61,7 +61,7 @@ We call a macro which calls itself to render the full tree.
         {{ menus.menu_item(item, menu_level) }}
       {% endfor %}
       </ul>
-    {% elseif menu_level == 2 %}
+    {% elseif menu_level >= 2 %}
       {% for item in items %}
         {{ menus.menu_item(item, menu_level) }}
       {% endfor %}
@@ -75,7 +75,7 @@ We call a macro which calls itself to render the full tree.
   {%
     set classes = [
     menu_level ? 'dropdown-item' : 'nav-item',
-    (item.is_expanded or (menu_level == 1 and item.below)) ? 'menu-item--expanded' : '',
+    (item.is_expanded or (menu_level >= 1 and item.below)) ? 'menu-item--expanded' : '',
     item.is_collapsed ? 'menu-item--collapsed' : '',
     item.in_active_trail ? 'active' : '',
     item.below ? 'dropdown' : '',
@@ -96,8 +96,8 @@ We call a macro which calls itself to render the full tree.
       {# Only add Bootstrap dropdown attributes for top-level items #}
       {{ link(item.title, item.url, {'class': link_classes, 'data-bs-toggle': 'dropdown', 'aria-expanded': 'false', 'aria-haspopup': 'true' }) }}
       {{ menus.menu_links(item.below, attributes, menu_level + 1) }}
-    {% elseif item.below and menu_level == 1 %}
-      {# For level 2 items with children, add split button #}
+    {% elseif item.below and menu_level >= 1 %}
+      {# For level 2+ items with children, add split button #}
       <div class="menu-item-wrapper">
         {{ link(item.title, item.url, {'class': link_classes|merge(['menu-item-link'])}) }}
         <button class="dropdown-toggle-btn" aria-label="Toggle submenu"></button>
