@@ -27,7 +27,7 @@
     {# Menu. #}
     {% block content %}
       <div class="mobile-account-menu">
-        <a href="/user" class="user-profile-link">
+        <a href="{{ path('user.page') }}" class="user-profile-link">
           <div class="user-avatar rounded-circle">
             {{ drupal_field('user_picture', 'user', user.account.id, {
               type: 'image',
@@ -37,10 +37,8 @@
               label: 'hidden'
             }) }}
           </div>
-          <span class="user-name">
-            {% set current_user = drupal_entity('user', user.account.id, 'default') %}
-            {{ current_user['#user'].field_full_name.value ?: user.displayName }}
-          </span>
+          {# From openintranet_theme_preprocess_block(), like the desktop menu. #}
+          <span class="user-name">{{ current_user_display_name }}</span>
         </a>
         <a href="{{ path('user.logout') }}" class="logout-link">{{ 'Log out'|t }}</a>
       </div>
