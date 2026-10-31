@@ -12,36 +12,37 @@ dependencies:
     - field.field.node.event.field_event_online_text
     - field.field.node.event.field_hide_location
     - field.field.node.event.field_map_location
-    - image.style.news_teaser
     - node.type.event
   module:
-    - media
+    - address
+    - datetime_range
     - user
 id: node.event.block_teaser
 targetEntityType: node
 bundle: event
 mode: block_teaser
 content:
-  field_background_image:
-    type: media_thumbnail
+  field_event_date:
+    type: daterange_default
     label: hidden
     settings:
-      image_link: content
-      image_style: news_teaser
-      image_loading:
-        attribute: lazy
+      timezone_override: ''
+      format_type: event_medium
+      from_to: both
+      separator: '-'
     third_party_settings: {  }
     weight: 0
     region: content
-  links:
+  field_event_location:
+    type: address_plain
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     weight: 1
     region: content
 hidden:
   body: true
-  field_event_date: true
-  field_event_location: true
+  field_background_image: true
   field_event_online: true
   field_event_online_text: true
   field_hide_location: true
@@ -49,4 +50,5 @@ hidden:
   flag_bookmark: true
   flag_read: true
   langcode: true
+  links: true
   search_api_excerpt: true

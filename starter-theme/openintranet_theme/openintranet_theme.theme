@@ -5,6 +5,7 @@
  * Functions to support theming in the SASS Starterkit subtheme.
  */
 
+use Drupal\address\AddressInterface;
 use Drupal\block_content\BlockContentInterface;
 use Drupal\comment\CommentingStatus;
 use Drupal\Core\Cache\Cache;
@@ -185,14 +186,110 @@ function openintranet_theme_preprocess_node(array &$variables) {
     }
   }
 
+  if ($node instanceof NodeInterface && $node->bundle() === 'event' && in_array($variables['view_mode'], ['teaser', 'block_teaser'], TRUE)) {
+    _openintranet_theme_event_card($variables, $node);
+  }
+
   if ($node instanceof NodeInterface) {
-    $marked_as_must_read = $node->hasField('field_mark_as_must_read')
+    $marked_as_must_read =$node->hasField('field_mark_as_must_read')
       && !$node->get('field_mark_as_must_read')->isEmpty()
       && (bool) $node->get('field_mark_as_must_read')->getString();
 
     if (!$marked_as_must_read && isset($variables['content']['flag_read'])) {
       $variables['content']['flag_read']['#access'] = FALSE;
     }
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for field templates.
+ *
+ * A one-day event shows its date once with the start and end times, in the
+ * "Event long date" and "Event time" date formats. Events spanning several
+ * days keep the formatter output.
+ *
+ * @see field--node--field-event-date--event.html.twig
+ */
+function openintranet_theme_preprocess_field(array &$variables) {
+  if ($variables['field_name'] !== 'field_event_date' || $variables['element']['#entity_type'] !== 'node') {
+    return;
+  }
+  $date_formatter = \Drupal::service('date.formatter');
+  $variables['#cache']['contexts'][] = 'timezone';
+  foreach ($variables['element']['#items'] as $delta => $item) {
+    if (!$item->start_date || !$item->end_date || !isset($variables['items'][$delta])) {
+      continue;
+    }
+    $start = $item->start_date->getTimestamp();
+    $end = $item->end_date->getTimestamp();
+    if ($date_formatter->format($start, 'custom', 'Y-m-d') !== $date_formatter->format($end, 'custom', 'Y-m-d')) {
+      continue;
+    }
+    $variables['items'][$delta]['single_day'] = [
+      'date' => $date_formatter->format($start, 'event_date_long'),
+      'start' => $date_formatter->format($start, 'event_time'),
+      'end' => $date_formatter->format($end, 'event_time'),
+      'start_datetime' => $date_formatter->format($start, 'custom', 'c'),
+      'end_datetime' => $date_formatter->format($end, 'custom', 'c'),
+    ];
+  }
+}
+
+/**
+ * Prepares the event card variables for the event teaser templates.
+ *
+ * The card splits the start date into month, day and time, so it is built
+ * from the field values rather than the formatter output. The parts follow
+ * the "Event month", "Event day" and "Event time" date formats, and the date
+ * and location are shown only when their fields are in the view mode's
+ * Manage display.
+ *
+ * @see node--event--teaser.html.twig
+ * @see node--event--block-teaser.html.twig
+ */
+function _openintranet_theme_event_card(array &$variables, NodeInterface $node): void {
+  $variables['event_date'] = NULL;
+  $variables['event_location'] = NULL;
+  // Formatted dates follow the viewer's timezone.
+  $variables['#cache']['contexts'][] = 'timezone';
+  $display = EntityViewDisplay::collectRenderDisplay($node, $variables['view_mode']);
+
+  if ($display->getComponent('field_event_date') && $node->get('field_event_date')->start_date) {
+    $date_formatter = \Drupal::service('date.formatter');
+    $start = $node->get('field_event_date')->start_date->getTimestamp();
+    $variables['event_date'] = [
+      'month' => $date_formatter->format($start, 'event_month'),
+      'day' => $date_formatter->format($start, 'event_day'),
+      'time' => $date_formatter->format($start, 'event_time'),
+      'datetime' => $date_formatter->format($start, 'custom', 'c'),
+    ];
+  }
+
+  // The location field also covers the online event text.
+  if (!$display->getComponent('field_event_location')) {
+    return;
+  }
+  if ($node->hasField('field_event_online') && $node->get('field_event_online')->value) {
+    $online_text = $node->get('field_event_online_text');
+    if (!$online_text->isEmpty() && $online_text->access('view')) {
+      $variables['event_location'] = $online_text->value;
+    }
+    return;
+  }
+  if ($node->hasField('field_hide_location') && $node->get('field_hide_location')->value) {
+    return;
+  }
+  $address = $node->get('field_event_location')->first();
+  if (!$address instanceof AddressInterface || !$node->get('field_event_location')->access('view')) {
+    return;
+  }
+  $countries = \Drupal::service('address.country_repository')->getList();
+  $place = array_filter([
+    $address->getLocality(),
+    $countries[$address->getCountryCode()] ?? NULL,
+  ]);
+  if ($place) {
+    $variables['event_location'] = t('Location: @place', ['@place' => implode(', ', $place)]);
   }
 }
 

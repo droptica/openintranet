@@ -28,7 +28,6 @@ display:
     display_plugin: default
     position: 0
     display_options:
-      rendering_language: '***LANGUAGE_language_content***'
       title: 'Events Calendar'
       fields:
         title:
@@ -130,7 +129,7 @@ display:
           click_sort_column: value
           type: daterange_default
           settings:
-            timezone_override: Europe/Amsterdam
+            timezone_override: ''
             format_type: medium
             from_to: both
             separator: '-'
@@ -196,7 +195,7 @@ display:
           click_sort_column: value
           type: daterange_custom
           settings:
-            timezone_override: Europe/Amsterdam
+            timezone_override: ''
             date_format: 'H:i'
             from_to: start_date
             separator: '-'
@@ -718,11 +717,11 @@ display:
       relationships: {  }
       header: {  }
       footer: {  }
+      rendering_language: '***LANGUAGE_language_content***'
       display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
         - 'user.node_grants:view'
         - user.permissions
@@ -737,7 +736,6 @@ display:
     display_plugin: block
     position: 2
     display_options:
-      rendering_language: '***LANGUAGE_language_content***'
       title: Events
       fields:
         title:
@@ -818,11 +816,11 @@ display:
         style: false
         row: false
         fields: false
+      rendering_language: '***LANGUAGE_language_content***'
       display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
         - 'user.node_grants:view'
         - user.permissions
@@ -839,7 +837,6 @@ display:
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
         - 'user.node_grants:view'
         - user.permissions
