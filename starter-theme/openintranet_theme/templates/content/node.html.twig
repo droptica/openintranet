@@ -87,14 +87,11 @@
     {% endif %}
     {% if display_submitted %}
       <div class="node__meta">
+        {# Each classification field shows as configured in Manage display. #}
         {% block clasification %}
-          {% if content.field_data_classification %}
-            {{ content.field_data_classification }}
-          {% elseif content.field_classification %}
-            {{ content.field_classification }}
-          {% elseif content.field_access %}
-            {{ content.field_access }}
-          {% endif %}
+          {{ content.field_data_classification }}
+          {{ content.field_classification }}
+          {{ content.field_access }}
         {% endblock %}
         {% block submitted %}
           <em{{ author_attributes }}>

@@ -448,6 +448,7 @@ config:
             - openintranet_notifications
             - pfdp
             - system
+            - user
             - userprotect
             - votingapi_reaction
         permissions:
@@ -476,6 +477,7 @@ config:
           - 'view media'
           - 'view oi_document'
           - 'view own engagement score'
+          - 'view user email addresses'
           - 'view oi_folder'
           - 'view reactions on node:article:field_news_article_reaction'
           - 'view reactions on node:page:field_basic_page_reaction'

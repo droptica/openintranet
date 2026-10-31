@@ -6,7 +6,9 @@
  */
 
 use Drupal\block_content\BlockContentInterface;
+use Drupal\comment\CommentingStatus;
 use Drupal\Core\Cache\Cache;
+use Drupal\Core\Entity\Entity\EntityViewDisplay;
 use Drupal\link\LinkItemInterface;
 use Drupal\node\NodeInterface;
 use Drupal\user\UserInterface;
@@ -164,6 +166,25 @@ function openintranet_theme_preprocess_node(array &$variables) {
     }
   }
 
+  // Comment counter of the news teaser: shown only when the node's comments
+  // are enabled and its full display shows them, so hiding comments in Manage
+  // display hides the counter too.
+  $variables['comment_count'] = NULL;
+  if ($node instanceof NodeInterface) {
+    $full_display = EntityViewDisplay::collectRenderDisplay($node, 'full');
+    \Drupal::service('renderer')->addCacheableDependency($variables, $full_display);
+    foreach ($node->getFieldDefinitions() as $field_name => $definition) {
+      if ($definition->getType() !== 'comment' || !$full_display->getComponent($field_name)) {
+        continue;
+      }
+      $comments = $node->get($field_name);
+      if ((int) $comments->status !== CommentingStatus::Hidden->value) {
+        $variables['comment_count'] = (int) $comments->comment_count;
+      }
+      break;
+    }
+  }
+
   if ($node instanceof NodeInterface) {
     $marked_as_must_read = $node->hasField('field_mark_as_must_read')
       && !$node->get('field_mark_as_must_read')->isEmpty()
@@ -271,4 +292,35 @@ function openintranet_theme_preprocess_page_title(array &$variables) {
       $variables['title']['#markup'] = $term->getName();
     }
   }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for user templates.
+ *
+ * Gives the user templates the display name, initials and e-mail address as
+ * plain values built from the entity, instead of reading formatter
+ * internals (#context) or rendered markup in Twig.
+ */
+function openintranet_theme_preprocess_user(array &$variables) {
+  $account = $variables['user'] ?? NULL;
+  if (!$account instanceof UserInterface) {
+    return;
+  }
+  $name_parts = [];
+  foreach (['field_first_name', 'field_last_name'] as $field_name) {
+    $value = $account->hasField($field_name) ? trim((string) $account->get($field_name)->value) : '';
+    if ($value !== '') {
+      $name_parts[] = $value;
+    }
+  }
+  $display_name = $name_parts ? implode(' ', $name_parts) : (string) $account->getDisplayName();
+  $variables['profile_display_name'] = $display_name;
+  $initials = implode('', array_map(fn (string $part): string => mb_substr($part, 0, 1), $name_parts));
+  $variables['profile_initials'] = mb_strtoupper($initials !== '' ? $initials : mb_substr($display_name, 0, 1));
+
+  // The address is shown only to users who may see it (core's 'view user
+  // email addresses' permission, or the account owner).
+  $mail_access = $account->get('mail')->access('view', NULL, TRUE);
+  \Drupal::service('renderer')->addCacheableDependency($variables, $mail_access);
+  $variables['profile_email'] = $mail_access->isAllowed() ? $account->getEmail() : NULL;
 }
