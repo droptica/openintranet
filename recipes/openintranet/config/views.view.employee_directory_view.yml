@@ -434,6 +434,14 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+        field_hide_in_directory:
+          id: field_hide_in_directory
+          table: search_api_index_db_index_users
+          field: field_hide_in_directory
+          plugin_id: search_api_boolean
+          operator: '!='
+          value: '1'
+          group: 1
       style:
         type: default
         options:

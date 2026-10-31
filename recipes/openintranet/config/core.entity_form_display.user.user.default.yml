@@ -6,6 +6,7 @@ dependencies:
     - field.field.user.user.field_about
     - field.field.user.user.field_department
     - field.field.user.user.field_first_name
+    - field.field.user.user.field_hide_in_directory
     - field.field.user.user.field_last_name
     - field.field.user.user.field_manager
     - field.field.user.user.field_name
@@ -83,6 +84,7 @@ third_party_settings:
     group_account:
       children:
         - account
+        - field_hide_in_directory
         - path
         - langcode
         - contact
@@ -141,6 +143,13 @@ content:
     settings:
       size: 60
       placeholder: ''
+    third_party_settings: {  }
+  field_hide_in_directory:
+    type: boolean_checkbox
+    weight: 6
+    region: content
+    settings:
+      display_label: true
     third_party_settings: {  }
   field_last_name:
     type: string_textfield
