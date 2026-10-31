@@ -26,6 +26,7 @@ dependencies:
   module:
     - ai_ckeditor
     - block_content
+    - book
     - comment
     - config_perms
     - content_translation
@@ -69,7 +70,10 @@ permissions:
   - 'access webform help'
   - 'access webform overview'
   - 'access webform submission user'
+  - 'add content to books'
+  - 'administer book outlines'
   - 'administer media'
+  - 'administer node published status'
   - 'administer taxonomy'
   - 'administer url aliases'
   - 'attachments with views_send'

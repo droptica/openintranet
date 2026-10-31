@@ -48,6 +48,7 @@ permissions:
   - 'access navigation'
   - 'access taxonomy overview'
   - 'access toolbar'
+  - 'administer node published status'
   - 'bypass pfdp'
   - 'bypass pfdp for temporary files'
   - 'clone article node entities'
