@@ -1,0 +1,17 @@
+uuid: 097fc704-ff7a-40ea-81d8-7222a4e4da90
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.department
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+id: taxonomy_term.department
+target_entity_type_id: taxonomy_term
+target_bundle: department
+default_langcode: site_default
+language_alterable: true
+
