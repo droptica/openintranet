@@ -59,8 +59,11 @@
       }
     }
 
+    // Width and type for the whole body field. Paragraphs inside inherit
+    // them; a second max-width on <p> would halve the column again.
     .banner-block__text {
       max-width: 100%;
+      padding-top: .5rem;
 
       @include subtitle-400;
       @include media-breakpoint-up(lg) {
@@ -70,15 +73,6 @@
 
     h2 {
       @include heading-2;
-    }
-
-    p {
-      max-width: 100%;
-
-      @include subtitle-400;
-      @include media-breakpoint-up(lg) {
-        max-width: 50%;
-      }
     }
 
     a {
