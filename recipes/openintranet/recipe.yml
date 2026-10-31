@@ -190,6 +190,7 @@ config:
       - block.block.gin_messages
       - block.block.gin_page_title
       - block.block.gin_primary_local_tasks
+      - block.block.gin_secondary_local_tasks
     gin_toolbar: '*'
     image: '*'
     imagemagick: '*'
