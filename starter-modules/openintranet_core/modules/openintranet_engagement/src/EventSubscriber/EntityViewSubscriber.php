@@ -96,10 +96,11 @@ final class EntityViewSubscriber implements EventSubscriberInterface {
       return;
     }
 
-    $routeName = $this->routeMatch->getRouteName();
+    // No route name on 404 and other exception pages.
+    $routeName = (string) $this->routeMatch->getRouteName();
 
     if (!isset(self::TRACKED_ROUTES[$routeName])) {
-      $this->trackCanonicalView((string) $routeName, $event);
+      $this->trackCanonicalView($routeName, $event);
       return;
     }
 
