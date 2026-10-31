@@ -114,7 +114,7 @@
         }
 
         &.show-level3 {
-          .dropdown-toggle-btn::after {
+          > .menu-item-wrapper > .dropdown-toggle-btn::after {
             transform: translate(-50%, -50%) rotate(-135deg);
           }
         }
@@ -210,7 +210,7 @@
         }
 
         &.show-level3 {
-          .dropdown-toggle-btn::after {
+          > .menu-item-wrapper > .dropdown-toggle-btn::after {
             transform: translate(-50%, -50%) rotate(-135deg);
           }
         }
