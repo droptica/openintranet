@@ -3,14 +3,35 @@
  * Styles for Open Intranet Documents.
  */
 
+/*
+ * Colours. Each one follows the matching --oi-* property of the
+ * Open Intranet theme and falls back to the previous value elsewhere, so
+ * a theme can restyle the documents UI by overriding these properties.
+ */
+:root {
+  --oi-docs-accent: var(--oi-brand-500, #0d6efd);
+  --oi-docs-accent-surface: var(--oi-brand-50, rgba(13, 110, 253, 0.04));
+  --oi-docs-surface: var(--oi-surface-background, #fff);
+  --oi-docs-surface-soft: var(--oi-surface-soft, #f8f9fa);
+  --oi-docs-divider: var(--oi-surface-divider, #e9ecef);
+  --oi-docs-border: var(--oi-surface-border, #dee2e6);
+  --oi-docs-text: var(--oi-body-color, #212529);
+  --oi-docs-text-muted: var(--oi-body-tertiary-color, #6c757d);
+  --oi-docs-text-faint: var(--oi-text-faint, #999);
+  --oi-docs-danger: var(--oi-danger, #dc3545);
+  --oi-docs-success: var(--oi-success, #198754);
+  --oi-docs-warning: var(--oi-warning, #fd7e14);
+  --oi-docs-info: #0dcaf0;
+}
+
 .oi-documents-browser {
   padding: 1rem 0;
 }
 
 /* Breadcrumbs - unified style for browser and document view */
 .oi-breadcrumb-nav {
-  background-color: #f8f9fa;
-  border: 1px solid #e9ecef;
+  background-color: var(--oi-docs-surface-soft);
+  border: 1px solid var(--oi-docs-divider);
   border-radius: 0.375rem;
   padding: 0.5rem 0.75rem;
 }
@@ -25,12 +46,12 @@
 
 .oi-breadcrumb-nav .breadcrumb-item + .breadcrumb-item::before {
   content: "›";
-  color: #6c757d;
+  color: var(--oi-docs-text-muted);
 }
 
 .oi-breadcrumb-nav .breadcrumb a {
   text-decoration: none;
-  color: #0d6efd;
+  color: var(--oi-docs-accent);
 }
 
 .oi-breadcrumb-nav .breadcrumb a:hover {
@@ -38,7 +59,7 @@
 }
 
 .oi-breadcrumb-nav .breadcrumb-item.active {
-  color: #495057;
+  color: var(--oi-docs-text-muted);
 }
 
 /* Toolbar */
@@ -90,7 +111,7 @@
 }
 
 .oi-search-header {
-  border-bottom: 1px solid #e9ecef;
+  border-bottom: 1px solid var(--oi-docs-divider);
   padding-bottom: 0.75rem;
 }
 
@@ -110,7 +131,7 @@
 }
 
 .oi-search-result:hover {
-  background-color: rgba(13, 110, 253, 0.04);
+  background-color: var(--oi-docs-accent-surface);
   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.05);
 }
 
@@ -124,12 +145,12 @@
 }
 
 .oi-search-result h6 {
-  color: #212529;
+  color: var(--oi-docs-text);
   font-weight: 600;
 }
 
 .oi-search-result:hover h6 {
-  color: #0d6efd;
+  color: var(--oi-docs-accent);
 }
 
 .min-width-0 {
@@ -157,9 +178,9 @@
 }
 
 .oi-documents-view-toggle .btn.active {
-  background-color: #0d6efd;
-  border-color: #0d6efd;
-  color: #fff;
+  background-color: var(--oi-docs-accent);
+  border-color: var(--oi-docs-accent);
+  color: var(--oi-docs-surface);
 }
 
 .oi-documents-view-toggle .btn svg {
@@ -171,7 +192,7 @@
 .oi-documents-list h3 {
   margin-bottom: 1rem;
   font-size: 1.1rem;
-  color: #666;
+  color: var(--oi-docs-text-muted);
   font-weight: 600;
 }
 
@@ -193,7 +214,7 @@
   flex-direction: column;
   align-items: center;
   padding: 1.25rem 1rem;
-  background: #f8f9fa;
+  background: var(--oi-docs-surface-soft);
   border-radius: 0.75rem;
   transition: background 0.2s, box-shadow 0.2s;
   position: relative;
@@ -201,7 +222,7 @@
 }
 
 .oi-folder-card:hover {
-  background: #e9ecef;
+  background: var(--oi-docs-divider);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -261,12 +282,12 @@
 .oi-count-documents {
   display: inline-block;
   margin-right: 0.5rem;
-  color: #555;
+  color: var(--oi-docs-text-muted);
 }
 
 .oi-folder-empty {
   font-size: 0.875rem;
-  color: #999;
+  color: var(--oi-docs-text-faint);
   font-style: italic;
 }
 
@@ -293,8 +314,8 @@
   flex-direction: column;
   align-items: center;
   padding: 1.25rem 1rem;
-  background: #fff;
-  border: 1px solid #dee2e6;
+  background: var(--oi-docs-surface);
+  border: 1px solid var(--oi-docs-border);
   border-radius: 0.75rem;
   transition: box-shadow 0.2s, border-color 0.2s;
   position: relative;
@@ -302,7 +323,7 @@
 }
 
 .oi-document-card:hover {
-  border-color: #0d6efd;
+  border-color: var(--oi-docs-accent);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -329,7 +350,7 @@
 
 .oi-document-card .oi-document-filename {
   font-size: 0.75rem;
-  color: #666;
+  color: var(--oi-docs-text-muted);
   word-break: break-all;
 }
 
@@ -361,7 +382,7 @@
 
 .oi-documents-table th {
   font-weight: 600;
-  background: #f8f9fa;
+  background: var(--oi-docs-surface-soft);
 }
 
 .oi-documents-table td {
@@ -383,8 +404,8 @@
 .oi-documents-empty {
   text-align: center;
   padding: 3rem;
-  color: #666;
-  background: #f8f9fa;
+  color: var(--oi-docs-text-muted);
+  background: var(--oi-docs-surface-soft);
   border-radius: 0.5rem;
 }
 
@@ -424,9 +445,9 @@
    Autocomplete dropdown fix
    ============================================ */
 .ui-autocomplete {
-  background: #fff !important;
-  background-color: #fff !important;
-  border: 1px solid #dee2e6 !important;
+  background: var(--oi-docs-surface) !important;
+  background-color: var(--oi-docs-surface) !important;
+  border: 1px solid var(--oi-docs-border) !important;
   border-radius: 0.375rem;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
   max-height: 300px;
@@ -436,20 +457,20 @@
 
 .ui-autocomplete .ui-menu-item {
   padding: 0;
-  background: #fff !important;
+  background: var(--oi-docs-surface) !important;
 }
 
 .ui-autocomplete .ui-menu-item-wrapper {
   padding: 0.5rem 1rem;
   cursor: pointer;
-  color: #212529;
-  background: #fff;
+  color: var(--oi-docs-text);
+  background: var(--oi-docs-surface);
 }
 
 .ui-autocomplete .ui-menu-item-wrapper.ui-state-active,
 .ui-autocomplete .ui-menu-item-wrapper:hover {
-  background-color: #0d6efd !important;
-  color: #fff !important;
+  background-color: var(--oi-docs-accent) !important;
+  color: var(--oi-docs-surface) !important;
 }
 
 /* ============================================
@@ -486,7 +507,7 @@
 
 .oi-document-view .breadcrumb-item + .breadcrumb-item::before {
   content: "›";
-  color: #6c757d;
+  color: var(--oi-docs-text-muted);
 }
 
 .oi-document-view .list-group-item {
@@ -500,7 +521,7 @@
 }
 
 .oi-document-view .list-group-item:hover {
-  background-color: #f8f9fa;
+  background-color: var(--oi-docs-surface-soft);
 }
 
 .oi-document-view dl {
@@ -520,12 +541,12 @@
 }
 
 /* File type colors */
-.oi-document-view .text-danger { color: #dc3545 !important; }
-.oi-document-view .text-primary { color: #0d6efd !important; }
-.oi-document-view .text-success { color: #198754 !important; }
-.oi-document-view .text-warning { color: #fd7e14 !important; }
-.oi-document-view .text-info { color: #0dcaf0 !important; }
-.oi-document-view .text-secondary { color: #6c757d !important; }
+.oi-document-view .text-danger { color: var(--oi-docs-danger) !important; }
+.oi-document-view .text-primary { color: var(--oi-docs-accent) !important; }
+.oi-document-view .text-success { color: var(--oi-docs-success) !important; }
+.oi-document-view .text-warning { color: var(--oi-docs-warning) !important; }
+.oi-document-view .text-info { color: var(--oi-docs-info) !important; }
+.oi-document-view .text-secondary { color: var(--oi-docs-text-muted) !important; }
 
 /* PDF preview iframe */
 .oi-document-view iframe {
@@ -590,7 +611,7 @@
 }
 
 .ui-dialog .ui-dialog-titlebar-close:hover::before {
-  color: #ccc;
+  color: var(--oi-docs-text-faint);
 }
 
 .ui-dialog .ui-dialog-titlebar-close .ui-icon {

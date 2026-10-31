@@ -116,7 +116,15 @@ $table-cell-padding-x: 24px;
   --oi-body-color: #{$body-color};
   --oi-body-tertiary-color: #{$body-tertiary-color};
   --oi-surface-background: #{$white};
+  --oi-surface-soft: #{$gray-25};
   --oi-surface-border: #{$navy-gray-50};
   --oi-surface-divider: #{$navy-gray-40};
+  --oi-text-faint: #{$navy-gray-300};
+  --oi-success: #{$green-500};
+  --oi-success-surface: #{$green-50};
+  --oi-warning: #{$orange-500};
+  --oi-warning-surface: #{$orange-50};
+  --oi-danger: #{$red-500};
+  --oi-danger-surface: #{$red-50};
   --oi-border-radius: #{$border-radius};
 }

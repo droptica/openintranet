@@ -22,20 +22,21 @@ body[class*="path-forum"] #main .main-content > .section > .container,
   padding-right: 0;
 }
 
+/* Colours follow the Open Intranet theme's --oi-* properties when present. */
 .forum-page,
 .node--type-forum-post {
-  --forum-surface: #fff;
-  --forum-surface-soft: #f5f7fa;
-  --forum-accent-surface: #eff1fc;
-  --forum-accent-border: #dee1fc;
+  --forum-surface: var(--oi-surface-background, #fff);
+  --forum-surface-soft: var(--oi-surface-soft, #f5f7fa);
+  --forum-accent-surface: var(--oi-brand-50, #eff1fc);
+  --forum-accent-border: var(--oi-brand-100, #dee1fc);
   --forum-accent-strong: #949ffc;
-  --forum-blue: #3d50fd;
-  --forum-blue-dark: #313eb8;
+  --forum-blue: var(--oi-brand-500, #3d50fd);
+  --forum-blue-dark: var(--oi-brand-600, #313eb8);
   --forum-text: #090b14;
   --forum-text-soft: #4f515c;
-  --forum-border: #e4e7ed;
-  --forum-success: #1a7f4b;
-  --forum-success-surface: #e6f4ec;
+  --forum-border: var(--oi-surface-border, #e4e7ed);
+  --forum-success: var(--oi-success, #1a7f4b);
+  --forum-success-surface: var(--oi-success-surface, #e6f4ec);
   --forum-shadow: 0 23px 64px rgba(9, 16, 136, 0.04);
   --forum-radius: 0.5rem;
   --forum-avatar-placeholder-end: #cacfdb;
