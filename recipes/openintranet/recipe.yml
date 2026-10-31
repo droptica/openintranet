@@ -117,6 +117,7 @@ install:
   - pfdp
   - recently_read
   - recipe_tracker
+  - redirect
   - search
   - search_api
   - search_api_db
@@ -394,6 +395,13 @@ config:
               remote_image: /themes/custom/openintranet_theme/images/icons/thumbs-up.svg
               html_element: ''
 
+    # Keep the old URL working when an editor renames a page: pathauto replaces
+    # the alias and redirect's auto_redirect (on by default) adds a 301 from
+    # the old one. The route normalizer is turned off so that this is the only
+    # behaviour redirect adds; canonical /node/N URLs keep answering as before.
+    redirect.settings:
+      simpleConfigUpdate:
+        route_normalizer_enabled: false
     package_manager.settings:
       simpleConfigUpdate:
         additional_trusted_composer_plugins:
