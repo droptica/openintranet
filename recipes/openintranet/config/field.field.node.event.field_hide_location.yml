@@ -10,7 +10,7 @@ field_name: field_hide_location
 entity_type: node
 bundle: event
 label: 'Hide location'
-description: '(leave unchecked for online events)'
+description: 'Hide the location, or the online event text, on the event page and in event lists.'
 required: false
 translatable: false
 default_value: {  }

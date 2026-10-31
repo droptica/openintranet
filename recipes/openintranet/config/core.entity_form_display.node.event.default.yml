@@ -28,7 +28,7 @@ third_party_settings:
       children:
         - field_event_online
         - field_event_online_text
-      label: 'Online Event'
+      label: 'Online event'
       region: content
       parent_name: group_content
       weight: 9
@@ -43,7 +43,7 @@ third_party_settings:
     group_block_data_visibility:
       children:
         - field_hide_location
-      label: 'Block data visibility'
+      label: Visibility
       region: content
       parent_name: group_content
       weight: 8
@@ -169,10 +169,10 @@ content:
         height: 400
         auto_center: 1
         map_position:
-          force: true
+          force: false
           center:
-            lat: 51.9
-            lon: 4.47
+            lat: 51.1079
+            lon: 17.0385
           zoomControlPosition: topleft
           zoom: 12
           minZoom: 1

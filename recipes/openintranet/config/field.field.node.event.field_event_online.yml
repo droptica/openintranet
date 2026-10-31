@@ -9,8 +9,8 @@ id: node.event.field_event_online
 field_name: field_event_online
 entity_type: node
 bundle: event
-label: 'Event online'
-description: 'Select if event is online.'
+label: 'Online event'
+description: 'The event takes place online.'
 required: false
 translatable: false
 default_value:

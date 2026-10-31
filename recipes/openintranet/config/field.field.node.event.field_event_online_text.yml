@@ -9,8 +9,8 @@ id: node.event.field_event_online_text
 field_name: field_event_online_text
 entity_type: node
 bundle: event
-label: 'Event Online Text'
-description: 'This text will be presented as location of event.'
+label: 'Online event text'
+description: 'Shown instead of the location, for example the meeting link.'
 required: false
 translatable: true
 default_value: {  }
