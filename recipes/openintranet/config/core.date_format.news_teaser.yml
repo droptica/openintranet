@@ -1,0 +1,8 @@
+uuid: 51d13ff6-b282-49e2-96f5-4d5733a5f2b6
+langcode: en
+status: true
+dependencies: {  }
+id: news_teaser
+label: 'News teaser date'
+locked: false
+pattern: 'j M Y'

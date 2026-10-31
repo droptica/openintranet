@@ -1,0 +1,8 @@
+uuid: 53f99627-d73d-4bd6-87ce-4aef4b9d18f1
+langcode: en
+status: true
+dependencies: {  }
+id: event_medium
+label: 'Event medium date'
+locked: false
+pattern: 'D, j M Y, H:i'
