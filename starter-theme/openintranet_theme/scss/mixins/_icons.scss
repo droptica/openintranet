@@ -1,0 +1,12 @@
+// Draws an SVG icon in a colour set from CSS.
+//
+// The SVG is used as a mask, so only its shape matters and the colour comes
+// from $color. Use it for one-colour icons instead of url() images, whose
+// colours cannot be changed from CSS.
+@mixin icon-mask($url, $width, $height, $color: currentColor) {
+  display: inline-block;
+  width: $width;
+  height: $height;
+  background-color: $color;
+  mask: url($url) center / contain no-repeat;
+}

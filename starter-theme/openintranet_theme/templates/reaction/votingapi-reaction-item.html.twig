@@ -5,15 +5,16 @@
 
     <img{{ create_attribute({
       class: icon_class,
-      src: '/themes/custom/openintranet_theme/images/icons/thumbs-up.svg',
+      src: base_path ~ directory ~ '/images/icons/thumbs-up.svg',
       alt: icon_alt,
     }) }}>
 
-    <img{{ create_attribute({
+    {# Drawn with a CSS mask in the brand colour, see _reaction.scss. #}
+    <span{{ create_attribute({
       class: icon_class_active,
-      src: '/themes/custom/openintranet_theme/images/icons/thumbs-up-active.svg',
-      alt: icon_alt,
-    }) }}>
+      role: 'img',
+      'aria-label': icon_alt,
+    }) }}></span>
 
     {% if label %}
       <span class="votingapi-reaction-label">{{ label }}</span>

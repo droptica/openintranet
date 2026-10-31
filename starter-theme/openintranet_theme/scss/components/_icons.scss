@@ -20,6 +20,8 @@
   &--ship {
     width: 41px;
     height: 41px;
+    border-radius: 2px;
+    background-color: var(--oi-brand-600);
     background-image: url('../images/icons/ship.svg');
   }
 

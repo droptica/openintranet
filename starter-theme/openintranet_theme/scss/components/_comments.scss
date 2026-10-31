@@ -1,4 +1,5 @@
 @import "../mixins/text";
+@import "../mixins/icons";
 
 section.field--name-comment-node-article,
 section.field--name-comment,
@@ -144,7 +145,10 @@ section.field--name-comment-node-page,
         border: none;
 
         &:after {
-          content: url('../images/icons/send-horizontal.svg');
+          content: '';
+
+          @include icon-mask('../images/icons/send-horizontal.svg', 16px, 16px);
+
           margin-left: .5rem;
           position: relative;
           top: 2px;

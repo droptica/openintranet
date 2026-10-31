@@ -1,4 +1,5 @@
 @import "../mixins/text";
+@import "../mixins/icons";
 
 #block-openintranet-theme-account-menu {
   @include subtitle-300;
@@ -88,7 +89,10 @@
     text-decoration: none;
 
     &:before {
-      content: url('../images/icons/power.svg');
+      content: '';
+
+      @include icon-mask('../images/icons/power.svg', 16px, 16px, var(--oi-brand-500));
+
       margin-right: .5rem;
       position: relative;
       top: 3px;

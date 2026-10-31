@@ -22,7 +22,9 @@
       left: 0;
       width: 40px;
       height: 56px;
-      background-image: url('../images/icons/pinned.svg');
+      // The bookmark shape is the mask, the white glyph sits on the brand fill.
+      background: url('../images/icons/pinned-glyph.svg') 0 0 / 40px 57px no-repeat var(--oi-brand-500);
+      mask: url('../images/icons/pinned.svg') 0 0 / 40px 57px no-repeat;
       z-index: 100;
     }
   }
