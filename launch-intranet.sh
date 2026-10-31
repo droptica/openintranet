@@ -38,10 +38,17 @@ fi
 
 NAME=$(basename "$PWD" | tr '_' '-')
 
-# If there are any other DDEV projects in this system with this name, add a numeric suffix.
-declare -i n=$(ddev list | grep --count "$NAME")
-if [ $n -gt 0 ]; then
-  NAME=$NAME-$(expr $n + 1)
+# If another DDEV project on this system already has this name, add the first
+# free numeric suffix. The names come from the JSON output: the table wraps
+# long names ("openintran" / "et"), so grepping it missed existing projects
+# and `ddev config` then refused the taken name.
+EXISTING_NAMES=$(ddev list -j 2>/dev/null | grep -o '"name":"[^"]*"' | sed 's/^"name":"\(.*\)"$/\1/' || true)
+if printf '%s\n' "$EXISTING_NAMES" | grep -qx "$NAME"; then
+  SUFFIX=2
+  while printf '%s\n' "$EXISTING_NAMES" | grep -qx "$NAME-$SUFFIX"; do
+    SUFFIX=$((SUFFIX + 1))
+  done
+  NAME="$NAME-$SUFFIX"
 fi
 
 # Configure DDEV if not already done. Check for the config file, not the
