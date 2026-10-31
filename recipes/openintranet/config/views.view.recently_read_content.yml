@@ -19,6 +19,7 @@ display:
     display_plugin: default
     position: 0
     display_options:
+      rendering_language: '***LANGUAGE_language_content***'
       title: 'Recently read content'
       fields:
         title:
@@ -128,6 +129,16 @@ display:
           granularity: second
       arguments: {  }
       filters:
+        default_langcode:
+          id: default_langcode
+          table: node_field_data
+          field: default_langcode
+          entity_type: node
+          entity_field: default_langcode
+          plugin_id: boolean
+          operator: '='
+          value: '1'
+          group: 1
         status:
           id: status
           table: node_field_data
@@ -342,7 +353,6 @@ display:
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
         - 'user.node_grants:view'
         - user.permissions
@@ -353,11 +363,11 @@ display:
     display_plugin: block
     position: 1
     display_options:
+      rendering_language: '***LANGUAGE_language_content***'
       display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
         - 'user.node_grants:view'
         - user.permissions

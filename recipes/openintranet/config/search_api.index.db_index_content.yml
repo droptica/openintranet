@@ -113,6 +113,10 @@ field_settings:
     dependencies:
       config:
         - field.storage.node.field_tags
+  language_with_fallback:
+    label: 'Language (with fallback)'
+    property_path: language_with_fallback
+    type: string
   node_grants:
     label: 'Node access information'
     property_path: search_api_node_grants
