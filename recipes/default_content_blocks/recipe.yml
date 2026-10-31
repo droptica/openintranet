@@ -1,0 +1,14 @@
+name: '[Open Intranet] Default content blocks'
+description: 'Places the demo custom blocks (banner, footer, links) in the theme regions.'
+type: 'Open Intranet'
+
+# The placements point at custom blocks that the default_content recipe
+# creates. Recipes listed here are applied first, so the blocks exist when
+# their placements are saved; with both in one recipe the config was imported
+# before the content and every placement logged "block plugin was not found".
+recipes:
+  - default_content
+
+install:
+  - block
+  - block_content
