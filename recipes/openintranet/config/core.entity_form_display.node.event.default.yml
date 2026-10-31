@@ -165,7 +165,7 @@ content:
     settings:
       geometry_validation: false
       map:
-        leaflet_map: 'OSM Mapnik'
+        leaflet_map: openstreetmap
         height: 400
         auto_center: 1
         map_position:
