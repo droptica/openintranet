@@ -58,7 +58,10 @@ $accent-shade: $brand-50;
 $accent-light: tint-color($accent-shade, 37%);
 $accent-dark: shade-color($accent-shade, 12%);
 
-$primary:       $accent-shade;
+// Bootstrap derives links, focus rings, checked inputs, active items and the
+// .text/.bg/.border-primary utilities from $primary, so it is the brand colour.
+// The light .btn-primary look is set in components/_buttons.scss.
+$primary:       $brand-500;
 $secondary:     $primary-shade;
 $success:       $green;
 $info:          $cyan;

@@ -1,7 +1,23 @@
 @import "../mixins/text";
 
-.btn-primary {
+.btn-primary,
+.btn-primary a {
+  // OI's primary button is a light brand tint with dark brand text, not the
+  // solid $primary fill Bootstrap would generate. Barrio repeats the button
+  // variables on links inside a .btn-primary wrapper, hence the second
+  // selector.
   --bs-btn-color: #{$btn-color};
+  --bs-btn-bg: #{$brand-50};
+  --bs-btn-border-color: #{$brand-50};
+  --bs-btn-hover-color: #{$btn-color};
+  --bs-btn-hover-bg: #{$brand-100};
+  --bs-btn-hover-border-color: #{$brand-100};
+  --bs-btn-active-color: #{$btn-color};
+  --bs-btn-active-bg: #{$brand-100};
+  --bs-btn-active-border-color: #{$brand-100};
+  --bs-btn-disabled-color: #{$btn-color};
+  --bs-btn-disabled-bg: #{$brand-50};
+  --bs-btn-disabled-border-color: #{$brand-50};
 }
 
 .btn {
