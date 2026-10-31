@@ -5,7 +5,6 @@
  * Functions to support theming in the SASS Starterkit subtheme.
  */
 
-use Drupal\Core\Block\BlockPluginInterface;
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\file\Entity\File;
@@ -78,8 +77,17 @@ function openintranet_theme_preprocess_block(array &$variables) {
   $entity_type_manager = \Drupal::service('entity_type.manager');
   $renderer = \Drupal::service('renderer');
 
-  $variables['current_user'] = $entity_type_manager->getStorage('user')
-    ->load(\Drupal::currentUser()->id());
+  // The account menu templates show the current user's name and picture.
+  // Vary those blocks per user instead of making them uncacheable: max-age 0
+  // bubbled up and disabled the Dynamic Page Cache on every page.
+  if (($variables['plugin_id'] ?? NULL) === 'system_menu_block:account') {
+    $variables['current_user'] = $entity_type_manager->getStorage('user')
+      ->load(\Drupal::currentUser()->id());
+    $variables['#cache']['contexts'][] = 'user';
+    if ($variables['current_user']) {
+      $renderer->addCacheableDependency($variables, $variables['current_user']);
+    }
+  }
 
   if (!empty($variables['elements']['#id']) && $variables['elements']['#id'] === 'openintranet_theme_knowledge_base_book') {
     $variables['#attached']['library'][] = 'openintranet_theme/search-book';
@@ -112,23 +120,6 @@ function openintranet_theme_preprocess_block(array &$variables) {
     }
   }
 
-  if (!empty($variables['elements']['#id']) && $variables['elements']['#id'] === 'openintranet_theme_account_menu') {
-    $variables['#cache']['max-age'] = 0;
-  }
-}
-
-/**
- * Implements hook_block_view_alter().
- */
-function openintranet_theme_block_view_alter(array &$build, BlockPluginInterface $block) {
-  if ($block->getPluginId() === 'system_menu_block:account') {
-    $build['#cache']['contexts'] = Cache::mergeContexts($build['#cache']['contexts'] ?? [], ['user', 'user.roles']);
-    $current_user = \Drupal::currentUser();
-    if ($current_user->isAuthenticated()) {
-      $build['#cache']['tags'] = Cache::mergeTags($build['#cache']['tags'] ?? [], ['user:' . $current_user->id()]);
-    }
-    $build['#cache']['max-age'] = 0;
-  }
 }
 
 /**
