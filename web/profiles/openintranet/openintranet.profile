@@ -146,7 +146,9 @@ function openintranet_apply_content_recipe(array &$install_state): array {
     return [];
   }
 
-  $recipe_dir = DRUPAL_ROOT . '/../recipes/default_content';
+  // default_content_blocks applies default_content first (content), then
+  // places the demo custom blocks that content creates.
+  $recipe_dir = DRUPAL_ROOT . '/../recipes/default_content_blocks';
   if (!is_dir($recipe_dir)) {
     throw new \RuntimeException("Open Intranet default content recipe directory not found at: $recipe_dir");
   }
