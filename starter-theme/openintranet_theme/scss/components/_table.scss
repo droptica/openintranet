@@ -1,5 +1,15 @@
 @import "../mixins/text";
 
+// Tables in formatted text (body fields) reach the page as bare <table>
+// elements. Let a wide one scroll inside the content column instead of
+// widening the page. Body tables have no table-level border or background,
+// so the block box does not change how they look.
+.text-formatted table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
 .decorated-table, table {
   table-layout: auto;
   --bs-table-color: white;
