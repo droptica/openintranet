@@ -18,7 +18,7 @@
     "require": {
         "composer/installers": "^2.0",
         "cweagans/composer-patches": "^1.7",
-        "drupal/address": "^2.0",
+        "drupal/address": "^2.0.5",
         "drupal/ai": "^1.1.3",
         "drupal/ai_agents": "^1.0",
         "drupal/ai_provider_openai": "^1.0",
@@ -174,9 +174,6 @@
                 "Check if rows exists": "patches/views/views_org_chart.patch",
                 "[3400522] Fix config export error by excluding time_diff.description from view config": "https://www.drupal.org/files/issues/2025-07-01/core-3400522-time_diff-missing-schema_0.patch",
                 "[3474018] Class is not added to MediaLibrary dialog": "https://www.drupal.org/files/issues/2024-12-17/3474018-regression-class-is.patch"
-            },
-            "drupal/address": {
-                "[3460590] Module is not compatible with diff 2.0.x's": "https://www.drupal.org/files/issues/2024-07-10/diff-module-support-3460590-2.patch"
             },
             "drupal/custom_book_block": {
                 "Add config schema for the custom book navigation block": "patches/custom_book_block/add-config-schema.patch"
