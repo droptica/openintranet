@@ -20,6 +20,14 @@
       inset: 0;
       z-index: 0;
 
+      // For editors, contextual links and frontend editing wrap the media in
+      // a .contextual-region, which core positions relatively. The image
+      // would then size itself against that zero-height wrapper and vanish,
+      // so keep this layer as its positioning ancestor.
+      .contextual-region {
+        position: static;
+      }
+
       // Fill the layer whatever wrappers the media display adds, like
       // background-size: cover did.
       img {
