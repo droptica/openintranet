@@ -62,7 +62,7 @@
         "drupal/entity_clone": "^2.1@beta",
         "drupal/field_group": "^4.0",
         "drupal/field_states": "^2.0",
-        "drupal/flag": "^5.0",
+        "drupal/flag": "^5.2.1",
         "drupal/flexible_permissions": "^2.0",
         "drupal/focal_point": "^2.1",
         "drupal/frontend_editing": "^1.8.15",
@@ -177,9 +177,6 @@
             },
             "drupal/custom_book_block": {
                 "Add config schema for the custom book navigation block": "patches/custom_book_block/add-config-schema.patch"
-            },
-            "drupal/flag": {
-                "PHP 8.5: null array offset in FlaggingStorage for unsaved entities": "patches/flag/load-is-flagged-unsaved-entity.patch"
             },
             "drupal/votingapi": {
                 "PHP 8.5: null array offset in VotingApiViewsHooks::viewsQueryAlter()": "patches/votingapi/views-query-alter-null-table.patch"
